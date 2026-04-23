@@ -1,0 +1,122 @@
+{
+  "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+  "name": "com_allvideoshare",
+  "version": "4.1.0",
+  "license": "GNU General Public License version 2 or later; see LICENSE.txt",
+  "assets": [
+    {
+      "name": "com_allvideoshare.admin",
+      "type": "style",
+      "uri": "com_allvideoshare/admin.css"
+    },    
+    {
+      "name": "com_allvideoshare.admin",
+      "type": "script",
+      "uri": "com_allvideoshare/admin.js",
+      "dependencies": [
+        "jquery"
+      ],
+      "attributes": {
+        "defer": true
+      }
+    },
+    {
+      "name": "com_allvideoshare.modal",
+      "type": "script",
+      "uri": "com_allvideoshare/modal.js",
+      "dependencies": [
+        "core",
+        "jquery"
+      ],
+      "attributes": {
+        "defer": true
+      }
+    },
+    {
+      "name": "com_allvideoshare.shortcode",
+      "type": "script",
+      "uri": "com_allvideoshare/shortcode.js",
+      "dependencies": [
+        "jquery"
+      ],
+      "attributes": {
+        "defer": true
+      }
+    },  
+    {
+      "name": "com_allvideoshare.bootstrap",
+      "type": "style",
+      "uri": "com_allvideoshare/bootstrap.css"
+    },   
+    {
+      "name": "com_allvideoshare.popup",
+      "type": "style",
+      "uri": "com_allvideoshare/magnific-popup.css"
+    },
+    {
+      "name": "com_allvideoshare.slider",
+      "type": "style",
+      "uri": "com_allvideoshare/slick.css"
+    },
+    {
+      "name": "com_allvideoshare.site",
+      "type": "style",
+      "uri": "com_allvideoshare/site.css"
+    },    
+    {
+      "name": "com_allvideoshare.popup",
+      "type": "script",
+      "uri": "com_allvideoshare/jquery.magnific-popup.min.js",
+      "dependencies": [
+        "jquery"
+      ],
+      "attributes": {
+        "defer": true
+      }
+    },
+    {
+      "name": "com_allvideoshare.slider",
+      "type": "script",
+      "uri": "com_allvideoshare/slick.min.js",
+      "dependencies": [
+        "jquery"
+      ],
+      "attributes": {
+        "defer": true
+      }
+    },
+    {
+      "name": "com_allvideoshare.site",
+      "type": "script",
+      "uri": "com_allvideoshare/site.js",
+      "dependencies": [
+        "jquery"
+      ],
+      "attributes": {
+        "defer": true
+      }
+    },
+    {
+      "name": "com_allvideoshare.form",
+      "type": "script",
+      "uri": "com_allvideoshare/form.js",
+      "dependencies": [
+        "jquery"
+      ],
+      "attributes": {
+        "defer": true
+      }
+    },
+    {
+      "name": "com_allvideoshare.youtube",
+      "type": "script",
+      "uri": "com_allvideoshare/youtube.js",
+      "dependencies": [
+        "jquery"
+      ],
+      "attributes": {
+        "defer": true
+      }
+    }
+  ]
+}

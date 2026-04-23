@@ -1,0 +1,28 @@
+/* Layout for RTL */
+
+html {
+	direction: rtl;
+}
+
+.sparky_container > .sparky_cell {
+	float: right;
+}
+
+/* Typography for RTL */
+
+.dropcap:first-letter {
+    float:right;
+    margin:0 0 5px 10px;
+}
+
+.warning:before, .info:before, .error:before {
+    margin: 0 0 0 30px;
+    float: right;
+}
+
+.p_number:first-letter {
+    float:right;
+    margin:0 0 15px 15px;
+}
+
+/* Add custom CSS for RTL languages only below */

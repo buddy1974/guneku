@@ -1,0 +1,611 @@
+{
+  "name": "Guneku — Video Processing Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "video-process",
+        "responseMode": "responseNode",
+        "options": {
+          "binaryData": true,
+          "rawBody": false
+        }
+      },
+      "id": "node_webhook_entry",
+      "name": "Webhook — Receive Video",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 300],
+      "webhookId": "video-process-webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first();\nconst binaryData = item.binary;\n\nif (!binaryData || !binaryData.data) {\n  throw new Error('No binary file received. Field name must be: data');\n}\n\nconst mimeType = binaryData.data.mimeType || '';\nconst fileName = binaryData.data.fileName || '';\nconst ext = fileName.split('.').pop().toLowerCase();\nconst allowed = ['mp4', 'mov', 'mkv'];\nconst allowedMimes = ['video/mp4', 'video/quicktime', 'video/x-matroska', 'video/webm'];\n\nif (!allowed.includes(ext) && !allowedMimes.some(m => mimeType.includes(m.split('/')[1]))) {\n  throw new Error(`Invalid file type: ${mimeType} (${ext}). Allowed: mp4, mov, mkv`);\n}\n\nreturn [{\n  json: {\n    fileName: fileName,\n    mimeType: mimeType,\n    fileSize: binaryData.data.fileSize || 0,\n    validated: true\n  },\n  binary: item.binary\n}];"
+      },
+      "id": "node_validate_input",
+      "name": "Validate — File Type Check",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "check_validated",
+              "leftValue": "={{ $json.validated }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "node_route_valid",
+      "name": "Route — Valid / Invalid",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ status: 'error', code: 'INVALID_FILE_TYPE', message: 'Unsupported file format. Accepted: mp4, mov, mkv' }) }}",
+        "options": {
+          "responseCode": 400
+        }
+      },
+      "id": "node_reject_response",
+      "name": "Response — Reject Invalid",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [720, 520]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "automation/temp/input.mp4",
+        "dataPropertyName": "data",
+        "options": {
+          "append": false
+        }
+      },
+      "id": "node_save_input",
+      "name": "Save — Input Video to Disk",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "typeVersion": 1,
+      "position": [720, 300],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "command": "ffmpeg -y -i automation/temp/input.mp4 -vn -acodec pcm_s16le -ar 16000 -ac 1 automation/temp/audio.wav 2>&1 && echo 'AUDIO_EXTRACTED'",
+        "options": {}
+      },
+      "id": "node_extract_audio",
+      "name": "FFmpeg — Extract Audio",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [960, 300],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const result = $input.first().json;\nconst stdout = result.stdout || '';\nconst stderr = result.stderr || '';\nconst exitCode = result.exitCode;\n\nif (exitCode !== 0 || !stdout.includes('AUDIO_EXTRACTED')) {\n  throw new Error(`FFmpeg audio extraction failed (exit ${exitCode}): ${stderr.slice(0, 500)}`);\n}\n\nreturn [{ json: { audioPath: 'automation/temp/audio.wav', status: 'extracted' } }];"
+      },
+      "id": "node_check_audio",
+      "name": "Check — Audio Extraction Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1200, 300],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "fileName": "automation/temp/audio.wav",
+        "dataPropertyName": "audioFile",
+        "options": {}
+      },
+      "id": "node_read_audio",
+      "name": "Read — Audio File into Binary",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "typeVersion": 1,
+      "position": [1440, 300],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/audio/transcriptions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "whisper-1"
+            },
+            {
+              "name": "response_format",
+              "value": "verbose_json"
+            },
+            {
+              "name": "file",
+              "parameterType": "formBinaryData",
+              "inputDataFieldName": "audioFile"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 120000,
+          "response": {
+            "response": {
+              "fullResponse": false
+            }
+          }
+        }
+      },
+      "id": "node_whisper_api",
+      "name": "Whisper — Transcribe Audio",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1680, 300],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "openai_api_key",
+          "name": "OpenAI API Key"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first();\nconst transcript = item.json;\n\nif (!transcript || !transcript.segments) {\n  throw new Error('Whisper response missing segments. Check API key and audio file.');\n}\n\nconst fullText = transcript.text || '';\nconst segments = transcript.segments;\n\nfunction toSrtTime(seconds) {\n  const h = Math.floor(seconds / 3600);\n  const m = Math.floor((seconds % 3600) / 60);\n  const s = Math.floor(seconds % 60);\n  const ms = Math.round((seconds - Math.floor(seconds)) * 1000);\n  return [\n    String(h).padStart(2, '0'),\n    String(m).padStart(2, '00'),\n    String(s).padStart(2, '00')\n  ].join(':') + ',' + String(ms).padStart(3, '0');\n}\n\nfunction wrapLines(text) {\n  const words = text.trim().split(/\\s+/);\n  const lines = [];\n  let current = '';\n  for (const word of words) {\n    if ((current + ' ' + word).trim().length > 42 && current.length > 0) {\n      lines.push(current.trim());\n      current = word;\n      if (lines.length === 2) break;\n    } else {\n      current = (current + ' ' + word).trim();\n    }\n  }\n  if (current && lines.length < 2) lines.push(current.trim());\n  return lines.join('\\n');\n}\n\nconst srtBlocks = segments.map((seg, i) => {\n  return `${i + 1}\\n${toSrtTime(seg.start)} --> ${toSrtTime(seg.end)}\\n${wrapLines(seg.text)}`;\n});\n\nconst srtContent = srtBlocks.join('\\n\\n') + '\\n';\n\nreturn [{\n  json: {\n    fullTranscript: fullText,\n    srtContent: srtContent,\n    segmentCount: segments.length\n  }\n}];"
+      },
+      "id": "node_generate_srt",
+      "name": "Generate — SRT Subtitles",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1920, 300],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first();\nconst srtContent = item.json.srtContent;\n\nconst binaryData = Buffer.from(srtContent, 'utf-8').toString('base64');\n\nreturn [{\n  json: item.json,\n  binary: {\n    srtFile: {\n      data: binaryData,\n      mimeType: 'text/plain',\n      fileName: 'subtitles.srt',\n      fileExtension: 'srt'\n    }\n  }\n}];"
+      },
+      "id": "node_srt_to_binary",
+      "name": "Convert — SRT to Binary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2160, 300],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "automation/temp/subtitles.srt",
+        "dataPropertyName": "srtFile",
+        "options": {
+          "append": false
+        }
+      },
+      "id": "node_save_srt",
+      "name": "Save — Subtitles SRT to Disk",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "typeVersion": 1,
+      "position": [2400, 300],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "command": "ffmpeg -y -i automation/temp/input.mp4 -vf subtitles=automation/temp/subtitles.srt -c:v libx264 -crf 23 -preset fast -c:a copy automation/output/output.mp4 2>&1 && echo 'VIDEO_DONE'",
+        "options": {}
+      },
+      "id": "node_ffmpeg_burn",
+      "name": "FFmpeg — Burn Subtitles into Video",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [2640, 300],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const result = $input.first().json;\nconst stdout = result.stdout || '';\nconst stderr = result.stderr || '';\nconst exitCode = result.exitCode;\n\nif (exitCode !== 0 || !stdout.includes('VIDEO_DONE')) {\n  throw new Error(`FFmpeg subtitle burn failed (exit ${exitCode}): ${stderr.slice(0, 500)}`);\n}\n\nreturn [{ json: { outputPath: 'automation/output/output.mp4', status: 'processed' } }];"
+      },
+      "id": "node_check_ffmpeg_output",
+      "name": "Check — FFmpeg Output Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2880, 300],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const ffmpegResult = $('Check — FFmpeg Output Result').first().json;\nconst srtData = $('Generate — SRT Subtitles').first().json;\n\nreturn [{\n  json: {\n    status: 'success',\n    video_path: ffmpegResult.outputPath,\n    transcript: srtData.fullTranscript,\n    subtitles_path: 'automation/temp/subtitles.srt',\n    segment_count: srtData.segmentCount\n  }\n}];"
+      },
+      "id": "node_build_response",
+      "name": "Build — Success Response Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [3120, 300],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "node_success_response",
+      "name": "Response — Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [3360, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const error = $input.first();\nconst errorMessage = error.json?.error?.message || error.json?.message || 'Unknown pipeline error';\nconst nodeName = error.json?.error?.node?.name || 'unknown node';\n\nreturn [{\n  json: {\n    status: 'error',\n    code: 'PIPELINE_ERROR',\n    node: nodeName,\n    message: errorMessage,\n    timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "node_error_handler",
+      "name": "Error — Build Error Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1200, 560]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "responseCode": 500,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "node_error_response",
+      "name": "Response — Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1440, 560]
+    },
+    {
+      "parameters": {
+        "jsCode": "// TO_BE_IMPLEMENTED — Cloudflare R2 Upload\n// Replace this node with n8n-nodes-base.httpRequest\n// Method: PUT\n// URL: https://<ACCOUNT_ID>.r2.cloudflarestorage.com/<BUCKET>/output.mp4\n// Auth: AWS S3 compatible credentials (R2 access key + secret)\n// Body: binary field 'outputVideo'\n// This node receives the output path from FFmpeg Check node\n\nconst item = $input.first();\nconsole.log('[TO_BE_IMPLEMENTED] Cloudflare R2 upload skipped. Output at:', item.json.video_path);\nreturn [item];"
+      },
+      "id": "node_r2_placeholder",
+      "name": "TO_BE_IMPLEMENTED — Cloudflare R2 Upload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [3120, 520]
+    },
+    {
+      "parameters": {
+        "jsCode": "// TO_BE_IMPLEMENTED — YouTube Publishing\n// Replace this node with n8n-nodes-base.youTube or HTTP Request to YouTube Data API v3\n// Endpoint: POST https://www.googleapis.com/upload/youtube/v3/videos\n// Auth: OAuth2 (YouTube credentials in n8n)\n// Required fields: snippet.title, snippet.description, status.privacyStatus\n// Upload binary: output.mp4\n// This node follows the R2 upload node\n\nconst item = $input.first();\nconsole.log('[TO_BE_IMPLEMENTED] YouTube publish skipped. Video path:', item.json.video_path);\nreturn [item];"
+      },
+      "id": "node_youtube_placeholder",
+      "name": "TO_BE_IMPLEMENTED — YouTube Publishing",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [3360, 520]
+    }
+  ],
+  "connections": {
+    "Webhook — Receive Video": {
+      "main": [
+        [
+          {
+            "node": "Validate — File Type Check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate — File Type Check": {
+      "main": [
+        [
+          {
+            "node": "Route — Valid / Invalid",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error — Build Error Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route — Valid / Invalid": {
+      "main": [
+        [
+          {
+            "node": "Save — Input Video to Disk",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Response — Reject Invalid",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save — Input Video to Disk": {
+      "main": [
+        [
+          {
+            "node": "FFmpeg — Extract Audio",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error — Build Error Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FFmpeg — Extract Audio": {
+      "main": [
+        [
+          {
+            "node": "Check — Audio Extraction Result",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error — Build Error Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check — Audio Extraction Result": {
+      "main": [
+        [
+          {
+            "node": "Read — Audio File into Binary",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error — Build Error Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read — Audio File into Binary": {
+      "main": [
+        [
+          {
+            "node": "Whisper — Transcribe Audio",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error — Build Error Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Whisper — Transcribe Audio": {
+      "main": [
+        [
+          {
+            "node": "Generate — SRT Subtitles",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error — Build Error Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate — SRT Subtitles": {
+      "main": [
+        [
+          {
+            "node": "Convert — SRT to Binary",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error — Build Error Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert — SRT to Binary": {
+      "main": [
+        [
+          {
+            "node": "Save — Subtitles SRT to Disk",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error — Build Error Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save — Subtitles SRT to Disk": {
+      "main": [
+        [
+          {
+            "node": "FFmpeg — Burn Subtitles into Video",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error — Build Error Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FFmpeg — Burn Subtitles into Video": {
+      "main": [
+        [
+          {
+            "node": "Check — FFmpeg Output Result",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error — Build Error Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check — FFmpeg Output Result": {
+      "main": [
+        [
+          {
+            "node": "Build — Success Response Payload",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error — Build Error Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build — Success Response Payload": {
+      "main": [
+        [
+          {
+            "node": "Response — Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "TO_BE_IMPLEMENTED — Cloudflare R2 Upload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TO_BE_IMPLEMENTED — Cloudflare R2 Upload": {
+      "main": [
+        [
+          {
+            "node": "TO_BE_IMPLEMENTED — YouTube Publishing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error — Build Error Payload": {
+      "main": [
+        [
+          {
+            "node": "Response — Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "",
+    "timezone": "UTC"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2026-04-10T00:00:00.000Z",
+      "updatedAt": "2026-04-10T00:00:00.000Z",
+      "id": "tag_video_pipeline",
+      "name": "video-pipeline"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2026-04-10T00:00:00.000Z",
+  "versionId": "1"
+}

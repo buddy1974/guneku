@@ -1,0 +1,47 @@
+/*!
+ * Serialize all form data into a query string
+ * (c) 2018 Chris Ferdinandi, MIT License, https://gomakethings.com
+ * Modified to use any HTML element instead of a form element.
+ * @param  {Node}   form The form container to serialize
+ * @return {String}      The serialized form data
+ */
+
+/*! ../../../common/js/Helpers */
+
+/*! ../Polyfill */
+
+/*! ./chance_method */
+
+/*! ./change_address */
+
+/*! ./change_country */
+
+/*! ./frontend/js/checkout/index */
+
+/*!******************************!*\
+  !*** ./common/js/Helpers.js ***!
+  \******************************/
+
+/*!*********************************!*\
+  !*** ./frontend/js/Polyfill.ts ***!
+  \*********************************/
+
+/*!***************************************!*\
+  !*** ./frontend/js/checkout/index.js ***!
+  \***************************************/
+
+/*!*****************************************!*\
+  !*** ./eventgallery-checkout-change.js ***!
+  \*****************************************/
+
+/*!***********************************************!*\
+  !*** ./frontend/js/checkout/chance_method.js ***!
+  \***********************************************/
+
+/*!************************************************!*\
+  !*** ./frontend/js/checkout/change_address.js ***!
+  \************************************************/
+
+/*!************************************************!*\
+  !*** ./frontend/js/checkout/change_country.js ***!
+  \************************************************/

@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mysql --version)",
+      "Bash(npm --version)",
+      "Bash(mysql:*)",
+      "Bash(MYSQL_PWD='Winter08####' mysql:*)",
+      "Bash(nslookup srv2119.hstgr.io)",
+      "Bash(curl -4 -s https://ifconfig.me)",
+      "Bash(tee migration/logs/table-list.txt)",
+      "Bash(MYSQL_PWD='Winter08####' mysqldump -h 31.97.198.50 -u u470588398_guneku --no-tablespaces u470588398_guneku)",
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(tee migration/logs/article-count-by-category.txt)",
+      "Bash(tee migration/logs/image-files-count-by-folder.txt)",
+      "Bash(node -e \"const d=require\\('fs'\\).readFileSync\\('/dev/stdin','utf8'\\); const j=JSON.parse\\(d\\); console.log\\(JSON.stringify\\(j,null,2\\)\\)\")",
+      "Bash(node:*)",
+      "Bash(npm init:*)",
+      "Bash(npm install:*)",
+      "Read(//c/Users/loneb/Documents/ai-software-dev/projects/**)",
+      "Bash(npx create-next-app@latest guneku-next --typescript --tailwind --eslint --app --src-dir --import-alias '@/*' --no-git --yes)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run:*)",
+      "Bash(echo \"PID: $!\")",
+      "Bash(curl:*)",
+      "Bash(powershell:*)",
+      "Bash(cmd:*)",
+      "Bash(ls:*)",
+      "Bash(git init *)",
+      "Bash(git add *)"
+    ]
+  }
+}

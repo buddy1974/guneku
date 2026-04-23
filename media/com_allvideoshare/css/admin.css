@@ -1,0 +1,20 @@
+/**
+ * @version     4.2.0
+ * @package     com_allvideoshare
+ * @author      Vinoth Kumar <admin@mrvinoth.com>
+ * @copyright   Copyright (c) 2012 - 2023 Vinoth Kumar. All Rights Reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ */
+
+/*----------------------------------------------------------------------------------------------
+ *
+ *	Global
+ *
+ *--------------------------------------------------------------------------------------------*/
+#avs-modal-box .modal-dialog {
+    max-width: 660px;
+}
+
+#avs-modal-box .modal-body {
+    padding: 10px 10px 5px 10px;
+}

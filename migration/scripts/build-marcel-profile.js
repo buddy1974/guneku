@@ -1,0 +1,49 @@
+const fs   = require('fs');
+const path = require('path');
+const OUTDIR = path.resolve(__dirname, '../../src/data/notables');
+fs.mkdirSync(OUTDIR, { recursive: true });
+
+const profile = {
+  "id": "marcel-tabit-akwe",
+  "type": "NotableProfile",
+  "name": "Marcel Tabit Akwe",
+  "slug": "marcel-tabit-akwe",
+  "origin": "Guneku, Cameroon",
+  "location": "Essen, Germany",
+  "title": "Software Developer & IT Consultant",
+  "company": "MaxPromo Digital",
+  "companyWebsite": "https://maxpromo.digital",
+  "email": "info@maxpromo.digital",
+  "phone": "+49 173 3645698",
+  "tagline": "Building the machines that run your business — and the digital home of Guneku.",
+  "bio": "Marcel Tabit Akwe is a Guneku son based in Essen, Germany. A Software Developer and IT Consultant, Marcel is the founder of MaxPromo Digital — an AI automation platform that builds intelligent workflows, agentic systems, and AI-powered web platforms for businesses across Europe. Marcel is the architect and driving force behind the Guneku 2026 digital platform — the first AI-powered community website for a Northwest Cameroon Fondom — bringing Next.js, Claude AI, and modern automation to honour his home village on the world stage.",
+  "connectionToGuneku": "Son of Guneku. Architect of the Guneku 2026 digital platform. Present at the reception of HRH Fon Fomuki in Essen, Germany.",
+  "company_description": "MaxPromo Digital builds AI agents, workflow automations, and intelligent web platforms for businesses that are serious about growth. Founded and operated from Essen, Germany.",
+  "services": [
+    "AI Agentic Workflows",
+    "Process & Workflow Automation",
+    "AI-Powered Web Development (Next.js)",
+    "App Development + Automation",
+    "Document & Data Intelligence",
+    "Social Media Automation"
+  ],
+  "stack": [
+    "Claude AI", "OpenAI", "n8n", "Make", "Zapier",
+    "Next.js", "Supabase", "Neon", "Vercel", "Cloudflare",
+    "HubSpot", "Airtable", "Twilio", "Resend"
+  ],
+  "results": [
+    "78% reduction in manual processing time",
+    "£14,000/mo saved in operational costs",
+    "Invoice cycle reduced from 3 days to 3-4 hours",
+    "94% of invoices processed without human touch",
+    "47 automations deployed",
+    "99.9% uptime"
+  ],
+  "freeAudit": "https://maxpromo.digital/automation-audit",
+  "gunekunSiteRole": "Architect, Developer, and Project Lead — Guneku Fondom Digital Platform 2026"
+};
+
+const outPath = path.join(OUTDIR, 'marcel-tabit-akwe.json');
+fs.writeFileSync(outPath, JSON.stringify(profile, null, 2), 'utf8');
+console.log(`✓ marcel-tabit-akwe.json written (${Buffer.byteLength(JSON.stringify(profile), 'utf8')} bytes)`);

@@ -1,0 +1,326 @@
+/*!
+  * PhotoSwipe 5.3.4 - https://photoswipe.com
+  * (c) 2022 Dmytro Semenov
+  */
+
+/*!
+ * Glide.js v3.6.0
+ * (c) 2013-2022 Jędrzej Chałubek (https://github.com/jedrzejchalubek/)
+ * Released under the MIT License.
+ */
+
+/*!
+ * Serialize all form data into a query string
+ * (c) 2018 Chris Ferdinandi, MIT License, https://gomakethings.com
+ * Modified to use any HTML element instead of a form element.
+ * @param  {Node}   form The form container to serialize
+ * @return {String}      The serialized form data
+ */
+
+/*! ../../../common/js/Helpers */
+
+/*! ../../common/js/Helpers */
+
+/*! ../EventgalleryLazyload */
+
+/*! ../EventgallerySizeCalculator */
+
+/*! ../Overlay */
+
+/*! ../Polyfill */
+
+/*! ../SlideShow */
+
+/*! ../glide_modules/anchor */
+
+/*! ../minicart/CartEvents */
+
+/*! ../touch/Touch */
+
+/*! ../utils/ElementSize */
+
+/*! ../utils/camelCaseConverter */
+
+/*! ../utils/eventshandler */
+
+/*! ./Add2CartButtonHandler */
+
+/*! ./Add2CartDialogContent */
+
+/*! ./CartConnectorButtonHandler */
+
+/*! ./CartEvents */
+
+/*! ./CartProcessor */
+
+/*! ./EventgalleryEventsList */
+
+/*! ./EventgalleryEventsTiles */
+
+/*! ./EventgalleryGooglePhotosProcessor */
+
+/*! ./EventgalleryImage */
+
+/*! ./EventgalleryImageList */
+
+/*! ./EventgalleryJSGallery2 */
+
+/*! ./EventgalleryLazyload */
+
+/*! ./EventgalleryRow */
+
+/*! ./EventgallerySizeCalculator */
+
+/*! ./EventgallerySquareList */
+
+/*! ./EventgalleryTilesCollection */
+
+/*! ./HistoryHandler */
+
+/*! ./MiniCart */
+
+/*! ./Overlay */
+
+/*! ./PhotoSwipeGallerySlide */
+
+/*! ./Polyfill */
+
+/*! ./SlideGenerator */
+
+/*! ./SliderOptions */
+
+/*! ./SliderTransformator */
+
+/*! ./URLHelper */
+
+/*! ./UrlHandling */
+
+/*! ./frontend/js/EventgalleryBehavior.js */
+
+/*! ./frontend/js/jsgallery/index */
+
+/*! ./frontend/js/minicart/index */
+
+/*! ./frontend/js/photoswipe/PhotoSwipeGallery.js */
+
+/*! ./frontend/js/photoswipe/PhotoSwipeGallerySlide.js */
+
+/*! ./frontend/js/socialbutton/index */
+
+/*! ./frontend/less/eventgallery.less */
+
+/*! ./frontend/less/font-awesome/font-awesome.less */
+
+/*! ./frontend/sass/glide/glide.theme.scss */
+
+/*! ./photoswipe/PhotoSwipeGallery */
+
+/*! ./slider/SliderStarter */
+
+/*! ./socialbutton */
+
+/*! ./units */
+
+/*! @glidejs/glide/dist/glide.modular.esm */
+
+/*! @glidejs/glide/src/assets/sass/glide.core.scss */
+
+/*! photoswipe */
+
+/*! photoswipe/style.css */
+
+/*!*************************!*\
+  !*** ./eventgallery.js ***!
+  \*************************/
+
+/*!******************************!*\
+  !*** ./common/js/Helpers.js ***!
+  \******************************/
+
+/*!********************************!*\
+  !*** ./frontend/js/Overlay.js ***!
+  \********************************/
+
+/*!*********************************!*\
+  !*** ./frontend/js/Polyfill.ts ***!
+  \*********************************/
+
+/*!**********************************!*\
+  !*** ./frontend/js/SlideShow.js ***!
+  \**********************************/
+
+/*!**********************************!*\
+  !*** ./frontend/js/URLHelper.js ***!
+  \**********************************/
+
+/*!************************************!*\
+  !*** ./frontend/js/touch/Touch.ts ***!
+  \************************************/
+
+/*!************************************!*\
+  !*** ./frontend/js/utils/units.ts ***!
+  \************************************/
+
+/*!***************************************!*\
+  !*** ./frontend/js/minicart/index.ts ***!
+  \***************************************/
+
+/*!****************************************!*\
+  !*** ./frontend/js/EventgalleryRow.js ***!
+  \****************************************/
+
+/*!****************************************!*\
+  !*** ./frontend/js/jsgallery/index.js ***!
+  \****************************************/
+
+/*!*****************************************!*\
+  !*** ./frontend/less/eventgallery.less ***!
+  \*****************************************/
+
+/*!******************************************!*\
+  !*** ./frontend/js/EventgalleryImage.js ***!
+  \******************************************/
+
+/*!******************************************!*\
+  !*** ./frontend/js/minicart/MiniCart.ts ***!
+  \******************************************/
+
+/*!******************************************!*\
+  !*** ./frontend/js/utils/ElementSize.js ***!
+  \******************************************/
+
+/*!*******************************************!*\
+  !*** ./frontend/js/socialbutton/index.ts ***!
+  \*******************************************/
+
+/*!********************************************!*\
+  !*** ./frontend/js/minicart/CartEvents.ts ***!
+  \********************************************/
+
+/*!********************************************!*\
+  !*** ./frontend/js/utils/eventshandler.js ***!
+  \********************************************/
+
+/*!*********************************************!*\
+  !*** ./frontend/js/EventgalleryBehavior.js ***!
+  \*********************************************/
+
+/*!*********************************************!*\
+  !*** ./frontend/js/EventgalleryLazyload.js ***!
+  \*********************************************/
+
+/*!*********************************************!*\
+  !*** ./frontend/js/glide_modules/anchor.js ***!
+  \*********************************************/
+
+/*!*********************************************!*\
+  !*** ./frontend/js/slider/SliderOptions.js ***!
+  \*********************************************/
+
+/*!*********************************************!*\
+  !*** ./frontend/js/slider/SliderStarter.js ***!
+  \*********************************************/
+
+/*!**********************************************!*\
+  !*** ./frontend/js/EventgalleryImageList.js ***!
+  \**********************************************/
+
+/*!**********************************************!*\
+  !*** ./frontend/sass/glide/glide.theme.scss ***!
+  \**********************************************/
+
+/*!***********************************************!*\
+  !*** ./frontend/js/EventgalleryEventsList.js ***!
+  \***********************************************/
+
+/*!***********************************************!*\
+  !*** ./frontend/js/EventgallerySquareList.js ***!
+  \***********************************************/
+
+/*!***********************************************!*\
+  !*** ./frontend/js/minicart/CartProcessor.ts ***!
+  \***********************************************/
+
+/*!***********************************************!*\
+  !*** ./frontend/js/photoswipe/UrlHandling.js ***!
+  \***********************************************/
+
+/*!************************************************!*\
+  !*** ./frontend/js/EventgalleryEventsTiles.js ***!
+  \************************************************/
+
+/*!*************************************************!*\
+  !*** ./frontend/js/utils/camelCaseConverter.js ***!
+  \*************************************************/
+
+/*!**************************************************!*\
+  !*** ./frontend/js/photoswipe/HistoryHandler.js ***!
+  \**************************************************/
+
+/*!**************************************************!*\
+  !*** ./frontend/js/photoswipe/SlideGenerator.js ***!
+  \**************************************************/
+
+/*!**************************************************!*\
+  !*** ./frontend/js/socialbutton/socialbutton.ts ***!
+  \**************************************************/
+
+/*!***************************************************!*\
+  !*** ./frontend/js/EventgallerySizeCalculator.js ***!
+  \***************************************************/
+
+/*!***************************************************!*\
+  !*** ./frontend/js/slider/SliderTransformator.js ***!
+  \***************************************************/
+
+/*!****************************************************!*\
+  !*** ./frontend/js/EventgalleryTilesCollection.js ***!
+  \****************************************************/
+
+/*!*****************************************************!*\
+  !*** ./frontend/js/photoswipe/PhotoSwipeGallery.js ***!
+  \*****************************************************/
+
+/*!*****************************************************!*\
+  !*** ./node_modules/photoswipe/dist/photoswipe.css ***!
+  \*****************************************************/
+
+/*!******************************************************!*\
+  !*** ./frontend/less/font-awesome/font-awesome.less ***!
+  \******************************************************/
+
+/*!*******************************************************!*\
+  !*** ./frontend/js/minicart/Add2CartButtonHandler.ts ***!
+  \*******************************************************/
+
+/*!*******************************************************!*\
+  !*** ./frontend/js/minicart/Add2CartDialogContent.ts ***!
+  \*******************************************************/
+
+/*!********************************************************!*\
+  !*** ./node_modules/photoswipe/dist/photoswipe.esm.js ***!
+  \********************************************************/
+
+/*!*********************************************************!*\
+  !*** ./frontend/js/jsgallery/EventgalleryJSGallery2.js ***!
+  \*********************************************************/
+
+/*!**********************************************************!*\
+  !*** ./frontend/js/EventgalleryGooglePhotosProcessor.js ***!
+  \**********************************************************/
+
+/*!**********************************************************!*\
+  !*** ./frontend/js/photoswipe/PhotoSwipeGallerySlide.js ***!
+  \**********************************************************/
+
+/*!************************************************************!*\
+  !*** ./frontend/js/minicart/CartConnectorButtonHandler.ts ***!
+  \************************************************************/
+
+/*!***************************************************************!*\
+  !*** ./node_modules/@glidejs/glide/dist/glide.modular.esm.js ***!
+  \***************************************************************/
+
+/*!*********************************************************************!*\
+  !*** ./node_modules/@glidejs/glide/src/assets/sass/glide.core.scss ***!
+  \*********************************************************************/

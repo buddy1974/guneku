@@ -1,0 +1,30 @@
+.sidebar-nav .chosen-container {
+	max-width: 100%;
+}
+
+.eg-filter-bar {
+	margin-bottom: 5px;
+	padding: 10px 10px 0px 10px;
+}
+
+.eg-filter-bar .btn-group,
+.eg-filter-bar .input-group {
+	margin-bottom: 10px;
+}
+
+.eg-filter-bar input,
+.eg-filter-bar select {
+	background-color: white;
+}
+
+.eg-filter-bar .input-group{
+	margin-right: 10px;
+}
+
+i.icon-star {
+	color: gold;
+}
+
+i.icon-star-empty {
+	color: silver;
+}

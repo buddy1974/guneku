@@ -1,0 +1,42 @@
+ARTICLES INSPECTION — 2026-04-10T10:23:10.405Z
+Total: 37
+
+ID    | CATEGORY_PATH    | ALIAS                                                                  | INTRO   | FULL
+------------------------------------------------------------------------------------------------------------------------
+2     | uncategorised    | home-page                                                              | 5830    | 0
+3     | uncategorised    | about-template                                                         | 6766    | 0
+7     | pages            | gudeca-exco                                                            | 2988    | 0
+9     | uncategorised    | exhibitions                                                            | 2850    | 0
+12    | pages            | tributes                                                               | 7121    | 0
+13    | blog             | michi-ben-clash-of-mukonge-dance-groups-in-the-offing                  | 1003    | 3729
+14    | blog             | meta-cultural-festival-holds-in-guneku-village                         | 1033    | 1527
+15    | blog             | policy-statement-to-all-guneku-elements-for-2016-2017                  | 0       | 4935
+20    | blog             | the-pg-mecuda-prof-njoh-olivier-2                                      | 647     | 3958
+21    | blog             | meta-people-start-going-back-to-their-roots                            | 586     | 10081
+22    | about-guneku     | activities-building-up-to-the-coronation-ceremony                      | 3127    | 0
+23    | about-guneku     | the-legacy-of-hrh-chief-fomuki-p-n                                     | 3515    | 0
+24    | about-guneku     | biography-of-hrh-fomuki-patrick-njie                                   | 3334    | 0
+25    | uncategorised    | video                                                                  | 1728    | 0
+26    | coronation       | fomuki-appears-from-the-bavarian-woods                                 | 2653    | 0
+27    | coronation       | the-return-of-fon-fomuki-of-guneku                                     | 1138    | 0
+28    | blog             | proposals-from-his-royal-highness-fon-fomuki-during-the-gudeca-agm-at-mutegene-2016 | 1298    | 1148
+29    | blog             | guneku-village-council-holding-in-the-fons-palace-guneku-23rd-april-2016-in-the-hearing-of-the-theft-that-occurred-in-the-fons-palace-on-the-14th-april-2016 | 7021    | 0
+30    | blog             | minutes-of-meeting                                                     | 3826    | 0
+31    | blog             | public-announcement-copies-of-letters-to-the-community                 | 2424    | 0
+33    | uncategorised    | privacy-policy                                                         | 17120   | 0
+34    | about-guneku     | history                                                                | 231     | 0
+35    | about-guneku     | gudeca-construction                                                    | 257     | 0
+36    | about-guneku     | map-of-guneku                                                          | 226     | 0
+37    | about-guneku     | touristic-sites                                                        | 249     | 0
+38    | about-guneku     | religion                                                               | 218     | 0
+39    | about-guneku     | the-guneku-cultural-heritage                                           | 238     | 0
+40    | pages            | indegenes                                                              | 8617    | 0
+41    | pages            | notables                                                               | 3319    | 0
+42    | pages            | gudeca-exco2                                                           | 8328    | 0
+43    | uncategorised    | terms                                                                  | 10273   | 0
+44    | blog             | gudeca-us-chapter-celebrated-a-grand-cultural-event-to-welcome-hrh-fon-fomuki-in-the-us | 713     | 2711
+45    | blog             | visit-of-the-fon-of-guneku-to-the-us                                   | 359     | 890
+46    | blog             | meta-cultural-festival-holds-in-guneku-village-2                       | 1336    | 3603
+47    | blog             | democracy-in-guneku-fon-fomuki-injects-new-blood-for-easy-administration | 2688    | 6826
+48    | blog             | festival-in-april-2024                                                 | 755     | 2497
+49    | blog             | guneku-fondom-welcomes-2024-with-inspiring-new-year-speech-by-hrh-fon-fomuki-walters-ticha-ix | 1013    | 1747

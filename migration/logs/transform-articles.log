@@ -1,0 +1,48 @@
+ARTICLES TRANSFORM LOG
+Date: 2026-04-10T09:47:55.865Z
+Total articles: 37
+
+By section:
+  pages: 11
+  updates: 15
+  about: 9
+  palace: 2
+
+Files written:
+  src/data/pages/home-page.json
+  src/data/pages/about-template.json
+  src/data/pages/gudeca-exco.json
+  src/data/pages/exhibitions.json
+  src/data/pages/tributes.json
+  src/data/updates/michi-ben-clash-of-mukonge-dance-groups-in-the-offing.json
+  src/data/updates/meta-cultural-festival-holds-in-guneku-village.json
+  src/data/updates/policy-statement-to-all-guneku-elements-for-2016-2017.json
+  src/data/updates/the-pg-mecuda-prof-njoh-olivier-2.json
+  src/data/updates/meta-people-start-going-back-to-their-roots.json
+  src/data/about/activities-building-up-to-the-coronation-ceremony.json
+  src/data/about/the-legacy-of-hrh-chief-fomuki-p-n.json
+  src/data/about/biography-of-hrh-fomuki-patrick-njie.json
+  src/data/pages/video.json
+  src/data/palace/fomuki-appears-from-the-bavarian-woods.json
+  src/data/palace/the-return-of-fon-fomuki-of-guneku.json
+  src/data/updates/proposals-from-his-royal-highness-fon-fomuki-during-the-gudeca-agm-at-mutegene-2016.json
+  src/data/updates/guneku-village-council-holding-in-the-fons-palace-guneku-23rd-april-2016-in-the-hearing-of-the-theft-that-occurred-in-the-fons-palace-on-the-14th-april-2016.json
+  src/data/updates/minutes-of-meeting.json
+  src/data/updates/public-announcement-copies-of-letters-to-the-community.json
+  src/data/pages/privacy-policy.json
+  src/data/about/history.json
+  src/data/about/gudeca-construction.json
+  src/data/about/map-of-guneku.json
+  src/data/about/touristic-sites.json
+  src/data/about/religion.json
+  src/data/about/the-guneku-cultural-heritage.json
+  src/data/pages/indegenes.json
+  src/data/pages/notables.json
+  src/data/pages/gudeca-exco2.json
+  src/data/pages/terms.json
+  src/data/updates/gudeca-us-chapter-celebrated-a-grand-cultural-event-to-welcome-hrh-fon-fomuki-in-the-us.json
+  src/data/updates/visit-of-the-fon-of-guneku-to-the-us.json
+  src/data/updates/meta-cultural-festival-holds-in-guneku-village-2.json
+  src/data/updates/democracy-in-guneku-fon-fomuki-injects-new-blood-for-easy-administration.json
+  src/data/updates/festival-in-april-2024.json
+  src/data/updates/guneku-fondom-welcomes-2024-with-inspiring-new-year-speech-by-hrh-fon-fomuki-walters-ticha-ix.json

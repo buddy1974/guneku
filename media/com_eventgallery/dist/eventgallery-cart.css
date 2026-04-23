@@ -1,0 +1,15 @@
+/*
+ Slide Up/Down basic styles
+ */
+.eg-slidable {
+  -webkit-transition: height 0.25s ease;
+  -o-transition: height 0.25s ease;
+  transition: height 0.25s ease;
+  overflow: hidden;
+}
+.eg-slidable:not(.eg-slidable-active) {
+  display: none;
+}
+
+
+/*# sourceMappingURL=eventgallery-cart.css.map*/

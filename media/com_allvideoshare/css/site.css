@@ -1,0 +1,713 @@
+/**
+ * @version     4.1.0
+ * @package     com_allvideoshare
+ * @copyright   Copyright (c) 2012 - 2023 Vinoth Kumar. All Rights Reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @author      Vinoth Kumar <admin@mrvinoth.com>
+ */
+
+/*----------------------------------------------------------------------------------------------
+ *
+ *	Global
+ *
+ *--------------------------------------------------------------------------------------------*/
+.avs-responsive-item {
+	position: relative;
+	display: block;
+	width: 100%;
+	min-width: 75px;
+	height: 0;
+	padding-bottom: 56.25%;
+	overflow: hidden;
+}
+
+.avs-responsive-item .avs-image {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	background-size: cover;
+	z-index: 1;
+}
+
+.avs-spinner {
+	display: inline-block;
+	background :url( '../images/spinner.gif' ) no-repeat center center;
+	width: 16px;
+	height: 16px;
+	margin: 0;
+	padding: 0;
+}
+
+/*----------------------------------------------------------------------------------------------
+ *
+ *	Form
+ *
+ *--------------------------------------------------------------------------------------------*/
+.avs .control-label label {
+	margin-bottom: 5px;
+}
+
+/*----------------------------------------------------------------------------------------------
+ *
+ *	Grid
+ *
+ *--------------------------------------------------------------------------------------------*/
+.avs-row {
+    display: -webkit-flex; /* Safari */
+    -webkit-flex-wrap: wrap; /* Safari 6.1+ */
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+}
+
+.avs-col {
+    width: 100%;
+}
+
+.avs-col .card {
+	margin: 10px;
+}
+
+@media only screen and (min-width: 481px) {
+    .avs-col-2 { 
+        width: 50%; 
+    }
+
+    .avs-col-3 { 
+        width: 33.33%; 
+    }    
+
+    .avs-col-4 { 
+        width: 25%; 
+    }
+
+    .avs-col-5 { 
+        width: 20%; 
+    }
+
+    .avs-col-6 { 
+        width: 16.66%; 
+    }
+
+    .avs-col-7 { 
+        width: 14.28%; 
+    }
+
+	.avs-col-8 { 
+        width: 12.5%; 
+    }
+
+    .avs-col-9 { 
+        width: 11.11%; 
+    }
+
+    .avs-col-10 { 
+        width: 10%; 
+    }
+
+    .avs-col-11 { 
+        width: 9.09%; 
+    }
+
+    .avs-col-12 { 
+        width: 8.33%; 
+	}
+}
+
+@media only screen and (max-width: 600px) {
+    .avs-col-sm-3 { 
+        width: 33.33%; 
+    }  
+}
+
+@media only screen and (max-width: 480px) {
+    .avs-col-xs-2 { 
+        width: 50%; 
+    }
+}
+
+/*----------------------------------------------------------------------------------------------
+ *
+ *	Popup
+ *
+ *--------------------------------------------------------------------------------------------*/
+.mfp-iframe-scaler iframe {
+	background: #000 url( '../images/spinner-dark.gif' ) center center no-repeat;
+}
+
+/*----------------------------------------------------------------------------------------------
+ *
+ *	Slider
+ *
+ *--------------------------------------------------------------------------------------------*/
+.avs-slider {
+	width: 100%;
+}
+
+.avs .slick-loading .slick-list,
+.avs .avs-slick .avs-player-container {
+	background: #fff url( '../images/spinner-light.gif' ) center center no-repeat;
+}
+  
+.avs-slick {
+	display: none;
+}
+  
+.avs-slick.avs-slick-initialized {
+	display: block;
+}
+  
+.avs-slider-layout-both .avs-slider-player {
+	margin-bottom: 20px;
+}
+  
+.avs-slider-thumbnails {	
+	margin: 0 -7px;
+}
+ 
+.avs .avs-slick-prev,
+.avs .avs-slick-next {
+	position: absolute;
+	display: block;
+	text-align: center;
+	opacity: .75;
+	cursor: pointer;
+	-webkit-transform: translate(0, -50%);
+		-ms-transform: translate(0, -50%);
+			transform: translate(0, -50%);
+	z-index: 9;   
+}
+  
+.avs .avs-slick-prev:hover,
+.avs .avs-slick-next:hover {
+	opacity: 1;
+}
+  
+.avs .avs-slick-prev.slick-disabled,
+.avs .avs-slick-next.slick-disabled {
+	opacity: .25;
+}
+  
+.avs .avs-slick-prev {
+	left: 0;
+}
+  
+[dir='rtl'] .avs .avs-slick-prev {
+	right: 0;
+	left: auto;
+}
+  
+.avs .avs-slick-next {
+	right: 0;
+}
+  
+[dir='rtl'] .avs .avs-slick-next {
+	right: auto;
+	left: 0;
+}
+  
+.avs .slick-dotted.slick-slider {
+	margin-bottom: 30px;
+}
+  
+.avs .avs-slick-dots {
+	position: absolute;
+	display: block;
+	width: 100%;
+	bottom: -25px; 
+	margin: 0;   
+	padding: 0;    
+	list-style: none;
+	text-align: center;
+}
+  
+.avs .avs-slick-dots li {
+	position: relative;
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	cursor: pointer;
+}
+  
+.avs .avs-slick-dots li .avs-slick-dot {
+	display: block;
+	padding: 3px;
+	opacity: .25;    
+	line-height: 1;
+}
+  
+.avs .avs-slick-dots li.slick-active .avs-slick-dot {
+	opacity: .75;
+}
+  
+.avs .avs-slick-dots li .avs-slick-dot:hover {
+	opacity: 1;
+}
+
+/*----------------------------------------------------------------------------------------------
+ *
+ *	Playlist
+ *
+ *--------------------------------------------------------------------------------------------*/
+.avs-playlist {
+	position: relative;
+	display: -webkit-flex; /* Safari */
+    -webkit-flex-wrap: wrap; /* Safari 6.1+ */
+    display: flex;
+    flex-wrap: wrap;
+	width: 100%;
+	background-color: #444;
+}
+
+.avs-playlist.light {
+	background-color: #fff;
+}
+
+.avs-playlist .avs-playlist-player,
+.avs-playlist .avs-playlist-videos {
+	flex: 0 0 auto;
+	width: 100%;
+}
+
+.avs-playlist.right .avs-playlist-videos {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	overflow-y: auto;
+}
+
+.avs-playlist .avs-video {
+	border-bottom: 1px solid #333;
+	color: #fff;
+	cursor: pointer;
+}
+
+.avs-playlist .avs-video:hover {
+	background-color: #333;
+}
+
+.avs-playlist .avs-video.avs-active {
+	background-color: #333;
+}
+
+.avs-playlist.light .avs-playlist-videos {
+	border-top: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+}
+
+.avs-playlist.light .avs-video {
+	border-bottom: 1px solid #ddd;
+	color: #333;
+	cursor: pointer;
+}
+
+.avs-playlist.light .avs-video:hover {
+	background-color: #f7f7f7;
+}
+
+.avs-playlist.light .avs-video.avs-active {
+	background-color: #f7f7f7;
+	pointer-events: none;
+}
+
+.avs-playlist .avs-video .avs-title,
+.avs-playlist .avs-video .avs-excerpt {
+	word-break: break-word;
+}
+
+@media only screen and (max-width: 768px) {
+	.avs-playlist.right .avs-playlist-videos {
+		position: relative;
+	}
+}
+
+/*----------------------------------------------------------------------------------------------
+ *
+ *	Player
+ *
+ *--------------------------------------------------------------------------------------------*/
+.avs-player {
+	position: relative;
+	width: 100%;
+	height: 0;
+	padding-bottom: 56.25%;
+} 
+
+.avs-player iframe,
+.avs-player video {
+	position: absolute;
+    width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;	
+}
+
+/*----------------------------------------------------------------------------------------------
+ *
+ *	Icons
+ *
+ *--------------------------------------------------------------------------------------------*/
+.avs .avs-svg-icon {
+	display: inline-block;
+	width: 16px;
+	fill: #666;
+	stroke: none;
+	stroke-width: 0;
+	vertical-align: middle;
+}
+
+.avs .avs-svg-icon-play {
+	position: absolute;
+	width: 32px;
+	top: 50%;
+	left: 50%;
+	margin-top: -16px;
+	margin-left: -16px;
+	fill: #fff;
+	pointer-events: none;
+	z-index: 3;	
+}
+
+/*----------------------------------------------------------------------------------------------
+ *
+ *	Ratings
+ *
+ *--------------------------------------------------------------------------------------------*/
+.avs-ratings,
+.avs-ratings-small {
+	margin: 0;
+	padding: 0;	
+}
+ 
+.avs-ratings-stars {
+	position: relative;
+	display: inline-block;
+	width: 110px;
+	margin: 0;
+	padding: 0;  
+	font-size: 1em;      
+	vertical-align: middle;
+	overflow: hidden;
+}
+ 
+.avs-ratings-info {
+	position: relative;
+	margin: 0;
+	padding: 0 0 0 10px;  
+	font-size: .9em; 
+	color: #666;
+	vertical-align: middle;	
+}
+ 
+.avs-ratings-stars,
+.avs-ratings-stars .avs-ratings-current,
+.avs-ratings-star a,
+.avs-ratings-info {
+	height: 22px;
+	line-height: 22px;
+}
+ 
+.avs-ratings-small .avs-ratings-stars,
+.avs-ratings-small .avs-ratings-current,
+.avs-ratings-small .avs-ratings-star a,
+.avs-ratings-small .avs-ratings-info {
+	height: 17px;
+	line-height: 17px;
+}
+ 
+.avs-ratings-small .avs-ratings-stars {
+	width: 85px;
+}
+ 
+.avs-ratings-star {
+	display: inline;
+	margin: 0;
+	padding: 0;
+	background-position: 0;
+	background-image: none;    	
+}
+ 
+.avs-ratings-stars,
+.avs-ratings-star a:hover,
+.avs-ratings-stars .avs-ratings-current {
+	background-image: url( ../images/star.png );
+	background-color: transparent;
+	background-repeat: repeat-x;
+}
+ 
+.avs-ratings-stars .avs-ratings-current,
+.avs-ratings-star a:hover {
+	background-position: left -1000px;
+}
+ 
+.avs-ratings-small .avs-ratings-stars,
+.avs-ratings-small .avs-ratings-current,
+.avs-ratings-small .avs-ratings-star a:hover {
+	background-image: url( ../images/star_small.png );
+}
+ 
+.avs-ratings-stars .avs-ratings-current,
+.avs-ratings-star a {
+	position: absolute;    
+	top: 0;
+	left: 0;    
+	border: medium none;
+	text-indent: -1000em;
+	outline: none;
+	overflow: hidden;
+	cursor: pointer;
+}
+ 
+.avs-ratings-stars .avs-ratings-current {
+	background-position: left center;
+	z-index: 1;
+}
+ 
+.avs-ratings-star a {
+	margin: 0;
+	padding: 0;
+}
+ 
+.avs-ratings-star a:hover {
+	background-position: left bottom;
+}
+ 
+.avs-ratings-star a:focus,
+.avs-ratings-star a:active {
+	background: none;
+}
+ 
+.avs-ratings-star a.avs-ratings-star-5 {
+	width: 10%;
+	z-index: 12;
+}
+ 
+.avs-ratings-star a.avs-ratings-star-10 {
+	width: 20%;
+	z-index: 11;
+}
+ 
+.avs-ratings-star a.avs-ratings-star-15 {
+	width: 30%;
+	z-index: 10;
+}
+ 
+.avs-ratings-star a.avs-ratings-star-20 {
+	width: 40%;
+	z-index: 9;
+}
+ 
+.avs-ratings-star a.avs-ratings-star-25 {
+	width: 50%;
+	z-index: 8;
+}
+ 
+.avs-ratings-star a.avs-ratings-star-30 {
+	width: 60%;
+	z-index: 7;
+}
+ 
+.avs-ratings-star a.avs-ratings-star-35 {
+	width: 70%;
+	z-index: 6;
+}
+ 
+.avs-ratings-star a.avs-ratings-star-40 {
+	width: 80%;
+	z-index: 5;
+}
+ 
+.avs-ratings-star a.avs-ratings-star-45 {
+	width: 90%;
+	z-index: 4;
+}
+ 
+.avs-ratings-star a.avs-ratings-star-50 {
+	width: 100%;
+	z-index: 3;
+}
+ 
+/*----------------------------------------------------------------------------------------------
+ *
+ *	Likes / Dislikes
+ *
+ *--------------------------------------------------------------------------------------------*/
+.avs-likes-dislikes,
+.avs-likes-dislikes span {
+	display: inline-block;
+	line-height: 14px;
+	vertical-align: middle;
+}
+ 
+.avs-like-btn,
+.avs-dislike-btn {
+	display: inline-block;
+	margin-right: 3px;
+	padding: 3px 6px;
+	background-color: #787869;
+	color: #F2F2F2;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;	
+	cursor: pointer;
+}
+ 
+.avs-like-icon {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	background-image: url( '../images/like.png' );
+}
+ 
+.avs-like-icon.active {
+	background-image: url( '../images/like_active.png' );
+}
+ 
+.avs-dislike-icon {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	background-image: url( '../images/dislike.png' );
+}
+ 
+.avs-dislike-icon.active {
+	background-image: url( '../images/dislike_active.png' );
+}
+ 
+.avs-like-dislike-seperator {
+	display: inline-block;
+	width: 1px;
+	height: 16px;
+	margin: 0 5px;
+	background-color: darkgray;
+}
+ 
+.avs-like-count,
+.avs-dislike-count {
+	display: inline-block;	
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #F2F2F2;
+}
+
+/*----------------------------------------------------------------------------------------------
+ *
+ *	YouTube
+ *
+ *--------------------------------------------------------------------------------------------*/
+.avs-youtube {
+	width: 100%;
+}
+
+.avs-youtube .avs-video {
+	cursor: pointer;
+}
+
+.avs-youtube .avs-video .badge {
+	display: none;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	border-radius: 0;
+	z-index: 9;
+}
+
+.avs-youtube .avs-active .badge {
+	display: block;
+}
+
+.avs-youtube-layout-inline .avs-player {
+	background-color: #000;
+}
+
+.avs-youtube-layout-inline .avs-active .avs-image,
+.avs-youtube-layout-inline .avs-active .avs-svg-icon {
+	display: none;
+}
+
+.avs-youtube-popup-wrapper .mfp-bottom-bar {
+    margin-top: 0; 
+}
+
+.avs-youtube-popup-wrapper .avs-player-caption {       
+    padding: 15px 0;    
+}
+
+.avs-youtube-popup-wrapper .avs-player-caption,
+.avs-youtube-popup-wrapper .avs-player-caption a,
+.avs-youtube-popup-wrapper .avs-player-caption a:hover,
+.avs-youtube-popup-wrapper .avs-player-caption a:active {
+    color: #fff; 
+}
+
+.avs-youtube-popup-wrapper .mfp-title {    
+    padding-right: 0;
+    color: inherit;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.avs-youtube-popup-wrapper .mfp-description {
+    line-height: 1.5;
+}
+
+.avs-youtube-popup-wrapper.mfp-bg { /* overlay at start */
+    opacity: 0;
+
+    -webkit-transition: all 0.15s ease-out;
+    -moz-transition: all 0.15s ease-out;
+    transition: all 0.15s ease-out;
+}
+
+.avs-youtube-popup-wrapper.mfp-bg.mfp-ready { /* overlay animate in */
+    opacity: 0.8;
+}
+
+.avs-youtube-popup-wrapper.mfp-bg.mfp-removing { /* overlay animate out */
+    opacity: 0;
+}
+
+.avs-youtube-popup-wrapper.mfp-wrap .mfp-content { /* content at start */
+    opacity: 0;
+
+    -webkit-transition: all 0.15s ease-out;
+    -moz-transition: all 0.15s ease-out;
+    transition: all 0.15s ease-out;
+}
+
+.avs-youtube-popup-wrapper.mfp-wrap.mfp-ready .mfp-content { /* content animate it */
+    opacity: 1;
+}
+
+.avs-youtube-popup-wrapper.mfp-wrap.mfp-removing .mfp-content { /* content animate out */
+    opacity: 0;
+}
+
+.avs-youtube-layout-slider .avs-videos {
+	display: none;
+}
+   
+.avs-youtube-layout-slider .avs-videos.slick-initialized {
+	display: block;
+}
+
+.avs-youtube-pagination .spinner-border {
+	display: none;
+}
+
+.avs-youtube-pagination.avs-loading .spinner-border {
+	display: block;
+}
+
+.avs-youtube-pagination.avs-loading ul,
+.avs-youtube-pagination.avs-loading button {
+	display: none;
+}

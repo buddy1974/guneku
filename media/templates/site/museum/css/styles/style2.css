@@ -1,0 +1,13 @@
+/*------------------------------------------------------------------------
+# "Sparky Framework" - Joomla Template Framework
+# Copyright (C) 2021 HotThemes. All Rights Reserved.
+# License: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 only
+# Author: HotThemes
+# Website: https://www.hotjoomlatemplates.com
+-------------------------------------------------------------------------*/
+
+/* This is a variant of default template style */
+
+.transparent_icon {
+	filter: invert(100%);
+}

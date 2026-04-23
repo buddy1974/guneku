@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@400;600;700;900&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=Cinzel+Decorative:wght@400;700&display=swap');
+
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ─── Design Tokens — Njah-Etu Cultural Palette ─────────────────────────── */
+@theme {
+  /* Core palette */
+  --color-royal-night:          #0F0F0F;
+  --color-palace-gold:          #f2a90b;
+  --color-palace-gold-light:    #f5b832;
+  --color-heritage-red:         #8B1E2D;
+  --color-heritage-red-deep:    #6B1520;
+  --color-ivory:                #F5F2E9;
+  --color-earth-brown:          #4A2E1F;
+  --color-earth-brown-light:    #5C3A28;
+
+  /* Typography */
+  --font-display:  'Playfair Display', serif;
+  --font-heading:  'Syne', sans-serif;
+  --font-body:     'Inter', sans-serif;
+  --font-royal:    'Cinzel Decorative', serif;
+  --font-bebas:    'Bebas Neue', sans-serif;
+
+  /* Animations */
+  --animate-marquee: marquee 45s linear infinite;
+}
+
+/* ─── CSS Custom Properties (for non-Tailwind usage) ────────────────────── */
+:root {
+  --royal-night:          #0F0F0F;
+  --palace-gold:          #f2a90b;
+  --palace-gold-light:    #f5b832;
+  --heritage-red:         #8B1E2D;
+  --heritage-red-deep:    #6B1520;
+  --ivory:                #F5F2E9;
+  --earth-brown:          #4A2E1F;
+  --earth-brown-light:    #5C3A28;
+}
+
+/* ─── Atoghu Pattern System — Grassfields Fabric Identity ───────────────── */
+
+/* Black cloth · white embroidery */
+.pattern-atoghu {
+  background-color: #0F0F0F;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23FFFFFF' stroke-width='0.6' opacity='0.08'%3E%3Cpolygon points='20,4 36,20 20,36 4,20'/%3E%3Cline x1='20' y1='0' x2='20' y2='40'/%3E%3Cline x1='0' y1='20' x2='40' y2='20'/%3E%3Ccircle cx='20' cy='20' r='3'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Heritage red · ivory embroidery */
+.pattern-atoghu-red {
+  background-color: #8B1E2D;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23F5F2E9' stroke-width='0.6' opacity='0.12'%3E%3Cpolygon points='20,4 36,20 20,36 4,20'/%3E%3Cline x1='20' y1='0' x2='20' y2='40'/%3E%3Cline x1='0' y1='20' x2='40' y2='20'/%3E%3Ccircle cx='20' cy='20' r='3'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Earth brown · gold thread */
+.pattern-atoghu-brown {
+  background-color: #4A2E1F;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23C6A540' stroke-width='0.6' opacity='0.18'%3E%3Cpolygon points='20,4 36,20 20,36 4,20'/%3E%3Cline x1='20' y1='0' x2='20' y2='40'/%3E%3Cline x1='0' y1='20' x2='40' y2='20'/%3E%3Ccircle cx='20' cy='20' r='3'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Gradient helpers */
+.bg-heritage-gradient {
+  background: linear-gradient(135deg, #6B1520 0%, #8B1E2D 40%, #0F0F0F 100%);
+}
+
+.bg-hero-gradient {
+  background: linear-gradient(
+    to bottom,
+    rgba(139, 30, 45, 0.30) 0%,
+    rgba(15, 15, 15, 0.65) 50%,
+    #0F0F0F 100%
+  );
+}
+
+/* ─── Base Layer ─────────────────────────────────────────────────────────── */
+@layer base {
+  body {
+    background-color: #0F0F0F;
+    color: #F5F2E9;
+    font-family: 'Inter', sans-serif;
+    font-feature-settings: 'kern' 1, 'liga' 1;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Syne', sans-serif;
+  }
+
+  .font-display-title { font-family: 'Playfair Display', serif; }
+  .font-royal         { font-family: 'Cinzel Decorative', serif; }
+}
+
+/* ─── Component Layer ────────────────────────────────────────────────────── */
+@layer components {
+
+  /* ── Dividers ── */
+  .gold-divider {
+    width: 100%;
+    height: 1px;
+    background-color: var(--palace-gold);
+    opacity: 0.3;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  /* ── Labels ── */
+  .section-label {
+    color: var(--palace-gold);
+    font-size: 0.75rem;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+
+  /* ── Buttons ── */
+  .btn-gold {
+    background-color: var(--palace-gold);
+    color: var(--royal-night);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: background-color 0.2s;
+    display: inline-block;
+  }
+  .btn-gold:hover { background-color: var(--palace-gold-light); }
+
+  .btn-outline-gold {
+    border: 1px solid var(--palace-gold);
+    color: var(--palace-gold);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: background-color 0.2s, color 0.2s;
+    display: inline-block;
+  }
+  .btn-outline-gold:hover {
+    background-color: var(--palace-gold);
+    color: var(--royal-night);
+  }
+
+  /* DESIGN.2 — Cultural accent buttons */
+  .btn-red {
+    background-color: var(--heritage-red);
+    color: var(--ivory);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: background-color 0.2s;
+    display: inline-block;
+  }
+  .btn-red:hover { background-color: var(--heritage-red-deep); }
+
+  /* ── Rules ── */
+  .heritage-rule {
+    width: 2.5rem;
+    height: 3px;
+    background-color: var(--heritage-red);
+    display: block;
+  }
+
+  .gold-rule {
+    width: 2.5rem;
+    height: 2px;
+    background-color: var(--palace-gold);
+    display: block;
+    opacity: 0.6;
+  }
+}
+
+/* ─── Keyframe Animations ─────────────────────────────────────────────────── */
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}

@@ -1,0 +1,41 @@
+/*!
+ * Serialize all form data into a query string
+ * (c) 2018 Chris Ferdinandi, MIT License, https://gomakethings.com
+ * Modified to use any HTML element instead of a form element.
+ * @param  {Node}   form The form container to serialize
+ * @return {String}      The serialized form data
+ */
+
+/*! ../../../common/js/Helpers */
+
+/*! ../../../common/js/slide */
+
+/*! ../less/slide.less */
+
+/*! ./cart */
+
+/*! ./frontend/js/cart/index */
+
+/*!****************************!*\
+  !*** ./common/js/slide.ts ***!
+  \****************************/
+
+/*!******************************!*\
+  !*** ./common/js/Helpers.js ***!
+  \******************************/
+
+/*!******************************!*\
+  !*** ./eventgallery-cart.js ***!
+  \******************************/
+
+/*!********************************!*\
+  !*** ./common/less/slide.less ***!
+  \********************************/
+
+/*!**********************************!*\
+  !*** ./frontend/js/cart/cart.js ***!
+  \**********************************/
+
+/*!***********************************!*\
+  !*** ./frontend/js/cart/index.js ***!
+  \***********************************/

@@ -1,0 +1,6 @@
+path	article_count
+about-guneku	9
+blog	15
+coronation	2
+pages	5
+uncategorised	6

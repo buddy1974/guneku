@@ -1,0 +1,100 @@
+VALIDATION REPORT — 2026-04-10T10:28:46.303Z
+
+OK    about\activities-building-up-to-the-coronation-ceremony.json
+OK    about\biography-of-hrh-fomuki-patrick-njie.json
+OK    about\gudeca-construction.json
+OK    about\history.json
+OK    about\map-of-guneku.json
+OK    about\religion.json
+OK    about\the-guneku-cultural-heritage.json
+OK    about\the-legacy-of-hrh-chief-fomuki-p-n.json
+OK    about\touristic-sites.json
+OK    articles-index.json
+OK    categories.json
+OK    gallery\albums.json
+OK    gallery\developmentprojects.json
+OK    gallery\files-by-album.json
+OK    gallery\gudeca-usa.json
+OK    gallery\gudecaannualgeneralmeeting26december2015.json
+OK    gallery\gudecaworldwide.json
+OK    gallery\guneku-family-meeting-in-frankfurt-germany.json
+OK    gallery\guneku-royal-community-library.json
+OK    gallery\image-gallery.json
+OK    gallery\mchibe-mta-event-guneku2023.json
+OK    gallery\mukonge-dance-groupsin-meta.json
+OK    gallery\prince-fomuki-tibahs-bornhouseinimages.json
+OK    gallery\receptioneventfor-hrhfon-fomukiin-essen-germany.json
+OK    gallery\revisitingtheinstallationofthe-guneku-traditional-council-friday-july302021.json
+OK    gallery\the-coronationof-hrhfon-fomuki-walters.json
+OK    gallery\the-returnof-fon-fomuki.json
+OK    gallery\thelegendary-fundraisingwhitepartynightat-guneku-palace.json
+OK    gallery\thetonmukom-windikroadwork.json
+OK    gallery\video-gallery.json
+OK    gallery\videos.json
+OK    institutions\agro-cig.json
+OK    institutions\guneccul.json
+OK    institutions\guyodeca.json
+OK    kingdom\gudeca-construction.json
+OK    kingdom\history.json
+OK    kingdom\map-of-guneku.json
+OK    kingdom\religion.json
+OK    kingdom\the-guneku-cultural-heritage.json
+OK    kingdom\touristic-sites.json
+OK    navigation.json
+OK    notables\marcel-tabit-akwe.json
+OK    notables\roland-teboh-forbang.json
+OK    pages\about-template.json
+OK    pages\exhibitions.json
+OK    pages\gudeca-exco.json
+OK    pages\gudeca-exco2.json
+OK    pages\home-page.json
+OK    pages\indegenes.json
+OK    pages\notables.json
+OK    pages\privacy-policy.json
+OK    pages\terms.json
+OK    pages\tributes.json
+OK    pages\video.json
+OK    palace\activities-building-up-to-the-coronation-ceremony.json
+OK    palace\biography-of-hrh-fomuki-patrick-njie.json
+OK    palace\fomuki-appears-from-the-bavarian-woods.json
+OK    palace\fon-walters-profile.json
+OK    palace\the-legacy-of-hrh-chief-fomuki-p-n.json
+OK    palace\the-return-of-fon-fomuki-of-guneku.json
+OK    site-config.json
+OK    updates\democracy-in-guneku-fon-fomuki-injects-new-blood-for-easy-administration.json
+OK    updates\festival-in-april-2024.json
+OK    updates\gudeca-us-chapter-celebrated-a-grand-cultural-event-to-welcome-hrh-fon-fomuki-in-the-us.json
+OK    updates\guneku-fondom-welcomes-2024-with-inspiring-new-year-speech-by-hrh-fon-fomuki-walters-ticha-ix.json
+OK    updates\guneku-village-council-holding-in-the-fons-palace-guneku-23rd-april-2016-in-the-hearing-of-the-theft-that-occurred-in-the-fons-palace-on-the-14th-april-2016.json
+OK    updates\meta-cultural-festival-holds-in-guneku-village-2.json
+OK    updates\meta-cultural-festival-holds-in-guneku-village.json
+OK    updates\meta-people-start-going-back-to-their-roots.json
+OK    updates\michi-ben-clash-of-mukonge-dance-groups-in-the-offing.json
+OK    updates\minutes-of-meeting.json
+OK    updates\policy-statement-to-all-guneku-elements-for-2016-2017.json
+OK    updates\proposals-from-his-royal-highness-fon-fomuki-during-the-gudeca-agm-at-mutegene-2016.json
+OK    updates\public-announcement-copies-of-letters-to-the-community.json
+OK    updates\the-pg-mecuda-prof-njoh-olivier-2.json
+OK    updates\visit-of-the-fon-of-guneku-to-the-us.json
+
+─── DIRECTORY COUNTS ───────────────────────────────────────
+  OK  about: 9 files
+  OK  .: 4 files
+  OK  gallery: 20 files (min 2)
+  OK  institutions: 3 files (min 3)
+  OK  kingdom: 6 files (min 3)
+  OK  notables: 2 files (min 2)
+  OK  pages: 11 files (min 4)
+  OK  palace: 6 files (min 6)
+  OK  updates: 15 files (min 15)
+
+─── REQUIRED ROOT FILES ─────────────────────────────────────
+  OK  navigation.json
+  OK  site-config.json
+  OK  categories.json
+  OK  articles-index.json
+
+─── SUMMARY ─────────────────────────────────────────────────
+Total files checked: 76
+PASSED: 76
+FAILED: 0

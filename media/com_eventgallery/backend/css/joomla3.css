@@ -1,0 +1,28 @@
+.span12 >.row,
+form >.row{
+	margin-left: 0;
+}
+
+.alert-message {
+	margin-top: 10px;
+}
+
+.eg-filter-bar label {
+	display: none;
+}
+
+.eg-filter-bar .input-group {
+	display: inline-block;
+	margin-right: 10px;
+}
+.eg-filter-bar .input-group .btn {
+	margin-bottom: 10px;
+}
+
+.eg-overview .row{
+	margin-left: 0;
+}
+
+.eg-events-actions .btn-group{
+	margin-bottom: 10px;
+}

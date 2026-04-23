@@ -1,0 +1,18 @@
+/*!
+  * PhotoSwipe 5.3.4 - https://photoswipe.com
+  * (c) 2022 Dmytro Semenov
+  */
+
+/*!
+ * Glide.js v3.6.0
+ * (c) 2013-2022 Jędrzej Chałubek (https://github.com/jedrzejchalubek/)
+ * Released under the MIT License.
+ */
+
+/*!
+ * Serialize all form data into a query string
+ * (c) 2018 Chris Ferdinandi, MIT License, https://gomakethings.com
+ * Modified to use any HTML element instead of a form element.
+ * @param  {Node}   form The form container to serialize
+ * @return {String}      The serialized form data
+ */
