@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { useUser } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import { GUNEKU_QUARTERS, GENERATIONS } from '@/types/indigene'
 
@@ -27,7 +26,6 @@ const COUNTRIES = [
 const STEP_LABELS = ['Your Identity', 'Your Heritage', 'Your Work', 'Your Presence', 'Review']
 
 export default function OnboardingPage() {
-  const { user } = useUser()
   const router   = useRouter()
   const [step, setStep]         = useState(0)
   const [saving, setSaving]     = useState(false)
@@ -36,7 +34,7 @@ export default function OnboardingPage() {
   const fileRef = useRef<HTMLInputElement>(null)
 
   const [form, setForm] = useState({
-    full_name:        user?.fullName || '',
+    full_name:        '',
     bio:              '',
     current_city:     '',
     current_country:  '',

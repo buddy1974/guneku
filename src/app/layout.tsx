@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { ClerkProvider }  from '@clerk/nextjs'
 import { Analytics }      from '@vercel/analytics/react'
 import { SpeedInsights }  from '@vercel/speed-insights/next'
 import { Header }         from '@/components/layout/Header'
@@ -50,26 +49,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const nav = getNavigation()
 
   return (
-    <ClerkProvider>
-      <html lang="en" className="scroll-smooth">
-        <head>
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        </head>
-        <body style={{ backgroundColor: '#0F0F0F', color: '#F5F2E9', overflowX: 'hidden' }}>
-          <Header nav={nav} />
-          <main>
-            <PageTransition>
-              {children}
-            </PageTransition>
-          </main>
-          <Footer />
-          <MobileNav />
-          <ToastContainer />
-          <Analytics />
-          <SpeedInsights />
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en" className="scroll-smooth">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
+      <body style={{ backgroundColor: '#0F0F0F', color: '#F5F2E9', overflowX: 'hidden' }}>
+        <Header nav={nav} />
+        <main>
+          <PageTransition>
+            {children}
+          </PageTransition>
+        </main>
+        <Footer />
+        <MobileNav />
+        <ToastContainer />
+        <Analytics />
+        <SpeedInsights />
+      </body>
+    </html>
   )
 }

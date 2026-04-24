@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import Link                    from 'next/link'
 import Image                   from 'next/image'
 import { usePathname }         from 'next/navigation'
-import { useUser, SignInButton, UserButton } from '@clerk/nextjs'
 import type { NavItem } from '@/lib/content'
 
 interface HeaderProps {
@@ -18,7 +17,6 @@ export function Header({ nav }: HeaderProps) {
   const [query,      setQuery]      = useState('')
   const [results,    setResults]    = useState<{ id: string; title: string; section: string; href: string }[]>([])
   const pathname = usePathname()
-  const { user, isLoaded } = useUser()
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40)
@@ -120,35 +118,7 @@ export function Header({ nav }: HeaderProps) {
               </svg>
             </button>
 
-            {/* Auth — desktop */}
-            <div className="hidden md:flex" style={{ alignItems: 'center' }}>
-              {isLoaded && (
-                user ? (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <Link href="/indigenes/profile" style={{
-                      color: 'rgba(245,242,233,0.5)', fontFamily: 'Syne, sans-serif',
-                      fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase',
-                      textDecoration: 'none',
-                    }}>
-                      My Profile
-                    </Link>
-                    <UserButton />
-                  </div>
-                ) : (
-                  <SignInButton mode="modal">
-                    <button style={{
-                      border: '1px solid rgba(242,169,11,0.35)', color: '#f2a90b',
-                      fontFamily: 'Syne, sans-serif', fontWeight: 700,
-                      padding: '0.45rem 1.1rem', fontSize: '11px',
-                      letterSpacing: '0.12em', textTransform: 'uppercase',
-                      background: 'none', cursor: 'pointer', whiteSpace: 'nowrap',
-                    }}>
-                      Sign In
-                    </button>
-                  </SignInButton>
-                )
-              )}
-            </div>
+            {/* Auth coming soon */}
 
             {/* Hamburger — mobile */}
             <button onClick={() => setMenuOpen(m => !m)} className="md:hidden"
@@ -258,32 +228,15 @@ export function Header({ nav }: HeaderProps) {
 
           <div style={{ marginTop: '2rem', paddingTop: '2rem',
                         borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-            {isLoaded && (
-              user ? (
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <Link href="/indigenes/profile" style={{
-                    color: '#f2a90b', fontFamily: 'Syne, sans-serif',
-                    fontWeight: 700, fontSize: '14px', letterSpacing: '0.1em',
-                    textTransform: 'uppercase', textDecoration: 'none',
-                    padding: '12px 0', minHeight: '44px', display: 'flex', alignItems: 'center',
-                  }}>
-                    My Profile
-                  </Link>
-                  <UserButton />
-                </div>
-              ) : (
-                <SignInButton mode="modal">
-                  <button style={{
-                    width: '100%', backgroundColor: '#f2a90b', color: '#0F0F0F',
-                    fontFamily: 'Syne, sans-serif', fontWeight: 700, padding: '1rem',
-                    fontSize: '13px', letterSpacing: '0.15em', textTransform: 'uppercase',
-                    border: 'none', cursor: 'pointer', minHeight: '52px',
-                  }}>
-                    Sign In / Join Directory
-                  </button>
-                </SignInButton>
-              )
-            )}
+            <Link href="/indigenes" style={{
+              display: 'block', width: '100%', backgroundColor: '#f2a90b',
+              color: '#0F0F0F', fontFamily: 'Syne, sans-serif', fontWeight: 700,
+              padding: '1rem', fontSize: '13px', letterSpacing: '0.15em',
+              textTransform: 'uppercase', textDecoration: 'none',
+              textAlign: 'center', minHeight: '52px', lineHeight: '1.8',
+            }}>
+              Indigenes Directory
+            </Link>
           </div>
         </div>
       </div>

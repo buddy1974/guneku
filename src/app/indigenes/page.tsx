@@ -1,29 +1,16 @@
 'use client'
 
 import { useEffect, useState, useCallback } from 'react'
-import { useRouter } from 'next/navigation'
-import { useUser, SignInButton } from '@clerk/nextjs'
 import { IndigeneProfile, GUNEKU_QUARTERS } from '@/types/indigene'
 import Link from 'next/link'
 
 export default function IndigenesPage() {
-  const { user, isLoaded } = useUser()
-  const router = useRouter()
-
-  const [profiles, setProfiles]     = useState<IndigeneProfile[]>([])
-  const [total, setTotal]           = useState(0)
-  const [loading, setLoading]       = useState(true)
-  const [search, setSearch]         = useState('')
-  const [quarter, setQuarter]       = useState('')
-  const [page, setPage]             = useState(1)
-  const [hasProfile, setHasProfile] = useState<boolean | null>(null)
-
-  useEffect(() => {
-    if (!user) return
-    fetch('/api/indigenes/profile')
-      .then(r => r.json())
-      .then(d => setHasProfile(!!d.profile))
-  }, [user])
+  const [profiles, setProfiles] = useState<IndigeneProfile[]>([])
+  const [total, setTotal]       = useState(0)
+  const [loading, setLoading]   = useState(true)
+  const [search, setSearch]     = useState('')
+  const [quarter, setQuarter]   = useState('')
+  const [page, setPage]         = useState(1)
 
   const fetchProfiles = useCallback(async () => {
     setLoading(true)
@@ -46,9 +33,6 @@ export default function IndigenesPage() {
     return () => clearTimeout(t)
   }, [search])
 
-  // suppress unused warning
-  void router
-
   return (
     <main style={{ backgroundColor:'#0F0F0F', minHeight:'100vh' }}>
 
@@ -68,21 +52,11 @@ export default function IndigenesPage() {
               <><strong style={{ color:'#f2a90b' }}>{total}</strong> Guneku indigenes registered worldwide. From Essen to New Jersey — one people, one village.</>
             ) : 'The first digital directory of Guneku indigenes worldwide.'}
           </p>
-          {isLoaded && (
-            <div style={{ display:'flex', gap:'1rem', justifyContent:'center', flexWrap:'wrap' }}>
-              {user ? (
-                hasProfile === false ? (
-                  <Link href="/indigenes/onboarding" style={{ backgroundColor:'#f2a90b', color:'#0F0F0F', fontFamily:'Syne, sans-serif', fontWeight:700, padding:'0.9rem 2rem', fontSize:'0.8rem', letterSpacing:'0.12em', textTransform:'uppercase', textDecoration:'none', display:'inline-block' }}>Create My Profile</Link>
-                ) : (
-                  <Link href="/indigenes/profile" style={{ backgroundColor:'#f2a90b', color:'#0F0F0F', fontFamily:'Syne, sans-serif', fontWeight:700, padding:'0.9rem 2rem', fontSize:'0.8rem', letterSpacing:'0.12em', textTransform:'uppercase', textDecoration:'none', display:'inline-block' }}>View My Profile</Link>
-                )
-              ) : (
-                <SignInButton mode="modal">
-                  <button style={{ backgroundColor:'#f2a90b', color:'#0F0F0F', fontFamily:'Syne, sans-serif', fontWeight:700, padding:'0.9rem 2rem', fontSize:'0.8rem', letterSpacing:'0.12em', textTransform:'uppercase', border:'none', cursor:'pointer' }}>Join the Directory</button>
-                </SignInButton>
-              )}
-            </div>
-          )}
+          <div style={{ display:'flex', gap:'1rem', justifyContent:'center', flexWrap:'wrap' }}>
+            <Link href="/indigenes/onboarding" style={{ backgroundColor:'#f2a90b', color:'#0F0F0F', fontFamily:'Syne, sans-serif', fontWeight:700, padding:'0.9rem 2rem', fontSize:'0.8rem', letterSpacing:'0.12em', textTransform:'uppercase', textDecoration:'none', display:'inline-block' }}>
+              Create My Profile
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -174,15 +148,13 @@ export default function IndigenesPage() {
         )}
       </section>
 
-      {isLoaded && !user && (
-        <div style={{ backgroundColor:'#0A0A0A', borderTop:'1px solid rgba(242,169,11,0.1)', padding:'4rem 1.5rem', textAlign:'center' }}>
-          <h3 style={{ fontFamily:'"Bebas Neue", sans-serif', fontSize:'2.5rem', color:'#F5F2E9', letterSpacing:'0.05em', margin:'0 0 1rem' }}>ARE YOU A SON OR DAUGHTER OF GUNEKU?</h3>
-          <p style={{ color:'rgba(245,242,233,0.4)', fontFamily:'Inter, sans-serif', fontSize:'1rem', margin:'0 0 2rem' }}>Sign in with Google and create your profile in 3 minutes.</p>
-          <SignInButton mode="modal">
-            <button style={{ backgroundColor:'#f2a90b', color:'#0F0F0F', fontFamily:'Syne, sans-serif', fontWeight:700, padding:'1rem 3rem', fontSize:'0.85rem', letterSpacing:'0.15em', textTransform:'uppercase', border:'none', cursor:'pointer' }}>Sign in with Google</button>
-          </SignInButton>
-        </div>
-      )}
+      <div style={{ backgroundColor:'#0A0A0A', borderTop:'1px solid rgba(242,169,11,0.1)', padding:'4rem 1.5rem', textAlign:'center' }}>
+        <h3 style={{ fontFamily:'"Bebas Neue", sans-serif', fontSize:'2.5rem', color:'#F5F2E9', letterSpacing:'0.05em', margin:'0 0 1rem' }}>ARE YOU A SON OR DAUGHTER OF GUNEKU?</h3>
+        <p style={{ color:'rgba(245,242,233,0.4)', fontFamily:'Inter, sans-serif', fontSize:'1rem', margin:'0 0 2rem' }}>Join the official directory of Guneku sons and daughters worldwide.</p>
+        <Link href="/indigenes/onboarding" style={{ backgroundColor:'#f2a90b', color:'#0F0F0F', fontFamily:'Syne, sans-serif', fontWeight:700, padding:'1rem 3rem', fontSize:'0.85rem', letterSpacing:'0.15em', textTransform:'uppercase', textDecoration:'none', display:'inline-block' }}>
+          Create My Profile
+        </Link>
+      </div>
     </main>
   )
 }
