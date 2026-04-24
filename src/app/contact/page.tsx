@@ -156,6 +156,71 @@ export default function ContactPage() {
           </div>
         )}
       </section>
+
+      {/* ── MaxPromo Digital — portfolio CTA ── */}
+      <section style={{
+        backgroundColor: '#0A0A0A',
+        borderTop: '1px solid rgba(242,169,11,0.15)',
+        padding: '5rem 1.5rem',
+        textAlign: 'center',
+      }}>
+        <div style={{ maxWidth: '680px', margin: '0 auto' }}>
+          <div style={{ display:'flex', alignItems:'center', justifyContent:'center',
+                        gap:'12px', marginBottom:'2rem' }}>
+            <span style={{ width:'28px', height:'1px', backgroundColor:'rgba(242,169,11,0.4)' }} />
+            <span style={{ color:'rgba(242,169,11,0.5)', fontFamily:'Syne, sans-serif',
+                           fontSize:'0.65rem', letterSpacing:'0.25em', textTransform:'uppercase' }}>
+              BUILT BY
+            </span>
+            <span style={{ width:'28px', height:'1px', backgroundColor:'rgba(242,169,11,0.4)' }} />
+          </div>
+
+          <h2 style={{ fontFamily:'"Bebas Neue", sans-serif', fontSize:'clamp(1.8rem, 4vw, 3rem)',
+                       color:'#F5F2E9', letterSpacing:'0.05em', margin:'0 0 1rem', lineHeight:1 }}>
+            IS YOUR COMMUNITY READY FOR ITS OWN DIGITAL PALACE?
+          </h2>
+
+          <p style={{ color:'rgba(245,242,233,0.5)', fontFamily:'Inter, sans-serif',
+                      fontSize:'1rem', lineHeight:1.8, margin:'0 0 0.75rem' }}>
+            This platform was built by{' '}
+            <a href="https://maxpromo.digital" target="_blank" rel="noopener noreferrer"
+               style={{ color:'#f2a90b', textDecoration:'none', fontWeight:600 }}>
+              MaxPromo Digital
+            </a>
+            {' '}— AI-powered web development from Essen, Germany.
+          </p>
+          <p style={{ color:'rgba(245,242,233,0.35)', fontFamily:'Inter, sans-serif',
+                      fontSize:'0.95rem', lineHeight:1.7, margin:'0 0 2.5rem' }}>
+            We build intelligent platforms for communities, associations, and businesses
+            that want to bring their identity to the world stage.
+          </p>
+
+          <a href="https://maxpromo.digital/automation-audit"
+             target="_blank" rel="noopener noreferrer"
+             style={{
+               backgroundColor: '#f2a90b', color: '#0F0F0F',
+               fontFamily: 'Syne, sans-serif', fontWeight: 700,
+               padding: '1rem 2.5rem', fontSize: '0.82rem',
+               letterSpacing: '0.15em', textTransform: 'uppercase',
+               textDecoration: 'none', display: 'inline-block',
+               marginRight: '1rem',
+             }}>
+            Get a Free Audit →
+          </a>
+          <a href="https://maxpromo.digital"
+             target="_blank" rel="noopener noreferrer"
+             style={{
+               border: '1px solid rgba(245,242,233,0.15)',
+               color: 'rgba(245,242,233,0.5)',
+               fontFamily: 'Syne, sans-serif', fontWeight: 700,
+               padding: '1rem 2rem', fontSize: '0.82rem',
+               letterSpacing: '0.15em', textTransform: 'uppercase',
+               textDecoration: 'none', display: 'inline-block',
+             }}>
+            maxpromo.digital
+          </a>
+        </div>
+      </section>
     </main>
   )
 }
