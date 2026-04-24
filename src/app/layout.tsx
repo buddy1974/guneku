@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { ClerkProvider } from '@clerk/nextjs'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { getNavigation } from '@/lib/content'
@@ -34,12 +35,14 @@ export default function RootLayout({
   const nav = getNavigation()
 
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className="bg-royal-night text-ivory antialiased">
-        <Header nav={nav} />
-        <main>{children}</main>
-        <Footer />
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className="scroll-smooth">
+        <body className="bg-royal-night text-ivory antialiased">
+          <Header nav={nav} />
+          <main>{children}</main>
+          <Footer />
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }

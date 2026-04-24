@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { Menu, X, ChevronDown } from 'lucide-react'
+import { useUser, SignInButton, UserButton } from '@clerk/nextjs'
 import type { NavItem } from '@/lib/content'
 
 interface HeaderProps {
@@ -14,6 +15,7 @@ export function Header({ nav }: HeaderProps) {
   const [scrolled, setScrolled]     = useState(false)
   const [mobileOpen, setMobile]     = useState(false)
   const [openDropdown, setDropdown] = useState<string | null>(null)
+  const { user, isLoaded }          = useUser()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50)
@@ -119,7 +121,7 @@ export function Header({ nav }: HeaderProps) {
             )}
           </nav>
 
-          {/* ── Right CTA + Hamburger ── */}
+          {/* ── Right CTA + Auth + Hamburger ── */}
           <div className="flex items-center gap-3">
             <Link
               href="/palace/fon-walters-profile"
@@ -131,6 +133,34 @@ export function Header({ nav }: HeaderProps) {
             >
               The Fon
             </Link>
+
+            {isLoaded && (
+              user ? (
+                <div className="hidden lg:flex items-center gap-3">
+                  <Link
+                    href="/indigenes/profile"
+                    className="text-ivory/50 hover:text-palace-gold text-[10px]
+                               font-heading font-bold tracking-widest uppercase
+                               transition-colors duration-200"
+                  >
+                    My Profile
+                  </Link>
+                  <UserButton />
+                </div>
+              ) : (
+                <SignInButton mode="modal">
+                  <button
+                    className="hidden lg:inline-flex items-center
+                               border border-palace-gold/30 text-palace-gold
+                               text-[10px] font-heading font-bold tracking-widest uppercase
+                               px-4 py-2 hover:bg-palace-gold/10
+                               transition-colors duration-200 bg-transparent cursor-pointer"
+                  >
+                    Sign In
+                  </button>
+                </SignInButton>
+              )
+            )}
 
             <button
               aria-label="Toggle menu"
