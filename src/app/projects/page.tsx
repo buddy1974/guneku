@@ -3,7 +3,10 @@ import Link from 'next/link'
 
 export const metadata = { title: 'Projects — Guneku Development' }
 
-const PROJECTS = [
+const PROJECTS: {
+  id: string; status: string; statusColor: string;
+  title: string; desc: string; year: number; href: string | null;
+}[] = [
   {
     id: 'agro-cig',
     status: 'LIVE',
@@ -67,6 +70,42 @@ const PROJECTS = [
     year: 2022,
     href: '/notables/roland-teboh-forbang',
   },
+  {
+    id: 'medical-reference',
+    status: 'PROPOSED',
+    statusColor: '#8B1E2D',
+    title: 'Medical Reference Centre',
+    desc: 'Proposed at GUDECA EU meeting March 2026. Plans to establish a dedicated reference healthcare centre in Guneku, independent of existing facilities.',
+    year: 2026,
+    href: null,
+  },
+  {
+    id: 'soap-production',
+    status: 'PROPOSED',
+    statusColor: '#8B1E2D',
+    title: 'Soap Production Initiative',
+    desc: 'Community income-generating soap production. Proposed by GUDECA EU March 2026 as economic empowerment for Guneku residents.',
+    year: 2026,
+    href: null,
+  },
+  {
+    id: 'satellite-internet',
+    status: 'PROPOSED',
+    statusColor: '#8B1E2D',
+    title: 'Satellite Internet — Palace',
+    desc: 'Install satellite internet at the Guneku Palace. Proposed by Ni Sam (GUDECA EU) to enable digital services and connectivity for the entire community.',
+    year: 2026,
+    href: null,
+  },
+  {
+    id: 'digital-training',
+    status: 'PROPOSED',
+    statusColor: '#8B1E2D',
+    title: 'Digital Empowerment Training',
+    desc: 'Adult training programs in content creation, virtual work, and online income generation. Proposed by Ni Sam, GUDECA EU Digital Lead.',
+    year: 2026,
+    href: null,
+  },
 ]
 
 export default function ProjectsPage() {
@@ -75,7 +114,7 @@ export default function ProjectsPage() {
       <PageHero
         label="DEVELOPMENT"
         title="GUNEKU PROJECTS"
-        subtitle="Community-driven development — from cooperative farming to digital transformation."
+        subtitle="Community-driven development — from cooperative farming to digital transformation. 11 active or completed · 4 proposed."
       />
       <section style={{ maxWidth:'1200px', margin:'0 auto', padding:'5rem 1.5rem' }}>
         <div style={{ display:'grid',

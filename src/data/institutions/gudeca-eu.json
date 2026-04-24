@@ -1,0 +1,69 @@
+{
+  "id": "gudeca-eu",
+  "name": "GUDECA Europe",
+  "abbreviation": "GUDECA EU",
+  "status": "active",
+  "meetingVenue": "Fon's Palace, Bonn, Germany",
+
+  "leadership": [
+    { "role": "President",          "name": "Ndenge Constantine" },
+    { "role": "Secretary General",  "name": "Muyang Ela"         },
+    { "role": "Vice President",     "name": "Festus Tanwi"       },
+    { "role": "Financial Secretary","name": "Armstrong Tinyih"   },
+    { "role": "Digital Lead",       "name": "Ni Sam"             },
+    { "role": "Title Holder",       "name": "Mr. Fonjong",
+      "note": "Titled by the Fons of Meta"                       }
+  ],
+
+  "lastMeeting": {
+    "date": "2026-03-28",
+    "venue": "Fon's Palace, Bonn, Germany",
+    "solarPhase2Raised": 800,
+    "currency": "EUR"
+  },
+
+  "nextMeeting": {
+    "date": "2027-07-24",
+    "location": "United Kingdom",
+    "coordinator": "Ni Sam"
+  },
+
+  "activeProjects": [
+    {
+      "name": "Solar Street Lighting Phase II",
+      "status": "fundraising",
+      "raised": 800,
+      "currency": "EUR"
+    },
+    {
+      "name": "Agro CIG",
+      "status": "active",
+      "note": "Presented by Mr. Fabian at March 2026 meeting"
+    }
+  ],
+
+  "proposedProjects": [
+    {
+      "name": "Medical Reference Centre",
+      "description": "Establish a reference healthcare centre in Guneku",
+      "status": "proposed"
+    },
+    {
+      "name": "Soap Production Initiative",
+      "description": "Community income-generating activity",
+      "status": "proposed"
+    },
+    {
+      "name": "Satellite Internet — Palace",
+      "description": "Install satellite internet at the Guneku Palace",
+      "proposedBy": "Ni Sam",
+      "status": "proposed"
+    },
+    {
+      "name": "Digital Empowerment Training",
+      "description": "Content creation, virtual work, online income generation for adults",
+      "proposedBy": "Ni Sam",
+      "status": "proposed"
+    }
+  ]
+}

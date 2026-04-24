@@ -69,6 +69,87 @@ export default function GudecaPage() {
         <ImagePlaceholder label="GUDECA Assembly" aspectRatio="4/3" />
       </section>
 
+      {/* ── GUDECA EU Meeting Intelligence ── */}
+      <section style={{ backgroundColor:'#08080F',
+                        borderTop:'1px solid rgba(255,255,255,0.05)',
+                        padding:'5rem 1.5rem' }}>
+        <div style={{ maxWidth:'1200px', margin:'0 auto' }}>
+          <div style={{ textAlign:'center', marginBottom:'3rem' }}>
+            <span className="section-label" style={{ marginBottom:'0.5rem', display:'block' }}>
+              LATEST MEETING
+            </span>
+            <h2 style={{ fontFamily:'"Bebas Neue", sans-serif', fontSize:'2.5rem',
+                         color:'#F5F2E9', letterSpacing:'0.05em', margin:'0 0 0.5rem' }}>
+              GUDECA EU — BONN, 28 MARCH 2026
+            </h2>
+            <p style={{ color:'rgba(245,242,233,0.4)', fontFamily:'Inter, sans-serif',
+                        fontSize:'0.9rem' }}>
+              Fon&apos;s Palace, Bonn, Germany &middot;
+              President: Ndenge Constantine &middot;
+              Secretary General: Muyang Ela
+            </p>
+          </div>
+
+          <div style={{ display:'grid',
+                        gridTemplateColumns:'repeat(auto-fill, minmax(280px, 1fr))',
+                        gap:'1.5rem' }}>
+            {[
+              { icon:'☀️', title:'Solar Phase II', status:'ONGOING', statusColor:'#f2a90b',
+                desc:'€800 raised so far. Members encouraged to increase contributions for full village electrification.' },
+              { icon:'🌾', title:'Agro CIG', status:'ACTIVE', statusColor:'#4a7c59',
+                desc:'Presented by Mr. Fabian. Share purchase at 2,000 FCFA. Members encouraged to subscribe.' },
+              { icon:'🏥', title:'Medical Reference Centre', status:'PROPOSED', statusColor:'#8B1E2D',
+                desc:'Plans to establish a reference healthcare centre in Guneku — independent of existing clinic.' },
+              { icon:'🧼', title:'Soap Production', status:'PROPOSED', statusColor:'#8B1E2D',
+                desc:'Income-generating soap production initiative for the Guneku community.' },
+              { icon:'📡', title:'Satellite Internet — Palace', status:'PROPOSED', statusColor:'#8B1E2D',
+                desc:'Install satellite internet at Guneku Palace for connectivity and digital services. Proposed by Ni Sam.' },
+              { icon:'💻', title:'Digital Empowerment', status:'PROPOSED', statusColor:'#8B1E2D',
+                desc:'Training for adults in content creation, virtual work, and online income generation.' },
+            ].map(item => (
+              <div key={item.title} style={{
+                backgroundColor:'#0C0C14',
+                border:'1px solid rgba(255,255,255,0.05)',
+                borderTop:`3px solid ${item.statusColor}`,
+                padding:'1.75rem',
+              }}>
+                <div style={{ display:'flex', justifyContent:'space-between',
+                              alignItems:'flex-start', marginBottom:'0.75rem' }}>
+                  <span style={{ fontSize:'1.75rem' }}>{item.icon}</span>
+                  <span style={{
+                    backgroundColor:`${item.statusColor}20`,
+                    color: item.statusColor,
+                    fontFamily:'Syne, sans-serif', fontSize:'0.6rem',
+                    letterSpacing:'0.12em', textTransform:'uppercase',
+                    padding:'0.2rem 0.6rem',
+                    border:`1px solid ${item.statusColor}40`,
+                  }}>
+                    {item.status}
+                  </span>
+                </div>
+                <h3 style={{ fontFamily:'Syne, sans-serif', fontWeight:700,
+                             color:'#F5F2E9', fontSize:'1rem', margin:'0 0 0.6rem' }}>
+                  {item.title}
+                </h3>
+                <p style={{ color:'rgba(245,242,233,0.45)', fontFamily:'Inter, sans-serif',
+                            fontSize:'0.85rem', lineHeight:1.7, margin:0 }}>
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ marginTop:'2.5rem', textAlign:'center',
+                        color:'rgba(245,242,233,0.2)', fontFamily:'Inter, sans-serif',
+                        fontSize:'0.82rem' }}>
+            Next GUDECA EU Meeting &middot;
+            <strong style={{ color:'rgba(245,242,233,0.4)' }}>
+              {' '}Saturday 24 July 2027 &middot; United Kingdom
+            </strong>
+          </div>
+        </div>
+      </section>
+
       {/* Branches */}
       <section style={{ backgroundColor:'#0A0A0A',
                         borderTop:'1px solid rgba(139,30,45,0.2)',
