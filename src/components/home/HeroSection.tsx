@@ -16,8 +16,8 @@ export function HeroSection() {
     <section style={{
       position:  'relative',
       width:     '100%',
-      height:    '90vh',
-      minHeight: '600px',
+      minHeight: 'clamp(500px, 85vh, 800px)',
+      maxHeight: '800px',
       overflow:  'hidden',
     }}>
 
@@ -51,15 +51,15 @@ export function HeroSection() {
         flexDirection:  'column',
         alignItems:     'center',
         justifyContent: 'center',
-        padding:        '5rem 1.5rem',
+        padding:        'clamp(4rem, 10vw, 8rem) 1.25rem clamp(3rem, 7vw, 5rem)',
         textAlign:      'center',
       }}>
 
         {/* Logo */}
         <div style={{
           position:     'relative',
-          width:        '185px',
-          height:       '185px',
+          width:        'clamp(100px, 25vw, 185px)',
+          height:       'clamp(100px, 25vw, 185px)',
           marginBottom: '2rem',
           opacity:      logoVisible ? 1 : 0,
           transform:    logoVisible ? 'scale(1)' : 'scale(0.85)',
@@ -91,7 +91,7 @@ export function HeroSection() {
 
         {/* WELCOME — Bebas Neue, reduced 30% */}
         <h1
-          className="text-[6rem] sm:text-[8.3rem] md:text-[10.7rem] lg:text-[12rem]"
+          className="mobile-hero-h1 text-[4.5rem] sm:text-[8.3rem] md:text-[10.7rem] lg:text-[12rem]"
           style={{
             fontFamily:    '"Bebas Neue", sans-serif',
             fontWeight:    400,
@@ -107,7 +107,7 @@ export function HeroSection() {
 
         {/* TO THE KINGDOM OF GUNEKU — Bebas Neue, reduced 30% */}
         <h2
-          className="text-[3rem] sm:text-[4.25rem] md:text-[6rem] lg:text-[7.1rem]"
+          className="mobile-hero-h2 text-[2rem] sm:text-[4.25rem] md:text-[6rem] lg:text-[7.1rem]"
           style={{
             fontFamily:    '"Bebas Neue", sans-serif',
             fontWeight:    400,

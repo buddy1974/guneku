@@ -1,10 +1,9 @@
 'use client'
 
-import Link from 'next/link'
-import Image from 'next/image'
-import { useEffect, useState } from 'react'
-import { usePathname } from 'next/navigation'
-import { Menu, X, ChevronDown } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import Link                    from 'next/link'
+import Image                   from 'next/image'
+import { usePathname }         from 'next/navigation'
 import { useUser, SignInButton, UserButton } from '@clerk/nextjs'
 import type { NavItem } from '@/lib/content'
 
@@ -13,198 +12,281 @@ interface HeaderProps {
 }
 
 export function Header({ nav }: HeaderProps) {
-  const [scrolled, setScrolled]     = useState(false)
-  const [mobileOpen, setMobile]     = useState(false)
-  const [openDropdown, setDropdown] = useState<string | null>(null)
-  const { user, isLoaded }          = useUser()
-  const pathname                    = usePathname()
+  const [scrolled,   setScrolled]   = useState(false)
+  const [menuOpen,   setMenuOpen]   = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [query,      setQuery]      = useState('')
+  const [results,    setResults]    = useState<{ id: string; title: string; section: string; href: string }[]>([])
+  const pathname = usePathname()
+  const { user, isLoaded } = useUser()
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    const fn = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', fn, { passive: true })
+    return () => window.removeEventListener('scroll', fn)
   }, [])
 
+  useEffect(() => { setMenuOpen(false) }, [pathname])
+
   useEffect(() => {
-    const onResize = () => { if (window.innerWidth >= 1024) setMobile(false) }
-    window.addEventListener('resize', onResize)
-    return () => window.removeEventListener('resize', onResize)
-  }, [])
+    if (query.length < 2) { setResults([]); return }
+    const t = setTimeout(async () => {
+      const res  = await fetch(`/api/search?q=${encodeURIComponent(query)}`)
+      const data = await res.json()
+      setResults(data.results || [])
+    }, 300)
+    return () => clearTimeout(t)
+  }, [query])
+
+  const isActive = (href: string) =>
+    href === '/' ? pathname === '/' : pathname.startsWith(href)
 
   return (
-    <header
-      className="sticky top-0 z-50 border-b border-heritage-red/25"
-      style={{
-        backgroundColor: scrolled ? 'rgba(15,15,15,0.95)' : 'rgba(15,15,15,0)',
-        backdropFilter:  scrolled ? 'blur(12px)' : 'none',
-        transition: 'background-color 0.3s, backdrop-filter 0.3s',
-      }}
-    >
-      {/* ── Heritage-red top accent line ── */}
-      <div className="h-0.5 bg-heritage-red w-full" />
+    <>
+      {/* ── HEADER BAR ── */}
+      <header style={{
+        position:             'fixed',
+        top:                  0,
+        left:                 0,
+        right:                0,
+        zIndex:               100,
+        height:               'var(--header-h)',
+        paddingLeft:          'env(safe-area-inset-left, 0px)',
+        paddingRight:         'env(safe-area-inset-right, 0px)',
+        backgroundColor:      scrolled || menuOpen ? 'rgba(10,10,14,0.97)' : 'transparent',
+        backdropFilter:       scrolled || menuOpen ? 'blur(20px)' : 'none',
+        WebkitBackdropFilter: scrolled || menuOpen ? 'blur(20px)' : 'none',
+        borderBottom:         scrolled ? '0.5px solid rgba(255,255,255,0.07)' : '1px solid transparent',
+        transition:           'background-color 0.3s, border-color 0.3s',
+      }}>
+        <div style={{
+          maxWidth: '1400px', margin: '0 auto',
+          height: 'var(--header-h)', padding: '0 1rem',
+          display: 'flex', alignItems: 'center',
+          justifyContent: 'space-between', gap: '1rem',
+        }}>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-
-          {/* ── Logo ── */}
-          <Link href="/" className="flex items-center gap-3 flex-shrink-0">
-            <div className="relative w-10 h-10 md:w-12 md:h-12 flex-shrink-0">
-              <Image
-                src="/logo.png"
-                alt="Guneku Fondom"
-                fill
-                className="object-contain"
-                unoptimized
-              />
+          {/* ── LOGO ── */}
+          <Link href="/" style={{
+            display: 'flex', alignItems: 'center',
+            gap: '10px', textDecoration: 'none', flexShrink: 0,
+          }}>
+            <div style={{ position: 'relative', width: '36px', height: '36px', flexShrink: 0 }}>
+              <Image src="/logo.png" alt="Guneku Fondom" fill
+                     style={{ objectFit: 'contain' }} priority unoptimized />
             </div>
-            <div className="flex flex-col leading-none">
-              <span className="font-heading font-bold text-palace-gold
-                               text-base tracking-[0.1em] uppercase">
+            <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
+              <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800,
+                             fontSize: '14px', color: '#f2a90b',
+                             letterSpacing: '0.08em', textTransform: 'uppercase' }}>
                 Guneku
               </span>
-              <span className="font-heading text-ivory/40 text-[10px]
-                               tracking-[0.15em] uppercase">
+              <span style={{ fontFamily: 'Syne, sans-serif', fontSize: '9px',
+                             color: 'rgba(245,242,233,0.35)',
+                             letterSpacing: '0.15em', textTransform: 'uppercase' }}>
                 Fondom
               </span>
             </div>
           </Link>
 
-          {/* ── Desktop Nav ── */}
-          <nav className="hidden lg:flex items-center gap-6">
-            {nav.mainNav.map((item: NavItem) => {
-              const isActive = pathname === item.href ||
-                (item.href !== '/' && pathname.startsWith(item.href))
-              return item.children?.length ? (
-                <div key={item.href} className="relative"
-                     onMouseEnter={() => setDropdown(item.href)}
-                     onMouseLeave={() => setDropdown(null)}>
-                  <button
-                    className="flex items-center gap-1 text-[11px] font-heading font-bold tracking-widest uppercase transition-colors duration-200"
-                    style={{ color: isActive ? '#f2a90b' : 'rgba(245,242,233,0.7)' }}
-                  >
-                    {item.label}
-                    <ChevronDown size={12} className={`transition-transform duration-200 ${openDropdown === item.href ? 'rotate-180' : ''}`} />
-                  </button>
-                  {openDropdown === item.href && (
-                    <div className="absolute top-full left-0 pt-2 min-w-[220px]">
-                      <div className="bg-[#111111] border border-heritage-red/20 py-1">
-                        {item.children.map((child: NavItem) => (
-                          <Link key={child.href} href={child.href}
-                                onClick={() => setDropdown(null)}
-                                className="block px-4 py-2.5 text-ivory/70 hover:text-palace-gold hover:bg-heritage-red/5 text-[11px] font-heading tracking-wide transition-colors duration-150">
-                            {child.label}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <Link key={item.href} href={item.href}
-                      className="text-[11px] font-heading font-bold tracking-widest uppercase transition-colors duration-200"
-                      style={{
-                        color: isActive ? '#f2a90b' : 'rgba(245,242,233,0.7)',
-                        borderBottom: isActive ? '2px solid #f2a90b' : '2px solid transparent',
-                        paddingBottom: '2px',
-                      }}>
-                  {item.label}
-                </Link>
-              )
-            })}
+          {/* ── DESKTOP NAV ── */}
+          <nav className="hidden md:flex" style={{ alignItems: 'center', gap: '0.25rem' }}>
+            {nav.mainNav.map((item: NavItem) => (
+              <Link key={item.href} href={item.href} style={{
+                fontFamily: 'Syne, sans-serif', fontWeight: 600,
+                fontSize: '11px', letterSpacing: '0.12em', textTransform: 'uppercase',
+                color: isActive(item.href) ? '#f2a90b' : 'rgba(245,242,233,0.6)',
+                textDecoration: 'none', padding: '0.5rem 0.75rem',
+                borderBottom: `2px solid ${isActive(item.href) ? '#f2a90b' : 'transparent'}`,
+                transition: 'color 0.2s, border-color 0.2s', whiteSpace: 'nowrap',
+              }}>
+                {item.label}
+              </Link>
+            ))}
           </nav>
 
-          {/* ── Right CTA + Auth + Hamburger ── */}
-          <div className="flex items-center gap-3">
-            <Link
-              href="/palace/fon-walters-profile"
-              className="hidden lg:inline-flex items-center
-                         border border-heritage-red text-heritage-red
-                         text-[10px] font-heading font-bold tracking-widest uppercase
-                         px-4 py-2 hover:bg-heritage-red hover:text-ivory
-                         transition-colors duration-200"
-            >
-              The Fon
-            </Link>
+          {/* ── RIGHT: search + auth + hamburger ── */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
 
+            {/* Search button */}
+            <button onClick={() => setSearchOpen(s => !s)} aria-label="Search"
+                    style={{ width: '40px', height: '40px', display: 'flex',
+                             alignItems: 'center', justifyContent: 'center',
+                             background: 'none', border: '1px solid rgba(255,255,255,0.1)',
+                             cursor: 'pointer', borderRadius: '6px', flexShrink: 0 }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                   stroke="rgba(245,242,233,0.6)" strokeWidth="2">
+                <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+              </svg>
+            </button>
+
+            {/* Auth — desktop */}
+            <div className="hidden md:flex" style={{ alignItems: 'center' }}>
+              {isLoaded && (
+                user ? (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <Link href="/indigenes/profile" style={{
+                      color: 'rgba(245,242,233,0.5)', fontFamily: 'Syne, sans-serif',
+                      fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase',
+                      textDecoration: 'none',
+                    }}>
+                      My Profile
+                    </Link>
+                    <UserButton />
+                  </div>
+                ) : (
+                  <SignInButton mode="modal">
+                    <button style={{
+                      border: '1px solid rgba(242,169,11,0.35)', color: '#f2a90b',
+                      fontFamily: 'Syne, sans-serif', fontWeight: 700,
+                      padding: '0.45rem 1.1rem', fontSize: '11px',
+                      letterSpacing: '0.12em', textTransform: 'uppercase',
+                      background: 'none', cursor: 'pointer', whiteSpace: 'nowrap',
+                    }}>
+                      Sign In
+                    </button>
+                  </SignInButton>
+                )
+              )}
+            </div>
+
+            {/* Hamburger — mobile */}
+            <button onClick={() => setMenuOpen(m => !m)} className="md:hidden"
+                    aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+                    style={{ width: '44px', height: '44px', display: 'flex',
+                             alignItems: 'center', justifyContent: 'center',
+                             background: 'none', border: 'none',
+                             cursor: 'pointer', padding: 0, flexShrink: 0 }}>
+              <div style={{ width: '20px', position: 'relative', height: '14px' }}>
+                {[0, 6, 12].map((top, i) => (
+                  <span key={i} style={{
+                    position: 'absolute', left: 0, top: `${top}px`,
+                    width: i === 1 && menuOpen ? '0%' : '100%',
+                    height: '1.5px', backgroundColor: '#F5F2E9',
+                    borderRadius: '1px', transition: 'all 0.25s ease',
+                    transform: menuOpen
+                      ? i === 0 ? 'rotate(45deg) translateY(7px)'
+                      : i === 2 ? 'rotate(-45deg) translateY(-7px)' : 'scaleX(0)'
+                      : 'none',
+                    opacity: i === 1 && menuOpen ? 0 : 1,
+                  }} />
+                ))}
+              </div>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* ── SPACER ── */}
+      <div style={{ height: 'var(--header-h)' }} />
+
+      {/* ── SEARCH OVERLAY ── */}
+      {searchOpen && (
+        <div style={{
+          position: 'fixed', top: 'var(--header-h)', left: 0, right: 0,
+          zIndex: 99, backgroundColor: 'rgba(8,8,12,0.98)',
+          backdropFilter: 'blur(20px)',
+          borderBottom: '1px solid rgba(255,255,255,0.07)', padding: '1rem',
+        }}>
+          <input autoFocus value={query} onChange={e => setQuery(e.target.value)}
+                 onKeyDown={e => e.key === 'Escape' && setSearchOpen(false)}
+                 placeholder="Search Guneku..."
+                 style={{
+                   width: '100%', backgroundColor: '#0C0C14',
+                   border: '1px solid rgba(242,169,11,0.3)',
+                   color: '#F5F2E9', fontFamily: 'Inter, sans-serif',
+                   fontSize: '16px', padding: '0.875rem 1rem',
+                   outline: 'none', boxSizing: 'border-box',
+                 }} />
+          {results.length > 0 && (
+            <div style={{ marginTop: '8px', backgroundColor: '#0C0C14',
+                          border: '1px solid rgba(255,255,255,0.08)',
+                          maxHeight: '60vh', overflowY: 'auto' }}>
+              {results.map(r => (
+                <Link key={r.id} href={r.href}
+                      onClick={() => { setSearchOpen(false); setQuery('') }}
+                      style={{ display: 'flex', justifyContent: 'space-between',
+                               alignItems: 'center', padding: '0.875rem 1rem',
+                               borderBottom: '1px solid rgba(255,255,255,0.05)',
+                               textDecoration: 'none', minHeight: '44px' }}>
+                  <div>
+                    <div style={{ color: '#F5F2E9', fontFamily: 'Syne, sans-serif',
+                                  fontWeight: 600, fontSize: '13px' }}>
+                      {r.title}
+                    </div>
+                    <div style={{ color: 'rgba(245,242,233,0.35)',
+                                  fontFamily: 'Inter, sans-serif',
+                                  fontSize: '11px', marginTop: '2px' }}>
+                      {r.section}
+                    </div>
+                  </div>
+                  <span style={{ color: '#f2a90b', fontSize: '12px' }}>→</span>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ── MOBILE FULLSCREEN MENU ── */}
+      <div className="md:hidden" style={{
+        position: 'fixed',
+        top: menuOpen ? 'var(--header-h)' : '-100vh',
+        left: 0, right: 0, bottom: 0, zIndex: 98,
+        backgroundColor: '#0A0A0E', overflowY: 'auto',
+        paddingBottom: 'calc(var(--bottom-nav-total) + 2rem)',
+        transition: 'top 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
+      }}>
+        <div style={{ padding: '1.5rem 1rem' }}>
+          {nav.mainNav.map((item: NavItem) => (
+            <Link key={item.href} href={item.href} style={{
+              display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+              padding: '1rem 0', borderBottom: '0.5px solid rgba(255,255,255,0.06)',
+              textDecoration: 'none', minHeight: '56px',
+            }}>
+              <span style={{
+                fontFamily: '"Bebas Neue", sans-serif',
+                fontSize: '1.5rem', letterSpacing: '0.05em',
+                color: isActive(item.href) ? '#f2a90b' : '#F5F2E9',
+                transition: 'color 0.2s',
+              }}>
+                {item.label}
+              </span>
+              <span style={{ color: 'rgba(245,242,233,0.2)', fontSize: '1rem' }}>→</span>
+            </Link>
+          ))}
+
+          <div style={{ marginTop: '2rem', paddingTop: '2rem',
+                        borderTop: '1px solid rgba(255,255,255,0.08)' }}>
             {isLoaded && (
               user ? (
-                <div className="hidden lg:flex items-center gap-3">
-                  <Link
-                    href="/indigenes/profile"
-                    className="text-ivory/50 hover:text-palace-gold text-[10px]
-                               font-heading font-bold tracking-widest uppercase
-                               transition-colors duration-200"
-                  >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <Link href="/indigenes/profile" style={{
+                    color: '#f2a90b', fontFamily: 'Syne, sans-serif',
+                    fontWeight: 700, fontSize: '14px', letterSpacing: '0.1em',
+                    textTransform: 'uppercase', textDecoration: 'none',
+                    padding: '12px 0', minHeight: '44px', display: 'flex', alignItems: 'center',
+                  }}>
                     My Profile
                   </Link>
                   <UserButton />
                 </div>
               ) : (
                 <SignInButton mode="modal">
-                  <button
-                    className="hidden lg:inline-flex items-center
-                               border border-palace-gold/30 text-palace-gold
-                               text-[10px] font-heading font-bold tracking-widest uppercase
-                               px-4 py-2 hover:bg-palace-gold/10
-                               transition-colors duration-200 bg-transparent cursor-pointer"
-                  >
-                    Sign In
+                  <button style={{
+                    width: '100%', backgroundColor: '#f2a90b', color: '#0F0F0F',
+                    fontFamily: 'Syne, sans-serif', fontWeight: 700, padding: '1rem',
+                    fontSize: '13px', letterSpacing: '0.15em', textTransform: 'uppercase',
+                    border: 'none', cursor: 'pointer', minHeight: '52px',
+                  }}>
+                    Sign In / Join Directory
                   </button>
                 </SignInButton>
               )
             )}
-
-            <button
-              aria-label="Toggle menu"
-              onClick={() => setMobile(o => !o)}
-              className="lg:hidden text-ivory/70 hover:text-heritage-red transition-colors"
-            >
-              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-            </button>
           </div>
         </div>
       </div>
-
-      {/* ── Mobile Overlay ── */}
-      {mobileOpen && (
-        <div className="lg:hidden fixed inset-0 top-[calc(4rem+3px)] z-40 overflow-y-auto pattern-atoghu">
-          <nav className="max-w-7xl mx-auto px-6 py-8 space-y-1">
-            {nav.mainNav.map((item: NavItem) => (
-              <div key={item.href}>
-                <Link
-                  href={item.href}
-                  onClick={() => setMobile(false)}
-                  className="block py-3 text-ivory/80 hover:text-palace-gold
-                             text-xl font-heading font-bold tracking-wide
-                             border-b border-heritage-red/15 transition-colors"
-                >
-                  {item.label}
-                </Link>
-                {item.children?.map((child: NavItem) => (
-                  <Link
-                    key={child.href}
-                    href={child.href}
-                    onClick={() => setMobile(false)}
-                    className="block py-2 pl-4 text-ivory/50 hover:text-palace-gold
-                               text-base font-body transition-colors"
-                  >
-                    {child.label}
-                  </Link>
-                ))}
-              </div>
-            ))}
-            <div className="pt-6">
-              <Link
-                href="/palace/fon-walters-profile"
-                onClick={() => setMobile(false)}
-                className="btn-red inline-block"
-              >
-                Meet the Fon
-              </Link>
-            </div>
-          </nav>
-        </div>
-      )}
-    </header>
+    </>
   )
 }

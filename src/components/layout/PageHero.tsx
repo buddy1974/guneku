@@ -10,7 +10,7 @@ export function PageHero({ label, title, subtitle, accent, bg }: Props) {
   return (
     <div style={{
       background: bg || 'linear-gradient(to bottom, rgba(139,30,45,0.4) 0%, #0F0F0F 100%)',
-      padding: '8rem 1.5rem 4rem',
+      padding: 'clamp(5rem, 12vw, 8rem) 1.25rem clamp(2.5rem, 6vw, 4rem)',
       textAlign: 'center',
       borderBottom: '1px solid rgba(139,30,45,0.25)',
     }}>
@@ -25,7 +25,7 @@ export function PageHero({ label, title, subtitle, accent, bg }: Props) {
         </div>
         <h1 style={{
           fontFamily: '"Bebas Neue", sans-serif',
-          fontSize: 'clamp(2.5rem, 6vw, 5rem)',
+          fontSize: 'clamp(1.8rem, 7vw, 5rem)',
           color: '#F5F2E9',
           letterSpacing: '0.05em',
           lineHeight: 1,
@@ -42,7 +42,7 @@ export function PageHero({ label, title, subtitle, accent, bg }: Props) {
         {subtitle && (
           <p style={{
             fontFamily: 'Inter, sans-serif',
-            fontSize: '1.1rem',
+            fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)',
             color: 'rgba(245,242,233,0.6)',
             maxWidth: '600px',
             margin: '0 auto',

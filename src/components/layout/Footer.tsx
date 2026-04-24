@@ -51,10 +51,13 @@ export function Footer() {
         </p>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16"
+           style={{ paddingBottom: 'calc(var(--bottom-nav-total) + 2rem)' }}
+           >
+        <style>{`@media (min-width: 768px) { .footer-inner { padding-bottom: 3rem !important; } }`}</style>
 
         {/* ── 4-column grid ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
 
           {/* Column 1 — Brand */}
           <div>

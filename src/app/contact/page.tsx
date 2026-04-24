@@ -51,9 +51,9 @@ export default function ContactPage() {
         subtitle="Reach the Guneku Fondom palace, GUDECA, or the website team."
       />
       <section style={{ maxWidth:'1100px', margin:'0 auto',
-                        padding:'5rem 1.5rem',
+                        padding:'clamp(3rem, 8vw, 5rem) 1.25rem',
                         display:'grid', gridTemplateColumns:'1fr 1.5fr',
-                        gap:'4rem', alignItems:'start' }}
+                        gap:'2rem', alignItems:'start' }}
                className="grid-cols-1 md:grid-cols-[1fr_1.5fr]">
 
         {/* Contact info */}
@@ -109,7 +109,7 @@ export default function ContactPage() {
           </div>
         ) : (
           <div style={{ display:'flex', flexDirection:'column', gap:'1rem' }}>
-            <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem' }}
+            <div style={{ display:'grid', gridTemplateColumns:'1fr', gap:'1rem' }}
                  className="grid-cols-1 sm:grid-cols-2">
               <div>
                 <label style={{ color:'rgba(245,242,233,0.4)',
@@ -170,7 +170,7 @@ export default function ContactPage() {
               padding:'1rem 2.5rem', fontSize:'0.82rem',
               letterSpacing:'0.12em', textTransform:'uppercase',
               border:'none', cursor: sending ? 'not-allowed' : 'pointer',
-              alignSelf:'flex-start',
+              width:'100%', minHeight:'52px',
             }}>
               {sending ? 'SENDING...' : 'SEND MESSAGE'}
             </button>

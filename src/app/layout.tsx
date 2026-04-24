@@ -4,7 +4,9 @@ import { Analytics }      from '@vercel/analytics/react'
 import { SpeedInsights }  from '@vercel/speed-insights/next'
 import { Header }         from '@/components/layout/Header'
 import { Footer }         from '@/components/layout/Footer'
+import { MobileNav }      from '@/components/layout/MobileNav'
 import { PageTransition } from '@/components/ui/PageTransition'
+import { ToastContainer } from '@/components/ui/Toast'
 import { getNavigation }  from '@/lib/content'
 import './globals.css'
 
@@ -62,6 +64,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </PageTransition>
           </main>
           <Footer />
+          <MobileNav />
+          <ToastContainer />
           <Analytics />
           <SpeedInsights />
         </body>
