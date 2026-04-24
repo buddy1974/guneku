@@ -187,3 +187,64 @@
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+/* ─── Custom Scrollbar ───────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #0A0A0A; }
+::-webkit-scrollbar-thumb { background: #8B1E2D; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #f2a90b; }
+
+/* ─── Text Selection ─────────────────────────────────────────────────────── */
+::selection { background: rgba(242, 169, 11, 0.25); color: #F5F2E9; }
+
+/* ─── Article Body Typography ────────────────────────────────────────────── */
+.article-body {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: rgba(245, 242, 233, 0.72);
+  max-width: 780px;
+  margin: 0 auto;
+}
+.article-body h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  color: #F5F2E9;
+  letter-spacing: 0.05em;
+  margin: 3rem 0 1rem;
+}
+.article-body h3 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #F5F2E9;
+  margin: 2rem 0 0.75rem;
+}
+.article-body p { margin: 0 0 1.5rem; }
+.article-body strong { color: #F5F2E9; font-weight: 600; }
+.article-body blockquote {
+  border-left: 3px solid #f2a90b;
+  padding: 1rem 1.5rem;
+  margin: 2rem 0;
+  background: rgba(242, 169, 11, 0.04);
+  font-style: italic;
+  color: rgba(245, 242, 233, 0.6);
+}
+.article-body a { color: #f2a90b; text-decoration: underline; text-underline-offset: 3px; }
+.article-body ul, .article-body ol { padding-left: 1.5rem; margin: 0 0 1.5rem; }
+.article-body li { margin-bottom: 0.5rem; }
+.article-body img {
+  max-width: 100%; height: auto; display: block;
+  margin: 2rem auto; border: 1px solid rgba(255,255,255,0.08);
+}
+.article-body figure { margin: 2rem 0; }
+.article-body figcaption {
+  color: rgba(245,242,233,0.3); font-size: 0.8rem;
+  text-align: center; margin-top: 0.5rem;
+  font-family: 'Syne', sans-serif; letter-spacing: 0.08em; text-transform: uppercase;
+}

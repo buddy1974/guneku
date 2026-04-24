@@ -3,8 +3,8 @@ import { PageHero } from '@/components/layout/PageHero'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Village Square',
-  description: 'Latest news and updates from Guneku Fondom.',
+  title: 'Village Square — News from Guneku Fondom',
+  description: 'Latest news, events, and announcements from Guneku Fondom, Northwest Cameroon.',
 }
 
 export default function UpdatesPage() {

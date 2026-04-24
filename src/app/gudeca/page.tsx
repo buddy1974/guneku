@@ -3,8 +3,8 @@ import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'GUDECA',
-  description: 'Guneku Cultural & Development Association — uniting Guneku indigenes worldwide.',
+  title: 'GUDECA — Guneku Cultural & Development Association',
+  description: 'Mission, vision, and projects of GUDECA — uniting Guneku indigenes across three continents.',
 }
 
 export default function GudecaPage() {

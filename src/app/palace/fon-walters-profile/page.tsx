@@ -4,7 +4,8 @@ import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'HRH Dr. Fomuki Walters Ticha IX',
+  title: 'HRH Dr. Fomuki Walters Ticha IX — Fon of Guneku',
+  description: 'Official profile of HRH Dr. Fomuki Walters Ticha IX, Fon of Guneku Fondom and urologist based in Germany.',
 }
 
 export default function FonProfilePage() {

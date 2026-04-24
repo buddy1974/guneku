@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { Menu, X, ChevronDown } from 'lucide-react'
 import { useUser, SignInButton, UserButton } from '@clerk/nextjs'
 import type { NavItem } from '@/lib/content'
@@ -16,6 +17,7 @@ export function Header({ nav }: HeaderProps) {
   const [mobileOpen, setMobile]     = useState(false)
   const [openDropdown, setDropdown] = useState<string | null>(null)
   const { user, isLoaded }          = useUser()
+  const pathname                    = usePathname()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50)
@@ -31,9 +33,12 @@ export function Header({ nav }: HeaderProps) {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b border-heritage-red/25 transition-all duration-300 ${
-        scrolled ? 'backdrop-blur-md bg-royal-night/95' : 'bg-royal-night'
-      }`}
+      className="sticky top-0 z-50 border-b border-heritage-red/25"
+      style={{
+        backgroundColor: scrolled ? 'rgba(15,15,15,0.95)' : 'rgba(15,15,15,0)',
+        backdropFilter:  scrolled ? 'blur(12px)' : 'none',
+        transition: 'background-color 0.3s, backdrop-filter 0.3s',
+      }}
     >
       {/* ── Heritage-red top accent line ── */}
       <div className="h-0.5 bg-heritage-red w-full" />
@@ -66,37 +71,27 @@ export function Header({ nav }: HeaderProps) {
 
           {/* ── Desktop Nav ── */}
           <nav className="hidden lg:flex items-center gap-6">
-            {nav.mainNav.map((item: NavItem) =>
-              item.children?.length ? (
-                <div
-                  key={item.href}
-                  className="relative"
-                  onMouseEnter={() => setDropdown(item.href)}
-                  onMouseLeave={() => setDropdown(null)}
-                >
+            {nav.mainNav.map((item: NavItem) => {
+              const isActive = pathname === item.href ||
+                (item.href !== '/' && pathname.startsWith(item.href))
+              return item.children?.length ? (
+                <div key={item.href} className="relative"
+                     onMouseEnter={() => setDropdown(item.href)}
+                     onMouseLeave={() => setDropdown(null)}>
                   <button
-                    className="flex items-center gap-1 text-ivory/70 hover:text-palace-gold
-                               text-[11px] font-heading font-bold tracking-widest uppercase
-                               transition-colors duration-200"
+                    className="flex items-center gap-1 text-[11px] font-heading font-bold tracking-widest uppercase transition-colors duration-200"
+                    style={{ color: isActive ? '#f2a90b' : 'rgba(245,242,233,0.7)' }}
                   >
                     {item.label}
-                    <ChevronDown size={12} className={`transition-transform duration-200 ${
-                      openDropdown === item.href ? 'rotate-180' : ''
-                    }`} />
+                    <ChevronDown size={12} className={`transition-transform duration-200 ${openDropdown === item.href ? 'rotate-180' : ''}`} />
                   </button>
-
                   {openDropdown === item.href && (
                     <div className="absolute top-full left-0 pt-2 min-w-[220px]">
                       <div className="bg-[#111111] border border-heritage-red/20 py-1">
                         {item.children.map((child: NavItem) => (
-                          <Link
-                            key={child.href}
-                            href={child.href}
-                            onClick={() => setDropdown(null)}
-                            className="block px-4 py-2.5 text-ivory/70 hover:text-palace-gold
-                                       hover:bg-heritage-red/5 text-[11px] font-heading
-                                       tracking-wide transition-colors duration-150"
-                          >
+                          <Link key={child.href} href={child.href}
+                                onClick={() => setDropdown(null)}
+                                className="block px-4 py-2.5 text-ivory/70 hover:text-palace-gold hover:bg-heritage-red/5 text-[11px] font-heading tracking-wide transition-colors duration-150">
                             {child.label}
                           </Link>
                         ))}
@@ -105,20 +100,17 @@ export function Header({ nav }: HeaderProps) {
                   )}
                 </div>
               ) : (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="relative text-ivory/70 hover:text-palace-gold text-[11px]
-                             font-heading font-bold tracking-widest uppercase
-                             transition-colors duration-200
-                             after:absolute after:bottom-[-4px] after:left-0 after:right-0
-                             after:h-[2px] after:bg-heritage-red after:scale-x-0
-                             hover:after:scale-x-100 after:transition-transform after:duration-200"
-                >
+                <Link key={item.href} href={item.href}
+                      className="text-[11px] font-heading font-bold tracking-widest uppercase transition-colors duration-200"
+                      style={{
+                        color: isActive ? '#f2a90b' : 'rgba(245,242,233,0.7)',
+                        borderBottom: isActive ? '2px solid #f2a90b' : '2px solid transparent',
+                        paddingBottom: '2px',
+                      }}>
                   {item.label}
                 </Link>
               )
-            )}
+            })}
           </nav>
 
           {/* ── Right CTA + Auth + Hamburger ── */}

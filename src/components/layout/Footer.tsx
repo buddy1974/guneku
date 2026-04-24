@@ -34,6 +34,23 @@ export function Footer() {
       {/* Heritage-red top accent */}
       <div className="h-0.5 bg-heritage-red" />
 
+      {/* ── Marquee statement bar ── */}
+      <div style={{
+        borderBottom: '1px solid rgba(242,169,11,0.1)',
+        padding: '3rem 1.5rem', textAlign: 'center',
+        background: 'linear-gradient(to right, transparent, rgba(139,30,45,0.1), transparent)',
+      }}>
+        <p style={{
+          fontFamily: '"Bebas Neue", sans-serif',
+          fontSize: 'clamp(1.5rem, 4vw, 3rem)',
+          color: 'rgba(245,242,233,0.15)', letterSpacing: '0.05em',
+          margin: 0, textTransform: 'uppercase',
+        }}>
+          FONDOM · HERITAGE · UNITY · VISION · DEVELOPMENT · CULTURE ·
+          DIASPORA · PRIDE · PROGRESS · GUNEKU
+        </p>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 
         {/* ── 4-column grid ── */}
@@ -143,17 +160,30 @@ export function Footer() {
           <p className="text-ivory/30 text-xs font-body">
             {config.copyright.text}
           </p>
-          <p className="text-ivory/30 text-xs font-body">
-            Built by{' '}
-            <a
-              href={config.copyright.builtByUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-ivory/40 hover:text-heritage-red transition-colors"
-            >
-              {config.copyright.builtBy}
-            </a>
-          </p>
+          <div>
+            <div style={{ marginBottom: '0.25rem' }}>
+              <span style={{ color: 'rgba(245,242,233,0.15)', fontFamily: 'Inter, sans-serif', fontSize: '0.75rem' }}>
+                Designed &amp; built by{' '}
+              </span>
+              <a href="https://maxpromo.digital" target="_blank" rel="noopener noreferrer"
+                 style={{ color: '#f2a90b', fontFamily: 'Syne, sans-serif', fontWeight: 700,
+                           fontSize: '0.75rem', letterSpacing: '0.05em', textDecoration: 'none' }}>
+                MaxPromo Digital
+              </a>
+              <span style={{ color: 'rgba(245,242,233,0.1)', fontFamily: 'Inter, sans-serif', fontSize: '0.75rem' }}>
+                {' '}· Essen, Germany
+              </span>
+            </div>
+            <div style={{ color: 'rgba(245,242,233,0.08)', fontFamily: 'Inter, sans-serif',
+                          fontSize: '0.68rem', lineHeight: 1.6 }}>
+              The first AI-powered community platform for a Northwest Cameroon Fondom.
+              Want this for your community?{' '}
+              <a href="https://maxpromo.digital" target="_blank" rel="noopener noreferrer"
+                 style={{ color: 'rgba(242,169,11,0.4)', textDecoration: 'none' }}>
+                Contact us →
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

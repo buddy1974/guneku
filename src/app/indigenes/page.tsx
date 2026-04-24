@@ -100,7 +100,22 @@ export default function IndigenesPage() {
       {/* Profile grid */}
       <section style={{ maxWidth:'1400px', margin:'0 auto', padding:'4rem 1.5rem' }}>
         {loading ? (
-          <div style={{ textAlign:'center', padding:'5rem', color:'rgba(245,242,233,0.25)', fontFamily:'Syne, sans-serif', fontSize:'0.8rem', letterSpacing:'0.2em', textTransform:'uppercase' }}>Loading indigenes...</div>
+          <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(280px, 1fr))', gap:'1.5rem' }}>
+            {[...Array(12)].map((_, i) => (
+              <div key={i} style={{
+                backgroundColor:'#0C0C14', border:'1px solid rgba(255,255,255,0.04)',
+                overflow:'hidden', animation:'pulse 1.5s ease-in-out infinite',
+                animationDelay:`${i * 0.05}s`,
+              }}>
+                <div style={{ height:'100px', backgroundColor:'rgba(255,255,255,0.03)' }} />
+                <div style={{ padding:'2.5rem 1.25rem 1.25rem' }}>
+                  <div style={{ height:'12px', width:'70%', backgroundColor:'rgba(255,255,255,0.05)', marginBottom:'8px' }} />
+                  <div style={{ height:'10px', width:'50%', backgroundColor:'rgba(255,255,255,0.03)', marginBottom:'6px' }} />
+                  <div style={{ height:'10px', width:'40%', backgroundColor:'rgba(255,255,255,0.03)' }} />
+                </div>
+              </div>
+            ))}
+          </div>
         ) : profiles.length === 0 ? (
           <div style={{ textAlign:'center', padding:'5rem' }}>
             <div style={{ fontSize:'3rem', marginBottom:'1rem' }}>🌍</div>

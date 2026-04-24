@@ -1,0 +1,16 @@
+{
+  "name": "Guneku Fondom",
+  "short_name": "Guneku",
+  "description": "Official digital home of Guneku Fondom — Northwest Cameroon",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0F0F0F",
+  "theme_color": "#f2a90b",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "/logo.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable any" },
+    { "src": "/logo.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ],
+  "categories": ["community", "culture", "education"],
+  "lang": "en-GB"
+}

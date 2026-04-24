@@ -1,7 +1,10 @@
 import { PageHero } from '@/components/layout/PageHero'
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
 
-export const metadata = { title: 'Agro CIG — Guneku Agricultural Initiative' }
+export const metadata = {
+  title: 'Agro CIG — Guneku Agricultural Initiative 2026',
+  description: 'Join the Guneku Agro CIG — 12.5M FCFA raised, 500 chicks, turkeys from Nigeria. Phase 2 open now.',
+}
 
 const LIVESTOCK = [
   { icon: '🐔', name: 'Poultry',   status: 'ACTIVE',
