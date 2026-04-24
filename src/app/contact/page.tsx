@@ -4,16 +4,35 @@ import { useState } from 'react'
 import { PageHero } from '@/components/layout/PageHero'
 
 export default function ContactPage() {
-  const [sent, setSent] = useState(false)
+  const [sent, setSent]       = useState(false)
+  const [sending, setSending] = useState(false)
   const [form, setForm] = useState({ name:'', email:'', subject:'', message:'' })
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement>) {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  function handleSubmit(e: React.MouseEvent) {
+  async function handleSubmit(e: React.MouseEvent) {
     e.preventDefault()
-    setSent(true)
+    if (!form.name || !form.email || !form.subject || !form.message) {
+      alert('Please fill in all fields.')
+      return
+    }
+    setSending(true)
+    try {
+      const res  = await fetch('/api/contact', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(form),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Failed to send')
+      setSent(true)
+    } catch (err: unknown) {
+      alert((err as Error).message || 'Failed to send. Please try again.')
+    } finally {
+      setSending(false)
+    }
   }
 
   const inputStyle: React.CSSProperties = {
@@ -144,14 +163,16 @@ export default function ContactPage() {
                         rows={6} style={{ ...inputStyle, resize:'vertical' }}
                         placeholder="Your message..." />
             </div>
-            <button onClick={handleSubmit} style={{
-              backgroundColor:'#f2a90b', color:'#0F0F0F',
+            <button onClick={handleSubmit} disabled={sending} style={{
+              backgroundColor: sending ? 'rgba(242,169,11,0.5)' : '#f2a90b',
+              color:'#0F0F0F',
               fontFamily:'Syne, sans-serif', fontWeight:700,
               padding:'1rem 2.5rem', fontSize:'0.82rem',
               letterSpacing:'0.12em', textTransform:'uppercase',
-              border:'none', cursor:'pointer', alignSelf:'flex-start',
+              border:'none', cursor: sending ? 'not-allowed' : 'pointer',
+              alignSelf:'flex-start',
             }}>
-              Send Message
+              {sending ? 'SENDING...' : 'SEND MESSAGE'}
             </button>
           </div>
         )}
