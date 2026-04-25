@@ -1,183 +1,58 @@
 import { PageHero } from '@/components/layout/PageHero'
-import Link from 'next/link'
+import { Reveal }   from '@/components/ui/Reveal'
+import Link         from 'next/link'
 
 export const metadata = { title: 'Projects — Guneku Development' }
 
-const PROJECTS: {
-  id: string; status: string; statusColor: string;
-  title: string; desc: string; year: number; href: string | null;
-}[] = [
-  {
-    id: 'agro-cig',
-    status: 'LIVE',
-    statusColor: '#f2a90b',
-    title: 'Guneku Agro CIG',
-    desc: 'Community-owned agricultural enterprise. 12.5M FCFA raised. Poultry, catfish, ostrich.',
-    year: 2026,
-    href: '/agro-cig',
-  },
-  {
-    id: 'guneccul',
-    status: 'ACTIVE',
-    statusColor: '#8B1E2D',
-    title: 'GUNECCUL Credit Union',
-    desc: 'Cooperative credit union with 4 branches across Cameroon.',
-    year: 2022,
-    href: '/guneccul',
-  },
-  {
-    id: 'library',
-    status: 'ACTIVE',
-    statusColor: '#8B1E2D',
-    title: 'Guneku Royal Community Library',
-    desc: 'Solar-powered library. Computers, training programs, holiday classes.',
-    year: 2021,
-    href: null,
-  },
-  {
-    id: 'hospital',
-    status: 'ACTIVE',
-    statusColor: '#8B1E2D',
-    title: 'Open Door Hospital Eye Unit',
-    desc: 'Fully operational eye unit serving Guneku and surrounding communities.',
-    year: 2021,
-    href: null,
-  },
-  {
-    id: 'road',
-    status: 'COMPLETED',
-    statusColor: 'rgba(245,242,233,0.3)',
-    title: 'Tonmukom–Windik Road',
-    desc: 'Infrastructure project improving road access within Guneku village.',
-    year: 2021,
-    href: null,
-  },
-  {
-    id: 'fringyeng',
-    status: 'REBUILD NEEDED',
-    statusColor: '#8B1E2D',
-    title: 'Fringyeng Hydroelectric Plant',
-    desc: 'Community power plant — burned by arson September 2022. Awaiting reconstruction.',
-    year: 2022,
-    href: null,
-  },
-  {
-    id: 'scholarship',
-    status: 'ANNUAL',
-    statusColor: '#f2a90b',
-    title: 'Afor Foundation Scholarship',
-    desc: 'Annual competitive scholarship. 1,000,000 FCFA prize. Prof. Roland Forbang.',
-    year: 2022,
-    href: '/notables/roland-teboh-forbang',
-  },
-  {
-    id: 'medical-reference',
-    status: 'PROPOSED',
-    statusColor: '#8B1E2D',
-    title: 'Medical Reference Centre',
-    desc: 'Proposed at GUDECA EU meeting March 2026. Plans to establish a dedicated reference healthcare centre in Guneku, independent of existing facilities.',
-    year: 2026,
-    href: null,
-  },
-  {
-    id: 'soap-production',
-    status: 'PROPOSED',
-    statusColor: '#8B1E2D',
-    title: 'Soap Production Initiative',
-    desc: 'Community income-generating soap production. Proposed by GUDECA EU March 2026 as economic empowerment for Guneku residents.',
-    year: 2026,
-    href: null,
-  },
-  {
-    id: 'satellite-internet',
-    status: 'PROPOSED',
-    statusColor: '#8B1E2D',
-    title: 'Satellite Internet — Palace',
-    desc: 'Install satellite internet at the Guneku Palace. Proposed by Ni Sam (GUDECA EU) to enable digital services and connectivity for the entire community.',
-    year: 2026,
-    href: null,
-  },
-  {
-    id: 'digital-training',
-    status: 'PROPOSED',
-    statusColor: '#8B1E2D',
-    title: 'Digital Empowerment Training',
-    desc: 'Adult training programs in content creation, virtual work, and online income generation. Proposed by Ni Sam, GUDECA EU Digital Lead.',
-    year: 2026,
-    href: null,
-  },
+const PROJECTS: { id:string; status:string; statusColor:string; title:string; desc:string; year:number; href:string|null }[] = [
+  { id:'agro-cig',         status:'LIVE',          statusColor:'oklch(0.82 0.17 80)', title:'Guneku Agro CIG',             desc:'Community-owned agricultural enterprise. 12.5M FCFA raised. Poultry, turkeys, catfish, ostrich planned.',   year:2026, href:'/agro-cig' },
+  { id:'guneccul',         status:'ACTIVE',         statusColor:'oklch(0.55 0.18 145)',title:'GUNECCUL Credit Union',       desc:'Cooperative credit union with 4 branches across Cameroon.',                                              year:2022, href:'/guneccul' },
+  { id:'library',          status:'ACTIVE',         statusColor:'oklch(0.55 0.18 145)',title:'Guneku Royal Community Library',desc:'Solar-powered library. Computers, training programs, holiday classes.',                               year:2021, href:null },
+  { id:'hospital',         status:'ACTIVE',         statusColor:'oklch(0.55 0.18 145)',title:'Open Door Hospital Eye Unit', desc:'Fully operational eye unit serving Guneku and surrounding communities.',                                 year:2021, href:null },
+  { id:'road',             status:'COMPLETED',      statusColor:'oklch(0.72 0.04 70)', title:'Tonmukom–Windik Road',        desc:'Infrastructure project improving road access within Guneku village.',                                    year:2021, href:null },
+  { id:'fringyeng',        status:'REBUILD NEEDED', statusColor:'oklch(0.42 0.22 25)', title:'Fringyeng Hydroelectric Plant',desc:'Community power plant — burned by arson September 2022. Awaiting reconstruction.',                      year:2022, href:null },
+  { id:'scholarship',      status:'ANNUAL',         statusColor:'oklch(0.82 0.17 80)', title:'Afor Foundation Scholarship', desc:'Annual competitive scholarship. 1,000,000 FCFA prize. Prof. Roland Forbang.',                           year:2022, href:'/notables/roland-teboh-forbang' },
+  { id:'medical-reference',status:'PROPOSED',       statusColor:'oklch(0.42 0.22 25)', title:'Medical Reference Centre',   desc:'Proposed at GUDECA EU March 2026. Plans to establish a dedicated reference healthcare centre in Guneku.',  year:2026, href:null },
+  { id:'soap-production',  status:'PROPOSED',       statusColor:'oklch(0.42 0.22 25)', title:'Soap Production Initiative', desc:'Community income-generating soap production. Proposed by GUDECA EU as economic empowerment.',               year:2026, href:null },
+  { id:'satellite-internet',status:'PROPOSED',      statusColor:'oklch(0.42 0.22 25)', title:'Satellite Internet — Palace',desc:'Install satellite internet at the Guneku Palace. Proposed by Ni Sam (GUDECA EU).',                       year:2026, href:null },
+  { id:'digital-training', status:'PROPOSED',       statusColor:'oklch(0.42 0.22 25)', title:'Digital Empowerment Training',desc:'Adult training in content creation, virtual work, and online income generation. Proposed by Ni Sam.',     year:2026, href:null },
 ]
 
 export default function ProjectsPage() {
   return (
-    <main style={{ backgroundColor: '#0F0F0F', minHeight: '100vh' }}>
-      <PageHero
-        label="DEVELOPMENT"
-        title="GUNEKU PROJECTS"
-        subtitle="Community-driven development — from cooperative farming to digital transformation. 11 active or completed · 4 proposed."
-      />
-      <section style={{ maxWidth:'1200px', margin:'0 auto', padding:'5rem 1.5rem' }}>
-        <div style={{ display:'grid',
-                      gridTemplateColumns:'repeat(auto-fill, minmax(320px, 1fr))',
-                      gap:'1.5rem' }}>
-          {PROJECTS.map(p => {
-            const card = (
-              <div style={{
-                backgroundColor:'#0C0C14',
-                border:'1px solid rgba(255,255,255,0.05)',
-                padding:'2rem', height:'100%',
-                borderTop:`3px solid ${p.statusColor}`,
-                display:'flex', flexDirection:'column',
-              }}>
-                <div style={{ display:'flex', justifyContent:'space-between',
-                              alignItems:'flex-start', marginBottom:'1.25rem' }}>
-                  <span style={{ fontFamily:'Syne, sans-serif', fontWeight:700,
-                                 color:'#F5F2E9', fontSize:'1.05rem',
-                                 lineHeight:1.3, flex:1, paddingRight:'1rem' }}>
-                    {p.title}
-                  </span>
-                  <span style={{ backgroundColor:`${p.statusColor}20`,
-                                 color: p.statusColor,
-                                 fontSize:'0.6rem', fontFamily:'Syne, sans-serif',
-                                 letterSpacing:'0.12em', textTransform:'uppercase',
-                                 padding:'0.25rem 0.6rem', flexShrink:0,
-                                 border:`1px solid ${p.statusColor}40` }}>
-                    {p.status}
-                  </span>
-                </div>
-                <p style={{ color:'rgba(245,242,233,0.45)',
-                            fontFamily:'Inter, sans-serif', fontSize:'0.875rem',
-                            lineHeight:1.7, margin:'0 0 auto' }}>
-                  {p.desc}
-                </p>
-                <div style={{ marginTop:'1.5rem',
-                              color:'rgba(245,242,233,0.2)',
-                              fontFamily:'Syne, sans-serif', fontSize:'0.7rem',
-                              letterSpacing:'0.1em', textTransform:'uppercase' }}>
-                  Est. {p.year}
-                  {p.href && (
-                    <span style={{ marginLeft:'1rem', color:'#f2a90b' }}>
-                      Learn more →
+    <main className="min-h-screen bg-background">
+      <PageHero label="DEVELOPMENT" title="GUNEKU PROJECTS"
+                subtitle="Community-driven development — from cooperative farming to digital transformation. 11 active · 4 proposed." />
+      <Reveal>
+        <section className="max-w-7xl mx-auto px-6 py-20">
+          <div className="grid gap-4 md:grid-cols-3">
+            {PROJECTS.map(p => {
+              const card = (
+                <div className="card-royal p-6 flex flex-col h-full"
+                     style={{ borderTopWidth:'3px', borderTopColor: p.statusColor }}>
+                  <div className="flex justify-between items-start mb-4">
+                    <h3 className="font-cinzel text-foreground text-lg leading-snug flex-1 pr-3">{p.title}</h3>
+                    <span className="text-[10px] tracking-widest font-cinzel px-2 py-0.5 shrink-0 rounded-full"
+                          style={{ color: p.statusColor, background: `${p.statusColor.replace(')','')} / 0.1)` }}>
+                      {p.status}
                     </span>
-                  )}
+                  </div>
+                  <p className="text-muted-foreground text-sm leading-relaxed flex-1">{p.desc}</p>
+                  <div className="mt-4 flex items-center justify-between">
+                    <span className="text-muted-foreground/40 text-xs tracking-widest">Est. {p.year}</span>
+                    {p.href && <span className="text-primary text-xs tracking-widest">Learn more →</span>}
+                  </div>
                 </div>
-              </div>
-            )
-
-            return p.href ? (
-              <Link key={p.id} href={p.href}
-                    style={{ textDecoration:'none', display:'block' }}
-                    className="hover:scale-[1.01] transition-transform">
-                {card}
-              </Link>
-            ) : (
-              <div key={p.id}>
-                {card}
-              </div>
-            )
-          })}
-        </div>
-      </section>
+              )
+              return p.href ? (
+                <Link key={p.id} href={p.href} className="block no-underline hover:scale-[1.01] transition-transform">{card}</Link>
+              ) : (
+                <div key={p.id}>{card}</div>
+              )
+            })}
+          </div>
+        </section>
+      </Reveal>
     </main>
   )
 }

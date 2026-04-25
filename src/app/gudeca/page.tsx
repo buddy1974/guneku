@@ -1,202 +1,139 @@
-import { PageHero } from '@/components/layout/PageHero'
-import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
 import Link from 'next/link'
+import { GraduationCap, Building2, Sprout, HandCoins, Globe2, HeartHandshake, ArrowRight } from 'lucide-react'
+import { Reveal } from '@/components/ui/Reveal'
 
 export const metadata = {
   title: 'GUDECA — Guneku Cultural & Development Association',
   description: 'Mission, vision, and projects of GUDECA — uniting Guneku indigenes across three continents.',
 }
 
+const BRANCHES = [
+  { region:'Cameroon',       chapters:['Yaoundé','Douala','Bamenda'],       flag:'🇨🇲' },
+  { region:'Germany',        chapters:['Essen — Ruhr Valley'],               flag:'🇩🇪' },
+  { region:'United States',  chapters:['DMV','New Jersey'],                  flag:'🇺🇸' },
+  { region:'Belgium',        chapters:['Brussels'],                          flag:'🇧🇪' },
+  { region:'United Kingdom', chapters:['London'],                            flag:'🇬🇧' },
+]
+
 export default function GudecaPage() {
   return (
-    <main style={{ backgroundColor: '#0F0F0F', minHeight: '100vh' }}>
-      <PageHero
-        label="GUDECA"
-        title="GUNEKU CULTURAL & DEVELOPMENT ASSOCIATION"
-        subtitle="Uniting Guneku indigenes across three continents in culture, development, and heritage."
-      />
+    <div className="min-h-screen bg-background">
 
-      {/* Mission */}
-      <section style={{ maxWidth:'1200px', margin:'0 auto', padding:'5rem 1.5rem',
-                        display:'grid', gridTemplateColumns:'1fr 1fr', gap:'4rem',
-                        alignItems:'center' }}
-               className="grid-cols-1 md:grid-cols-2">
-        <div>
-          <span className="section-label" style={{ marginBottom:'1rem', display:'block' }}>
-            OUR MISSION
-          </span>
-          <div style={{ width:'40px', height:'3px',
-                        backgroundColor:'#f2a90b', marginBottom:'1.5rem' }} />
-          <h2 style={{ fontFamily:'"Bebas Neue", sans-serif',
-                       fontSize:'2.5rem', color:'#F5F2E9',
-                       letterSpacing:'0.05em', lineHeight:1.1,
-                       margin:'0 0 1.5rem' }}>
-            BUILDING GUNEKU — ONE PROJECT AT A TIME
-          </h2>
-          <p style={{ color:'rgba(245,242,233,0.6)', fontFamily:'Inter, sans-serif',
-                      fontSize:'1rem', lineHeight:1.8, margin:'0 0 1.5rem' }}>
-            GUDECA — the Guneku Cultural &amp; Development Association — is an
-            elected committee with a 4-year mandate, ensuring at least 60%
-            youth and female representation. It designs, plans, and implements
-            community-based projects while preserving Guneku culture worldwide.
+      {/* ── HERO ── */}
+      <section className="relative pt-40 pb-24">
+        <div className="pattern-royal absolute inset-0 opacity-20" />
+        <div className="absolute inset-0 bg-royal-gradient opacity-60" />
+        <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
+          <div className="section-label animate-fade-up">EST. BY THE DIASPORA · BLESSED BY THE FON</div>
+          <h1 className="mt-6 font-cinzel text-6xl uppercase leading-none text-gold-gradient md:text-8xl animate-fade-up" style={{ animationDelay:'0.15s' }}>GUDECA</h1>
+          <p className="mt-4 font-cormorant text-2xl italic text-foreground/90 animate-fade-up" style={{ animationDelay:'0.3s' }}>Guneku Development &amp; Cultural Association</p>
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground animate-fade-up" style={{ animationDelay:'0.45s' }}>
+            Where the kingdom invests in itself. Where culture and progress are not enemies.
+            Where every Guneku son and daughter, no matter the continent, builds something at home.
           </p>
-          <p style={{ color:'rgba(245,242,233,0.5)', fontFamily:'Inter, sans-serif',
-                      fontSize:'0.95rem', lineHeight:1.8, margin:'0 0 2rem' }}>
-            At year&apos;s end, the committee produces an annual report presented
-            to the community — the supreme decision-making body on all
-            development matters in Guneku.
-          </p>
-          <Link href="/gudeca/gudeca-exco" style={{
-            backgroundColor:'#f2a90b', color:'#0F0F0F',
-            fontFamily:'Syne, sans-serif', fontWeight:700,
-            padding:'0.85rem 2rem', fontSize:'0.78rem',
-            letterSpacing:'0.12em', textTransform:'uppercase',
-            textDecoration:'none', display:'inline-block',
-            marginRight:'1rem',
-          }}>
-            Meet the EXCO
-          </Link>
-          <Link href="/gudeca/guyodeca" style={{
-            border:'1px solid rgba(245,242,233,0.2)',
-            color:'#F5F2E9', fontFamily:'Syne, sans-serif', fontWeight:700,
-            padding:'0.85rem 2rem', fontSize:'0.78rem',
-            letterSpacing:'0.12em', textTransform:'uppercase',
-            textDecoration:'none', display:'inline-block',
-          }}>
-            GUYODECA (Youth)
-          </Link>
+          <div className="mt-8 flex gap-4 justify-center flex-wrap">
+            <Link href="/gudeca/gudeca-exco" className="btn-royal inline-flex">Meet the EXCO</Link>
+            <Link href="/gudeca/guyodeca"    className="btn-royal-outline inline-flex">GUYODECA (Youth)</Link>
+          </div>
         </div>
-        <ImagePlaceholder label="GUDECA Assembly" aspectRatio="4/3" />
       </section>
 
-      {/* ── GUDECA EU Meeting Intelligence ── */}
-      <section style={{ backgroundColor:'#08080F',
-                        borderTop:'1px solid rgba(255,255,255,0.05)',
-                        padding:'5rem 1.5rem' }}>
-        <div style={{ maxWidth:'1200px', margin:'0 auto' }}>
-          <div style={{ textAlign:'center', marginBottom:'3rem' }}>
-            <span className="section-label" style={{ marginBottom:'0.5rem', display:'block' }}>
-              LATEST MEETING
-            </span>
-            <h2 style={{ fontFamily:'"Bebas Neue", sans-serif', fontSize:'2.5rem',
-                         color:'#F5F2E9', letterSpacing:'0.05em', margin:'0 0 0.5rem' }}>
-              GUDECA EU — BONN, 28 MARCH 2026
-            </h2>
-            <p style={{ color:'rgba(245,242,233,0.4)', fontFamily:'Inter, sans-serif',
-                        fontSize:'0.9rem' }}>
-              Fon&apos;s Palace, Bonn, Germany &middot;
-              President: Ndenge Constantine &middot;
-              Secretary General: Muyang Ela
+      {/* ── 6 INITIATIVES ── */}
+      <Reveal>
+        <section className="mx-auto max-w-7xl px-6 pb-24">
+          <div className="grid gap-6 md:grid-cols-3">
+            {[
+              { i:GraduationCap, t:'Afor Scholarship',      d:'1,000,000 FCFA awarded annually to the kingdom\'s top scholar.', tag:'EDUCATION', href:'/notables/roland-teboh-forbang' },
+              { i:Building2,     t:'GUNECCUL',              d:'Community credit union with 4 branches across the kingdom.',      tag:'FINANCE',   href:'/guneccul' },
+              { i:Sprout,        t:'Agro CIG',              d:'Launched April 2026 with 12.5M FCFA — agriculture for tomorrow.',  tag:'ENTERPRISE',href:'/agro-cig' },
+              { i:HandCoins,     t:'Diaspora Levy',         d:'Sons and daughters across 3 continents fund the kingdom monthly.', tag:'UNITY',     href:null },
+              { i:HeartHandshake,t:'Health Outposts',       d:'Medical missions led by the Fon himself in remote quarters.',      tag:'HEALTH',    href:null },
+              { i:Globe2,        t:'Cultural Festivals',    d:'Mɨchi Əbeŋ revived as the great annual return.',                  tag:'HERITAGE',  href:null },
+            ].map((p, i) => (
+              <div key={i} className="group relative overflow-hidden rounded-3xl card-royal p-8">
+                <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-gold-gradient opacity-0 blur-3xl transition-opacity group-hover:opacity-30" />
+                <div className="relative">
+                  <div className="section-label text-[0.6rem] mb-3">{p.tag}</div>
+                  <p.i className="h-8 w-8 text-primary" />
+                  <h3 className="mt-4 font-cinzel text-2xl text-foreground">{p.t}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.d}</p>
+                  {p.href && (
+                    <Link href={p.href} className="mt-4 inline-flex items-center gap-1 text-primary text-xs tracking-widest">
+                      Learn more <ArrowRight className="h-3 w-3" />
+                    </Link>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </Reveal>
+
+      {/* ── GUDECA EU MEETING — BONN MARCH 2026 ── */}
+      <Reveal>
+        <section className="bg-card/20 py-20 border-y border-border/30">
+          <div className="mx-auto max-w-7xl px-6">
+            <div className="text-center mb-10">
+              <div className="section-label mb-4">LATEST MEETING</div>
+              <h2 className="font-cinzel text-4xl text-foreground mb-2">GUDECA EU — Bonn, 28 March 2026</h2>
+              <p className="text-muted-foreground text-sm">Fon&apos;s Palace, Bonn · President: Ndenge Constantine · Secretary: Muyang Ela</p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-3">
+              {[
+                { icon:'☀️', t:'Solar Phase II',       s:'ONGOING', sc:'oklch(0.82 0.17 80)', d:'€800 raised. Members encouraged to increase contributions.' },
+                { icon:'🌾', t:'Agro CIG',             s:'ACTIVE',  sc:'oklch(0.55 0.18 145)',d:'Presented by Mr. Fabian. 2,000 FCFA/share. Members encouraged to subscribe.' },
+                { icon:'🏥', t:'Medical Centre',       s:'PROPOSED',sc:'oklch(0.42 0.22 25)', d:'Plans to establish a reference healthcare centre in Guneku.' },
+                { icon:'🧼', t:'Soap Production',      s:'PROPOSED',sc:'oklch(0.42 0.22 25)', d:'Income-generating soap production for Guneku community.' },
+                { icon:'📡', t:'Satellite Internet',   s:'PROPOSED',sc:'oklch(0.42 0.22 25)', d:'Install satellite internet at Guneku Palace. Proposed by Ni Sam.' },
+                { icon:'💻', t:'Digital Empowerment',  s:'PROPOSED',sc:'oklch(0.42 0.22 25)', d:'Training adults in content creation & online income generation.' },
+              ].map(item => (
+                <div key={item.t} className="card-royal p-5" style={{ borderTopColor: item.sc, borderTopWidth: '3px' }}>
+                  <div className="flex justify-between items-start mb-3">
+                    <span className="text-2xl">{item.icon}</span>
+                    <span className="text-[10px] tracking-widest px-2 py-0.5 rounded-full font-cinzel"
+                          style={{ color: item.sc, background: `${item.sc.replace(')','')} / 0.1)`, border: `1px solid ${item.sc.replace(')','')} / 0.3)` }}>
+                      {item.s}
+                    </span>
+                  </div>
+                  <h3 className="font-cinzel text-base text-foreground mb-2">{item.t}</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{item.d}</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-center text-muted-foreground/40 text-xs mt-6 tracking-widest">
+              Next GUDECA EU Meeting · <strong className="text-muted-foreground/60">Saturday 24 July 2027 · United Kingdom</strong>
             </p>
           </div>
+        </section>
+      </Reveal>
 
-          <div style={{ display:'grid',
-                        gridTemplateColumns:'repeat(auto-fill, minmax(280px, 1fr))',
-                        gap:'1.5rem' }}>
-            {[
-              { icon:'☀️', title:'Solar Phase II', status:'ONGOING', statusColor:'#f2a90b',
-                desc:'€800 raised so far. Members encouraged to increase contributions for full village electrification.' },
-              { icon:'🌾', title:'Agro CIG', status:'ACTIVE', statusColor:'#4a7c59',
-                desc:'Presented by Mr. Fabian. Share purchase at 2,000 FCFA. Members encouraged to subscribe.' },
-              { icon:'🏥', title:'Medical Reference Centre', status:'PROPOSED', statusColor:'#8B1E2D',
-                desc:'Plans to establish a reference healthcare centre in Guneku — independent of existing clinic.' },
-              { icon:'🧼', title:'Soap Production', status:'PROPOSED', statusColor:'#8B1E2D',
-                desc:'Income-generating soap production initiative for the Guneku community.' },
-              { icon:'📡', title:'Satellite Internet — Palace', status:'PROPOSED', statusColor:'#8B1E2D',
-                desc:'Install satellite internet at Guneku Palace for connectivity and digital services. Proposed by Ni Sam.' },
-              { icon:'💻', title:'Digital Empowerment', status:'PROPOSED', statusColor:'#8B1E2D',
-                desc:'Training for adults in content creation, virtual work, and online income generation.' },
-            ].map(item => (
-              <div key={item.title} style={{
-                backgroundColor:'#0C0C14',
-                border:'1px solid rgba(255,255,255,0.05)',
-                borderTop:`3px solid ${item.statusColor}`,
-                padding:'1.75rem',
-              }}>
-                <div style={{ display:'flex', justifyContent:'space-between',
-                              alignItems:'flex-start', marginBottom:'0.75rem' }}>
-                  <span style={{ fontSize:'1.75rem' }}>{item.icon}</span>
-                  <span style={{
-                    backgroundColor:`${item.statusColor}20`,
-                    color: item.statusColor,
-                    fontFamily:'Syne, sans-serif', fontSize:'0.6rem',
-                    letterSpacing:'0.12em', textTransform:'uppercase',
-                    padding:'0.2rem 0.6rem',
-                    border:`1px solid ${item.statusColor}40`,
-                  }}>
-                    {item.status}
-                  </span>
+      {/* ── BRANCHES ── */}
+      <Reveal>
+        <section className="mx-auto max-w-7xl px-6 py-20">
+          <div className="text-center mb-12">
+            <div className="section-label mb-4">EIGHT CHAPTERS · THREE CONTINENTS</div>
+            <h3 className="font-cinzel text-5xl text-foreground">A Kingdom Without Borders</h3>
+          </div>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {BRANCHES.map(b => (
+              <div key={b.region} className="card-royal p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-3xl">{b.flag}</span>
+                  <div className="font-cinzel text-xl text-foreground">{b.region}</div>
                 </div>
-                <h3 style={{ fontFamily:'Syne, sans-serif', fontWeight:700,
-                             color:'#F5F2E9', fontSize:'1rem', margin:'0 0 0.6rem' }}>
-                  {item.title}
-                </h3>
-                <p style={{ color:'rgba(245,242,233,0.45)', fontFamily:'Inter, sans-serif',
-                            fontSize:'0.85rem', lineHeight:1.7, margin:0 }}>
-                  {item.desc}
-                </p>
+                <ul className="space-y-1.5 text-sm text-muted-foreground">
+                  {b.chapters.map(c => (
+                    <li key={c} className="flex items-center gap-2">
+                      <span className="h-1 w-1 rounded-full bg-primary shrink-0" />
+                      {c}
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
-
-          <div style={{ marginTop:'2.5rem', textAlign:'center',
-                        color:'rgba(245,242,233,0.2)', fontFamily:'Inter, sans-serif',
-                        fontSize:'0.82rem' }}>
-            Next GUDECA EU Meeting &middot;
-            <strong style={{ color:'rgba(245,242,233,0.4)' }}>
-              {' '}Saturday 24 July 2027 &middot; United Kingdom
-            </strong>
-          </div>
-        </div>
-      </section>
-
-      {/* Branches */}
-      <section style={{ backgroundColor:'#0A0A0A',
-                        borderTop:'1px solid rgba(139,30,45,0.2)',
-                        padding:'4rem 1.5rem' }}>
-        <div style={{ maxWidth:'1200px', margin:'0 auto' }}>
-          <div style={{ textAlign:'center', marginBottom:'3rem' }}>
-            <span className="section-label" style={{ marginBottom:'0.5rem', display:'block' }}>
-              GLOBAL REACH
-            </span>
-            <h3 style={{ fontFamily:'"Bebas Neue", sans-serif', fontSize:'2.5rem',
-                         color:'#F5F2E9', letterSpacing:'0.05em', margin:0 }}>
-              GUDECA BRANCHES WORLDWIDE
-            </h3>
-          </div>
-          <div style={{ display:'grid',
-                        gridTemplateColumns:'repeat(auto-fill, minmax(220px, 1fr))',
-                        gap:'1rem' }}>
-            {[
-              { name:'GUDECA Europe',     location:'Belgium, Germany & beyond' },
-              { name:'GUDECA USA',        location:'United States — Chapter active' },
-              { name:'GUDECA UAE',        location:'Launched March 2023, Limbe' },
-              { name:'GUDECA Worldwide',  location:'Global umbrella organisation' },
-              { name:'GUDECA Douala',     location:'Launched September 2022' },
-              { name:'GUDECA Bamenda',    location:'Operational from January 2025' },
-              { name:'GUDECA Yaoundé',    location:'Active — fundraising events' },
-              { name:'GUDECA West',       location:'Active branch' },
-            ].map(b => (
-              <div key={b.name} style={{
-                backgroundColor:'#0C0C14',
-                border:'1px solid rgba(255,255,255,0.05)',
-                padding:'1.5rem',
-                borderTop:'2px solid #8B1E2D',
-              }}>
-                <div style={{ fontFamily:'Syne, sans-serif', fontWeight:700,
-                              color:'#F5F2E9', fontSize:'0.95rem',
-                              marginBottom:'0.35rem' }}>
-                  {b.name}
-                </div>
-                <div style={{ color:'rgba(245,242,233,0.35)',
-                              fontFamily:'Inter, sans-serif', fontSize:'0.8rem' }}>
-                  {b.location}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </main>
+        </section>
+      </Reveal>
+    </div>
   )
 }

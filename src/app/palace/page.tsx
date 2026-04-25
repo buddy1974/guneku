@@ -1,31 +1,21 @@
-import { PageHero }      from '@/components/layout/PageHero'
+import Link           from 'next/link'
+import Image          from 'next/image'
+import { Crown, Heart, Stethoscope, Scroll, ArrowRight } from 'lucide-react'
 import { getFonProfile, getAllPalaceArticles } from '@/lib/content'
 import { GoldParticles } from '@/components/ui/GoldParticles'
 import { Reveal }        from '@/components/ui/Reveal'
-import Link              from 'next/link'
-import Image             from 'next/image'
 
 export const metadata = {
-  title: 'The Palace — Guneku Fondom',
-  description: 'The Royal Palace of Guneku — seat of HRH Dr. Fomuki Walters Ticha IX.',
+  title: 'The Palace — HRH Dr. Fomuki Walters Ticha IX',
+  description: 'Inside the palace of Guneku — home of the ninth Fon, physician, and visionary leader of his kingdom.',
 }
 
-const CORONATION_TIMELINE = [
-  { date: 'January 2015',    title: 'The Journey Begins',
-    desc: 'HRH Fon Patrick Nji travels to the ancestral mountains. Walters Ticha returns from Germany.',
-    color: 'rgba(245,242,233,0.2)' },
-  { date: '27 February 2015', title: 'The Enthronement',
-    desc: 'Sons and daughters assemble at the palace. Olive oil anointing by HRH Fon Fominyen of Nyen. 50-year rift resolved.',
-    color: '#8B1E2D' },
-  { date: 'November 2015',   title: 'Launching Gala',
-    desc: 'Grand gala at the Mbengwi Council Hall. All 29 Meta villages invited personally by the new Fon.',
-    color: '#f2a90b' },
-  { date: '30 December 2016', title: 'The Public Coronation',
-    desc: 'Historic coronation before all Meta. First Fon in Meta history to visit all 28 other Fondoms personally.',
-    color: '#f2a90b' },
-  { date: '2021 – Present',  title: 'The Kingdom Grows',
-    desc: 'Democratic reforms, GUNECCUL, Agro CIG, solar lights, Mɨchi Əbeŋ — a kingdom in full renaissance.',
-    color: '#f2a90b' },
+const TIMELINE = [
+  { date: 'January 2015',     title: 'The Journey Begins',    desc: 'HRH Fon Patrick Nji travels to the ancestral mountains. Walters Ticha returns from Germany.',                                      color: 'rgba(245,242,233,0.2)' },
+  { date: '27 February 2015', title: 'The Enthronement',      desc: 'Sons and daughters assemble at the palace. Olive oil anointing by HRH Fon Fominyen of Nyen. 50-year rift resolved.',               color: 'oklch(0.42 0.22 25)'   },
+  { date: 'November 2015',    title: 'Launching Gala',        desc: 'Grand gala at the Mbengwi Council Hall. All 29 Meta villages invited personally by the new Fon.',                                   color: 'oklch(0.82 0.17 80)'   },
+  { date: '30 December 2016', title: 'The Public Coronation', desc: 'Historic coronation before all Meta. First Fon in Meta history to visit all 28 other Fondoms personally.',                         color: 'oklch(0.82 0.17 80)'   },
+  { date: '2021 – Present',   title: 'The Kingdom Grows',     desc: 'Democratic reforms, GUNECCUL, Agro CIG, solar lights, Mɨchi Əbeŋ — a kingdom in full renaissance.',                               color: 'oklch(0.82 0.17 80)'   },
 ]
 
 export default function PalacePage() {
@@ -35,309 +25,167 @@ export default function PalacePage() {
   const legacy   = articles.filter((a: any) => a.era === 'legacy')
 
   return (
-    <main style={{ backgroundColor: '#0F0F0F', minHeight: '100vh' }}>
+    <div className="min-h-screen bg-background">
 
-      {/* ── Palace Hero with Particles ── */}
-      <div style={{
-        position: 'relative', minHeight: '70vh',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        overflow: 'hidden', textAlign: 'center',
-        background: 'linear-gradient(to bottom, rgba(139,30,45,0.5) 0%, #0F0F0F 100%)',
-      }}>
-        <div style={{
-          position: 'absolute', inset: 0, zIndex: 0, opacity: 0.15,
-          backgroundImage: "url('/chieff-logo.png')",
-          backgroundSize: 'contain', backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat', filter: 'blur(2px)',
-        }} />
-
+      {/* ── HERO WITH PARTICLES ── */}
+      <section className="relative min-h-screen overflow-hidden" style={{ minHeight: 'clamp(500px, 85vh, 100vh)' }}>
+        <Image src="/palace.jpg" alt="Guneku Palace" fill className="object-cover animate-ken-burns" priority unoptimized />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, oklch(0.14 0.02 30 / 0.4) 0%, transparent 40%, oklch(0.14 0.02 30 / 0.95) 100%)' }} />
         <GoldParticles />
+        <div className="absolute left-0 top-0 bottom-0 w-1 bg-royal" />
+        <div className="absolute right-0 top-0 bottom-0 w-1 bg-royal" />
 
-        <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0,
-                      width: '4px', backgroundColor: '#8B1E2D', zIndex: 10 }} />
-        <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0,
-                      width: '4px', backgroundColor: '#8B1E2D', zIndex: 10 }} />
-
-        <div style={{ position: 'relative', zIndex: 20, padding: '8rem 2rem 5rem', maxWidth: '900px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        gap: '12px', marginBottom: '2rem' }}>
-            <span style={{ width: '40px', height: '1px', backgroundColor: '#f2a90b' }} />
-            <span className="section-label">THE ROYAL PALACE</span>
-            <span style={{ width: '40px', height: '1px', backgroundColor: '#f2a90b' }} />
+        <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-end px-6 pb-24">
+          <div className="max-w-2xl animate-fade-up">
+            <div className="section-label mb-4">REIGNING SINCE 2015</div>
+            <h1 className="font-cinzel text-5xl font-bold uppercase leading-[0.95] text-gold-gradient md:text-7xl">
+              HRH Dr. Fomuki<br />Walters Ticha IX
+            </h1>
+            <p className="mt-6 font-cormorant text-2xl italic text-foreground/95">Fon of Guneku · Physician · Visionary</p>
           </div>
-
-          <h1 style={{ fontFamily: '"Bebas Neue", sans-serif',
-                       fontSize: 'clamp(3rem, 8vw, 7rem)',
-                       color: '#F5F2E9', letterSpacing: '0.05em',
-                       lineHeight: 0.95, margin: '0 0 1rem' }}>
-            GUNEKU PALACE
-          </h1>
-          <p style={{ fontFamily: '"Bebas Neue", sans-serif',
-                      fontSize: 'clamp(1.2rem, 3vw, 2rem)',
-                      color: '#f2a90b', letterSpacing: '0.1em', margin: '0 0 1.5rem' }}>
-            SEAT OF HRH DR. FOMUKI WALTERS TICHA IX
-          </p>
-          <p style={{ fontFamily: 'Playfair Display, serif', fontStyle: 'italic',
-                      fontSize: '1.1rem', color: 'rgba(245,242,233,0.5)', margin: 0 }}>
-            Custodian of tradition. Champion of development. Leader of 15,000.
-          </p>
         </div>
+      </section>
 
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0,
-                      height: '120px', zIndex: 15,
-                      background: 'linear-gradient(to bottom, transparent, #0F0F0F)' }} />
-      </div>
-
-      {/* ── Current Fon Feature ── */}
-      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '5rem 1.5rem' }}>
-        <Reveal>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr',
-                        gap: '4rem', alignItems: 'center' }}
-               className="grid-cols-1 md:grid-cols-2">
+      {/* ── A HEALER CROWNED A KING ── */}
+      <Reveal>
+        <section className="mx-auto max-w-7xl px-6 py-24">
+          <div className="grid gap-12 md:grid-cols-2 md:gap-20 items-center">
             <div>
-              <div style={{ width: '40px', height: '3px',
-                            backgroundColor: '#f2a90b', marginBottom: '1.5rem' }} />
-              <span className="section-label" style={{ display: 'block', marginBottom: '1rem' }}>
-                THE REIGNING FON
-              </span>
-              <h2 style={{ fontFamily: '"Bebas Neue", sans-serif',
-                           fontSize: 'clamp(2rem, 4vw, 3.5rem)',
-                           color: '#F5F2E9', letterSpacing: '0.05em',
-                           lineHeight: 1, margin: '0 0 0.5rem' }}>
-                HRH DR. FOMUKI<br/>
-                <span style={{ color: '#f2a90b' }}>WALTERS TICHA IX</span>
-              </h2>
-              <p style={{ color: 'rgba(245,242,233,0.4)', fontFamily: 'Syne, sans-serif',
-                          fontSize: '0.85rem', letterSpacing: '0.1em', textTransform: 'uppercase',
-                          margin: '0 0 2rem' }}>
-                Fon of Guneku · Physician · Visionary
+              <div className="section-label mb-4">A LIFE OF SERVICE</div>
+              <h2 className="font-cinzel text-5xl text-foreground">A Healer Crowned a King</h2>
+              <div className="royal-divider my-8 w-24" />
+              <p className="font-cormorant text-xl leading-relaxed text-foreground/90">
+                {fon?.enthronementNarrative || 'Trained in medicine in Bavaria, Germany, HRH Dr. Fomuki Walters Ticha IX returned to Guneku not only as a healer of bodies but as the keeper of a five-hundred-year throne.'}
               </p>
-
-              <blockquote style={{ borderLeft: '3px solid #f2a90b',
-                                   paddingLeft: '1.5rem', margin: '0 0 2.5rem' }}>
-                <p style={{ fontFamily: 'Playfair Display, serif', fontStyle: 'italic',
-                            fontSize: '1.1rem', color: '#f2a90b', lineHeight: 1.7, margin: 0 }}>
-                  &ldquo;{(fon as any)?.quote || 'We carry Guneku in our hearts wherever we are. But Guneku must grow.'}&rdquo;
-                </p>
-              </blockquote>
-
-              <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '2.5rem' }}>
-                {[
-                  { val: '2015',       label: 'Enthroned' },
-                  { val: 'Fomuki IX',  label: 'Royal Line' },
-                  { val: '27',         label: 'Quarters' },
-                ].map(s => (
-                  <div key={s.label}>
-                    <div style={{ fontFamily: '"Bebas Neue", sans-serif',
-                                  fontSize: '1.5rem', color: '#f2a90b', letterSpacing: '0.05em' }}>
-                      {s.val}
-                    </div>
-                    <div style={{ color: 'rgba(245,242,233,0.3)', fontFamily: 'Syne, sans-serif',
-                                  fontSize: '0.65rem', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
-                      {s.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <Link href="/palace/fon-walters-profile" style={{
-                backgroundColor: '#f2a90b', color: '#0F0F0F',
-                fontFamily: 'Syne, sans-serif', fontWeight: 700,
-                padding: '0.9rem 2.5rem', fontSize: '0.8rem',
-                letterSpacing: '0.12em', textTransform: 'uppercase',
-                textDecoration: 'none', display: 'inline-block',
-              }}>
-                Full Profile →
+              <p className="mt-6 text-base leading-relaxed text-muted-foreground">
+                {fon?.governanceStyle?.substring(0, 300) || 'Since his enthronement in 2015, the Fon has united the kingdom across three continents, founded GUDECA, blessed the launch of GUNECCUL credit unions, and revived the sacred Mɨchi Əbeŋ festival as a beacon of cultural renewal.'}
+              </p>
+              <Link href="/palace/fon-walters-profile" className="mt-8 btn-royal inline-flex items-center gap-3">
+                FULL PROFILE <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
-
-            <div style={{ position: 'relative', display: 'flex',
-                          alignItems: 'center', justifyContent: 'center' }}>
-              <div style={{ position: 'absolute', top: 0, left: 0, width: '60px', height: '60px',
-                            borderTop: '2px solid rgba(242,169,11,0.4)',
-                            borderLeft: '2px solid rgba(242,169,11,0.4)' }} />
-              <div style={{ position: 'absolute', bottom: 0, right: 0, width: '60px', height: '60px',
-                            borderBottom: '2px solid rgba(242,169,11,0.4)',
-                            borderRight: '2px solid rgba(242,169,11,0.4)' }} />
-              <div style={{ position: 'relative', width: '320px', height: '420px', maxWidth: '100%' }}>
-                <Image src="/chieff-logo.png" alt="HRH Dr. Fomuki Walters Ticha IX"
-                       fill style={{ objectFit: 'contain' }} unoptimized />
+            <div className="relative">
+              <Image src="/regalia.jpg" alt="Royal regalia" width={600} height={700} loading="lazy" className="w-full rounded-2xl shadow-royal object-cover" unoptimized />
+              <div className="absolute -bottom-6 -right-6 hidden md:block bg-gold-gradient px-8 py-4 rounded-xl text-gold-foreground shadow-royal">
+                <div className="font-cinzel text-3xl">FOMUKI IX</div>
+                <div className="text-xs tracking-widest">NINTH OF HIS NAME</div>
               </div>
             </div>
           </div>
-        </Reveal>
-      </section>
+        </section>
+      </Reveal>
 
-      {/* ── Coronation Timeline ── */}
-      <section style={{ backgroundColor: '#080810',
-                        borderTop: '1px solid rgba(139,30,45,0.2)',
-                        borderBottom: '1px solid rgba(139,30,45,0.2)',
-                        padding: '6rem 1.5rem' }}>
-        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-          <Reveal>
-            <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-              <span className="section-label" style={{ display: 'block', marginBottom: '0.5rem' }}>
-                THE ROYAL STORY
-              </span>
-              <h2 style={{ fontFamily: '"Bebas Neue", sans-serif',
-                           fontSize: '2.5rem', color: '#F5F2E9', letterSpacing: '0.05em', margin: 0 }}>
-                FROM BAVARIA TO THE THRONE
-              </h2>
+      {/* ── FOUR SACRED CHARGES ── */}
+      <Reveal>
+        <section className="bg-card/30 py-24">
+          <div className="mx-auto max-w-7xl px-6">
+            <div className="text-center">
+              <div className="section-label mb-4">PILLARS OF THE REIGN</div>
+              <h3 className="font-cinzel text-5xl text-foreground">Four Sacred Charges</h3>
             </div>
-          </Reveal>
-
-          <div style={{ position: 'relative' }}>
-            <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)',
-                          top: 0, bottom: 0, width: '1px',
-                          backgroundColor: 'rgba(242,169,11,0.15)' }}
-                 className="hidden md:block" />
-
-            {CORONATION_TIMELINE.map((item, i) => (
-              <Reveal key={i} delay={i * 0.1}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 40px 1fr',
-                              gap: '0 2rem', marginBottom: '3rem', alignItems: 'start' }}
-                     className="grid-cols-1 md:grid-cols-[1fr_40px_1fr]">
-
-                  {/* Left — even-index items */}
-                  <div className={i % 2 === 0 ? '' : 'hidden md:block'}>
-                    {i % 2 === 0 && (
-                      <div style={{ backgroundColor: '#0C0C14',
-                                    border: `1px solid ${item.color}30`,
-                                    borderRight: `3px solid ${item.color}`,
-                                    padding: '1.5rem', textAlign: 'right' }}>
-                        <div style={{ color: item.color, fontFamily: 'Syne, sans-serif',
-                                      fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.1em',
-                                      textTransform: 'uppercase', marginBottom: '0.5rem' }}>
-                          {item.date}
-                        </div>
-                        <h3 style={{ fontFamily: '"Bebas Neue", sans-serif', fontSize: '1.3rem',
-                                     color: '#F5F2E9', letterSpacing: '0.05em', margin: '0 0 0.5rem' }}>
-                          {item.title}
-                        </h3>
-                        <p style={{ color: 'rgba(245,242,233,0.5)', fontFamily: 'Inter, sans-serif',
-                                    fontSize: '0.875rem', lineHeight: 1.7, margin: 0 }}>
-                          {item.desc}
-                        </p>
-                      </div>
-                    )}
+            <div className="mt-16 grid gap-6 md:grid-cols-4">
+              {[
+                { i: Crown,       t: 'Custodian', d: 'Of throne, stool, and the ancient Meta covenants.' },
+                { i: Heart,       t: 'Father',    d: 'To 27 quarters and 15,000 sons and daughters.' },
+                { i: Stethoscope, t: 'Healer',    d: 'Physician by training, by heart, by daily duty.' },
+                { i: Scroll,      t: 'Visionary', d: 'Author of a modern Guneku rooted in heritage.' },
+              ].map((p, i) => (
+                <div key={i} className="group rounded-2xl card-royal p-8 text-center">
+                  <div className="mb-4 inline-flex rounded-full bg-gold-gradient p-3">
+                    <p.i className="h-5 w-5 text-gold-foreground" />
                   </div>
-
-                  {/* Center dot */}
-                  <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '1.5rem' }}
-                       className="hidden md:flex">
-                    <div style={{ width: '16px', height: '16px', borderRadius: '50%',
-                                  backgroundColor: item.color, border: '3px solid #0F0F0F',
-                                  flexShrink: 0, boxShadow: `0 0 12px ${item.color}60` }} />
-                  </div>
-
-                  {/* Right — odd-index items */}
-                  <div className={i % 2 === 1 ? '' : 'hidden md:block'}>
-                    {i % 2 === 1 && (
-                      <div style={{ backgroundColor: '#0C0C14',
-                                    border: `1px solid ${item.color}30`,
-                                    borderLeft: `3px solid ${item.color}`,
-                                    padding: '1.5rem' }}>
-                        <div style={{ color: item.color, fontFamily: 'Syne, sans-serif',
-                                      fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.1em',
-                                      textTransform: 'uppercase', marginBottom: '0.5rem' }}>
-                          {item.date}
-                        </div>
-                        <h3 style={{ fontFamily: '"Bebas Neue", sans-serif', fontSize: '1.3rem',
-                                     color: '#F5F2E9', letterSpacing: '0.05em', margin: '0 0 0.5rem' }}>
-                          {item.title}
-                        </h3>
-                        <p style={{ color: 'rgba(245,242,233,0.5)', fontFamily: 'Inter, sans-serif',
-                                    fontSize: '0.875rem', lineHeight: 1.7, margin: 0 }}>
-                          {item.desc}
-                        </p>
-                      </div>
-                    )}
-                  </div>
+                  <div className="font-cinzel text-2xl text-foreground">{p.t}</div>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.d}</p>
                 </div>
-              </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      </Reveal>
+
+      {/* ── CORONATION TIMELINE ── */}
+      <Reveal>
+        <section className="mx-auto max-w-7xl px-6 py-24">
+          <div className="text-center mb-12">
+            <div className="section-label mb-4">THE ROYAL STORY</div>
+            <h2 className="font-cinzel text-5xl text-foreground">From Bavaria to the Throne</h2>
+          </div>
+          <div className="space-y-6 max-w-3xl mx-auto">
+            {TIMELINE.map((item, i) => (
+              <div key={i} className="flex gap-6 items-start">
+                <div className="flex flex-col items-center shrink-0">
+                  <div className="h-4 w-4 rounded-full border-2 border-current shrink-0" style={{ color: item.color, backgroundColor: item.color, borderColor: item.color, boxShadow: `0 0 12px ${item.color}` }} />
+                  {i < TIMELINE.length - 1 && <div className="w-px flex-1 min-h-[40px] mt-2" style={{ background: `linear-gradient(to bottom, ${item.color}, transparent)` }} />}
+                </div>
+                <div className="card-royal p-5 flex-1 mb-4">
+                  <div className="font-cinzel text-xs tracking-widest mb-1" style={{ color: item.color }}>{item.date}</div>
+                  <h3 className="font-cinzel text-xl text-foreground mb-2">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
             ))}
+          </div>
+        </section>
+      </Reveal>
+
+      {/* ── PALACE QUOTE ── */}
+      <section className="relative h-[70vh] overflow-hidden">
+        <Image src="/hero-fon.jpg" alt="Palace courtyard" fill loading="lazy" className="absolute object-cover" unoptimized />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+        <div className="relative z-10 mx-auto flex h-full max-w-4xl items-center justify-center px-6 text-center">
+          <div>
+            <div className="font-cormorant text-3xl italic text-foreground/95 md:text-5xl">
+              &ldquo;I do not rule Guneku. I serve her, with the same hands that heal.&rdquo;
+            </div>
+            <div className="mt-6 section-label">— THE FON</div>
+            <Link href="/contact" className="mt-10 btn-royal inline-flex items-center gap-2">
+              REQUEST AN AUDIENCE
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* ── Palace Articles ── */}
-      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '5rem 1.5rem' }}>
-        {current.length > 0 && (
-          <>
-            <Reveal>
-              <h3 style={{ fontFamily: '"Bebas Neue", sans-serif', fontSize: '2rem',
-                           color: '#f2a90b', letterSpacing: '0.05em', margin: '0 0 2rem' }}>
-                THE REIGN OF FOMUKI IX
-              </h3>
-            </Reveal>
-            <div style={{ display: 'grid',
-                          gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-                          gap: '1.5rem', marginBottom: '4rem' }}>
-              {current.map((a: any, i: number) => (
-                <Reveal key={a.id} delay={i * 0.08}>
-                  <Link href={`/palace/${a.slug}`}
-                        style={{ textDecoration: 'none', display: 'block',
-                                 backgroundColor: '#0C0C14',
-                                 border: '1px solid rgba(255,255,255,0.05)',
-                                 padding: '2rem', borderTop: '3px solid #f2a90b' }}
-                        className="hover:scale-[1.02] transition-transform">
-                    <div style={{ width: '24px', height: '2px',
-                                  backgroundColor: '#f2a90b', marginBottom: '1rem' }} />
-                    <h4 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700,
-                                 color: '#F5F2E9', fontSize: '1.05rem',
-                                 margin: '0 0 1rem', lineHeight: 1.3 }}>
-                      {a.title}
-                    </h4>
-                    <span style={{ color: '#f2a90b', fontSize: '0.78rem',
-                                   fontFamily: 'Syne, sans-serif',
-                                   letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-                      Read →
-                    </span>
-                  </Link>
-                </Reveal>
-              ))}
-            </div>
-          </>
-        )}
-
+      {/* ── PALACE ARTICLES ── */}
+      {current.length > 0 && (
         <Reveal>
-          <div style={{ backgroundColor: '#0A0A0A',
-                        border: '1px solid rgba(139,30,45,0.2)', padding: '3rem' }}>
-            <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '1.5rem' }}>
-              <div style={{ width: '40px', height: '2px', backgroundColor: '#8B1E2D' }} />
-              <span className="section-label">IN MEMORY</span>
-            </div>
-            <h3 style={{ fontFamily: '"Bebas Neue", sans-serif', fontSize: '2rem',
-                         color: 'rgba(245,242,233,0.4)', letterSpacing: '0.05em', margin: '0 0 0.25rem' }}>
-              HRH FON FOMUKI PATRICK NJI
-            </h3>
-            <p style={{ color: 'rgba(245,242,233,0.2)', fontFamily: 'Inter, sans-serif',
-                        fontSize: '0.9rem', margin: '0 0 2rem' }}>
-              1938 – 2015 · 50 Years on the Throne of Guneku
-            </p>
-            <div style={{ display: 'grid',
-                          gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-                          gap: '1rem' }}>
-              {legacy.map((a: any) => (
-                <Link key={a.id} href={`/palace/${a.slug}`}
-                      style={{ textDecoration: 'none', display: 'block',
-                               backgroundColor: '#080810',
-                               border: '1px solid rgba(255,255,255,0.04)', padding: '1.5rem' }}>
-                  <h4 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700,
-                               color: 'rgba(245,242,233,0.45)', fontSize: '0.95rem',
-                               margin: '0 0 0.5rem' }}>
-                    {a.title}
-                  </h4>
-                  <span style={{ color: 'rgba(245,242,233,0.2)', fontSize: '0.75rem',
-                                 fontFamily: 'Syne, sans-serif', letterSpacing: '0.1em' }}>
-                    Read →
-                  </span>
+          <section className="mx-auto max-w-7xl px-6 py-20">
+            <h3 className="font-cinzel text-3xl text-primary mb-8">THE REIGN OF FOMUKI IX</h3>
+            <div className="grid gap-4 md:grid-cols-3">
+              {current.map((a: any) => (
+                <Link key={a.id} href={`/palace/${a.slug}`} className="card-royal p-6 block no-underline group">
+                  <div className="h-0.5 w-6 bg-gold-gradient mb-4" />
+                  <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors leading-snug">{a.title}</h4>
+                  <span className="mt-4 block text-primary text-xs tracking-widest">Read →</span>
                 </Link>
               ))}
             </div>
-          </div>
+          </section>
         </Reveal>
-      </section>
-    </main>
+      )}
+
+      {/* ── LEGACY ── */}
+      {legacy.length > 0 && (
+        <Reveal>
+          <section className="mx-auto max-w-7xl px-6 pb-24">
+            <div className="rounded-2xl border border-border/30 bg-card/20 p-8">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="h-0.5 w-8 bg-royal" />
+                <div className="section-label">IN MEMORY</div>
+              </div>
+              <h3 className="font-cinzel text-2xl text-foreground/40 mb-1">HRH FON FOMUKI PATRICK NJI</h3>
+              <p className="text-muted-foreground/50 text-sm mb-6">1938 – 2015 · 50 Years on the Throne of Guneku</p>
+              <div className="grid gap-3 md:grid-cols-3">
+                {legacy.map((a: any) => (
+                  <Link key={a.id} href={`/palace/${a.slug}`} className="bg-card/30 border border-border/20 p-4 rounded-xl block no-underline">
+                    <h4 className="text-foreground/50 text-sm font-medium leading-snug">{a.title}</h4>
+                    <span className="text-muted-foreground/30 text-xs mt-2 block">Read →</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        </Reveal>
+      )}
+    </div>
   )
 }

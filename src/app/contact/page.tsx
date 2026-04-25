@@ -1,7 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { PageHero } from '@/components/layout/PageHero'
+import Image from 'next/image'
+import Link  from 'next/link'
+import { Mail, MapPin, Phone, Send } from 'lucide-react'
 
 export default function ContactPage() {
   const [sent, setSent]       = useState(false)
@@ -12,12 +14,9 @@ export default function ContactPage() {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  async function handleSubmit(e: React.MouseEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!form.name || !form.email || !form.subject || !form.message) {
-      alert('Please fill in all fields.')
-      return
-    }
+    if (!form.name || !form.email || !form.subject || !form.message) return
     setSending(true)
     try {
       const res  = await fetch('/api/contact', {
@@ -26,222 +25,145 @@ export default function ContactPage() {
         body:    JSON.stringify(form),
       })
       const data = await res.json()
-      if (!res.ok) throw new Error(data.error || 'Failed to send')
+      if (!res.ok) throw new Error(data.error)
       setSent(true)
-    } catch (err: unknown) {
-      alert((err as Error).message || 'Failed to send. Please try again.')
+    } catch {
+      alert('Failed to send. Please try again.')
     } finally {
       setSending(false)
     }
   }
 
-  const inputStyle: React.CSSProperties = {
-    width: '100%', backgroundColor:'#0C0C14',
-    border:'1px solid rgba(255,255,255,0.1)',
-    color:'#F5F2E9', fontFamily:'Inter, sans-serif',
-    fontSize:'0.95rem', padding:'0.875rem 1rem',
-    outline:'none', boxSizing:'border-box',
-  }
+  const inputCls = "w-full rounded-lg border border-input bg-background/60 px-4 py-3 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none transition-colors backdrop-blur-sm"
 
   return (
-    <main style={{ backgroundColor:'#0F0F0F', minHeight:'100vh' }}>
-      <PageHero
-        label="CONTACT"
-        title="GET IN TOUCH"
-        subtitle="Reach the Guneku Fondom palace, GUDECA, or the website team."
-      />
-      <section style={{ maxWidth:'1100px', margin:'0 auto',
-                        padding:'clamp(3rem, 8vw, 5rem) 1.25rem',
-                        display:'grid', gridTemplateColumns:'1fr 1.5fr',
-                        gap:'2rem', alignItems:'start' }}
-               className="grid-cols-1 md:grid-cols-[1fr_1.5fr]">
+    <div className="min-h-screen bg-background">
 
-        {/* Contact info */}
-        <div>
-          {[
-            { label:'Palace Contact',  value:'+237 681 19 46 46',    href:undefined },
-            { label:'General Email',   value:'info@guneku.org',       href:undefined },
-            { label:"Fon's Email",     value:'wfomuki@gmx.de',        href:undefined },
-            { label:'Website',         value:'maxpromo.digital',       href:'https://maxpromo.digital' },
-            { label:'Facebook',        value:'facebook.com/guneku',    href:'https://www.facebook.com/guneku' },
-            { label:'YouTube',         value:'Guneku Fondom Channel',  href:'https://www.youtube.com/channel/UCEmIEHRMg3UTzb1wpxLZOAw' },
-          ].map(c => (
-            <div key={c.label} style={{
-              padding:'1rem 0',
-              borderBottom:'1px solid rgba(255,255,255,0.05)',
-            }}>
-              <div style={{ color:'rgba(245,242,233,0.3)',
-                            fontFamily:'Syne, sans-serif', fontSize:'0.7rem',
-                            letterSpacing:'0.15em', textTransform:'uppercase',
-                            marginBottom:'0.25rem' }}>
-                {c.label}
-              </div>
-              {c.href ? (
-                <a href={c.href} target="_blank" rel="noopener noreferrer"
-                   style={{ color:'#f2a90b', fontFamily:'Inter, sans-serif',
-                            fontSize:'0.95rem', textDecoration:'none' }}>
-                  {c.value}
-                </a>
-              ) : (
-                <span style={{ color:'#F5F2E9', fontFamily:'Inter, sans-serif',
-                               fontSize:'0.95rem' }}>
-                  {c.value}
-                </span>
-              )}
-            </div>
-          ))}
+      {/* ── HERO ── */}
+      <section className="relative pt-40 pb-12 text-center">
+        <div className="pattern-royal absolute inset-0 opacity-15" />
+        <div className="relative z-10">
+          <div className="mx-auto relative h-24 w-24">
+            <Image src="/royal-seal.png" alt="Royal seal" fill className="object-contain animate-spin-slow" unoptimized />
+          </div>
+          <div className="mt-6 section-label">SEND WORD TO THE PALACE</div>
+          <h1 className="mt-4 font-cinzel text-6xl uppercase leading-none text-gold-gradient md:text-7xl">Contact</h1>
         </div>
-
-        {/* Form */}
-        {sent ? (
-          <div style={{ padding:'3rem', backgroundColor:'#0C0C14',
-                        border:'1px solid rgba(242,169,11,0.2)',
-                        textAlign:'center' }}>
-            <div style={{ fontSize:'2rem', marginBottom:'1rem' }}>✓</div>
-            <h3 style={{ fontFamily:'"Bebas Neue", sans-serif', fontSize:'2rem',
-                         color:'#f2a90b', letterSpacing:'0.05em', margin:'0 0 1rem' }}>
-              MESSAGE SENT
-            </h3>
-            <p style={{ color:'rgba(245,242,233,0.5)',
-                        fontFamily:'Inter, sans-serif', fontSize:'1rem' }}>
-              Thank you. We will be in touch shortly.
-            </p>
-          </div>
-        ) : (
-          <div style={{ display:'flex', flexDirection:'column', gap:'1rem' }}>
-            <div style={{ display:'grid', gridTemplateColumns:'1fr', gap:'1rem' }}
-                 className="grid-cols-1 sm:grid-cols-2">
-              <div>
-                <label style={{ color:'rgba(245,242,233,0.4)',
-                                fontFamily:'Syne, sans-serif', fontSize:'0.7rem',
-                                letterSpacing:'0.15em', textTransform:'uppercase',
-                                display:'block', marginBottom:'0.5rem' }}>
-                  Your Name
-                </label>
-                <input name="name" value={form.name} onChange={handleChange}
-                       style={inputStyle} placeholder="Full name" />
-              </div>
-              <div>
-                <label style={{ color:'rgba(245,242,233,0.4)',
-                                fontFamily:'Syne, sans-serif', fontSize:'0.7rem',
-                                letterSpacing:'0.15em', textTransform:'uppercase',
-                                display:'block', marginBottom:'0.5rem' }}>
-                  Email
-                </label>
-                <input name="email" type="email" value={form.email}
-                       onChange={handleChange}
-                       style={inputStyle} placeholder="your@email.com" />
-              </div>
-            </div>
-            <div>
-              <label style={{ color:'rgba(245,242,233,0.4)',
-                              fontFamily:'Syne, sans-serif', fontSize:'0.7rem',
-                              letterSpacing:'0.15em', textTransform:'uppercase',
-                              display:'block', marginBottom:'0.5rem' }}>
-                Subject
-              </label>
-              <select name="subject" value={form.subject} onChange={handleChange}
-                      style={{ ...inputStyle, appearance:'none' }}>
-                <option value="">Select a subject</option>
-                <option>General Enquiry</option>
-                <option>GUDECA / Development</option>
-                <option>Agro CIG</option>
-                <option>GUNECCUL</option>
-                <option>Cultural Event</option>
-                <option>Media / Press</option>
-                <option>Website</option>
-              </select>
-            </div>
-            <div>
-              <label style={{ color:'rgba(245,242,233,0.4)',
-                              fontFamily:'Syne, sans-serif', fontSize:'0.7rem',
-                              letterSpacing:'0.15em', textTransform:'uppercase',
-                              display:'block', marginBottom:'0.5rem' }}>
-                Message
-              </label>
-              <textarea name="message" value={form.message} onChange={handleChange}
-                        rows={6} style={{ ...inputStyle, resize:'vertical' }}
-                        placeholder="Your message..." />
-            </div>
-            <button onClick={handleSubmit} disabled={sending} style={{
-              backgroundColor: sending ? 'rgba(242,169,11,0.5)' : '#f2a90b',
-              color:'#0F0F0F',
-              fontFamily:'Syne, sans-serif', fontWeight:700,
-              padding:'1rem 2.5rem', fontSize:'0.82rem',
-              letterSpacing:'0.12em', textTransform:'uppercase',
-              border:'none', cursor: sending ? 'not-allowed' : 'pointer',
-              width:'100%', minHeight:'52px',
-            }}>
-              {sending ? 'SENDING...' : 'SEND MESSAGE'}
-            </button>
-          </div>
-        )}
       </section>
 
-      {/* ── MaxPromo Digital — portfolio CTA ── */}
-      <section style={{
-        backgroundColor: '#0A0A0A',
-        borderTop: '1px solid rgba(242,169,11,0.15)',
-        padding: '5rem 1.5rem',
-        textAlign: 'center',
-      }}>
-        <div style={{ maxWidth: '680px', margin: '0 auto' }}>
-          <div style={{ display:'flex', alignItems:'center', justifyContent:'center',
-                        gap:'12px', marginBottom:'2rem' }}>
-            <span style={{ width:'28px', height:'1px', backgroundColor:'rgba(242,169,11,0.4)' }} />
-            <span style={{ color:'rgba(242,169,11,0.5)', fontFamily:'Syne, sans-serif',
-                           fontSize:'0.65rem', letterSpacing:'0.25em', textTransform:'uppercase' }}>
-              BUILT BY
-            </span>
-            <span style={{ width:'28px', height:'1px', backgroundColor:'rgba(242,169,11,0.4)' }} />
+      {/* ── CONTENT ── */}
+      <section className="mx-auto max-w-6xl px-6 pb-24">
+        <div className="grid gap-10 md:grid-cols-5">
+
+          {/* Contact cards */}
+          <div className="space-y-4 md:col-span-2">
+            {[
+              { i: MapPin, t: 'The Palace',   d: 'Guneku Centre, Mbengwi\nMomo Division, NW Cameroon' },
+              { i: Mail,   t: 'Email',        d: 'info@guneku.org' },
+              { i: Phone,  t: 'Telephone',    d: '+237 681 19 46 46' },
+            ].map((c, i) => (
+              <div key={i} className="flex gap-4 card-royal p-5">
+                <div className="rounded-full bg-gold-gradient p-2.5 h-fit">
+                  <c.i className="h-4 w-4 text-gold-foreground" />
+                </div>
+                <div>
+                  <div className="font-cinzel text-lg text-foreground">{c.t}</div>
+                  <div className="whitespace-pre-line text-sm text-muted-foreground mt-1">{c.d}</div>
+                </div>
+              </div>
+            ))}
+
+            {/* MaxPromo card */}
+            <div className="card-royal p-5">
+              <div className="font-cinzel text-sm text-primary mb-2 tracking-widest">BUILT BY</div>
+              <a href="https://maxpromo.digital" target="_blank" rel="noopener noreferrer"
+                 className="font-cinzel text-lg text-gold-gradient hover:opacity-80 transition-opacity">
+                MaxPromo Digital
+              </a>
+              <p className="text-xs text-muted-foreground mt-1">Essen, Germany · AI automation & web</p>
+              <a href="https://maxpromo.digital/automation-audit" target="_blank" rel="noopener noreferrer"
+                 className="mt-3 inline-flex text-xs text-primary tracking-widest hover:underline">
+                Free Audit →
+              </a>
+            </div>
           </div>
 
-          <h2 style={{ fontFamily:'"Bebas Neue", sans-serif', fontSize:'clamp(1.8rem, 4vw, 3rem)',
-                       color:'#F5F2E9', letterSpacing:'0.05em', margin:'0 0 1rem', lineHeight:1 }}>
-            IS YOUR COMMUNITY READY FOR ITS OWN DIGITAL PALACE?
-          </h2>
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="md:col-span-3 card-royal p-8 shadow-royal">
+            {sent ? (
+              <div className="text-center py-12">
+                <div className="font-cinzel text-4xl text-gold-gradient mb-4">✓ DELIVERED</div>
+                <p className="text-muted-foreground font-cormorant text-xl italic">
+                  Your letter has reached the palace. We will be in touch shortly.
+                </p>
+                <Link href="/" className="mt-8 btn-royal inline-flex">Return Home</Link>
+              </div>
+            ) : (
+              <>
+                <div className="section-label mb-2">A LETTER TO THE COURT</div>
+                <h3 className="font-cinzel text-3xl text-foreground mb-6">Address the Kingdom</h3>
+                <div className="grid gap-4 sm:grid-cols-2 mb-4">
+                  <div>
+                    <label className="section-label text-[0.6rem] block mb-2">Your Name</label>
+                    <input name="name" required value={form.name} onChange={handleChange} placeholder="Full name" className={inputCls} />
+                  </div>
+                  <div>
+                    <label className="section-label text-[0.6rem] block mb-2">Email</label>
+                    <input name="email" required type="email" value={form.email} onChange={handleChange} placeholder="your@email.com" className={inputCls} />
+                  </div>
+                </div>
+                <div className="mb-4">
+                  <label className="section-label text-[0.6rem] block mb-2">Subject</label>
+                  <select name="subject" value={form.subject} onChange={handleChange} className={`${inputCls} appearance-none`}>
+                    <option value="">Select a subject</option>
+                    <option>Audience · Palace Visit</option>
+                    <option>GUDECA / Development</option>
+                    <option>Agro CIG</option>
+                    <option>GUNECCUL</option>
+                    <option>Cultural Event</option>
+                    <option>Media / Press</option>
+                    <option>Website</option>
+                  </select>
+                </div>
+                <div className="mb-6">
+                  <label className="section-label text-[0.6rem] block mb-2">Message</label>
+                  <textarea name="message" required rows={5} value={form.message} onChange={handleChange}
+                            placeholder="Your message to the palace..." className={`${inputCls} resize-none`} />
+                </div>
+                <button type="submit" disabled={sending}
+                        className="btn-royal inline-flex items-center gap-2 w-full justify-center"
+                        style={{ opacity: sending ? 0.6 : 1, cursor: sending ? 'not-allowed' : 'pointer' }}>
+                  <Send className="h-4 w-4" />
+                  {sending ? 'SENDING...' : 'SEND WITH HONOR'}
+                </button>
+              </>
+            )}
+          </form>
+        </div>
+      </section>
 
-          <p style={{ color:'rgba(245,242,233,0.5)', fontFamily:'Inter, sans-serif',
-                      fontSize:'1rem', lineHeight:1.8, margin:'0 0 0.75rem' }}>
-            This platform was built by{' '}
-            <a href="https://maxpromo.digital" target="_blank" rel="noopener noreferrer"
-               style={{ color:'#f2a90b', textDecoration:'none', fontWeight:600 }}>
-              MaxPromo Digital
+      {/* ── MaxPromo CTA ── */}
+      <section className="border-t border-border/30 bg-card/20 py-16 text-center px-6">
+        <div className="max-w-2xl mx-auto">
+          <p className="section-label mb-4">THIS PLATFORM WAS BUILT BY</p>
+          <a href="https://maxpromo.digital" target="_blank" rel="noopener noreferrer"
+             className="font-cinzel text-4xl text-gold-gradient hover:opacity-80 transition-opacity block mb-4">
+            MAXPROMO DIGITAL
+          </a>
+          <p className="text-muted-foreground font-cormorant text-lg italic mb-6">
+            Is your community ready for its own digital palace?<br />
+            Contact us to bring your community to the world.
+          </p>
+          <div className="flex gap-4 justify-center flex-wrap">
+            <a href="https://maxpromo.digital/automation-audit" target="_blank" rel="noopener noreferrer" className="btn-royal inline-flex">
+              Get a Free Audit →
             </a>
-            {' '}— AI-powered web development from Essen, Germany.
-          </p>
-          <p style={{ color:'rgba(245,242,233,0.35)', fontFamily:'Inter, sans-serif',
-                      fontSize:'0.95rem', lineHeight:1.7, margin:'0 0 2.5rem' }}>
-            We build intelligent platforms for communities, associations, and businesses
-            that want to bring their identity to the world stage.
-          </p>
-
-          <a href="https://maxpromo.digital/automation-audit"
-             target="_blank" rel="noopener noreferrer"
-             style={{
-               backgroundColor: '#f2a90b', color: '#0F0F0F',
-               fontFamily: 'Syne, sans-serif', fontWeight: 700,
-               padding: '1rem 2.5rem', fontSize: '0.82rem',
-               letterSpacing: '0.15em', textTransform: 'uppercase',
-               textDecoration: 'none', display: 'inline-block',
-               marginRight: '1rem',
-             }}>
-            Get a Free Audit →
-          </a>
-          <a href="https://maxpromo.digital"
-             target="_blank" rel="noopener noreferrer"
-             style={{
-               border: '1px solid rgba(245,242,233,0.15)',
-               color: 'rgba(245,242,233,0.5)',
-               fontFamily: 'Syne, sans-serif', fontWeight: 700,
-               padding: '1rem 2rem', fontSize: '0.82rem',
-               letterSpacing: '0.15em', textTransform: 'uppercase',
-               textDecoration: 'none', display: 'inline-block',
-             }}>
-            maxpromo.digital
-          </a>
+            <a href="https://maxpromo.digital" target="_blank" rel="noopener noreferrer" className="btn-royal-outline inline-flex">
+              maxpromo.digital
+            </a>
+          </div>
         </div>
       </section>
-    </main>
+    </div>
   )
 }

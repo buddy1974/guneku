@@ -1,30 +1,43 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Link                    from 'next/link'
-import Image                   from 'next/image'
-import { usePathname }         from 'next/navigation'
+import Link            from 'next/link'
+import Image           from 'next/image'
+import { usePathname } from 'next/navigation'
+import { Menu, X }     from 'lucide-react'
+import { cn }          from '@/lib/utils'
 import type { NavItem } from '@/lib/content'
 
+const LINKS = [
+  { href: '/',        label: 'Home',        exact: true  },
+  { href: '/kingdom', label: 'The Kingdom', exact: false },
+  { href: '/palace',  label: 'The Palace',  exact: false },
+  { href: '/gudeca',  label: 'GUDECA',      exact: false },
+  { href: '/gallery', label: 'Gallery',     exact: false },
+  { href: '/diaspora',label: 'Diaspora',    exact: false },
+  { href: '/contact', label: 'Contact',     exact: false },
+]
+
 interface HeaderProps {
-  nav: { mainNav: NavItem[] }
+  nav?: { mainNav: NavItem[] }
 }
 
-export function Header({ nav }: HeaderProps) {
-  const [scrolled,   setScrolled]   = useState(false)
-  const [menuOpen,   setMenuOpen]   = useState(false)
-  const [searchOpen, setSearchOpen] = useState(false)
-  const [query,      setQuery]      = useState('')
-  const [results,    setResults]    = useState<{ id: string; title: string; section: string; href: string }[]>([])
+export function Header({ nav: _nav }: HeaderProps) {
+  const [scrolled,    setScrolled]    = useState(false)
+  const [open,        setOpen]        = useState(false)
+  const [searchOpen,  setSearchOpen]  = useState(false)
+  const [query,       setQuery]       = useState('')
+  const [results,     setResults]     = useState<{ id: string; title: string; section: string; href: string }[]>([])
   const pathname = usePathname()
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 40)
+    const fn = () => setScrolled(window.scrollY > 24)
+    fn()
     window.addEventListener('scroll', fn, { passive: true })
     return () => window.removeEventListener('scroll', fn)
   }, [])
 
-  useEffect(() => { setMenuOpen(false) }, [pathname])
+  useEffect(() => { setOpen(false) }, [pathname])
 
   useEffect(() => {
     if (query.length < 2) { setResults([]); return }
@@ -36,161 +49,107 @@ export function Header({ nav }: HeaderProps) {
     return () => clearTimeout(t)
   }, [query])
 
-  const isActive = (href: string) =>
-    href === '/' ? pathname === '/' : pathname.startsWith(href)
+  const isActive = (href: string, exact?: boolean) =>
+    exact ? pathname === href : (href !== '/' && pathname.startsWith(href))
 
   return (
-    <>
-      {/* ── HEADER BAR ── */}
-      <header style={{
-        position:             'fixed',
-        top:                  0,
-        left:                 0,
-        right:                0,
-        zIndex:               100,
-        height:               'var(--header-h)',
-        paddingLeft:          'env(safe-area-inset-left, 0px)',
-        paddingRight:         'env(safe-area-inset-right, 0px)',
-        backgroundColor:      scrolled || menuOpen ? 'rgba(10,10,14,0.97)' : 'transparent',
-        backdropFilter:       scrolled || menuOpen ? 'blur(20px)' : 'none',
-        WebkitBackdropFilter: scrolled || menuOpen ? 'blur(20px)' : 'none',
-        borderBottom:         scrolled ? '0.5px solid rgba(255,255,255,0.07)' : '1px solid transparent',
-        transition:           'background-color 0.3s, border-color 0.3s',
-      }}>
-        <div style={{
-          maxWidth: '1400px', margin: '0 auto',
-          height: 'var(--header-h)', padding: '0 1rem',
-          display: 'flex', alignItems: 'center',
-          justifyContent: 'space-between', gap: '1rem',
-        }}>
+    <header
+      className={cn(
+        'fixed inset-x-0 top-0 z-50 transition-all duration-500',
+        scrolled || open
+          ? 'backdrop-blur-xl bg-background/80 border-b border-border'
+          : 'bg-transparent'
+      )}
+      style={{ paddingLeft: 'env(safe-area-inset-left,0px)', paddingRight: 'env(safe-area-inset-right,0px)' }}
+    >
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
 
-          {/* ── LOGO ── */}
-          <Link href="/" style={{
-            display: 'flex', alignItems: 'center',
-            gap: '10px', textDecoration: 'none', flexShrink: 0,
-          }}>
-            <div style={{ position: 'relative', width: '36px', height: '36px', flexShrink: 0 }}>
-              <Image src="/logo.png" alt="Guneku Fondom" fill
-                     style={{ objectFit: 'contain' }} priority unoptimized />
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
-              <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800,
-                             fontSize: '14px', color: '#f2a90b',
-                             letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                Guneku
-              </span>
-              <span style={{ fontFamily: 'Syne, sans-serif', fontSize: '9px',
-                             color: 'rgba(245,242,233,0.35)',
-                             letterSpacing: '0.15em', textTransform: 'uppercase' }}>
-                Fondom
-              </span>
-            </div>
-          </Link>
-
-          {/* ── DESKTOP NAV ── */}
-          <nav className="hidden md:flex" style={{ alignItems: 'center', gap: '0.25rem' }}>
-            {nav.mainNav.map((item: NavItem) => (
-              <Link key={item.href} href={item.href} style={{
-                fontFamily: 'Syne, sans-serif', fontWeight: 600,
-                fontSize: '11px', letterSpacing: '0.12em', textTransform: 'uppercase',
-                color: isActive(item.href) ? '#f2a90b' : 'rgba(245,242,233,0.6)',
-                textDecoration: 'none', padding: '0.5rem 0.75rem',
-                borderBottom: `2px solid ${isActive(item.href) ? '#f2a90b' : 'transparent'}`,
-                transition: 'color 0.2s, border-color 0.2s', whiteSpace: 'nowrap',
-              }}>
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-
-          {/* ── RIGHT: search + auth + hamburger ── */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-
-            {/* Search button */}
-            <button onClick={() => setSearchOpen(s => !s)} aria-label="Search"
-                    style={{ width: '40px', height: '40px', display: 'flex',
-                             alignItems: 'center', justifyContent: 'center',
-                             background: 'none', border: '1px solid rgba(255,255,255,0.1)',
-                             cursor: 'pointer', borderRadius: '6px', flexShrink: 0 }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                   stroke="rgba(245,242,233,0.6)" strokeWidth="2">
-                <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
-              </svg>
-            </button>
-
-            {/* Auth coming soon */}
-
-            {/* Hamburger — mobile */}
-            <button onClick={() => setMenuOpen(m => !m)} className="md:hidden"
-                    aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-                    style={{ width: '44px', height: '44px', display: 'flex',
-                             alignItems: 'center', justifyContent: 'center',
-                             background: 'none', border: 'none',
-                             cursor: 'pointer', padding: 0, flexShrink: 0 }}>
-              <div style={{ width: '20px', position: 'relative', height: '14px' }}>
-                {[0, 6, 12].map((top, i) => (
-                  <span key={i} style={{
-                    position: 'absolute', left: 0, top: `${top}px`,
-                    width: i === 1 && menuOpen ? '0%' : '100%',
-                    height: '1.5px', backgroundColor: '#F5F2E9',
-                    borderRadius: '1px', transition: 'all 0.25s ease',
-                    transform: menuOpen
-                      ? i === 0 ? 'rotate(45deg) translateY(7px)'
-                      : i === 2 ? 'rotate(-45deg) translateY(-7px)' : 'scaleX(0)'
-                      : 'none',
-                    opacity: i === 1 && menuOpen ? 0 : 1,
-                  }} />
-                ))}
-              </div>
-            </button>
+        {/* Logo */}
+        <Link href="/" className="group flex items-center gap-3">
+          <div className="relative h-10 w-10 shrink-0">
+            <Image
+              src="/royal-seal.png"
+              alt="Royal seal of Guneku"
+              fill
+              className="object-contain drop-shadow-[0_0_12px_oklch(0.78_0.16_78/0.5)] transition-transform duration-700 group-hover:rotate-12"
+              unoptimized
+              priority
+            />
           </div>
+          <div className="leading-tight">
+            <div className="font-cinzel text-lg font-bold tracking-[0.18em] text-gold-gradient">
+              GUNEKU
+            </div>
+            <div className="text-[10px] tracking-[0.32em] text-muted-foreground">
+              FONDOM · MMXXVI
+            </div>
+          </div>
+        </Link>
+
+        {/* Desktop nav */}
+        <nav className="hidden items-center gap-1 lg:flex">
+          {LINKS.map(l => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className={cn(
+                'relative rounded-md px-3 py-2 text-sm font-medium transition-colors hover:text-primary',
+                isActive(l.href, l.exact) ? 'text-primary' : 'text-foreground/80'
+              )}
+            >
+              {l.label}
+            </Link>
+          ))}
+          <Link
+            href="/palace/fon-walters-profile"
+            className="ml-3 inline-flex items-center gap-2 rounded-full border border-gold/70 bg-gold-gradient px-5 py-2 text-sm font-semibold text-gold-foreground shadow-[0_8px_30px_-8px_oklch(0.78_0.16_78/0.6)] transition-transform hover:scale-[1.03]"
+          >
+            Audience with the Fon
+          </Link>
+        </nav>
+
+        {/* Right: search + hamburger */}
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setSearchOpen(s => !s)}
+            aria-label="Search"
+            className="flex h-9 w-9 items-center justify-center rounded-md text-foreground/70 hover:bg-secondary transition-colors"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+            </svg>
+          </button>
+          <button
+            onClick={() => setOpen(v => !v)}
+            className="lg:hidden flex h-10 w-10 items-center justify-center rounded-md text-foreground hover:bg-secondary"
+            aria-label="Toggle menu"
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
-      </header>
+      </div>
 
-      {/* ── SPACER ── */}
-      <div style={{ height: 'var(--header-h)' }} />
-
-      {/* ── SEARCH OVERLAY ── */}
+      {/* Search overlay */}
       {searchOpen && (
-        <div style={{
-          position: 'fixed', top: 'var(--header-h)', left: 0, right: 0,
-          zIndex: 99, backgroundColor: 'rgba(8,8,12,0.98)',
-          backdropFilter: 'blur(20px)',
-          borderBottom: '1px solid rgba(255,255,255,0.07)', padding: '1rem',
-        }}>
-          <input autoFocus value={query} onChange={e => setQuery(e.target.value)}
-                 onKeyDown={e => e.key === 'Escape' && setSearchOpen(false)}
-                 placeholder="Search Guneku..."
-                 style={{
-                   width: '100%', backgroundColor: '#0C0C14',
-                   border: '1px solid rgba(242,169,11,0.3)',
-                   color: '#F5F2E9', fontFamily: 'Inter, sans-serif',
-                   fontSize: '16px', padding: '0.875rem 1rem',
-                   outline: 'none', boxSizing: 'border-box',
-                 }} />
+        <div className="border-t border-border bg-background/95 backdrop-blur-xl px-6 py-3">
+          <input
+            autoFocus
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            onKeyDown={e => e.key === 'Escape' && setSearchOpen(false)}
+            placeholder="Search the kingdom..."
+            className="w-full bg-transparent text-foreground placeholder:text-muted-foreground outline-none text-sm"
+            style={{ fontSize: '16px' }}
+          />
           {results.length > 0 && (
-            <div style={{ marginTop: '8px', backgroundColor: '#0C0C14',
-                          border: '1px solid rgba(255,255,255,0.08)',
-                          maxHeight: '60vh', overflowY: 'auto' }}>
+            <div className="mt-2 space-y-1 max-h-64 overflow-y-auto">
               {results.map(r => (
                 <Link key={r.id} href={r.href}
                       onClick={() => { setSearchOpen(false); setQuery('') }}
-                      style={{ display: 'flex', justifyContent: 'space-between',
-                               alignItems: 'center', padding: '0.875rem 1rem',
-                               borderBottom: '1px solid rgba(255,255,255,0.05)',
-                               textDecoration: 'none', minHeight: '44px' }}>
-                  <div>
-                    <div style={{ color: '#F5F2E9', fontFamily: 'Syne, sans-serif',
-                                  fontWeight: 600, fontSize: '13px' }}>
-                      {r.title}
-                    </div>
-                    <div style={{ color: 'rgba(245,242,233,0.35)',
-                                  fontFamily: 'Inter, sans-serif',
-                                  fontSize: '11px', marginTop: '2px' }}>
-                      {r.section}
-                    </div>
-                  </div>
-                  <span style={{ color: '#f2a90b', fontSize: '12px' }}>→</span>
+                      className="flex justify-between items-center py-2 border-b border-border/50 text-sm hover:text-primary transition-colors min-h-[44px]">
+                  <span className="text-foreground font-medium">{r.title}</span>
+                  <span className="text-muted-foreground text-xs ml-4">{r.section}</span>
                 </Link>
               ))}
             </div>
@@ -198,48 +157,45 @@ export function Header({ nav }: HeaderProps) {
         </div>
       )}
 
-      {/* ── MOBILE FULLSCREEN MENU ── */}
-      <div className="md:hidden" style={{
-        position: 'fixed',
-        top: menuOpen ? 'var(--header-h)' : '-100vh',
-        left: 0, right: 0, bottom: 0, zIndex: 98,
-        backgroundColor: '#0A0A0E', overflowY: 'auto',
-        paddingBottom: 'calc(var(--bottom-nav-total) + 2rem)',
-        transition: 'top 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
-      }}>
-        <div style={{ padding: '1.5rem 1rem' }}>
-          {nav.mainNav.map((item: NavItem) => (
-            <Link key={item.href} href={item.href} style={{
-              display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-              padding: '1rem 0', borderBottom: '0.5px solid rgba(255,255,255,0.06)',
-              textDecoration: 'none', minHeight: '56px',
-            }}>
-              <span style={{
-                fontFamily: '"Bebas Neue", sans-serif',
-                fontSize: '1.5rem', letterSpacing: '0.05em',
-                color: isActive(item.href) ? '#f2a90b' : '#F5F2E9',
-                transition: 'color 0.2s',
-              }}>
-                {item.label}
-              </span>
-              <span style={{ color: 'rgba(245,242,233,0.2)', fontSize: '1rem' }}>→</span>
+      {/* Mobile fullscreen menu */}
+      <div
+        className="lg:hidden"
+        style={{
+          position: 'fixed',
+          top: open ? '60px' : '-100vh',
+          left: 0, right: 0, bottom: 0,
+          zIndex: 98,
+          backgroundColor: 'oklch(0.10 0.02 30 / 0.97)',
+          backdropFilter: 'blur(20px)',
+          overflowY: 'auto',
+          paddingBottom: 'calc(var(--bottom-nav-total) + 2rem)',
+          transition: 'top 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
+        }}
+      >
+        <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-6">
+          {LINKS.map(l => (
+            <Link
+              key={l.href}
+              href={l.href}
+              onClick={() => setOpen(false)}
+              className={cn(
+                'flex items-center justify-between min-h-[56px] py-4 border-b border-border/30 font-cinzel text-2xl tracking-wide transition-colors',
+                isActive(l.href, l.exact) ? 'text-primary' : 'text-foreground'
+              )}
+            >
+              <span>{l.label}</span>
+              <span className="text-muted-foreground/40">→</span>
             </Link>
           ))}
-
-          <div style={{ marginTop: '2rem', paddingTop: '2rem',
-                        borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-            <Link href="/indigenes" style={{
-              display: 'block', width: '100%', backgroundColor: '#f2a90b',
-              color: '#0F0F0F', fontFamily: 'Syne, sans-serif', fontWeight: 700,
-              padding: '1rem', fontSize: '13px', letterSpacing: '0.15em',
-              textTransform: 'uppercase', textDecoration: 'none',
-              textAlign: 'center', minHeight: '52px', lineHeight: '1.8',
-            }}>
-              Indigenes Directory
-            </Link>
-          </div>
-        </div>
+          <Link
+            href="/palace/fon-walters-profile"
+            onClick={() => setOpen(false)}
+            className="mt-6 btn-royal text-center justify-center"
+          >
+            Audience with the Fon
+          </Link>
+        </nav>
       </div>
-    </>
+    </header>
   )
 }

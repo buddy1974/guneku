@@ -35,7 +35,8 @@
       "Bash(awk '{if\\(NF\\) print \"  \" $0; else print \"src/\"}')",
       "Bash(npm list *)",
       "Bash(npm uninstall *)",
-      "Bash(vercel *)"
+      "Bash(vercel *)",
+      "Bash(openssl rand *)"
     ]
   }
 }

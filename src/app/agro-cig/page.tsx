@@ -1,200 +1,119 @@
-import { PageHero } from '@/components/layout/PageHero'
-import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
+import { PageHero }       from '@/components/layout/PageHero'
+import { Reveal }         from '@/components/ui/Reveal'
 
 export const metadata = {
-  title: 'Agro CIG — Guneku Agricultural Initiative 2026',
+  title:       'Agro CIG — Guneku Agricultural Initiative 2026',
   description: 'Join the Guneku Agro CIG — 12.5M FCFA raised, 500 chicks, turkeys from Nigeria. Phase 2 open now.',
 }
 
 const LIVESTOCK = [
-  { icon: '🐔', name: 'Poultry',   status: 'ACTIVE',
-    desc: '500 chicks — 300 thriving + 200 arriving. Core product.' },
-  { icon: '🦃', name: 'Turkeys',   status: 'ACTIVE',
-    desc: 'Successfully imported from Nigeria. Now at the farm.' },
-  { icon: '🐷', name: 'Pigs',      status: 'PLANNED',
-    desc: 'Multi-animal farming strategy — next phase.' },
-  { icon: '🦩', name: 'Ostriches', status: 'PLANNED',
-    desc: 'Planned for expansion, attraction, and tourism value.' },
+  { icon:'🐔', name:'Poultry',   status:'ACTIVE',  desc:'500 chicks — 300 thriving + 200 arriving. Core product.' },
+  { icon:'🦃', name:'Turkeys',   status:'ACTIVE',  desc:'Successfully imported from Nigeria. Now at the farm.' },
+  { icon:'🐷', name:'Pigs',      status:'PLANNED', desc:'Multi-animal farming strategy — next phase.' },
+  { icon:'🦩', name:'Ostriches', status:'PLANNED', desc:'Planned for expansion, attraction, and tourism value.' },
 ]
 
-const FARM_PROGRESS = [
-  { icon: '✅', item: 'Land bulldozed and prepared' },
-  { icon: '✅', item: 'Stone gathering for construction' },
-  { icon: '🔄', item: 'Structural and architectural planning' },
-  { icon: '🔄', item: 'Feed production systems development' },
-  { icon: '🔄', item: 'Machinery identification' },
+const PROGRESS = [
+  { icon:'✅', item:'Land bulldozed and prepared' },
+  { icon:'✅', item:'Stone gathering for construction' },
+  { icon:'🔄', item:'Structural and architectural planning' },
+  { icon:'🔄', item:'Feed production systems development' },
+  { icon:'🔄', item:'Machinery identification' },
 ]
 
 export default function AgroCIGPage() {
   return (
-    <main style={{ backgroundColor: '#0F0F0F', minHeight: '100vh' }}>
-      <PageHero
-        label="LIVE INITIATIVE"
-        title="GUNEKU AGRO CIG"
-        subtitle="Launched April 5, 2026 — Ngong Quarter, Guneku. Phase 2 open until April 30, 2026."
-      />
-      <section style={{ maxWidth:'1200px', margin:'0 auto', padding:'5rem 1.5rem' }}>
+    <main className="min-h-screen bg-background">
+      <PageHero label="LIVE INITIATIVE" title="GUNEKU AGRO CIG"
+                subtitle="Launched April 5, 2026 — Ngong Quarter, Guneku. Phase 2 open until April 30, 2026." />
 
-        {/* Live badge */}
-        <div style={{ display:'inline-flex', alignItems:'center', gap:'8px',
-                      backgroundColor:'rgba(139,30,45,0.2)',
-                      border:'1px solid rgba(139,30,45,0.4)',
-                      padding:'0.5rem 1rem', marginBottom:'1.5rem' }}>
-          <span style={{ width:'8px', height:'8px', borderRadius:'50%',
-                         backgroundColor:'#8B1E2D' }} />
-          <span style={{ color:'#F5F2E9', fontFamily:'Syne, sans-serif',
-                         fontSize:'0.75rem', letterSpacing:'0.15em',
-                         textTransform:'uppercase' }}>
-            Phase 2 Open — Register by April 30, 2026
-          </span>
-        </div>
+      <section className="max-w-7xl mx-auto px-6 py-20">
 
-        {/* Phase 3 urgency banner */}
-        <div style={{
-          backgroundColor:'rgba(139,30,45,0.2)',
-          border:'1px solid rgba(139,30,45,0.4)',
-          padding:'1.25rem 1.5rem',
-          marginBottom:'3rem',
-          display:'flex', alignItems:'flex-start', gap:'1rem',
-        }}>
-          <span style={{ fontSize:'1.5rem', flexShrink:0 }}>⚠️</span>
+        {/* Phase 3 urgency */}
+        <div className="card-royal border-l-4 p-5 mb-8 flex gap-4 items-start" style={{ borderLeftColor: 'oklch(0.42 0.22 25)' }}>
+          <span className="text-2xl shrink-0">⚠️</span>
           <div>
-            <div style={{ color:'#F5F2E9', fontFamily:'Syne, sans-serif',
-                          fontWeight:700, fontSize:'0.9rem', marginBottom:'0.3rem' }}>
-              PHASE 3 STARTS 1 MAY 2026 — SHARE PRICE RISES TO 5,000 FCFA
-            </div>
-            <div style={{ color:'rgba(245,242,233,0.5)',
-                          fontFamily:'Inter, sans-serif', fontSize:'0.82rem' }}>
-              Current price: 2,000 FCFA per share. Join Phase 2 now before the increase.
-            </div>
+            <div className="font-cinzel text-foreground tracking-wide mb-1">PHASE 3 STARTS 1 MAY 2026 — SHARE PRICE RISES TO 5,000 FCFA</div>
+            <div className="text-muted-foreground text-sm">Current price: 2,000 FCFA per share. Join Phase 2 now before the increase.</div>
           </div>
         </div>
 
-        {/* Phase 1 results */}
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(3, 1fr)',
-                      gap:'1px', backgroundColor:'rgba(242,169,11,0.1)',
-                      marginBottom:'4rem', border:'1px solid rgba(242,169,11,0.1)' }}
-             className="grid-cols-1 md:grid-cols-3">
-          {[
-            { val:'12.5M', suffix:'FCFA', label:'Raised in Phase 1' },
-            { val:'500',   suffix:'',     label:'Chicks at the farm' },
-            { val:'Apr 5', suffix:'2026', label:'Launch date' },
-          ].map(s => (
-            <div key={s.label} style={{ padding:'2.5rem', textAlign:'center',
-                                        backgroundColor:'#0C0C14' }}>
-              <div style={{ fontFamily:'"Bebas Neue", sans-serif',
-                            color:'#f2a90b', letterSpacing:'0.05em', lineHeight:1 }}>
-                <span style={{ fontSize:'3rem' }}>{s.val}</span>
-                {s.suffix && <span style={{ fontSize:'1.5rem', marginLeft:'4px' }}>{s.suffix}</span>}
+        {/* Stats */}
+        <Reveal>
+          <div className="grid md:grid-cols-3 gap-px bg-border/30 rounded-2xl overflow-hidden mb-12">
+            {[
+              { val:'12.5M', suf:'FCFA', label:'Raised in Phase 1' },
+              { val:'500',   suf:'',     label:'Chicks at the farm' },
+              { val:'Apr 5', suf:'2026', label:'Launch date' },
+            ].map(s => (
+              <div key={s.label} className="bg-card p-8 text-center">
+                <div className="font-cinzel text-gold-gradient" style={{ fontSize:'2.5rem' }}>
+                  {s.val}{s.suf && <span style={{ fontSize:'1.5rem' }}> {s.suf}</span>}
+                </div>
+                <div className="section-label text-[0.65rem] mt-2">{s.label}</div>
               </div>
-              <div className="section-label" style={{ marginTop:'0.5rem' }}>
-                {s.label}
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </Reveal>
 
-        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'4rem' }}
-             className="grid-cols-1 md:grid-cols-2">
+        <div className="grid md:grid-cols-2 gap-12">
           <div>
             {/* Phase 2 info */}
-            <h3 style={{ fontFamily:'"Bebas Neue", sans-serif', fontSize:'2rem',
-                         color:'#F5F2E9', letterSpacing:'0.05em', margin:'0 0 1.5rem' }}>
-              PHASE 2 — JOIN NOW
-            </h3>
-            <div style={{ display:'flex', flexDirection:'column',
-                          gap:'0.75rem', marginBottom:'2rem' }}>
+            <h3 className="font-cinzel text-2xl text-foreground mb-6">PHASE 2 — JOIN NOW</h3>
+            <div className="space-y-2 mb-8">
               {[
-                { label:'Registration fee', value:'5,000 FCFA' },
-                { label:'Share price',      value:'2,000 FCFA per share' },
-                { label:'Minimum shares',   value:'5 shares' },
-                { label:'Maximum shares',   value:'100 shares' },
-                { label:'Deadline',         value:'April 30, 2026' },
-                { label:'Phase 3 price',    value:'5,000 FCFA (from May 1)' },
-                { label:'Location',         value:'Ngong Quarter, Guneku' },
-                { label:'Contact',          value:'+237 673320716' },
-                { label:'Chick hotline',    value:'+237 670 94 95 03' },
+                { l:'Registration fee', v:'5,000 FCFA' },
+                { l:'Share price',      v:'2,000 FCFA per share' },
+                { l:'Minimum shares',   v:'5 shares' },
+                { l:'Maximum shares',   v:'100 shares' },
+                { l:'Deadline',         v:'April 30, 2026' },
+                { l:'Phase 3 price',    v:'5,000 FCFA (from May 1)' },
+                { l:'Location',         v:'Ngong Quarter, Guneku' },
+                { l:'Contact',          v:'+237 673320716' },
               ].map(f => (
-                <div key={f.label} style={{
-                  display:'flex', justifyContent:'space-between',
-                  padding:'0.75rem 1rem', backgroundColor:'#0C0C14',
-                  borderLeft:'2px solid rgba(242,169,11,0.3)',
-                }}>
-                  <span style={{ color:'rgba(245,242,233,0.4)',
-                                 fontFamily:'Syne, sans-serif', fontSize:'0.8rem',
-                                 textTransform:'uppercase', letterSpacing:'0.08em' }}>
-                    {f.label}
-                  </span>
-                  <span style={{ color:'#F5F2E9', fontFamily:'Inter, sans-serif',
-                                 fontSize:'0.9rem', fontWeight:600 }}>
-                    {f.value}
-                  </span>
+                <div key={f.l} className="flex justify-between py-2 border-b border-border/30">
+                  <span className="text-muted-foreground text-sm tracking-wide">{f.l}</span>
+                  <span className="text-foreground text-sm font-medium">{f.v}</span>
                 </div>
               ))}
             </div>
 
             {/* Livestock */}
-            <h3 style={{ fontFamily:'"Bebas Neue", sans-serif', fontSize:'2rem',
-                         color:'#F5F2E9', letterSpacing:'0.05em', margin:'0 0 1rem' }}>
-              LIVESTOCK
-            </h3>
+            <h3 className="font-cinzel text-2xl text-foreground mb-4">LIVESTOCK</h3>
             {LIVESTOCK.map(p => (
-              <div key={p.name} style={{
-                display:'flex', gap:'1rem', alignItems:'flex-start',
-                padding:'1rem', backgroundColor:'#0C0C14',
-                borderLeft:`3px solid ${p.status === 'ACTIVE' ? '#f2a90b' : '#8B1E2D'}`,
-                marginBottom:'0.5rem',
-              }}>
-                <span style={{ fontSize:'1.5rem' }}>{p.icon}</span>
-                <div style={{ flex:1 }}>
-                  <div style={{ display:'flex', justifyContent:'space-between',
-                                alignItems:'center', marginBottom:'0.2rem' }}>
-                    <span style={{ fontFamily:'Syne, sans-serif', fontWeight:700,
-                                   color:'#F5F2E9', fontSize:'0.95rem' }}>
-                      {p.name}
-                    </span>
-                    <span style={{
-                      backgroundColor: p.status === 'ACTIVE'
-                        ? 'rgba(242,169,11,0.15)' : 'rgba(139,30,45,0.15)',
-                      color: p.status === 'ACTIVE' ? '#f2a90b' : 'rgba(245,242,233,0.4)',
-                      fontFamily:'Syne, sans-serif', fontSize:'0.6rem',
-                      letterSpacing:'0.1em', textTransform:'uppercase',
-                      padding:'0.15rem 0.5rem',
-                    }}>
+              <div key={p.name} className="flex gap-3 items-start card-royal p-4 mb-2"
+                   style={{ borderLeftWidth:'3px', borderLeftColor: p.status === 'ACTIVE' ? 'oklch(0.82 0.17 80)' : 'oklch(0.42 0.22 25)' }}>
+                <span className="text-xl shrink-0">{p.icon}</span>
+                <div className="flex-1">
+                  <div className="flex justify-between items-center">
+                    <span className="font-cinzel text-foreground">{p.name}</span>
+                    <span className="text-[10px] tracking-widest font-cinzel"
+                          style={{ color: p.status === 'ACTIVE' ? 'oklch(0.82 0.17 80)' : 'oklch(0.72 0.04 70)' }}>
                       {p.status}
                     </span>
                   </div>
-                  <div style={{ color:'rgba(245,242,233,0.4)',
-                                fontFamily:'Inter, sans-serif', fontSize:'0.8rem' }}>
-                    {p.desc}
-                  </div>
+                  <p className="text-muted-foreground text-xs mt-1">{p.desc}</p>
                 </div>
               </div>
             ))}
 
-            {/* Farm development progress */}
-            <div style={{ marginTop:'2rem' }}>
-              <h3 style={{ fontFamily:'"Bebas Neue", sans-serif', fontSize:'1.8rem',
-                           color:'#F5F2E9', letterSpacing:'0.05em', margin:'0 0 1rem' }}>
-                FARM DEVELOPMENT
-              </h3>
-              {FARM_PROGRESS.map(f => (
-                <div key={f.item} style={{
-                  display:'flex', gap:'12px', alignItems:'center',
-                  padding:'0.6rem 0',
-                  borderBottom:'1px solid rgba(255,255,255,0.05)',
-                }}>
-                  <span style={{ fontSize:'1rem', flexShrink:0 }}>{f.icon}</span>
-                  <span style={{ color:'rgba(245,242,233,0.65)',
-                                 fontFamily:'Inter, sans-serif', fontSize:'0.875rem' }}>
-                    {f.item}
-                  </span>
-                </div>
-              ))}
-            </div>
+            {/* Farm progress */}
+            <h3 className="font-cinzel text-2xl text-foreground mt-8 mb-4">FARM DEVELOPMENT</h3>
+            {PROGRESS.map(f => (
+              <div key={f.item} className="flex gap-3 items-center py-2 border-b border-border/20">
+                <span className="shrink-0">{f.icon}</span>
+                <span className="text-muted-foreground text-sm">{f.item}</span>
+              </div>
+            ))}
           </div>
 
-          <ImagePlaceholder label="Agro CIG Launch — April 5, 2026" aspectRatio="4/3" />
+          {/* Placeholder image */}
+          <div className="card-royal overflow-hidden aspect-[4/3] flex items-center justify-center pattern-royal">
+            <div className="text-center">
+              <div className="text-5xl mb-2">🌾</div>
+              <div className="section-label">AGRO CIG LAUNCH — APRIL 5, 2026</div>
+            </div>
+          </div>
         </div>
       </section>
     </main>

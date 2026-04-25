@@ -1,191 +1,119 @@
-import Link from 'next/link'
+import Link          from 'next/link'
+import Image         from 'next/image'
 import { getSiteConfig } from '@/lib/content'
 
 const config = getSiteConfig()
 
 const NAV_LINKS = [
-  { label: 'Home',           href: '/' },
-  { label: 'The Kingdom',    href: '/kingdom' },
-  { label: 'The Palace',     href: '/palace' },
-  { label: 'GUDECA',         href: '/gudeca' },
-  { label: 'Village Square', href: '/updates' },
-  { label: 'Gallery',        href: '/gallery' },
-  { label: 'Diaspora',       href: '/diaspora' },
-  { label: 'Contact',        href: '/contact' },
-]
-
-const INITIATIVE_LINKS = [
-  { label: 'Agro CIG',         href: '/agro-cig' },
-  { label: 'GUNECCUL',         href: '/guneccul' },
-  { label: 'Afor Scholarship', href: '/notables/roland-teboh-forbang' },
-  { label: 'Projects',         href: '/projects' },
-]
-
-const SOCIAL_LINKS = [
-  { label: 'Facebook',  href: config.socialLinks.facebook },
-  { label: 'Twitter',   href: config.socialLinks.twitter },
-  { label: 'Instagram', href: config.socialLinks.instagram },
-  { label: 'YouTube',   href: config.socialLinks.youtube },
+  { label: 'The Kingdom',  href: '/kingdom'  },
+  { label: 'The Palace',   href: '/palace'   },
+  { label: 'GUDECA',       href: '/gudeca'   },
+  { label: 'Diaspora',     href: '/diaspora' },
+  { label: 'Gallery',      href: '/gallery'  },
+  { label: 'Village Square', href: '/updates'},
 ]
 
 export function Footer() {
   return (
-    <footer className="bg-[#080808] border-t border-heritage-red/30">
-      {/* Heritage-red top accent */}
-      <div className="h-0.5 bg-heritage-red" />
+    <footer
+      className="relative mt-32 overflow-hidden border-t border-border"
+      style={{ background: 'linear-gradient(to bottom, oklch(0.14 0.02 30), oklch(0.10 0.02 30))' }}
+    >
+      <div className="pattern-royal absolute inset-0 opacity-25" />
 
-      {/* ── Marquee statement bar ── */}
-      <div style={{
-        borderBottom: '1px solid rgba(242,169,11,0.1)',
-        padding: '3rem 1.5rem', textAlign: 'center',
-        background: 'linear-gradient(to right, transparent, rgba(139,30,45,0.1), transparent)',
-      }}>
-        <p style={{
-          fontFamily: '"Bebas Neue", sans-serif',
-          fontSize: 'clamp(1.5rem, 4vw, 3rem)',
-          color: 'rgba(245,242,233,0.15)', letterSpacing: '0.05em',
-          margin: 0, textTransform: 'uppercase',
-        }}>
-          FONDOM · HERITAGE · UNITY · VISION · DEVELOPMENT · CULTURE ·
-          DIASPORA · PRIDE · PROGRESS · GUNEKU
-        </p>
-      </div>
+      <div
+        className="relative mx-auto max-w-7xl px-6 py-20"
+        style={{ paddingBottom: 'calc(var(--bottom-nav-total) + 3rem)' }}
+      >
+        <div className="grid gap-12 md:grid-cols-4">
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16"
-           style={{ paddingBottom: 'calc(var(--bottom-nav-total) + 2rem)' }}
-           >
-        <style>{`@media (min-width: 768px) { .footer-inner { padding-bottom: 3rem !important; } }`}</style>
-
-        {/* ── 4-column grid ── */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
-
-          {/* Column 1 — Brand */}
-          <div>
-            <p
-              className="text-palace-gold font-heading font-bold text-base
-                         tracking-[0.15em] uppercase mb-1"
-            >
-              Guneku Fondom
-            </p>
-            <p className="text-ivory/40 text-xs tracking-wide font-body mb-6">
-              Mbengwi · Momo Division · Northwest Cameroon
-            </p>
-            <div className="flex items-center gap-4 flex-wrap">
-              {SOCIAL_LINKS.map(({ label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-ivory/30 hover:text-heritage-red text-xs
-                             font-heading tracking-wide transition-colors"
-                >
-                  {label}
-                </a>
-              ))}
+          {/* Brand */}
+          <div className="md:col-span-2">
+            <div className="flex items-center gap-4">
+              <div className="relative h-14 w-14 shrink-0">
+                <Image
+                  src="/royal-seal.png"
+                  alt="Royal seal of Guneku"
+                  fill
+                  className="object-contain animate-spin-slow"
+                  unoptimized
+                />
+              </div>
+              <div>
+                <div className="font-cinzel text-2xl text-gold-gradient">GUNEKU FONDOM</div>
+                <div className="text-xs tracking-[0.3em] text-muted-foreground mt-1">
+                  MBENGWI · NORTHWEST CAMEROON
+                </div>
+              </div>
             </div>
+
+            <blockquote className="mt-6 border-l-2 border-primary pl-4">
+              <p className="font-cormorant text-lg italic leading-relaxed text-muted-foreground">
+                &ldquo;We carry Guneku in our hearts wherever we are in the world.
+                But Guneku must grow — in the village, in the diaspora,
+                and in the digital world.&rdquo;
+              </p>
+              <footer className="mt-2 text-xs tracking-widest text-primary">
+                — HRH Dr. Fomuki Walters Ticha IX
+              </footer>
+            </blockquote>
           </div>
 
-          {/* Column 2 — Navigate */}
+          {/* Explore */}
           <div>
-            <p className="section-label mb-5">Navigate</p>
-            <ul className="space-y-3">
+            <h4 className="font-cinzel text-sm tracking-[0.3em] text-primary mb-4">EXPLORE</h4>
+            <ul className="space-y-2 text-sm text-foreground/70">
               {NAV_LINKS.map(l => (
                 <li key={l.href}>
-                  <Link
-                    href={l.href}
-                    className="text-ivory/50 hover:text-ivory text-sm font-body
-                               transition-colors duration-150"
-                  >
-                    {l.label}
-                  </Link>
+                  <Link href={l.href} className="hover:text-primary transition-colors">{l.label}</Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 3 — Initiatives */}
+          {/* Contact */}
           <div>
-            <p className="section-label mb-5">Initiatives</p>
-            <ul className="space-y-3">
-              {INITIATIVE_LINKS.map(l => (
-                <li key={l.href}>
-                  <Link
-                    href={l.href}
-                    className="text-ivory/50 hover:text-ivory text-sm font-body
-                               transition-colors duration-150"
-                  >
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 4 — Connect */}
-          <div>
-            <p className="section-label mb-5">Contact</p>
-            <ul className="space-y-3 text-sm font-body">
+            <h4 className="font-cinzel text-sm tracking-[0.3em] text-primary mb-4">REACH US</h4>
+            <ul className="space-y-2 text-sm text-foreground/70">
+              <li>The Palace, Guneku</li>
+              <li>Mbengwi, Momo Division</li>
+              <li>Northwest Region, Cameroon</li>
               <li>
-                <a
-                  href={`mailto:${config.contactEmail}`}
-                  className="text-ivory/50 hover:text-ivory transition-colors"
-                >
+                <a href={`mailto:${config.contactEmail}`} className="hover:text-primary transition-colors">
                   {config.contactEmail}
                 </a>
               </li>
               <li>
-                <a
-                  href={`tel:${config.palacePhone.replace(/\s/g, '')}`}
-                  className="text-ivory/50 hover:text-ivory transition-colors"
-                >
+                <a href={`tel:${config.palacePhone?.replace(/\s/g, '')}`} className="hover:text-primary transition-colors">
                   {config.palacePhone}
                 </a>
               </li>
-              <li>
-                <a
-                  href={`mailto:${config.fonEmail}`}
-                  className="text-ivory/50 hover:text-ivory transition-colors"
-                >
-                  {config.fonEmail}
-                </a>
+              <li className="mt-3">
+                <Link href="/contact" className="text-primary hover:underline text-xs tracking-widest">
+                  Send a message →
+                </Link>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* ── Bottom bar ── */}
-        <div
-          className="mt-12 pt-6 border-t border-heritage-red/20
-                     flex flex-col sm:flex-row items-center justify-between gap-3"
-        >
-          <p className="text-ivory/30 text-xs font-body">
-            {config.copyright.text}
-          </p>
-          <div>
-            <div style={{ marginBottom: '0.25rem' }}>
-              <span style={{ color: 'rgba(245,242,233,0.15)', fontFamily: 'Inter, sans-serif', fontSize: '0.75rem' }}>
-                Designed &amp; built by{' '}
-              </span>
+        {/* Divider */}
+        <div className="royal-divider mt-16" />
+
+        {/* Bottom bar */}
+        <div className="mt-6 flex flex-col items-center justify-between gap-4 text-xs text-muted-foreground md:flex-row">
+          <div>© {new Date().getFullYear()} Guneku Fondom · All rights of the kingdom reserved.</div>
+          <div className="text-center">
+            <span className="tracking-[0.3em]">CRAFTED FOR THE KINGDOM · MMXXVI</span>
+            <br />
+            <span className="text-muted-foreground/40">
+              Designed &amp; built by{' '}
               <a href="https://maxpromo.digital" target="_blank" rel="noopener noreferrer"
-                 style={{ color: '#f2a90b', fontFamily: 'Syne, sans-serif', fontWeight: 700,
-                           fontSize: '0.75rem', letterSpacing: '0.05em', textDecoration: 'none' }}>
+                 className="text-primary hover:underline">
                 MaxPromo Digital
               </a>
-              <span style={{ color: 'rgba(245,242,233,0.1)', fontFamily: 'Inter, sans-serif', fontSize: '0.75rem' }}>
-                {' '}· Essen, Germany
-              </span>
-            </div>
-            <div style={{ color: 'rgba(245,242,233,0.08)', fontFamily: 'Inter, sans-serif',
-                          fontSize: '0.68rem', lineHeight: 1.6 }}>
-              The first AI-powered community platform for a Northwest Cameroon Fondom.
-              Want this for your community?{' '}
-              <a href="https://maxpromo.digital" target="_blank" rel="noopener noreferrer"
-                 style={{ color: 'rgba(242,169,11,0.4)', textDecoration: 'none' }}>
-                Contact us →
-              </a>
-            </div>
+              {' '}· Essen, Germany
+            </span>
           </div>
         </div>
       </div>
