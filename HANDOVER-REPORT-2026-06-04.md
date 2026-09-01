@@ -1356,3 +1356,109 @@ groups (6), GUDECA AGM 2015 (5). **A rich seam for the next pass.**
 Untouched by this work and still the first priority: unauthenticated write
 APIs, hardcoded `demo-user`, suspended authentication, and no Terms or Privacy
 Policy while personal data is collected.
+
+---
+
+# CONTENT UPDATE FROM THE SOURCE PACK — 2026-09-01
+
+Content only. **No visual changes.** No design, layout, fonts, colours, new
+components, CMS, database or validator. The approved institutional direction is
+untouched.
+
+| | |
+|---|---|
+| Source commit | `6a5757f` — three files byte-identical under `content/source/` |
+| Audit | `18d0577` — `docs/guneku-org-audit.md` |
+| Content commit | `7223826` |
+| Live | https://www.guneku.org |
+| Build | 82 pages (was 79) · `tsc` clean · no new lint errors |
+
+**Note on the domain:** `guneku.org` now serves this repository. The DNS was cut
+over on 2026-09-01 by someone with domain access, not by this session. See
+`docs/guneku-org-audit.md`; it remains unconfirmed as intentional.
+
+## ADDED
+
+- **`/updates/mefu-mecuda-joint-meeting-guneku-palace`** — 29 August 2026.
+  Nineteen Meta Fons and fourteen MECUDA representatives at the Guneku Palace;
+  seven resolutions; the audit, elections and community-funds questions; the
+  warning on drugs reaching the youth; Tomfon Isaac Fomunjong's call for unity;
+  HRH Dr. Fomuki honoured for medical education with MEDPHISATG; the thanks
+  from HRH Prof. Fon Fombo of Njindom for three days of preparation and for the
+  Guneku women who catered for nineteen royalties; Fondom Studios recognised.
+- **`/updates/guneku-holiday-workshop-2026`** — 11–21 August 2026, second
+  edition, all five modules. Recorded as **completed**, not upcoming.
+- **`/updates/gudeca-eu-presidents-address-2025`** — Constantine Ndenge's
+  end-of-year address of 31 December 2025, the Duisburg gathering, and the 2025
+  delivery.
+- **Institutions:** `fondom-studios`, `medphisatg`, `gudeca-branches`.
+
+## UPDATED — no duplicates created
+
+- **Scholarship.** Merged into the existing `/education` record. **No second
+  article**, despite the pack suggesting `/news/guneku-education-scholarship-day-2026`.
+  Adds the patronage line, the Fon's own words, the special consideration for
+  the Muslim and other underserved communities, the message to families
+  displaced from the Northwest, and the clarification that **no examination is
+  written on 29 August**. Flyer, contact number and the 19 September call to
+  action unchanged.
+- **Agro CIG.** Launch programme of 5 April at Ngong Quarter with the Kwem,
+  Mbemi Mukonge and Nkem dance groups; both communiqués; the poultry-house
+  tender of 18 April; merchandise prices; the staff meeting of 31 August; and
+  that payments run through GUNECCUL.
+- **Bonn 2026.** Enriched in place as a **Michi Ébèng (Bonn edition)** held on
+  the same day as the village festival; nine countries represented; Masangon;
+  minutes circulated 6 April; the StarLink proposal.
+- **GUDECA Europe.** President, membership countries, meeting rhythm, €20
+  annual re-registration with its 31 March deadline, and the 2025 delivery.
+- **Mɨchi Əbeŋ.** Masangon and the three named dance groups, the diaspora
+  mirror, and the MEFU/MECUDA context.
+
+## CORRECTED
+
+**The Bonn article stated a 2 p.m. start. That is now removed.** The sources
+give three different times — 10:00 on the flyer, 12:00–17:00 in the follow-up
+minutes, 14:00–19:00 in the final notice. No time is published at all.
+
+## REARRANGED
+
+Notices are re-sorted newest-first so the August 2026 MEFU–MECUDA meeting and
+the Holiday Workshop lead. The development register gained five rows —
+solar street lights Phase 1, FUN electricity, Mbengeghang water, StarLink and
+MEDPHISATG — each carrying the stage its source establishes.
+
+## ALREADY PRESENT — NO DUPLICATE MADE
+
+Scholarship 2026 · Agro CIG · Bonn 2026 · GUDECA Europe · Mɨchi Əbeŋ ·
+GUNECCUL · Guneku Library · Solar Electrification Phase II.
+
+## CONFLICTS LEFT UNRESOLVED, DELIBERATELY
+
+1. **Agro CIG Phase 3 share price.** The 4 April announcement promised 5,000
+   FCFA from 1 May; Communiqué 003 of 2 May set registration at 15,000 FCFA and
+   kept shares at 2,000 FCFA. The `phase3` block was **removed rather than
+   guessed** — no current share price is presented as fact. Needs the Delegate.
+2. **Bonn start time** — three conflicting times, none published.
+3. **MEDPHISATG vs Medphisatag** — recorded as contested in the institution
+   record; neither spelling chosen.
+
+## REVIEW / PRIVATE — NOT PUBLISHED
+
+Business directory listings (consent required, §1.12) · member contribution
+lists · bank details (IBAN/BIC) · personal phone numbers · condolences and
+obituaries · health misinformation · political material · private disputes ·
+internal meeting logistics.
+
+Production checked: zero occurrences of `IBAN`, `200637`, the business names,
+or the superseded flyer number anywhere on the site.
+
+**Held back for Marcel's decision:** the §1.14 community notices. The river
+rescue of 5 June 2026 is a good story, but the pack itself says publish it
+*with* the two-month water-supply failure or not at all. That is a community
+grievance and the call is his, not mine.
+
+## STILL OPEN
+
+The `Guneku website design group` history and all media remain unexported, per
+§8. Earlier open questions carry forward unchanged, as does the security
+position — now more pressing because the site is on the live domain.
