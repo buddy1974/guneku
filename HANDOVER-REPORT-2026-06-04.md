@@ -1462,3 +1462,38 @@ grievance and the call is his, not mine.
 The `Guneku website design group` history and all media remain unexported, per
 §8. Earlier open questions carry forward unchanged, as does the security
 position — now more pressing because the site is on the live domain.
+
+---
+
+## FLYER SWAP — corrected artwork, 2026-09-01
+
+The corrected flyer was supplied and published. **It prints the authoritative
+Guneku Library number 670 949 503, so the discrepancy carried since the first
+publication is closed.**
+
+| | |
+|---|---|
+| Commit | `241fd74` |
+| Live | https://www.guneku.org and https://www.guneku.org/education |
+| Original | `public/images/education/guneku-scholarship-2026.jpg` — byte-identical, MD5 `15c61f50c8fd0e78cda09113fe058a30`, 1054x1492 |
+| Delivery copies | `-web.webp` (programme page), `-thumb.webp` 600px (front page), `og-scholarship-2026.jpg` 1200x630 letterboxed, nothing cropped |
+| Superseded | `guneku-scholarship-2026.png` printing +237 677 46 16 09 — **deleted, now 404 in production** |
+
+The flyer now appears **on the front page**, inside the existing scholarship
+card above the existing text, wrapped in a link through to `/education` with an
+aria-label and full alt text. No new component and no styling change; the
+approved institutional direction is untouched.
+
+**A contradiction of my own was withdrawn in the same commit.** The notices list
+still advertised *"Phase 3 membership open — share price moves to 5,000 FCFA"*,
+which is exactly the pricing withdrawn as unconfirmed. The notice was removed
+rather than reworded into a guess, and the Agro CIG development row now states
+that the current share price is not published pending confirmation by the
+Delegate.
+
+Production verified: flyer resolves on both pages, link target confirmed in the
+DOM, `670 949 503` published, and zero occurrences of the superseded number or
+the withdrawn share price.
+
+**The open question about the flyer contact number is now closed.** The Agro CIG
+share price remains open.
