@@ -8,12 +8,12 @@ import programme          from '@/data/institutions/education-scholarship-day-20
 
 export const revalidate = 3600
 
-/* Facts below come only from records in this repository. Population, elevation
-   and per-country diaspora counts are deliberately absent: the sources
-   conflict or do not exist. See the handover. */
+/* Facts are current Guneku source of fact, supplied first-party by the project
+   owners and recorded in site-config.json under gunekuSOF. Where older migrated
+   Joomla material disagrees it is kept only as historical source context. */
 const FACTS = [
   { figure: '27',   label: 'Quarters' },
-  { figure: '31',   label: 'Meta communities' },
+  { figure: '15,000', label: 'People, approximately' },
   { figure: 'IX',   label: 'The reigning Fon' },
   { figure: '2016', label: 'Coronation' },
 ]
@@ -189,8 +189,9 @@ export default function HomePage() {
             <p className="inst-eyebrow">About Guneku</p>
             <h2 className="inst-h2 mt-1.5">A village of the Meta clan, in the hills of Momo Division</h2>
             <p className="inst-body mt-3">
-              Guneku lies in the MEDIG zone &mdash; Central Meta &mdash; of Mbengwi Subdivision.
-              It is made up of twenty-seven quarters. The eighth day of the week,{' '}
+              Guneku lies in the MEDIG zone &mdash; Central Meta &mdash; of Mbengwi Subdivision,
+              and is the largest village of the Meta clan by area. It is made up of twenty-seven
+              quarters. The eighth day of the week,{' '}
               <strong className="text-[var(--ink-900)]">Ngon</strong>, is the market day held in
               Guneku. The people speak the <strong className="text-[var(--ink-900)]">MENEMO</strong>{' '}
               dialect, and <strong className="text-[var(--ink-900)]">Musongong</strong> is the dance

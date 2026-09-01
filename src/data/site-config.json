@@ -1,2 +1,44 @@
-{ "siteName": "Guneku Fondom", "siteTagline": "Welcome to the Kingdom of Guneku — A Village Built from the Heart.", "siteDescription": "Official digital home of Guneku Fondom — Mbengwi, Momo Division, Northwest Cameroon. A royal community of 15,000 people united across three continents.", "siteUrl": "https://guneku.org", "contactEmail": "info@guneku.org", "palacePhone": "+237 681 19 46 64", "socialLinks": { "facebook": "https://www.facebook.com/guneku", "twitter": "https://twitter.com/GunekuF", "instagram": "https://www.instagram.com/gunekufondom/", "youtube": "https://www.youtube.com/channel/UCEmIEHRMg3UTzb1wpxLZOAw" }, "fonEmail": "wfomuki@gmx.de", "copyright": { "text": "© 2026 Guneku Fondom", "builtBy": "MaxPromo Digital", "builtByUrl": "https://maxpromo.digital" }, "coordinates": { "lat": 6.2307346, "lng": 9.664737 }, "youtubeChannelId": "UCEmIEHRMg3UTzb1wpxLZOAw", "anthropicModel": "claude-sonnet-4-6", "aiPersonality": "You are the voice of Guneku Fondom — knowledgeable, proud, warm, and culturally grounded. You answer questions about Guneku village, its Fon HRH Dr. Fomuki Walters Ticha IX, GUDECA, culture, history, and community. You speak with dignity befitting a royal fondom. You only answer based on what you know about Guneku. For anything outside Guneku, you gracefully redirect."
+{
+ "siteName": "Guneku Fondom",
+ "siteTagline": "Welcome to the Kingdom of Guneku — A Village Built from the Heart.",
+ "siteDescription": "Official digital home of Guneku Fondom — Mbengwi, Momo Division, Northwest Cameroon. A royal community of 15,000 people united across three continents.",
+ "siteUrl": "https://guneku.org",
+ "contactEmail": "info@guneku.org",
+ "palacePhone": "+237 681 19 46 64",
+ "socialLinks": {
+  "facebook": "https://www.facebook.com/guneku",
+  "twitter": "https://twitter.com/GunekuF",
+  "instagram": "https://www.instagram.com/gunekufondom/",
+  "youtube": "https://www.youtube.com/channel/UCEmIEHRMg3UTzb1wpxLZOAw"
+ },
+ "fonEmail": "wfomuki@gmx.de",
+ "copyright": {
+  "text": "© 2026 Guneku Fondom",
+  "builtBy": "MaxPromo Digital",
+  "builtByUrl": "https://maxpromo.digital"
+ },
+ "coordinates": {
+  "lat": 6.2307346,
+  "lng": 9.664737
+ },
+ "youtubeChannelId": "UCEmIEHRMg3UTzb1wpxLZOAw",
+ "anthropicModel": "claude-sonnet-4-6",
+ "aiPersonality": "You are the voice of Guneku Fondom — knowledgeable, proud, warm, and culturally grounded. You answer questions about Guneku village, its Fon HRH Dr. Fomuki Walters Ticha IX, GUDECA, culture, history, and community. You speak with dignity befitting a royal fondom. You only answer based on what you know about Guneku. For anything outside Guneku, you gracefully redirect.",
+ "gunekuSOF": {
+  "sourceType": "Guneku first-party / project owner supplied",
+  "recordedOn": "2026-09-01",
+  "population": "approximately 15,000 people",
+  "populationApprox": 15000,
+  "quarters": 27,
+  "clan": "Meta",
+  "standing": "Largest Meta clan village by area",
+  "dialect": "MENEMO",
+  "location": {
+   "subdivision": "Mbengwi Subdivision",
+   "division": "Momo Division",
+   "region": "North West Region",
+   "country": "Cameroon"
+  },
+  "note": "Current Guneku source of fact. Takes precedence over older migrated Joomla figures, which are retained only as historical source context."
+ }
 }

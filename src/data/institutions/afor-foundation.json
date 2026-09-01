@@ -1,0 +1,42 @@
+{
+ "id": "afor-foundation",
+ "type": "Institution",
+ "name": "Afor Foundation Scholarship Programme",
+ "abbreviation": "Afor Foundation",
+ "status": "active",
+ "category": "Education",
+ "founder": "Prof. Dr. Roland Teboh Forbang",
+ "founderRoute": "/notables/roland-teboh-forbang",
+ "venue": "Guneku Fon's Palace, Mbengwi",
+ "catchment": "Mbengwi Central",
+ "prize": "1,000,000 FCFA",
+ "scholarshipType": "Merit and need-based annual scholarship",
+ "description": "An annual scholarship programme founded by Prof. Dr. Roland Teboh Forbang, a son of Guneku and Associate Professor and Medical Director at Hackensack Meridian Health Network in New Jersey. The programme awards over 1,000,000 FCFA to outstanding pupils in Mbengwi Central and is hosted at the Guneku Fon’s Palace.",
+ "editions": [
+  {
+   "year": 2025,
+   "date": "2025-02-22",
+   "displayDate": "22 February 2025",
+   "registered": 201,
+   "sat": 200,
+   "invigilators": 13,
+   "winners": "Top scorer from Wumnebug, with two runners-up",
+   "venue": "Guneku Fon's Palace"
+  },
+  {
+   "year": 2022,
+   "date": "2022-08-26",
+   "displayDate": "26 August 2022",
+   "amountDistributed": "470,000 FCFA",
+   "recipients": "Class 6 pupils of P.S. Mbengwi Annex Guneku",
+   "note": "Awarded for performance in the 2022 Common Entrance and First School Leaving Certificate examinations."
+  }
+ ],
+ "relatedRoutes": [
+  "/education",
+  "/notables/roland-teboh-forbang",
+  "/projects"
+ ],
+ "sourceNote": "Recovered 2026-09-01 from the notable profile of Prof. Dr. Roland Teboh Forbang and the legacy village record. The 2022 distribution and the Afor Foundation annual award are separate events and are kept separate here.",
+ "sourceType": "Guneku first-party / project owner supplied"
+}

@@ -1,0 +1,30 @@
+{
+ "id": "palace-renovation",
+ "type": "Institution",
+ "name": "Palace Renovation and Heritage Programme",
+ "status": "ongoing",
+ "category": "Heritage",
+ "lead": "HRH Fon Fomuki Walters Ticha IX",
+ "description": "The ongoing restoration and cultural preservation of the Guneku Palace, recognised by the Ministry of Arts and Culture. The Palace is also recorded in the village archive as a touristic site.",
+ "recognition": "Recognised by the Ministry of Arts and Culture",
+ "fundraising": [
+  {
+   "event": "GUDECA-US Chapter cultural event welcoming HRH Fon Fomuki",
+   "year": 2023,
+   "reported": "Funds exceeding $20,000 reported raised for the renovation of the Guneku Palace",
+   "updateSlug": "gudeca-us-chapter-celebrated-a-grand-cultural-event-to-welcome-hrh-fon-fomuki-in-the-us"
+  },
+  {
+   "event": "Fundraising white party night at Guneku Palace",
+   "album": "thelegendary-fundraisingwhitepartynightat-guneku-palace",
+   "note": "Recorded in the media archive; no amount is stated in the available records."
+  }
+ ],
+ "openQuestion": "A $50,000 figure is held in project intelligence. The repository records only the $20,000 reported at the GUDECA-US event of 2023. Whether $50,000 is a campaign target, a cumulative total, or a separate figure is not established.",
+ "relatedRoutes": [
+  "/palace",
+  "/gudeca"
+ ],
+ "sourceNote": "Recovered 2026-09-01 from the Fon’s profile initiatives, the GUDECA-US update article and the media archive.",
+ "sourceType": "Migrated Guneku article and media archive"
+}

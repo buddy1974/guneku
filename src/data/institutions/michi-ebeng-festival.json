@@ -1,0 +1,53 @@
+{
+ "id": "michi-ebeng-festival",
+ "type": "Institution",
+ "name": "Mɨchi Əbeŋ Festival",
+ "alternateSpellings": [
+  "Michi Ebeng",
+  "Mɨchi Əbeŋ Mɨta’"
+ ],
+ "status": "active",
+ "category": "Culture",
+ "patron": "HRH Fon Fomuki Walters Ticha IX",
+ "venue": "Guneku Palace",
+ "description": "Mɨchi Əbeŋ is the Guneku festival of return — a day given to ancient arts and craft, traditional delicacies, the mother tongue and traditional dress. It was revived after a hiatus of six years caused by the armed conflict in the region, and it carries the Mukonge and Kwem dance group competitions.",
+ "editions": [
+  {
+   "edition": "Maiden edition",
+   "year": 2023,
+   "displayDate": "April 2023",
+   "venue": "Guneku Palace",
+   "note": "The revival edition, held after a six-year hiatus caused by the armed conflict in the region. Marked by an exhibition of ancient arts and craft, traditional delicacies, use of the mother tongue and traditional dress.",
+   "album": "mchibe-mta-event-guneku2023"
+  },
+  {
+   "edition": "Second edition",
+   "year": 2024,
+   "displayDate": "Saturday, 23 March 2024",
+   "venue": "Guneku Palace",
+   "focus": "Kwem dance groups",
+   "note": "The article announcing this edition is headlined April 2024 while its text gives Saturday 23 March 2024. Both are recorded; the Palace should confirm which is correct."
+  }
+ ],
+ "danceCompetition": {
+  "name": "Clash of Mukonge Dance Groups in Meta",
+  "planningMeeting": "Saturday, 18 March 2023, in the inner court of the Guneku Palace",
+  "rules": [
+   "Each participating group limited to a maximum of 20 and a minimum of 15 members",
+   "Each performance to last at most seven minutes",
+   "All competing groups to be present on the event ground by 10 a.m. on the day"
+  ],
+  "album": "mukonge-dance-groupsin-meta"
+ },
+ "relatedUpdates": [
+  "festival-in-april-2024",
+  "michi-ben-clash-of-mukonge-dance-groups-in-the-offing",
+  "meta-cultural-festival-holds-in-guneku-village"
+ ],
+ "albums": [
+  "mchibe-mta-event-guneku2023",
+  "mukonge-dance-groupsin-meta"
+ ],
+ "sourceNote": "Consolidated 2026-09-01 from the existing update articles and gallery albums. No edition later than the second is recorded in this repository.",
+ "sourceType": "Migrated Guneku article and media archive"
+}
