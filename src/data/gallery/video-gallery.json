@@ -2,46 +2,47 @@
  "id": "video-gallery",
  "type": "VideoGallery",
  "youtubeChannelId": "UCEmIEHRMg3UTzb1wpxLZOAw",
- "featuredVideoId": "11pAXbEfPgc",
+ "featuredVideoId": "UfpBzWOEDZM",
  "dbVideos": [
   {
-   "id": 1,
-   "title": "Videos of events in Guneku Village",
-   "slug": "videos-of-events-in-guneku-village",
-   "youtubeUrl": "https://www.youtube.com/@gunekuvillage2368",
-   "youtubeId": null,
-   "type": "youtube",
-   "thumb": null,
-   "ordering": 1,
-   "state": 1
-  },
-  {
-   "id": 2,
-   "title": "New Year Speech 2024 by HRH Fon Fomuki Walters Ticha IX",
-   "slug": "new-year-speech-2024-by-hrh-fon-fomuki-walters-ticha-ix",
-   "youtubeUrl": "https://youtu.be/11pAXbEfPgc",
-   "youtubeId": "11pAXbEfPgc",
-   "type": "youtube",
-   "thumb": "https://img.youtube.com/vi/11pAXbEfPgc/0.jpg",
-   "ordering": 2,
-   "state": 1
-  },
-  {
    "id": 3,
-   "title": "Guneku Education & Scholarship Day 2026",
+   "ordering": 1,
+   "state": 1,
+   "title": "ST THIERRY UNIVERSITY VISITS GUNEKU MEDPHISATG, His Royal Highness SCHOLARSHIPS 2026/2027",
+   "displayTitle": "Guneku Education & Scholarship Day 2026",
    "slug": "guneku-education-scholarship-day-2026",
    "youtubeUrl": "https://youtu.be/UfpBzWOEDZM",
    "youtubeId": "UfpBzWOEDZM",
    "type": "youtube",
-   "thumb": "https://img.youtube.com/vi/UfpBzWOEDZM/0.jpg",
-   "ordering": 3,
-   "state": 1,
-   "category": "Education / Scholarship / Youth Development",
+   "thumb": "https://i.ytimg.com/vi/UfpBzWOEDZM/hqdefault.jpg",
+   "category": "Education",
+   "context": "Related to Guneku Education & Scholarship Day 2026.",
    "relatedInitiative": "Guneku Education & Scholarship Day 2026",
    "relatedRoute": "/education",
-   "publishedTitleOnYouTube": "ST THIERRY UNIVERSITY VISITS GUNEKU MEDPHISATG, His Royal Highness SCHOLARSHIPS 2026/2027"
+   "titleVerified": true
+  },
+  {
+   "id": 2,
+   "ordering": 2,
+   "state": 1,
+   "title": "His Majesty, Fon Fomuki's New Year's address to the subjects of Guneku Fondom at home and abroad.",
+   "displayTitle": "New Year address by HRH Fon Fomuki Walters Ticha IX",
+   "slug": "new-year-speech-2024-by-hrh-fon-fomuki-walters-ticha-ix",
+   "youtubeUrl": "https://youtu.be/11pAXbEfPgc",
+   "youtubeId": "11pAXbEfPgc",
+   "type": "youtube",
+   "thumb": "https://i.ytimg.com/vi/11pAXbEfPgc/hqdefault.jpg",
+   "category": "Palace & Community",
+   "context": "New Year address to Guneku at home and abroad, 2024.",
+   "relatedInitiative": null,
+   "relatedRoute": "/updates/guneku-fondom-welcomes-2024-with-inspiring-new-year-speech-by-hrh-fon-fomuki-walters-ticha-ix",
+   "titleVerified": true
   }
  ],
  "youtubeApiStatus": "pending",
- "allVideos": []
+ "allVideos": [],
+ "channelUrl": "https://www.youtube.com/channel/UCEmIEHRMg3UTzb1wpxLZOAw",
+ "channelTitle": "Guneku Village",
+ "sourceNote": "Titles below were confirmed against YouTube oEmbed on 2026-09-01 and are the real published titles. No title, description or speaker has been invented. Never publish a YouTube Studio or admin URL; channelUrl above is the public channel.",
+ "pendingVideos": "Bonn 2026: six unique clips supplied (10 files, 4 duplicates). Speaker and topic attribution is not established, so none is published. See the handover SIGNAL."
 }

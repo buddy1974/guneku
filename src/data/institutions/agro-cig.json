@@ -1,62 +1,79 @@
 {
-  "id": "agro-cig",
-  "name": "Guneku Agro Common Initiative Group",
-  "abbreviation": "Agro CIG",
-  "status": "active",
-  "launchDate": "2026-04-05",
-  "location": "Ngong Quarter, Guneku",
-
-  "phase1": {
-    "status": "complete",
-    "completedDate": "2026-03-31",
-    "raisedFCFA": 12500000,
-    "achievements": [
-      "300 thriving chicks + 200 arriving = 500 total",
-      "Land preparation complete — bulldozed",
-      "Stone gathering for construction underway",
-      "Structural and architectural planning underway",
-      "Turkeys imported from Nigeria",
-      "Feed production systems in development",
-      "Machinery identification phase begun"
-    ]
+ "id": "agro-cig",
+ "name": "Guneku Agro Common Initiative Group",
+ "abbreviation": "Agro CIG",
+ "status": "active",
+ "launchDate": "2026-04-05",
+ "location": "Ngong Quarter, Guneku",
+ "phase1": {
+  "status": "complete",
+  "completedDate": "2026-03-31",
+  "raisedFCFA": 12500000,
+  "achievements": [
+   "300 thriving chicks + 200 arriving = 500 total",
+   "Land preparation complete — bulldozed",
+   "Stone gathering for construction underway",
+   "Structural and architectural planning underway",
+   "Turkeys imported from Nigeria",
+   "Feed production systems in development",
+   "Machinery identification phase begun"
+  ]
+ },
+ "phase2": {
+  "status": "open",
+  "deadline": "2026-04-30",
+  "registrationFee": 5000,
+  "sharePrice": 2000,
+  "minShares": 5,
+  "maxShares": 100,
+  "note": "Final opportunity to join at current pricing"
+ },
+ "phase3": {
+  "startDate": "2026-05-01",
+  "registrationFee": 5000,
+  "sharePrice": 5000,
+  "minShares": 5,
+  "note": "Share price increases as business becomes fully operational"
+ },
+ "livestock": [
+  {
+   "animal": "Poultry",
+   "status": "active",
+   "count": "500 chicks"
   },
-
-  "phase2": {
-    "status": "open",
-    "deadline": "2026-04-30",
-    "registrationFee": 5000,
-    "sharePrice": 2000,
-    "minShares": 5,
-    "maxShares": 100,
-    "note": "Final opportunity to join at current pricing"
+  {
+   "animal": "Turkeys",
+   "status": "active",
+   "note": "Imported from Nigeria"
   },
-
-  "phase3": {
-    "startDate": "2026-05-01",
-    "registrationFee": 5000,
-    "sharePrice": 5000,
-    "minShares": 5,
-    "note": "Share price increases as business becomes fully operational"
+  {
+   "animal": "Pigs",
+   "status": "planned"
   },
-
-  "livestock": [
-    { "animal": "Poultry",   "status": "active",  "count": "500 chicks" },
-    { "animal": "Turkeys",   "status": "active",  "note": "Imported from Nigeria" },
-    { "animal": "Pigs",      "status": "planned" },
-    { "animal": "Ostriches", "status": "planned", "note": "Expansion and attraction" }
-  ],
-
-  "infrastructure": [
-    "Land bulldozed and prepared",
-    "Stone gathering for construction",
-    "Structural and architectural planning",
-    "Feed production systems (preliminary)",
-    "Machinery identification"
-  ],
-
-  "contact": {
-    "phone": "673320716",
-    "chickHotline": "670 94 95 03",
-    "presenterEU": "Mr. Fabian (GUDECA EU contact)"
+  {
+   "animal": "Ostriches",
+   "status": "planned",
+   "note": "Expansion and attraction"
   }
+ ],
+ "infrastructure": [
+  "Land bulldozed and prepared",
+  "Stone gathering for construction",
+  "Structural and architectural planning",
+  "Feed production systems (preliminary)",
+  "Machinery identification"
+ ],
+ "contact": {
+  "phone": "673320716",
+  "chickHotline": "670 94 95 03",
+  "presenterEU": "Mr. Fabian (GUDECA EU contact)"
+ },
+ "registration": {
+  "registeredName": "GUNEKU AGRO COMMON INITIATIVE GROUP",
+  "location": "Guneku, Mbengwi",
+  "certificateIssued": "2026-03-12",
+  "displayDate": "12 March 2026",
+  "evidence": "Official registration certificate supplied by Marcel, 2026-09-01. Certificate and administrative identifiers are deliberately not published.",
+  "status": "registered"
+ }
 }

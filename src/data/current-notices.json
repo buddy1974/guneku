@@ -1,0 +1,158 @@
+{
+  "id": "current-notices",
+  "type": "CurrentNotices",
+  "sourceNote": "Every entry is drawn from a verified record already in this repository. Statuses are the statuses the sources establish — a proposal is labelled proposed. Reviewed 2026-09-01; review again when any source record changes.",
+  "reviewedOn": "2026-09-01",
+
+  "notices": [
+    {
+      "date": "2026-09-19",
+      "displayDate": "19 September 2026",
+      "category": "Education",
+      "status": "upcoming",
+      "title": "Scholarship Selection Examination",
+      "description": "The selection examination for Guneku Education & Scholarship Day 2026. 9:00 a.m. at the Guneku Fon's Palace, for registered candidates.",
+      "href": "/education",
+      "source": "institutions/education-scholarship-day-2026.json"
+    },
+    {
+      "date": "2026-08-29",
+      "displayDate": "29 August 2026",
+      "category": "Education",
+      "status": "historical",
+      "title": "Education & Scholarship Information Day held",
+      "description": "The public information day at the Palace, ahead of the selection examination. Target: 50 scholarships.",
+      "href": "/education",
+      "source": "institutions/education-scholarship-day-2026.json"
+    },
+    {
+      "date": "2026-05-01",
+      "displayDate": "From 1 May 2026",
+      "category": "Development",
+      "status": "active",
+      "title": "Guneku Agro CIG — Phase 3 membership open",
+      "description": "Share price moves to 5,000 FCFA as the enterprise becomes fully operational. Registration fee 5,000 FCFA, minimum five shares.",
+      "href": "/agro-cig",
+      "source": "institutions/agro-cig.json"
+    },
+    {
+      "date": "2026-04-05",
+      "displayDate": "5 April 2026",
+      "category": "Development",
+      "status": "active",
+      "title": "Guneku Agro CIG launched",
+      "description": "Community-owned agricultural enterprise at Ngong Quarter. Phase 1 closed on 31 March 2026 having raised 12.5 million FCFA.",
+      "href": "/agro-cig",
+      "source": "institutions/agro-cig.json"
+    },
+    {
+      "date": "2026-03-28",
+      "displayDate": "28 March 2026",
+      "category": "GUDECA",
+      "status": "historical",
+      "title": "GUDECA Europe meets at the Fon's Palace, Bonn",
+      "description": "Solar Electrification Phase II reviewed with €800 reported; the Guneku CIG presented; medical unit, soap production and digital empowerment proposed.",
+      "href": "/updates/gudeca-eu-meeting-bonn-28-march-2026",
+      "source": "updates/gudeca-eu-meeting-bonn-28-march-2026.json"
+    },
+    {
+      "date": "2026-03-12",
+      "displayDate": "12 March 2026",
+      "category": "Development",
+      "status": "registered",
+      "title": "Guneku Agro CIG registration certificate issued",
+      "description": "The Guneku Agro Common Initiative Group is formally registered at Guneku, Mbengwi.",
+      "href": "/agro-cig",
+      "source": "Registration certificate supplied by Marcel, 2026-09-01"
+    }
+  ],
+
+  "upcomingEvents": [
+    {
+      "date": "2026-09-19",
+      "day": "19",
+      "month": "Sep",
+      "year": "2026",
+      "title": "Scholarship Selection Examination",
+      "detail": "9:00 a.m. · Guneku Fon's Palace · registered candidates only",
+      "href": "/education",
+      "source": "institutions/education-scholarship-day-2026.json"
+    },
+    {
+      "date": "2027-07-24",
+      "day": "24",
+      "month": "Jul",
+      "year": "2027",
+      "title": "GUDECA Europe general meeting",
+      "detail": "Saturday · United Kingdom · coordinated by Ni Sam",
+      "href": "/gudeca",
+      "source": "institutions/gudeca-eu.json — confirmed in the Bonn minutes of 28 March 2026"
+    }
+  ],
+
+  "development": [
+    {
+      "name": "Guneku Agro CIG",
+      "status": "Active",
+      "statusClass": "st-active",
+      "body": "Guneku Agro Common Initiative Group",
+      "lastUpdate": "5 April 2026",
+      "description": "Community-owned agricultural enterprise at Ngong Quarter. Registered 12 March 2026. Phase 1 raised 12.5M FCFA; poultry and turkeys under way.",
+      "href": "/agro-cig"
+    },
+    {
+      "name": "GUNECCUL Credit Union",
+      "status": "Active",
+      "statusClass": "st-active",
+      "body": "Guneku Cooperative Credit Union Limited",
+      "lastUpdate": "Bamenda branch, January 2025",
+      "description": "Community-owned credit union serving Guneku indigenes worldwide — savings, loans and solidarity fund shares across four branches.",
+      "href": "/guneccul"
+    },
+    {
+      "name": "Solar Electrification Phase II",
+      "status": "Ongoing",
+      "statusClass": "st-ongoing",
+      "body": "GUDECA Europe",
+      "lastUpdate": "28 March 2026",
+      "description": "€800 reported toward Phase II at the GUDECA Europe meeting in Bonn on 28 March 2026. No overall target is recorded in the sources.",
+      "href": "/updates/gudeca-eu-meeting-bonn-28-march-2026"
+    },
+    {
+      "name": "Guneku Royal Community Library",
+      "status": "Active",
+      "statusClass": "st-active",
+      "body": "Guneku sons and daughters, largely in the diaspora",
+      "lastUpdate": "Established 2021",
+      "description": "Solar-powered library with computers, photocopier, printer and projector. Runs long and short computer training and holiday classes for pupils and students.",
+      "href": "/projects"
+    },
+    {
+      "name": "Medical unit",
+      "status": "Proposed",
+      "statusClass": "st-proposed",
+      "body": "GUDECA Europe",
+      "lastUpdate": "Proposed 28 March 2026",
+      "description": "A reference healthcare centre for Guneku, proposed at the Bonn meeting.",
+      "href": "/updates/gudeca-eu-meeting-bonn-28-march-2026"
+    },
+    {
+      "name": "Digital empowerment",
+      "status": "Proposed",
+      "statusClass": "st-proposed",
+      "body": "Ni Sam · GUDECA Europe",
+      "lastUpdate": "Proposed 28 March 2026",
+      "description": "Satellite internet at the Palace, with adult training in content creation, digital work and online income skills.",
+      "href": "/updates/gudeca-eu-meeting-bonn-28-march-2026"
+    },
+    {
+      "name": "Soap production",
+      "status": "Proposed",
+      "statusClass": "st-proposed",
+      "body": "GUDECA Europe",
+      "lastUpdate": "Proposed 28 March 2026",
+      "description": "An income-generating initiative for the community, proposed at the Bonn meeting.",
+      "href": "/updates/gudeca-eu-meeting-bonn-28-march-2026"
+    }
+  ]
+}

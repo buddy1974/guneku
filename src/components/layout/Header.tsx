@@ -121,23 +121,24 @@ export function Header({ nav: _nav }: HeaderProps) {
   }
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 surface-ink border-b border-white/10">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-[var(--rule)] bg-[var(--paper)]">
       <div
-        className="mx-auto flex h-[var(--header-h)] max-w-[92rem] items-center gap-4 px-4 md:h-[76px] md:px-8"
+        className="mx-auto flex h-[var(--header-h)] max-w-[76rem] items-center gap-4 px-4 md:h-[68px] md:px-8"
         style={{ paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
       >
 
         {/* ── Identity ── */}
-        <Link href="/" className="flex shrink-0 items-center gap-3 no-underline">
+        <Link href="/" className="flex min-w-0 items-center gap-2.5 no-underline">
           <span className="relative block h-9 w-9 shrink-0 md:h-11 md:w-11">
             <Image src="/royal-seal.png" alt="Royal seal of Guneku Fondom" fill sizes="44px" className="object-contain" priority unoptimized />
           </span>
-          <span className="leading-none">
-            <span className="block font-cinzel text-[0.95rem] font-bold tracking-[0.16em] text-[var(--brass)] md:text-[1.05rem]">
-              GUNEKU FONDOM
+          <span className="min-w-0 leading-none">
+            <span className="block truncate font-[family-name:var(--font-display)] text-[1.02rem] font-bold leading-none text-[var(--burgundy-i)] md:text-[1.12rem]">
+              Guneku Fondom
             </span>
-            <span className="mt-1 block text-[8.5px] tracking-[0.24em] text-white/45 md:text-[9.5px]">
-              MBENGWI · NORTH WEST CAMEROON
+            <span className="mt-1 block truncate text-[10px] leading-none text-[var(--ink-400)] md:text-[10.5px]">
+              <span className="sm:hidden">Official community website</span>
+              <span className="hidden sm:inline">Official community website · Mbengwi, North West Cameroon</span>
             </span>
           </span>
         </Link>
@@ -155,19 +156,19 @@ export function Header({ nav: _nav }: HeaderProps) {
                 href={item.href}
                 aria-expanded={item.children ? openMenu === item.label : undefined}
                 className={cn(
-                  'ed-kicker flex items-center gap-1 whitespace-nowrap px-3 py-2 no-underline transition-colors',
-                  isActive(item) ? 'text-[var(--brass)]' : 'text-white/80 hover:text-white'
+                  'flex items-center gap-1 whitespace-nowrap px-2.5 py-2 text-[0.83rem] font-semibold no-underline transition-colors',
+                  isActive(item) ? 'text-[var(--burgundy-i)]' : 'text-[var(--ink-900)] hover:text-[var(--burgundy-i)]'
                 )}
               >
                 {item.label}
                 {item.children && <ChevronDown className="h-3 w-3 opacity-50" aria-hidden />}
               </Link>
 
-              {isActive(item) && <span className="absolute inset-x-3 -bottom-px h-0.5 bg-[var(--brass)]" />}
+              {isActive(item) && <span className="absolute inset-x-2.5 -bottom-px h-0.5 bg-[var(--burgundy-i)]" />}
 
               {item.children && openMenu === item.label && (
                 <div
-                  className="absolute left-0 top-full min-w-60 border border-white/10 bg-[var(--ink-deep)] py-2 shadow-2xl"
+                  className="absolute left-0 top-full min-w-60 border border-[var(--rule)] bg-white py-2 shadow-lg"
                   onMouseEnter={() => hoverOpen(item.label)}
                   onMouseLeave={hoverClose}
                 >
@@ -175,7 +176,7 @@ export function Header({ nav: _nav }: HeaderProps) {
                     <Link
                       key={c.href}
                       href={c.href}
-                      className="block px-4 py-2.5 text-[0.8rem] text-white/70 no-underline transition-colors hover:bg-white/5 hover:text-[var(--brass)]"
+                      className="block px-4 py-2.5 text-[0.82rem] text-[var(--ink-600)] no-underline transition-colors hover:bg-[var(--paper-alt)] hover:text-[var(--burgundy-i)]"
                     >
                       {c.label}
                     </Link>
@@ -193,7 +194,7 @@ export function Header({ nav: _nav }: HeaderProps) {
           <span className="hidden lg:block">
             <Link
               href="/indigenes/onboarding"
-              className="ed-btn ed-btn-gold !px-4 !py-2.5 !text-[0.68rem]"
+              className="inst-btn inst-btn-primary !py-2 !text-[0.78rem]"
             >
               Join our community
             </Link>
@@ -203,7 +204,7 @@ export function Header({ nav: _nav }: HeaderProps) {
             onClick={() => setSearchOpen(s => !s)}
             aria-label={searchOpen ? 'Close search' : 'Search the site'}
             aria-expanded={searchOpen}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white/75 transition-colors hover:border-[var(--brass)] hover:text-[var(--brass)]"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--rule)] text-[var(--ink-600)] transition-colors hover:border-[var(--burgundy-i)] hover:text-[var(--burgundy-i)]"
           >
             {searchOpen ? <X className="h-4 w-4" /> : <Search className="h-4 w-4" />}
           </button>
@@ -212,7 +213,7 @@ export function Header({ nav: _nav }: HeaderProps) {
             onClick={() => setOpen(v => !v)}
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white xl:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--rule)] text-[var(--ink-900)] xl:hidden"
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -221,8 +222,8 @@ export function Header({ nav: _nav }: HeaderProps) {
 
       {/* ── Search ── */}
       {searchOpen && (
-        <div className="border-t border-white/10 bg-[var(--ink-deep)] px-4 py-3 md:px-8">
-          <div className="mx-auto max-w-[92rem]">
+        <div className="border-t border-[var(--rule)] bg-white px-4 py-3 md:px-8">
+          <div className="mx-auto max-w-[76rem]">
             <input
               autoFocus
               value={query}
@@ -230,19 +231,19 @@ export function Header({ nav: _nav }: HeaderProps) {
               onKeyDown={e => e.key === 'Escape' && setSearchOpen(false)}
               placeholder="Search Guneku — people, history, projects, updates…"
               aria-label="Search"
-              className="w-full bg-transparent text-white outline-none placeholder:text-white/35"
+              className="w-full bg-transparent text-[var(--ink-900)] outline-none placeholder:text-[var(--ink-400)]"
             />
             {results.length > 0 && (
-              <ul className="mt-3 max-h-72 list-none overflow-y-auto border-t border-white/10 p-0">
+              <ul className="mt-3 max-h-72 list-none overflow-y-auto border-t border-[var(--rule)] p-0">
                 {results.map(r => (
                   <li key={r.id}>
                     <Link
                       href={r.href}
                       onClick={() => { setSearchOpen(false); setQuery('') }}
-                      className="flex min-h-[44px] items-center justify-between gap-4 border-b border-white/5 py-2.5 text-sm text-white/85 no-underline hover:text-[var(--brass)]"
+                      className="flex min-h-[44px] items-center justify-between gap-4 border-b border-[var(--rule)] py-2.5 text-sm text-[var(--ink-900)] no-underline hover:text-[var(--burgundy-i)]"
                     >
                       <span>{r.title}</span>
-                      <span className="ed-meta shrink-0 text-white/35">{r.section}</span>
+                      <span className="inst-meta shrink-0">{r.section}</span>
                     </Link>
                   </li>
                 ))}
@@ -255,7 +256,7 @@ export function Header({ nav: _nav }: HeaderProps) {
       {/* ── Mobile drawer — purpose-built, not a squeezed desktop nav ── */}
       <div
         className={cn(
-          'fixed inset-x-0 bottom-0 top-[var(--header-h)] z-40 overflow-y-auto bg-[var(--ink-deep)] xl:hidden',
+          'fixed inset-x-0 bottom-0 top-[var(--header-h)] z-40 overflow-y-auto bg-[var(--paper)] xl:hidden',
           open ? 'block' : 'hidden'
         )}
         style={{ paddingBottom: 'calc(var(--bottom-nav-total) + 2rem)' }}
@@ -264,14 +265,14 @@ export function Header({ nav: _nav }: HeaderProps) {
           {NAV.map(item => {
             const isOpen = expanded === item.label
             return (
-              <div key={item.href} className="border-b border-white/8">
+              <div key={item.href} className="border-b border-[var(--rule)]">
                 <div className="flex items-stretch">
                   <Link
                     href={item.href}
                     onClick={() => setOpen(false)}
                     className={cn(
-                      'flex min-h-[52px] flex-1 items-center text-[0.95rem] font-semibold uppercase tracking-[0.12em] no-underline',
-                      isActive(item) ? 'text-[var(--brass)]' : 'text-white'
+                      'flex min-h-[52px] flex-1 items-center text-[0.98rem] font-semibold no-underline',
+                      isActive(item) ? 'text-[var(--burgundy-i)]' : 'text-[var(--ink-900)]'
                     )}
                   >
                     {item.label}
@@ -281,7 +282,7 @@ export function Header({ nav: _nav }: HeaderProps) {
                       onClick={() => setExpanded(isOpen ? null : item.label)}
                       aria-label={`${isOpen ? 'Collapse' : 'Expand'} ${item.label}`}
                       aria-expanded={isOpen}
-                      className="flex w-12 items-center justify-center text-white/45"
+                      className="flex w-12 items-center justify-center text-[var(--ink-400)]"
                     >
                       <ChevronDown className={cn('h-4 w-4 transition-transform', isOpen && 'rotate-180')} />
                     </button>
@@ -294,7 +295,7 @@ export function Header({ nav: _nav }: HeaderProps) {
                         key={c.href}
                         href={c.href}
                         onClick={() => setOpen(false)}
-                        className="flex min-h-[44px] items-center text-[0.85rem] text-white/60 no-underline"
+                        className="flex min-h-[44px] items-center text-[0.86rem] text-[var(--ink-600)] no-underline"
                       >
                         {c.label}
                       </Link>
@@ -308,7 +309,7 @@ export function Header({ nav: _nav }: HeaderProps) {
           <Link
             href="/indigenes/onboarding"
             onClick={() => setOpen(false)}
-            className="ed-btn ed-btn-gold mt-6 w-full justify-center"
+            className="inst-btn inst-btn-primary mt-6 w-full justify-center"
           >
             Join our community <ArrowRight className="h-4 w-4" />
           </Link>

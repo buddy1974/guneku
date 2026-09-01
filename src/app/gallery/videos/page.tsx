@@ -1,89 +1,111 @@
-import { getVideoGallery } from '@/lib/content'
-import { PageHero } from '@/components/layout/PageHero'
+import Link  from 'next/link'
+import { PlayCircle } from 'lucide-react'
+import gallery from '@/data/gallery/video-gallery.json'
 
-export const metadata = { title: 'Video Gallery' }
+export const metadata = {
+  title:       'Video Archive',
+  description: 'The Guneku video archive — Palace messages, community events, development updates and education reports from the official Guneku Village channel.',
+  alternates:  { canonical: '/gallery/videos' },
+}
 
-export default function VideoGalleryPage() {
-  const gallery = getVideoGallery()
-  const videos = (gallery as any)?.dbVideos || []
+/* Categories follow the categories the records actually carry. Nothing is
+   classified by guesswork, and no title or speaker is invented. */
+export default function VideoArchivePage() {
+  const videos = gallery.dbVideos.filter(v => v.state === 1)
+
+  const categories = [...new Set(videos.map(v => v.category))]
+    .map(c => ({ name: c, items: videos.filter(v => v.category === c) }))
 
   return (
-    <main style={{ backgroundColor: '#0F0F0F', minHeight: '100vh' }}>
-      <PageHero
-        label="VIDEO GALLERY"
-        title="GUNEKU ON VIDEO"
-        subtitle="Speeches, cultural events, and community life. Full channel coming soon."
-      />
-      <section style={{ maxWidth:'1200px', margin:'0 auto', padding:'5rem 1.5rem' }}>
+    <main className="inst min-h-screen">
 
-        {/* Featured video */}
-        {(gallery as any)?.featuredVideoId && (
-          <div style={{ marginBottom:'4rem' }}>
-            <div className="section-label" style={{ marginBottom:'1rem', display:'block' }}>
-              FEATURED VIDEO
-            </div>
-            <div style={{ position:'relative', paddingBottom:'56.25%',
-                          height:0, overflow:'hidden',
-                          border:'1px solid rgba(242,169,11,0.15)' }}>
-              <iframe
-                src={`https://www.youtube-nocookie.com/embed/${(gallery as any).featuredVideoId}`}
-                title="Featured Video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
-                allowFullScreen
-                style={{ position:'absolute', top:0, left:0,
-                         width:'100%', height:'100%', border:'none' }}
-              />
-            </div>
-          </div>
-        )}
-
-        {/* DB videos */}
-        {videos.length > 0 && (
-          <div style={{ display:'grid',
-                        gridTemplateColumns:'repeat(auto-fill, minmax(300px, 1fr))',
-                        gap:'1.5rem', marginBottom:'3rem' }}>
-            {videos.map((v: any) => (
-              <div key={v.id} style={{ backgroundColor:'#0C0C14',
-                                       border:'1px solid rgba(255,255,255,0.05)',
-                                       overflow:'hidden' }}>
-                <div style={{ position:'relative', paddingBottom:'56.25%', height:0 }}>
-                  <iframe
-                    src={`https://www.youtube-nocookie.com/embed/${v.youtubeId || v.youtube}`}
-                    title={v.title}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
-                    allowFullScreen
-                    style={{ position:'absolute', top:0, left:0,
-                             width:'100%', height:'100%', border:'none' }}
-                  />
-                </div>
-                <div style={{ padding:'1rem' }}>
-                  <h3 style={{ fontFamily:'Syne, sans-serif', fontWeight:700,
-                               color:'#F5F2E9', fontSize:'0.95rem', margin:0 }}>
-                    {v.title}
-                  </h3>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* YouTube channel link */}
-        <div style={{ textAlign:'center', padding:'3rem',
-                      border:'1px solid rgba(255,255,255,0.05)',
-                      backgroundColor:'#0C0C14' }}>
-          <p style={{ color:'rgba(245,242,233,0.5)', fontFamily:'Inter, sans-serif',
-                      fontSize:'1rem', margin:'0 0 1.5rem' }}>
-            Full video archive available on the official Guneku YouTube channel
+      <section className="border-b border-[var(--rule)]">
+        <div className="inst-wrap py-10 md:py-12">
+          <p className="inst-eyebrow">Media</p>
+          <h1 className="inst-h1 mt-2">Guneku video archive</h1>
+          <p className="inst-body mt-3 max-w-2xl">
+            Reports, community events, development updates and Palace messages from the
+            official Guneku Village channel.
           </p>
-          <a href={`https://www.youtube.com/channel/${(gallery as any)?.youtubeChannelId}`}
-             target="_blank" rel="noopener noreferrer"
-             style={{ backgroundColor:'#f2a90b', color:'#0F0F0F',
-                       fontFamily:'Syne, sans-serif', fontWeight:700,
-                       padding:'0.85rem 2rem', fontSize:'0.78rem',
-                       letterSpacing:'0.12em', textTransform:'uppercase',
-                       textDecoration:'none', display:'inline-block' }}>
-            Visit YouTube Channel
-          </a>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <a href={gallery.channelUrl} target="_blank" rel="noopener noreferrer" className="inst-btn inst-btn-primary">
+              Guneku on YouTube
+            </a>
+            <Link href="/gallery/images" className="inst-btn inst-btn-quiet">Image gallery</Link>
+          </div>
+        </div>
+      </section>
+
+      {categories.map(cat => (
+        <section key={cat.name} className="border-b border-[var(--rule)]">
+          <div className="inst-wrap inst-sec">
+            <h2 className="inst-h2">{cat.name}</h2>
+
+            <div className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {cat.items.map(v => (
+                <article key={v.youtubeId} className="inst-card overflow-hidden">
+                  <div className="relative aspect-video w-full bg-[var(--stone)]">
+                    <iframe
+                      className="absolute inset-0 h-full w-full border-0"
+                      src={`https://www.youtube-nocookie.com/embed/${v.youtubeId}?rel=0`}
+                      title={v.displayTitle}
+                      loading="lazy"
+                      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                  <div className="p-4">
+                    <p className="inst-tag">{v.category}</p>
+                    <h3 className="inst-h3 mt-1">{v.displayTitle}</h3>
+                    {v.context && <p className="inst-body mt-1.5 !text-[0.84rem]">{v.context}</p>}
+                    <p className="inst-meta mt-2">Published on YouTube as “{v.title}”</p>
+                    <div className="mt-3 flex flex-wrap items-center gap-4">
+                      {v.relatedRoute && (
+                        <Link href={v.relatedRoute} className="inst-link">Related page →</Link>
+                      )}
+                      <a href={v.youtubeUrl} target="_blank" rel="noopener noreferrer" className="inst-link inline-flex items-center gap-1.5">
+                        <PlayCircle className="h-4 w-4" aria-hidden /> Watch on YouTube
+                      </a>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      ))}
+
+      {/* Material held back until it can be attributed */}
+      {gallery.pendingVideos && (
+        <section className="inst-alt border-b border-[var(--rule)]">
+          <div className="inst-wrap inst-sec">
+            <h2 className="inst-h2">Awaiting cataloguing</h2>
+            <p className="inst-body mt-2 max-w-3xl">
+              Footage from the GUDECA Europe meeting held at the Fon&rsquo;s Palace in Bonn on
+              28 March 2026 is held in the community archive. It is not published here yet,
+              because the speakers and subjects have not been confirmed and nothing will be
+              captioned by guesswork.
+            </p>
+            <Link href="/updates/gudeca-eu-meeting-bonn-28-march-2026" className="inst-link mt-3 inline-block">
+              Read the report of the Bonn meeting →
+            </Link>
+          </div>
+        </section>
+      )}
+
+      <section>
+        <div className="inst-wrap inst-sec">
+          <div className="inst-card flex flex-wrap items-center justify-between gap-4 p-6">
+            <div>
+              <h2 className="inst-h2">Follow Guneku on YouTube</h2>
+              <p className="inst-body mt-1.5">
+                The full video archive lives on the official Guneku Village channel.
+              </p>
+            </div>
+            <a href={gallery.channelUrl} target="_blank" rel="noopener noreferrer" className="inst-btn inst-btn-primary">
+              Subscribe to Guneku on YouTube
+            </a>
+          </div>
         </div>
       </section>
     </main>
