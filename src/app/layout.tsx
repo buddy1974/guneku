@@ -4,13 +4,12 @@ import { SpeedInsights }  from '@vercel/speed-insights/next'
 import { Header }         from '@/components/layout/Header'
 import { Footer }         from '@/components/layout/Footer'
 import { MobileNav }      from '@/components/layout/MobileNav'
-import { PageTransition } from '@/components/ui/PageTransition'
 import { ToastContainer } from '@/components/ui/Toast'
 import { getNavigation }  from '@/lib/content'
 import './globals.css'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://guneku.org'),
+  metadataBase: new URL('https://www.guneku.org'),
   title: {
     default:  'Guneku Fondom | Official Community Website',
     template: '%s | Guneku Fondom',
@@ -23,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     type:        'website',
     locale:      'en_GB',
-    url:         'https://guneku.org',
+    url:         'https://www.guneku.org',
     siteName:    'Guneku Fondom',
     title:       'Guneku Fondom | Official Community Website',
     description: 'The official community website of Guneku Fondom — Mbengwi, Momo Division, North West Cameroon.',
@@ -42,7 +41,7 @@ export const metadata: Metadata = {
 
 /* Next 16 wants themeColor on the viewport export, not metadata. */
 export const viewport: Viewport = {
-  themeColor: '#1f1108',
+  themeColor: '#14432F',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -58,13 +57,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
         />
       </head>
-      <body style={{ backgroundColor: 'oklch(0.14 0.02 30)', color: 'oklch(0.96 0.02 80)', overflowX: 'hidden' }}>
+      <body style={{ backgroundColor: 'oklch(0.965 0.012 85)', color: 'oklch(0.245 0.022 150)', overflowX: 'hidden' }}>
         <Header nav={nav} />
-        <main>
-          <PageTransition>
-            {children}
-          </PageTransition>
-        </main>
+        <main>{children}</main>
         <Footer />
         <MobileNav />
         <ToastContainer />

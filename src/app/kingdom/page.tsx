@@ -24,15 +24,15 @@ export default function KingdomPage() {
     <div className="min-h-screen bg-background">
 
       {/* ── HERO ── */}
-      <section className="relative h-[80vh] overflow-hidden">
-        <Image src="/images/site/kingdom-hills.jpg" alt="The Guneku palace compound and the surrounding Momo hills" fill className="object-cover animate-ken-burns" priority unoptimized />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background" />
+      <section className="relative h-[58vh] min-h-[380px] overflow-hidden">
+        <Image src="/images/site/kingdom-hills.jpg" alt="The Guneku palace compound and the surrounding Momo hills" fill className="object-cover" priority unoptimized />
+        <div className="absolute inset-0" style={{ background: 'oklch(0.215 0.045 158 / 0.58)' }} />
         <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col items-center justify-center px-6 text-center">
-          <div className="section-label animate-fade-up">EST. ANCIENT · LIVING TODAY</div>
-          <h1 className="mt-6 font-cinzel text-6xl font-bold uppercase leading-none text-gold-gradient md:text-8xl animate-fade-up" style={{ animationDelay: '0.15s' }}>
+          <div className="text-[0.70rem] font-bold uppercase tracking-[0.08em]" style={{ color: 'oklch(0.975 0.010 85)' }}>EST. ANCIENT · LIVING TODAY</div>
+          <h1 className="mt-3 font-[family-name:var(--font-display)] text-[clamp(2rem,5vw,3.4rem)] font-bold leading-[1.1]" style={{ color: 'oklch(0.975 0.010 85)' }}>
             The Kingdom
           </h1>
-          <p className="mt-6 max-w-2xl font-cormorant text-xl italic text-foreground/90 animate-fade-up" style={{ animationDelay: '0.3s' }}>
+          <p className="mt-4 max-w-2xl text-[0.98rem] leading-relaxed" style={{ color: 'oklch(0.975 0.010 85)' }}>
             Twenty-seven quarters in the hills of Mbengwi — one people, one Fondom,
             one continuing story.
           </p>

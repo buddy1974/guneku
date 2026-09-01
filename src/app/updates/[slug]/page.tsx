@@ -16,7 +16,7 @@ export default async function UpdatePage({
   if (!update) notFound()
 
   return (
-    <main style={{ backgroundColor:'#0F0F0F', minHeight:'100vh' }}>
+    <main style={{ backgroundColor:'oklch(0.965 0.012 85)', minHeight:'100vh' }}>
       <PageHero
         label="THE VILLAGE SQUARE"
         title={update.title.toUpperCase()}
@@ -51,9 +51,9 @@ export default async function UpdatePage({
         <ArticleBody body={update.body} />
 
         <div style={{ marginTop:'4rem', paddingTop:'2rem',
-                      borderTop:'1px solid rgba(255,255,255,0.08)' }}>
+                      borderTop:'1px solid oklch(0.878 0.010 90)' }}>
           <Link href="/updates" style={{
-            color:'#f2a90b', fontFamily:'Syne, sans-serif',
+            color:'oklch(0.320 0.060 158)', fontFamily:'var(--font-sans)',
             fontSize:'0.8rem', letterSpacing:'0.1em',
             textTransform:'uppercase', textDecoration:'none',
           }}>

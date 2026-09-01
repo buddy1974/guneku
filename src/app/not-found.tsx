@@ -3,7 +3,7 @@ import Link from 'next/link'
 export default function NotFound() {
   return (
     <main className="min-h-screen flex items-center justify-center text-center px-6"
-          style={{ background: 'radial-gradient(ellipse at center, oklch(0.28 0.10 30 / 0.4) 0%, oklch(0.10 0.02 30) 70%)' }}>
+          style={{ background: 'oklch(0.965 0.012 85)' }}>
       <div className="max-w-xl">
         <div className="font-cinzel leading-none text-[oklch(0.82_0.17_80/0.08)] select-none"
              style={{ fontSize: 'clamp(8rem, 20vw, 14rem)' }}>

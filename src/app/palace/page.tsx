@@ -2,7 +2,6 @@ import Link           from 'next/link'
 import Image          from 'next/image'
 import { Crown, Heart, Stethoscope, Scroll, ArrowRight } from 'lucide-react'
 import { getFonProfile, getAllPalaceArticles } from '@/lib/content'
-import { GoldParticles } from '@/components/ui/GoldParticles'
 import { Reveal }        from '@/components/ui/Reveal'
 
 export const metadata = {
@@ -11,11 +10,11 @@ export const metadata = {
 }
 
 const TIMELINE = [
-  { date: 'January 2015',     title: 'The Journey Begins',    desc: 'HRH Fon Patrick Nji travels to the ancestral mountains. Walters Ticha returns from Germany.',                                      color: 'rgba(245,242,233,0.2)' },
-  { date: '27 February 2015', title: 'The Enthronement',      desc: 'Sons and daughters assemble at the palace. Olive oil anointing by HRH Fon Fominyen of Nyen. 50-year rift resolved.',               color: 'oklch(0.42 0.22 25)'   },
-  { date: 'November 2015',    title: 'Launching Gala',        desc: 'Grand gala at the Mbengwi Council Hall. All 29 Meta villages invited personally by the new Fon.',                                   color: 'oklch(0.82 0.17 80)'   },
-  { date: '30 December 2016', title: 'The Public Coronation', desc: 'Historic coronation before all Meta. First Fon in Meta history to visit all 28 other Fondoms personally.',                         color: 'oklch(0.82 0.17 80)'   },
-  { date: '2021 – Present',   title: 'The Kingdom Grows',     desc: 'Democratic reforms, GUNECCUL, Agro CIG, solar lights, Mɨchi Əbeŋ — a kingdom in full renaissance.',                               color: 'oklch(0.82 0.17 80)'   },
+  { date: 'January 2015',     title: 'The Journey Begins',    desc: 'HRH Fon Patrick Nji travels to the ancestral mountains. Walters Ticha returns from Germany.',                                      color: 'oklch(0.560 0.016 150)' },
+  { date: '27 February 2015', title: 'The Enthronement',      desc: 'Sons and daughters assemble at the palace. Olive oil anointing by HRH Fon Fominyen of Nyen. 50-year rift resolved.',               color: 'oklch(0.560 0.016 150)'   },
+  { date: 'November 2015',    title: 'Launching Gala',        desc: 'Grand gala at the Mbengwi Council Hall. All 29 Meta villages invited personally by the new Fon.',                                   color: 'oklch(0.700 0.115 78)'   },
+  { date: '30 December 2016', title: 'The Public Coronation', desc: 'Historic coronation before all Meta. First Fon in Meta history to visit all 28 other Fondoms personally.',                         color: 'oklch(0.700 0.115 78)'   },
+  { date: '2021 – Present',   title: 'The Kingdom Grows',     desc: 'Democratic reforms, GUNECCUL, Agro CIG, solar lights, Mɨchi Əbeŋ — a kingdom in full renaissance.',                               color: 'oklch(0.700 0.115 78)'   },
 ]
 
 export default function PalacePage() {
@@ -28,17 +27,14 @@ export default function PalacePage() {
     <div className="min-h-screen bg-background">
 
       {/* ── HERO WITH PARTICLES ── */}
-      <section className="relative min-h-screen overflow-hidden" style={{ minHeight: 'clamp(500px, 85vh, 100vh)' }}>
-        <Image src="/images/site/palace-grounds.jpg" alt="The Guneku palace grounds" fill className="object-cover animate-ken-burns" priority unoptimized />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, oklch(0.14 0.02 30 / 0.4) 0%, transparent 40%, oklch(0.14 0.02 30 / 0.95) 100%)' }} />
-        <GoldParticles />
-        <div className="absolute left-0 top-0 bottom-0 w-1 bg-royal" />
-        <div className="absolute right-0 top-0 bottom-0 w-1 bg-royal" />
+      <section className="relative min-h-screen overflow-hidden" style={{ minHeight: 'clamp(360px, 58vh, 560px)' }}>
+        <Image src="/images/site/palace-grounds.jpg" alt="The Guneku palace grounds" fill className="object-cover" priority unoptimized />
+        <div className="absolute inset-0" style={{ background: 'oklch(0.215 0.045 158 / 0.58)' }} />
 
-        <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-end px-6 pb-24">
-          <div className="max-w-2xl animate-fade-up">
-            <div className="section-label mb-4">REIGNING SINCE 2015</div>
-            <h1 className="font-cinzel text-5xl font-bold uppercase leading-[0.95] text-gold-gradient md:text-7xl">
+        <div className="relative z-10 mx-auto flex h-full max-w-7xl items-end px-6 pb-12" style={{ minHeight: 'clamp(360px, 58vh, 560px)' }}>
+          <div className="max-w-2xl">
+            <div className="mb-2 text-[0.70rem] font-bold uppercase tracking-[0.08em]" style={{ color: 'oklch(0.975 0.010 85)' }}>REIGNING SINCE 2015</div>
+            <h1 className="font-[family-name:var(--font-display)] text-[clamp(1.9rem,4.4vw,3rem)] font-bold leading-[1.1]" style={{ color: 'oklch(0.975 0.010 85)' }}>
               HRH Dr. Fomuki<br />Walters Ticha IX
             </h1>
             <p className="mt-6 font-cormorant text-2xl italic text-foreground/95">Fon of Guneku · Physician · Visionary</p>
@@ -91,7 +87,7 @@ export default function PalacePage() {
                 { i: Scroll,      t: 'Visionary', d: 'Author of a modern Guneku rooted in heritage.' },
               ].map((p, i) => (
                 <div key={i} className="group rounded-2xl card-royal p-8 text-center">
-                  <div className="mb-4 inline-flex rounded-full bg-gold-gradient p-3">
+                  <div className="mb-4 inline-flex rounded-[3px] bg-[var(--accent)] p-3">
                     <p.i className="h-5 w-5 text-gold-foreground" />
                   </div>
                   <div className="font-cinzel text-2xl text-foreground">{p.t}</div>
@@ -115,7 +111,7 @@ export default function PalacePage() {
               <div key={i} className="flex gap-6 items-start">
                 <div className="flex flex-col items-center shrink-0">
                   <div className="h-4 w-4 rounded-full border-2 border-current shrink-0" style={{ color: item.color, backgroundColor: item.color, borderColor: item.color, boxShadow: `0 0 12px ${item.color}` }} />
-                  {i < TIMELINE.length - 1 && <div className="w-px flex-1 min-h-[40px] mt-2" style={{ background: `linear-gradient(to bottom, ${item.color}, transparent)` }} />}
+                  {i < TIMELINE.length - 1 && <div className="w-px flex-1 min-h-[40px] mt-2" style={{ background: 'oklch(0.878 0.010 90)' }} />}
                 </div>
                 <div className="card-royal p-5 flex-1 mb-4">
                   <div className="font-cinzel text-xs tracking-widest mb-1" style={{ color: item.color }}>{item.date}</div>

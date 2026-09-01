@@ -71,7 +71,7 @@ export default function GalleryPage() {
                         {(album.imageCount || 0).toString().padStart(2,'0')}
                       </span>
                     </div>
-                    <div className="absolute top-2 right-2 bg-background/80 backdrop-blur-sm px-2 py-0.5 text-[10px] tracking-widest text-primary font-cinzel">
+                    <div className="absolute top-2 right-2 bg-card border border-border px-2 py-0.5 text-[10px] tracking-widest text-primary font-cinzel">
                       {album.imageCount} photos
                     </div>
                     <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gold-gradient" />

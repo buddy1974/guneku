@@ -5,14 +5,14 @@ export const metadata = { title: 'GUYODECA — Youth Wing' }
 
 export default function GuyodecaPage() {
   return (
-    <main style={{ backgroundColor:'#0F0F0F', minHeight:'100vh' }}>
+    <main style={{ backgroundColor:'oklch(0.965 0.012 85)', minHeight:'100vh' }}>
       <PageHero
         label="YOUTH WING"
         title="GUYODECA"
         subtitle="Youth Development Association of Guneku — building the next generation."
       />
       <section style={{ maxWidth:'900px', margin:'0 auto', padding:'5rem 1.5rem' }}>
-        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr',
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(min(240px,100%), 1fr))',
                       gap:'2rem', marginBottom:'3rem' }}
              className="grid-cols-1 md:grid-cols-2">
           {[
@@ -26,20 +26,20 @@ export default function GuyodecaPage() {
               desc:'Active participation in all community development initiatives.' },
           ].map(item => (
             <div key={item.title} style={{
-              backgroundColor:'#0C0C14',
-              border:'1px solid rgba(255,255,255,0.05)',
+              backgroundColor:'oklch(0.985 0.008 85)',
+              border:'1px solid oklch(0.878 0.010 90)',
               padding:'2rem',
-              borderTop:'3px solid #f2a90b',
+              borderTop:'3px solid oklch(0.320 0.060 158)',
             }}>
               <div style={{ fontSize:'2rem', marginBottom:'1rem' }}>
                 {item.icon}
               </div>
-              <h3 style={{ fontFamily:'Syne, sans-serif', fontWeight:700,
-                           color:'#F5F2E9', fontSize:'1.1rem',
+              <h3 style={{ fontFamily:'var(--font-sans)', fontWeight:700,
+                           color:'oklch(0.245 0.022 150)', fontSize:'1.1rem',
                            margin:'0 0 0.75rem' }}>
                 {item.title}
               </h3>
-              <p style={{ color:'rgba(245,242,233,0.5)',
+              <p style={{ color:'oklch(0.470 0.018 150)',
                           fontFamily:'Inter, sans-serif', fontSize:'0.9rem',
                           lineHeight:1.7, margin:0 }}>
                 {item.desc}
@@ -48,7 +48,7 @@ export default function GuyodecaPage() {
           ))}
         </div>
         <Link href="/gudeca" style={{
-          color:'#f2a90b', fontFamily:'Syne, sans-serif',
+          color:'oklch(0.320 0.060 158)', fontFamily:'var(--font-sans)',
           fontSize:'0.8rem', letterSpacing:'0.1em',
           textTransform:'uppercase', textDecoration:'none',
         }}>

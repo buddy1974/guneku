@@ -33,10 +33,10 @@ export default function DiasporaPage() {
 
       {/* ── HERO ── */}
       <section className="relative pt-40 pb-20 text-center">
-        <div className="pattern-royal absolute inset-0 opacity-20" />
+        
         <div className="mx-auto max-w-5xl px-6 relative z-10">
           <div className="section-label animate-fade-up">ONE PEOPLE · MANY HORIZONS</div>
-          <h1 className="mt-6 font-cinzel text-6xl uppercase leading-none text-gold-gradient md:text-8xl animate-fade-up" style={{ animationDelay: '0.15s' }}>
+          <h1 className="mt-4 font-[family-name:var(--font-display)] text-[clamp(1.85rem,3.4vw,2.7rem)] font-bold leading-[1.14] text-[var(--foreground)]" style={{ animationDelay: '0.15s' }}>
             The Diaspora
           </h1>
           <p className="mt-6 font-cormorant text-2xl italic text-foreground/90 animate-fade-up" style={{ animationDelay: '0.3s' }}>
@@ -49,17 +49,20 @@ export default function DiasporaPage() {
       {/* ── CSS GLOBE ── */}
       <Reveal>
         <section className="relative mx-auto max-w-7xl px-6 pb-24">
+          {/* Inset on small screens so the orbiting country pills, which sit at
+              96% of the circle, stay inside the viewport instead of overflowing. */}
+          <div className="px-9 sm:px-4 md:px-0">
           <div className="relative mx-auto aspect-square max-w-2xl">
-            {/* Globe sphere */}
-            <div className="absolute inset-0 rounded-full shadow-royal" style={{ background: 'linear-gradient(135deg, oklch(0.22 0.08 270), oklch(0.18 0.06 30), oklch(0.10 0.02 30))' }} />
-            <div className="absolute inset-0 rounded-full border-gold animate-spin-slow" />
-            <div className="absolute inset-6 rounded-full border border-primary/20 animate-spin-slow" style={{ animationDirection: 'reverse', animationDuration: '60s' }} />
-            <div className="absolute inset-1/4 rounded-full pattern-royal opacity-40" />
+            {/* Circle — kept as the diaspora's information design. Institutional
+                treatment only: beige ground, deep green rings, no glow, no spin. */}
+            <div className="absolute inset-0 rounded-full border-2 border-[var(--primary)]/35 bg-[oklch(0.940_0.014_85)]" />
+            <div className="absolute inset-[12%] rounded-full border border-[var(--primary)]/25" />
+            <div className="absolute inset-[26%] rounded-full border border-[var(--primary)]/15" />
 
             {/* Center stats */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center px-8">
-                <div className="font-cinzel text-5xl text-gold-gradient">3</div>
+                <div className="font-[family-name:var(--font-display)] text-5xl font-bold text-[var(--primary)]">3</div>
                 <div className="mt-2 section-label">CONTINENTS</div>
                 <div className="mt-3 text-xs text-muted-foreground">GUDECA chapters in Cameroon,<br />Europe and North America</div>
               </div>
@@ -73,13 +76,14 @@ export default function DiasporaPage() {
               const y = 50 + r * Math.sin(angle)
               return (
                 <div key={p.country}
-                     className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full bg-card border-gold-strong px-3 py-1.5 text-xs shadow-card-royal animate-float"
-                     style={{ left: `${x}%`, top: `${y}%`, animationDelay: `${i * 0.6}s` }}>
+                     className="absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-[var(--primary)]/30 bg-[var(--primary)] px-2.5 py-1 text-[0.7rem] text-[oklch(0.975_0.010_85)] sm:px-3 sm:py-1.5 sm:text-xs"
+                     style={{ left: `${x}%`, top: `${y}%` }}>
                   <span className="mr-1.5">{p.flag}</span>
-                  <span className="font-medium text-foreground">{p.country}</span>
+                  <span className="font-medium">{p.country}</span>
                 </div>
               )
             })}
+          </div>
           </div>
         </section>
       </Reveal>

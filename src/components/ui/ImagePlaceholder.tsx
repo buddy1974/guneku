@@ -9,7 +9,7 @@ export function ImagePlaceholder({ label, aspectRatio = '16/9' }: Props) {
     <div style={{
       aspectRatio,
       backgroundColor: '#1A1A20',
-      border: '1px solid rgba(242,169,11,0.15)',
+      border: '1px solid oklch(0.878 0.010 90)',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -22,13 +22,13 @@ export function ImagePlaceholder({ label, aspectRatio = '16/9' }: Props) {
         border: '1px solid rgba(242,169,11,0.3)',
         display: 'flex', alignItems:'center', justifyContent:'center',
       }}>
-        <span style={{ color:'#f2a90b', fontSize:'1.2rem' }}>◻</span>
+        <span style={{ color:'oklch(0.320 0.060 158)', fontSize:'1.2rem' }}>◻</span>
       </div>
       {label && (
         <span style={{
-          color: 'rgba(245,242,233,0.2)',
+          color: 'oklch(0.560 0.016 150)',
           fontSize: '0.65rem',
-          fontFamily: 'Syne, sans-serif',
+          fontFamily: 'var(--font-sans)',
           letterSpacing: '0.2em',
           textTransform: 'uppercase',
         }}>

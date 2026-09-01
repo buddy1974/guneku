@@ -34,7 +34,7 @@ export default function ContactPage() {
     }
   }
 
-  const inputCls = "w-full rounded-lg border border-input bg-background/60 px-4 py-3 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none transition-colors backdrop-blur-sm"
+  const inputCls = "w-full rounded-[3px] border border-input bg-card px-4 py-3 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none transition-colors"
 
   return (
     <div className="min-h-screen bg-background">
@@ -63,7 +63,7 @@ export default function ContactPage() {
               { i: Phone,  t: 'Telephone',    d: '+237 681 19 46 46' },
             ].map((c, i) => (
               <div key={i} className="flex gap-4 card-royal p-5">
-                <div className="rounded-full bg-gold-gradient p-2.5 h-fit">
+                <div className="rounded-[3px] bg-[var(--accent)] p-2.5 h-fit">
                   <c.i className="h-4 w-4 text-gold-foreground" />
                 </div>
                 <div>

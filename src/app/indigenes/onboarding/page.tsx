@@ -91,21 +91,21 @@ export default function OnboardingPage() {
   }
 
   const inputStyle: React.CSSProperties = {
-    width: '100%', backgroundColor: '#0C0C14',
-    border: '1px solid rgba(255,255,255,0.1)',
-    color: '#F5F2E9', fontFamily: 'Inter, sans-serif',
+    width: '100%', backgroundColor: 'oklch(0.985 0.008 85)',
+    border: '1px solid oklch(0.878 0.010 90)',
+    color: 'oklch(0.245 0.022 150)', fontFamily: 'Inter, sans-serif',
     fontSize: '0.95rem', padding: '0.875rem 1rem',
     outline: 'none', boxSizing: 'border-box',
   }
 
   const labelStyle: React.CSSProperties = {
-    color: 'rgba(245,242,233,0.4)', fontFamily: 'Syne, sans-serif',
+    color: 'oklch(0.560 0.016 150)', fontFamily: 'var(--font-sans)',
     fontSize: '0.7rem', letterSpacing: '0.15em',
     textTransform: 'uppercase', display: 'block', marginBottom: '0.5rem',
   }
 
   return (
-    <main style={{ backgroundColor:'#0F0F0F', minHeight:'100vh',
+    <main style={{ backgroundColor:'oklch(0.965 0.012 85)', minHeight:'100vh',
                    paddingTop:'5rem', paddingBottom:'5rem' }}>
       <div style={{ maxWidth:'680px', margin:'0 auto', padding:'0 1.5rem' }}>
 
@@ -114,11 +114,11 @@ export default function OnboardingPage() {
             INDIGENES DIRECTORY
           </span>
           <h1 style={{ fontFamily:'"Bebas Neue", sans-serif',
-                       fontSize:'3rem', color:'#F5F2E9',
+                       fontSize:'3rem', color:'oklch(0.245 0.022 150)',
                        letterSpacing:'0.05em', margin:'0 0 0.5rem' }}>
             CREATE YOUR PROFILE
           </h1>
-          <p style={{ color:'rgba(245,242,233,0.4)', fontFamily:'Inter, sans-serif',
+          <p style={{ color:'oklch(0.560 0.016 150)', fontFamily:'Inter, sans-serif',
                       fontSize:'0.9rem' }}>
             Join the official directory of Guneku sons and daughters worldwide.
           </p>
@@ -128,8 +128,8 @@ export default function OnboardingPage() {
         <div style={{ display:'flex', gap:'4px', marginBottom:'2.5rem' }}>
           {STEP_LABELS.map((label, i) => (
             <div key={i} style={{ flex:1 }}>
-              <div style={{ height:'3px', backgroundColor: i <= step ? '#f2a90b' : 'rgba(255,255,255,0.1)', transition:'background-color 0.3s' }} />
-              <div style={{ color: i <= step ? '#f2a90b' : 'rgba(245,242,233,0.25)', fontFamily:'Syne, sans-serif', fontSize:'0.6rem', letterSpacing:'0.1em', textTransform:'uppercase', marginTop:'0.4rem', textAlign:'center' }}>
+              <div style={{ height:'3px', backgroundColor: i <= step ? 'oklch(0.320 0.060 158)' : 'oklch(0.878 0.010 90)', transition:'background-color 0.3s' }} />
+              <div style={{ color: i <= step ? 'oklch(0.320 0.060 158)' : 'oklch(0.560 0.016 150)', fontFamily:'var(--font-sans)', fontSize:'0.6rem', letterSpacing:'0.1em', textTransform:'uppercase', marginTop:'0.4rem', textAlign:'center' }}>
                 {label}
               </div>
             </div>
@@ -141,20 +141,20 @@ export default function OnboardingPage() {
           <div style={{ display:'flex', flexDirection:'column', gap:'1.5rem' }}>
             <div style={{ textAlign:'center' }}>
               <div onClick={() => fileRef.current?.click()}
-                   style={{ width:'120px', height:'120px', borderRadius:'50%', backgroundColor:'#0C0C14', border: photoUrl ? '3px solid #f2a90b' : '2px dashed rgba(242,169,11,0.3)', margin:'0 auto 1rem', cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden' }}>
+                   style={{ width:'120px', height:'120px', borderRadius:'50%', backgroundColor:'oklch(0.985 0.008 85)', border: photoUrl ? '3px solid oklch(0.320 0.060 158)' : '2px dashed rgba(242,169,11,0.3)', margin:'0 auto 1rem', cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden' }}>
                 {photoUrl ? (
                   <img src={photoUrl} alt="" style={{ width:'100%', height:'100%', objectFit:'cover' }} />
                 ) : (
                   <div style={{ textAlign:'center' }}>
                     <div style={{ fontSize:'2rem', marginBottom:'4px' }}>📷</div>
-                    <div style={{ color:'rgba(245,242,233,0.3)', fontSize:'0.6rem', fontFamily:'Syne, sans-serif', letterSpacing:'0.1em' }}>
+                    <div style={{ color:'oklch(0.560 0.016 150)', fontSize:'0.6rem', fontFamily:'var(--font-sans)', letterSpacing:'0.1em' }}>
                       {uploading ? 'UPLOADING...' : 'ADD PHOTO'}
                     </div>
                   </div>
                 )}
               </div>
               <input ref={fileRef} type="file" accept="image/*" onChange={uploadPhoto} style={{ display:'none' }} />
-              <div style={{ color:'rgba(245,242,233,0.25)', fontFamily:'Inter, sans-serif', fontSize:'0.75rem' }}>Max 5MB · JPG, PNG, WebP</div>
+              <div style={{ color:'oklch(0.560 0.016 150)', fontFamily:'Inter, sans-serif', fontSize:'0.75rem' }}>Max 5MB · JPG, PNG, WebP</div>
             </div>
             <div>
               <label style={labelStyle}>Full Name *</label>
@@ -164,7 +164,7 @@ export default function OnboardingPage() {
               <label style={labelStyle}>Short Bio</label>
               <textarea value={form.bio} onChange={e => set('bio', e.target.value)} placeholder="Tell Guneku who you are in 2-3 sentences..." rows={3} style={{ ...inputStyle, resize:'vertical' }} />
             </div>
-            <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem' }}>
+            <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(min(240px,100%), 1fr))', gap:'1rem' }}>
               <div>
                 <label style={labelStyle}>City / Town</label>
                 <input value={form.current_city} onChange={e => set('current_city', e.target.value)} placeholder="e.g. Essen" style={inputStyle} />
@@ -183,8 +183,8 @@ export default function OnboardingPage() {
         {/* STEP 1 — Heritage */}
         {step === 1 && (
           <div style={{ display:'flex', flexDirection:'column', gap:'1.5rem' }}>
-            <div style={{ backgroundColor:'rgba(242,169,11,0.05)', border:'1px solid rgba(242,169,11,0.15)', borderLeft:'3px solid #f2a90b', padding:'1rem 1.25rem' }}>
-              <p style={{ color:'rgba(245,242,233,0.6)', fontFamily:'Inter, sans-serif', fontSize:'0.85rem', lineHeight:1.6, margin:0 }}>This section connects you to Guneku permanently. Your family heritage is your identity here.</p>
+            <div style={{ backgroundColor:'rgba(242,169,11,0.05)', border:'1px solid oklch(0.878 0.010 90)', borderLeft:'3px solid oklch(0.320 0.060 158)', padding:'1rem 1.25rem' }}>
+              <p style={{ color:'oklch(0.470 0.018 150)', fontFamily:'Inter, sans-serif', fontSize:'0.85rem', lineHeight:1.6, margin:0 }}>This section connects you to Guneku permanently. Your family heritage is your identity here.</p>
             </div>
             <div>
               <label style={labelStyle}>Your Quarter in Guneku</label>
@@ -196,7 +196,7 @@ export default function OnboardingPage() {
             <div>
               <label style={labelStyle}>Family Heritage</label>
               <input value={form.family_lineage} onChange={e => set('family_lineage', e.target.value)} placeholder="e.g. Son of late Mr Akwe Thaddeus Acho" style={inputStyle} />
-              <div style={{ color:'rgba(245,242,233,0.2)', fontFamily:'Inter, sans-serif', fontSize:'0.75rem', marginTop:'0.4rem' }}>Name your parent, family elder, or lineage connection to Guneku</div>
+              <div style={{ color:'oklch(0.560 0.016 150)', fontFamily:'Inter, sans-serif', fontSize:'0.75rem', marginTop:'0.4rem' }}>Name your parent, family elder, or lineage connection to Guneku</div>
             </div>
             <div>
               <label style={labelStyle}>Family Home in Guneku</label>
@@ -232,10 +232,10 @@ export default function OnboardingPage() {
               <input value={form.skills.join(', ')} onChange={e => set('skills', e.target.value.split(',').map((s: string) => s.trim()).filter(Boolean))} placeholder="e.g. Web Development, AI Automation, Medicine" style={inputStyle} />
             </div>
             <label style={{ display:'flex', alignItems:'center', gap:'0.75rem', cursor:'pointer' }}>
-              <div onClick={() => set('willing_to_mentor', !form.willing_to_mentor)} style={{ width:'44px', height:'24px', borderRadius:'12px', backgroundColor: form.willing_to_mentor ? '#f2a90b' : 'rgba(255,255,255,0.1)', position:'relative', transition:'background-color 0.2s', cursor:'pointer', flexShrink:0 }}>
-                <div style={{ position:'absolute', top:'2px', left: form.willing_to_mentor ? '22px' : '2px', width:'20px', height:'20px', borderRadius:'50%', backgroundColor:'#F5F2E9', transition:'left 0.2s' }} />
+              <div onClick={() => set('willing_to_mentor', !form.willing_to_mentor)} style={{ width:'44px', height:'24px', borderRadius:'12px', backgroundColor: form.willing_to_mentor ? 'oklch(0.320 0.060 158)' : 'oklch(0.878 0.010 90)', position:'relative', transition:'background-color 0.2s', cursor:'pointer', flexShrink:0 }}>
+                <div style={{ position:'absolute', top:'2px', left: form.willing_to_mentor ? '22px' : '2px', width:'20px', height:'20px', borderRadius:'50%', backgroundColor:'oklch(0.245 0.022 150)', transition:'left 0.2s' }} />
               </div>
-              <span style={{ color:'rgba(245,242,233,0.6)', fontFamily:'Inter, sans-serif', fontSize:'0.85rem' }}>Open to mentor Guneku youth</span>
+              <span style={{ color:'oklch(0.470 0.018 150)', fontFamily:'Inter, sans-serif', fontSize:'0.85rem' }}>Open to mentor Guneku youth</span>
             </label>
           </div>
         )}
@@ -243,7 +243,7 @@ export default function OnboardingPage() {
         {/* STEP 3 — Online Presence */}
         {step === 3 && (
           <div style={{ display:'flex', flexDirection:'column', gap:'1.25rem' }}>
-            <p style={{ color:'rgba(245,242,233,0.4)', fontFamily:'Inter, sans-serif', fontSize:'0.85rem', margin:'0 0 0.5rem' }}>All links optional — only fill what you want to share publicly.</p>
+            <p style={{ color:'oklch(0.560 0.016 150)', fontFamily:'Inter, sans-serif', fontSize:'0.85rem', margin:'0 0 0.5rem' }}>All links optional — only fill what you want to share publicly.</p>
             {[
               { key:'website_url',   label:'Personal / Company Website', placeholder:'https://maxpromo.digital' },
               { key:'linkedin_url',  label:'LinkedIn',                   placeholder:'https://linkedin.com/in/...' },
@@ -261,9 +261,9 @@ export default function OnboardingPage() {
               <label style={labelStyle}>Profile visibility</label>
               <div style={{ display:'flex', gap:'1rem' }}>
                 {[{ val: true, label:'Public — visible to all visitors' }, { val: false, label:'Private — visible to logged-in indigenes only' }].map(opt => (
-                  <div key={String(opt.val)} onClick={() => set('is_public', opt.val)} style={{ flex:1, padding:'0.875rem', backgroundColor: form.is_public === opt.val ? 'rgba(242,169,11,0.1)' : '#0C0C14', border: `1px solid ${form.is_public === opt.val ? '#f2a90b' : 'rgba(255,255,255,0.08)'}`, cursor:'pointer' }}>
-                    <div style={{ color:'#F5F2E9', fontFamily:'Syne, sans-serif', fontSize:'0.8rem', fontWeight:700, marginBottom:'0.25rem' }}>{form.is_public === opt.val ? '✓ ' : ''}{opt.val ? 'Public' : 'Private'}</div>
-                    <div style={{ color:'rgba(245,242,233,0.35)', fontFamily:'Inter, sans-serif', fontSize:'0.75rem' }}>{opt.label}</div>
+                  <div key={String(opt.val)} onClick={() => set('is_public', opt.val)} style={{ flex:1, padding:'0.875rem', backgroundColor: form.is_public === opt.val ? 'rgba(242,169,11,0.1)' : 'oklch(0.985 0.008 85)', border: `1px solid ${form.is_public === opt.val ? 'oklch(0.320 0.060 158)' : 'oklch(0.878 0.010 90)'}`, cursor:'pointer' }}>
+                    <div style={{ color:'oklch(0.245 0.022 150)', fontFamily:'var(--font-sans)', fontSize:'0.8rem', fontWeight:700, marginBottom:'0.25rem' }}>{form.is_public === opt.val ? '✓ ' : ''}{opt.val ? 'Public' : 'Private'}</div>
+                    <div style={{ color:'oklch(0.560 0.016 150)', fontFamily:'Inter, sans-serif', fontSize:'0.75rem' }}>{opt.label}</div>
                   </div>
                 ))}
               </div>
@@ -274,7 +274,7 @@ export default function OnboardingPage() {
         {/* STEP 4 — Review */}
         {step === 4 && (
           <div style={{ display:'flex', flexDirection:'column', gap:'1.5rem' }}>
-            <div style={{ backgroundColor:'#0C0C14', border:'1px solid rgba(242,169,11,0.15)', padding:'2rem' }}>
+            <div style={{ backgroundColor:'oklch(0.985 0.008 85)', border:'1px solid oklch(0.878 0.010 90)', padding:'2rem' }}>
               <div style={{ display:'flex', gap:'1.5rem', alignItems:'flex-start', marginBottom:'1.5rem' }}>
                 <div style={{ width:'80px', height:'80px', borderRadius:'50%', backgroundColor:'#1A1A20', border:'2px solid rgba(242,169,11,0.3)', overflow:'hidden', flexShrink:0 }}>
                   {photoUrl ? (
@@ -284,9 +284,9 @@ export default function OnboardingPage() {
                   )}
                 </div>
                 <div>
-                  <h3 style={{ fontFamily:'Syne, sans-serif', fontWeight:700, color:'#F5F2E9', fontSize:'1.2rem', margin:'0 0 0.3rem' }}>{form.full_name || 'Your Name'}</h3>
-                  <p style={{ color:'#f2a90b', fontFamily:'Syne, sans-serif', fontSize:'0.8rem', margin:'0 0 0.25rem' }}>{form.profession || 'Profession'}</p>
-                  <p style={{ color:'rgba(245,242,233,0.4)', fontFamily:'Inter, sans-serif', fontSize:'0.8rem', margin:0 }}>{form.country_flag} {form.current_city}{form.current_city && form.current_country ? ', ' : ''}{form.current_country}</p>
+                  <h3 style={{ fontFamily:'var(--font-sans)', fontWeight:700, color:'oklch(0.245 0.022 150)', fontSize:'1.2rem', margin:'0 0 0.3rem' }}>{form.full_name || 'Your Name'}</h3>
+                  <p style={{ color:'oklch(0.320 0.060 158)', fontFamily:'var(--font-sans)', fontSize:'0.8rem', margin:'0 0 0.25rem' }}>{form.profession || 'Profession'}</p>
+                  <p style={{ color:'oklch(0.560 0.016 150)', fontFamily:'Inter, sans-serif', fontSize:'0.8rem', margin:0 }}>{form.country_flag} {form.current_city}{form.current_city && form.current_country ? ', ' : ''}{form.current_country}</p>
                 </div>
               </div>
               {[
@@ -295,25 +295,25 @@ export default function OnboardingPage() {
                 { label:'Family Home', value: form.family_home },
                 { label:'Generation', value: form.generation },
               ].filter(f => f.value).map(f => (
-                <div key={f.label} style={{ display:'flex', justifyContent:'space-between', padding:'0.5rem 0', borderTop:'1px solid rgba(255,255,255,0.05)' }}>
-                  <span style={{ color:'rgba(245,242,233,0.35)', fontFamily:'Syne, sans-serif', fontSize:'0.7rem', textTransform:'uppercase', letterSpacing:'0.1em' }}>{f.label}</span>
-                  <span style={{ color:'rgba(245,242,233,0.7)', fontFamily:'Inter, sans-serif', fontSize:'0.85rem' }}>{f.value}</span>
+                <div key={f.label} style={{ display:'flex', justifyContent:'space-between', padding:'0.5rem 0', borderTop:'1px solid oklch(0.878 0.010 90)' }}>
+                  <span style={{ color:'oklch(0.560 0.016 150)', fontFamily:'var(--font-sans)', fontSize:'0.7rem', textTransform:'uppercase', letterSpacing:'0.1em' }}>{f.label}</span>
+                  <span style={{ color:'oklch(0.470 0.018 150)', fontFamily:'Inter, sans-serif', fontSize:'0.85rem' }}>{f.value}</span>
                 </div>
               ))}
             </div>
-            <p style={{ color:'rgba(245,242,233,0.35)', fontFamily:'Inter, sans-serif', fontSize:'0.8rem', textAlign:'center', lineHeight:1.6 }}>You can edit your profile at any time. Your profile will appear in the Guneku Indigenes Directory.</p>
+            <p style={{ color:'oklch(0.560 0.016 150)', fontFamily:'Inter, sans-serif', fontSize:'0.8rem', textAlign:'center', lineHeight:1.6 }}>You can edit your profile at any time. Your profile will appear in the Guneku Indigenes Directory.</p>
           </div>
         )}
 
         {/* Navigation */}
         <div style={{ display:'flex', justifyContent:'space-between', marginTop:'2.5rem' }}>
           {step > 0 ? (
-            <button onClick={() => setStep(s => s - 1)} style={{ border:'1px solid rgba(245,242,233,0.2)', color:'rgba(245,242,233,0.6)', fontFamily:'Syne, sans-serif', fontWeight:700, padding:'0.85rem 2rem', fontSize:'0.78rem', letterSpacing:'0.12em', textTransform:'uppercase', background:'none', cursor:'pointer' }}>← Back</button>
+            <button onClick={() => setStep(s => s - 1)} style={{ border:'1px solid oklch(0.560 0.016 150)', color:'oklch(0.470 0.018 150)', fontFamily:'var(--font-sans)', fontWeight:700, padding:'0.85rem 2rem', fontSize:'0.78rem', letterSpacing:'0.12em', textTransform:'uppercase', background:'none', cursor:'pointer' }}>← Back</button>
           ) : <div />}
           {step < 4 ? (
-            <button onClick={() => setStep(s => s + 1)} disabled={step === 0 && !form.full_name} style={{ backgroundColor: step === 0 && !form.full_name ? 'rgba(242,169,11,0.3)' : '#f2a90b', color:'#0F0F0F', fontFamily:'Syne, sans-serif', fontWeight:700, padding:'0.85rem 2rem', fontSize:'0.78rem', letterSpacing:'0.12em', textTransform:'uppercase', border:'none', cursor: step === 0 && !form.full_name ? 'not-allowed' : 'pointer' }}>Continue →</button>
+            <button onClick={() => setStep(s => s + 1)} disabled={step === 0 && !form.full_name} style={{ backgroundColor: step === 0 && !form.full_name ? 'rgba(242,169,11,0.3)' : 'oklch(0.320 0.060 158)', color:'oklch(0.965 0.012 85)', fontFamily:'var(--font-sans)', fontWeight:700, padding:'0.85rem 2rem', fontSize:'0.78rem', letterSpacing:'0.12em', textTransform:'uppercase', border:'none', cursor: step === 0 && !form.full_name ? 'not-allowed' : 'pointer' }}>Continue →</button>
           ) : (
-            <button onClick={submit} disabled={saving} style={{ backgroundColor:'#f2a90b', color:'#0F0F0F', fontFamily:'Syne, sans-serif', fontWeight:700, padding:'0.85rem 2rem', fontSize:'0.78rem', letterSpacing:'0.12em', textTransform:'uppercase', border:'none', cursor:'pointer' }}>
+            <button onClick={submit} disabled={saving} style={{ backgroundColor:'oklch(0.320 0.060 158)', color:'oklch(0.965 0.012 85)', fontFamily:'var(--font-sans)', fontWeight:700, padding:'0.85rem 2rem', fontSize:'0.78rem', letterSpacing:'0.12em', textTransform:'uppercase', border:'none', cursor:'pointer' }}>
               {saving ? 'SAVING...' : 'PUBLISH MY PROFILE →'}
             </button>
           )}

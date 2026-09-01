@@ -20,14 +20,12 @@ export default function GudecaPage() {
     <div className="min-h-screen bg-background">
 
       {/* ── HERO ── */}
-      <section className="relative pt-40 pb-24">
-        <div className="pattern-royal absolute inset-0 opacity-20" />
-        <div className="absolute inset-0 bg-royal-gradient opacity-60" />
+      <section className="relative border-b border-border pt-10 pb-10 md:pt-14 md:pb-14">
         <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
-          <div className="section-label animate-fade-up">EST. BY THE DIASPORA · BLESSED BY THE FON</div>
-          <h1 className="mt-6 font-cinzel text-6xl uppercase leading-none text-gold-gradient md:text-8xl animate-fade-up" style={{ animationDelay:'0.15s' }}>GUDECA</h1>
-          <p className="mt-4 font-cormorant text-2xl italic text-foreground/90 animate-fade-up" style={{ animationDelay:'0.3s' }}>Guneku Development &amp; Cultural Association</p>
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground animate-fade-up" style={{ animationDelay:'0.45s' }}>
+          <div className="section-label">EST. BY THE DIASPORA · BLESSED BY THE FON</div>
+          <h1 className="mt-2 font-[family-name:var(--font-display)] text-[clamp(1.85rem,3.4vw,2.7rem)] font-bold leading-[1.14] text-foreground">GUDECA</h1>
+          <p className="mt-1 text-[1.02rem] font-semibold text-muted-foreground">Guneku Development &amp; Cultural Association</p>
+          <p className="mx-auto mt-4 max-w-2xl text-[0.94rem] leading-relaxed text-muted-foreground">
             Where the kingdom invests in itself. Where culture and progress are not enemies.
             Where every Guneku son and daughter, no matter the continent, builds something at home.
           </p>
@@ -51,14 +49,13 @@ export default function GudecaPage() {
               { i:Globe2,        t:'Cultural Festivals',    d:'Mɨchi Əbeŋ revived as the great annual return.',                  tag:'HERITAGE',  href:null },
             ].map((p, i) => (
               <div key={i} className="group relative overflow-hidden rounded-3xl card-royal p-8">
-                <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-gold-gradient opacity-0 blur-3xl transition-opacity group-hover:opacity-30" />
                 <div className="relative">
                   <div className="section-label text-[0.6rem] mb-3">{p.tag}</div>
                   <p.i className="h-8 w-8 text-primary" />
                   <h3 className="mt-4 font-cinzel text-2xl text-foreground">{p.t}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.d}</p>
                   {p.href && (
-                    <Link href={p.href} className="mt-4 inline-flex items-center gap-1 text-primary text-xs tracking-widest">
+                    <Link href={p.href} className="mt-4 inline-flex items-center gap-1 text-primary text-xs tracking-[0.06em]">
                       Learn more <ArrowRight className="h-3 w-3" />
                     </Link>
                   )}
@@ -80,17 +77,17 @@ export default function GudecaPage() {
             </div>
             <div className="grid gap-4 md:grid-cols-3">
               {[
-                { icon:'☀️', t:'Solar Phase II',       s:'ONGOING', sc:'oklch(0.82 0.17 80)', d:'€800 raised. Members encouraged to increase contributions.' },
+                { icon:'☀️', t:'Solar Phase II',       s:'ONGOING', sc:'oklch(0.700 0.115 78)', d:'€800 raised. Members encouraged to increase contributions.' },
                 { icon:'🌾', t:'Agro CIG',             s:'ACTIVE',  sc:'oklch(0.55 0.18 145)',d:'Presented by Mr. Fabian. 2,000 FCFA/share. Members encouraged to subscribe.' },
-                { icon:'🏥', t:'Medical Centre',       s:'PROPOSED',sc:'oklch(0.42 0.22 25)', d:'Plans to establish a reference healthcare centre in Guneku.' },
-                { icon:'🧼', t:'Soap Production',      s:'PROPOSED',sc:'oklch(0.42 0.22 25)', d:'Income-generating soap production for Guneku community.' },
-                { icon:'📡', t:'Satellite Internet',   s:'PROPOSED',sc:'oklch(0.42 0.22 25)', d:'Install satellite internet at Guneku Palace. Proposed by Ni Sam.' },
-                { icon:'💻', t:'Digital Empowerment',  s:'PROPOSED',sc:'oklch(0.42 0.22 25)', d:'Training adults in content creation & online income generation.' },
+                { icon:'🏥', t:'Medical Centre',       s:'PROPOSED',sc:'oklch(0.560 0.016 150)', d:'Plans to establish a reference healthcare centre in Guneku.' },
+                { icon:'🧼', t:'Soap Production',      s:'PROPOSED',sc:'oklch(0.560 0.016 150)', d:'Income-generating soap production for Guneku community.' },
+                { icon:'📡', t:'Satellite Internet',   s:'PROPOSED',sc:'oklch(0.560 0.016 150)', d:'Install satellite internet at Guneku Palace. Proposed by Ni Sam.' },
+                { icon:'💻', t:'Digital Empowerment',  s:'PROPOSED',sc:'oklch(0.560 0.016 150)', d:'Training adults in content creation & online income generation.' },
               ].map(item => (
                 <div key={item.t} className="card-royal p-5" style={{ borderTopColor: item.sc, borderTopWidth: '3px' }}>
                   <div className="flex justify-between items-start mb-3">
                     <span className="text-2xl">{item.icon}</span>
-                    <span className="text-[10px] tracking-widest px-2 py-0.5 rounded-full font-cinzel"
+                    <span className="text-[10px] tracking-[0.06em] px-2 py-0.5 rounded-[2px] border"
                           style={{ color: item.sc, background: `${item.sc.replace(')','')} / 0.1)`, border: `1px solid ${item.sc.replace(')','')} / 0.3)` }}>
                       {item.s}
                     </span>
@@ -100,7 +97,7 @@ export default function GudecaPage() {
                 </div>
               ))}
             </div>
-            <p className="text-center text-muted-foreground/40 text-xs mt-6 tracking-widest">
+            <p className="text-center text-muted-foreground/40 text-xs mt-6 tracking-[0.06em]">
               Next GUDECA EU Meeting · <strong className="text-muted-foreground/60">Saturday 24 July 2027 · United Kingdom</strong>
             </p>
           </div>

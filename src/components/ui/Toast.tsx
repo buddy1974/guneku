@@ -37,11 +37,11 @@ export function ToastContainer() {
           backgroundColor: t.type === 'success'
             ? 'rgba(74,124,89,0.95)'
             : t.type === 'error'
-            ? 'rgba(139,30,45,0.95)'
+            ? 'oklch(0.320 0.060 158)'
             : 'rgba(12,12,20,0.97)',
-          borderLeft: `3px solid ${t.type === 'success' ? '#4a7c59' : t.type === 'error' ? '#8B1E2D' : '#f2a90b'}`,
+          borderLeft: `3px solid ${t.type === 'success' ? '#4a7c59' : t.type === 'error' ? 'oklch(0.50 0.13 25)' : 'oklch(0.320 0.060 158)'}`,
           backdropFilter: 'blur(12px)',
-          color: '#F5F2E9', fontFamily: 'Syne, sans-serif',
+          color: 'oklch(0.245 0.022 150)', fontFamily: 'var(--font-sans)',
           fontSize: '13px', fontWeight: 600,
           padding: '14px 16px', boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
           animation: 'slideUp 0.3s ease-out',

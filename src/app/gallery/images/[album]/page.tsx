@@ -22,7 +22,7 @@ export default async function AlbumPage({
     : ''
 
   return (
-    <main style={{ backgroundColor:'#0F0F0F', minHeight:'100vh' }}>
+    <main style={{ backgroundColor:'oklch(0.965 0.012 85)', minHeight:'100vh' }}>
       <PageHero
         label="IMAGE GALLERY"
         title={album.title.toUpperCase()}
@@ -30,7 +30,7 @@ export default async function AlbumPage({
       />
       <section style={{ maxWidth:'1400px', margin:'0 auto', padding:'4rem 1.5rem' }}>
         <div style={{ display:'grid',
-                      gridTemplateColumns:'repeat(auto-fill, minmax(240px, 1fr))',
+                      gridTemplateColumns:'repeat(auto-fill, minmax(min(240px,100%), 1fr))',
                       gap:'4px' }}>
           {(album.images || []).map((img: any) => (
             <div key={img.id} style={{ aspectRatio:'1', overflow:'hidden',
@@ -41,7 +41,7 @@ export default async function AlbumPage({
         </div>
         <div style={{ marginTop:'3rem' }}>
           <Link href="/gallery/images" style={{
-            color:'#f2a90b', fontFamily:'Syne, sans-serif',
+            color:'oklch(0.320 0.060 158)', fontFamily:'var(--font-sans)',
             fontSize:'0.8rem', letterSpacing:'0.1em',
             textTransform:'uppercase', textDecoration:'none',
           }}>

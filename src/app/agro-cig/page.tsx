@@ -31,7 +31,7 @@ export default function AgroCIGPage() {
       <section className="max-w-7xl mx-auto px-6 py-20">
 
         {/* Membership pricing — the full documented record, in the order issued */}
-        <div className="card-royal border-l-4 p-5 mb-8" style={{ borderLeftColor: 'oklch(0.82 0.17 80)' }}>
+        <div className="card-royal border-l-4 p-5 mb-8" style={{ borderLeftColor: 'oklch(0.700 0.115 78)' }}>
           <div className="font-cinzel text-foreground tracking-wide mb-1">MEMBERSHIP &amp; SHARES — THE RECORD</div>
           <p className="text-muted-foreground text-sm">{cig.membershipPricing.note}</p>
           <div className="mt-4 space-y-3">
@@ -99,13 +99,13 @@ export default function AgroCIGPage() {
             <h3 className="font-cinzel text-2xl text-foreground mb-4">LIVESTOCK</h3>
             {LIVESTOCK.map(p => (
               <div key={p.name} className="flex gap-3 items-start card-royal p-4 mb-2"
-                   style={{ borderLeftWidth:'3px', borderLeftColor: p.status === 'ACTIVE' ? 'oklch(0.82 0.17 80)' : 'oklch(0.42 0.22 25)' }}>
+                   style={{ borderLeftWidth:'3px', borderLeftColor: p.status === 'ACTIVE' ? 'oklch(0.700 0.115 78)' : 'oklch(0.560 0.016 150)' }}>
                 <span className="text-xl shrink-0">{p.icon}</span>
                 <div className="flex-1">
                   <div className="flex justify-between items-center">
                     <span className="font-cinzel text-foreground">{p.name}</span>
                     <span className="text-[10px] tracking-widest font-cinzel"
-                          style={{ color: p.status === 'ACTIVE' ? 'oklch(0.82 0.17 80)' : 'oklch(0.72 0.04 70)' }}>
+                          style={{ color: p.status === 'ACTIVE' ? 'oklch(0.700 0.115 78)' : 'oklch(0.72 0.04 70)' }}>
                       {p.status}
                     </span>
                   </div>
