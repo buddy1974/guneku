@@ -5,12 +5,12 @@ import { Reveal }          from '@/components/ui/Reveal'
 
 export const metadata = { title: 'Gallery — Faces of Guneku' }
 
-const PLACEHOLDER_IMAGES = [
-  { src: '/festival.jpg',       title: 'Mɨchi Əbeŋ Masquerade',   year: '2024', span: 'md:col-span-2 md:row-span-2' },
-  { src: '/hero-fon.jpg',       title: 'The Fon at Sunrise',        year: '2025', span: '' },
-  { src: '/regalia.jpg',        title: 'Beaded Crown',              year: 'Heritage', span: '' },
-  { src: '/palace.jpg',         title: 'Palace Courtyard',          year: 'Dusk',    span: '' },
-  { src: '/kingdom-aerial.jpg', title: 'Hills of Mbengwi',          year: 'Aerial',  span: 'md:col-span-2' },
+const SHOWCASE_IMAGES = [
+  { src: '/images/site/palace-grounds.jpg',    title: 'The Palace Grounds',        year: 'Coronation, 2016', span: 'md:col-span-2 md:row-span-2' },
+  { src: '/images/site/fon-coronation-2016.jpg',title: 'HRH Fon Fomuki Walters Ticha IX', year: '17 January 2016', span: '' },
+  { src: '/images/site/notable-portrait.jpg',  title: 'A Notable of Guneku',       year: 'Coronation, 2016', span: '' },
+  { src: '/images/site/michi-ebeng.jpg',       title: 'Mɨchi Ɗbeŋ Festival',           year: 'Guneku, 2023',     span: '' },
+  { src: '/images/site/kingdom-hills.jpg',     title: 'The Palace and the Momo Hills', year: 'Coronation, 2016', span: 'md:col-span-2' },
 ]
 
 export default function GalleryPage() {
@@ -25,7 +25,7 @@ export default function GalleryPage() {
         <div className="section-label mb-4 animate-fade-up">VISUAL ARCHIVE</div>
         <h1 className="font-cinzel text-6xl uppercase leading-none text-gold-gradient md:text-8xl animate-fade-up" style={{ animationDelay: '0.15s' }}>Gallery</h1>
         <p className="mx-auto mt-6 max-w-2xl px-6 font-cormorant text-xl italic text-foreground/90 animate-fade-up" style={{ animationDelay: '0.3s' }}>
-          A kingdom photographed in firelight, dust, and golden hour.
+          The Guneku archive — coronation, festival, palace and diaspora, photographed by the community.
         </p>
       </section>
 
@@ -33,7 +33,7 @@ export default function GalleryPage() {
       <Reveal>
         <section className="mx-auto max-w-7xl px-6 pb-12">
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:auto-rows-[220px]">
-            {PLACEHOLDER_IMAGES.map((it, i) => (
+            {SHOWCASE_IMAGES.map((it, i) => (
               <figure key={i} className={`group relative overflow-hidden rounded-2xl border-gold shadow-card-royal ${it.span}`}>
                 <Image src={it.src} alt={it.title} fill loading="lazy"
                        className="object-cover transition-transform duration-[2500ms] ease-out group-hover:scale-110" unoptimized />

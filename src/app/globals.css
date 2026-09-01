@@ -125,6 +125,10 @@
   --header-h: 60px;
 }
 
+@media (min-width: 768px) {
+  :root { --header-h: 76px; }
+}
+
 @layer base {
   * { border-color: var(--color-border); }
 
@@ -133,10 +137,6 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    background-image:
-      radial-gradient(ellipse at 20% -10%, oklch(0.28 0.10 30 / 0.55), transparent 60%),
-      radial-gradient(ellipse at 80% 110%, oklch(0.22 0.08 270 / 0.45), transparent 60%);
-    background-attachment: fixed;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
@@ -150,6 +150,8 @@
   }
 
   * { -webkit-tap-highlight-color: transparent; }
+
+  main { padding-top: var(--header-h); }
 
   @media (max-width: 768px) {
     main { padding-bottom: var(--bottom-nav-total) !important; }
@@ -409,5 +411,129 @@
   a:active, button:active, [role="button"]:active {
     opacity: 0.7; transform: scale(0.98);
     transition: opacity 0.1s, transform 0.1s;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   APPROVED FACELIFT — "Heritage Inspired" (guneku-design.png)
+   Editorial layer. Adds ink / burgundy / ivory surfaces and a
+   disciplined type scale. Does not alter the legacy dark tokens
+   above, so existing pages keep working.
+   ══════════════════════════════════════════════════════════ */
+
+:root {
+  /* Approved palette */
+  --ink:            oklch(0.16 0.012 55);   /* deep charcoal — header, hero panel */
+  --ink-deep:       oklch(0.11 0.010 55);   /* near-black */
+  --burgundy:       oklch(0.33 0.125 22);   /* news rail, accents */
+  --burgundy-deep:  oklch(0.26 0.110 22);
+  --ivory:          oklch(0.955 0.012 85);  /* pathway strip, light sections */
+  --ivory-dim:      oklch(0.905 0.014 85);
+  --brass:          oklch(0.76 0.135 78);   /* controlled gold */
+  --brass-deep:     oklch(0.62 0.130 62);
+
+  /* Editorial rhythm */
+  --measure:   68ch;
+  --shell:     84rem;
+  --gut:       clamp(1.25rem, 4vw, 3.5rem);
+}
+
+@theme inline {
+  --color-ink:           var(--ink);
+  --color-ink-deep:      var(--ink-deep);
+  --color-burgundy:      var(--burgundy);
+  --color-burgundy-deep: var(--burgundy-deep);
+  --color-ivory-warm:    var(--ivory);
+  --color-brass:         var(--brass);
+}
+
+@layer utilities {
+
+  /* ── Editorial shell ── */
+  .shell { width: 100%; max-width: var(--shell); margin-inline: auto; padding-inline: var(--gut); }
+
+  /* ── Surfaces ── */
+  .surface-ink   { background: var(--ink);   color: var(--ivory); }
+  .surface-ivory { background: var(--ivory); color: oklch(0.22 0.02 45); }
+  .surface-ivory .muted { color: oklch(0.44 0.02 50); }
+  .surface-burgundy { background: var(--burgundy); color: var(--ivory); }
+
+  /* ── Editorial type scale ──
+     Display serif (Cormorant) for editorial authority,
+     Cinzel reserved for short ceremonial labels only,
+     Inter for everything functional.                          */
+  .ed-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--brass);
+  }
+  .ed-display {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: clamp(1.9rem, 2.4vw, 2.6rem);
+    line-height: 1.06;
+    letter-spacing: -0.005em;
+    text-transform: uppercase;
+  }
+  .ed-h2 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: clamp(1.75rem, 3.2vw, 2.75rem);
+    line-height: 1.1;
+    letter-spacing: 0.01em;
+  }
+  .ed-h3 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+    line-height: 1.25;
+  }
+  .ed-kicker {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .ed-body {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    max-width: var(--measure);
+  }
+  .ed-meta {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── Controls ── */
+  .ed-btn {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 0.8rem 1.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    text-decoration: none; border-radius: 2px;
+    transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .ed-btn-gold    { background: var(--brass); color: oklch(0.16 0.012 55); }
+  .ed-btn-gold:hover { background: oklch(0.82 0.14 82); }
+  .ed-btn-ghost   { border: 1px solid oklch(1 0 0 / 0.35); color: var(--ivory); }
+  .ed-btn-ghost:hover { border-color: var(--brass); color: var(--brass); }
+  .ed-btn-ink     { border: 1px solid oklch(0.22 0.02 45 / 0.3); color: oklch(0.22 0.02 45); }
+  .ed-btn-ink:hover { border-color: var(--brass-deep); color: var(--brass-deep); }
+
+  /* ── Hairlines ── */
+  .rule-brass { height: 2px; width: 3rem; background: var(--brass); }
+  .rule-hair  { height: 1px; background: oklch(1 0 0 / 0.14); }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-ken-burns, .animate-spin-slow, .animate-float,
+    .animate-marquee, .animate-ticker, .animate-pulse-gold { animation: none !important; }
   }
 }

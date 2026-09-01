@@ -29,7 +29,7 @@ export default function PalacePage() {
 
       {/* ── HERO WITH PARTICLES ── */}
       <section className="relative min-h-screen overflow-hidden" style={{ minHeight: 'clamp(500px, 85vh, 100vh)' }}>
-        <Image src="/palace.jpg" alt="Guneku Palace" fill className="object-cover animate-ken-burns" priority unoptimized />
+        <Image src="/images/site/palace-grounds.jpg" alt="The Guneku palace grounds" fill className="object-cover animate-ken-burns" priority unoptimized />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, oklch(0.14 0.02 30 / 0.4) 0%, transparent 40%, oklch(0.14 0.02 30 / 0.95) 100%)' }} />
         <GoldParticles />
         <div className="absolute left-0 top-0 bottom-0 w-1 bg-royal" />
@@ -65,7 +65,7 @@ export default function PalacePage() {
               </Link>
             </div>
             <div className="relative">
-              <Image src="/regalia.jpg" alt="Royal regalia" width={600} height={700} loading="lazy" className="w-full rounded-2xl shadow-royal object-cover" unoptimized />
+              <Image src="/images/site/fon-coronation-2016.jpg" alt="HRH Fon Fomuki Walters Ticha IX in ceremonial robe, coronation 2016" width={600} height={700} loading="lazy" className="w-full rounded-2xl shadow-royal object-cover" unoptimized />
               <div className="absolute -bottom-6 -right-6 hidden md:block bg-gold-gradient px-8 py-4 rounded-xl text-gold-foreground shadow-royal">
                 <div className="font-cinzel text-3xl">FOMUKI IX</div>
                 <div className="text-xs tracking-widest">NINTH OF HIS NAME</div>
@@ -130,7 +130,7 @@ export default function PalacePage() {
 
       {/* ── PALACE QUOTE ── */}
       <section className="relative h-[70vh] overflow-hidden">
-        <Image src="/hero-fon.jpg" alt="Palace courtyard" fill loading="lazy" className="absolute object-cover" unoptimized />
+        <Image src="/images/site/coronation-crowd.jpg" alt="The gathering at the Guneku palace during the 2016 coronation" fill loading="lazy" className="absolute object-cover" unoptimized />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
         <div className="relative z-10 mx-auto flex h-full max-w-4xl items-center justify-center px-6 text-center">
           <div>

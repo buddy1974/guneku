@@ -25,7 +25,7 @@ export default function KingdomPage() {
 
       {/* ── HERO ── */}
       <section className="relative h-[80vh] overflow-hidden">
-        <Image src="/kingdom-aerial.jpg" alt="Aerial view of Guneku kingdom" fill className="object-cover animate-ken-burns" priority unoptimized />
+        <Image src="/images/site/kingdom-hills.jpg" alt="The Guneku palace compound and the surrounding Momo hills" fill className="object-cover animate-ken-burns" priority unoptimized />
         <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background" />
         <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col items-center justify-center px-6 text-center">
           <div className="section-label animate-fade-up">EST. ANCIENT · LIVING TODAY</div>
@@ -80,7 +80,7 @@ export default function KingdomPage() {
 
       {/* ── FESTIVAL SECTION ── */}
       <section className="relative h-[60vh] overflow-hidden">
-        <Image src="/festival.jpg" alt="Michi Ebeng festival" fill loading="lazy" className="absolute object-cover" unoptimized />
+        <Image src="/images/site/michi-ebeng.jpg" alt="Mɨchi Ɗbeŋ festival in Guneku, 2023" fill loading="lazy" className="absolute object-cover" unoptimized />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent" />
         <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-6">
           <div className="max-w-xl">

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     default:  'Guneku Fondom — A Kingdom Reimagined',
     template: '%s | Guneku Fondom',
   },
-  description: 'The official digital palace of Guneku Fondom — Mbengwi, Momo Division, Northwest Cameroon. 27 quarters, 15,000 sons & daughters, 3 continents. One ancient kingdom.',
+  description: 'The official website of Guneku Fondom — Mbengwi, Momo Division, North West Cameroon. Twenty-seven quarters, one Fondom, and a community organised across three continents.',
   keywords: ['Guneku','Fondom','Cameroon','Meta clan','Mbengwi','GUDECA','Fon Fomuki','Northwest Cameroon'],
   authors:  [{ name: 'MaxPromo Digital', url: 'https://maxpromo.digital' }],
   creator:  'Marcel Tabit Akwe — MaxPromo Digital',
@@ -26,12 +26,12 @@ export const metadata: Metadata = {
     siteName:    'Guneku Fondom',
     title:       'Guneku Fondom — A Kingdom Reimagined',
     description: 'Heritage. Unity. Vision. The official digital palace of Guneku Fondom.',
-    images: [{ url: '/hero-fon.jpg', width: 1200, height: 630, alt: 'Guneku Fondom' }],
+    images: [{ url: '/images/site/og-guneku.jpg', width: 1200, height: 630, alt: 'The Guneku palace grounds during the 2016 coronation' }],
   },
   twitter: {
     card:    'summary_large_image',
     title:   'Guneku Fondom',
-    images:  ['/hero-fon.jpg'],
+    images:  ['/images/site/og-guneku.jpg'],
   },
   robots:   { index: true, follow: true },
   icons:    { icon: '/logo.png', apple: '/logo.png', shortcut: '/logo.png' },
@@ -48,7 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className="grain" style={{ backgroundColor: 'oklch(0.14 0.02 30)', color: 'oklch(0.96 0.02 80)', overflowX: 'hidden' }}>
+      <body style={{ backgroundColor: 'oklch(0.14 0.02 30)', color: 'oklch(0.96 0.02 80)', overflowX: 'hidden' }}>
         <Header nav={nav} />
         <main>
           <PageTransition>
