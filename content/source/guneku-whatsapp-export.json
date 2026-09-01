@@ -1,0 +1,336 @@
+{
+  "export_meta": {
+    "generated": "2026-09-01",
+    "source": "WhatsApp Web crawl (DOM harvest, scrolled to top of loadable history)",
+    "chats": [
+      { "id": "gudeca-eu", "name": "GUDECA EUROPE", "rows_recovered": 327, "substantive": 184, "range": "2025-12-26 .. 2026-08-23" },
+      { "id": "agro-cig", "name": "Guneku Agro Common Initiative Group", "rows_recovered": 1033, "substantive": 354, "range": "2026-03-31 .. 2026-08-28" },
+      { "id": "bon-mi", "name": "Bo'n mi' Guneku Sig jim", "rows_recovered": 938, "substantive": 405, "range": "2026-06-01 .. 2026-09-01" },
+      { "id": "website-design", "name": "Guneku website design group", "rows_recovered": 11, "substantive": 0, "range": "n/a - history not synced to WhatsApp Web" }
+    ],
+    "redactions": [
+      "Bank account details (IBAN/BIC + holder) removed entirely.",
+      "Personal member phone numbers masked as [PHONE].",
+      "Named member contribution lists with amounts excluded (internal financial records).",
+      "Officially published contact numbers retained verbatim where the message itself was a public announcement."
+    ],
+    "excluded_from_this_file": [
+      "Media-only rows (photo/video/audio/document stubs with no text)",
+      "System rows (security code changed, added/left, deleted messages)",
+      "Verbatim duplicates and re-forwards of the same announcement",
+      "Off-topic forwards: national politics, health misinformation, viral chain messages, third-party group invites"
+    ],
+    "field_guide": {
+      "chat": "source chat id",
+      "date": "ISO date (YYYY-MM-DD)",
+      "time": "local time as shown in WhatsApp (Europe/Berlin client)",
+      "author": "display name as shown, or [UNNAMED] where only a number was shown",
+      "type": "announcement | communique | event | project_update | report | address | business | notice | discussion",
+      "topic": "short slug for grouping",
+      "publishable": "true = safe for the public website as-is; review = needs consent or editing; false = internal only",
+      "text": "message text, redacted per rules above"
+    }
+  },
+  "messages": [
+    {
+      "id": "m001", "chat": "gudeca-eu", "date": "2025-12-26", "time": "13:55", "author": "Sam Fongoh",
+      "type": "address", "topic": "membership-drive", "publishable": true,
+      "text": "As we approach a new year, we appeal on us all to look for our brothers and sisters from Guneku anywhere in the world who are not yet here in the house to send their names and contacts, let's add them here. GUDECA is taking a different twist come 2026, with giant projects earmarked in Guneku, as you will be briefed in due course by the GUDECA hierarchy."
+    },
+    {
+      "id": "m002", "chat": "gudeca-eu", "date": "2025-12-31", "time": "21:05", "author": "Constantine Ndenge (President, Gudeca EU)",
+      "type": "address", "topic": "president-year-end-2025", "publishable": true,
+      "text": "End-of-year address to the GUDECA EU family. 2025 described as a year of unity and family coming together. Annual gathering held in Duisburg, Germany, bringing together members from near and far. Developmental initiatives delivered in 2025: installation of solar street lights in the village, contributions toward the FUN electricity project, support for the Mbengeghang water project, and several other smaller but impactful projects. Appreciation to all contributing members; encouragement to members lagging behind to join the collective journey, impact lives in the village, and ensure sustainable growth, continuity and a legacy worthy of where our parents left off. Personal apology as President for any offence caused in the course of duty, and a call for renewed unity in 2026. Invitation to the 28 March gathering in Germany for a unity break, to interact as one family and reflect on how best to move the village forward."
+    },
+    {
+      "id": "m003", "chat": "gudeca-eu", "date": "2026-01-02", "time": "15:16", "author": "Constantine Ndenge",
+      "type": "event", "topic": "meetings", "publishable": false,
+      "text": "Proposal for a virtual meeting on Sunday at 7pm to reconnect and begin preparations for the physical quarterly meeting scheduled for March."
+    },
+    {
+      "id": "m004", "chat": "gudeca-eu", "date": "2026-01-04", "time": "18:59", "author": "Constantine Ndenge",
+      "type": "event", "topic": "meetings", "publishable": false,
+      "text": "GUDECA EU virtual meeting held via Zoom. (Meeting ID and passcode removed.)"
+    },
+    {
+      "id": "m005", "chat": "gudeca-eu", "date": "2026-01-06", "time": "17:29", "author": "[UNNAMED]",
+      "type": "report", "topic": "bonn-2026-planning", "publishable": false,
+      "text": "Update from the virtual meeting of Sunday 04.01.2026: food for the Bonn meeting to be provided by the women, drinks by the men. A women-only group call to be scheduled to coordinate; poll created to choose the date."
+    },
+    {
+      "id": "m006", "chat": "gudeca-eu", "date": "2026-01-15", "time": "22:38", "author": "Constantine Ndenge / Sam Fongoh",
+      "type": "report", "topic": "bonn-2026-planning", "publishable": false,
+      "text": "Drinks contribution agreed for the Fon's Palace event, 28 March 2026. Agreed purchase list: 6 bottles Baileys, 6 bottles whisky, 3 crates beer, 6 bottles wine, 72 soft drinks. Proper checks and balances to be carried out afterward; surplus refunded, shortfall topped up. (Per-person amounts withheld.)"
+    },
+    {
+      "id": "m007", "chat": "gudeca-eu", "date": "2026-01-23", "time": "17:21", "author": "[UNNAMED]",
+      "type": "notice", "topic": "membership", "publishable": "review",
+      "text": "Dear GUDECA Family, this is a gentle reminder to kindly start paying your re-registration fee for the year 2026. Deadline: 31st March 2026. Your timely payment will help GUDECA plan and function effectively for the year ahead."
+    },
+    {
+      "id": "m008", "chat": "gudeca-eu", "date": "2026-01-27", "time": "23:34", "author": "Constantine Ndenge",
+      "type": "announcement", "topic": "bonn-2026", "publishable": true,
+      "text": "Confirmation of the final flyer for the meeting at the Fon's Palace in Bonn, scheduled for 28 March 2026 at 10:00 a.m. Members asked to arrive on time as we will be entering the Palace together as a group. Dress code: traditional attire. Participants requested to bring traditional cups and baskets, as this will be a fully traditional event. Michi Ebeng will also be taking place the same day in Guneku; the Palace gathering will be attended in the same manner as the village event."
+    },
+    {
+      "id": "m009", "chat": "gudeca-eu", "date": "2026-02-03", "time": "07:55", "author": "Sam Fongoh",
+      "type": "discussion", "topic": "project-idea-sports", "publishable": "review",
+      "text": "Saw locally made outdoor table tennis courts near Lagos, 100% made locally, installed outdoors in the open. These cannot be too expensive but will have a high social impact. We discussed these before but never progressed because our discussions were based on buying from Europe or China. Do we not have local Guneku skills back home to implement something like this? A couple of tables in key locations across the village will breed a new social skill."
+    },
+    {
+      "id": "m010", "chat": "gudeca-eu", "date": "2026-03-13", "time": "15:20", "author": "Constantine Ndenge",
+      "type": "notice", "topic": "bonn-2026", "publishable": false,
+      "text": "Members encouraged to fill the RSVP form for organisational purposes, and to forward it to anyone who could be a potential member."
+    },
+    {
+      "id": "m011", "chat": "gudeca-eu", "date": "2026-03-15", "time": "20:08", "author": "[UNNAMED]",
+      "type": "report", "topic": "bonn-2026-planning", "publishable": "review",
+      "text": "Follow-up minutes, GUDECA EU online meeting. Meeting will start at 12:00 and end at 17:00; members reminded to be punctual. The Traditional Guneku Dance (Masangon) will be part of the programme. Arrangements for food and drinks finalised. RSVP form shared; members requested to confirm attendance including family members."
+    },
+    {
+      "id": "m012", "chat": "gudeca-eu", "date": "2026-03-20", "time": "07:35", "author": "Forbang Noel",
+      "type": "discussion", "topic": "new-members", "publishable": false,
+      "text": "New member welcomed to GUDECA EU: a student at Karlsruhe University of Education."
+    },
+    {
+      "id": "m013", "chat": "gudeca-eu", "date": "2026-03-22", "time": "15:07", "author": "Constantine Ndenge",
+      "type": "announcement", "topic": "bonn-2026", "publishable": true,
+      "text": "Practical notes for the gathering at the Fon's Palace in Bonn: weather expected cold (around 10C) with time spent outdoors, dress warmly. The venue has wooden floors, so pointed heels are not recommended; shoes will not be removed at the entrance. The event will start at 14:00 and end at 19:00. Members asked to fill the RSVP form so food and drinks can be planned."
+    },
+    {
+      "id": "m014", "chat": "gudeca-eu", "date": "2026-03-28", "time": "06:56", "author": "Sam Fongoh",
+      "type": "project_update", "topic": "starlink", "publishable": true,
+      "text": "Request to add a new agenda item under item 8 (New Projects): Proposed Guneku StarLink Project."
+    },
+    {
+      "id": "m015", "chat": "gudeca-eu", "date": "2026-03-28", "time": "14:23", "author": "Don Df Festoire",
+      "type": "report", "topic": "bonn-2026", "publishable": true,
+      "text": "Meeting venue in Bonn well set up; members arriving. Advice to dress warm."
+    },
+    {
+      "id": "m016", "chat": "gudeca-eu", "date": "2026-03-29", "time": "01:30", "author": "Armstrong Tinyih",
+      "type": "report", "topic": "bonn-2026", "publishable": true,
+      "text": "We have arrived Mannheim safely. Thanks to Mbe and the palace for the warm reception."
+    },
+    {
+      "id": "m017", "chat": "gudeca-eu", "date": "2026-03-29", "time": "18:03", "author": "Don Df Festoire",
+      "type": "report", "topic": "bonn-2026", "publishable": true,
+      "text": "Berlin has received us Berliners back strong and healthy. I thank all of us for putting smiles on our faces yesterday, it was priceless. A big thanks to Mbeh HRH for giving us that space, and the warm reception from the entire Mbeh's family was so wonderful. Safe trip to you all and we see us next come together in UK next summer."
+    },
+    {
+      "id": "m018", "chat": "gudeca-eu", "date": "2026-04-04", "time": "19:22", "author": "Consty (forwarded)",
+      "type": "communique", "topic": "agro-cig", "publishable": true,
+      "text": "AGRO CIG PROJECT UPDATE & NEXT PHASE ANNOUNCEMENT. Phase 1 completed 31st March. Highlights: total contributions reaching 12.5 million FCFA; pilot poultry launched with 300 chicks thriving and an additional 200 arriving for a total of 500; land preparation completed using heavy machinery (bulldozing); farm development started with stone gathering for construction and structural/architectural planning underway; turkeys successfully imported from Nigeria; plans ongoing to introduce ostriches; preliminary work on feed production systems, machinery identification and a multi-animal farming strategy (poultry, pigs). Phase 2 now ongoing: registration fee 5,000 FCFA, share price 2,000 FCFA per share, minimum 5 shares. Phase 3 from 1st May: share value increases to 5,000 FCFA per share, minimum 5 shares, registration fee remains 5,000 FCFA."
+    },
+    {
+      "id": "m019", "chat": "gudeca-eu", "date": "2026-04-06", "time": "14:08", "author": "[UNNAMED]",
+      "type": "report", "topic": "bonn-2026", "publishable": false,
+      "text": "Minutes of the GUDECA EU meeting held in Bonn on 28.03.2026 circulated to members (PDF, 3 pages)."
+    },
+    {
+      "id": "m020", "chat": "agro-cig", "date": "2026-04-01", "time": "00:43", "author": "Fah Elvis Tayong (Delegate)",
+      "type": "report", "topic": "agro-cig", "publishable": true,
+      "text": "Updates from the general online meeting of Tuesday 31 March 2026. Key points: 1) Discussion and validation of the official launching of the CIG on Sunday 5 April 2026 at Ngong from 1:00pm. 2) After the closing date for registering and buying shares at midnight, registration changes for Part Two from 5,000 FCFA to 15,000 FCFA, excluding buying of shares; shares maintained at 2,000 FCFA per share, minimum 5, maximum 100."
+    },
+    {
+      "id": "m021", "chat": "agro-cig", "date": "2026-04-03", "time": "12:52", "author": "Fah Elvis Tayong (Delegate)",
+      "type": "communique", "topic": "agro-cig", "publishable": true,
+      "text": "Guneku Agro CIG Communique No. 001/03/04/26. Considering the need for all Gunekans to be onboard the CIG, the numerous pleas asking for the new registration fee of 15,000 FCFA to be brought lower for a while, and that some were not aware of the 31 March deadline, the Executive body decided to maintain the registration fee of 5,000 FCFA from the date of this communique until 30 April 2026 at midnight. This extension falls within the 2nd phase of the exercise given that phase one ended on 31 March. Done this day, Friday 03/4/26 in Guneku."
+    },
+    {
+      "id": "m022", "chat": "agro-cig", "date": "2026-04-03", "time": "12:55", "author": "Fah Elvis Tayong (Delegate)",
+      "type": "communique", "topic": "agro-cig", "publishable": true,
+      "text": "Guneku Agro CIG Communique No. 002/03/04/26. All members wishing to purchase T-shirts and caps can start booking their CIG wear from now; the gadgets will be on sale on the launching day. Done this day, Friday 3 April 2026."
+    },
+    {
+      "id": "m023", "chat": "agro-cig", "date": "2026-04-05", "time": "09:52", "author": "The Investigator",
+      "type": "announcement", "topic": "agro-cig-launch", "publishable": true,
+      "text": "Official Launching of Guneku Agro Common Initiative Group today, Sunday 5 April 2026, at Ngong Quarter from 1:00pm to 4:00pm."
+    },
+    {
+      "id": "m024", "chat": "agro-cig", "date": "2026-04-05", "time": "13:06", "author": "The Investigator",
+      "type": "event", "topic": "agro-cig-launch", "publishable": true,
+      "text": "Official launching programme, 05/4/26, 1:00pm, Ngong-Guneku. Agenda: 12:30 arrival of the population of Guneku; 1:00pm arrival of guests and dance groups; 1:15pm musical animation by the DJ; opening prayer by Rev/Pastor/Church Elder; welcome speech by the Fon of Guneku and village authorities; animation by Guneku Kwem Dance Group; presentation of CIG Exco members; animation by Guneku Dance Group; speech by the VDO/vision bearers; musical interlude; animation by Mbemi Mukonge Dance Group; traditional rites performance by our fathers and the Palace at Ngong, spearheaded by Guneku Palace and Traditional Institution; presentation of the benefits of the CIG to the Meta community by the SG; animation by Mbemi Mukonge Dance Group; a word from visiting Fons; animation by Nkem Dance Group; general announcements regarding Guneku and her different institutions by Fah Elvis Tayong; animation by Mukonge Dance Group; closing remarks by the Vice Delegate; refreshment and end of event."
+    },
+    {
+      "id": "m025", "chat": "agro-cig", "date": "2026-04-06", "time": "09:20", "author": "The Investigator",
+      "type": "notice", "topic": "agro-cig-merch", "publishable": true,
+      "text": "Guneku Agro CIG T-shirts 5,000 FCFA; Guneku Agro CIG caps 2,000 FCFA."
+    },
+    {
+      "id": "m026", "chat": "agro-cig", "date": "2026-04-13", "time": "13:38", "author": "The Investigator",
+      "type": "notice", "topic": "agro-cig-finance", "publishable": "review",
+      "text": "Guneku Common Initiative Group, GUNECCUL Account No. 200637. Members registration 5,000 FCFA. Minimum shares 5 (2,000 FCFA per share x 5 = 10,000 FCFA). Maximum shares 100."
+    },
+    {
+      "id": "m027", "chat": "agro-cig", "date": "2026-04-13", "time": "15:42", "author": "The Investigator",
+      "type": "project_update", "topic": "agro-cig", "publishable": true,
+      "text": "Some progress recorded: our 3-week-old chickens have been sold."
+    },
+    {
+      "id": "m028", "chat": "agro-cig", "date": "2026-04-17", "time": "11:26", "author": "The Investigator",
+      "type": "project_update", "topic": "agro-cig", "publishable": true,
+      "text": "Operation 20 million FCFA on the move, target 30 April by midnight."
+    },
+    {
+      "id": "m029", "chat": "agro-cig", "date": "2026-04-18", "time": "14:55", "author": "The Investigator",
+      "type": "project_update", "topic": "agro-cig", "publishable": true,
+      "text": "Tender issued to construct our giant poultry house."
+    },
+    {
+      "id": "m030", "chat": "agro-cig", "date": "2026-04-20", "time": "15:06", "author": "The Investigator",
+      "type": "project_update", "topic": "fun-water", "publishable": true,
+      "text": "More photos from FUN as we continue to trace the water fault."
+    },
+    {
+      "id": "m031", "chat": "agro-cig", "date": "2026-05-02", "time": "18:34", "author": "Fah Elvis Tayong (CIG Delegate)",
+      "type": "communique", "topic": "agro-cig", "publishable": true,
+      "text": "Guneku Agro CIG Communique No. 003/02/05/26. New registration formality from Sunday 3 May 2026: the Management Board informs all Guneku sons and daughters that registration into the CIG is now 15,000 FCFA, while the modalities for purchase of shares remain the same at minimum 5 shares of 2,000 FCFA each and maximum 100 shares at the same 2,000 FCFA per share. The Management Board thanks all those who keep trusting this giant agro initiative. Done this day in Douala 02/05/26."
+    },
+    {
+      "id": "m032", "chat": "agro-cig", "date": "2026-05-04", "time": "11:16", "author": "The Investigator",
+      "type": "notice", "topic": "agro-cig-governance", "publishable": "review",
+      "text": "We appeal to all to keep your screenshots and if possible print them, including keeping and printing receipts of CIG-GUNECCUL transactions. This will make our work easy during control in case we need clarifications from registered members at any particular time."
+    },
+    {
+      "id": "m033", "chat": "agro-cig", "date": "2026-05-26", "time": "00:40", "author": "The Investigator",
+      "type": "project_update", "topic": "agro-cig", "publishable": true,
+      "text": "Guneku Agro CIG is on operation upgrading of shares between now and 15 June 2026, while registration is ongoing for new members."
+    },
+    {
+      "id": "m034", "chat": "agro-cig", "date": "2026-06-11", "time": "06:56", "author": "Ngwa Vitalis",
+      "type": "announcement", "topic": "education", "publishable": true,
+      "text": "Interviews into Form 1 at GSS Guneku are today, 11 June. Send your children."
+    },
+    {
+      "id": "m035", "chat": "agro-cig", "date": "2026-06-15", "time": "09:57", "author": "Mola Ekema",
+      "type": "discussion", "topic": "marketing", "publishable": "review",
+      "text": "In business, we spend to make profit. What our brother is saying here is marketing strategy, and lucky for us we have the Fondom Studio in Guneku. Let us make good use of it; I believe Fondom Studio can do better videos and pictures for marketing."
+    },
+    {
+      "id": "m036", "chat": "agro-cig", "date": "2026-08-16", "time": "12:56", "author": "The Investigator",
+      "type": "discussion", "topic": "agro-cig", "publishable": true,
+      "text": "Special good morning to all sons and daughters of the land as we continue taking Guneku to higher heights. We just need to get on board all of us in this giant agro project in Guneku."
+    },
+    {
+      "id": "m037", "chat": "agro-cig", "date": "2026-08-28", "time": "14:58", "author": "Fah Elvis Tayong (Delegate CIG)",
+      "type": "announcement", "topic": "agro-cig", "publishable": true,
+      "text": "A staff meeting has been convened for Monday 31 August 2026 at the Guneku Agro CIG main site beginning from 2:00pm. Home-based CIG Exco members are requested to be part of the meeting as crucial issues will be examined and the way forward for our CIG will be top on our agenda. The Manager of the CIG should take note and inform all her staff to be present. Done this day in Guneku, 28/08/26."
+    },
+    {
+      "id": "m038", "chat": "bon-mi", "date": "2026-06-05", "time": "17:48", "author": "Mr Faraday",
+      "type": "notice", "topic": "community-safety", "publishable": "review",
+      "text": "A very disturbing incident happening now in Guneku at the stream in Ngong. Followed at 18:00 by: the rescue team at work, and it was a successful rescue."
+    },
+    {
+      "id": "m039", "chat": "bon-mi", "date": "2026-06-05", "time": "19:42", "author": "Timkoh Onies Fongho",
+      "type": "discussion", "topic": "water-supply", "publishable": "review",
+      "text": "We thank God for everything, but for me this is because we don't have water for about two months now. That is why such things are happening. Please, my able elite, help us back home so that such things should not happen again in our community. Part of Guneku is not having water for almost two months now."
+    },
+    {
+      "id": "m040", "chat": "bon-mi", "date": "2026-06-06", "time": "20:23", "author": "Dominic Tembeng",
+      "type": "discussion", "topic": "water-supply", "publishable": "review",
+      "text": "They went to wash clothes and surprisingly the river overflowed."
+    },
+    {
+      "id": "m041", "chat": "bon-mi", "date": "2026-06-16", "time": "10:47", "author": "Afroroots Culture Development Initiative (ACDIF)",
+      "type": "event", "topic": "culture", "publishable": true,
+      "text": "Meta Land is ready to dance again. SAMBA Traditional Dance group of Mbengwi Village versus ETUN Traditional Dance group of Njindom Village compete for cultural glory on 19 June 2026 at Abbi Fall Resort, Mbengwi, Momo Division, North West Region. Sponsored by Afroroots Culture Development Initiative in collaboration with African Rising Praise Foundation. One people, one Meta, same heritage, one Momo Division."
+    },
+    {
+      "id": "m042", "chat": "bon-mi", "date": "2026-06-21", "time": "17:29", "author": "Fondom Studios (via Tan Prince)",
+      "type": "event", "topic": "fondom-studios", "publishable": "review",
+      "text": "LIVE COVERAGE of a graduation and 11th birthday celebration in Guneku on 21 July 2026, at a family house in Tonetuh, Guneku Village. Fondom Studios bringing every special moment straight to you."
+    },
+    {
+      "id": "m043", "chat": "bon-mi", "date": "2026-06-28", "time": "18:17", "author": "Bah Ngati",
+      "type": "event", "topic": "gudeca-branches", "publishable": true,
+      "text": "GUDECA monthly meeting, Buea."
+    },
+    {
+      "id": "m044", "chat": "bon-mi", "date": "2026-07-05", "time": "-", "author": "[UNNAMED]",
+      "type": "event", "topic": "gudeca-branches", "publishable": true,
+      "text": "GUDECA Bamenda branch family meeting ongoing today 05/7/26."
+    },
+    {
+      "id": "m045", "chat": "bon-mi", "date": "2026-07-14", "time": "22:08", "author": "Ngwa Vitalis (Epenghefon)",
+      "type": "announcement", "topic": "holiday-workshop", "publishable": true,
+      "text": "GUNEKU HOLIDAY WORKSHOP 2026 (SECOND EDITION). It is another long holiday which we intend to use to keep parents and children busy. 11th to 21st August 2026. Workshop modules: mushroom production; edible maggots (ngwong) production; production of organic fertilizer and cooking gas; tomato paste; social talks with experts from Youth and Social Affairs. Fee: 3,000 FCFA payable at the community library. Workshop is open to parents and children of reasonable age all over Meta. Venue: the Palace of Guneku. We encourage parents to involve all their children of secondary school age."
+    },
+    {
+      "id": "m046", "chat": "bon-mi", "date": "2026-07-14", "time": "22:07", "author": "Ephraim Toh",
+      "type": "discussion", "topic": "diaspora", "publishable": true,
+      "text": "Great initiative. Let GUDECA North America know how we can help. Thanks."
+    },
+    {
+      "id": "m047", "chat": "bon-mi", "date": "2026-07-21", "time": "06:25", "author": "Bah. Sanje. Jonas",
+      "type": "discussion", "topic": "history-committee", "publishable": "review",
+      "text": "Good day to all families of GUNEKU. Kindly permit me to ask our GUDECA to enlighten us: how far has the History Committee of our villages gone, and when are we expecting the first launching?"
+    },
+    {
+      "id": "m048", "chat": "bon-mi", "date": "2026-07-26", "time": "22:27", "author": "Multiple members",
+      "type": "notice", "topic": "scam-warning", "publishable": true,
+      "text": "Warning circulated that a member's WhatsApp account had been compromised and was posting in other groups. Members advised to call the person directly to confirm, and to be mindful of the links they click and follow."
+    },
+    {
+      "id": "m049", "chat": "bon-mi", "date": "2026-07-31", "time": "10:58", "author": "Timkoh Onies Fongho",
+      "type": "business", "topic": "business-directory", "publishable": "review",
+      "text": "Vicky and Son's, Guneku Village. Construction services: house construction, building plans and design, renovation, plumbing, electrical installation, building materials. Electronics: phones, chargers, TVs, USB cables, solar panels, plumbing materials, building materials. Cafeteria: fresh eggs, spaghetti, hot Lipton tea, tea, fresh bread. Tagline: building your dreams into reality."
+    },
+    {
+      "id": "m050", "chat": "bon-mi", "date": "2026-04-23", "time": "23:09", "author": "Ngwa Vitalis",
+      "type": "business", "topic": "business-directory", "publishable": "review",
+      "text": "Vitalis Integrated Fish Reproduction and Breeding Centre, Wumfi-Ku. We bake, we dry, we smoke, we sell fresh. Also hosts level-3 students on internship for catfish reproduction."
+    },
+    {
+      "id": "m051", "chat": "bon-mi", "date": "2026-08-01", "time": "08:22", "author": "[UNNAMED]",
+      "type": "announcement", "topic": "education", "publishable": "review",
+      "text": "Free-will donation drive from GS Guneku ex-pupils to the school, collected via mobile money."
+    },
+    {
+      "id": "m052", "chat": "bon-mi", "date": "2026-08-02", "time": "18:51", "author": "Jonathan Mbakwa",
+      "type": "report", "topic": "gudeca-branches", "publishable": true,
+      "text": "Douala Branch in Action."
+    },
+    {
+      "id": "m053", "chat": "bon-mi", "date": "2026-08-16", "time": "13:46", "author": "Roland Forbang",
+      "type": "notice", "topic": "scam-warning", "publishable": true,
+      "text": "My phone number is being used to send messages and post WhatsApp statuses that are definitely not from me. Please be vigilant and call me directly to confirm if someone sends you a request for anything on my behalf. Do not be scammed. I am exiting all groups until this can be resolved."
+    },
+    {
+      "id": "m054", "chat": "bon-mi", "date": "2026-08-23", "time": "08:20", "author": "Mr Faraday / HRH Dr. Fomuki Ticha IX",
+      "type": "announcement", "topic": "scholarship-2026", "publishable": true,
+      "text": "GUNEKU EDUCATION & SCHOLARSHIP DAY 2026, under the distinguished patronage of HRH Dr. Fomuki Ticha IX, Fon of Guneku Village. Education for All - Empowering Our Youth, Developing Our Community. A Back-to-School initiative offering deserving young people access to professional training and university education through full or partial one-year scholarships. Target: 50 scholarships. Some will be full one-year scholarships with no tuition fees for that academic year; others will substantially reduce the cost of professional training or university education for the same one-year period. Two important dates: PUBLIC INFORMATION DAY, Saturday 29 August 2026, 9:00 a.m., Guneku Fon's Palace, open to the general public - parents, students, school leavers and young people interested in professional or university education are warmly invited to attend and learn about the available opportunities and the selection process. SCHOLARSHIP SELECTION EXAMINATION, Saturday 19 September 2026, 9:00 a.m., Guneku Fon's Palace, for candidates wishing to take part in the scholarship selection examination; candidates are strongly encouraged to register in advance. Who can benefit: the initiative is not limited to Guneku students; young people from Momo Division, neighbouring divisions, the Northwest Region and other parts of Cameroon are encouraged to participate. Opportunities include professional and vocational training, health and medical-related programmes, other career-oriented courses, and university education. Special consideration will be given to young people from our Muslim community and other underserved communities where access to formal education has historically been limited. Students and families displaced from the crisis-affected Northwest Region and now living in the Southwest, Littoral, Centre, West and other regions are also particularly encouraged to take note. Further information and registration: Guneku Library, call/WhatsApp 670 949 503. A more detailed version of this announcement will also be published on Facebook and other social-media platforms. No deserving young person should abandon education simply because of the inability to pay."
+    },
+    {
+      "id": "m055", "chat": "bon-mi", "date": "2026-08-31", "time": "-", "author": "Fondom Studios (Guneku Branch)",
+      "type": "report", "topic": "mefu-mecuda", "publishable": true,
+      "text": "MEFU-MECUDA JOINT MEETING FULL REPORT, 29 August 2026, Guneku Palace, Meta Clan. 19 Fons from across Meta and 14 MECUDA executives and representatives sat under HRH Dr Fomuki's roof to discuss the future of the entire Meta Fondom; captured by Fondom Studios - Guneku. About Fondom Studios: a media and cultural production company founded by a son of Guneku, working to raise the image and reputation of the village and the wider Meta clan through media and affordable service at home; Media Partner of both MEFU and MECUDA; considered one of the first legally registered media companies in Momo Division; training programmes coming soon and a new branch opening with partners in Mbengwi Village with the approval of the Ministry of Vocational Training, with more branches planned across Meta. Inside the report: hard questions asked to MECUDA about elections, the audit, and where community money has gone; 7 major resolutions passed to hold MECUDA accountable - quarterly meetings, a full financial audit, a new communication plan, and fair development across all of Meta; a serious warning about drugs reaching the youth and what every Fon has been asked to do about it; a message from Tomfon Isaac Fomunjong calling on Meta to stay united and disciplined; recognitions from across the Fondom including the Fon of Guneku, HRH Dr Fomuki, honoured for medical education achievements with the Medphisatag Medical School in Guneku; Fondom Studios also recognised. The Fon of Njindom, HRH Prof. Fon Fombo (MEFU President), publicly thanked the Fon of Guneku for preparing everything the Fons and MECUDA needed in just 3 days after arrangements failed with another Palace, and thanked the women who prepared the meal for 19 royalties."
+    },
+    {
+      "id": "m056", "chat": "bon-mi", "date": "2026-08-31", "time": "-", "author": "[UNNAMED]",
+      "type": "discussion", "topic": "palace-upkeep", "publishable": "review",
+      "text": "I see the cleaning of the palace being done. I might be wrong, but part of the annual development fees paid by all Gunekuans should be used to hire or recruit someone for palace maintenance and upkeep. My humble suggestion."
+    },
+    {
+      "id": "m057", "chat": "bon-mi", "date": "2026-09-01", "time": "08:20", "author": "Walters Formuki",
+      "type": "notice", "topic": "digital-presence", "publishable": true,
+      "text": "Updates done on both social media, YouTube, Facebook and our village website: www.guneku.org"
+    },
+    {
+      "id": "m058", "chat": "bon-mi", "date": "2026-08-31", "time": "-", "author": "Walters Formuki",
+      "type": "announcement", "topic": "scholarship-2026", "publishable": true,
+      "text": "ST THIERRY UNIVERSITY VISITS GUNEKU MEDPHISATG - His Royal Highness Scholarships 2026/2027."
+    },
+    {
+      "id": "m059", "chat": "gudeca-eu", "date": "2026-03-31", "time": "13:52", "author": "Consty",
+      "type": "notice", "topic": "agro-cig", "publishable": false,
+      "text": "Guneku Agro Common Initiative Group invite circulated to GUDECA EU members."
+    },
+    {
+      "id": "m060", "chat": "bon-mi", "date": "2026-08-04", "time": "-", "author": "[UNNAMED]",
+      "type": "notice", "topic": "member-news", "publishable": false,
+      "text": "Health/personal news about a named GUDECA Limbe officer following a road accident. Excluded from publication."
+    }
+  ]
+}
