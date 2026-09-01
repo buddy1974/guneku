@@ -483,3 +483,271 @@ must not discard the approved visual direction and return Guneku to a generic
 template. The forensic, security, migration and content-reconciliation missions in
 Sections 1–42 and 44 remain fully in force; this facelift does not replace any of
 them.
+
+---
+
+# CONTENT RECONCILIATION — 2026-09-01 (follow-up to the facelift)
+
+Second controlled execution of the same day, continuing from the running
+platform. No reset, no rebuild: the approved facelift was preserved and the
+working architecture was left intact.
+
+## STATE AT CLOSE
+
+| | |
+|---|---|
+| Branch | `main`, in sync with `origin` |
+| Facelift commit | `a5ab74e` |
+| Handover commit | `5c16da5` |
+| Reconciliation commit | `15d682c` |
+| Live URL | https://guneku.vercel.app — verified live |
+| Legacy site | https://guneku.org — still serving Joomla; **DNS not cut over** |
+| Deployment | GitHub → Vercel integration; one deploy per push, no manual duplication |
+| Build | 75 static pages (was 72) |
+
+## THE CENTRAL FINDING
+
+**The richest legacy content was already migrated but unreachable.**
+
+`src/data/pages/*.json` holds the full village record — 5,065 characters
+including the Ngon market cycle, the Musongong dance, the MENEMO dialect, the
+church and school counts. **No route renders that directory.** It is read only
+by the search API. The content had been migrated in Phase 2 and then stranded.
+
+This is worth remembering for the rest of the migration: *before concluding
+that legacy content is missing, check whether it is merely unrouted.*
+
+## LEGACY AUDIT — WHAT IS ACTUALLY THERE
+
+Fetched live from guneku.org and compared against `src/data`:
+
+| Legacy page | Content on legacy | Status now |
+|---|---|---|
+| `/about/about-guneku` | 5,075 chars — substantial | **Recovered** → `/kingdom/about-guneku` |
+| `/guneku-palace/tributes` | 4,304 chars — four tributes | **Recovered** → `/palace/tributes` |
+| `/guneku-palace/the-coronation` | 911 chars | **Recovered** → `/palace/the-coronation` |
+| `/about/religion` | **8 chars — empty** | Empty on legacy too; not a migration failure |
+| `/about/the-guneku-cultural-heritage` | **28 chars — empty** | Empty on legacy too |
+| `/about/touristic-sites` | **35 chars — empty** | Empty on legacy too |
+| `/pages/projects` | **7 chars — empty** | Empty on legacy too |
+| `/guneku-palace/notables` | 170 chars — placeholder rows | Effectively empty on legacy |
+| `/pages/indigenes` | 423 chars — five named people | **Not migrated — see below** |
+
+**Conclusion: there is no large body of un-migrated legacy prose waiting to be
+recovered.** The Joomla site was itself mostly empty outside the pages above.
+The gap in the new platform was routing and surfacing, not extraction.
+
+## LEGACY CONTENT INCORPORATED
+
+### `kingdom/about-guneku` (new)
+
+The village record, restored and now reachable. Preserves, per the cultural
+rule:
+
+- the eighth-day market **&ldquo;Ngon&rdquo;** held in Guneku, and the rest of the cycle —
+  **&ldquo;Tan&rdquo;** in Ngamunghe, **&ldquo;Mbon&rdquo;** in Mbengeghang, **&ldquo;Eje&rsquo;e&rdquo;** in Ngamunam
+  (Munam), **&ldquo;Kwe&rdquo;** in Fringyeng
+- **Musongong**, the dance of the Guneku people
+- the **MENEMO** dialect, including the community's own correction that
+  calling it &ldquo;META&rdquo; is not right
+- the church count (12 Presbyterian, 2 Catholic, 1 Full Gospel, 1 Good
+  Shepherd Ministry, 1 Apostolic, 1 Mount Zion, 1 Kingship Ministry)
+- G.S.S. Guneku and G.S.S. Ngamungeh; the caves and their colonial-era use;
+  the River Batmuki; oil palm, raffia, coffee, maize, groundnuts, plantains,
+  cocoyam; the Bantou and Mbororo communities
+
+Grammar, punctuation and structure were corrected. No name, date, figure,
+place or cultural term was altered.
+
+### `palace/tributes` (new)
+
+Four tributes on the passing of HRH Fon Fomuki Patrick Nji, from **HRH Fon
+Angwafor III of Mankon**, **HRH Akam M. of Kai**, **HRH Fon Fominyen of Nyen**
+and **HRH T. Njokem of Mbengwi**. The four portraits were already in
+`public/images/tributes/`; the article was never migrated, so the images sat
+unused and the nav link 404'd.
+
+Quotes are reproduced as written. Only typographic damage from the old
+publishing system was repaired — spaced-out letters closed up, doubled full
+stops reduced, run-together words separated. **&ldquo;Kwifor&rdquo;** is retained as the
+name of the traditional regulatory society. **&ldquo;Wake Up Ets&rdquo;** appears in the
+original as &ldquo;WAKE UPEts&rdquo;; the intended form is unconfirmed and is flagged in
+the article itself.
+
+### `palace/the-coronation` (new)
+
+The succession announcement, which Joomla had mis-filed under
+`kingdom/exhibitions`.
+
+## CHRONOLOGY CORRECTED
+
+`predecessorReign` was **1965–2014**. It is now **1965–2015**.
+
+Three independent sources agree that HRH Fon Fomuki Patrick Nji left the
+palace on **28 January 2015**:
+
+1. the legacy coronation announcement;
+2. the tributes — HRH Fon Fominyen of Nyen records the Fon speaking to him on
+   **27 January 2015**, the day before;
+3. the Palace memorial image (`images/about/cover.webp`): born 2/1/1938,
+   departure 28/1/2015.
+
+The interval also matches the successor's enthronement on 27 February 2015 —
+&ldquo;about a month later&rdquo;, exactly as the announcement says.
+
+**The traditional idiom matters here.** &ldquo;Left the palace on an emergency call
+to a long journey&rdquo; is how the passing of a Fon is announced, and the
+&ldquo;returning Fon&rdquo; is the successor. Reading it literally would merge two
+different men into one person. The articles now explain the idiom rather than
+erase it.
+
+## CONFLICTS RECORDED, NOT RESOLVED
+
+Per the rule against guessing, these are published as open questions inside
+the relevant articles:
+
+| Conflict | Source A | Source B |
+|---|---|---|
+| **Population** | ~10,000 (village record) | 15,000 (site-config, project docs) |
+| **Meta clan size** | 29 villages (legacy home page) | 31 communities (village record) |
+| **Schools** | 4 primary, 1 secondary | 7 primary, 2 secondary — *same article* |
+| **Coronation date** | 17 January 2016 (Palace record) | 30 December 2016 presentation (legacy) |
+| **Regnal numbering** | &ldquo;Fon Patrick Fomuki II&rdquo; | reigning Fon styled &ldquo;the ninth&rdquo; |
+
+**All five need the Palace to rule on them.** None should be settled by a
+developer.
+
+## FABRICATED DATA REMOVED FROM LIVE PAGES
+
+- **`/diaspora`** carried per-country population counts — 12,400 Cameroon,
+  780 Germany, 640 USA, 210 Belgium, and so on — with no source anywhere in
+  the repository. Counts removed; the countries and chapter organisations
+  remain. The &ldquo;15K+ sons &amp; daughters&rdquo; centre stat is replaced with the
+  verified three-continent chapter fact.
+- **`/kingdom`** carried &ldquo;15,000+ Indigenes&rdquo;, &ldquo;Fifteen thousand souls&rdquo; and
+  &ldquo;1,200m Above Sea Level&rdquo;. All unsourced; all removed and replaced with
+  figures the record supports.
+
+## NAVIGATION
+
+The header now links only to pages that have content. The five kingdom stubs
+(`history`, `religion`, `touristic-sites`, `the-guneku-cultural-heritage`,
+`map-of-guneku`) are **empty on the legacy site as well**, so they are no
+longer promoted; their subject matter is covered inside About Guneku. The
+files remain in place and the routes still resolve.
+
+`src/data/navigation.json` is still stale and still contains the unmapped
+Joomla paths. It is passed to `Header` as a prop that the component ignores.
+**It should be either rewritten or deleted** — left as is, it is a trap.
+
+## NEWS ARCHIVE
+
+`/updates` is rebuilt in the approved editorial language and **grouped by
+year** — 2023 (9 records), 2021, 2016 — with the newest record featured above.
+Earlier years no longer fall off the end of a card grid. Undated records are
+kept together rather than dropped.
+
+## BONN 2026 MATERIAL — NOT BUILT, AND WHY
+
+`C:\Users\loneb\Downloads\guneku-vidz` holds **10 files but only 6 unique
+videos**. Verified by content hash:
+
+| Unique video | Duplicated as | Size |
+|---|---|---|
+| `1.mp4` | — | 7.7 MB |
+| `2.mp4` | `7.mp4`, `8.mp4` | 5.7 MB |
+| `3.mp4` | `9.mp4` | 0.7 MB |
+| `4.mp4` | — | 28.7 MB |
+| `5.mp4` | — | 6.3 MB |
+| `6.mp4` | `WhatsApp Video 2026-03-28 at 22.39.43.mp4` | 5.8 MB |
+
+The brief describes **twelve** videos (three of the Fon, two of Ni Sam Fongoh,
+seven social/cultural). **Six exist.** The filenames carry no speaker
+information, and attribution cannot be established without watching and
+listening to them.
+
+**No Bonn event record was built, and no video metadata was written.** Doing
+so would have meant inventing who is speaking in which clip — precisely the
+fabrication the brief forbids. The event *record* is already correct on the
+site: the Bonn meeting of 28 March 2026, the €800 raised for Solar Street
+Lighting Phase II, and the 24 July 2027 UK meeting all come from
+`institutions/gudeca-eu.json` and appear on the homepage.
+
+### 🔔 SIGNAL — MARCEL, ACTION NEEDED
+
+```
+WHAT:  YouTube URLs + speaker attribution for the 6 unique Bonn videos
+WHY:   Unblocks the Bonn 2026 event archive and the Palace speech metadata
+       model. Video files must not go into the repo (71 MB, no streaming);
+       the YouTube channel UCEmIEHRMg3UTzb1wpxLZOAw is already integrated.
+DO:    Upload the 6 unique videos, then tell me for each: speaker, role,
+       topic, and whether it is a Palace address or community/cultural
+       footage. Confirm whether 6 is the full set or 6 more are missing.
+REPLY: "done" with the list
+```
+
+## STILL AWAITING RECONCILIATION
+
+- **Indigenes / notables.** The legacy `/pages/indigenes` names five people
+  with professional details (including one likely to be the Ni Sam Fongoh of
+  the GUDECA EU material). The repository holds only two notables. **Not
+  migrated deliberately** — this is personal data about living people, and the
+  brief says not to expand personal-data collection in this phase. Needs
+  consent, not a copy-paste.
+- **Quarter names.** `/kingdom` lists 27 quarter names; only Ngamunghe,
+  Mbengeghang, Munam, Fringyeng and Ngong are corroborated by any source.
+  Several others look doubtful. **Not changed** — replacing place names
+  without a source would be worse than leaving them. Needs the Palace.
+- **FTP media forensics** — not started.
+- **Redirect map** from legacy Joomla URLs — not built. The legacy footer is
+  itself mis-mapped (Touristic Sites → the-coronation, GUDECA → the Fomuki
+  legacy page), so the map must be built from intent, not from legacy hrefs.
+- **Terms and Privacy.** The legacy site has both; the new platform has
+  neither, while `/indigenes/onboarding` collects personal data. This is a
+  **compliance gap**, not just a content gap.
+- **Project statuses.** `Open Door Hospital Eye Unit` is marked ACTIVE from a
+  dated launch announcement; the 2022 scholarship record (470,000 FCFA,
+  26 August 2022, P.S. Mbengwi Annex Guneku) is a **separate** dated event
+  from the Afor Scholarship and is not yet its own record.
+
+## FUNCTIONALITY
+
+**Working and verified:** homepage, kingdom, palace and all article routes,
+updates archive, gallery, projects, GUDECA, GUNECCUL, Agro CIG, diaspora,
+contact, indigenes directory and onboarding, search API, AI assistant,
+YouTube integration, analytics, PWA manifest, responsive behaviour.
+
+**Untouched by this execution:** database, authentication, uploads, AI,
+search indexing, YouTube integration.
+
+## SECURITY — UNCHANGED, STILL THE PRIORITY
+
+Nothing in this execution touched security, and nothing in it should be read
+as clearing any of it:
+
+- write APIs unauthenticated; indigene routes run as a hardcoded `demo-user`
+- authentication suspended (`ce3de4c`)
+- legacy artifacts and configuration committed to a public repository
+- no Terms or Privacy Policy while personal data is being collected
+
+No credentials appear in this document, and none were copied anywhere.
+
+## OPENCLAW TAKEOVER POINT
+
+OpenClaw inherits a **running, deployed product** with an approved visual
+baseline and a partially reconciled content layer.
+
+**Do not rebuild.** Specifically, do not rebuild: the facelift, the header and
+information architecture, the recovered articles, the updates archive, the
+content layer, the database, the AI assistant or search.
+
+**Recommended first mission: security containment.** Authentication and the
+write-API surface, before any further content or feature work. The site is
+public and collecting personal data with no auth and no privacy policy.
+
+**Then, in order:** the five Palace fact rulings above; the redirect map;
+Terms and Privacy; FTP media forensics; the Bonn archive once Marcel answers
+the signal.
+
+**Read before proposing anything:** this handover in full, the repository, git
+history, the latest Joomla crawl, and the live site.
