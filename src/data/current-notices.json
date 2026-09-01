@@ -45,16 +45,6 @@
    "source": "updates/guneku-holiday-workshop-2026.json"
   },
   {
-   "date": "2026-05-01",
-   "displayDate": "From 1 May 2026",
-   "category": "Development",
-   "status": "active",
-   "title": "Guneku Agro CIG — Phase 3 membership open",
-   "description": "Share price moves to 5,000 FCFA as the enterprise becomes fully operational. Registration fee 5,000 FCFA, minimum five shares.",
-   "href": "/agro-cig",
-   "source": "institutions/agro-cig.json"
-  },
-  {
    "date": "2026-04-05",
    "displayDate": "5 April 2026",
    "category": "Development",
@@ -114,7 +104,7 @@
    "statusClass": "st-active",
    "body": "Guneku Agro Common Initiative Group",
    "lastUpdate": "5 April 2026",
-   "description": "Community-owned agricultural enterprise at Ngong Quarter. Registered 12 March 2026. Phase 1 raised 12.5M FCFA; poultry and turkeys under way.",
+   "description": "Community-owned agricultural enterprise at Ngong Quarter. Registered 12 March 2026. Phase 1 raised 12.5M FCFA; poultry and turkeys under way. Current share price is not published pending confirmation by the Delegate.",
    "href": "/agro-cig"
   },
   {

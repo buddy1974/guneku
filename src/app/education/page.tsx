@@ -57,7 +57,7 @@ export default function EducationPage() {
 
           <figure className="m-0 mt-7">
             <a
-              href="/images/education/guneku-scholarship-2026.png"
+              href="/images/education/guneku-scholarship-2026.jpg"
               target="_blank"
               rel="noopener noreferrer"
               className="mx-auto block w-full max-w-[640px] border border-[var(--brass)]/25 bg-black/20"

@@ -119,7 +119,19 @@ export default function HomePage() {
           </div>
 
           {/* Scholarship — institutional feature, not a banner */}
-          <aside className="inst-card self-start p-5">
+          <aside className="inst-card self-start overflow-hidden">
+            {/* Flyer — front page, clickable through to the full programme */}
+            <Link href="/education" className="block no-underline" aria-label="Guneku Education & Scholarship Day 2026 — see the full programme">
+              <Image
+                src={programme.flyer.thumb}
+                alt="Guneku Education & Scholarship Day 2026 flyer. Information Day Saturday 29 August 2026 and Scholarship Selection Examination Saturday 19 September 2026, both 9:00 a.m. at the Guneku Fon's Palace. Target of 50 scholarships, full and partial."
+                width={600}
+                height={849}
+                sizes="(max-width: 1024px) 100vw, 32vw"
+                className="h-auto w-full"
+              />
+            </Link>
+            <div className="p-5">
             <p className="inst-tag">Education · Current programme</p>
             <h3 className="inst-h2 mt-1.5">{programme.name}</h3>
             <p className="inst-body mt-2">
@@ -141,6 +153,7 @@ export default function HomePage() {
               <Link href="/education#video" className="inst-link inline-flex items-center gap-1.5">
                 <PlayCircle className="h-4 w-4" aria-hidden /> Watch video
               </Link>
+            </div>
             </div>
           </aside>
         </div>

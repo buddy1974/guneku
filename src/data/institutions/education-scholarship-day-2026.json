@@ -110,7 +110,7 @@
   "display": "670 949 503",
   "tel": "+237670949503",
   "whatsapp": "https://wa.me/237670949503",
-  "correction": "AUTHORITATIVE for all page text. The flyer published on this page prints +237 677 46 16 09, which this number supersedes. The Project Manager approved publishing that flyer as supplied on 2026-09-01 and accepted the discrepancy for this campaign; it is to be corrected in a later flyer revision. The number printed on the flyer is never repeated as page text."
+  "correction": "The flyer now published prints the authoritative number 670 949 503, matching the site. The earlier flyer version printing +237 677 46 16 09 has been superseded and removed."
  },
  "appeal": {
   "lines": [
@@ -121,11 +121,13 @@
  },
  "flyer": {
   "status": "published",
-  "reason": "Published as supplied on the explicit approval of the Project Manager, 2026-09-01. The flyer prints +237 677 46 16 09; that discrepancy against the authoritative 670 949 503 is knowingly accepted for this publication and is to be resolved in a later revision. The artwork was not edited. The website continues to publish 670 949 503 only, and the flyer number is never repeated as page text.",
-  "suppliedAs": "guneku-scholarship.png (Downloads, 2026-09-01)",
-  "original": "/images/education/guneku-scholarship-2026.png",
+  "reason": "Corrected flyer supplied 2026-09-01 and published as supplied. It prints the authoritative Guneku Library number 670 949 503, so the discrepancy recorded against the earlier version is resolved. The superseded artwork has been deleted from the repository.",
+  "suppliedAs": "scholarship.jpeg (incoming-guneku, 2026-09-01)",
+  "original": "/images/education/guneku-scholarship-2026.jpg",
   "webCopy": "/images/education/guneku-scholarship-2026-web.webp",
-  "ogCard": "/images/education/og-scholarship-2026.jpg"
+  "thumb": "/images/education/guneku-scholarship-2026-thumb.webp",
+  "ogCard": "/images/education/og-scholarship-2026.jpg",
+  "supersedes": "guneku-scholarship-2026.png, which printed +237 677 46 16 09 and has been removed."
  },
  "pendingSections": [
   "Registration mechanism — the flyer says register in advance but names no form, email or deadline beyond the Guneku Library contact.",
