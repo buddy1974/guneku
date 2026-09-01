@@ -1579,3 +1579,124 @@ the superseded flyer number.
 
 Only one: **which CIG pricing line is current.** Elvis will confirm. Everything
 else the sources supported is now online.
+
+---
+
+# SITE-WIDE INSTITUTIONAL FACELIFT — 2026-09-01
+
+The approved direction now applies from the homepage to the deepest article
+page. Route-specific information design was preserved; only the visual language
+changed.
+
+| | |
+|---|---|
+| Commits | `499334e` · `ed9e483` |
+| Live | https://www.guneku.org |
+| Build | 85 pages · `tsc` clean · lint one error better than HEAD |
+
+## THE APPROACH THAT MADE THIS TRACTABLE
+
+Twenty-three routes still carried the old dark "royal" language. Rather than
+redesigning them one at a time, **the legacy design tokens were retargeted at
+source**. `--background`, `--foreground`, `--card`, `--primary` and the rest now
+carry the institutional palette, so every route inherited it without its
+structure being touched.
+
+The legacy class names were deliberately kept for the same reason:
+`.card-royal`, `.btn-royal`, `.text-gold-gradient`, `.section-label` and
+`.pattern-royal` all still exist — they simply mean something different now.
+`.text-gold-gradient` is a flat green. `.pattern-royal` is nothing. Not one
+route needed its markup rewritten to change language.
+
+## GLOBAL DESIGN TOKENS
+
+| Role | Value | Served as |
+|---|---|---|
+| Primary — deep Guneku green | `oklch(0.320 0.060 158)` | `#123c27` |
+| Page — warm beige | `oklch(0.965 0.012 85)` | `#f7f3eb` |
+| Accent — restrained ochre | `oklch(0.700 0.115 78)` | `#c59542` |
+| Text — dark green-charcoal | `oklch(0.245 0.022 150)` | — |
+| Dark — footer and image scrims | `oklch(0.215 0.045 158)` | — |
+
+Two typefaces only: **Source Serif 4** for headings, **Source Sans 3** for
+everything functional. Cinzel, Cormorant Garamond, Syne and Bebas Neue are gone
+from the served CSS.
+
+## PAGES MIGRATED
+
+Home · Kingdom and all kingdom articles · Palace, palace articles, tributes,
+the coronation and the Fon's profile · GUDECA, GUDECA EXCO, GUYODECA ·
+GUNECCUL · Agro CIG · Projects · Education · Updates and every article ·
+Gallery, image gallery, album pages, video archive · Diaspora · Indigenes,
+onboarding and profile · Notables · Contact · 404 · header, mobile navigation,
+footer, page headers, cards, buttons, article typography, form controls,
+toasts.
+
+## OLD DESIGN REMNANTS REMOVED
+
+Gradient text · gradient backgrounds · glow · shimmer · glass and backdrop
+blur · film grain · ornamental pattern fills · spinning seals · floating
+particles · ken-burns drift · decorative blur circles · oversized ceremonial
+letter-spacing · pill buttons · heavy shadows · lift-and-scale hover · the
+2.5-second gallery hover zoom · burgundy, purple, blue and red theme colours ·
+black full-page backgrounds.
+
+**Zero** `linear-gradient` or `radial-gradient` declarations remain in any
+route. The single gradient string left in the built CSS is Tailwind's own
+`var(--tw-gradient-stops)` utility definition, and **no element on any page
+uses it** — verified across home, kingdom, palace, gallery and diaspora.
+
+## UNIQUE ELEMENTS PRESERVED
+
+The diaspora circle · cards throughout · the palace timeline · statistics
+blocks · project, event, news and education cards · gallery and album
+structures · the news archive grouped by year · cultural photography · the
+Guneku Video section · article layouts.
+
+## TWO REAL DEFECTS FOUND ALONG THE WAY
+
+1. **Content depended on JavaScript to become visible.** `PageTransition`
+   wrapped every page in an element starting at `opacity: 0`, and `Reveal` did
+   the same to most sections. On a stalled frame the whole page renders faded —
+   which is exactly what several QA screenshots caught. On a slow connection it
+   renders blank. Both removed; `Reveal` is kept as a passthrough so no route
+   needed editing.
+2. **Hardcoded inline grid templates were overriding the responsive classes** on
+   eight pages, which is why GUNECCUL, notables and the Fon's profile scrolled
+   sideways on a phone. Fixed repo-wide with `min()` floors.
+
+## DIASPORA CIRCLE — PASS
+
+Kept as the diaspora's information design, not replaced with cards. Beige
+ground, three concentric deep green rings, deep green country nodes, no glow,
+no spin. It stays square and scales at every width; the nodes are inset on
+small screens so they no longer overflow.
+
+## VERCEL DOMAIN LEAK — FIXED
+
+No hardcoded `vercel.app` URL existed in the source. The leak was host
+persistence: landing on the preview host kept every relative link there.
+`guneku.vercel.app/:path*` now issues a permanent redirect to
+`https://www.guneku.org/:path*` — verified in production, `308` to
+`https://www.guneku.org/kingdom`. `metadataBase` and the canonical URL now
+follow the host actually served.
+
+## MOBILE — PASS
+
+**132 route-by-width combinations** across 22 routes at 360 / 375 / 430 / 768 /
+1024 / 1280: no horizontal scroll and no overflowing element anywhere.
+
+## DEAD CODE REMOVED
+
+Six legacy home components imported by no route: `LatestUpdates`,
+`GudecaStrip`, `DiasporaCallout`, `GalleryTeaser`, `StatsBar`, `PalaceFeature`.
+`AIAssistant` is also currently unimported but is a real feature backed by a
+live API route, so it was left in place — **worth deciding whether to surface
+it again or retire it**.
+
+## UNCHANGED
+
+Content, routes, data, the scholarship programme and flyer, the video
+integration, search, and the security position — still unauthenticated write
+APIs, `demo-user`, suspended authentication and no privacy policy, now on the
+live domain.
