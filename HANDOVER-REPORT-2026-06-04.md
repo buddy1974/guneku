@@ -1024,3 +1024,195 @@ Laboratory Sciences / displaced-student / partner-appeal source text, the
 registration mechanism, and confirmation of whether the 29 August Information
 Day took place. Security containment remains OpenClaw's first mission, and the
 site still has no Terms or Privacy Policy.
+
+---
+
+# INSTITUTIONAL REDESIGN + YOUTUBE PILLAR — 2026-09-01
+
+Supersedes the "Heritage Inspired" facelift as the frontend authority. The
+information architecture, routes and functionality built in the earlier
+sections are all preserved; only the visual language and the homepage content
+selection changed.
+
+## STATE AT CLOSE
+
+| | |
+|---|---|
+| Commit | `4687726` |
+| Live URL | https://guneku.vercel.app |
+| Deployment | GitHub → Vercel, verified live |
+| Build | passes · `tsc` clean · no new lint errors |
+
+## BEFORE / AFTER
+
+**Before** — dark, ceremonial, four font families, gold gradients and glow, a
+full-bleed slogan hero, an eight-icon SaaS-style pathway grid, a MaxPromo
+advertisement block, and a "Latest" list led by 2023 material while all the
+2026 activity sat in `src/data/institutions` where nobody would find it.
+
+**After** — a light civic institution. Two fonts. Burgundy on warm off-white.
+The front page opens with what is happening in Guneku now, dated and
+status-labelled, and every 2026 record is reachable from it.
+
+## FONTS — AND A REAL BUG FOUND ON THE WAY
+
+Reduced to **Source Serif 4** (headings) and **Source Sans 3** (UI and body).
+Cinzel, Cormorant Garamond, Syne and Bebas Neue are gone.
+
+The legacy `--font-display` / `--font-serif` tokens were **retargeted rather
+than deleted**, so the 25 files still using `.font-cinzel` / `.font-cormorant`
+continue to work and simply render in the new families. No page broke.
+
+**The bug:** the Google Fonts `@import` at the top of `globals.css` was being
+**stripped by the Tailwind 4 pipeline**. The built CSS contained no
+`@font-face` and no `fonts.gstatic.com` reference — meaning *no webfont had
+been loading at all*, on any page, and everything was silently falling back to
+system faces. Fonts are now loaded with a `<link>` in the document head, and
+production has been checked to confirm the request is really there.
+
+## COLOUR
+
+Warm off-white page, charcoal text, deep burgundy primary, stone secondary,
+restrained ochre accent. Dark is used for the footer only. No gradients
+anywhere on the homepage, header, footer or mobile navigation.
+
+Removed: gradient text, gold gradients, glow, shimmer, film grain, decorative
+textures, the spinning seal, MMXXVI, ceremonial letterspacing, and the
+repeated hero-like sections.
+
+## HOMEPAGE ORDER
+
+1. Institutional header (light, compact)
+2. Restrained hero — one genuine photograph, "Guneku Fondom / Official
+   community website", one primary button and one text link
+3. **What's happening in Guneku** — dated notices with category and factual
+   status, beside the **Scholarship 2026** feature card
+4. Latest from Guneku
+5. **Guneku Video**
+6. About Guneku + key facts
+7. Development & institutions
+8. Upcoming events
+9. Explore Guneku
+10. Our community
+11. Institutional footer
+
+"A Kingdom Reimagined" is retired as the institutional identity. The site
+title is **Guneku Fondom | Official Community Website**, with a canonical URL.
+
+## CURRENT CONTENT SURFACED — THE 2026 AUDIT
+
+The audit found something worth recording: **`/updates` contains nothing after
+January 2024**, while every 2026 record lived in `src/data/institutions`. That
+is why the homepage read as stale. The fix was to surface the institutional
+records directly rather than rely on the news collection alone.
+
+| Item | Where it now appears |
+|---|---|
+| Scholarship Selection Examination, 19 Sep 2026 | Notices · feature card · events |
+| Education & Scholarship Day 2026 | Feature card · `/education` |
+| Scholarship / university visit video | Guneku Video · feature card |
+| GUDECA EU Bonn, 28 Mar 2026 | Notices · Latest · new article · development |
+| Guneku Agro CIG (launch, Phase 3, registration) | Notices · development |
+| GUNECCUL Credit Union | Development |
+| Solar Electrification Phase II | Notices · development |
+| Medical unit / soap / digital empowerment | Development, as **proposed** |
+| GUDECA EU UK meeting, 24 Jul 2027 | Upcoming events |
+
+## BONN 2026 — RECONCILED FROM THE MINUTES
+
+New article `/updates/gudeca-eu-meeting-bonn-28-march-2026`, written from the
+official minutes: 28 March 2026, 2 p.m., Fon's Palace, Bonn; Solar
+Electrification Phase II ongoing with €800 reported; the Guneku CIG presented
+with poultry proposed as its first project and a share price of 2,000 FCFA;
+medical unit, soap production and digital empowerment proposed; next meeting
+United Kingdom, Saturday 24 July 2027 (verified as a Saturday).
+
+**Proposals are recorded as proposals.** Nothing was promoted to delivered.
+
+## THE €800
+
+No longer a floating number. It now reads: *"€800 reported toward Phase II at
+the GUDECA Europe meeting in Bonn on 28 March 2026. No overall target is
+recorded in the sources."* No percentage was invented, because no target
+exists in any source.
+
+## AGRO CIG
+
+Registration recorded from the certificate: **Guneku Agro Common Initiative
+Group, Guneku, Mbengwi, certificate issued 12 March 2026.** Certificate and
+administrative identifiers are deliberately **not** published.
+
+## YOUTUBE AS A PILLAR
+
+- **Homepage "Guneku Video"** — featured video with its real thumbnail, more
+  from the channel, All videos, and **Guneku on YouTube**. Editorial layout, no
+  carousel, no autoplay, no fabricated thumbnails.
+- **`/gallery/videos`** rebuilt as a categorised archive (Education; Palace &
+  Community) using only the categories the records carry.
+- **Public channel only.** `https://www.youtube.com/channel/UCEmIEHRMg3UTzb1wpxLZOAw`
+  in the video section, the archive and the footer. **No Studio or admin URL
+  appears anywhere in the repository** — production checked, zero occurrences.
+- **Titles verified** against YouTube oEmbed. The real published title is shown
+  as attribution alongside the readable display title. Nothing invented.
+- The scholarship video links directly to `/education`.
+
+## BONN VIDEOS — STILL WITHHELD
+
+Six unique clips (10 files, 4 duplicates). Speakers and subjects are still
+unattributed, so none is published; `/gallery/videos` carries an explicit
+"Awaiting cataloguing" note explaining why and linking to the Bonn report. The
+meeting itself is fully visible without waiting for the footage.
+
+## MAXPROMO
+
+The promotional section, the AI-platform advertising and the lead-generation
+calls to action are removed. `BuiltBySection` is deleted. A discreet **Website
+by MaxPromo Digital** remains in the footer.
+
+## MOBILE
+
+The bottom navigation is now light with burgundy accents instead of dark with
+gold. A real defect was fixed: the header identity block would not shrink at
+375px and pushed the search and menu buttons off-screen.
+
+Verified at **375 / 430 / 768 / 1280** on homepage and video archive:
+**zero overflowing elements**, no horizontal scroll, menu and search reachable
+at every width.
+
+## PRODUCTION VERIFICATION
+
+Present: Official community website · What's happening in Guneku · Guneku Video ·
+Guneku on YouTube · Subscribe · GUNECCUL · Agro CIG · Solar Electrification
+Phase II · Bonn · Ngon · MENEMO · Musongong · Development & institutions ·
+Upcoming events · Explore Guneku · Our community · Website by MaxPromo Digital.
+
+Absent (all zero): A Kingdom Reimagined · MMXXVI · the MaxPromo promo block ·
+Free automation audit · 15,000 · 1,200m · 12,400 · the "scholarshipsfor" typo ·
+any Studio URL.
+
+Fourteen routes checked, all 200.
+
+## CONTENT NOT SURFACED, AND WHY
+
+- **Bonn videos** — attribution unverified; would require inventing speakers.
+- **Legacy indigenes list** — personal data about living people; needs consent.
+- **Quarter names** — only five of twenty-seven are corroborated.
+- **Population, elevation, per-country diaspora counts** — removed earlier as
+  unsourced or conflicting; deliberately not reintroduced.
+
+## FACTS STILL NEEDING VERIFICATION
+
+1. Population — village record says ~10,000; project docs say 15,000.
+2. Meta clan size — 29 villages vs 31 communities.
+3. School counts — the source article contradicts itself.
+4. Coronation — 17 January 2016 vs the 30 December 2016 presentation.
+5. Regnal numbering — "Fon Patrick Fomuki II" vs "the ninth Fon".
+6. Whether the 29 August 2026 Information Day took place.
+7. The Guneku Library number printed on the flyer (`+237 677 46 16 09`)
+   against the authoritative `670 949 503`.
+
+## SECURITY — UNCHANGED
+
+Untouched by this work and still the first priority: unauthenticated write
+APIs, hardcoded `demo-user`, suspended authentication, and no Terms or Privacy
+Policy while personal data is collected.
