@@ -49,6 +49,7 @@ const NAV: Item[] = [
     href: '/projects', label: 'Development',
     children: [
       { href: '/projects',  label: 'All Projects'     },
+      { href: '/education', label: 'Education & Scholarships' },
       { href: '/agro-cig',  label: 'Guneku Agro CIG'  },
       { href: '/guneccul',  label: 'GUNECCUL Credit Union' },
       { href: '/gudeca',    label: 'GUDECA'           },

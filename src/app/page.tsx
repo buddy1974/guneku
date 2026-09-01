@@ -1,6 +1,6 @@
 import Link  from 'next/link'
 import Image from 'next/image'
-import { ArrowRight, Calendar, MapPin } from 'lucide-react'
+import { ArrowRight, Calendar, MapPin, PlayCircle } from 'lucide-react'
 import { getAllUpdates }    from '@/lib/content'
 import { HeroEditorial }    from '@/components/home/HeroEditorial'
 import { PathwayStrip }     from '@/components/home/PathwayStrip'
@@ -114,29 +114,38 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── UPCOMING EVENT ── */}
+      {/* ── UPCOMING: EDUCATION & SCHOLARSHIP DAY 2026 ──
+           The Information Day (29 August 2026) has passed; the Selection
+           Examination on 19 September 2026 is the date still ahead, so that is
+           the one surfaced here. Both are recorded on /education. */}
       <section className="surface-burgundy">
         <div className="shell grid items-center gap-8 py-12 md:py-16 lg:grid-cols-[1fr_auto]">
           <div>
-            <p className="ed-eyebrow">Upcoming</p>
-            <h2 className="ed-h2 mt-2 text-[var(--ivory)]">GUDECA Europe — General Meeting</h2>
+            <p className="ed-eyebrow">Upcoming · Education</p>
+            <h2 className="ed-h2 mt-2 text-[var(--ivory)]">Guneku Education &amp; Scholarship Day 2026</h2>
             <p className="ed-body mt-3 text-white/70">
-              The European chapter of the Guneku Development and Cultural Association
-              meets next in the United Kingdom, coordinated by Ni Sam. The March 2026
-              meeting was held at the Fon&rsquo;s residence in Bonn, Germany.
+              A Back-to-School initiative targeting <strong>50 scholarships</strong> for deserving
+              students &mdash; full and partial &mdash; across vocational training, health and medical
+              programmes, professional courses and university education. The Scholarship
+              Selection Examination is the next date.
             </p>
             <div className="mt-5 flex flex-wrap gap-x-8 gap-y-2">
               <span className="ed-meta inline-flex items-center gap-2 text-white/85">
-                <Calendar className="h-4 w-4 text-[var(--brass)]" aria-hidden /> 24 July 2027
+                <Calendar className="h-4 w-4 text-[var(--brass)]" aria-hidden /> Saturday, 19 September 2026 · 9:00 a.m.
               </span>
               <span className="ed-meta inline-flex items-center gap-2 text-white/85">
-                <MapPin className="h-4 w-4 text-[var(--brass)]" aria-hidden /> United Kingdom
+                <MapPin className="h-4 w-4 text-[var(--brass)]" aria-hidden /> Guneku Fon&rsquo;s Palace
               </span>
             </div>
           </div>
-          <Link href="/gudeca" className="ed-btn ed-btn-gold shrink-0">
-            About GUDECA <ArrowRight className="h-4 w-4" />
-          </Link>
+          <div className="flex shrink-0 flex-wrap gap-3">
+            <Link href="/education" className="ed-btn ed-btn-gold">
+              Learn more <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link href="/education#video" className="ed-btn ed-btn-ghost">
+              <PlayCircle className="h-4 w-4" /> Watch video
+            </Link>
+          </div>
         </div>
       </section>
 

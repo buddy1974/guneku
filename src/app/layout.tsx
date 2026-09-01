@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Analytics }      from '@vercel/analytics/react'
 import { SpeedInsights }  from '@vercel/speed-insights/next'
 import { Header }         from '@/components/layout/Header'
@@ -36,6 +36,10 @@ export const metadata: Metadata = {
   robots:   { index: true, follow: true },
   icons:    { icon: '/logo.png', apple: '/logo.png', shortcut: '/logo.png' },
   manifest: '/manifest.json',
+}
+
+/* Next 16 wants themeColor on the viewport export, not metadata. */
+export const viewport: Viewport = {
   themeColor: '#1f1108',
 }
 
