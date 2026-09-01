@@ -1216,3 +1216,143 @@ Fourteen routes checked, all 200.
 Untouched by this work and still the first priority: unauthenticated write
 APIs, hardcoded `demo-user`, suspended authentication, and no Terms or Privacy
 Policy while personal data is collected.
+
+---
+
+# CONTENT SALVAGE AUDIT — 2026-09-01
+
+Content forensics only. No design work; the institutional redesign is untouched.
+
+| | |
+|---|---|
+| Commit | `fbea217` |
+| Live URL | https://guneku.vercel.app |
+| Build | 79 pages (was 76) · `tsc` clean · no new lint errors |
+
+## SOURCE AUTHORITY — CORRECTED
+
+Guneku facts supplied directly by Marcel and the project owners are now
+treated as **current source of fact**, recorded in `site-config.json` under
+`gunekuSOF` with `sourceType: "Guneku first-party / project owner supplied"`.
+
+Restored to the site: **approximately 15,000 people**, **27 quarters**,
+**largest Meta clan village by area**, **MENEMO**, and the Mbengwi
+Subdivision / Momo Division / North West Region location.
+
+The legacy village record's 10,000 is retained **only as historical source
+context** inside `/kingdom/about-guneku`, whose editor's note now says exactly
+that instead of asking the Palace to choose. The three open questions raised in
+earlier sections about population are **closed**.
+
+## THE CENTRAL FINDING
+
+**The Afor Foundation's entire programme record was buried inside one person's
+profile.** `src/data/notables/roland-teboh-forbang.json` held the founder, the
+venue, the catchment, the annual award, a full 2025 examination record and the
+2022 distribution — none of it reachable from education, development or news.
+
+That is the pattern this audit was looking for: *the repository already held
+the content; nothing rendered it.* It is the same shape as the earlier
+discovery that `src/data/pages/` was unrouted.
+
+## NEW/EXPANDED INSTITUTION RECORDS
+
+- **`institutions/afor-foundation.json`** — Prof. Dr. Roland Teboh Forbang;
+  Guneku Fon's Palace; Mbengwi Central; 1,000,000 FCFA annual; 2025 edition
+  (22 Feb, 201 registered, 200 sat, 13 invigilators, top scorer from Wumnebug
+  with two runners-up); 2022 distribution (470,000 FCFA, 26 Aug, Class 6
+  pupils of P.S. Mbengwi Annex Guneku).
+- **`institutions/michi-ebeng-festival.json`** — consolidated from three
+  articles and two albums. Maiden edition April 2023 after a six-year hiatus
+  caused by the armed conflict; second edition; the Mukonge dance competition
+  with its agreed rules (15–20 members, seven minutes, 10 a.m. call). Guneku
+  orthography preserved.
+- **`institutions/palace-renovation.json`** — recognised by the Ministry of
+  Arts and Culture; funds exceeding **$20,000** reported at the 2023 GUDECA-US
+  event; the fundraising white party album.
+- **`institutions/guneccul.json`** — expanded with the Fon's **patronage and
+  founder-sponsor** role and the institution's community purpose.
+
+## NEW NEWS RECORDS
+
+- `/updates/afor-foundation-scholarship-examination-2025` — 22 February 2025
+- `/updates/afor-foundation-scholarship-award-2022` — 26 August 2022
+
+The archive now runs **2016 · 2021 · 2022 · 2023 · 2024 · 2025 · 2026**.
+**2022 and 2025 did not exist in it before this pass.**
+
+## DEVELOPMENT REGISTER — SIX ROWS ADDED
+
+Afor Foundation Scholarship · Palace Renovation & Heritage Programme ·
+GUYODECA bridge construction (2025) · Tonmukom–Windik Road (38-photo album) ·
+Fringyeng Hydroelectric Plant · Open Door Hospital eye unit.
+
+## CORRECTED
+
+**Open Door Hospital eye unit: ACTIVE → HISTORICAL.** The source is a 2021
+announcement of a launch. It does not establish that the unit operates today,
+and the register now says so plainly.
+
+## ALREADY COMPLETE — NO ACTION
+
+Agro CIG (registration 12 March 2026, 12.5M FCFA, 500 chicks, turkeys from
+Nigeria, Phase 3 from 1 May 2026 at 5,000 FCFA — **all already present and
+correct** in `institutions/agro-cig.json`); GUDECA EU Bonn 2026; Education &
+Scholarship Day 2026; the scholarship video; the recovered Palace articles.
+
+**No duplicate Bonn article was created**, per the rule; the single record
+`/updates/gudeca-eu-meeting-bonn-28-march-2026` remains, with the development
+rows linking into it.
+
+## NO USEFUL CONTENT FOUND — audited, nothing to salvage
+
+Stated plainly, because absence is a finding:
+
+- **MEDPIHSATG / MEDPHISATG** — *zero* content. The string appears only inside
+  the YouTube title I recorded for the scholarship video. No institutional
+  record, no programme data, and **no association with Wumfi-Ku anywhere**
+  (Wumfi-Ku appears only as a quarter name in a list). Nothing to build on
+  without new source material.
+- **BettaHealth Clinic, Yaoundé** — zero occurrences.
+- **Guneku Medical Center / Dr. Peter Nji Bah** — zero occurrences.
+- **Farmers Business Center (March 2025)** — zero occurrences.
+- **Vitalis Fish Farm** — no such entity. The "Vitalis" hits are **Mr. Vitalis
+  Ngwa**, secretary of a dispute-settlement team in a 2023 council article — a
+  different person entirely. Catfish belongs to **Agro CIG**, and the Fon's
+  2023 address separately records "introduction and revitalisation of fish
+  farming, rabbit, fowl and bee keeping". No TikTok link exists in the
+  repository.
+- **Guneku History Book / TV documentary / film** — zero occurrences of any
+  variant.
+
+## OPEN QUESTIONS — genuinely unknown
+
+1. **Palace renovation figure.** Project intelligence holds **$50,000**; the
+   records show **$20,000+** reported at the 2023 GUDECA-US event. Whether
+   $50,000 is a target, a cumulative total or a separate figure is not
+   established.
+2. **Mɨchi Əbeŋ third edition, April 2025.** No record of a third edition
+   exists in the repository. The second edition's own article is internally
+   inconsistent — headlined *April 2024* while its text gives *Saturday
+   23 March 2024*. Both are recorded in the festival record.
+3. **MEDPIHSATG** — needs a first-party description before anything is written.
+4. Carried forward unchanged: Meta clan size (29 vs 31), the two school counts
+   inside one source article, the 17 January vs 30 December 2016 coronation
+   dates, regnal numbering, whether the 29 August 2026 Information Day took
+   place, and the flyer's contact number.
+
+## MEDIA ARCHIVE — UNPUBLISHED EVIDENCE
+
+Fifteen albums exist, several with no article attached: Traditional Council
+installation of 30 July 2021 (42 photographs), Return of the Fon 2015 (41),
+Mɨchi Əbeŋ 2023 (39), Tonmukom–Windik road (38), Coronation (29), GUDECA-USA
+(28), Frankfurt family meeting (26), Prince Fomuki Tibah's bornhouse (22),
+fundraising white party (17), development projects (12), Royal Community
+Library (12), GUDECA Worldwide (11), Essen reception (10), Mukonge dance
+groups (6), GUDECA AGM 2015 (5). **A rich seam for the next pass.**
+
+## SECURITY — UNCHANGED
+
+Untouched by this work and still the first priority: unauthenticated write
+APIs, hardcoded `demo-user`, suspended authentication, and no Terms or Privacy
+Policy while personal data is collected.
