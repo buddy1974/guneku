@@ -751,3 +751,180 @@ the signal.
 
 **Read before proposing anything:** this handover in full, the repository, git
 history, the latest Joomla crawl, and the live site.
+
+---
+
+# EDUCATION & SCHOLARSHIP PROGRAMME — 2026-09-01
+
+Third controlled execution of the day. Continued from the running platform;
+the facelift and the reconciliation work were preserved.
+
+## STATE AT CLOSE
+
+| | |
+|---|---|
+| Branch | `main`, in sync with `origin` |
+| Programme commit | `0ada733` |
+| Live URL | https://guneku.vercel.app — verified |
+| **Scholarship page route** | **`/education`** — https://guneku.vercel.app/education |
+| **YouTube URL** | **https://youtu.be/UfpBzWOEDZM** |
+| **Flyer path** | **none in repository — deliberately withheld, see below** |
+| Build | 76 static pages (was 75) |
+
+## STATE CORRECTION
+
+The brief was written as a *correction* to an existing scholarship page and
+flyer. **Neither existed.** There was no scholarship route, no scholarship
+record, no flyer in `public/`, and no occurrence of either the contact number
+or the video ID anywhere in the repository. This was net-new work, not a fix.
+
+The flyer itself was found at `C:\Users\loneb\Downloads\guneku-scholarship.png`
+and read directly; it is the approved source text for everything published.
+
+## ⚠️ CONTACT NUMBER — DISCREPANCY CONFIRMED AND HANDLED
+
+| | |
+|---|---|
+| Printed on the supplied flyer | **+237 677 46 16 09** |
+| Authoritative (per Marcel) | **670 949 503** |
+
+They do not match. Verified before publishing, exactly as instructed.
+
+**What was done:** the website publishes **670 949 503** only. Production has
+been checked and carries **zero** occurrences of the superseded number.
+
+**The flyer was NOT published and was NOT added to the repository.** Adding it
+would have put a contradicting number in front of readers on the same page as
+the correct one. It is recorded in the programme record under `flyer.status:
+"withheld"` with the reason. **A corrected flyer is required before any
+production, print or social-media use.**
+
+The number is displayed exactly as supplied. The `tel:` and WhatsApp links use
+`+237670949503` — the country code is taken from the flyer's own `+237`
+prefix, not invented.
+
+## ⚠️ ONE DATE HAS ALREADY PASSED
+
+Today is **1 September 2026**.
+
+- **Information Day — Saturday 29 August 2026: already past** (three days ago).
+- **Selection Examination — Saturday 19 September 2026: still ahead.**
+
+Both dates are recorded on `/education` as the programme record, without
+claiming either is upcoming. The **homepage feature deliberately surfaces the
+19 September examination**, since presenting the Information Day as forthcoming
+would be wrong.
+
+**Marcel should confirm** whether the Information Day took place as planned,
+and whether the campaign should now be framed around the examination alone.
+Both dates were checked and do fall on Saturdays as the flyer states.
+
+## THE PROGRAMME RECORD — ONE CONNECTED RECORD
+
+`src/data/institutions/education-scholarship-day-2026.json` holds the whole
+programme; `src/app/education/page.tsx` is a thin renderer over it. Nothing is
+fragmented across unrelated pages.
+
+Contains: the summary; both dates with venue, time, audience and their full
+point lists; the 50-scholarship target with full and partial terms and the
+extension conditions; the open-to-all message; the six educational pathways;
+contact; the appeal lines and motto; the video; and links back to the related
+historical records (2022 distribution, Afor Scholarship, Royal Community
+Library).
+
+## VIDEO INTEGRATION
+
+Verified live through YouTube oEmbed **before** use — the video exists on the
+*Guneku Village* channel.
+
+- **Placement:** after the introductory summary, before the detailed
+  scholarship information, under &ldquo;Watch the scholarship announcement&rdquo; — as
+  specified. Anchor `#video`.
+- Responsive 16:9, `youtube-nocookie`, `loading="lazy"`, **no autoplay**,
+  accessible `title`, mobile friendly.
+- Original URL preserved in structured content.
+- Added to `src/data/gallery/video-gallery.json` with `relatedRoute:
+  "/education"`, so the media system links back to the programme rather than
+  stranding it in the generic gallery.
+- **No description or transcript was written.** None was supplied, and none was
+  inferred from the video.
+
+**Note on the title.** The video's actual published title is *&ldquo;ST THIERRY
+UNIVERSITY VISITS GUNEKU MEDPHISATG, His Royal Highness SCHOLARSHIPS
+2026/2027&rdquo;*, which differs from the suggested metadata title. The suggested
+title is used as the display title; the real published title is shown beneath
+the embed as attribution rather than being overwritten. Both are kept in the
+record.
+
+## HOMEPAGE, NAVIGATION AND SOCIAL
+
+- Homepage upcoming band now features the programme with **Learn more** and
+  **Watch video**, showing the 19 September date and the Palace venue.
+- **Education** added to the homepage pathway strip (now eight pathways) and to
+  the Development menu. *This fills the EDUCATION pathway that the approved
+  design reference asked for and that the previous handover flagged as
+  missing.*
+- Open Graph metadata on `/education` uses the video's YouTube thumbnail, so
+  the link previews correctly when shared. The website is the canonical source;
+  social copy may carry the YouTube link alongside it.
+
+## NOT BUILT — SOURCE TEXT REQUIRED
+
+The brief lists sections that **are not on the supplied flyer** and were not
+invented. They are recorded in the programme record under `pendingSections`:
+
+- **Laboratory Sciences section.** The flyer has *Health & Medical Programmes*
+  but nothing on Laboratory Sciences. The video title mentions
+  &ldquo;MEDPHISATG&rdquo;, which may be the related institution, but that is a guess and
+  was not acted on.
+- **Displaced-student message.** Not present on the flyer.
+- **Support / partner appeal.** The flyer carries only the closing lines
+  (&ldquo;Let us invest in our children&rdquo;), not a formal appeal.
+- **Registration mechanism.** The flyer says register in advance but names no
+  form, email or deadline beyond the Guneku Library contact.
+
+### 🔔 SIGNAL — MARCEL, ACTION NEEDED
+
+```
+WHAT:  (1) corrected flyer showing 670 949 503
+       (2) source text for the Laboratory Sciences section, the
+           displaced-student message and the support/partner appeal
+       (3) the registration mechanism and any deadline
+       (4) confirmation of whether the 29 August Information Day took place
+WHY:   (1) unblocks publishing the flyer on the page and in social assets
+       (2)-(3) complete the programme record; they are named in the brief but
+           absent from the flyer, and will not be written without a source
+       (4) determines how the campaign is framed now that the date has passed
+DO:    Send the corrected flyer and the missing section text
+REPLY: "done" with the files/text
+```
+
+## FINAL VERIFICATION — PRODUCTION
+
+| Check | Result |
+|---|---|
+| `/education` | **200** |
+| Contact **670 949 503** present | **yes** |
+| Superseded **677 46 16 09** present | **no — 0 occurrences** |
+| Video **UfpBzWOEDZM** embedded | **yes** |
+| **29 August 2026** — Information Day | present |
+| **19 September 2026** — Selection Examination | present |
+| Venue **Guneku Fon's Palace** | present |
+| Target **50 scholarships** | present |
+| Autoplay | none |
+| Homepage Learn more / Watch video | present |
+| Video gallery back-link to `/education` | present |
+| Regression across key routes | all 200 |
+
+`tsc` clean · no new lint errors · build passes at 76 pages · the Next 16
+`themeColor` build warning was cleared by moving it to a `viewport` export.
+
+## STILL OUTSTANDING (unchanged)
+
+Everything in the previous two sections remains open, and the security position
+is untouched: unauthenticated write APIs, `demo-user`, suspended
+authentication, and **still no Terms or Privacy Policy** — now more pressing,
+because `/education` publishes a contact number for a programme aimed at
+young people and their parents.
+
+**OpenClaw's first mission remains security containment.**
