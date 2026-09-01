@@ -1,0 +1,42 @@
+{
+ "id": "gudeca-branches",
+ "type": "Institution",
+ "name": "GUDECA Branches",
+ "status": "active",
+ "category": "Community",
+ "description": "Branches of the Guneku Development and Cultural Association with dated activity in the community record.",
+ "branches": [
+  {
+   "name": "GUDECA Europe",
+   "lead": "President Constantine Ndenge",
+   "activity": "Quarterly physical meetings and regular virtual meetings; annual gathering."
+  },
+  {
+   "name": "GUDECA North America",
+   "activity": "Active; offered support to village initiatives in July 2026."
+  },
+  {
+   "name": "GUDECA Bamenda",
+   "activity": "Family meeting held 5 July 2026."
+  },
+  {
+   "name": "GUDECA Buea",
+   "activity": "Monthly meeting held 28 June 2026."
+  },
+  {
+   "name": "GUDECA Douala",
+   "activity": "Douala Branch in Action, 2 August 2026."
+  },
+  {
+   "name": "GUDECA Limbe",
+   "lead": "Ba Miki Tayong, Vice President",
+   "activity": "Active."
+  },
+  {
+   "name": "GUDECA West",
+   "activity": "Meeting reported 13 to 14 June 2026."
+  }
+ ],
+ "note": "No executive lists or membership figures are recorded here; none is established in the sources.",
+ "sourceNote": "Branch activity recorded 2026-09-01 from the community record."
+}

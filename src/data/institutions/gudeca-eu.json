@@ -1,69 +1,115 @@
 {
-  "id": "gudeca-eu",
-  "name": "GUDECA Europe",
-  "abbreviation": "GUDECA EU",
-  "status": "active",
-  "meetingVenue": "Fon's Palace, Bonn, Germany",
-
-  "leadership": [
-    { "role": "President",          "name": "Ndenge Constantine" },
-    { "role": "Secretary General",  "name": "Muyang Ela"         },
-    { "role": "Vice President",     "name": "Festus Tanwi"       },
-    { "role": "Financial Secretary","name": "Armstrong Tinyih"   },
-    { "role": "Digital Lead",       "name": "Ni Sam"             },
-    { "role": "Title Holder",       "name": "Mr. Fonjong",
-      "note": "Titled by the Fons of Meta"                       }
-  ],
-
-  "lastMeeting": {
-    "date": "2026-03-28",
-    "venue": "Fon's Palace, Bonn, Germany",
-    "solarPhase2Raised": 800,
-    "currency": "EUR"
+ "id": "gudeca-eu",
+ "name": "GUDECA Europe",
+ "abbreviation": "GUDECA EU",
+ "status": "active",
+ "meetingVenue": "Fon's Palace, Bonn, Germany",
+ "leadership": [
+  {
+   "role": "President",
+   "name": "Ndenge Constantine"
   },
-
-  "nextMeeting": {
-    "date": "2027-07-24",
-    "location": "United Kingdom",
-    "coordinator": "Ni Sam"
+  {
+   "role": "Secretary General",
+   "name": "Muyang Ela"
   },
-
-  "activeProjects": [
-    {
-      "name": "Solar Street Lighting Phase II",
-      "status": "fundraising",
-      "raised": 800,
-      "currency": "EUR"
-    },
-    {
-      "name": "Agro CIG",
-      "status": "active",
-      "note": "Presented by Mr. Fabian at March 2026 meeting"
-    }
-  ],
-
-  "proposedProjects": [
-    {
-      "name": "Medical Reference Centre",
-      "description": "Establish a reference healthcare centre in Guneku",
-      "status": "proposed"
-    },
-    {
-      "name": "Soap Production Initiative",
-      "description": "Community income-generating activity",
-      "status": "proposed"
-    },
-    {
-      "name": "Satellite Internet — Palace",
-      "description": "Install satellite internet at the Guneku Palace",
-      "proposedBy": "Ni Sam",
-      "status": "proposed"
-    },
-    {
-      "name": "Digital Empowerment Training",
-      "description": "Content creation, virtual work, online income generation for adults",
-      "proposedBy": "Ni Sam",
-      "status": "proposed"
-    }
-  ]
+  {
+   "role": "Vice President",
+   "name": "Festus Tanwi"
+  },
+  {
+   "role": "Financial Secretary",
+   "name": "Armstrong Tinyih"
+  },
+  {
+   "role": "Digital Lead",
+   "name": "Ni Sam"
+  },
+  {
+   "role": "Title Holder",
+   "name": "Mr. Fonjong",
+   "note": "Titled by the Fons of Meta"
+  }
+ ],
+ "lastMeeting": {
+  "date": "2026-03-28",
+  "venue": "Fon's Palace, Bonn, Germany",
+  "solarPhase2Raised": 800,
+  "currency": "EUR"
+ },
+ "nextMeeting": {
+  "date": "2027-07-24",
+  "location": "United Kingdom",
+  "coordinator": "Ni Sam"
+ },
+ "activeProjects": [
+  {
+   "name": "Solar Street Lighting Phase II",
+   "status": "fundraising",
+   "raised": 800,
+   "currency": "EUR"
+  },
+  {
+   "name": "Agro CIG",
+   "status": "active",
+   "note": "Presented by Mr. Fabian at March 2026 meeting"
+  }
+ ],
+ "proposedProjects": [
+  {
+   "name": "Medical Reference Centre",
+   "description": "Establish a reference healthcare centre in Guneku",
+   "status": "proposed"
+  },
+  {
+   "name": "Soap Production Initiative",
+   "description": "Community income-generating activity",
+   "status": "proposed"
+  },
+  {
+   "name": "Satellite Internet — Palace",
+   "description": "Install satellite internet at the Guneku Palace",
+   "proposedBy": "Ni Sam",
+   "status": "proposed"
+  },
+  {
+   "name": "Digital Empowerment Training",
+   "description": "Content creation, virtual work, online income generation for adults",
+   "proposedBy": "Ni Sam",
+   "status": "proposed"
+  }
+ ],
+ "president": "Constantine Ndenge",
+ "membersAcross": [
+  "Germany",
+  "United Kingdom",
+  "Belgium",
+  "Netherlands region",
+  "Norway",
+  "Denmark",
+  "Sweden region",
+  "Luxembourg",
+  "Italy",
+  "France",
+  "Austria"
+ ],
+ "meetingRhythm": "Quarterly physical meetings, with monthly and ad-hoc virtual meetings.",
+ "membership": {
+  "annualReRegistration": "EUR 20",
+  "deadline": "31 March"
+ },
+ "delivered2025": [
+  "Installation of solar street lights in the village",
+  "Contributions toward the FUN electricity project",
+  "Support for the Mbengeghang water project",
+  "Several other smaller community projects"
+ ],
+ "gathering2025": {
+  "venue": "Duisburg, Germany",
+  "note": "Annual gathering, reported in the President address of 31 December 2025."
+ },
+ "relatedUpdates": [
+  "gudeca-eu-meeting-bonn-28-march-2026",
+  "gudeca-eu-presidents-address-2025"
+ ]
 }

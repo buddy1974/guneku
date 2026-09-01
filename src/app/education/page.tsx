@@ -18,7 +18,7 @@ export const metadata = {
 const PATHWAY_ICONS = [Building2, Stethoscope, Landmark, GraduationCap, Scroll, HeartHandshake]
 
 export default function EducationPage() {
-  const { name, tagline, badge, summary, video, dates, target, openToAll, pathways, contact, appeal } = programme
+  const { name, tagline, badge, summary, video, dates, target, openToAll, pathways, contact, appeal, quote } = programme
 
   return (
     <main className="surface-ink min-h-screen">
@@ -191,6 +191,8 @@ export default function EducationPage() {
             </div>
             <div>
               <p className="muted ed-body">{openToAll.body}</p>
+              <p className="muted ed-body mt-3">{openToAll.specialConsideration}</p>
+              <p className="muted ed-body mt-3">{openToAll.displaced}</p>
               <p className="ed-body mt-4 font-semibold text-[oklch(0.22_0.02_45)]">{openToAll.emphasis}</p>
             </div>
           </div>
@@ -242,6 +244,10 @@ export default function EducationPage() {
           </div>
 
           <div className="mx-auto mt-12 max-w-xl border-t border-white/10 pt-8">
+            <blockquote className="m-0 mb-6">
+              <p className="m-0 font-cormorant text-[1.35rem] italic text-white/85">&ldquo;{quote.text}&rdquo;</p>
+              <footer className="ed-meta mt-2 text-white/50">&mdash; {quote.attribution}</footer>
+            </blockquote>
             {appeal.lines.map(l => (
               <p key={l} className="font-cormorant text-[1.35rem] italic text-white/85">{l}</p>
             ))}

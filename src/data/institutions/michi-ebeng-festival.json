@@ -42,12 +42,33 @@
  "relatedUpdates": [
   "festival-in-april-2024",
   "michi-ben-clash-of-mukonge-dance-groups-in-the-offing",
-  "meta-cultural-festival-holds-in-guneku-village"
+  "meta-cultural-festival-holds-in-guneku-village",
+  "gudeca-eu-meeting-bonn-28-march-2026"
  ],
  "albums": [
   "mchibe-mta-event-guneku2023",
   "mukonge-dance-groupsin-meta"
  ],
  "sourceNote": "Consolidated 2026-09-01 from the existing update articles and gallery albums. No edition later than the second is recorded in this repository.",
- "sourceType": "Migrated Guneku article and media archive"
+ "sourceType": "Migrated Guneku article and media archive",
+ "relatedDances": [
+  {
+   "name": "Masangon",
+   "note": "Guneku traditional royalty dance; performed at the GUDECA Europe gathering in Bonn, March 2026."
+  },
+  {
+   "name": "Kwem Dance Group",
+   "note": "Guneku dance group; also performs in Limbe."
+  },
+  {
+   "name": "Mbemi Mukonge Dance Group",
+   "note": "Performed at the Guneku Agro CIG launch, April 2026."
+  },
+  {
+   "name": "Nkem Dance Group",
+   "note": "Performed at the Guneku Agro CIG launch, April 2026."
+  }
+ ],
+ "diasporaMirror": "The diaspora mirrors the festival abroad. GUDECA Europe held a Michi Ebeng (Bonn edition) at the Fon's Palace in Bonn on 28 March 2026, deliberately on the same day the festival was celebrated in Guneku village.",
+ "metaContext": "Meta context: MEFU, the Meta Fons Union, and MECUDA, the Meta Cultural and Development Association."
 }

@@ -28,13 +28,6 @@
   "maxShares": 100,
   "note": "Final opportunity to join at current pricing"
  },
- "phase3": {
-  "startDate": "2026-05-01",
-  "registrationFee": 5000,
-  "sharePrice": 5000,
-  "minShares": 5,
-  "note": "Share price increases as business becomes fully operational"
- },
  "livestock": [
   {
    "animal": "Poultry",
@@ -75,5 +68,59 @@
   "displayDate": "12 March 2026",
   "evidence": "Official registration certificate supplied by Marcel, 2026-09-01. Certificate and administrative identifiers are deliberately not published.",
   "status": "registered"
- }
+ },
+ "launch": {
+  "date": "2026-04-05",
+  "displayDate": "Sunday, 5 April 2026",
+  "time": "1:00 p.m. to 4:00 p.m.",
+  "venue": "Ngong Quarter, Guneku",
+  "programme": [
+   "Arrival of the population and guest dance groups",
+   "Opening prayer",
+   "Welcome speech by the Fon of Guneku and village authorities",
+   "Animations by the Guneku Kwem Dance Group, the Mbemi Mukonge Dance Group and the Nkem Dance Group",
+   "Presentation of the CIG executive",
+   "Speech by the VDO and vision bearers",
+   "Traditional rites performed by the fathers and the Palace at Ngong",
+   "Presentation of the benefits of the CIG to the Meta community by the Secretary General",
+   "A word from visiting Fons",
+   "General announcements by Fah Elvis Tayong",
+   "Closing remarks by the Vice Delegate"
+  ]
+ },
+ "delegate": "Fah Elvis Tayong, CIG Delegate",
+ "communiques": [
+  {
+   "ref": "No. 001/03/04/26",
+   "effect": "Registration fee of 5,000 FCFA extended to 30 April 2026 after members asked for relief."
+  },
+  {
+   "ref": "No. 003/02/05/26",
+   "effect": "From 3 May 2026 registration moved to 15,000 FCFA; share price unchanged at 2,000 FCFA."
+  }
+ ],
+ "milestones": [
+  "Tender issued to construct the giant poultry house, 18 April 2026",
+  "Campaign milestone announced publicly: Operation 20 million FCFA by 30 April 2026",
+  "Campaign milestone announced publicly: Operation 5 million plus by 20 June 2026"
+ ],
+ "merchandise": [
+  {
+   "item": "T-shirt",
+   "price": "5,000 FCFA"
+  },
+  {
+   "item": "Cap",
+   "price": "2,000 FCFA"
+  }
+ ],
+ "staffMeeting": {
+  "date": "2026-08-31",
+  "displayDate": "Monday, 31 August 2026",
+  "time": "2:00 p.m.",
+  "venue": "Guneku Agro CIG main site",
+  "attendees": "Executive and all staff"
+ },
+ "paymentRoute": "Payments and share purchases run through GUNECCUL, the community credit union.",
+ "pricingConflict": "UNRESOLVED. The announcement of 4 April 2026 promised a Phase 3 from 1 May with shares at 5,000 FCFA. Communique No. 003 of 2 May then set registration at 15,000 FCFA and kept the share price at 2,000 FCFA. The 5,000 FCFA share price appears never to have taken effect. No current share price is presented as fact until the Delegate confirms it."
 }

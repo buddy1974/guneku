@@ -1,0 +1,24 @@
+{
+ "id": "medphisatg",
+ "type": "Institution",
+ "name": "MEDPHISATG",
+ "status": "active",
+ "category": "Education",
+ "description": "A medical school based in Guneku. HRH Dr. Fomuki, Fon of Guneku, was honoured for his achievements in medical education at the MEFU–MECUDA joint meeting of August 2026, with MEDPHISATG named as the school based in Guneku.",
+ "visits": [
+  {
+   "visitor": "St Thierry University",
+   "date": "2026-08-31",
+   "displayDate": "31 August 2026",
+   "context": "Visited Guneku MEDPHISATG regarding the HRH scholarships for 2026/2027."
+  }
+ ],
+ "spellingConflict": "The source material spells this both MEDPHISATG and Medphisatag. The correct spelling is not established and has not been chosen here.",
+ "relatedRoutes": [
+  "/education"
+ ],
+ "relatedUpdates": [
+  "mefu-mecuda-joint-meeting-guneku-palace"
+ ],
+ "sourceNote": "Recorded 2026-09-01. No accreditation, programme list or qualification is recorded, because none is established in the sources."
+}

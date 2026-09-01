@@ -1,135 +1,152 @@
 {
-  "id": "education-scholarship-day-2026",
-  "type": "Programme",
-  "slug": "education-scholarship-day-2026",
-  "name": "Guneku Education & Scholarship Day 2026",
-  "tagline": "Opening Doors. Creating Opportunities. Building Brighter Futures.",
-  "badge": "Education for All — empowering our youth, developing our community",
-  "status": "upcoming",
-  "year": 2026,
-
-  "sourceNote": "Programme details transcribed from the official Guneku Education & Scholarship Day 2026 flyer supplied by Marcel on 2026-09-01. The contact number below is the CORRECTED authoritative number and deliberately differs from the number printed on that flyer version — see contact.correction.",
-
-  "summary": "As a community, we believe that every young person deserves the chance to learn, grow and build a better future. Guneku Education & Scholarship Day 2026 is our Back-to-School initiative to support deserving students with real opportunities for professional training and university education.",
-
-  "video": {
-    "title": "Guneku Education & Scholarship Day 2026",
-    "youtubeUrl": "https://youtu.be/UfpBzWOEDZM",
-    "youtubeId": "UfpBzWOEDZM",
-    "channelTitle": "Guneku Village",
-    "publishedTitleOnYouTube": "ST THIERRY UNIVERSITY VISITS GUNEKU MEDPHISATG, His Royal Highness SCHOLARSHIPS 2026/2027",
-    "category": "Education / Scholarship / Youth Development",
-    "relatedInitiative": "Guneku Education & Scholarship Day 2026",
-    "relatedRoute": "/education",
-    "descriptionNote": "No description or transcript is recorded here. None was supplied, and none has been written from the video content."
+ "id": "education-scholarship-day-2026",
+ "type": "Programme",
+ "slug": "education-scholarship-day-2026",
+ "name": "Guneku Education & Scholarship Day 2026",
+ "tagline": "Opening Doors. Creating Opportunities. Building Brighter Futures.",
+ "badge": "Education for All — empowering our youth, developing our community",
+ "status": "upcoming",
+ "year": 2026,
+ "sourceNote": "Programme details transcribed from the official Guneku Education & Scholarship Day 2026 flyer supplied by Marcel on 2026-09-01. The contact number below is the CORRECTED authoritative number and deliberately differs from the number printed on that flyer version — see contact.correction.",
+ "summary": "As a community, we believe that every young person deserves the chance to learn, grow and build a better future. Guneku Education & Scholarship Day 2026 is our Back-to-School initiative to support deserving students with real opportunities for professional training and university education.",
+ "video": {
+  "title": "Guneku Education & Scholarship Day 2026",
+  "youtubeUrl": "https://youtu.be/UfpBzWOEDZM",
+  "youtubeId": "UfpBzWOEDZM",
+  "channelTitle": "Guneku Village",
+  "publishedTitleOnYouTube": "ST THIERRY UNIVERSITY VISITS GUNEKU MEDPHISATG, His Royal Highness SCHOLARSHIPS 2026/2027",
+  "category": "Education / Scholarship / Youth Development",
+  "relatedInitiative": "Guneku Education & Scholarship Day 2026",
+  "relatedRoute": "/education",
+  "descriptionNote": "No description or transcript is recorded here. None was supplied, and none has been written from the video content."
+ },
+ "dates": [
+  {
+   "order": 1,
+   "name": "Guneku Education & Scholarship Information Day",
+   "date": "2026-08-29",
+   "displayDate": "Saturday, 29 August 2026",
+   "time": "9:00 a.m. prompt",
+   "venue": "Guneku Fon's Palace",
+   "audience": "Open to the general public",
+   "points": [
+    "Learn about scholarship opportunities",
+    "Discover programmes available",
+    "Understand admission and eligibility",
+    "Learn about the selection process",
+    "Ask questions directly",
+    "Get information on registration for the scholarship examination",
+    "Discuss suitable options for your future"
+   ],
+   "note": "Parents are encouraged to attend with their children. No examination is written on 29 August."
   },
-
-  "dates": [
-    {
-      "order": 1,
-      "name": "Guneku Education & Scholarship Information Day",
-      "date": "2026-08-29",
-      "displayDate": "Saturday, 29 August 2026",
-      "time": "9:00 a.m. prompt",
-      "venue": "Guneku Fon's Palace",
-      "audience": "Open to the general public",
-      "points": [
-        "Learn about scholarship opportunities",
-        "Discover programmes available",
-        "Understand admission and eligibility",
-        "Learn about the selection process",
-        "Ask questions directly",
-        "Get information on registration for the scholarship examination",
-        "Discuss suitable options for your future"
-      ],
-      "note": "Parents are encouraged to attend with their children."
-    },
-    {
-      "order": 2,
-      "name": "Scholarship Selection Examination",
-      "date": "2026-09-19",
-      "displayDate": "Saturday, 19 September 2026",
-      "time": "9:00 a.m. prompt",
-      "venue": "Guneku Fon's Palace",
-      "audience": "For exam candidates only",
-      "points": [
-        "Candidates who wish to sit for the scholarship selection examination are strongly encouraged to register in advance."
-      ],
-      "note": "Advance registration helps us organise properly and ensures your participation."
-    }
-  ],
-
-  "target": {
-    "count": 50,
-    "headline": "Our target: 50 scholarships",
-    "summary": "We aim to select 50 deserving students for an initial one year of scholarship support.",
-    "types": [
-      {
-        "name": "Full scholarships",
-        "description": "The successful candidate pays no tuition fees for one academic year."
-      },
-      {
-        "name": "Partial scholarships",
-        "description": "Substantial financial assistance that significantly reduces the cost of education."
-      }
-    ],
-    "terms": "The scholarship is initially awarded for one academic year, with a possibility of extension beyond the first year, depending on academic performance, continued eligibility, programme requirements and available funding.",
-    "closing": "For many young people, even one year of support can be the decisive difference between giving up and moving forward."
-  },
-
-  "openToAll": {
-    "heading": "This opportunity is open to all",
-    "body": "Although this initiative is based in Guneku, young people from Momo Division, neighbouring divisions, the Northwest Region and other parts of Cameroon are warmly encouraged to participate.",
-    "emphasis": "What matters is your motivation, potential, seriousness and willingness to make good use of this opportunity."
-  },
-
-  "pathways": [
-    { "name": "Professional & Vocational Training", "description": "Practical skills for real-world success." },
-    { "name": "Health & Medical Programmes",        "description": "Opportunities in healthcare and wellness." },
-    { "name": "Career-Oriented Professional Courses","description": "Build skills for specific careers and industries." },
-    { "name": "University Education",               "description": "Pathways to degrees and higher education." },
-    { "name": "Other Suitable Programmes",          "description": "Through participating educational institutions." },
-    { "name": "Guidance & Support",                 "description": "Helping you choose the right path." }
-  ],
-
-  "contact": {
-    "organisation": "Guneku Library",
-    "method": "Call or WhatsApp",
-    "display": "670 949 503",
-    "tel": "+237670949503",
-    "whatsapp": "https://wa.me/237670949503",
-    "correction": "AUTHORITATIVE for all page text. The flyer published on this page prints +237 677 46 16 09, which this number supersedes. The Project Manager approved publishing that flyer as supplied on 2026-09-01 and accepted the discrepancy for this campaign; it is to be corrected in a later flyer revision. The number printed on the flyer is never repeated as page text."
-  },
-
-  "appeal": {
-    "lines": [
-      "Let us invest in our children.",
-      "Let us build our future together."
-    ],
-    "motto": "Education is the key. Opportunity is our gift. The future is our legacy."
-  },
-
-  "flyer": {
-    "status": "published",
-    "reason": "Published as supplied on the explicit approval of the Project Manager, 2026-09-01. The flyer prints +237 677 46 16 09; that discrepancy against the authoritative 670 949 503 is knowingly accepted for this publication and is to be resolved in a later revision. The artwork was not edited. The website continues to publish 670 949 503 only, and the flyer number is never repeated as page text.",
-    "suppliedAs": "guneku-scholarship.png (Downloads, 2026-09-01)",
-    "original": "/images/education/guneku-scholarship-2026.png",
-    "webCopy": "/images/education/guneku-scholarship-2026-web.webp",
-    "ogCard": "/images/education/og-scholarship-2026.jpg"
-  },
-
-  "pendingSections": [
-    "Laboratory Sciences section — named in the brief, not present on the supplied flyer. Source text needed.",
-    "Displaced-student message — named in the brief, not present on the supplied flyer. Source text needed.",
-    "Support / partner appeal — the brief asks for a formal appeal; the flyer carries only the closing lines recorded in 'appeal'. Source text needed.",
-    "Registration mechanism — the flyer says register in advance but names no form, email or deadline beyond the Guneku Library contact."
-  ],
-
-  "related": {
-    "historicalRecords": [
-      "2022 scholarship distribution — 470,000 FCFA to Class 6 pupils of P.S. Mbengwi Annex Guneku, 26 August 2022 (legacy village record)",
-      "Afor Foundation Scholarship — annual, 1,000,000 FCFA (separate programme)",
-      "Guneku Royal Community Library — established 2021, solar powered, computer training"
-    ]
+  {
+   "order": 2,
+   "name": "Scholarship Selection Examination",
+   "date": "2026-09-19",
+   "displayDate": "Saturday, 19 September 2026",
+   "time": "9:00 a.m. prompt",
+   "venue": "Guneku Fon's Palace",
+   "audience": "For exam candidates only",
+   "points": [
+    "Candidates who wish to sit for the scholarship selection examination are strongly encouraged to register in advance."
+   ],
+   "note": "Advance registration helps us organise properly and ensures your participation."
   }
+ ],
+ "target": {
+  "count": 50,
+  "headline": "Our target: 50 scholarships",
+  "summary": "We aim to select 50 deserving students for an initial one year of scholarship support.",
+  "types": [
+   {
+    "name": "Full scholarships",
+    "description": "The successful candidate pays no tuition fees for one academic year."
+   },
+   {
+    "name": "Partial scholarships",
+    "description": "Substantial financial assistance that significantly reduces the cost of education."
+   }
+  ],
+  "terms": "The scholarship is initially awarded for one academic year, with a possibility of extension beyond the first year, depending on academic performance, continued eligibility, programme requirements and available funding.",
+  "closing": "For many young people, even one year of support can be the decisive difference between giving up and moving forward."
+ },
+ "openToAll": {
+  "heading": "This opportunity is open to all",
+  "body": "Although this initiative is based in Guneku, young people from Momo Division, neighbouring divisions, the Northwest Region and other parts of Cameroon are warmly encouraged to participate.",
+  "emphasis": "What matters is your motivation, potential, seriousness and willingness to make good use of this opportunity.",
+  "specialConsideration": "Special consideration will be given to young people from the Muslim community and other underserved communities where access to formal education has historically been limited.",
+  "displaced": "Students and families displaced from the crisis-affected Northwest Region and now living in the Southwest, Littoral, Centre, West and other regions are particularly encouraged to take note. This may be an opportunity to come closer to home and access quality education free of charge or at substantially reduced cost."
+ },
+ "pathways": [
+  {
+   "name": "Professional & Vocational Training",
+   "description": "Practical skills for real-world success."
+  },
+  {
+   "name": "Health & Medical Programmes",
+   "description": "Opportunities in healthcare and wellness."
+  },
+  {
+   "name": "Career-Oriented Professional Courses",
+   "description": "Build skills for specific careers and industries."
+  },
+  {
+   "name": "University Education",
+   "description": "Pathways to degrees and higher education."
+  },
+  {
+   "name": "Other Suitable Programmes",
+   "description": "Through participating educational institutions."
+  },
+  {
+   "name": "Guidance & Support",
+   "description": "Helping you choose the right path."
+  }
+ ],
+ "contact": {
+  "organisation": "Guneku Library",
+  "method": "Call or WhatsApp",
+  "display": "670 949 503",
+  "tel": "+237670949503",
+  "whatsapp": "https://wa.me/237670949503",
+  "correction": "AUTHORITATIVE for all page text. The flyer published on this page prints +237 677 46 16 09, which this number supersedes. The Project Manager approved publishing that flyer as supplied on 2026-09-01 and accepted the discrepancy for this campaign; it is to be corrected in a later flyer revision. The number printed on the flyer is never repeated as page text."
+ },
+ "appeal": {
+  "lines": [
+   "Let us invest in our children.",
+   "Let us build our future together."
+  ],
+  "motto": "Education is the key. Opportunity is our gift. The future is our legacy."
+ },
+ "flyer": {
+  "status": "published",
+  "reason": "Published as supplied on the explicit approval of the Project Manager, 2026-09-01. The flyer prints +237 677 46 16 09; that discrepancy against the authoritative 670 949 503 is knowingly accepted for this publication and is to be resolved in a later revision. The artwork was not edited. The website continues to publish 670 949 503 only, and the flyer number is never repeated as page text.",
+  "suppliedAs": "guneku-scholarship.png (Downloads, 2026-09-01)",
+  "original": "/images/education/guneku-scholarship-2026.png",
+  "webCopy": "/images/education/guneku-scholarship-2026-web.webp",
+  "ogCard": "/images/education/og-scholarship-2026.jpg"
+ },
+ "pendingSections": [
+  "Registration mechanism — the flyer says register in advance but names no form, email or deadline beyond the Guneku Library contact.",
+  "Laboratory Sciences section - named in an earlier brief, still not present in any supplied source.",
+  "St Thierry University visit to Guneku MEDPHISATG regarding the 2026/2027 scholarships (reported 31 August 2026) - report and photographs still to come."
+ ],
+ "related": {
+  "historicalRecords": [
+   "2022 scholarship distribution — 470,000 FCFA to Class 6 pupils of P.S. Mbengwi Annex Guneku, 26 August 2022 (legacy village record)",
+   "Afor Foundation Scholarship — annual, 1,000,000 FCFA (separate programme)",
+   "Guneku Royal Community Library — established 2021, solar powered, computer training"
+  ],
+  "institutions": [
+   "MEDPHISATG medical school, Guneku",
+   "Guneku Library"
+  ]
+ },
+ "patronage": "Under the distinguished patronage of HRH Dr. Fomuki Ticha IX, Fon of Guneku Village",
+ "announcedOn": "2026-08-23",
+ "quote": {
+  "text": "No deserving young person should abandon education simply because of the inability to pay.",
+  "attribution": "HRH Dr. Fomuki Ticha IX, Fon of Guneku Village"
+ }
 }

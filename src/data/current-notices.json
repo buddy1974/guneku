@@ -25,6 +25,26 @@
    "source": "institutions/education-scholarship-day-2026.json"
   },
   {
+   "date": "2026-08-29",
+   "displayDate": "29 August 2026",
+   "category": "Meta",
+   "status": "historical",
+   "title": "Nineteen Meta Fons meet at Guneku Palace with MECUDA",
+   "description": "Seven resolutions passed on accountability, communication and development across Meta. HRH Dr. Fomuki honoured for medical education.",
+   "href": "/updates/mefu-mecuda-joint-meeting-guneku-palace",
+   "source": "updates/mefu-mecuda-joint-meeting-guneku-palace.json"
+  },
+  {
+   "date": "2026-08-11",
+   "displayDate": "11-21 August 2026",
+   "category": "Education",
+   "status": "historical",
+   "title": "Guneku Holiday Workshop 2026 held at the Palace",
+   "description": "Second edition. Mushroom production, edible maggots, organic fertiliser and cooking gas, tomato paste, and social talks.",
+   "href": "/updates/guneku-holiday-workshop-2026",
+   "source": "updates/guneku-holiday-workshop-2026.json"
+  },
+  {
    "date": "2026-05-01",
    "displayDate": "From 1 May 2026",
    "category": "Development",
@@ -204,6 +224,51 @@
    "lastUpdate": "Announced 2021",
    "description": "The launch of a fully operational eye unit was announced in the village record. Its current operating status is not established in the sources.",
    "href": "/projects"
+  },
+  {
+   "name": "Solar street lights - Phase 1",
+   "status": "Historical",
+   "statusClass": "st-historical",
+   "body": "GUDECA Europe",
+   "lastUpdate": "Delivered 2025",
+   "description": "Solar street lights installed in the village through collective contribution by the European branch.",
+   "href": "/updates/gudeca-eu-presidents-address-2025"
+  },
+  {
+   "name": "FUN electricity project",
+   "status": "Historical",
+   "statusClass": "st-historical",
+   "body": "Village and GUDECA Europe",
+   "lastUpdate": "Contributed 2025",
+   "description": "GUDECA Europe contributed toward the FUN electricity project in 2025.",
+   "href": "/updates/gudeca-eu-presidents-address-2025"
+  },
+  {
+   "name": "Mbengeghang water project",
+   "status": "Historical",
+   "statusClass": "st-historical",
+   "body": "GUDECA Europe",
+   "lastUpdate": "Supported 2025",
+   "description": "Supported by the European branch in 2025.",
+   "href": "/updates/gudeca-eu-presidents-address-2025"
+  },
+  {
+   "name": "Guneku StarLink project",
+   "status": "Proposed",
+   "statusClass": "st-proposed",
+   "body": "Sam Fongoh - GUDECA Europe",
+   "lastUpdate": "Proposed 28 March 2026",
+   "description": "Proposed under new projects at the Bonn gathering. Not yet begun.",
+   "href": "/updates/gudeca-eu-meeting-bonn-28-march-2026"
+  },
+  {
+   "name": "MEDPHISATG medical school",
+   "status": "Active",
+   "statusClass": "st-active",
+   "body": "Based in Guneku",
+   "lastUpdate": "Visited by St Thierry University, August 2026",
+   "description": "Medical school based in Guneku. The Fon was honoured for his achievements in medical education at the MEFU-MECUDA meeting of August 2026.",
+   "href": "/education"
   }
  ]
 }
