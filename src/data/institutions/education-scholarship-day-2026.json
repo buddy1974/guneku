@@ -98,7 +98,7 @@
     "display": "670 949 503",
     "tel": "+237670949503",
     "whatsapp": "https://wa.me/237670949503",
-    "correction": "AUTHORITATIVE. The flyer version supplied on 2026-09-01 prints +237 677 46 16 09, which is superseded by this number. That flyer must not be used for production until the number is corrected."
+    "correction": "AUTHORITATIVE for all page text. The flyer published on this page prints +237 677 46 16 09, which this number supersedes. The Project Manager approved publishing that flyer as supplied on 2026-09-01 and accepted the discrepancy for this campaign; it is to be corrected in a later flyer revision. The number printed on the flyer is never repeated as page text."
   },
 
   "appeal": {
@@ -110,9 +110,12 @@
   },
 
   "flyer": {
-    "status": "withheld",
-    "reason": "The supplied flyer prints the superseded contact number +237 677 46 16 09. It is not published on the site and has not been added to the repository. A corrected flyer is required before production use.",
-    "suppliedAs": "guneku-scholarship.png (Downloads, 2026-09-01)"
+    "status": "published",
+    "reason": "Published as supplied on the explicit approval of the Project Manager, 2026-09-01. The flyer prints +237 677 46 16 09; that discrepancy against the authoritative 670 949 503 is knowingly accepted for this publication and is to be resolved in a later revision. The artwork was not edited. The website continues to publish 670 949 503 only, and the flyer number is never repeated as page text.",
+    "suppliedAs": "guneku-scholarship.png (Downloads, 2026-09-01)",
+    "original": "/images/education/guneku-scholarship-2026.png",
+    "webCopy": "/images/education/guneku-scholarship-2026-web.webp",
+    "ogCard": "/images/education/og-scholarship-2026.jpg"
   },
 
   "pendingSections": [

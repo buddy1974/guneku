@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight, Calendar, Clock, MapPin, Phone, GraduationCap, Stethoscope,
          Building2, Landmark, Scroll, HeartHandshake, CheckCircle2 } from 'lucide-react'
 import programme from '@/data/institutions/education-scholarship-day-2026.json'
@@ -10,7 +11,7 @@ export const metadata = {
     title:       'Guneku Education & Scholarship Day 2026',
     description: 'Opening Doors. Creating Opportunities. Building Brighter Futures. 50 scholarships for deserving students.',
     url:         'https://guneku.org/education',
-    images: [{ url: `https://img.youtube.com/vi/${programme.video.youtubeId}/maxresdefault.jpg`, width: 1280, height: 720, alt: programme.name }],
+    images: [{ url: 'https://guneku.org/images/education/og-scholarship-2026.jpg', width: 1200, height: 630, alt: programme.name }],
   },
 }
 
@@ -38,6 +39,44 @@ export default function EducationPage() {
               The two dates <ArrowRight className="h-4 w-4" />
             </a>
           </div>
+        </div>
+      </section>
+
+
+      {/* ── Approved campaign flyer ──
+           Published as supplied and approved by the PM on 2026-09-01. The
+           artwork is not edited. The PNG served here is byte-identical in
+           pixels and aspect to the supplied file, re-encoded only for delivery
+           weight; the untouched original is linked for full-size viewing. The
+           website's own contact details remain those in the record below —
+           the flyer's printed number is not repeated as text anywhere. */}
+      <section id="flyer" className="scroll-mt-24 border-b border-white/10">
+        <div className="shell py-12 md:py-16">
+          <p className="ed-eyebrow">The campaign</p>
+          <h2 className="ed-h2 mt-2 text-[var(--ivory)]">Guneku Education &amp; Scholarship Day 2026 &mdash; flyer</h2>
+
+          <figure className="m-0 mt-7">
+            <a
+              href="/images/education/guneku-scholarship-2026.png"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mx-auto block w-full max-w-[640px] border border-[var(--brass)]/25 bg-black/20"
+              aria-label="Open the full-size Guneku Education and Scholarship Day 2026 flyer in a new tab"
+            >
+              <Image
+                src="/images/education/guneku-scholarship-2026-web.webp"
+                alt="Guneku Education & Scholarship Day 2026 flyer. Two dates at the Guneku Fon's Palace: the Information Day on Saturday 29 August 2026 at 9:00 a.m., open to the general public, and the Scholarship Selection Examination on Saturday 19 September 2026 at 9:00 a.m. for exam candidates only. Target of 50 scholarships, full and partial. Opportunities span professional and vocational training, health and medical programmes, career-oriented courses, university education, other suitable programmes, and guidance and support. Registration through the Guneku Library."
+                width={1054}
+                height={1492}
+                sizes="(max-width: 700px) 100vw, 640px"
+                className="h-auto w-full"
+                priority
+              />
+            </a>
+            <figcaption className="ed-meta mt-3 text-center text-white/40">
+              Tap the flyer to view it full size.
+            </figcaption>
+          </figure>
         </div>
       </section>
 
@@ -185,6 +224,9 @@ export default function EducationPage() {
             Contact the {contact.organisation}
           </h2>
           <p className="ed-body mx-auto mt-3 text-white/60">{contact.method}</p>
+          <p className="ed-kicker mx-auto mt-4 inline-block border border-[var(--brass)]/45 px-3 py-1.5 text-[var(--brass)]">
+            Next: Scholarship Selection Examination &middot; Saturday, 19 September 2026
+          </p>
 
           <p className="mt-5 font-cormorant text-[2.6rem] font-semibold leading-none text-[var(--brass)]">
             {contact.display}
