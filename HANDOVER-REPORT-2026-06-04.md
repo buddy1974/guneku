@@ -1497,3 +1497,85 @@ the withdrawn share price.
 
 **The open question about the flyer contact number is now closed.** The Agro CIG
 share price remains open.
+
+---
+
+## EVERYTHING RELEASED — 2026-09-01
+
+Marcel released the items that had been held pending confirmations. Elvis
+(Fah Elvis Tayong, CIG Delegate) will confirm the CIG pricing directly.
+
+| | |
+|---|---|
+| Commit | `e7b9756` |
+| Live | https://www.guneku.org |
+| Build | 85 pages · `tsc` clean |
+
+### Agro CIG pricing — published in full, not withheld
+
+The page was **four months out of date**. It still ran an urgency banner
+reading *"PHASE 3 STARTS 1 MAY 2026 — SHARE PRICE RISES TO 5,000 FCFA"*,
+advertised a Phase 2 deadline of 30 April, and printed a 5,000 FCFA
+registration fee that Communiqué 003 had already superseded.
+
+It now carries **the whole documented record, in the order it was issued**:
+
+| Issued | Reference | Registration | Shares |
+|---|---|---|---|
+| 3 Apr 2026 | Communiqué No. 001/03/04/26 | 5,000 FCFA | 2,000 FCFA · min 5, max 100 |
+| 4 Apr 2026 | Launch announcement | 5,000 FCFA | 5,000 FCFA from 1 May |
+| 2 May 2026 | Communiqué No. 003/02/05/26 | **15,000 FCFA** | **2,000 FCFA** |
+
+Nothing discarded, nothing chosen on the Delegate's behalf. All three are
+shown with their dates and the page states that confirmation sits with Fah
+Elvis Tayong. **This closes the "held back" status without inventing an
+answer.**
+
+A **personal mobile number was also removed** from that page — it was not on
+the allowlist. Payments now point to GUNECCUL account 200637, the official
+published channel.
+
+### Also published
+
+- **Rescue at the Ngong stream, 5 June 2026 — with the water shortage behind
+  it.** The source pack is explicit that the rescue runs together with the
+  two-month water failure or not at all. It does. Village water supply is now
+  carried as an **open issue**.
+- **A standing verification notice** — how official announcements work and how
+  to check a request for money, after member accounts were compromised and used
+  to solicit money in July and August 2026.
+- **GS Guneku ex-pupils free-will donation drive**, August 2026.
+- **Business directory** — names, locations and services for Vicky and Son's,
+  Vitalis Integrated Fish Reproduction and Breeding Centre, Fondom Studios and
+  the local pork supply. **Contact numbers withheld pending each owner's
+  written consent**, because that consent is theirs to give and not the
+  project's. Everything else about them is published.
+- **Open and proposed items at their real stage:** village water supply,
+  History Committee awaiting a launch date, palace caretaker post, outdoor
+  table tennis courts.
+
+### Still excluded — and why
+
+These stay out regardless, because publishing them would cause harm rather
+than withhold information:
+
+- **Bank details (IBAN/BIC)** — fraud risk, and the community is already being
+  targeted by impersonation.
+- **Member contribution lists with amounts** — internal financial records
+  naming individuals.
+- **Personal phone numbers** — except the allowlisted Guneku Library number and
+  the GUNECCUL account.
+- **Condolences and obituaries naming individuals and families** — these need
+  the families' agreement. A moderated, opt-in In Memoriam section is the right
+  pattern if the community wants one.
+- **Health misinformation** — factually wrong and legally risky.
+- **Political material**, **private disputes**, **meeting IDs and passcodes**,
+  **internal logistics**.
+
+Production verified: zero occurrences of IBAN, BIC, meeting IDs, passcodes or
+the superseded flyer number.
+
+### Remaining open question
+
+Only one: **which CIG pricing line is current.** Elvis will confirm. Everything
+else the sources supported is now online.
