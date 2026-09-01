@@ -928,3 +928,99 @@ because `/education` publishes a contact number for a programme aimed at
 young people and their parents.
 
 **OpenClaw's first mission remains security containment.**
+
+---
+
+# FLYER PUBLICATION — 2026-09-01 (urgent, PM-approved)
+
+Supersedes the "flyer withheld" decision recorded in the previous section.
+
+## DECISION
+
+The Project Manager explicitly approved publishing the **current supplied
+flyer as-is** for immediate publication. The contact discrepancy previously
+identified is **knowingly accepted for this campaign** and is to be handled in
+a later flyer revision. The artwork was not edited, redesigned or regenerated.
+
+The earlier "withheld" entry stands as a record of the concern raised; it is
+**no longer the operative decision**.
+
+## STATE AT CLOSE
+
+| | |
+|---|---|
+| Flyer | **PUBLISHED** |
+| Page | `/education` |
+| Live URL | https://guneku.vercel.app/education |
+| Commit | `fd8ec51` |
+| Deployment | GitHub → Vercel, verified live |
+
+## ASSETS
+
+| Path | Purpose |
+|---|---|
+| `public/images/education/guneku-scholarship-2026.png` | **Byte-identical copy of the supplied file** (MD5 `b1805c4a9c870fe0cdb2ad92e1835656`, 1054×1492, 2.06 MB). This is what the full-size link opens. |
+| `public/images/education/guneku-scholarship-2026-web.webp` | Inline delivery copy — **same 1054×1492 pixels, same 0.7064 aspect**, 278 KB. Re-encoded for weight only; no crop, no resize, no change to the artwork. |
+| `public/images/education/og-scholarship-2026.jpg` | Open Graph card, 1200×630, flyer letterboxed on its own dark green so **nothing is cropped**. |
+
+The original is preserved untouched. Only the delivery encoding differs, which
+was necessary for the mobile presentation the brief asked for — 2.06 MB would
+have been punishing on a Cameroonian mobile connection.
+
+## PLACEMENT
+
+Content flow on `/education` is now exactly as specified:
+
+**Programme introduction → Scholarship flyer → Video announcement → Programme
+details → 19 September Selection Examination CTA**
+
+The flyer sits under &ldquo;The campaign&rdquo; with anchor `#flyer`, centred at
+`max-w-[640px]`, `h-auto w-full`, wrapped in a link that opens the untouched
+full-resolution PNG in a new tab. Caption: &ldquo;Tap the flyer to view it full
+size.&rdquo; Alt text describes both dates, the venue, the 50-scholarship target and
+the six opportunity types.
+
+## CONTACT HANDLING
+
+- The website continues to publish **670 949 503** only.
+- The flyer's printed number is **not repeated as page text anywhere** —
+  production verified at **zero** occurrences of `677 46 16 09` in the markup.
+- The flyer is displayed purely as an approved campaign asset.
+
+## DATE LOGIC — UNCHANGED
+
+- **29 August 2026** — Information Day, historical.
+- **19 September 2026** — Scholarship Selection Examination, upcoming, and the
+  date surfaced by the homepage feature and the closing CTA.
+
+## VERIFICATION
+
+**Production**
+
+| Check | Result |
+|---|---|
+| `/education` | 200 |
+| Flyer displayed | yes |
+| Full-size original linked | yes |
+| OG preview = flyer card | yes |
+| Website contact 670 949 503 | present |
+| Flyer number as page text | **0 occurrences** |
+| PNG / WebP / OG assets | 200 · `image/png` 2,111,650 B · `image/webp` 284,692 B · `image/jpeg` 86,412 B |
+| Regression across key routes | all 200 |
+
+**Rendering** — production desktop: source aspect 0.7064 = rendered aspect
+0.7064, no distortion, no horizontal overflow.
+
+**Mobile** — verified at **375 / 390 / 430 / 768** on the identical build:
+flyer loads complete at every width, aspect **0.7064 at all four**, fits the
+viewport, no horizontal overflow.
+
+`tsc` clean · no new lint errors · build passes.
+
+## STILL OPEN
+
+Unchanged from the previous section: the corrected flyer revision, the
+Laboratory Sciences / displaced-student / partner-appeal source text, the
+registration mechanism, and confirmation of whether the 29 August Information
+Day took place. Security containment remains OpenClaw's first mission, and the
+site still has no Terms or Privacy Policy.
