@@ -79,14 +79,14 @@ export default function KingdomPage() {
       </Reveal>
 
       {/* ── FESTIVAL SECTION ── */}
-      <section className="relative h-[60vh] overflow-hidden">
+      <section className="relative h-[46vh] min-h-[320px] overflow-hidden">
         <Image src="/images/site/michi-ebeng.jpg" alt="Mɨchi Ɗbeŋ festival in Guneku, 2023" fill loading="lazy" className="absolute object-cover" unoptimized />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent" />
+        <div className="absolute inset-0" style={{ background: 'oklch(0.215 0.045 158 / 0.55)' }} />
         <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-6">
           <div className="max-w-xl">
-            <div className="section-label mb-4">MƗCHI ƏBEŊ</div>
-            <h3 className="font-cinzel text-5xl text-gold-gradient">The Festival of Return</h3>
-            <p className="mt-6 font-cormorant text-lg leading-relaxed text-foreground/90">
+            <div className="mb-2 text-[0.70rem] font-bold uppercase tracking-[0.08em]" style={{ color: 'oklch(0.975 0.010 85)' }}>MƗCHI ƏBEŊ</div>
+            <h3 className="font-[family-name:var(--font-display)] text-[clamp(1.5rem,3vw,2.2rem)] font-bold" style={{ color: 'oklch(0.975 0.010 85)' }}>The Festival of Return</h3>
+            <p className="mt-3 text-[0.96rem] leading-relaxed" style={{ color: 'oklch(0.975 0.010 85)' }}>
               Once a year, the masquerades rise. Drums summon the diaspora home. The kingdom remembers
               itself in dance, in raffia, in the language of the ancestors.
             </p>

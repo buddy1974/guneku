@@ -125,15 +125,15 @@ export default function PalacePage() {
       </Reveal>
 
       {/* ── PALACE QUOTE ── */}
-      <section className="relative h-[70vh] overflow-hidden">
+      <section className="relative h-[48vh] min-h-[320px] overflow-hidden">
         <Image src="/images/site/coronation-crowd.jpg" alt="The gathering at the Guneku palace during the 2016 coronation" fill loading="lazy" className="absolute object-cover" unoptimized />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+        <div className="absolute inset-0" style={{ background: 'oklch(0.215 0.045 158 / 0.55)' }} />
         <div className="relative z-10 mx-auto flex h-full max-w-4xl items-center justify-center px-6 text-center">
           <div>
-            <div className="font-cormorant text-3xl italic text-foreground/95 md:text-5xl">
+            <div className="font-[family-name:var(--font-display)] text-[clamp(1.25rem,2.6vw,1.9rem)] italic" style={{ color: 'oklch(0.975 0.010 85)' }}>
               &ldquo;I do not rule Guneku. I serve her, with the same hands that heal.&rdquo;
             </div>
-            <div className="mt-6 section-label">— THE FON</div>
+            <div className="mt-4 text-[0.70rem] font-bold uppercase tracking-[0.08em]" style={{ color: 'oklch(0.975 0.010 85)' }}>— THE FON</div>
             <Link href="/contact" className="mt-10 btn-royal inline-flex items-center gap-2">
               REQUEST AN AUDIENCE
             </Link>

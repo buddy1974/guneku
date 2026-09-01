@@ -34,13 +34,13 @@ export default function GalleryPage() {
         <section className="mx-auto max-w-7xl px-6 pb-12">
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:auto-rows-[220px]">
             {SHOWCASE_IMAGES.map((it, i) => (
-              <figure key={i} className={`group relative overflow-hidden rounded-2xl border-gold shadow-card-royal ${it.span}`}>
+              <figure key={i} className={`group relative overflow-hidden rounded-[3px] border border-border ${it.span}`}>
                 <Image src={it.src} alt={it.title} fill loading="lazy"
-                       className="object-cover transition-transform duration-[2500ms] ease-out group-hover:scale-110" unoptimized />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent opacity-90" />
+                       className="object-cover" unoptimized />
+                <div className="absolute inset-0" style={{ background: 'oklch(0.215 0.045 158 / 0.55)' }} />
                 <figcaption className="absolute bottom-0 left-0 right-0 p-5">
-                  <div className="section-label text-[0.6rem] mb-1">{it.year}</div>
-                  <div className="font-cinzel text-lg text-foreground">{it.title}</div>
+                  <div className="text-[0.62rem] font-bold uppercase tracking-[0.07em] mb-1" style={{ color: 'oklch(0.975 0.010 85)' }}>{it.year}</div>
+                  <div className="font-[family-name:var(--font-display)] text-[1.02rem] font-semibold" style={{ color: 'oklch(0.975 0.010 85)' }}>{it.title}</div>
                 </figcaption>
               </figure>
             ))}
