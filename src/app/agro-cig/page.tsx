@@ -1,9 +1,10 @@
 import { PageHero }       from '@/components/layout/PageHero'
 import { Reveal }         from '@/components/ui/Reveal'
+import cig               from '@/data/institutions/agro-cig.json'
 
 export const metadata = {
   title:       'Agro CIG — Guneku Agricultural Initiative 2026',
-  description: 'Join the Guneku Agro CIG — 12.5M FCFA raised, 500 chicks, turkeys from Nigeria. Phase 2 open now.',
+  description: 'Guneku Agro CIG — registered 12 March 2026, launched 5 April at Ngong Quarter. 12.5M FCFA raised in Phase 1, 500 chicks, turkeys from Nigeria.',
 }
 
 const LIVESTOCK = [
@@ -25,17 +26,33 @@ export default function AgroCIGPage() {
   return (
     <main className="min-h-screen bg-background">
       <PageHero label="LIVE INITIATIVE" title="GUNEKU AGRO CIG"
-                subtitle="Launched April 5, 2026 — Ngong Quarter, Guneku. Phase 2 open until April 30, 2026." />
+                subtitle="Launched 5 April 2026 — Ngong Quarter, Guneku. Registered 12 March 2026." />
 
       <section className="max-w-7xl mx-auto px-6 py-20">
 
-        {/* Phase 3 urgency */}
-        <div className="card-royal border-l-4 p-5 mb-8 flex gap-4 items-start" style={{ borderLeftColor: 'oklch(0.42 0.22 25)' }}>
-          <span className="text-2xl shrink-0">⚠️</span>
-          <div>
-            <div className="font-cinzel text-foreground tracking-wide mb-1">PHASE 3 STARTS 1 MAY 2026 — SHARE PRICE RISES TO 5,000 FCFA</div>
-            <div className="text-muted-foreground text-sm">Current price: 2,000 FCFA per share. Join Phase 2 now before the increase.</div>
+        {/* Membership pricing — the full documented record, in the order issued */}
+        <div className="card-royal border-l-4 p-5 mb-8" style={{ borderLeftColor: 'oklch(0.82 0.17 80)' }}>
+          <div className="font-cinzel text-foreground tracking-wide mb-1">MEMBERSHIP &amp; SHARES — THE RECORD</div>
+          <p className="text-muted-foreground text-sm">{cig.membershipPricing.note}</p>
+          <div className="mt-4 space-y-3">
+            {cig.membershipPricing.timeline.map(t => (
+              <div key={t.ref} className="border-t border-border/30 pt-3">
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <span className="font-cinzel text-foreground text-sm">{t.ref}</span>
+                  <span className="text-muted-foreground text-xs tracking-widest">{t.displayDate}</span>
+                </div>
+                <div className="mt-1 flex flex-wrap gap-x-6 gap-y-1 text-sm">
+                  <span className="text-foreground">Registration: <strong>{t.registrationFee}</strong></span>
+                  <span className="text-foreground">Shares: <strong>{t.sharePrice}</strong></span>
+                  <span className="text-muted-foreground">{t.shares}</span>
+                </div>
+                <p className="text-muted-foreground text-xs mt-1 leading-relaxed">{t.detail}</p>
+              </div>
+            ))}
           </div>
+          <p className="text-muted-foreground text-xs mt-4 border-t border-border/30 pt-3">
+            {cig.membershipPricing.paymentRoute} {cig.membershipPricing.confirmation}
+          </p>
         </div>
 
         {/* Stats */}
@@ -59,17 +76,17 @@ export default function AgroCIGPage() {
         <div className="grid md:grid-cols-2 gap-12">
           <div>
             {/* Phase 2 info */}
-            <h3 className="font-cinzel text-2xl text-foreground mb-6">PHASE 2 — JOIN NOW</h3>
+            <h3 className="font-cinzel text-2xl text-foreground mb-6">THE ENTERPRISE</h3>
             <div className="space-y-2 mb-8">
               {[
-                { l:'Registration fee', v:'5,000 FCFA' },
-                { l:'Share price',      v:'2,000 FCFA per share' },
-                { l:'Minimum shares',   v:'5 shares' },
-                { l:'Maximum shares',   v:'100 shares' },
-                { l:'Deadline',         v:'April 30, 2026' },
-                { l:'Phase 3 price',    v:'5,000 FCFA (from May 1)' },
-                { l:'Location',         v:'Ngong Quarter, Guneku' },
-                { l:'Contact',          v:'+237 673320716' },
+                { l:'Registered',      v:'12 March 2026' },
+                { l:'Launched',        v:'5 April 2026' },
+                { l:'Location',        v:'Ngong Quarter, Guneku' },
+                { l:'Raised in Phase 1',v:'12.5 million FCFA' },
+                { l:'Minimum shares',  v:'5 shares' },
+                { l:'Maximum shares',  v:'100 shares' },
+                { l:'Payments',        v:'GUNECCUL account 200637' },
+                { l:'Delegate',        v:'Fah Elvis Tayong' },
               ].map(f => (
                 <div key={f.l} className="flex justify-between py-2 border-b border-border/30">
                   <span className="text-muted-foreground text-sm tracking-wide">{f.l}</span>

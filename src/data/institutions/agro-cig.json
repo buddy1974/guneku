@@ -122,5 +122,38 @@
   "attendees": "Executive and all staff"
  },
  "paymentRoute": "Payments and share purchases run through GUNECCUL, the community credit union.",
- "pricingConflict": "UNRESOLVED. The announcement of 4 April 2026 promised a Phase 3 from 1 May with shares at 5,000 FCFA. Communique No. 003 of 2 May then set registration at 15,000 FCFA and kept the share price at 2,000 FCFA. The 5,000 FCFA share price appears never to have taken effect. No current share price is presented as fact until the Delegate confirms it."
+ "membershipPricing": {
+  "note": "The full documented pricing record, in the order it was issued. Where the announcements differ, both are shown with their dates rather than one being chosen. Confirmation of the current line is with Fah Elvis Tayong, CIG Delegate.",
+  "timeline": [
+   {
+    "date": "2026-04-03",
+    "displayDate": "3 April 2026",
+    "ref": "Communique No. 001/03/04/26",
+    "registrationFee": "5,000 FCFA",
+    "sharePrice": "2,000 FCFA",
+    "shares": "Minimum 5, maximum 100",
+    "detail": "Registration at 5,000 FCFA extended to 30 April 2026 after members asked for relief."
+   },
+   {
+    "date": "2026-04-04",
+    "displayDate": "4 April 2026",
+    "ref": "Launch announcement",
+    "registrationFee": "5,000 FCFA",
+    "sharePrice": "5,000 FCFA from 1 May 2026",
+    "shares": "Minimum 5",
+    "detail": "Announced a Phase 3 beginning 1 May 2026 with the share price rising to 5,000 FCFA as the business became fully operational."
+   },
+   {
+    "date": "2026-05-02",
+    "displayDate": "2 May 2026",
+    "ref": "Communique No. 003/02/05/26",
+    "registrationFee": "15,000 FCFA",
+    "sharePrice": "2,000 FCFA",
+    "shares": "Minimum 5",
+    "detail": "From 3 May 2026 registration moved to 15,000 FCFA and the share price was kept at 2,000 FCFA. This is the most recent pricing communique in the record; the 5,000 FCFA share price announced on 4 April does not appear in it."
+   }
+  ],
+  "paymentRoute": "Payments and share purchases run through GUNECCUL, the Guneku community credit union, account number 200637.",
+  "confirmation": "Fah Elvis Tayong, CIG Delegate, to confirm which line is current."
+ }
 }

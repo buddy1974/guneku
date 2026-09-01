@@ -1,0 +1,52 @@
+{
+ "id": "business-directory",
+ "type": "Institution",
+ "name": "Guneku Business Directory",
+ "status": "active",
+ "category": "Community",
+ "description": "Businesses operating in and around Guneku that introduced themselves to the community. Listings describe what each business does. Contact details are not published here: they belong to the owners, and each owner is asked for written consent before a number goes online.",
+ "consentNote": "Contact details withheld pending each owner’s written consent.",
+ "businesses": [
+  {
+   "name": "Vicky and Son's",
+   "location": "Guneku Village",
+   "tagline": "Building your dreams into reality.",
+   "services": [
+    "Construction: house construction, building plans and design, renovation",
+    "Plumbing and electrical installation",
+    "Building materials",
+    "Electronics: phones, chargers, televisions, USB cables, solar panels",
+    "Cafeteria: breakfast including eggs, spaghetti, tea and fresh bread"
+   ]
+  },
+  {
+   "name": "Vitalis Integrated Fish Reproduction and Breeding Centre",
+   "location": "Wumfi-Ku",
+   "operator": "Ngwa Vitalis",
+   "tagline": "We bake, we dry, we smoke, we sell fresh.",
+   "services": [
+    "Catfish reproduction and breeding",
+    "Fresh, smoked and dried fish",
+    "Internships for level-3 students in catfish reproduction",
+    "Also operates a poultry house at Wumfi-Ku"
+   ]
+  },
+  {
+   "name": "Fondom Studios (Guneku Branch)",
+   "location": "Guneku",
+   "services": [
+    "Media and cultural production",
+    "Live event coverage in the village"
+   ],
+   "route": "/gudeca"
+  },
+  {
+   "name": "Local pork supply, Guneku",
+   "services": [
+    "Pork supply with free delivery around Guneku"
+   ],
+   "note": "The community’s own advice, given in the same thread: meat should be inspected by an authorised veterinarian before sale."
+  }
+ ],
+ "sourceNote": "Businesses that advertised themselves in the community during 2026. Recorded 2026-09-01."
+}

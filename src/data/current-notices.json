@@ -35,6 +35,16 @@
    "source": "updates/mefu-mecuda-joint-meeting-guneku-palace.json"
   },
   {
+   "date": "2026-08-15",
+   "displayDate": "August 2026",
+   "category": "Notice",
+   "status": "active",
+   "title": "How we communicate — and how to check a request for money",
+   "description": "Member accounts were compromised and used to ask others for money. How official announcements work, and what to do.",
+   "href": "/updates/how-guneku-communicates-verify-requests-2026",
+   "source": "community reports, July-August 2026"
+  },
+  {
    "date": "2026-08-11",
    "displayDate": "11-21 August 2026",
    "category": "Education",
@@ -43,6 +53,16 @@
    "description": "Second edition. Mushroom production, edible maggots, organic fertiliser and cooking gas, tomato paste, and social talks.",
    "href": "/updates/guneku-holiday-workshop-2026",
    "source": "updates/guneku-holiday-workshop-2026.json"
+  },
+  {
+   "date": "2026-06-05",
+   "displayDate": "5 June 2026",
+   "category": "Community",
+   "status": "historical",
+   "title": "Rescue at the Ngong stream — and the water shortage behind it",
+   "description": "A child was rescued after the river overflowed. Parts of Guneku had been without water for about two months.",
+   "href": "/updates/ngong-river-rescue-and-water-supply-2026",
+   "source": "updates/ngong-river-rescue-and-water-supply-2026.json"
   },
   {
    "date": "2026-04-05",
@@ -259,6 +279,42 @@
    "lastUpdate": "Visited by St Thierry University, August 2026",
    "description": "Medical school based in Guneku. The Fon was honoured for his achievements in medical education at the MEFU-MECUDA meeting of August 2026.",
    "href": "/education"
+  },
+  {
+   "name": "Village water supply",
+   "status": "Open issue",
+   "statusClass": "st-proposed",
+   "body": "Community",
+   "lastUpdate": "Raised June 2026",
+   "description": "Parts of Guneku reported without water for about two months, raised after the rescue at the Ngong stream. Unresolved in the sources.",
+   "href": "/updates/ngong-river-rescue-and-water-supply-2026"
+  },
+  {
+   "name": "Guneku History Committee",
+   "status": "Proposed",
+   "statusClass": "st-proposed",
+   "body": "GUDECA",
+   "lastUpdate": "Status requested July 2026",
+   "description": "Members asked GUDECA for an update on the History Committee. No launch date is recorded.",
+   "href": "/gudeca"
+  },
+  {
+   "name": "Palace caretaker post",
+   "status": "Proposed",
+   "statusClass": "st-proposed",
+   "body": "Diaspora member suggestion",
+   "lastUpdate": "Suggested August 2026",
+   "description": "A suggestion that a permanent caretaker for palace upkeep be funded from the annual development fees.",
+   "href": "/palace"
+  },
+  {
+   "name": "Outdoor table tennis courts",
+   "status": "Proposed",
+   "statusClass": "st-proposed",
+   "body": "Sam Fongoh",
+   "lastUpdate": "Proposed February 2026",
+   "description": "Locally built outdoor table tennis courts proposed for the village. Not yet progressed.",
+   "href": "/projects"
   }
  ]
 }
