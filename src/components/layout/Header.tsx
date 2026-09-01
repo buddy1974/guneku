@@ -8,10 +8,14 @@ import { Menu, X, Search, ChevronDown, ArrowRight } from 'lucide-react'
 import { cn }          from '@/lib/utils'
 import type { NavItem } from '@/lib/content'
 
-/* Information architecture — every href below resolves to a real route.
-   Legacy navigation.json still contains unmapped Joomla paths
-   (/kingdom/about-guneku, /palace/the-coronation, /palace/notables,
-   /palace/tributes); they are deliberately not used here. */
+/* Information architecture — every href below resolves to a real route with
+   real content. /kingdom/about-guneku, /palace/the-coronation and
+   /palace/tributes were recovered from the legacy site on 2026-09-01.
+   /palace/notables has no article (it is a placeholder on the legacy site too)
+   and is reached through Our People instead. The kingdom stubs history,
+   religion, touristic-sites, the-guneku-cultural-heritage and map-of-guneku
+   are empty on the legacy site as well, so they are not promoted here; their
+   subject matter is covered inside About Guneku. */
 type Item = { href: string; label: string; exact?: boolean; children?: { href: string; label: string }[] }
 
 const NAV: Item[] = [
@@ -19,20 +23,18 @@ const NAV: Item[] = [
   {
     href: '/kingdom', label: 'The Kingdom',
     children: [
-      { href: '/kingdom/history',                      label: 'History of Guneku'  },
-      { href: '/kingdom/the-guneku-cultural-heritage', label: 'Culture & Heritage' },
-      { href: '/kingdom/religion',                     label: 'Religion'           },
-      { href: '/kingdom/touristic-sites',              label: 'Touristic Sites'    },
-      { href: '/kingdom/map-of-guneku',                label: 'Map of Guneku'      },
+      { href: '/kingdom/about-guneku', label: 'About Guneku' },
     ],
   },
   {
     href: '/palace', label: 'The Palace',
     children: [
       { href: '/palace/fon-walters-profile',                  label: 'The Reigning Fon'    },
+      { href: '/palace/the-coronation',                       label: 'The Coronation'      },
       { href: '/palace/the-return-of-fon-fomuki-of-guneku',   label: 'The Return of the Fon' },
-      { href: '/palace/the-legacy-of-hrh-chief-fomuki-p-n',   label: 'Legacy of HRH Fomuki P.N.' },
       { href: '/palace/biography-of-hrh-fomuki-patrick-njie', label: 'Biography — Fomuki Patrick Nji' },
+      { href: '/palace/the-legacy-of-hrh-chief-fomuki-p-n',   label: 'Legacy of HRH Fomuki P.N.' },
+      { href: '/palace/tributes',                             label: 'Tributes'            },
     ],
   },
   {

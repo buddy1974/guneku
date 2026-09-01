@@ -6,7 +6,7 @@ import { Reveal }             from '@/components/ui/Reveal'
 
 export const metadata = {
   title: 'The Kingdom — Guneku Fondom',
-  description: '27 quarters, 15,000 people, one ancient kingdom in the volcanic hills of Mbengwi, Northwest Cameroon.',
+  description: 'Twenty-seven quarters in the hills of Mbengwi, Momo Division, North West Cameroon — the land, the people and the record of Guneku.',
 }
 
 const QUARTERS = [
@@ -33,8 +33,8 @@ export default function KingdomPage() {
             The Kingdom
           </h1>
           <p className="mt-6 max-w-2xl font-cormorant text-xl italic text-foreground/90 animate-fade-up" style={{ animationDelay: '0.3s' }}>
-            Twenty-seven quarters. Fifteen thousand souls. One sacred fire kept alight in the volcanic
-            hills of Mbengwi.
+            Twenty-seven quarters in the hills of Mbengwi — one people, one Fondom,
+            one continuing story.
           </p>
         </div>
       </section>
@@ -44,10 +44,10 @@ export default function KingdomPage() {
         <section className="mx-auto max-w-7xl px-6 py-24">
           <div className="grid gap-8 md:grid-cols-4">
             {[
-              { icon: Landmark, n: '27',    l: 'Royal Quarters' },
-              { icon: Users,    n: '15,000+',l: 'Indigenes' },
-              { icon: Mountain, n: '1,200m', l: 'Above Sea Level' },
-              { icon: Sparkles, n: '9th',   l: 'Reigning Fon' },
+              { icon: Landmark, n: '27',   l: 'Quarters' },
+              { icon: Users,    n: '31',   l: 'Meta Communities' },
+              { icon: Mountain, n: '8',    l: 'Day Market Cycle' },
+              { icon: Sparkles, n: '9th',  l: 'Reigning Fon' },
             ].map((s, i) => (
               <div key={i} className="group relative overflow-hidden rounded-2xl card-royal p-8">
                 <s.icon className="h-7 w-7 text-primary" />

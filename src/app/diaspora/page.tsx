@@ -4,22 +4,27 @@ import { Reveal } from '@/components/ui/Reveal'
 
 export const metadata = {
   title: 'Diaspora — Guneku Across Three Continents',
-  description: 'From the Ruhr Valley to New Jersey, from Dubai to Tokyo — Guneku sons and daughters across the world.',
+  description: 'Guneku sons and daughters across the world — GUDECA chapters in Cameroon, Europe and North America.',
 }
 
+/* Countries where Guneku people are organised. The community's own record
+   (legacy "About Guneku") states GUDECA has branches in Europe, Canada and
+   America; the Europe chapter meets in Bonn and the US chapter in the DMV.
+   Per-country population counts previously shown here were not supported by
+   any source in the repository and have been removed rather than guessed. */
 const PLACES = [
-  { flag:'🇨🇲', country:'Cameroon',     city:'Mbengwi',      count:'12,400', org:'Home community'              },
-  { flag:'🇩🇪', country:'Germany',      city:'Essen / Ruhr',  count:'780',    org:"GUDECA Europe · Fon's home"  },
-  { flag:'🇺🇸', country:'USA',          city:'DMV · NJ',      count:'640',    org:'GUDECA US Chapter'           },
-  { flag:'🇧🇪', country:'Belgium',      city:'Brussels',      count:'210',    org:'GUDECA Europe'               },
-  { flag:'🇬🇧', country:'UK',           city:'London',        count:'180',    org:'Active members'              },
-  { flag:'🇮🇹', country:'Italy',        city:'Milan',         count:'150',    org:'Active members'              },
-  { flag:'🇸🇪', country:'Sweden',       city:'Stockholm',     count:'95',     org:'Active members'              },
-  { flag:'🇦🇪', country:'UAE',          city:'Dubai',         count:'120',    org:'GUDECA UAE — 2023'           },
-  { flag:'🇶🇦', country:'Qatar',        city:'Doha',          count:'70',     org:'Active members'              },
-  { flag:'🇳🇬', country:'Nigeria',      city:'Lagos',         count:'230',    org:'Active members'              },
-  { flag:'🇨🇳', country:'China',        city:'Shanghai',      count:'60',     org:'Active members'              },
-  { flag:'🇯🇵', country:'Japan',        city:'Tokyo',         count:'45',     org:'Active members'              },
+  { flag:'🇨🇲', country:'Cameroon',     city:'Mbengwi', org:'Home community'              },
+  { flag:'🇩🇪', country:'Germany',      city:'Essen / Ruhr',    org:"GUDECA Europe · Fon's home"  },
+  { flag:'🇺🇸', country:'USA',          city:'DMV · NJ',    org:'GUDECA US Chapter'           },
+  { flag:'🇧🇪', country:'Belgium',      city:'Brussels',    org:'GUDECA Europe'               },
+  { flag:'🇬🇧', country:'UK',           city:'London',    org:'Active members'              },
+  { flag:'🇮🇹', country:'Italy',        city:'Milan',    org:'Active members'              },
+  { flag:'🇸🇪', country:'Sweden',       city:'Stockholm',     org:'Active members'              },
+  { flag:'🇦🇪', country:'UAE',          city:'Dubai',    org:'GUDECA UAE — 2023'           },
+  { flag:'🇶🇦', country:'Qatar',        city:'Doha',     org:'Active members'              },
+  { flag:'🇳🇬', country:'Nigeria',      city:'Lagos',    org:'Active members'              },
+  { flag:'🇨🇳', country:'China',        city:'Shanghai',     org:'Active members'              },
+  { flag:'🇯🇵', country:'Japan',        city:'Tokyo',     org:'Active members'              },
 ]
 
 export default function DiasporaPage() {
@@ -53,9 +58,10 @@ export default function DiasporaPage() {
 
             {/* Center stats */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <div className="font-cinzel text-6xl text-gold-gradient">15K+</div>
-                <div className="mt-2 section-label">SONS &amp; DAUGHTERS</div>
+              <div className="text-center px-8">
+                <div className="font-cinzel text-5xl text-gold-gradient">3</div>
+                <div className="mt-2 section-label">CONTINENTS</div>
+                <div className="mt-3 text-xs text-muted-foreground">GUDECA chapters in Cameroon,<br />Europe and North America</div>
               </div>
             </div>
 
@@ -84,9 +90,8 @@ export default function DiasporaPage() {
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
             {PLACES.map(p => (
               <div key={p.country} className="group card-royal p-5 transition-all">
-                <div className="flex items-center justify-between mb-3">
+                <div className="mb-3">
                   <span className="text-4xl">{p.flag}</span>
-                  <span className="font-cinzel text-xl text-gold-gradient">{p.count}</span>
                 </div>
                 <div className="font-cinzel text-lg text-foreground">{p.country}</div>
                 <div className="text-xs text-muted-foreground">{p.city}</div>
