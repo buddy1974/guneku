@@ -68,7 +68,7 @@ export default function HomePage() {
             <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--stone)] sm:aspect-[16/9] lg:aspect-[4/3]">
               <Image
                 src="/images/site/fon-coronation-2016.jpg"
-                alt="HRH Fon Fomuki Walters Ticha IX with Guneku notables at his coronation, January 2016"
+                alt="HRH Fon Fomuki Walters Ticha IX with notables of Guneku"
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -77,7 +77,7 @@ export default function HomePage() {
               />
             </div>
             <figcaption className="inst-meta mt-2">
-              HRH Fon Fomuki Walters Ticha IX · Coronation, 17 January 2016
+              HRH Fon Fomuki Walters Ticha IX · Fon of Guneku since 2015
             </figcaption>
           </figure>
         </div>
@@ -239,8 +239,8 @@ export default function HomePage() {
             <div>
               <h2 className="inst-h2">Development &amp; institutions</h2>
               <p className="inst-body mt-1.5">
-                Each entry shows the stage its sources actually establish. A proposal is
-                recorded as a proposal.
+                The complete register &mdash; no filter applied. Each entry shows the stage its
+                sources actually establish, and a proposal is recorded as a proposal.
               </p>
             </div>
             <Link href="/projects" className="inst-link shrink-0">All projects →</Link>

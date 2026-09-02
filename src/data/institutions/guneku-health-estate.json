@@ -1,0 +1,44 @@
+{
+ "id": "guneku-health-estate",
+ "type": "Institution",
+ "name": "The Guneku Integrated Health Centres",
+ "status": "active",
+ "category": "Health",
+ "description": "Three Integrated Health Centres serve the outlying quarters of Guneku. The Palace and GUDECA assessed all three, and the assessment was filmed as a documentary series. The statuses below are the ones that assessment recorded. They are not a statement about 2026, and each should be re-checked before it is relied on.",
+ "facilities": [
+  {
+   "name": "Munam Integrated Health Centre",
+   "zone": "Lower Guneku",
+   "status": "Operational",
+   "detail": "A government structure offering general consultations, admission of patients, deliveries and treatment of minor health problems. It serves Munam and the neighbouring village of Sang, and remained functional throughout the crisis years. The USA branch of GUDECA recruited and posted an additional nurse in December 2020 on a renewable three-year contract, adding to the four already there."
+  },
+  {
+   "name": "Mbengeghang Integrated Health Centre",
+   "zone": "Guneku",
+   "status": "Operational, without electricity",
+   "detail": "Recorded as operating with no electricity supply, a bush lamp serving as the light source when patients are attended to at night."
+  },
+  {
+   "name": "Fringyeng Integrated Health Centre",
+   "zone": "Upper Guneku",
+   "status": "Built, not recorded as operational",
+   "detail": "Recorded in the assessment as constructed but never brought into service. The Fon’s letter of September 2022 refers to a newly established healthcare centre in Fringyeng and warns against interfering with it. The two statements have not been reconciled, and both are recorded here rather than one being chosen."
+  }
+ ],
+ "films": [
+  {
+   "youtubeId": "7vHYQenDfIU",
+   "subject": "Munam Integrated Health Centre"
+  },
+  {
+   "youtubeId": "l5vSEOGEfrQ",
+   "subject": "Mbengeghang and Fringyeng Integrated Health Centres"
+  }
+ ],
+ "relatedRoutes": [
+  "/projects",
+  "/diaspora"
+ ],
+ "sourceNote": "Recorded 2026-09-02 from the Palace and GUDECA health assessment documented by Mbengwi Online, and from the December 2020 report of the GUDECA USA nurse posting. Episode dates were not captured in the source material, and the present status of each centre is not established.",
+ "sourceType": "Community record — Mbengwi Online, with the Guneku Palace and GUDECA"
+}

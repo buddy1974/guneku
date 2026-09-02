@@ -64,7 +64,7 @@ export default function DiasporaPage() {
               <div className="text-center px-8">
                 <div className="font-[family-name:var(--font-display)] text-5xl font-bold text-[var(--primary)]">3</div>
                 <div className="mt-2 section-label">CONTINENTS</div>
-                <div className="mt-3 text-xs text-muted-foreground">GUDECA chapters in Cameroon,<br />Europe and North America</div>
+                <div className="mt-3 text-xs text-muted-foreground">8 constituted GUDECA chapters<br />in Cameroon, Europe and North America</div>
               </div>
             </div>
 
@@ -84,6 +84,29 @@ export default function DiasporaPage() {
               )
             })}
           </div>
+          </div>
+        </section>
+      </Reveal>
+
+      {/* ── THE THREE MEASURES ──
+          Three different things get counted in the sources, and they used to appear
+          across the site as if they disagreed. They do not: a constituted chapter, a
+          country that sent members to Bonn, and a place Guneku people are known to
+          live are three separate measurements. Each is labelled as what it is. */}
+      <Reveal>
+        <section className="mx-auto max-w-7xl px-6 pb-16">
+          <div className="grid gap-4 sm:grid-cols-3">
+            {[
+              { n:'8',     l:'CONSTITUTED GUDECA CHAPTERS', d:'Across five countries and three continents.' },
+              { n:'9',     l:'COUNTRIES AT BONN 2026',      d:'Countries members travelled from for the GUDECA EU meeting of 28 March 2026. Attendance, not chapters.' },
+              { n:'12–13', l:'KNOWN DIASPORA LOCATIONS',    d:'Places where Guneku sons and daughters are known to live.' },
+            ].map(m => (
+              <div key={m.l} className="card-royal p-5">
+                <div className="font-[family-name:var(--font-display)] text-4xl font-bold text-[var(--primary)]">{m.n}</div>
+                <div className="mt-2 section-label">{m.l}</div>
+                <p className="mt-2 text-xs text-muted-foreground leading-relaxed">{m.d}</p>
+              </div>
+            ))}
           </div>
         </section>
       </Reveal>

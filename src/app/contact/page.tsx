@@ -4,6 +4,9 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link  from 'next/link'
 import { Mail, MapPin, Phone, Send } from 'lucide-react'
+/* The Palace telephone comes from the one central record (site-config.json), which
+   was derived from the legacy Palace contact row. It is not re-typed here. */
+import siteConfig from '@/data/site-config.json'
 
 export default function ContactPage() {
   const [sent, setSent]       = useState(false)
@@ -60,7 +63,7 @@ export default function ContactPage() {
             {[
               { i: MapPin, t: 'The Palace',   d: 'Guneku Centre, Mbengwi\nMomo Division, NW Cameroon' },
               { i: Mail,   t: 'Email',        d: 'info@guneku.org' },
-              { i: Phone,  t: 'Telephone',    d: '+237 681 19 46 46' },
+              { i: Phone,  t: 'Telephone',    d: siteConfig.palacePhone },
             ].map((c, i) => (
               <div key={i} className="flex gap-4 card-royal p-5">
                 <div className="rounded-[3px] bg-[var(--accent)] p-2.5 h-fit">

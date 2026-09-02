@@ -1,5 +1,6 @@
 import { getFonProfile } from '@/lib/content'
 import { PageHero } from '@/components/layout/PageHero'
+import Image from 'next/image'
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
 import Link from 'next/link'
 
@@ -125,7 +126,17 @@ export default function FonProfilePage() {
 
         {/* Sidebar */}
         <div style={{ display:'flex', flexDirection:'column', gap:'2rem' }}>
-          <ImagePlaceholder label="Portrait" aspectRatio="3/4" />
+          {/* Renders the Fon's portrait as soon as one is held. heroImage is null today. */}
+          {(fon as any)?.heroImage ? (
+            <div style={{ position:'relative', aspectRatio:'3/4', overflow:'hidden' }}>
+              <Image src={(fon as any).heroImage as string}
+                     alt={((fon as any).heroImageAlt as string) || fon?.title || 'The Fon of Guneku'}
+                     fill unoptimized sizes="(max-width: 768px) 100vw, 320px"
+                     style={{ objectFit:'cover' }} />
+            </div>
+          ) : (
+            <ImagePlaceholder label="Portrait" aspectRatio="3/4" />
+          )}
 
           {/* Quick facts */}
           <div style={{ backgroundColor:'oklch(0.985 0.008 85)',
@@ -137,8 +148,10 @@ export default function FonProfilePage() {
               QUICK FACTS
             </h4>
             {[
-              { label:'Enthroned', value: (fon as any)?.enthronementDateDisplay || '27 February 2015' },
-              { label:'Coronation', value: (fon as any)?.coronationDate || '17 January 2016' },
+              /* The succession ran as distinct stages. There is no single coronation
+                 date on the record: the value formerly shown here has no source. */
+              { label:'Anointed', value: (fon as any)?.enthronementDateDisplay || '27 February 2015' },
+              { label:'Presented to Meta', value: '30 December 2016' },
               { label:'Title', value: fon?.fonNumber ? `Fomuki ${fon.fonNumber}` : 'Fomuki IX' },
               { label:'Predecessor', value: (fon as any)?.predecessorName || 'HRH Fomuki Patrick Nji' },
               { label:'Website', value: 'waltersfomuki.de' },

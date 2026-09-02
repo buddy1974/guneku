@@ -1,58 +1,130 @@
 import { PageHero } from '@/components/layout/PageHero'
 import { Reveal }   from '@/components/ui/Reveal'
 import Link         from 'next/link'
+import current      from '@/data/current-notices.json'
 
 export const metadata = { title: 'Projects — Guneku Development' }
 
-const PROJECTS: { id:string; status:string; statusColor:string; title:string; desc:string; year:number; href:string|null }[] = [
-  { id:'agro-cig',         status:'LIVE',          statusColor:'oklch(0.700 0.115 78)', title:'Guneku Agro CIG',             desc:'Community-owned agricultural enterprise. 12.5M FCFA raised. Poultry, turkeys, catfish, ostrich planned.',   year:2026, href:'/agro-cig' },
-  { id:'guneccul',         status:'ACTIVE',         statusColor:'oklch(0.320 0.060 158)',title:'GUNECCUL Credit Union',       desc:'Cooperative credit union with 4 branches across Cameroon.',                                              year:2022, href:'/guneccul' },
-  { id:'library',          status:'ACTIVE',         statusColor:'oklch(0.320 0.060 158)',title:'Guneku Royal Community Library',desc:'Solar-powered library. Computers, training programs, holiday classes.',                               year:2021, href:null },
-  { id:'hospital',         status:'HISTORICAL',     statusColor:'oklch(0.560 0.016 150)', title:'Open Door Hospital Eye Unit', desc:'The launch of a fully operational eye unit was announced in the village record. Current operating status is not established in the sources.', year:2021, href:null },
-  { id:'road',             status:'COMPLETED',      statusColor:'oklch(0.560 0.016 150)', title:'Tonmukom–Windik Road',        desc:'Infrastructure project improving road access within Guneku village.',                                    year:2021, href:null },
-  { id:'fringyeng',        status:'REBUILD NEEDED', statusColor:'oklch(0.560 0.016 150)', title:'Fringyeng Hydroelectric Plant',desc:'Community power plant — burned by arson September 2022. Awaiting reconstruction.',                      year:2022, href:null },
-  { id:'scholarship',      status:'ANNUAL',         statusColor:'oklch(0.700 0.115 78)', title:'Afor Foundation Scholarship', desc:'Annual competitive scholarship. 1,000,000 FCFA prize. Prof. Roland Forbang.',                           year:2022, href:'/notables/roland-teboh-forbang' },
-  { id:'medical-reference',status:'PROPOSED',       statusColor:'oklch(0.560 0.016 150)', title:'Medical Reference Centre',   desc:'Proposed at GUDECA EU March 2026. Plans to establish a dedicated reference healthcare centre in Guneku.',  year:2026, href:null },
-  { id:'soap-production',  status:'PROPOSED',       statusColor:'oklch(0.560 0.016 150)', title:'Soap Production Initiative', desc:'Community income-generating soap production. Proposed by GUDECA EU as economic empowerment.',               year:2026, href:null },
-  { id:'satellite-internet',status:'PROPOSED',      statusColor:'oklch(0.560 0.016 150)', title:'Satellite Internet — Palace',desc:'Install satellite internet at the Guneku Palace. Proposed by Ni Sam (GUDECA EU).',                       year:2026, href:null },
-  { id:'digital-training', status:'PROPOSED',       statusColor:'oklch(0.560 0.016 150)', title:'Digital Empowerment Training',desc:'Adult training in content creation, virtual work, and online income generation. Proposed by Ni Sam.',     year:2026, href:null },
-]
+/* This page used to carry its own hardcoded array of eleven cards, independent of
+   the register the home page reads. Two lists, one subject, no link between them —
+   and a subtitle ("11 active · 4 proposed") that described neither. There is now one
+   register, src/data/current-notices.json, and both views read it. Every number on
+   this page is counted from that file rather than typed. */
+
+type Entry = {
+  name: string
+  class?: string
+  status: string
+  statusClass: string
+  body: string
+  lastUpdate: string
+  description: string
+  href: string
+}
+
+/* The register's own status colours, matching the .st-* rules in globals.css.
+   No new colour is introduced here. */
+const STATUS_COLOR: Record<string, string> = {
+  'st-active':     'oklch(0.46 0.10 150)',
+  'st-ongoing':    'oklch(0.50 0.10 240)',
+  'st-proposed':   'var(--ink-400)',
+  'st-historical': 'var(--ink-400)',
+}
+
+/* Fixed display order. The vocabulary itself lives in the register. */
+const CLASS_ORDER = [
+  'PROJECT',
+  'PROGRAMME',
+  'INSTITUTION',
+  'PROPOSED INITIATIVE',
+  'HISTORICAL RECORD',
+  'OPEN ISSUE',
+] as const
+
+const CLASS_NOTE: Record<string, string> = {
+  'PROJECT':             'Work under way in the village, with a body carrying it.',
+  'PROGRAMME':           'Something that runs repeatedly rather than finishing.',
+  'INSTITUTION':         'A standing body or facility, not a project with an end date.',
+  'PROPOSED INITIATIVE': 'Proposed and recorded as proposed. Not begun.',
+  'HISTORICAL RECORD':   'Completed, delivered or ended. Kept as part of the record.',
+  'OPEN ISSUE':          'A problem the community has raised and the sources leave unresolved.',
+}
 
 export default function ProjectsPage() {
+  const register = current.development as Entry[]
+
+  const groups = CLASS_ORDER
+    .map(c => ({ name: c, items: register.filter(e => e.class === c) }))
+    .filter(g => g.items.length > 0)
+
+  /* Counted, not asserted. */
+  const total    = register.length
+  const proposed = register.filter(e => e.class === 'PROPOSED INITIATIVE').length
+  const running  = register.filter(e =>
+    e.class === 'PROJECT' || e.class === 'PROGRAMME' || e.class === 'INSTITUTION').length
+
   return (
     <main className="min-h-screen bg-background">
-      <PageHero label="DEVELOPMENT" title="GUNEKU PROJECTS"
-                subtitle="Community-driven development — from cooperative farming to digital transformation. 11 active · 4 proposed." />
+      <PageHero
+        label="DEVELOPMENT"
+        title="GUNEKU PROJECTS"
+        subtitle={`The full development register — ${total} entries: ${running} running, ${proposed} proposed, and the rest recorded as history or as open issues.`} />
+
       <Reveal>
-        <section className="max-w-7xl mx-auto px-6 py-20">
-          <div className="grid gap-4 md:grid-cols-3">
-            {PROJECTS.map(p => {
-              const card = (
-                <div className="card-royal p-6 flex flex-col h-full"
-                     style={{ borderTopWidth:'3px', borderTopColor: p.statusColor }}>
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="font-cinzel text-foreground text-lg leading-snug flex-1 pr-3">{p.title}</h3>
-                    <span className="text-[10px] font-semibold uppercase tracking-[0.07em] px-2 py-0.5 shrink-0 rounded-[2px] border"
-                          style={{ color: p.statusColor, borderColor: p.statusColor }}>
-                      {p.status}
-                    </span>
-                  </div>
-                  <p className="text-muted-foreground text-sm leading-relaxed flex-1">{p.desc}</p>
-                  <div className="mt-4 flex items-center justify-between">
-                    <span className="text-muted-foreground/40 text-xs tracking-widest">Est. {p.year}</span>
-                    {p.href && <span className="text-primary text-xs tracking-widest">Learn more →</span>}
-                  </div>
-                </div>
-              )
-              return p.href ? (
-                <Link key={p.id} href={p.href} className="block no-underline">{card}</Link>
-              ) : (
-                <div key={p.id}>{card}</div>
-              )
-            })}
-          </div>
+        <section className="max-w-7xl mx-auto px-6 pt-12">
+          <p className="text-muted-foreground text-sm leading-relaxed max-w-3xl">
+            Every entry below is grouped by what it actually is. A proposal is shown as a
+            proposal, a standing institution is not counted as a project, and nothing is
+            promoted to a stage its sources do not support.
+          </p>
+          <Link href="/institutions" className="text-primary text-xs tracking-widest mt-4 inline-block no-underline hover:underline">
+            The institutions of Guneku →
+          </Link>
         </section>
       </Reveal>
+
+      {groups.map(group => (
+        <Reveal key={group.name}>
+          <section className="max-w-7xl mx-auto px-6 py-12">
+            <div className="mb-6">
+              {/* A heading, not a styled div: the cards below are h3 and the page
+                  needs an h2 between them and the h1 for a sequential outline. */}
+              <h2 className="section-label">{group.name} · {group.items.length}</h2>
+              <p className="mt-2 text-muted-foreground text-sm">{CLASS_NOTE[group.name]}</p>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-3">
+              {group.items.map(p => {
+                const color = STATUS_COLOR[p.statusClass] ?? 'var(--ink-400)'
+                const card = (
+                  <div className="card-royal p-6 flex flex-col h-full"
+                       style={{ borderTopWidth: '3px', borderTopColor: color }}>
+                    <div className="flex justify-between items-start mb-4">
+                      <h3 className="font-cinzel text-foreground text-lg leading-snug flex-1 pr-3">{p.name}</h3>
+                      <span className="text-[10px] font-semibold uppercase tracking-[0.07em] px-2 py-0.5 shrink-0 rounded-[2px] border"
+                            style={{ color, borderColor: color }}>
+                        {p.status}
+                      </span>
+                    </div>
+                    <p className="text-muted-foreground text-sm leading-relaxed flex-1">{p.description}</p>
+                    <div className="mt-4 flex items-center justify-between gap-3">
+                      <span className="text-[var(--ink-400)] text-xs tracking-widest">{p.lastUpdate}</span>
+                      {p.href && p.href !== '/projects' && (
+                        <span className="text-primary text-xs tracking-widest shrink-0">Learn more →</span>
+                      )}
+                    </div>
+                  </div>
+                )
+                return p.href && p.href !== '/projects' ? (
+                  <Link key={p.name} href={p.href} className="block no-underline">{card}</Link>
+                ) : (
+                  <div key={p.name}>{card}</div>
+                )
+              })}
+            </div>
+          </section>
+        </Reveal>
+      ))}
     </main>
   )
 }

@@ -21,12 +21,13 @@ const profile = {
   "fonNumber": "IX",
   "regnalName": "Fomuki Walters Ticha IX",
   "predecessorName": "HRH Fon Fomuki Patrick Nji",
-  "predecessorReign": "1965–2014",
+  "predecessorReign": "1965–2015",
 
   "bornYear": null,
   "birthplace": "Guneku, Cameroon",
   "enthronementDate": "2015-02-27",
-  "coronationDate": "2016-01-17",
+  /* Withdrawn 2026-09-02: no source anywhere supports 17 January 2016. */
+  "coronationDate": null,
 
   "residenceCity": "Neuwied",
   "residenceCountry": "Germany",
@@ -192,7 +193,7 @@ const profile = {
     }
   ],
 
-  "enthronementNarrative": "On 27 February 2015, sons and daughters of Guneku assembled on the palace grounds of the village for the long-awaited return of HRH Fomuki Walters Ticha — who arrived in younger and energetic clothing, ready to lead the Fondom into a new era. The official Coronation ceremony followed on 17 January 2016 — a historic gathering of Guneku indigenes from Cameroon, Germany, the United States, and beyond. The event was marked by traditional rites, the installation of the new Traditional Council, and the public proclamation of Fomuki Walters Ticha IX as the reigning Fon of Guneku.",
+  "enthronementNarrative": "HRH Fon Fomuki Patrick Nji, who had reigned since 1965, passed on 28 January 2015. On 27 February 2015 sons and daughters of Guneku assembled on the palace grounds for the Transfiguration Ceremony, at which the Fon of Nyen anointed HRH Fomuki Walters Ticha in public. A launching gala followed at the Mbengwi Council Hall in November 2015, attended by all the Meta villages, and on 30 December 2016 the Fon presented himself to the people of Meta — the return address promised at the time of his predecessor’s passing. These were distinct stages of one succession and are recorded here as such.",
 
   "governanceStyle": "Fon Fomuki Walters Ticha IX leads through a philosophy of unity, development, and diaspora engagement. Governing from Neuwied, Germany, while maintaining deep ties to the village, he has championed inclusive development through cooperatives (GUNECCUL), youth empowerment (GUYODECA), agricultural enterprise (Agro CIG), and cultural renaissance (Mɨchi Əbeŋ Festival). His governance bridges modern professional life in Europe with his sacred duty as a traditional ruler — embodying the Guneku principle: 'talking and doing'.",
 

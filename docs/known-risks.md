@@ -1,0 +1,69 @@
+# Known Risks — `guneku`
+
+> Source of truth (Tier 1). Risks and debt are recorded here, not carried in memory. A
+> temporary solution is only permitted when recorded with a removal plan. Surfaced at handover
+> so nothing is inherited blind.
+
+| Field | Value |
+|-------|-------|
+| Document tier | 1 — repository charter |
+| Owner (DRI) | Marcel / Maxpromo Digital |
+| Repository class | Client |
+| Lifecycle stage | Live production |
+| Review cadence | Per release |
+| Last reviewed | 2026-09-02 |
+| Status | Draft — opened 2026-09-02 from the September 2026 content pass |
+
+---
+
+## Risk Register
+
+| ID | Risk | Type | Severity | Likelihood | Mitigation | Owner | Status |
+|----|------|------|----------|-----------|------------|-------|--------|
+| R-001 | `/guneccul` publishes `wa.me/237675994599`. Those digits match the personal mobile recorded against the National Publicity Secretary in `src/data/pages/gudeca-exco2.json` — the number this pass deliberately withholds is already public elsewhere on the site. | Privacy | High | Certain — live now | Not changed in this pass; predates it. Confirm with the holder whether the number may stand as a public GUNECCUL contact, or replace it with an institutional line. | Marcel | Open |
+| R-002 | The `docs/` governance set required by `CLAUDE.md` is incomplete. `repository-map.md`, `data-ownership.md` and `production-readiness.md` are absent; `product-brief.md`, `architecture.md`, `workflow-map.md`, `release-checklist.md` and `security-checklist.md` exist at 0 bytes. | Debt | Medium | Certain | Only the three records the memory rule requires were opened (this file, `decision-log.md`, `change-log.md`). The rest need a deliberate documentation decision, not invented content. | Marcel | Open |
+| R-003 | The Agro CIG certificate number is an OCR read that has never been checked against the original. | Bug | Medium | Certain | Held: `certificateNumber` is `null` and the certificate image is unpublished. Verify digit by digit before publishing either. | Marcel | Open — mitigated |
+| R-004 | The relationship between Guneku Medical Center and the proposed Reference Healthcare Centre is unestablished, and the March 2026 Medical Doctor vacancy has not been re-checked since. | Bug | Medium | Certain | The facility record publishes at its supported status only; neither identity nor separation is asserted; the vacancy is not advertised. | Marcel | Open |
+| R-005 | The Traditional Council roster is five years old. | Debt | Low | Likely | Published only as "as recorded in 2021", with an explicit note that it is not a claim about the present. Supersede when the Palace confirms current holders. | Marcel | Open — mitigated |
+| R-006 | `_shortlist/fon-portrait-formal.jpg` in the legacy archive may show the late Fon Fomuki Patrick Nji rather than the reigning Fon. | Bug | High if used | — | Not used. The GUDECA-US 2023 image of known provenance was used instead (ADR-006). | Marcel | Open — mitigated |
+| R-007 | 14 `.mp4` files and roughly 180 photographs under `public/images/gallery/` are tracked, deployed and publicly retrievable at guessable paths. Nine of the videos are the Bonn 28 March 2026 footage held pending consent. | Privacy | High | Certain — live now | Not linked from any page and not linked by this pass. Leave, link or remove is Marcel's decision. Predates this changeset. | Marcel | Open |
+| R-008 | Mobile performance is unverified. Lighthouse is not installed locally and no run was performed. A large share of the audience is on a mid-range Android in Cameroon on a throttled connection. | Scaling | Medium | Certain | Responsive layout was checked at six widths. Run Lighthouse against the Vercel preview before release. | Marcel | Open |
+| R-009 | 44 of the 46 video records carry no verified YouTube title. | Debt | Low | Certain | `titleVerified: false`; no title is asserted and the player shows the channel's own. Verify against the channel when convenient. | — | Open — mitigated |
+| R-010 | `_shortlist/guneku-map.jpg` in the legacy archive is a Google Maps screenshot carrying the Google logo. Re-hosting it on the site is a third-party licensing question, not a content question. | Security / Legal | Medium | Certain if used | Not ingested. `/kingdom/map-of-guneku` remains a stub. Use a Google Maps embed with proper attribution, an OpenStreetMap-based render, or a commissioned map. | Marcel | Open |
+| R-011 | `src/data/pages/gudeca-exco.json` contains Joomla sample data — four fictitious names that are not Guneku people. | Bug | Medium if rendered | Low | Unrouted, unsearched and verified absent from all rendered output. Delete once nothing references it. | — | Open — mitigated |
+| R-012 | `src/data/about/` is nine dead files duplicating records in `kingdom/` and `palace/`. No reader reads that directory. | Debt | Low | Certain | Harmless but misleading to a future editor. Remove in a housekeeping pass. | — | Open |
+
+---
+
+## 1. Technical Debt
+
+- ESLint reports 49 `@typescript-eslint/no-explicit-any` errors across `src/`, the pre-existing
+  house idiom. Files added in this pass are clean. `npm run lint` is not part of the
+  `CLAUDE.md` verification rule and the build does not run it.
+- `tsconfig.tsbuildinfo`, a build artifact, is tracked in git and churns on every build.
+- The `.jpg` + `-web.webp` + `-thumb.webp` variant pattern exists in one folder only
+  (`public/images/education/`). Adopting or dropping it is an open performance decision (ADR-009).
+
+## 2. Temporary Solutions
+
+- **The Business Directory hold** (ADR-005) is a `publicVisibility` flag, not a deletion.
+  Removal plan: a consent review of the four listed businesses, then either publish or delete.
+- **The Fringyeng Integrated Health Centre status** is recorded as contradictory in the source
+  material — the assessment says built but never opened, while the Fon's September 2022 letter
+  refers to a newly established healthcare centre there. Both are recorded; neither is chosen.
+
+## 3. Unresolved Source Conflicts
+
+Recorded so they are not silently settled by a later editor:
+
+- **"Fomumbod Derick" vs "Derrick".** Both archive sources give one `r`; the execution brief
+  gives two. The source spelling is retained.
+- **"Fodom Calvin — Secretary" vs "Financial Secretary".** No primary source supports
+  "Financial". "Secretary" is retained.
+- **The late Fon's school.** The repository's first-party biography says the RCM school at
+  Njindom; a video transcript says Gom. The repository record is retained.
+- **A fourth succession date.** A community report of 23 December 2019 states the Fon was
+  "crowned on 27 January 2015" — one day before the recorded passing of his predecessor. Not
+  published; recorded in that news record's own source note.
+- **Meta clan size.** `/kingdom/about-guneku` says 31 communities; the blog sources say 29.
+  A Meta-clan fact, not a Guneku one. Unresolved.

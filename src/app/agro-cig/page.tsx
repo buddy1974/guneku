@@ -79,7 +79,9 @@ export default function AgroCIGPage() {
             <h3 className="font-cinzel text-2xl text-foreground mb-6">THE ENTERPRISE</h3>
             <div className="space-y-2 mb-8">
               {[
+                { l:'Registered name', v:cig.registration.registeredName },
                 { l:'Registered',      v:'12 March 2026' },
+                { l:'Registered at',   v:'Bamenda' },
                 { l:'Launched',        v:'5 April 2026' },
                 { l:'Location',        v:'Ngong Quarter, Guneku' },
                 { l:'Raised in Phase 1',v:'12.5 million FCFA' },
@@ -93,6 +95,20 @@ export default function AgroCIGPage() {
                   <span className="text-foreground text-sm font-medium">{f.v}</span>
                 </div>
               ))}
+            </div>
+
+            {/* Registration detail read from the certificate itself. The certificate
+                number and the certificate image are withheld until the digits have
+                been checked against the original. */}
+            <div className="card-royal p-5 mb-8">
+              <div className="section-label mb-3">REGISTRATION</div>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Registered as <strong className="text-foreground">{cig.registration.registeredName}</strong>,
+                head office {cig.registration.location}, on {cig.registration.displayDate} at {cig.registration.issuedAt}.
+              </p>
+              <p className="text-muted-foreground text-sm leading-relaxed mt-3">
+                Issued by the {cig.registration.issuingAuthority}, under {cig.registration.legalBasis}.
+              </p>
             </div>
 
             {/* Livestock */}

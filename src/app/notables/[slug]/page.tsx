@@ -2,6 +2,7 @@ import { getAllNotables, getNotable } from '@/lib/content'
 import { PageHero } from '@/components/layout/PageHero'
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
 import { notFound } from 'next/navigation'
+import Image from 'next/image'
 import Link from 'next/link'
 
 export async function generateStaticParams() {
@@ -113,7 +114,18 @@ export default async function NotablePage({
         </div>
 
         <div style={{ display:'flex', flexDirection:'column', gap:'1.5rem' }}>
-          <ImagePlaceholder label={n.name} aspectRatio="3/4" />
+          {/* A portrait renders when the record carries one. This was previously an
+              unconditional placeholder, so supplying a photograph changed nothing. */}
+          {(n as any).portrait || (n as any).photo ? (
+            <div style={{ position:'relative', aspectRatio:'3/4', overflow:'hidden' }}>
+              <Image src={((n as any).portrait || (n as any).photo) as string}
+                     alt={((n as any).portraitAlt as string) || n.name}
+                     fill unoptimized sizes="(max-width: 768px) 100vw, 320px"
+                     style={{ objectFit:'cover' }} />
+            </div>
+          ) : (
+            <ImagePlaceholder label={n.name} aspectRatio="3/4" />
+          )}
 
           <div style={{ backgroundColor:'oklch(0.985 0.008 85)',
                         border:'1px solid oklch(0.878 0.010 90)',

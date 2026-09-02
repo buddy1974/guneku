@@ -1,8 +1,8 @@
 {
  "id": "current-notices",
  "type": "CurrentNotices",
- "sourceNote": "Every entry is drawn from a verified record already in this repository. Statuses are the statuses the sources establish — a proposal is labelled proposed. Reviewed 2026-09-01; review again when any source record changes.",
- "reviewedOn": "2026-09-01",
+ "sourceNote": "Every entry is drawn from a verified record already in this repository. Statuses are the statuses the sources establish — a proposal is labelled proposed. Reviewed 2026-09-01; review again when any source record changes. Each entry also carries a class from the fixed vocabulary in classVocabulary; this is the single register the home page and /projects both read, so the two views can no longer diverge. The Guneku Business Directory is held from the register and from public surfacing pending a deliberate consent review; its source record is retained at src/data/institutions/business-directory.json.",
+ "reviewedOn": "2026-09-02",
  "notices": [
   {
    "date": "2026-09-19",
@@ -120,6 +120,7 @@
  "development": [
   {
    "name": "Guneku Agro CIG",
+   "class": "PROJECT",
    "status": "Active",
    "statusClass": "st-active",
    "body": "Guneku Agro Common Initiative Group",
@@ -129,6 +130,7 @@
   },
   {
    "name": "GUNECCUL Credit Union",
+   "class": "INSTITUTION",
    "status": "Active",
    "statusClass": "st-active",
    "body": "Guneku Cooperative Credit Union Limited",
@@ -138,6 +140,7 @@
   },
   {
    "name": "Solar Electrification Phase II",
+   "class": "PROJECT",
    "status": "Ongoing",
    "statusClass": "st-ongoing",
    "body": "GUDECA Europe",
@@ -147,15 +150,17 @@
   },
   {
    "name": "Guneku Royal Community Library",
+   "class": "INSTITUTION",
    "status": "Active",
    "statusClass": "st-active",
    "body": "Guneku sons and daughters, largely in the diaspora",
    "lastUpdate": "Established 2021",
-   "description": "Solar-powered library with computers, photocopier, printer and projector. Runs long and short computer training and holiday classes for pupils and students.",
-   "href": "/projects"
+   "description": "Solar-powered library with computers, photocopier, printer and projector. Runs long and short computer training and holiday classes for pupils and students, and serves as the registration point for the scholarship programme. Sango Della was recorded as in charge of the Palace library in 2021.",
+   "href": "/education"
   },
   {
    "name": "Medical unit",
+   "class": "PROPOSED INITIATIVE",
    "status": "Proposed",
    "statusClass": "st-proposed",
    "body": "GUDECA Europe",
@@ -165,6 +170,7 @@
   },
   {
    "name": "Digital empowerment",
+   "class": "PROPOSED INITIATIVE",
    "status": "Proposed",
    "statusClass": "st-proposed",
    "body": "Ni Sam · GUDECA Europe",
@@ -174,6 +180,7 @@
   },
   {
    "name": "Soap production",
+   "class": "PROPOSED INITIATIVE",
    "status": "Proposed",
    "statusClass": "st-proposed",
    "body": "GUDECA Europe",
@@ -183,6 +190,7 @@
   },
   {
    "name": "Afor Foundation Scholarship",
+   "class": "PROGRAMME",
    "status": "Active",
    "statusClass": "st-active",
    "body": "Prof. Dr. Roland Teboh Forbang",
@@ -192,6 +200,7 @@
   },
   {
    "name": "Palace Renovation & Heritage Programme",
+   "class": "PROGRAMME",
    "status": "Ongoing",
    "statusClass": "st-ongoing",
    "body": "HRH Fon Fomuki Walters Ticha IX",
@@ -201,6 +210,7 @@
   },
   {
    "name": "GUYODECA bridge construction",
+   "class": "PROJECT",
    "status": "Active",
    "statusClass": "st-active",
    "body": "GUYODECA — youth wing of GUDECA",
@@ -210,6 +220,7 @@
   },
   {
    "name": "Tonmukom–Windik Road",
+   "class": "HISTORICAL RECORD",
    "status": "Historical",
    "statusClass": "st-historical",
    "body": "Initiated by the Fon",
@@ -219,24 +230,27 @@
   },
   {
    "name": "Fringyeng Hydroelectric Plant",
+   "class": "HISTORICAL RECORD",
    "status": "Historical",
    "statusClass": "st-historical",
-   "body": "Community power plant",
+   "body": "Built by Kasi Rhex Ndeh · funded by Dr. Kasi Elvis",
    "lastUpdate": "Burned September 2022",
-   "description": "Community power plant destroyed by arson in September 2022 and awaiting reconstruction. No rebuilding plan is recorded in the sources.",
-   "href": "/projects"
+   "description": "The community micro-hydroelectric plant known locally as the Oko plant, built by Kasi Rhex Ndeh and funded by Dr. Kasi Elvis. Destroyed by arson in September 2022. No rebuilding plan is recorded in the sources.",
+   "href": "/palace/the-fon-writes-after-the-fringyeng-fire"
   },
   {
    "name": "Open Door Hospital eye unit",
+   "class": "HISTORICAL RECORD",
    "status": "Historical",
    "statusClass": "st-historical",
    "body": "Open Door Hospital, Guneku",
    "lastUpdate": "Announced 2021",
    "description": "The launch of a fully operational eye unit was announced in the village record. Its current operating status is not established in the sources.",
-   "href": "/projects"
+   "href": "/institutions/open-door-medical-clinic"
   },
   {
    "name": "Solar street lights - Phase 1",
+   "class": "HISTORICAL RECORD",
    "status": "Historical",
    "statusClass": "st-historical",
    "body": "GUDECA Europe",
@@ -246,6 +260,7 @@
   },
   {
    "name": "FUN electricity project",
+   "class": "HISTORICAL RECORD",
    "status": "Historical",
    "statusClass": "st-historical",
    "body": "Village and GUDECA Europe",
@@ -255,6 +270,7 @@
   },
   {
    "name": "Mbengeghang water project",
+   "class": "HISTORICAL RECORD",
    "status": "Historical",
    "statusClass": "st-historical",
    "body": "GUDECA Europe",
@@ -264,6 +280,7 @@
   },
   {
    "name": "Guneku StarLink project",
+   "class": "PROPOSED INITIATIVE",
    "status": "Proposed",
    "statusClass": "st-proposed",
    "body": "Sam Fongoh - GUDECA Europe",
@@ -273,6 +290,7 @@
   },
   {
    "name": "MEDPHISATG medical school",
+   "class": "INSTITUTION",
    "status": "Active",
    "statusClass": "st-active",
    "body": "Based in Guneku",
@@ -282,6 +300,7 @@
   },
   {
    "name": "Village water supply",
+   "class": "OPEN ISSUE",
    "status": "Open issue",
    "statusClass": "st-proposed",
    "body": "Community",
@@ -291,6 +310,7 @@
   },
   {
    "name": "Guneku History Committee",
+   "class": "PROPOSED INITIATIVE",
    "status": "Proposed",
    "statusClass": "st-proposed",
    "body": "GUDECA",
@@ -300,6 +320,7 @@
   },
   {
    "name": "Palace caretaker post",
+   "class": "PROPOSED INITIATIVE",
    "status": "Proposed",
    "statusClass": "st-proposed",
    "body": "Diaspora member suggestion",
@@ -309,12 +330,81 @@
   },
   {
    "name": "Outdoor table tennis courts",
+   "class": "PROPOSED INITIATIVE",
    "status": "Proposed",
    "statusClass": "st-proposed",
    "body": "Sam Fongoh",
    "lastUpdate": "Proposed February 2026",
    "description": "Locally built outdoor table tennis courts proposed for the village. Not yet progressed.",
    "href": "/projects"
+  },
+  {
+   "name": "Guneku Medical Center",
+   "class": "INSTITUTION",
+   "status": "Documented",
+   "statusClass": "st-active",
+   "body": "Guneku Medical Center, Mbengwi",
+   "lastUpdate": "Documented 25 March 2026",
+   "description": "A facility with a fully equipped laboratory and a surgical theatre, documented as existing on 25 March 2026 on its own letterhead. Its relationship to the proposed reference healthcare centre is not established in the sources, and no claim either way is made here.",
+   "href": "/institutions/guneku-medical-center"
+  },
+  {
+   "name": "Wumnembug–Njinebai bridge",
+   "class": "HISTORICAL RECORD",
+   "status": "Historical",
+   "statusClass": "st-historical",
+   "body": "Built by Mbengwi Council",
+   "lastUpdate": "Handed over April 2025",
+   "description": "A boundary link between Wumnembug and the Guneku quarter of Njinebai, built by the Mbengwi Council and handed over around the April 2025 WUCUDA AGM in the presence of Mayor Ndangsa Kennedy Akam and his deputy Amadu Kadiri. A separate project from the GUYODECA bridge.",
+   "href": "/updates/wumnembug-njinebai-bridge-2025"
+  },
+  {
+   "name": "The Guneku Integrated Health Centres",
+   "class": "INSTITUTION",
+   "status": "Active",
+   "statusClass": "st-active",
+   "body": "Munam · Mbengeghang · Fringyeng",
+   "lastUpdate": "Assessed by the Palace and GUDECA",
+   "description": "Three Integrated Health Centres serving the outlying quarters. Munam is operational and took an additional GUDECA-funded nurse in 2020; Mbengeghang operates without electricity; Fringyeng was built but is not recorded as having opened. Each status is the one the assessment recorded and should be re-checked.",
+   "href": "/institutions/guneku-health-estate"
+  },
+  {
+   "name": "F.H.E.D — Fons for Health, Education and Development",
+   "class": "INSTITUTION",
+   "status": "Active",
+   "statusClass": "st-active",
+   "body": "Headquartered in the Guneku Palace",
+   "lastUpdate": "Founded 2003, renamed 2021",
+   "description": "An association of Meta Fons headquartered in the Guneku Palace, founded in 2003 as Fons Against AIDS with the late Fon of Guneku as founding president, and renamed in 2021 as its mandate widened to health, education and development.",
+   "href": "/institutions/fhed"
+  },
+  {
+   "name": "Fondom Studios (Guneku Branch)",
+   "class": "INSTITUTION",
+   "status": "Active",
+   "statusClass": "st-active",
+   "body": "Media partner of MEFU and MECUDA",
+   "lastUpdate": "Recognised at MEFU-MECUDA, August 2026",
+   "description": "A media and cultural production company founded by a son of Guneku, described as one of the first legally registered media companies in Momo Division. It covers events in the village and was recognised at the MEFU-MECUDA joint meeting held at the Palace.",
+   "href": "/institutions/fondom-studios"
+  },
+  {
+   "name": "Ifuh Itah — the Fringyeng Yam Festival",
+   "class": "INSTITUTION",
+   "status": "Active",
+   "statusClass": "st-active",
+   "body": "The people of Fringyeng, Upper Guneku",
+   "lastUpdate": "2025 edition, 16 December 2025",
+   "description": "The yam harvest festival of Fringyeng, abandoned for years and revived in 2023. Held each December, and filmed in 2023, 2024 and 2025.",
+   "href": "/institutions/ifuh-itah-festival"
   }
+ ],
+ "classVocabulary": [
+  "PROJECT",
+  "INSTITUTION",
+  "PROGRAMME",
+  "PROPOSED INITIATIVE",
+  "HISTORICAL RECORD",
+  "OPEN ISSUE"
  ]
 }

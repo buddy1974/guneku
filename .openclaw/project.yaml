@@ -1,0 +1,21 @@
+# Generated and maintained by OpenClaw Workspace Intelligence.
+# This is a one-way export of the Workspace Registry, not a sync
+# target — hand-edits here are not read back, and will be replaced on
+# the next scan. Change values via OpenClaw's Open Project page.
+
+name: "guneku"
+description: ""
+owner: "unassigned"
+type: "web-app"
+status: "stale"
+priority: "unset"
+stack: 
+  - "TypeScript"
+  - "Tailwind CSS"
+  - "Anthropic Claude"
+  - "Resend"
+deployment: "Vercel"
+related_projects: []
+documentation: "partial"
+health: 63
+next_milestone: ""

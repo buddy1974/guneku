@@ -97,7 +97,7 @@ export default function GudecaPage() {
                 </div>
               ))}
             </div>
-            <p className="text-center text-muted-foreground/40 text-xs mt-6 tracking-[0.06em]">
+            <p className="text-center text-[var(--ink-400)] text-xs mt-6 tracking-[0.06em]">
               Next GUDECA EU Meeting · <strong className="text-muted-foreground/60">Saturday 24 July 2027 · United Kingdom</strong>
             </p>
           </div>
@@ -108,8 +108,18 @@ export default function GudecaPage() {
       <Reveal>
         <section className="mx-auto max-w-7xl px-6 py-20">
           <div className="text-center mb-12">
-            <div className="section-label mb-4">EIGHT CHAPTERS · THREE CONTINENTS</div>
+            <div className="section-label mb-4">EIGHT CONSTITUTED CHAPTERS · FIVE COUNTRIES · THREE CONTINENTS</div>
             <h3 className="font-cinzel text-5xl text-foreground">A Kingdom Without Borders</h3>
+            {/* Constituted chapters are not the same measure as meeting attendance.
+                Bonn 2026 drew members from nine countries, five of which have no
+                chapter of their own. Both numbers are true; they count different things. */}
+            <p className="mx-auto mt-4 max-w-2xl text-sm text-muted-foreground leading-relaxed">
+              These are the <strong>constituted chapters</strong>. Attendance is a different
+              measure: members travelled from <strong>nine countries</strong> to the GUDECA EU
+              meeting in Bonn on 28 March 2026 — including Norway, Denmark, Luxembourg, France
+              and Austria, which have no chapter of their own. Guneku people are known to live
+              in <strong>twelve to thirteen</strong> locations worldwide.
+            </p>
           </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {BRANCHES.map(b => (

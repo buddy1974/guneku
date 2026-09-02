@@ -9,12 +9,16 @@ export const metadata = {
   description: 'Inside the palace of Guneku — home of the ninth Fon, physician, and visionary leader of his kingdom.',
 }
 
+/* The succession ran as distinct stages and is kept that way. There is no single
+   coronation date: the one this site used to carry, 17 January 2016, matches no
+   source in the archive and has been withdrawn. */
 const TIMELINE = [
-  { date: 'January 2015',     title: 'The Journey Begins',    desc: 'HRH Fon Patrick Nji travels to the ancestral mountains. Walters Ticha returns from Germany.',                                      color: 'oklch(0.560 0.016 150)' },
-  { date: '27 February 2015', title: 'The Enthronement',      desc: 'Sons and daughters assemble at the palace. Olive oil anointing by HRH Fon Fominyen of Nyen. 50-year rift resolved.',               color: 'oklch(0.560 0.016 150)'   },
-  { date: 'November 2015',    title: 'Launching Gala',        desc: 'Grand gala at the Mbengwi Council Hall. All 29 Meta villages invited personally by the new Fon.',                                   color: 'oklch(0.700 0.115 78)'   },
-  { date: '30 December 2016', title: 'The Public Coronation', desc: 'Historic coronation before all Meta. First Fon in Meta history to visit all 28 other Fondoms personally.',                         color: 'oklch(0.700 0.115 78)'   },
-  { date: '2021 – Present',   title: 'The Kingdom Grows',     desc: 'Democratic reforms, GUNECCUL, Agro CIG, solar lights, Mɨchi Əbeŋ — a kingdom in full renaissance.',                               color: 'oklch(0.700 0.115 78)'   },
+  { date: '1965',             title: 'The Reign Before',      desc: 'HRH Fon Fomuki Patrick Nji is crowned successor by his father’s will, at the age of 27. He reigns for fifty years.',            color: 'oklch(0.560 0.016 150)' },
+  { date: '28 January 2015',  title: 'The Journey Begins',    desc: 'HRH Fon Fomuki Patrick Nji leaves the palace on a long journey. Tributes from the North West Fons follow.',                          color: 'oklch(0.560 0.016 150)' },
+  { date: '27 February 2015', title: 'Transfiguration and Anointing', desc: 'Sons and daughters assemble at the palace. HRH Fomuki Walters Ticha is anointed in public by HRH Fon Fominyen of Nyen.',      color: 'oklch(0.560 0.016 150)' },
+  { date: 'November 2015',    title: 'Launching Gala',        desc: 'Grand gala at the Mbengwi Council Hall, with the Meta villages invited personally by the new Fon.',                                  color: 'oklch(0.700 0.115 78)'  },
+  { date: '30 December 2016', title: 'Presentation to Meta',  desc: 'The Fon presents himself to the people of Meta — the return address promised at the time of his predecessor’s passing.',  color: 'oklch(0.700 0.115 78)'  },
+  { date: '2021 – Present',   title: 'The Kingdom Grows',     desc: 'Democratic reforms, GUNECCUL, Agro CIG, solar lights, Mɨchi Əbeŋ — a kingdom in full renaissance.',                             color: 'oklch(0.700 0.115 78)'  },
 ]
 
 export default function PalacePage() {
@@ -126,7 +130,7 @@ export default function PalacePage() {
 
       {/* ── PALACE QUOTE ── */}
       <section className="relative h-[48vh] min-h-[320px] overflow-hidden">
-        <Image src="/images/site/coronation-crowd.jpg" alt="The gathering at the Guneku palace during the 2016 coronation" fill loading="lazy" className="absolute object-cover" unoptimized />
+        <Image src="/images/site/coronation-crowd.jpg" alt="The gathering at the Guneku Palace during the public presentation of HRH Fomuki Walters Ticha IX to Meta in December 2016" fill loading="lazy" className="absolute object-cover" unoptimized />
         <div className="absolute inset-0" style={{ background: 'oklch(0.215 0.045 158 / 0.55)' }} />
         <div className="relative z-10 mx-auto flex h-full max-w-4xl items-center justify-center px-6 text-center">
           <div>

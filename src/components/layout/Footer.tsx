@@ -40,17 +40,17 @@ export function Footer() {
               North West Region, Cameroon
             </address>
             <p className="mt-4 text-[0.86rem] leading-relaxed text-white/60">
-              <a href={`mailto:${config.contactEmail}`} className="text-white/80 no-underline hover:underline">
+              <a href={`mailto:${config.contactEmail}`} className="inline-block py-1 text-white/80 no-underline hover:underline">
                 {config.contactEmail}
               </a><br />
-              <a href={`tel:${config.palacePhone?.replace(/\s/g, '')}`} className="text-white/80 no-underline hover:underline">
+              <a href={`tel:${config.palacePhone?.replace(/\s/g, '')}`} className="inline-block py-1 text-white/80 no-underline hover:underline">
                 {config.palacePhone}
               </a>
             </p>
           </div>
 
           <nav aria-label="Footer">
-            <h2 className="text-[0.7rem] font-bold uppercase tracking-[0.08em] text-white/45">Explore</h2>
+            <h2 className="text-[0.7rem] font-bold uppercase tracking-[0.08em] text-white/55">Explore</h2>
             <ul className="mt-3 list-none space-y-1.5 p-0">
               {EXPLORE.map(l => (
                 <li key={l.href}>
@@ -63,7 +63,7 @@ export function Footer() {
           </nav>
 
           <div>
-            <h2 className="text-[0.7rem] font-bold uppercase tracking-[0.08em] text-white/45">Follow Guneku</h2>
+            <h2 className="text-[0.7rem] font-bold uppercase tracking-[0.08em] text-white/55">Follow Guneku</h2>
             <ul className="mt-3 list-none space-y-1.5 p-0">
               {SOCIAL.map(s => (
                 <li key={s.label}>
@@ -80,7 +80,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-2 border-t border-white/12 pt-5 text-[0.78rem] text-white/45 md:flex-row md:items-center md:justify-between">
+        <div className="mt-10 flex flex-col gap-2 border-t border-white/12 pt-5 text-[0.78rem] text-white/55 md:flex-row md:items-center md:justify-between">
           <p className="m-0">© {new Date().getFullYear()} Guneku Fondom. All rights reserved.</p>
           <p className="m-0">
             Website by{' '}

@@ -63,10 +63,15 @@
  },
  "registration": {
   "registeredName": "GUNEKU AGRO COMMON INITIATIVE GROUP",
-  "location": "Guneku, Mbengwi",
+  "location": "Guneku, Mbengwi sub-division",
   "certificateIssued": "2026-03-12",
   "displayDate": "12 March 2026",
-  "evidence": "Official registration certificate supplied by Marcel, 2026-09-01. Certificate and administrative identifiers are deliberately not published.",
+  "issuedAt": "Bamenda",
+  "issuingAuthority": "Ministry of Agriculture and Rural Development (MINADER), Regional Delegation North West, Regional Service of the Registry (COOP/CIG)",
+  "legalBasis": "Law No. 92/006 of 14 August 1992 on cooperative societies and common initiative groups, and application decree No. 92/455/PM of 23 November 1992",
+  "certificateNumber": null,
+  "certificateNumberNote": "The certificate number was read by OCR and has not yet been checked digit by digit against the original. It is therefore not published, and the certificate image is not published either. Both are held pending visual verification.",
+  "evidence": "Official registration certificate supplied by Marcel, 2026-09-01; the administrative detail above was extracted from that certificate. Identifiers are deliberately withheld until verified.",
   "status": "registered"
  },
  "launch": {
@@ -155,5 +160,6 @@
   ],
   "paymentRoute": "Payments and share purchases run through GUNECCUL, the Guneku community credit union, account number 200637.",
   "confirmation": "Fah Elvis Tayong, CIG Delegate, to confirm which line is current."
- }
+ },
+ "route": "/agro-cig"
 }

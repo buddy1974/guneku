@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import { Source_Serif_4, Source_Sans_3 } from 'next/font/google'
 import { Analytics }      from '@vercel/analytics/react'
 import { SpeedInsights }  from '@vercel/speed-insights/next'
 import { Header }         from '@/components/layout/Header'
@@ -7,6 +8,22 @@ import { MobileNav }      from '@/components/layout/MobileNav'
 import { ToastContainer } from '@/components/ui/Toast'
 import { getNavigation }  from '@/lib/content'
 import './globals.css'
+
+/* Previously loaded with a <link> to fonts.googleapis.com, which Lighthouse measured
+   blocking render for 856 ms and pulling 276 KiB from a third-party origin. Same two
+   typefaces, now self-hosted and preloaded by the framework. */
+const sourceSerif = Source_Serif_4({
+  subsets: ['latin'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+  variable: '--ff-serif',
+})
+const sourceSans = Source_Sans_3({
+  subsets: ['latin'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+  variable: '--ff-sans',
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.guneku.org'),
@@ -26,7 +43,7 @@ export const metadata: Metadata = {
     siteName:    'Guneku Fondom',
     title:       'Guneku Fondom | Official Community Website',
     description: 'The official community website of Guneku Fondom — Mbengwi, Momo Division, North West Cameroon.',
-    images: [{ url: '/images/site/og-guneku.jpg', width: 1200, height: 630, alt: 'The Guneku palace grounds during the 2016 coronation' }],
+    images: [{ url: '/images/site/og-guneku.jpg', width: 1200, height: 630, alt: 'The Guneku Palace grounds during the public presentation of HRH Fomuki Walters Ticha IX to Meta in December 2016' }],
   },
   twitter: {
     card:    'summary_large_image',
@@ -48,15 +65,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const nav = getNavigation()
 
   return (
-    <html lang="en" className="scroll-smooth">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
-        />
-      </head>
+    <html lang="en" className={`scroll-smooth ${sourceSerif.variable} ${sourceSans.variable}`}>
       <body style={{ backgroundColor: 'oklch(0.965 0.012 85)', color: 'oklch(0.245 0.022 150)', overflowX: 'hidden' }}>
         <Header nav={nav} />
         <main>{children}</main>

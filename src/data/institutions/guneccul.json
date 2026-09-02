@@ -42,5 +42,6 @@
  "category": "Finance",
  "communityRole": "Community-owned cooperative credit union giving Guneku indigenes at home and abroad access to savings, loans and solidarity fund shares, under the patronage of the Fon.",
  "sourceType": "Guneku first-party / project owner supplied",
- "sourceNote": "Branch list held here; patronage and founder-sponsor role recovered 2026-09-01 from src/data/palace/fon-walters-profile.json."
+ "sourceNote": "Branch list held here; patronage and founder-sponsor role recovered 2026-09-01 from src/data/palace/fon-walters-profile.json.",
+ "route": "/guneccul"
 }

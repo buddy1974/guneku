@@ -1,3 +1,5 @@
+import { GUNEKU_QUARTERS_27 } from '@/lib/quarters'
+
 export interface IndigeneProfile {
   id: string
   clerk_user_id: string
@@ -31,12 +33,10 @@ export interface IndigeneProfile {
   open_to_connect: boolean
 }
 
-export const GUNEKU_QUARTERS = [
-  'Njinigom', 'Ngong', 'Fun', 'Fringyeng', 'Wumfi-Ku',
-  'Windig', 'Keuhchah', 'Munam', 'Ngamunghe', 'Mbengeghang',
-  'Ndobo', 'Tonenge', 'Nyang', 'Upper Guneku', 'Lower Guneku',
-  'Central Guneku', 'Other / Unknown'
-]
+/* The directory filter offers every quarter the Fondom publishes, plus a fallback
+   for people who do not know theirs. It previously offered 16 of 27, which forced
+   sons and daughters of eleven quarters to file themselves under "Other". */
+export const GUNEKU_QUARTERS = [...GUNEKU_QUARTERS_27, 'Other / Unknown']
 
 export const GENERATIONS = [
   'Living in Guneku',

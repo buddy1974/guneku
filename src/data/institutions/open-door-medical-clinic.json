@@ -1,0 +1,31 @@
+{
+ "id": "open-door-medical-clinic",
+ "type": "Institution",
+ "name": "Open Door Medical Clinic",
+ "status": "active",
+ "category": "Health",
+ "location": "Njinebai quarter, Guneku",
+ "description": "A clinic in the Njinebai quarter of Guneku. It closed for months during the crisis years and reopened to the public in late 2020 with the support of the Fon. The village record separately announced the launch of an eye unit at Open Door in 2021.",
+ "recordedActivity": [
+  {
+   "displayDate": "Late 2020",
+   "activity": "Reopened to the public after months of closure, with the support of the Fon."
+  },
+  {
+   "displayDate": "2021",
+   "activity": "The launch of a fully operational eye unit was announced in the village record. Its current operating status is not established in the sources."
+  }
+ ],
+ "films": [
+  {
+   "youtubeId": "0FoAKZk54kw",
+   "subject": "Open Door, documentary"
+  }
+ ],
+ "relatedRoutes": [
+  "/projects"
+ ],
+ "statusNote": "The development register carries the eye unit as a historical record, because that is what its own source establishes. The clinic itself is recorded here as active. Those are two statements about two different things.",
+ "sourceNote": "Recorded 2026-09-02 from the community record of December 2020 and the existing village register entry.",
+ "sourceType": "Community record — Mbengwi Online"
+}

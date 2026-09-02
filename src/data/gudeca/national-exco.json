@@ -1,0 +1,86 @@
+{
+ "id": "gudeca-national-exco",
+ "type": "Roster",
+ "title": "GUDECA National Executive Committee",
+ "asRecorded": "The village website archive",
+ "contactPolicy": "The source record carries a personal mobile number against each officer. None is published here. Contact details belong to the people they identify, and each officer would have to agree before a number went online.",
+ "currencyNote": "This roster is carried in the archive without a date. Only the presidency is corroborated by a later document: the minutes of the GUDECA Europe meeting of 28 March 2026 record Mr. Thadeus Fon as General President. The remaining offices are published as recorded, not as a statement of who holds them today.",
+ "nameNote": "The archive spells the President \"Thadeaus\"; the 2026 Bonn minutes give \"Thadeus Fon\" and the legacy Sons and Daughters listing gives \"Thaddeus Fon\". The Bonn form is used here and the variants recorded.",
+ "members": [
+  {
+   "office": "National President",
+   "name": "Thadeus Fon"
+  },
+  {
+   "office": "1st National Vice President",
+   "name": "Grace Forze"
+  },
+  {
+   "office": "2nd National Vice President",
+   "name": "Ticha Elias M."
+  },
+  {
+   "office": "3rd National Vice President",
+   "name": "Ngati Bah G."
+  },
+  {
+   "office": "National Secretary General",
+   "name": "Tah Eric Teke"
+  },
+  {
+   "office": "Vice National Secretary",
+   "name": "Ndikum Humphrey"
+  },
+  {
+   "office": "National Treasurer",
+   "name": "Asukwa Victor"
+  },
+  {
+   "office": "National Financial Secretary",
+   "name": "Mbakwa Jonathan"
+  },
+  {
+   "office": "National Publicity Secretary",
+   "name": "Fah Elvis Tayong"
+  },
+  {
+   "office": "Vice National Publicity Secretary",
+   "name": "Tifuh Triphania"
+  },
+  {
+   "office": "National Cultural Secretary",
+   "name": "Acho N. Pascal"
+  },
+  {
+   "office": "National Youth President",
+   "name": "Chick Timoh Edmond"
+  }
+ ],
+ "europe": {
+  "title": "GUDECA Europe",
+  "members": [
+   {
+    "office": "President",
+    "name": "Ndenge Constantine"
+   },
+   {
+    "office": "Vice President",
+    "name": "Festus Tanwi"
+   },
+   {
+    "office": "Secretary General",
+    "name": "Muyang Ela"
+   },
+   {
+    "office": "Financial Secretary",
+    "name": "Armstrong Tinyih"
+   },
+   {
+    "office": "Digital Lead",
+    "name": "Ni Sam"
+   }
+  ],
+  "note": "Confirmed by the minutes of the meeting of 28 March 2026, which are signed by the Secretary General and the President."
+ },
+ "sourceNote": "Recovered 2026-09-02 from the migrated village website record src/data/pages/gudeca-exco2.json, which had never been routed. The placeholder roster formerly shown on this page came from a second migrated file that contains Joomla sample data — four fictitious names that are not Guneku people. That file is not published."
+}

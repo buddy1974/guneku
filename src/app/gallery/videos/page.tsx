@@ -58,7 +58,12 @@ export default function VideoArchivePage() {
                     <p className="inst-tag">{v.category}</p>
                     <h3 className="inst-h3 mt-1">{v.displayTitle}</h3>
                     {v.context && <p className="inst-body mt-1.5 !text-[0.84rem]">{v.context}</p>}
-                    <p className="inst-meta mt-2">Published on YouTube as “{v.title}”</p>
+                    {/* Only assert a YouTube title where this archive has verified it.
+                        For the rest the subject above is what the record establishes,
+                        and the player itself carries the channel's own title. */}
+                    {v.titleVerified && v.title && (
+                      <p className="inst-meta mt-2">Published on YouTube as &ldquo;{v.title}&rdquo;</p>
+                    )}
                     <div className="mt-3 flex flex-wrap items-center gap-4">
                       {v.relatedRoute && (
                         <Link href={v.relatedRoute} className="inst-link">Related page →</Link>
@@ -81,10 +86,10 @@ export default function VideoArchivePage() {
           <div className="inst-wrap inst-sec">
             <h2 className="inst-h2">Awaiting cataloguing</h2>
             <p className="inst-body mt-2 max-w-3xl">
-              Footage from the GUDECA Europe meeting held at the Fon&rsquo;s Palace in Bonn on
-              28 March 2026 is held in the community archive. It is not published here yet,
-              because the speakers and subjects have not been confirmed and nothing will be
-              captioned by guesswork.
+              The Bonn films published on the Fondom&rsquo;s own channel are listed above. The
+              raw footage of the same gathering held in the community archive is not
+              published here: its speakers and subjects have not been confirmed, and nothing
+              will be captioned by guesswork.
             </p>
             <Link href="/updates/gudeca-eu-meeting-bonn-28-march-2026" className="inst-link mt-3 inline-block">
               Read the report of the Bonn meeting →

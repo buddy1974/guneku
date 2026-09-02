@@ -59,11 +59,11 @@
   --color-heritage-red-deep: oklch(0.35 0.22 24);
 
   /* Typography */
-  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
-  --font-serif:   "Source Serif 4", Georgia, "Times New Roman", serif;
-  --font-sans:    "Source Sans 3", system-ui, -apple-system, sans-serif;
-  --font-heading: "Source Sans 3", system-ui, sans-serif;
-  --font-bebas:   "Source Sans 3", system-ui, sans-serif;
+  --font-display: var(--ff-serif), "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-serif:   var(--ff-serif), "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-sans:    var(--ff-sans), "Source Sans 3", system-ui, -apple-system, sans-serif;
+  --font-heading: var(--ff-sans), "Source Sans 3", system-ui, sans-serif;
+  --font-bebas:   var(--ff-sans), "Source Sans 3", system-ui, sans-serif;
 }
 
 :root {
@@ -524,7 +524,7 @@
   --paper-alt:    oklch(0.952 0.008 85);   /* banded section */
   --ink-900:      oklch(0.235 0.012 55);   /* charcoal text */
   --ink-600:      oklch(0.470 0.012 55);   /* secondary text */
-  --ink-400:      oklch(0.620 0.010 55);   /* metadata */
+  --ink-400:      oklch(0.525 0.010 55);   /* metadata — L raised from .620 to clear 4.5:1 on the paper tones (WCAG AA) */
   --rule:         oklch(0.878 0.008 70);   /* hairlines */
   --burgundy-i:   oklch(0.320 0.060 158);  /* deep Guneku green */
   --burgundy-ink: oklch(0.250 0.055 158);

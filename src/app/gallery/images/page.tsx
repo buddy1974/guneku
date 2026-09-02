@@ -1,6 +1,7 @@
-import { getImageGallery } from '@/lib/content'
+import { getImageGallery, albumCoverSrc } from '@/lib/content'
 import { PageHero } from '@/components/layout/PageHero'
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
+import Image from 'next/image'
 import Link from 'next/link'
 
 export const metadata = { title: 'Image Gallery' }
@@ -28,8 +29,19 @@ export default function ImageGalleryPage() {
                            border:'1px solid oklch(0.878 0.010 90)',
                            overflow:'hidden' }}
                   className="hover:border-[rgba(242,169,11,0.25)] transition-colors">
+              {/* The photographs are real and held in the repository. This card used
+                  to render a placeholder unconditionally, which is why the counts
+                  above never matched anything visible. */}
               <div style={{ position:'relative' }}>
-                <ImagePlaceholder label={album.title} aspectRatio="16/9" />
+                {albumCoverSrc(album) ? (
+                  <div style={{ position:'relative', aspectRatio:'16/9', overflow:'hidden' }}>
+                    <Image src={albumCoverSrc(album)!} alt={album.title} fill unoptimized
+                           loading="lazy" sizes="(max-width: 768px) 100vw, 33vw"
+                           style={{ objectFit:'cover' }} />
+                  </div>
+                ) : (
+                  <ImagePlaceholder label={album.title} aspectRatio="16/9" />
+                )}
                 <div style={{ position:'absolute', top:'0.75rem', right:'0.75rem',
                               backgroundColor:'oklch(0.215 0.045 158 / 0.78)',
                               color:'oklch(0.320 0.060 158)', fontFamily:'var(--font-sans)',

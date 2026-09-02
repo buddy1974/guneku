@@ -2,6 +2,7 @@ import Link               from 'next/link'
 import Image              from 'next/image'
 import { Landmark, Users, Mountain, Sparkles } from 'lucide-react'
 import { getAllKingdomArticles } from '@/lib/content'
+import { GUNEKU_QUARTERS_27 } from '@/lib/quarters'
 import { Reveal }             from '@/components/ui/Reveal'
 
 export const metadata = {
@@ -9,13 +10,7 @@ export const metadata = {
   description: 'Twenty-seven quarters in the hills of Mbengwi, Momo Division, North West Cameroon — the land, the people and the record of Guneku.',
 }
 
-const QUARTERS = [
-  'Njinigom','Ngong','Fun','Fringyeng','Wumfi-Ku','Windig',
-  'Keuhchah','Munam','Ngamunghe','Mbengeghang','Ndobo','Tonenge',
-  'Nyang','Upper Guneku','Lower Guneku','Central Guneku',
-  'Akwen','Bali-Dingi','Bessi','Boa','Egock','Eku-Bessi',
-  'Eshie','Esimbi','Etwii','Guneku Centre','Kai',
-]
+const QUARTERS = GUNEKU_QUARTERS_27
 
 export default function KingdomPage() {
   const articles = getAllKingdomArticles()

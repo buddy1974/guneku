@@ -235,6 +235,16 @@ export function getVideoGallery(): VideoGallery {
   return read<VideoGallery>('gallery/video-gallery.json');
 }
 
+/* An album records its cover as a bare filename, while each image carries the full
+   public path. The cover's directory therefore comes from the album's first image.
+   Returns null rather than a broken src when an album has no images. */
+export function albumCoverSrc(album: GalleryAlbum): string | null {
+  const first = album.images?.[0];
+  if (!first?.publicPath || !album.coverImage) return null;
+  const dir = first.publicPath.slice(0, first.publicPath.lastIndexOf('/'));
+  return `${dir}/${album.coverImage}`;
+}
+
 export function getAllNotables(): NotableProfile[] {
   return readDir<NotableProfile>('notables');
 }

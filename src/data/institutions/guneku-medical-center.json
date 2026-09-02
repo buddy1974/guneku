@@ -1,0 +1,20 @@
+{
+ "id": "guneku-medical-center",
+ "type": "Institution",
+ "name": "Guneku Medical Center",
+ "status": "documented",
+ "category": "Health",
+ "location": "Mbengwi",
+ "documentedOn": "2026-03-25",
+ "documentedOnDisplay": "25 March 2026",
+ "description": "A medical facility carrying its own Guneku Medical Center letterhead, documented as existing on 25 March 2026. The document describes a fully equipped laboratory and a surgical theatre.",
+ "facilities": [
+  "Fully equipped laboratory",
+  "Surgical theatre"
+ ],
+ "relationshipToProposedReferenceCentre": "Not established. A reference healthcare centre for Guneku was proposed separately at the GUDECA Europe meeting in Bonn on 28 March 2026, three days after this document. The sources do not say whether the proposal is an upgrade of this facility or an entirely separate future institution, and no claim either way is made here. MEDPHISATG, the medical training programme hosted at the Palace, is a third and distinct thing.",
+ "recruitmentNote": "The document that establishes this facility is a March 2026 requisition for a Medical Doctor. That vacancy is not published here and must not be presented as currently open: its status has not been verified since March 2026.",
+ "contactNote": "Contact details appear on the source document and are deliberately not published until the Palace confirms they should be.",
+ "sourceNote": "Recorded 2026-09-02 from a document on Guneku Medical Center letterhead dated 25 March 2026. Published only at the status that document supports.",
+ "sourceType": "Guneku first-party document"
+}

@@ -2,6 +2,7 @@ import { getImageGallery } from '@/lib/content'
 import { PageHero } from '@/components/layout/PageHero'
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
 import { notFound } from 'next/navigation'
+import Image from 'next/image'
 import Link from 'next/link'
 
 export async function generateStaticParams() {
@@ -34,8 +35,17 @@ export default async function AlbumPage({
                       gap:'4px' }}>
           {(album.images || []).map((img: any) => (
             <div key={img.id} style={{ aspectRatio:'1', overflow:'hidden',
-                                       position:'relative', backgroundColor:'#0A0A10' }}>
-              <ImagePlaceholder label={img.filename} aspectRatio="1/1" />
+                                       position:'relative', backgroundColor:'oklch(0.940 0.014 85)' }}>
+              {/* img.publicPath has always been in this record; the page simply never
+                  read it. Captions are whatever the archive holds — none is invented. */}
+              {img.publicPath ? (
+                <Image src={img.publicPath} alt={img.caption || img.title || album.title}
+                       fill unoptimized loading="lazy"
+                       sizes="(max-width: 768px) 50vw, 240px"
+                       style={{ objectFit:'cover' }} />
+              ) : (
+                <ImagePlaceholder label={img.filename} aspectRatio="1/1" />
+              )}
             </div>
           ))}
         </div>

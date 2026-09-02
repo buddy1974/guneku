@@ -1,0 +1,33 @@
+{
+ "id": "ifuh-itah-festival",
+ "type": "Institution",
+ "name": "Ifuh Itah — the Fringyeng Yam Festival",
+ "status": "active",
+ "category": "Culture",
+ "quarter": "Fringyeng",
+ "zone": "Upper Guneku",
+ "revived": "2023",
+ "description": "Ifuh Itah is the harvest festival of the people of Fringyeng, in Upper Guneku. It is an old tradition that had been abandoned for years and was revived in 2023. It is held in December, and it has grown with every edition since the revival.",
+ "editions": [
+  {
+   "year": 2023,
+   "note": "The revival edition.",
+   "youtubeId": "mV-2jCdPwYU"
+  },
+  {
+   "year": 2024,
+   "youtubeId": "89xoGotS15s"
+  },
+  {
+   "year": 2025,
+   "displayDate": "Tuesday 16 December 2025",
+   "note": "Held at Fringyeng, with an agricultural show as its main innovation."
+  }
+ ],
+ "spellingNote": "Every source examined renders the name Ifuh Itah, with no variant across sixteen occurrences. If the Palace prefers a Meta orthography with diacritics, as with Mɨchi Ǝbeŋ, that is a later correction and not a reason to delay publishing.",
+ "relatedUpdates": [
+  "ifuh-itah-fringyeng-yam-festival-2025"
+ ],
+ "sourceNote": "Recorded 2026-09-02 from the Mbengwi Online community record. The 2023 and 2024 films are on the Mbengwi Online channel rather than the Guneku channel. The sources describe the festival only as the festival of the Fringyeng people; whether it is a quarter event or a whole-Guneku one is not settled.",
+ "sourceType": "Community record — Mbengwi Online"
+}

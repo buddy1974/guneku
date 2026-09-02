@@ -49,7 +49,7 @@
   "mchibe-mta-event-guneku2023",
   "mukonge-dance-groupsin-meta"
  ],
- "sourceNote": "Consolidated 2026-09-01 from the existing update articles and gallery albums. No edition later than the second is recorded in this repository.",
+ "sourceNote": "Consolidated 2026-09-01 from the existing update articles and gallery albums. No edition later than the second is recorded in this repository. Organising committee and films added 2026-09-02 from the reconciliation; the committee is dated to 2023 rather than presented as current.",
  "sourceType": "Migrated Guneku article and media archive",
  "relatedDances": [
   {
@@ -70,5 +70,44 @@
   }
  ],
  "diasporaMirror": "The diaspora mirrors the festival abroad. GUDECA Europe held a Michi Ebeng (Bonn edition) at the Fon's Palace in Bonn on 28 March 2026, deliberately on the same day the festival was celebrated in Guneku village.",
- "metaContext": "Meta context: MEFU, the Meta Fons Union, and MECUDA, the Meta Cultural and Development Association."
+ "metaContext": "Meta context: MEFU, the Meta Fons Union, and MECUDA, the Meta Cultural and Development Association.",
+ "organisingCommittee": {
+  "asRecorded": "2023",
+  "members": [
+   {
+    "name": "Fongoh P. Ayeh",
+    "role": "Head of the organising committee",
+    "note": "Also the publisher of the Mbengwi Online community record."
+   },
+   {
+    "name": "Tebo Julius",
+    "role": "Committee member"
+   },
+   {
+    "name": "Bandeh Godwill",
+    "role": "Committee member"
+   }
+  ],
+  "note": "Recorded for the 2023 edition. Not published as the present committee unless the Palace confirms it."
+ },
+ "films": [
+  {
+   "youtubeId": "3NrHXqm1zPc"
+  },
+  {
+   "youtubeId": "gBro0ZC-JqM"
+  },
+  {
+   "youtubeId": "GtKFg4e6XNQ"
+  },
+  {
+   "youtubeId": "TswnPNtU2nU"
+  },
+  {
+   "youtubeId": "OjSdjO_FOC4"
+  },
+  {
+   "youtubeId": "aAw_1B10vZM"
+  }
+ ]
 }

@@ -1,2 +1,17 @@
-{ "id": "guyodeca", "name": "Youth Development Association of Guneku", "abbreviation": "GUYODECA", "parentOrg": "GUDECA", "status": "active", "zones": [ "Zone 1", "Zone 2" ], "confirmedActivities": [ "Bridge construction project (2025)", "GUYODECA vs GUDECA football match", "Gift-giving to Guneku women over 50 (rice, Maggi, soap, spaghetti, clothes, flowers)" ]
+{
+ "id": "guyodeca",
+ "name": "Youth Development Association of Guneku",
+ "abbreviation": "GUYODECA",
+ "parentOrg": "GUDECA",
+ "status": "active",
+ "zones": [
+  "Zone 1",
+  "Zone 2"
+ ],
+ "confirmedActivities": [
+  "Bridge construction project (2025)",
+  "GUYODECA vs GUDECA football match",
+  "Gift-giving to Guneku women over 50 (rice, Maggi, soap, spaghetti, clothes, flowers)"
+ ],
+ "route": "/gudeca/guyodeca"
 }

@@ -1,16 +1,18 @@
 import Link  from 'next/link'
 import Image from 'next/image'
-import { getImageGallery } from '@/lib/content'
+import { getImageGallery, albumCoverSrc } from '@/lib/content'
 import { Reveal }          from '@/components/ui/Reveal'
 
 export const metadata = { title: 'Gallery — Faces of Guneku' }
 
 const SHOWCASE_IMAGES = [
-  { src: '/images/site/palace-grounds.jpg',    title: 'The Palace Grounds',        year: 'Coronation, 2016', span: 'md:col-span-2 md:row-span-2' },
-  { src: '/images/site/fon-coronation-2016.jpg',title: 'HRH Fon Fomuki Walters Ticha IX', year: '17 January 2016', span: '' },
-  { src: '/images/site/notable-portrait.jpg',  title: 'A Notable of Guneku',       year: 'Coronation, 2016', span: '' },
+  /* Subtitles carry only what a source supports. The '17 January 2016 coronation'
+     formerly shown here matches no record in the archive and has been withdrawn. */
+  { src: '/images/site/palace-grounds.jpg',    title: 'The Palace Grounds',        year: 'Guneku Palace', span: 'md:col-span-2 md:row-span-2' },
+  { src: '/images/site/fon-coronation-2016.jpg',title: 'HRH Fon Fomuki Walters Ticha IX', year: 'The reigning Fon', span: '' },
+  { src: '/images/site/notable-portrait.jpg',  title: 'A Notable of Guneku',       year: 'Guneku', span: '' },
   { src: '/images/site/michi-ebeng.jpg',       title: 'Mɨchi Ɗbeŋ Festival',           year: 'Guneku, 2023',     span: '' },
-  { src: '/images/site/kingdom-hills.jpg',     title: 'The Palace and the Momo Hills', year: 'Coronation, 2016', span: 'md:col-span-2' },
+  { src: '/images/site/kingdom-hills.jpg',     title: 'The Palace and the Momo Hills', year: 'Momo Division', span: 'md:col-span-2' },
 ]
 
 export default function GalleryPage() {
@@ -66,11 +68,17 @@ export default function GalleryPage() {
                 <Link key={album.id} href={`/gallery/images/${album.id}`}
                       className="group card-royal overflow-hidden block no-underline">
                   <div className="relative h-48 bg-card/50 pattern-royal overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="font-cinzel text-5xl text-foreground/10">
-                        {(album.imageCount || 0).toString().padStart(2,'0')}
-                      </span>
-                    </div>
+                    {albumCoverSrc(album) ? (
+                      <Image src={albumCoverSrc(album)!} alt={album.title} fill unoptimized
+                             loading="lazy" sizes="(max-width: 768px) 100vw, 33vw"
+                             className="object-cover" />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="font-cinzel text-5xl text-foreground/10">
+                          {(album.imageCount || 0).toString().padStart(2,'0')}
+                        </span>
+                      </div>
+                    )}
                     <div className="absolute top-2 right-2 bg-card border border-border px-2 py-0.5 text-[10px] tracking-widest text-primary font-cinzel">
                       {album.imageCount} photos
                     </div>

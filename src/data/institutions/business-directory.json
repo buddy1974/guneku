@@ -48,5 +48,8 @@
    "note": "The community’s own advice, given in the same thread: meat should be inspected by an authorised veterinarian before sale."
   }
  ],
- "sourceNote": "Businesses that advertised themselves in the community during 2026. Recorded 2026-09-01."
+ "sourceNote": "Businesses that advertised themselves in the community during 2026. Recorded 2026-09-01.",
+ "publicVisibility": "hold",
+ "holdReason": "Held from public surfacing pending a deliberate consent review of the listed businesses. The record already withholds every contact detail; the hold covers the listing itself. Source data retained in full — this is a visibility decision, not a deletion.",
+ "holdRecordedOn": "2026-09-02"
 }
