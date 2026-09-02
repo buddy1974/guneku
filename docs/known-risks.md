@@ -67,3 +67,18 @@ Recorded so they are not silently settled by a later editor:
   published; recorded in that news record's own source note.
 - **Meta clan size.** `/kingdom/about-guneku` says 31 communities; the blog sources say 29.
   A Meta-clan fact, not a Guneku one. Unresolved.
+
+## R-011 — Aug 2026 MEFU-MECUDA card still carries a 2016 photograph
+
+`src/data/updates/mefu-mecuda-joint-meeting-guneku-palace.json` sets
+`featuredImage: /images/site/coronation-crowd.jpg` — a 2016 coronation crowd used as the
+card image for a 29 August 2026 meeting. It is the one card in the Latest grid that is not
+covered by the ADR-013 fallback, precisely because it has a `featuredImage`, and it carries
+no "Archive photo" mark, so it reads as coverage of the 2026 meeting.
+
+Two candidate resolutions, neither executed — this is a content decision for the Product
+Owner: supply `mefu-mecuda-2026-fons.jpg` from the group archives (the outcome the image
+pipeline spec assumes), or clear `featuredImage` on that record so it falls through to the
+labelled palace-pool fallback, which is at least honest about not being the event.
+
+Recorded 2026-09-02 alongside ADR-013. Previously noted in `guneku-image-pipeline-spec.md`.

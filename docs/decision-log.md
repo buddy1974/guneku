@@ -194,3 +194,41 @@ words, the matched entry must account for at least half of them. Score alone ran
 decides whether anything is said at all. There is no model behind this route, so a wrong
 match cannot be smoothed over by generation — it is simply a wrong answer, and refusing is
 the correct output.
+
+## ADR-013 — A card may carry archive photography, but never as evidence
+
+**Context.** Thirty-three of the thirty-nine Village Square records carry no photograph of
+their own. On the homepage card grid that produced three beige plates carrying the word
+"Guneku" beside one real photograph — read by the Product Owner as an unfinished page.
+The obvious fix, dropping any photograph into the empty slot, is the same defect the image
+pipeline spec already recorded once: a 2016 coronation crowd standing in as the card image
+for an August 2026 MEFU-MECUDA meeting. A photograph placed above a headline is read as
+coverage of that headline.
+
+**Decision.** Village Square cards without their own photograph now carry a photograph from
+the Guneku archive under three constraints, none of which is optional:
+
+1. **Topic-matched.** Six curated pools — palace, culture, diaspora, education, projects,
+   village — selected by keyword rules over the record's slug and title. A road record gets
+   road work; a scholarship record gets the community library. The image is contextually
+   truthful even though it is not documentary.
+2. **Deterministic, never random.** The pool index is FNV-1a over the slug. The same record
+   resolves to the same photograph on the server, on the client, and across every future
+   build. A per-render `Math.random()` would flicker under hydration and would silently
+   rewrite the site's visual record on each deploy.
+3. **Labelled, and decorative to assistive technology.** Every fallback card carries a
+   visible "Archive photo" mark and empty `alt`, with the provenance sentence in `title`.
+   Nothing on the card asserts that the photograph shows the event.
+
+The article page is unchanged: `EditorialLead` continues to state plainly that the archive
+holds no photograph for the record (the institutional plate). The card is a wayfinding
+surface; the article is the record. They are allowed to differ, and the labelling is what
+keeps the difference honest.
+
+**Rejected.** Unlabelled topic-matched photography (indistinguishable from coverage);
+generated pattern cards (no editorial risk, but the Product Owner asked for photographs);
+leaving the plates (the reason this was raised).
+
+**Consequence.** `/public/images/fallback/` is now a governed asset set: 27 files, 720×450,
+cropped from photographs already published on the site or in the public galleries. Adding a
+record's real photograph to its JSON automatically retires its fallback — no code change.

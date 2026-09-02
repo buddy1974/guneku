@@ -1,9 +1,9 @@
 import Link  from 'next/link'
-import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import { getAllUpdates } from '@/lib/content'
 import type { Update }   from '@/lib/content'
 import { PageHero }      from '@/components/layout/PageHero'
+import { UpdateCardMedia } from '@/components/ui/UpdateCardMedia'
 
 export const metadata = {
   alternates: { canonical: '/updates' },
@@ -51,19 +51,14 @@ export default function UpdatesPage() {
           <div className="inst-wrap inst-sec">
             <Link href={`/updates/${featured.slug}`}
                   className="group grid items-start gap-8 no-underline md:grid-cols-[1.1fr_1fr]">
-              {featured.featuredImage && (
-                <div className="relative aspect-[16/10] w-full overflow-hidden border border-[var(--rule)] bg-[var(--stone)]">
-                  <Image
-                    src={featured.featuredImage}
-                    alt={(featured as unknown as { leadImageAlt?: string }).leadImageAlt || featured.title}
-                    fill
-                    unoptimized
-                    sizes="(max-width: 768px) 100vw, 55vw"
-                    className="object-cover"
-                    priority
-                  />
-                </div>
-              )}
+              <UpdateCardMedia
+                slug={featured.slug}
+                title={(featured as unknown as { leadImageAlt?: string }).leadImageAlt || featured.title}
+                featuredImage={featured.featuredImage}
+                sizes="(max-width: 768px) 100vw, 55vw"
+                priority
+                className="border border-[var(--rule)]"
+              />
               <div>
                 <p className="inst-tag">Latest · {fmt(featured.publishedAt)}</p>
                 <h2 className="inst-h2 mt-2 group-hover:text-[var(--royal-green)]">

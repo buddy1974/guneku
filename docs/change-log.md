@@ -97,3 +97,37 @@ Narrow corrections ahead of Marcel's visual review. No commit, no deploy.
 Verification: `npx tsc --noEmit` clean; `npm run build` clean, 120 static pages; homepage
 measured at 390 / 768 / 1280 / 1440 with no horizontal overflow and no blank band; assistant
 regression-tested on four questions that must be refused and eight that must be answered.
+
+## 2026-09-02 — Village Square card imagery: archive fallback (branch, not deployed)
+
+Product Owner task: update cards were rendering an empty "Guneku" plate where a record has
+no photograph of its own; fill them rather than leave them blank. ADR-013 records why the
+fill is constrained rather than arbitrary.
+
+- **New `src/lib/archiveFallback.ts`.** `cardImageFor(record)` returns the record's own
+  `featuredImage` when it has one, otherwise a topic-matched, deterministic, labelled
+  photograph from the archive. Topic by word-boundary keyword rules over slug + title
+  (prefix-tolerant, never raw substring — an early substring version matched `road` inside
+  "broadcast" and put road works above a story on support for people with disabilities).
+  Pool index by FNV-1a over the slug, so the pick is stable across renders and builds.
+- **New `src/components/ui/UpdateCardMedia.tsx`.** The card's image half. Fallbacks render
+  with a visible "Archive photo" mark, empty `alt`, and the provenance sentence in `title`.
+- **No new image asset.** The six pools reference 19 photographs the site already
+  publishes — `/images/site`, `/images/palace`, `/images/updates` and four public gallery
+  albums, 24–172 KB each. Nothing was added to the repository and no consent surface
+  changed: an image not publishable before is not publishable here either.
+- **`src/app/page.tsx`.** The "Latest from Guneku" grid uses `UpdateCardMedia`; the beige
+  "Guneku" plate is gone.
+- **`src/app/updates/page.tsx`.** The featured lead uses the same component, so the two-column
+  lead can no longer collapse to one column when the newest record has no photograph.
+- **Unchanged:** `/updates/[slug]` and `EditorialLead` — the article page still states that
+  the archive holds no photograph for the record. Records with their own photograph render
+  exactly as before.
+
+Coverage: 39 records — 6 own photograph, 33 fallback (culture 6, village 10, palace 5,
+education 5, diaspora 4, projects 3).
+
+Verification: `npx tsc --noEmit` clean; `npx eslint` clean on the four touched files;
+`npm run build` clean, 120 static pages; every resolved path asserted to exist on disk;
+determinism asserted by resolving each record twice; homepage grid measured at 390 and 1440.
+Not merged and not deployed — release approval is the Product Owner's (CLAUDE.md).

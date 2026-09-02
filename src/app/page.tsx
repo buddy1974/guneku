@@ -14,6 +14,7 @@ import { ArchiveStrip }   from '@/components/home/ArchiveStrip'
 import { FaqSection }     from '@/components/home/FaqSection'
 import { TalkToPalace }   from '@/components/home/TalkToPalace'
 import { AskPalace }      from '@/components/home/AskPalace'
+import { UpdateCardMedia } from '@/components/ui/UpdateCardMedia'
 import current            from '@/data/current-notices.json'
 import type { Metadata } from 'next'
 
@@ -197,15 +198,7 @@ export default function HomePage() {
             {updates.map(u => (
               <article key={u.slug} className="inst-card overflow-hidden">
                 <Link href={`/updates/${u.slug}`} className="group block no-underline">
-                  <div className="relative aspect-[16/10] w-full bg-[var(--stone)]">
-                    {u.featuredImage ? (
-                      <Image src={u.featuredImage} alt={u.title} fill sizes="(max-width: 640px) 100vw, 25vw" className="object-cover" />
-                    ) : (
-                      <span className="flex h-full items-center justify-center font-[family-name:var(--font-display)] text-3xl text-[var(--ink-400)]">
-                        Guneku
-                      </span>
-                    )}
-                  </div>
+                  <UpdateCardMedia slug={u.slug} title={u.title} featuredImage={u.featuredImage} />
                   <div className="p-4">
                     <p className="inst-meta">{fmt(u.publishedAt)}</p>
                     <h3 className="inst-h3 mt-1 line-clamp-3 group-hover:text-[var(--burgundy-i)]">{u.title}</h3>
