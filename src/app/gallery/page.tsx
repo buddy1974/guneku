@@ -3,7 +3,9 @@ import Image from 'next/image'
 import { getImageGallery, albumCoverSrc } from '@/lib/content'
 import { Reveal }          from '@/components/ui/Reveal'
 
-export const metadata = { title: 'Gallery — Faces of Guneku' }
+export const metadata = {
+  alternates: { canonical: '/gallery' },
+  description: "The Guneku Fondom visual archive — fifteen event albums of 338 photographs, and the video record of the Fondom's own YouTube channel.", title: 'Gallery — Faces of Guneku' }
 
 const SHOWCASE_IMAGES = [
   /* Subtitles carry only what a source supports. The '17 January 2016 coronation'

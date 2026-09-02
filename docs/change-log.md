@@ -72,3 +72,28 @@ Authority: `GUNEKU-FRESH-CONTENT-RECONCILIATION-2026-09.md` Rev. 4 and
 - No three-variant image set was generated for the 338 canonical photographs (ADR-009).
 - Build: 115 static pages, `npm run build` and `npx tsc --noEmit` clean.
 - Lighthouse was not run — not installed locally, and no score was fabricated (R-008).
+
+## 2026-09-02 — Homepage review-prep correction pass (uncommitted)
+
+Narrow corrections ahead of Marcel's visual review. No commit, no deploy.
+
+- **Homepage duplication removed.** The full 28-row development register listing was
+  deleted from the homepage; `CurrentProjects` is now its single principal representation
+  and `/projects` remains the complete register. Sections renumbered 1–18.
+- **Response promises removed.** "a representative will come back to you" / "will get back
+  to you" / "someone will come back to you" replaced site-wide with what is actually true —
+  the message or offer is sent to the Palace for review and a representative may make
+  contact. Six locations: `support/page.tsx`, `support/SupportForm.tsx` (×2),
+  `PalaceMessageModal.tsx` (×2), `TalkToPalace.tsx`, `SupportBand.tsx`,
+  `village-facts.json`, `palace-knowledge.ts`.
+- **BCC moved to configuration.** ADR-010. `EMAIL_BCC` only; `server-only` guard added;
+  `.env.example` documents the variable.
+- **Ngon / Ngong / Batmuki.** Verified as three distinct things, not spelling variants:
+  Ngon is the market day, Ngong is one of the 27 quarters with its own market and stream,
+  the Batmuki is the river. Nothing was normalised. Recorded in `nameNote`.
+- **At-a-glance reduced 9 → 6.** ADR-011.
+- **Information-desk coverage guard.** ADR-012.
+
+Verification: `npx tsc --noEmit` clean; `npm run build` clean, 120 static pages; homepage
+measured at 390 / 768 / 1280 / 1440 with no horizontal overflow and no blank band; assistant
+regression-tested on four questions that must be refused and eight that must be answered.

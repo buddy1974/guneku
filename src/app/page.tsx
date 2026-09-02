@@ -3,7 +3,24 @@ import Image from 'next/image'
 import { ArrowRight, PlayCircle } from 'lucide-react'
 import { getAllUpdates }  from '@/lib/content'
 import { GunekuVideo }    from '@/components/home/GunekuVideo'
+import { AtAGlance }      from '@/components/home/AtAGlance'
+import { CurrentProjects } from '@/components/home/CurrentProjects'
+import { SupportBand }    from '@/components/home/SupportBand'
+import { CommunityEconomy } from '@/components/home/CommunityEconomy'
+import { ThingsToKnow }   from '@/components/home/ThingsToKnow'
+import { DiscoverGuneku } from '@/components/home/DiscoverGuneku'
+import { GunekuToday }    from '@/components/home/GunekuToday'
+import { ArchiveStrip }   from '@/components/home/ArchiveStrip'
+import { FaqSection }     from '@/components/home/FaqSection'
+import { TalkToPalace }   from '@/components/home/TalkToPalace'
+import { AskPalace }      from '@/components/home/AskPalace'
 import current            from '@/data/current-notices.json'
+import type { Metadata } from 'next'
+
+/* The root layout no longer sets a canonical, so the homepage declares its own. */
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+}
 import programme          from '@/data/institutions/education-scholarship-day-2026.json'
 
 export const revalidate = 3600
@@ -83,9 +100,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 2 · Current notices + scholarship feature ── */}
+      {/* ── 2 · Guneku at a glance ── */}
+      <AtAGlance />
+
+      {/* ── 3 · Work under way ── */}
+      <CurrentProjects />
+
+      {/* ── 4 · Support the work ── */}
+      <SupportBand />
+
+      {/* ── 5 · Notices & the scholarship feature ── */}
       <section className="inst-alt border-b border-[var(--rule)]">
-        <div className="inst-wrap inst-sec grid gap-8 lg:grid-cols-[1.5fr_1fr] lg:gap-10">
+        <div className="inst-wrap inst-sec grid items-start gap-8 lg:grid-cols-[1.5fr_1fr] lg:gap-10">
 
           <div>
             <div className="flex items-baseline justify-between gap-4">
@@ -159,7 +185,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 3 · Latest from Guneku ── */}
+      {/* ── 6 · Latest from Guneku ── */}
       <section className="border-b border-[var(--rule)]">
         <div className="inst-wrap inst-sec">
           <div className="flex items-baseline justify-between gap-4">
@@ -192,12 +218,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 4 · Guneku Video ── */}
+      {/* ── 7 · Guneku Video ── */}
       <GunekuVideo />
 
-      {/* ── 5 · About Guneku ── */}
+      {/* ── 8 · About Guneku ── */}
       <section className="border-b border-[var(--rule)]">
-        <div className="inst-wrap inst-sec grid gap-8 lg:grid-cols-[1.35fr_1fr] lg:gap-12">
+        <div className="inst-wrap inst-sec grid items-start gap-8 lg:grid-cols-[1.35fr_1fr] lg:gap-12">
           <div>
             <p className="inst-eyebrow">About Guneku</p>
             <h2 className="inst-h2 mt-1.5">A village of the Meta clan, in the hills of Momo Division</h2>
@@ -232,41 +258,27 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 6 · Development & institutions ── */}
-      <section className="inst-alt border-b border-[var(--rule)]">
-        <div className="inst-wrap inst-sec">
-          <div className="flex items-baseline justify-between gap-4">
-            <div>
-              <h2 className="inst-h2">Development &amp; institutions</h2>
-              <p className="inst-body mt-1.5">
-                The complete register &mdash; no filter applied. Each entry shows the stage its
-                sources actually establish, and a proposal is recorded as a proposal.
-              </p>
-            </div>
-            <Link href="/projects" className="inst-link shrink-0">All projects →</Link>
-          </div>
+      {/* ── 9 · Community economy ── */}
+      <CommunityEconomy />
 
-          <ul className="mt-5 list-none p-0">
-            {current.development.map(d => (
-              <li key={d.name} className="inst-row">
-                <Link href={d.href} className="group grid gap-x-5 gap-y-1.5 py-3.5 no-underline md:grid-cols-[1.1fr_6.5rem_1fr_8.5rem] md:items-baseline">
-                  <span className="inst-h3 group-hover:text-[var(--burgundy-i)]">{d.name}</span>
-                  <span className={`inst-status ${d.statusClass} justify-self-start`}>{d.status}</span>
-                  <span className="inst-body !text-[0.84rem]">{d.description}</span>
-                  <span className="inst-meta md:text-right">
-                    {d.body}<br />{d.lastUpdate}
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      {/* ── 10 · The village, in its own words ── */}
+      <ThingsToKnow />
 
-      {/* ── 7 · Upcoming events ── */}
+      {/* ── 11 · Discover ── */}
+      <DiscoverGuneku />
+
+      {/* ── 12 · From the archive ── */}
+      <ArchiveStrip />
+
+      {/* ── 13 · Upcoming events ── */}
       <section className="border-b border-[var(--rule)]">
         <div className="inst-wrap inst-sec">
-          <h2 className="inst-h2">Upcoming events</h2>
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <h2 className="inst-h2">Upcoming events</h2>
+            {/* A small living card, not a weather page. Renders nothing if the
+                lookup fails, so the band never shows an empty slot. */}
+            <GunekuToday />
+          </div>
           <ul className="mt-4 grid list-none gap-4 p-0 sm:grid-cols-2">
             {current.upcomingEvents.map(e => (
               <li key={e.date} className="inst-card">
@@ -286,7 +298,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 8 · Explore Guneku ── */}
+      {/* ── 14 · Explore Guneku ── */}
       <section className="inst-alt border-b border-[var(--rule)]">
         <div className="inst-wrap inst-sec">
           <h2 className="inst-h2">Explore Guneku</h2>
@@ -303,7 +315,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 9 · Our community ── */}
+      {/* ── 15 · Questions ── */}
+      <FaqSection />
+
+      {/* ── 16 · Reach the Palace ── */}
+      <TalkToPalace />
+
+      {/* ── 17 · The information desk ── */}
+      <AskPalace />
+
+      {/* ── 18 · Our community ── */}
       <section>
         <div className="inst-wrap inst-sec">
           <div className="inst-card grid gap-5 p-6 md:grid-cols-[1.6fr_auto] md:items-center">

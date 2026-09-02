@@ -3,6 +3,7 @@ import { Reveal }         from '@/components/ui/Reveal'
 import cig               from '@/data/institutions/agro-cig.json'
 
 export const metadata = {
+  alternates: { canonical: '/agro-cig' },
   title:       'Agro CIG — Guneku Agricultural Initiative 2026',
   description: 'Guneku Agro CIG — registered 12 March 2026, launched 5 April at Ngong Quarter. 12.5M FCFA raised in Phase 1, 500 chicks, turkeys from Nigeria.',
 }

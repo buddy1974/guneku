@@ -9,6 +9,7 @@ const str = (v: unknown): string | undefined =>
   typeof v === 'string' && v.length > 0 ? v : undefined
 
 export const metadata = {
+  alternates: { canonical: '/institutions' },
   title: 'Institutions — Guneku',
   description: 'The standing bodies of Guneku — cooperative, credit union, library, media, education and community organisations, each recorded at the stage its sources establish.',
 }

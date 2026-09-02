@@ -7,6 +7,8 @@ import { Footer }         from '@/components/layout/Footer'
 import { MobileNav }      from '@/components/layout/MobileNav'
 import { ToastContainer } from '@/components/ui/Toast'
 import { getNavigation }  from '@/lib/content'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { SITE_URL, SITE_NAME } from '@/lib/seo'
 import './globals.css'
 
 /* Previously loaded with a <link> to fonts.googleapis.com, which Lighthouse measured
@@ -32,7 +34,9 @@ export const metadata: Metadata = {
     template: '%s | Guneku Fondom',
   },
   description: 'The official website of Guneku Fondom — Mbengwi, Momo Division, North West Cameroon. Twenty-seven quarters, one Fondom, and a community organised across three continents.',
-  alternates: { canonical: '/' },
+  /* No canonical here. In the App Router `alternates.canonical` is inherited by every
+     child route, so a value set on the root layout made all ~110 pages canonicalise to
+     the homepage. Each route now declares its own self-referencing canonical. */
   keywords: ['Guneku','Fondom','Cameroon','Meta clan','Mbengwi','GUDECA','Fon Fomuki','Northwest Cameroon'],
   authors:  [{ name: 'MaxPromo Digital', url: 'https://maxpromo.digital' }],
   creator:  'Marcel Tabit Akwe — MaxPromo Digital',
@@ -52,7 +56,6 @@ export const metadata: Metadata = {
     images:  ['/images/site/og-guneku.jpg'],
   },
   robots:   { index: true, follow: true },
-  icons:    { icon: '/logo.png', apple: '/logo.png', shortcut: '/logo.png' },
   manifest: '/manifest.json',
 }
 
@@ -67,6 +70,32 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`scroll-smooth ${sourceSerif.variable} ${sourceSans.variable}`}>
       <body style={{ backgroundColor: 'oklch(0.965 0.012 85)', color: 'oklch(0.245 0.022 150)', overflowX: 'hidden' }}>
+        <JsonLd data={{
+          '@context': 'https://schema.org',
+          '@graph': [
+            {
+              '@type': 'Organization',
+              '@id': `${SITE_URL}#organization`,
+              name: SITE_NAME,
+              url: SITE_URL,
+              logo: `${SITE_URL}/brand/logo-512.png`,
+              address: {
+                '@type': 'PostalAddress',
+                addressLocality: 'Mbengwi',
+                addressRegion: 'North West Region',
+                addressCountry: 'CM',
+              },
+            },
+            {
+              '@type': 'WebSite',
+              '@id': `${SITE_URL}#website`,
+              url: SITE_URL,
+              name: SITE_NAME,
+              publisher: { '@id': `${SITE_URL}#organization` },
+              inLanguage: 'en-GB',
+            },
+          ],
+        }} />
         <Header nav={nav} />
         <main>{children}</main>
         <Footer />

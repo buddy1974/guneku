@@ -4,6 +4,7 @@ import { Reveal }   from '@/components/ui/Reveal'
 import Link         from 'next/link'
 
 export const metadata = {
+  alternates: { canonical: '/notables' },
   title: 'Notables — Sons and Daughters of Guneku',
   description: 'Sons and daughters of Guneku whose work is recorded by the Fondom.',
 }

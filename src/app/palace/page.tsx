@@ -5,6 +5,7 @@ import { getFonProfile, getAllPalaceArticles } from '@/lib/content'
 import { Reveal }        from '@/components/ui/Reveal'
 
 export const metadata = {
+  alternates: { canonical: '/palace' },
   title: 'The Palace — HRH Dr. Fomuki Walters Ticha IX',
   description: 'Inside the palace of Guneku — home of the ninth Fon, physician, and visionary leader of his kingdom.',
 }

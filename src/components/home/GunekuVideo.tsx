@@ -10,7 +10,10 @@ import gallery from '@/data/gallery/video-gallery.json'
 export function GunekuVideo() {
   const videos   = gallery.dbVideos.filter(v => v.state === 1)
   const featured = videos[0]
-  const rest     = videos.slice(1)
+  /* An editorial subset, not the whole archive. Forty-five items beside one selected
+     video is what stretched this grid and left the dead space under the card. */
+  const rest     = videos.slice(1, 6)
+  const more     = Math.max(0, videos.length - 6)
 
   if (!featured) return null
 
@@ -35,7 +38,7 @@ export function GunekuVideo() {
           </div>
         </div>
 
-        <div className="mt-6 grid gap-6 lg:grid-cols-[1.55fr_1fr]">
+        <div className="mt-6 grid items-start gap-6 lg:grid-cols-[1.55fr_1fr]">
 
           {/* Featured — real thumbnail, click through to the page it belongs to */}
           <article className="inst-card overflow-hidden">
@@ -81,14 +84,9 @@ export function GunekuVideo() {
               ))}
             </ul>
 
-            <a
-              href={gallery.channelUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inst-link mt-4 inline-block"
-            >
-              Subscribe to Guneku on YouTube →
-            </a>
+            <Link href="/gallery/videos" className="inst-link mt-4 inline-block">
+              {more > 0 ? `All ${videos.length} videos →` : 'All videos →'}
+            </Link>
           </div>
         </div>
       </div>

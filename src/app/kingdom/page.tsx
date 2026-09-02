@@ -6,6 +6,7 @@ import { GUNEKU_QUARTERS_27 } from '@/lib/quarters'
 import { Reveal }             from '@/components/ui/Reveal'
 
 export const metadata = {
+  alternates: { canonical: '/kingdom' },
   title: 'The Kingdom — Guneku Fondom',
   description: 'Twenty-seven quarters in the hills of Mbengwi, Momo Division, North West Cameroon — the land, the people and the record of Guneku.',
 }

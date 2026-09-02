@@ -1,6 +1,8 @@
 import { PageHero } from '@/components/layout/PageHero'
 
-export const metadata = { title: 'GUNECCUL — Community Credit Union' }
+export const metadata = {
+  alternates: { canonical: '/guneccul' },
+  description: "GUNECCUL, the Guneku Cooperative Credit Union Limited — savings, loans and solidarity shares for Guneku indigenes, across four branches.", title: 'GUNECCUL — Community Credit Union' }
 
 export default function GuneccullPage() {
   return (

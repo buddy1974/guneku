@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link  from 'next/link'
 import { PlayCircle } from 'lucide-react'
 import gallery from '@/data/gallery/video-gallery.json'
@@ -44,16 +45,20 @@ export default function VideoArchivePage() {
             <div className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {cat.items.map(v => (
                 <article key={v.youtubeId} className="inst-card overflow-hidden">
-                  <div className="relative aspect-video w-full bg-[var(--stone)]">
-                    <iframe
-                      className="absolute inset-0 h-full w-full border-0"
-                      src={`https://www.youtube-nocookie.com/embed/${v.youtubeId}?rel=0`}
-                      title={v.displayTitle}
-                      loading="lazy"
-                      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
-                  </div>
+                  {/* The same thumbnail mechanism the homepage already uses. Forty-six
+                      embedded players on one page never loaded; the poster frame does,
+                      and the card links out to the video itself. */}
+                  <a href={v.youtubeUrl} target="_blank" rel="noopener noreferrer"
+                     className="group relative block aspect-video w-full overflow-hidden bg-[var(--stone)] no-underline">
+                    {v.thumb ? (
+                      <Image src={v.thumb} alt={v.displayTitle} fill unoptimized loading="lazy"
+                             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                             className="object-cover" />
+                    ) : null}
+                    <span className="absolute inset-0 flex items-center justify-center">
+                      <PlayCircle className="h-12 w-12 text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]" strokeWidth={1.25} aria-hidden />
+                    </span>
+                  </a>
                   <div className="p-4">
                     <p className="inst-tag">{v.category}</p>
                     <h3 className="inst-h3 mt-1">{v.displayTitle}</h3>

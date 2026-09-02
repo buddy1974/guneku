@@ -1,10 +1,13 @@
 import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Indigenes Directory — Sons & Daughters of Guneku',
-  description: 'The official directory of Guneku indigenes worldwide. Create your profile and connect with the community.',
-}
+/* /indigenes is a client component and cannot export metadata itself. */
+export const metadata: Metadata = pageMetadata({
+  title: 'Indigenes Directory',
+  description: 'The directory of Guneku sons and daughters at home and in the diaspora, searchable by name and by quarter of origin.',
+  path: '/indigenes',
+})
 
 export default function IndigenesLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+  return children
 }

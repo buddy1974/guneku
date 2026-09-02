@@ -157,3 +157,40 @@ folder, `public/images/education/`. The 338 gallery photographs do not follow it
 
 **Decision.** A convention of one example is not authority to generate 1,014 files. The
 canonical images are served as they are. Revisit as a deliberate performance decision.
+
+## ADR-010 — The silent copy address is configuration, never source
+
+**Context.** Palace and support messages go to the Fondom address with a silent copy to
+the maintainer. The copy address had been written into `src/lib/email/send.ts` as a
+fallback, which would have committed a personal address to a public repository.
+
+**Decision.** The copy recipient is read only from `EMAIL_BCC`, server-side. No address is
+committed. When `EMAIL_BCC` is unset the message still delivers to `EMAIL_ADMIN` and the
+copy is simply omitted — a missing variable never fails a visitor's submission.
+`src/lib/email/send.ts` carries `import 'server-only'`, so the value cannot reach a client
+bundle even by accident. Production must set `EMAIL_BCC` privately in Vercel.
+
+## ADR-011 — Withdraw a statistic rather than publish a false precision
+
+**Context.** Three of the nine at-a-glance figures could not be proved from a single
+unambiguous source: churches (the same record says both "as many churches as there are
+quarters" and enumerates 19), schools (the record's own editor note flags an unresolved
+conflict), and medical facilities (the record says three; the archive names four).
+
+**Decision.** Those three are withdrawn from the front page, with the reason recorded in
+`glanceOmitted` in `src/data/home/village-facts.json`. The six that remain — population,
+quarters, GUDECA chapters, development records, photographs, films — each trace to one
+source or to a count performed against the repository. An ambiguous count is worse than an
+absent one on a page that represents a real community.
+
+## ADR-012 — The information desk must refuse rather than approximate
+
+**Context.** A private question ("What was the Fon's private medical diagnosis?") was
+answered with the public health-facilities statistic. One strong keyword inside a long
+question about something else cleared the score threshold.
+
+**Decision.** `ask()` now also requires coverage: for a question of four or more content
+words, the matched entry must account for at least half of them. Score alone ranks; coverage
+decides whether anything is said at all. There is no model behind this route, so a wrong
+match cannot be smoothed over by generation — it is simply a wrong answer, and refusing is
+the correct output.

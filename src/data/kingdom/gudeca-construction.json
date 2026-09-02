@@ -1,2 +1,16 @@
-{ "id": "gudeca-construction", "type": "KingdomArticle", "title": "GUDECA Construction", "slug": "gudeca-construction", "section": "kingdom", "order": 2, "publishedAt": "2023-05-18T11:45:27.000Z", "metaDescription": null, "body": "<p>Guneku Development and Cultural Association<br></p>", "youtubeEmbeds": [], "images": [], "featuredImage": null
+{
+ "id": "gudeca-construction",
+ "type": "KingdomArticle",
+ "title": "GUDECA Construction",
+ "slug": "gudeca-construction",
+ "section": "kingdom",
+ "order": 2,
+ "publishedAt": "2023-05-18T11:45:27.000Z",
+ "metaDescription": null,
+ "body": "<p>Guneku Development and Cultural Association<br></p>",
+ "youtubeEmbeds": [],
+ "images": [],
+ "featuredImage": null,
+ "noindex": true,
+ "stubNote": "Classified 2026-09-02 as a genuinely unsupported stub: the record, the migrated about/ copy and the retired Joomla article all hold only the title. Kept reachable and out of the index until sourced content is supplied. No filler was written."
 }

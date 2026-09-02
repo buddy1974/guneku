@@ -1,9 +1,28 @@
 import { getAllNotables, getNotable } from '@/lib/content'
+import { pageMetadata, excerptFrom } from '@/lib/seo'
+import type { Metadata } from 'next'
 import { PageHero } from '@/components/layout/PageHero'
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+  const { slug } = await params
+  const n = getNotable(slug) as Record<string, any> | null
+  if (!n) return {}
+  const role = [n.title, n.institution, n.location].filter(x => typeof x === 'string' && x).join(' · ')
+  return pageMetadata({
+    title: String(n.name),
+    description: excerptFrom(n.bio || role),
+    path: `/notables/${slug}`,
+    image: typeof n.portrait === 'string' ? n.portrait : null,
+    imageAlt: typeof n.portraitAlt === 'string' ? n.portraitAlt : String(n.name),
+    type: 'article',
+  })
+}
 
 export async function generateStaticParams() {
   return getAllNotables().map((n: any) => ({ slug: n.slug }))

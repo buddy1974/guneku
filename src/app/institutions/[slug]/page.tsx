@@ -1,4 +1,6 @@
 import { getAllInstitutions, getInstitution } from '@/lib/content'
+import { pageMetadata, excerptFrom } from '@/lib/seo'
+import type { Metadata } from 'next'
 import { PageHero } from '@/components/layout/PageHero'
 import { Reveal }   from '@/components/ui/Reveal'
 import { notFound } from 'next/navigation'
@@ -7,6 +9,20 @@ import Link         from 'next/link'
 /* Detail pages exist only for institutions that have no page of their own already.
    Where a dedicated page exists the record carries a `route` and the index links
    straight there — one subject, one page. */
+export async function generateMetadata(
+  { params }: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+  const { slug } = await params
+  const i = getInstitution(slug) as Record<string, any> | null
+  if (!i || i.route || i.publicVisibility === 'hold') return {}
+  return pageMetadata({
+    title: String(i.name),
+    description: excerptFrom(i.description),
+    path: `/institutions/${slug}`,
+    imageAlt: String(i.name),
+  })
+}
+
 export async function generateStaticParams() {
   /* No page is generated for a record that already has a home (`route`), nor for one
      held from public surfacing. One subject, one page — and held means held. */

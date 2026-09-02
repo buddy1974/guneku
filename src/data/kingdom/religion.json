@@ -1,2 +1,16 @@
-{ "id": "religion", "type": "KingdomArticle", "title": "Religion", "slug": "religion", "section": "kingdom", "order": 5, "publishedAt": "2023-05-18T11:47:36.000Z", "metaDescription": null, "body": "<p>Religion</p>", "youtubeEmbeds": [], "images": [], "featuredImage": null
+{
+ "id": "religion",
+ "type": "KingdomArticle",
+ "title": "Religion",
+ "slug": "religion",
+ "section": "kingdom",
+ "order": 5,
+ "publishedAt": "2023-05-18T11:47:36.000Z",
+ "metaDescription": null,
+ "body": "<p>Religion</p>",
+ "youtubeEmbeds": [],
+ "images": [],
+ "featuredImage": null,
+ "noindex": true,
+ "stubNote": "Classified 2026-09-02 as a genuinely unsupported stub: the record, the migrated about/ copy and the retired Joomla article all hold only the title. Kept reachable and out of the index until sourced content is supplied. No filler was written."
 }

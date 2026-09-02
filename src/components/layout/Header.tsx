@@ -41,6 +41,7 @@ const NAV: Item[] = [
     href: '/indigenes', label: 'Our People',
     children: [
       { href: '/indigenes',           label: 'Indigenes Directory' },
+      { href: '/notables',            label: 'Notables'            },
       { href: '/gudeca/guyodeca',     label: 'GUYODECA — Youth'    },
       { href: '/gudeca/gudeca-exco',  label: 'GUDECA Executive'    },
     ],
@@ -130,7 +131,7 @@ export function Header({ nav: _nav }: HeaderProps) {
         {/* ── Identity ── */}
         <Link href="/" className="flex min-w-0 items-center gap-2.5 no-underline">
           <span className="relative block h-9 w-9 shrink-0 md:h-11 md:w-11">
-            <Image src="/royal-seal.png" alt="Royal seal of Guneku Fondom" fill sizes="44px" className="object-contain" priority unoptimized />
+            <Image src="/brand/logo-96.png" alt="Guneku Fondom" fill sizes="44px" className="object-contain" priority unoptimized />
           </span>
           <span className="min-w-0 leading-none">
             <span className="block truncate font-[family-name:var(--font-display)] text-[1.02rem] font-bold leading-none text-[var(--burgundy-i)] md:text-[1.12rem]">

@@ -1,0 +1,248 @@
+{
+ "id": "village-facts",
+ "type": "VillageFacts",
+ "sourceNote": "Every figure and statement here is quoted from a record already in this repository. Nothing is estimated, rounded up, or carried over from general knowledge. Each entry names the record it came from so a future editor can check it. Where a count could not be proved it is absent rather than approximated. Assembled 2026-09-02.",
+ "reviewedOn": "2026-09-02",
+ "glance": [
+  {
+   "id": "population",
+   "value": "~15,000",
+   "label": "People",
+   "note": "The Fondom's current figure.",
+   "source": "src/data/kingdom/about-guneku.json"
+  },
+  {
+   "id": "quarters",
+   "value": "27",
+   "label": "Quarters",
+   "note": "The full list is published on the Kingdom page.",
+   "source": "src/lib/quarters.ts",
+   "href": "/kingdom"
+  },
+  {
+   "id": "chapters",
+   "value": "8",
+   "label": "GUDECA chapters",
+   "note": "Constituted chapters across five countries and three continents. Nine countries were represented at Bonn in 2026 — a different measure.",
+   "source": "Reconciliation R5, published on /gudeca and /diaspora",
+   "href": "/gudeca"
+  },
+  {
+   "id": "register",
+   "value": "28",
+   "label": "Development records",
+   "note": "Projects, institutions, programmes, proposals, historical records and open issues.",
+   "source": "src/data/current-notices.json",
+   "href": "/projects"
+  },
+  {
+   "id": "photographs",
+   "value": "338",
+   "label": "Photographs",
+   "note": "Across fifteen event albums in the Fondom archive.",
+   "source": "src/data/gallery/image-gallery.json",
+   "href": "/gallery/images"
+  },
+  {
+   "id": "videos",
+   "value": "46",
+   "label": "Films",
+   "note": "From the Fondom's own channel, attached to the records they document.",
+   "source": "src/data/gallery/video-gallery.json",
+   "href": "/gallery/videos"
+  }
+ ],
+ "glanceOmitted": [
+  {
+   "fact": "Number of Meta communities",
+   "reason": "The village record says 31; the community blog sources say 29. Unresolved, so no number is displayed.",
+   "source": "src/data/kingdom/about-guneku.json editor's note"
+  },
+  {
+   "fact": "Village land area",
+   "reason": "Guneku is recorded as the largest Meta clan village by area, but no figure in hectares or square kilometres exists in any source."
+  },
+  {
+   "fact": "Number of GUDECA members",
+   "reason": "No membership count is established in any record."
+  },
+  {
+   "fact": "Amount raised for projects",
+   "reason": "Individual project figures exist (12.5M FCFA for Agro CIG Phase 1, €800 for solar Phase II) but no defensible total; totalling them would invent a number."
+  },
+  {
+   "fact": "Number of churches",
+   "reason": "The same record says both \"there are as many churches in Guneku as there are quarters\" (which would be 27) and enumerates a survey totalling 19. Two figures in one paragraph; no single number is publishable. The enumerated survey is kept in the Things to Know card, where the wording can carry its context.",
+   "source": "src/data/kingdom/about-guneku.json"
+  },
+  {
+   "fact": "Number of schools",
+   "reason": "The record's own editor note flags this as unresolved: one passage says \"4 primary schools, one secondary school\", another says two government secondary institutions and seven government primary schools. The Palace has not confirmed. A separate record also documents Presbyterian Primary School Guneku, which is not a government school, so no total is safe either.",
+   "source": "src/data/kingdom/about-guneku.json editor note"
+  },
+  {
+   "fact": "Number of medical facilities",
+   "reason": "The village record states three. The archive separately documents four named facilities — the Munam, Mbengeghang and Fringyeng Integrated Health Centres plus the Open Door Medical Clinic. Unreconciled, so no number is displayed.",
+   "source": "src/data/kingdom/about-guneku.json vs src/data/institutions/guneku-health-estate.json"
+  }
+ ],
+ "thingsToKnow": [
+  {
+   "id": "market",
+   "title": "Ngon, the market day",
+   "body": "Guneku keeps an eight-day market cycle. The eighth day, Ngon, is the market day held in Guneku. The other days fall in the surrounding quarters — Tan in Ngamunghe, Mbon in Mbengeghang, Eje'e in Ngamunam, and Kwe in Fringyeng. Ngong, one of the twenty-seven quarters, has a market of its own: a 2016 GUDECA proposal suggested using the existing Ngong market as a daily market to ease the sale of farm produce.",
+   "source": "src/data/kingdom/about-guneku.json; src/data/updates/proposals-from-his-royal-highness-fon-fomuki-during-the-gudeca-agm-at-mutegene-2016.json",
+   "href": "/kingdom/about-guneku"
+  },
+  {
+   "id": "river",
+   "title": "The Batmuki, and the stream at Ngong",
+   "body": "The River Batmuki runs through the village from upper Guneku and joins the Mezam. Young people from Guneku and neighbouring villages take sand from it. Separately, the stream at Ngong quarter overflowed in June 2026 and a village rescue team saved a child — an incident that raised a harder question about the village water supply.",
+   "source": "src/data/kingdom/about-guneku.json; src/data/updates/ngong-river-rescue-and-water-supply-2026.json",
+   "href": "/updates/ngong-river-rescue-and-water-supply-2026"
+  },
+  {
+   "id": "land",
+   "title": "What the land grows",
+   "body": "The cash crops include oil palm, raffia palm, coffee, maize and groundnuts, with plantains and cocoyam coming mainly from upper Guneku. Guneku has the highest grazing surface area in Meta; cattle are reared by the Mbororo, and by many natives too.",
+   "source": "src/data/kingdom/about-guneku.json",
+   "href": "/kingdom/about-guneku"
+  },
+  {
+   "id": "people",
+   "title": "Two peoples, one village",
+   "body": "The Bantu and the Mbororo live together in Guneku. The people speak MENEMO — a Meta dialect that some call “Meta”, which the village record notes is not correct. Musongong is the dance of the Guneku people.",
+   "source": "src/data/kingdom/about-guneku.json",
+   "href": "/kingdom/about-guneku"
+  },
+  {
+   "id": "crafts",
+   "title": "Made by hand",
+   "body": "Wood carving, bag and basket weaving and other domestic crafts are practised in Guneku.",
+   "source": "src/data/kingdom/about-guneku.json",
+   "href": "/kingdom/about-guneku"
+  },
+  {
+   "id": "palace",
+   "title": "A palace surrounded by churches",
+   "body": "The Presbyterian church stands right in the Palace, and the village record observes that the Palace of Guneku is surrounded by churches. The record puts it two ways in the same passage — that there are as many churches as there are quarters, and that a survey counted nineteen houses of worship: twelve Presbyterian, two Catholic, and one each of Full Gospel, Good Shepherd, Apostolic, Mount Zion and Kingship Ministry. Both are recorded here rather than one being chosen.",
+   "source": "src/data/kingdom/about-guneku.json",
+   "href": "/palace"
+  }
+ ],
+ "discover": [
+  {
+   "id": "sites",
+   "title": "Caves, mountains and waterfalls",
+   "body": "The village record lists the Palace, caves, mountains and waterfalls among Guneku's touristic sites, alongside hills and valleys, rivers and springs. Because of the undulating landscape there are many caves, which in years past served as hiding places during the colonial wars.",
+   "source": "src/data/kingdom/about-guneku.json"
+  },
+  {
+   "id": "festivals",
+   "title": "Two festivals",
+   "body": "Mɨchi ƌbeŋ is the Guneku festival of return, revived in 2023 after a six-year break. Ifuh Itah, the yam harvest festival of Fringyeng, was abandoned for years and revived in the same year. Both are held annually.",
+   "source": "src/data/institutions/michi-ebeng-festival.json, src/data/institutions/ifuh-itah-festival.json",
+   "href": "/institutions/michi-ebeng-festival"
+  },
+  {
+   "id": "getting-there",
+   "title": "Getting to Guneku",
+   "body": "Guneku lies in Mbengwi Subdivision, Momo Division, in the North West Region of Cameroon, and is reachable by road from Mbengwi and from Bamenda. It shares boundaries with Mbemi, Nyen, Tugi, Zang-Tembeng, Oshie, Mundum and Bafut.",
+   "source": "src/data/kingdom/about-guneku.json"
+  },
+  {
+   "id": "climate",
+   "title": "Two seasons",
+   "body": "The climate is tropical with two main seasons, the rainy and the dry.",
+   "source": "src/data/kingdom/about-guneku.json"
+  }
+ ],
+ "discoverOmitted": [
+  {
+   "fact": "Named waterfalls, named caves, walking routes, scenic viewpoints, visitor facilities, opening hours",
+   "reason": "No source in this repository names an individual site or describes a visitor route. /kingdom/touristic-sites is an empty stub in every source, including the retired Joomla article. Nothing was written to fill it."
+  }
+ ],
+ "location": {
+  "lat": 6.083333,
+  "lng": 9.916667,
+  "label": "Guneku, Mbengwi Subdivision",
+  "precision": "The place coordinate carried in the legacy village record's own map link for Guneku, Cameroon. The site-config value (6.2307346, 9.664737) is that map's viewport centre, not the village, and is not used here.",
+  "source": "src/data/pages/about-template.json — legacy Google Maps place link"
+ },
+ "faq": [
+  {
+   "q": "Where is Guneku?",
+   "a": "Guneku is in Mbengwi Subdivision, Momo Division, in the North West Region of Cameroon. It is reachable by road from Mbengwi and from Bamenda, and shares boundaries with Mbemi, Nyen, Tugi, Zang-Tembeng, Oshie, Mundum and Bafut.",
+   "href": "/kingdom/about-guneku",
+   "hrefLabel": "About Guneku"
+  },
+  {
+   "q": "How many quarters does Guneku have?",
+   "a": "Twenty-seven. They are listed in full on the Kingdom page.",
+   "href": "/kingdom",
+   "hrefLabel": "The Kingdom"
+  },
+  {
+   "q": "Who is the reigning Fon?",
+   "a": "HRH Fon Fomuki Walters Ticha IX. He succeeded HRH Fon Fomuki Patrick Nji, who reigned from 1965 until his passing on 28 January 2015, and was anointed in public at the Transfiguration Ceremony on 27 February 2015.",
+   "href": "/palace/fon-walters-profile",
+   "hrefLabel": "The reigning Fon"
+  },
+  {
+   "q": "What is GUDECA?",
+   "a": "The Guneku Development and Cultural Association — the village's development and cultural body, with eight constituted chapters across five countries and three continents, and an executive elected every four years.",
+   "href": "/gudeca",
+   "hrefLabel": "GUDECA"
+  },
+  {
+   "q": "What is GUNECCUL?",
+   "a": "The Guneku Cooperative Credit Union Limited: a community-owned credit union offering savings accounts, loans and solidarity fund shares to Guneku indigenes at home and abroad, with HRH Fon Fomuki Walters Ticha IX as patron and founder-sponsor.",
+   "href": "/guneccul",
+   "hrefLabel": "GUNECCUL"
+  },
+  {
+   "q": "How can I support a Guneku project?",
+   "a": "The development register lists every project at the stage its sources establish. Tell the Palace which project interests you and how you would like to help — with funds, materials, professional expertise, volunteering or partnership. Your offer is sent to the Guneku Palace for review.",
+   "href": "/projects",
+   "hrefLabel": "All projects"
+  },
+  {
+   "q": "How can I contact the Palace?",
+   "a": "Through the message form on this site, by email at info@guneku.org, or by telephone on +237 681 19 46 64. The Fondom publishes a notice on how official announcements are made and how to check a request before sending anyone money.",
+   "href": "/updates/how-guneku-communicates-verify-requests-2026",
+   "hrefLabel": "How Guneku communicates"
+  },
+  {
+   "q": "Where can I see photographs and films of Guneku?",
+   "a": "The archive holds fifteen event albums totalling 338 photographs, and forty-six films from the Fondom's own channel, each attached to the record it documents.",
+   "href": "/gallery/images",
+   "hrefLabel": "The image gallery"
+  },
+  {
+   "q": "How can diaspora members connect?",
+   "a": "Sons and daughters of Guneku can enter the indigenes directory, which is searchable by name and by quarter of origin. The diaspora page records where Guneku people are known to live and which chapters are constituted.",
+   "href": "/indigenes",
+   "hrefLabel": "Indigenes directory"
+  },
+  {
+   "q": "Which festivals are documented?",
+   "a": "Mɨchi ƌbeŋ, the festival of return, revived in 2023 at the Palace; and Ifuh Itah, the yam harvest festival of Fringyeng, revived in the same year and held each December.",
+   "href": "/institutions/ifuh-itah-festival",
+   "hrefLabel": "Ifuh Itah"
+  },
+  {
+   "q": "How do I submit information or a correction?",
+   "a": "Send it through the message form on this page and choose the topic it belongs to. The Fondom records where each fact came from, so a correction is welcome when it carries a source.",
+   "href": "/contact",
+   "hrefLabel": "Contact"
+  },
+  {
+   "q": "What scholarships does Guneku offer?",
+   "a": "Guneku Education & Scholarship Day 2026 targets 50 scholarships, full and partial. The Information Day was held on 29 August 2026 and the Selection Examination on 19 September 2026, both at the Guneku Fon's Palace.",
+   "href": "/education",
+   "hrefLabel": "Education & scholarships"
+  }
+ ],
+ "nameNote": "Ngon and Ngong are different names and are not normalised into one another. Ngon (no final g) is the name of the market DAY, the eighth day of the eight-day week. Ngong (with a g) is one of the twenty-seven quarters; it has its own market and its own stream. The river that runs through the village and joins the Mezam is the Batmuki. Checked against every reconciled source on 2026-09-02."
+}

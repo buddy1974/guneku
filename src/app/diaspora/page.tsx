@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react'
 import { Reveal } from '@/components/ui/Reveal'
 
 export const metadata = {
+  alternates: { canonical: '/diaspora' },
   title: 'Diaspora — Guneku Across Three Continents',
   description: 'Guneku sons and daughters across the world — GUDECA chapters in Cameroon, Europe and North America.',
 }

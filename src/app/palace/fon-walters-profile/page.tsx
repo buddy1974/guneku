@@ -5,6 +5,7 @@ import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
 import Link from 'next/link'
 
 export const metadata = {
+  alternates: { canonical: '/palace/fon-walters-profile' },
   title: 'HRH Dr. Fomuki Walters Ticha IX — Fon of Guneku',
   description: 'Official profile of HRH Dr. Fomuki Walters Ticha IX, Fon of Guneku Fondom and urologist based in Germany.',
 }

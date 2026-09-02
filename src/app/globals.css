@@ -47,8 +47,6 @@
   --color-royal-foreground:var(--royal-foreground);
   --color-gold:            var(--gold);
   --color-gold-foreground: var(--gold-foreground);
-  --color-crimson:         var(--crimson);
-  --color-indigo:          var(--indigo);
   --color-ivory:           var(--ivory);
   --color-ember:           var(--ember);
 
@@ -94,23 +92,18 @@
   --input:             oklch(0.878 0.010 90);
   --ring:              oklch(0.320 0.060 158);
 
-  --royal:          oklch(0.320 0.060 158);
+  --royal:          var(--royal-green);
   --royal-foreground:oklch(0.975 0.010 85);
-  --gold:           oklch(0.700 0.115 78);
+  --gold:           var(--ochre);
   --gold-foreground:oklch(0.200 0.020 150);
-  --crimson:        oklch(0.320 0.060 158);
-  --indigo:         oklch(0.320 0.060 158);
-  --ivory:          oklch(0.965 0.012 85);
+  /* --ivory lives in the editorial block below; it is not defined twice. */
   --ember:          oklch(0.700 0.115 78);
-  --green-900:      oklch(0.215 0.045 158);
-  --green-700:      oklch(0.320 0.060 158);
+  --green-900:      var(--royal-green-900);
+  --green-700:      var(--royal-green);
 
   /* Flat fills — no gradients in the institutional system */
   --gradient-royal: oklch(0.320 0.060 158);
   --gradient-gold:  oklch(0.700 0.115 78);
-  --gradient-ember: none;
-  --gradient-night: oklch(0.965 0.012 85);
-  --gradient-text-gold: none;
 
   --shadow-royal: 0 1px 2px oklch(0.245 0.022 150 / 0.06);
   --glow-gold:    none;
@@ -394,115 +387,56 @@
    above, so existing pages keep working.
    ══════════════════════════════════════════════════════════ */
 
+/* ══════════════════════════════════════════════════════════════════════════
+   GUNEKU IDENTITY — the single semantic source of truth.
+   Everything below this block aliases these values; nothing redefines them.
+   Primary   dark institutional green
+   Secondary oxblood  (retained — it is half the identity, not decoration)
+   Tertiary  ochre, restrained, only where the institutional design already earns it
+   Neutral   paper / stone ivory surfaces
+   ══════════════════════════════════════════════════════════════════════════ */
+:root {
+  --royal-green:      oklch(0.320 0.060 158);
+  --royal-green-deep: oklch(0.250 0.055 158);
+  --royal-green-900:  oklch(0.215 0.045 158);
+
+  --oxblood:          oklch(0.330 0.125 22);
+  --oxblood-deep:     oklch(0.260 0.110 22);
+
+  --ochre:            oklch(0.700 0.115 78);
+  --ochre-bright:     oklch(0.760 0.135 78);
+  --ochre-deep:       oklch(0.620 0.130 62);
+}
+
 :root {
   /* Approved palette */
   --ink:            oklch(0.16 0.012 55);   /* deep charcoal — header, hero panel */
   --ink-deep:       oklch(0.11 0.010 55);   /* near-black */
-  --burgundy:       oklch(0.33 0.125 22);   /* news rail, accents */
-  --burgundy-deep:  oklch(0.26 0.110 22);
+  --burgundy:       var(--oxblood);         /* oxblood — retained identity colour */
+  --burgundy-deep:  var(--oxblood-deep);
   --ivory:          oklch(0.955 0.012 85);  /* pathway strip, light sections */
   --ivory-dim:      oklch(0.905 0.014 85);
-  --brass:          oklch(0.76 0.135 78);   /* controlled gold */
-  --brass-deep:     oklch(0.62 0.130 62);
+  --brass:          var(--ochre-bright);    /* restrained tertiary accent */
+  --brass-deep:     var(--ochre-deep);
 
   /* Editorial rhythm */
-  --measure:   68ch;
   --shell:     84rem;
   --gut:       clamp(1.25rem, 4vw, 3.5rem);
 }
 
 @theme inline {
   --color-ink:           var(--ink);
-  --color-ink-deep:      var(--ink-deep);
   --color-burgundy:      var(--burgundy);
-  --color-burgundy-deep: var(--burgundy-deep);
-  --color-ivory-warm:    var(--ivory);
-  --color-brass:         var(--brass);
 }
 
 @layer utilities {
 
-  /* ── Editorial shell ── */
+  /* ── Editorial shell — layout only, no colour. Still used by /education. ── */
   .shell { width: 100%; max-width: var(--shell); margin-inline: auto; padding-inline: var(--gut); }
 
-  /* ── Surfaces ── */
-  .surface-ink   { background: var(--ink);   color: var(--ivory); }
-  .surface-ivory { background: var(--ivory); color: oklch(0.22 0.02 45); }
-  .surface-ivory .muted { color: oklch(0.44 0.02 50); }
-  .surface-burgundy { background: var(--burgundy); color: var(--ivory); }
 
-  /* ── Editorial type scale ──
-     Display serif (Cormorant) for editorial authority,
-     Cinzel reserved for short ceremonial labels only,
-     Inter for everything functional.                          */
-  .ed-eyebrow {
-    font-family: var(--font-sans);
-    font-size: 0.6875rem;
-    font-weight: 600;
-    letter-spacing: 0.26em;
-    text-transform: uppercase;
-    color: var(--brass);
-  }
-  .ed-display {
-    font-family: var(--font-serif);
-    font-weight: 600;
-    font-size: clamp(1.9rem, 2.4vw, 2.6rem);
-    line-height: 1.06;
-    letter-spacing: -0.005em;
-    text-transform: uppercase;
-  }
-  .ed-h2 {
-    font-family: var(--font-serif);
-    font-weight: 600;
-    font-size: clamp(1.75rem, 3.2vw, 2.75rem);
-    line-height: 1.1;
-    letter-spacing: 0.01em;
-  }
-  .ed-h3 {
-    font-family: var(--font-serif);
-    font-weight: 600;
-    font-size: clamp(1.15rem, 1.8vw, 1.5rem);
-    line-height: 1.25;
-  }
-  .ed-kicker {
-    font-family: var(--font-sans);
-    font-size: 0.6875rem;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-  }
-  .ed-body {
-    font-family: var(--font-sans);
-    font-size: 0.9375rem;
-    line-height: 1.7;
-    max-width: var(--measure);
-  }
-  .ed-meta {
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
-    letter-spacing: 0.06em;
-  }
 
-  /* ── Controls ── */
-  .ed-btn {
-    display: inline-flex; align-items: center; gap: 0.6rem;
-    padding: 0.8rem 1.5rem;
-    font-family: var(--font-sans);
-    font-size: 0.75rem; font-weight: 600;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    text-decoration: none; border-radius: 2px;
-    transition: background-color .2s ease, color .2s ease, border-color .2s ease;
-  }
-  .ed-btn-gold    { background: var(--brass); color: oklch(0.16 0.012 55); }
-  .ed-btn-gold:hover { background: oklch(0.82 0.14 82); }
-  .ed-btn-ghost   { border: 1px solid oklch(1 0 0 / 0.35); color: var(--ivory); }
-  .ed-btn-ghost:hover { border-color: var(--brass); color: var(--brass); }
-  .ed-btn-ink     { border: 1px solid oklch(0.22 0.02 45 / 0.3); color: oklch(0.22 0.02 45); }
-  .ed-btn-ink:hover { border-color: var(--brass-deep); color: var(--brass-deep); }
 
-  /* ── Hairlines ── */
-  .rule-brass { height: 2px; width: 3rem; background: var(--brass); }
-  .rule-hair  { height: 1px; background: oklch(1 0 0 / 0.14); }
 
   /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
@@ -526,9 +460,11 @@
   --ink-600:      oklch(0.470 0.012 55);   /* secondary text */
   --ink-400:      oklch(0.525 0.010 55);   /* metadata — L raised from .620 to clear 4.5:1 on the paper tones (WCAG AA) */
   --rule:         oklch(0.878 0.008 70);   /* hairlines */
-  --burgundy-i:   oklch(0.320 0.060 158);  /* deep Guneku green */
-  --burgundy-ink: oklch(0.250 0.055 158);
-  --ochre:        oklch(0.700 0.115 78);   /* restrained accent */
+  --burgundy-i:   var(--royal-green);      /* NOTE: this is the GREEN, not oxblood.
+                                             Legacy name kept so 25 call sites keep working;
+                                             use --royal-green in new code. */
+  --burgundy-ink: var(--royal-green-deep);
+  /* --ochre is defined once, in the identity block at the top of this file. */
   --stone:        oklch(0.905 0.010 75);
 }
 

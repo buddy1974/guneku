@@ -2,7 +2,9 @@ import { PageHero } from '@/components/layout/PageHero'
 import Link         from 'next/link'
 import roster       from '@/data/gudeca/national-exco.json'
 
-export const metadata = { title: 'GUDECA EXCO' }
+export const metadata = {
+  alternates: { canonical: '/gudeca/gudeca-exco' },
+  description: "The executive committee of the Guneku Development and Cultural Association — the national roster and the officers of GUDECA Europe.", title: 'GUDECA EXCO' }
 
 /* This page used to render eight empty placeholder slots under the line "Full EXCO
    roster will be published here." The roster was in the repository the whole time,

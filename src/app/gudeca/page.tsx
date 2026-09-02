@@ -3,6 +3,7 @@ import { GraduationCap, Building2, Sprout, HandCoins, Globe2, HeartHandshake, Ar
 import { Reveal } from '@/components/ui/Reveal'
 
 export const metadata = {
+  alternates: { canonical: '/gudeca' },
   title: 'GUDECA — Guneku Cultural & Development Association',
   description: 'Mission, vision, and projects of GUDECA — uniting Guneku indigenes across three continents.',
 }

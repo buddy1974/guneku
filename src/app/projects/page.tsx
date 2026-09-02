@@ -3,7 +3,9 @@ import { Reveal }   from '@/components/ui/Reveal'
 import Link         from 'next/link'
 import current      from '@/data/current-notices.json'
 
-export const metadata = { title: 'Projects — Guneku Development' }
+export const metadata = {
+  alternates: { canonical: '/projects' },
+  description: "The full Guneku development register — projects, institutions, programmes, proposals, historical records and open issues, each shown at the stage its sources establish.", title: 'Projects — Guneku Development' }
 
 /* This page used to carry its own hardcoded array of eleven cards, independent of
    the register the home page reads. Two lists, one subject, no link between them —

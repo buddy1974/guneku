@@ -47,7 +47,7 @@ export default function ContactPage() {
         <div className="pattern-royal absolute inset-0 opacity-15" />
         <div className="relative z-10">
           <div className="mx-auto relative h-24 w-24">
-            <Image src="/royal-seal.png" alt="Royal seal" fill className="object-contain animate-spin-slow" unoptimized />
+            <Image src="/brand/logo-128.png" alt="Guneku Fondom" fill sizes="96px" className="object-contain" unoptimized />
           </div>
           <div className="mt-6 section-label">SEND WORD TO THE PALACE</div>
           <h1 className="mt-4 font-cinzel text-6xl uppercase leading-none text-gold-gradient md:text-7xl">Contact</h1>
