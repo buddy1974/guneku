@@ -260,7 +260,7 @@ what a given environment has already had applied — and Preview may or may not 
 Production branch (R-021 territory, unresolved). A migration path is a prerequisite for
 Phase 3, not a tidy-up afterwards.
 
-## R-026 — The dormant chat route is instructed to speak as the Fondom, from memory
+## R-026 — The dormant chat route is instructed to speak as the Fondom, from memory — CLOSED 2026-09-03
 
 `src/app/api/chat/route.ts` is live as a route and reachable, though the only component that
 calls it is not rendered anywhere. Its system prompt is `site-config.json` →
@@ -273,10 +273,26 @@ Its corpus is also unfiltered. `getAllKingdomArticles()`, `getAllPalaceArticles(
 `publishedAt` records to the end and returns them. One unpublished record exists today and
 would enter the prompt. There is no rate limit, no input cap and no timeout.
 
-Recommendation: delete the route and `AIAssistant.tsx` rather than carry them. Phase 8's
-layer 2 should be built fresh on `palace-knowledge.ts` with a filtered retrieval step, and
-reuse nothing here but the SDK. Deleting a live route is a small architecture change, so it
-is recorded for the owner rather than done inside an audit.
+**Closed 2026-09-03, owner approved.** `src/app/api/chat/route.ts` and
+`src/components/home/AIAssistant.tsx` are deleted, and the `aiPersonality` and
+`anthropicModel` fields are removed from `site-config.json`.
+
+Proved unreachable before removing, five ways: `AIAssistant` was imported by nothing but its
+own definition; `/api/chat` was called by nothing but `AIAssistant`; neither appeared in
+`next.config.ts`, the sitemap, robots or `vercel.json`; and no rendered page referenced
+either — `/`, `/palace`, `/kingdom`, `/updates` and `/contact` all returned zero matches.
+
+Unreachable from the UI is not the same as harmless, and that is why this mattered: the route
+was *live*. Anyone who guessed the path could POST to it, and in production it holds a valid
+`ANTHROPIC_API_KEY`, so it would have answered — unauthenticated, unrate-limited, uncited, as
+"the voice of Guneku Fondom", from an unfiltered corpus that included unpublished records.
+
+The `aiPersonality` string was retired with it rather than left in the data, because a
+future contributor could reasonably have reused it. `site-config.json` now carries an
+`aiAssistantNote` recording what it said and why it may not come back.
+
+**Kept deliberately** for the Phase 8 rebuild: `src/lib/palace-knowledge.ts`,
+`/api/ask`, `AskPalace.tsx`, and the `@anthropic-ai/sdk` dependency.
 
 ## R-027 — Two public write endpoints were open, and one was worse than recorded
 

@@ -37,8 +37,7 @@ export interface SiteConfig {
   copyright: { text: string; builtBy: string; builtByUrl: string };
   coordinates: { lat: number; lng: number };
   youtubeChannelId: string;
-  anthropicModel: string;
-  aiPersonality: string;
+  aiAssistantNote: string;
 }
 
 export interface NavItem {

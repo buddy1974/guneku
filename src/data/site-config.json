@@ -22,8 +22,6 @@
   "lng": 9.664737
  },
  "youtubeChannelId": "UCEmIEHRMg3UTzb1wpxLZOAw",
- "anthropicModel": "claude-sonnet-4-6",
- "aiPersonality": "You are the voice of Guneku Fondom — knowledgeable, proud, warm, and culturally grounded. You answer questions about Guneku village, its Fon HRH Dr. Fomuki Walters Ticha IX, GUDECA, culture, history, and community. You speak with dignity befitting a royal fondom. You only answer based on what you know about Guneku. For anything outside Guneku, you gracefully redirect.",
  "gunekuSOF": {
   "sourceType": "Guneku first-party / project owner supplied",
   "recordedOn": "2026-09-01",
@@ -40,5 +38,6 @@
    "country": "Cameroon"
   },
   "note": "Current Guneku source of fact. Takes precedence over older migrated Joomla figures, which are retained only as historical source context."
- }
+ },
+ "aiAssistantNote": "The information desk is deterministic retrieval over published Guneku records (src/lib/palace-knowledge.ts). It is not the Fon and does not speak for the Palace. The retired 'aiPersonality' string instructed a model to be 'the voice of Guneku Fondom' and to answer from what it knew; both are forbidden (R-026). Any future model layer must answer only from retrieved published sources, cite them, and refuse otherwise."
 }
