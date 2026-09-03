@@ -302,3 +302,23 @@ steadier error message.
   `/api/indigenes/profile`, which are database-backed and more sensitive.
 - **R-021** opened: the limiter's `x-forwarded-for` key is correct only while guneku.org is
   DNS-only through Cloudflare. Verified DNS-only on 2026-09-03.
+
+## 2026-09-03 — Phase 0: safety baseline and framework upgrade
+
+- **R-020 closed** (commit `c219a32`): `/api/indigenes/all` and the three handlers in
+  `/api/indigenes/profile` no longer return the caught message. No route under
+  `src/app/api` echoes internal error text now.
+- **Next.js 16.2.3 → 16.3.3**, with `eslint-config-next` to match, both pinned exactly
+  (ADR-025). React and react-dom unchanged at 19.2.4 — 16.3.3 accepts `^19.0.0`, so no
+  React bump and no codemod was required. `next` itself carries no advisory.
+- **`next-auth` and `@auth/pg-adapter` removed** (ADR-024): unused, and the source of all
+  three critical advisories. Audit 18 → 15, criticals 3 → 0.
+- **R-022 and R-023 opened**: there is no Clerk integration, and the indigene profile route
+  is an unauthenticated write endpoint keyed to a hardcoded `demo-user`.
+
+Verified on the upgraded tree: `npx tsc --noEmit` clean; `npm run build` clean at **188
+static pages**, identical to the pre-upgrade baseline; 28 routes 200 and the one expected
+404; sitemap still 95 URLs; per-page canonicals intact; rate limiter still returns 429 on
+the 6th post; deceased entries still carry no claim action; archive-photo marking intact;
+privacy sweep clean (BCC absent from HTML and bundles, no GUDECA personal mobile, no
+"17 January 2016", Business Directory still 404).

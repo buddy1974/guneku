@@ -434,3 +434,32 @@ newer routes described as safe. That was wrong, and testing all four is what sho
 sentence. The visitor gets something useful and constant; we keep the whole cause in the
 Vercel log. `R-020` records the same defect still standing in the indigenes routes, which
 are database-backed and were outside this change.
+
+## ADR-024 — Remove next-auth rather than carry three criticals for an unused package
+
+**Context.** `npm audit` on the upgraded tree reported 18 advisories including three
+critical, all from `next-auth@5.0.0-beta.31` and `@auth/pg-adapter`. Neither is imported
+anywhere in `src/` or `middleware.ts`; `next-auth` was a beta that never got wired up. The
+project's intended provider is Clerk, which is not installed either (R-022).
+
+**Decision.** Both packages were removed. Advisories fell from 18 to 15 and **every
+critical disappeared**; the build still produces the same 188 static pages, which is the
+proof that nothing depended on them. Removing dead weight is the right move in a phase
+whose purpose is a safety baseline — carrying a critical CVE for code that never runs is a
+worse position than not having the package.
+
+`npm audit fix --force` was **not** run. The remaining 15 are transitive (sharp/libvips,
+undici, browserslist, js-yaml, brace-expansion, and dev-only esbuild paths), and forcing
+breaking changes across them inside a framework upgrade would make a failure impossible to
+attribute. They are a separate, deliberate pass.
+
+## ADR-025 — Pin the framework exactly, and take 16.3.3 rather than latest
+
+**Context.** `npm install next@16.3.3` rewrote the manifest to `^16.3.3`. The repository's
+prior convention pinned `next` exactly (`16.2.3`). npm's `latest` tag is now `16.3.4`.
+
+**Decision.** Both `next` and `eslint-config-next` are pinned to exactly `16.3.3`, the
+version the owner named. A caret range would let a future `npm install` drift the framework
+silently, which is precisely what a controlled upgrade phase exists to prevent. That
+`16.3.4` exists is reported rather than taken unilaterally: moving further is the owner's
+call, not a detail to slip into an upgrade he specified to the patch.

@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.87.0",
-    "@auth/pg-adapter": "^1.11.2",
     "@hookform/resolvers": "^5.2.2",
     "@neondatabase/serverless": "^1.1.0",
     "@radix-ui/react-accordion": "^1.2.12",
@@ -50,8 +49,7 @@
     "fs-extra": "^11.3.4",
     "he": "^1.2.0",
     "lucide-react": "^1.8.0",
-    "next": "16.2.3",
-    "next-auth": "^5.0.0-beta.31",
+    "next": "16.3.3",
     "next-seo": "^7.2.0",
     "next-themes": "^0.4.6",
     "react": "19.2.4",
@@ -76,7 +74,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.2.3",
+    "eslint-config-next": "16.3.3",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

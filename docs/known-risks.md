@@ -204,3 +204,31 @@ messages from the whole village would lock all four forms for everyone — a sel
 outage of the contact route. The fix at that point is one line: read `cf-connecting-ip`
 first in `senderKey`. Do not make that change while the domain is DNS-only, because
 `cf-connecting-ip` is then an attacker-settable header.
+
+## R-022 — There is no Clerk integration, only its outline
+
+The delivery programme's Phase 2 assumes "the existing Clerk integration". There is none.
+What exists is the shape of one, left from an earlier pass:
+
+- **No Clerk SDK.** `@clerk/nextjs` is not in `package.json` and no source file imports it.
+- **`middleware.ts` is empty** — `export function middleware() {}` with `matcher: []`.
+- **`/sign-in` and `/sign-up` are placeholders** reading "Member authentication coming soon."
+- The only "clerk" in `src/` is the column name `clerk_user_id` in the Drizzle schema.
+- `CLERK_SECRET_KEY` and `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` are set in Vercel, created
+  132 days ago and used by nothing.
+
+Adding an authentication provider is an architecture decision with a production credential
+attached, so it was not started inside a framework-upgrade phase. Phases 2, 3, 11 and 13
+all rest on it. Owner decision required before Phase 2.
+
+## R-023 — The indigene profile route has no authentication and one hardcoded user
+
+`src/app/api/indigenes/profile/route.ts` opens with `const userId = 'demo-user'` and its
+GET, POST and PUT handlers all use it. There is no session check, and `middleware.ts`
+matches nothing. So any caller can read, create or overwrite the single `demo-user` profile
+row, unauthenticated and unrate-limited.
+
+Live impact today is small — the row is a demo record and `/indigenes` reads the directory
+through a different route — but it is a public write endpoint against Neon. It should be
+closed by the identity work in Phase 2 rather than patched in isolation, since the correct
+fix is the real session the route was always waiting for.
