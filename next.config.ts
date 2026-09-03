@@ -75,6 +75,12 @@ const nextConfig: NextConfig = {
          /gallery/videos was linked from the header, the gallery landing page, the sitemap and
          two legacy Joomla routes, so it redirects rather than 404s. The image gallery routes
          under /gallery/images are untouched. */
+      /* Profiles moved out of /notables on 2026-09-03. "Notable" means a place in Guneku's
+         traditional governance, not a distinguished son or daughter, so the professional
+         profiles that lived there now sit under /sons-and-daughters. Old links redirect. */
+      { source: '/notables/:slug',           destination: '/sons-and-daughters/:slug', permanent: true },
+      { source: '/index.php/notables/:slug', destination: '/sons-and-daughters/:slug', permanent: true },
+
       { source: '/gallery/videos',            destination: '/watch', permanent: true },
       { source: '/index.php/gallery/videos',  destination: '/watch', permanent: true },
 

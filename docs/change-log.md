@@ -555,3 +555,34 @@ length — which a redacting pull would also have redacted. The variables exist 
 value. Nothing was withheld from me; there is nothing there. That very likely applies to
 `DATABASE_URL`, `RESEND_API_KEY`, `ANTHROPIC_API_KEY` and `YOUTUBE_API_KEY` as well, which
 would mean the contact and support forms in production have never been able to send.
+
+## 2026-09-03 - People taxonomy correction: Notables, Diaspora and the Royal Family
+
+Owner-supplied authoritative content correction, implemented as one coherent people-model
+change rather than as separate edits.
+
+- **`/notables` rebuilt** as traditional governance (ADR-038): the Traditional Council with all
+  eight councillors, the quarter councils drawn from roles the record actually states, and
+  other Fondom-confirmed Notables. The old narrative is gone.
+- **Marcel Tabit Akwe removed from Notables**, profile and GUDECA EU membership and diaspora
+  classification all preserved. **Prof. Dr. Roland Teboh Forbang confirmed a Notable** - and
+  his professional record is shown as a separate fact, not as the reason.
+- **`/diaspora` rebuilt from the register** (ADR-039). "Notable Sons & Daughters - Guneku
+  Excellence Worldwide" is gone. 17 people recorded outside Cameroon, grouped by chapter.
+- **Royal Family** (ADR-040): body renamed, `kind: 'royal'`, a Palace Queens section with
+  Esther, Carine and Rebecca, `public/esther.png` used as supplied, no invented hierarchy.
+- **Nine people added**: GUDECA EU - Humphrey Tabot, Fidelis Njoh, Ni Christopher; GUDECA
+  Yaoundé - William Akwe (Medical Delegate), Humphrey Njoh Munan (businessman), Ni Charles,
+  Valentine Andom, Ernest Tibi Ticha; plus Queen Esther Fomuki. **No office was invented** for
+  any member the owner did not give one.
+- **Ma Rose reconciled**: "Ma Rose Akwe" added as an alias on the existing `ma-rose` record.
+  No duplicate. `Amamuki Jonathan` and `Mbakwa Jonathan` remain distinct people.
+- **Profiles moved** to `/sons-and-daughters/[slug]` with permanent redirects (ADR-041).
+
+Verified: `tsc` clean; build clean at **228 static pages**; repo eslint **69 problems against a
+baseline of 76**, with the 8 in the moved profile route pre-existing and carried with the file.
+Marcel appears **0 times** in the visible markup of `/notables` - the single string in the
+response is the site-wide `meta name="creator"` inside the RSC payload. All five Yaoundé
+members appear 0 times on `/diaspora`. All four GUDECA EU additions and both diaspora profiles
+appear. Zero occurrences of "first/senior/principal/junior queen". Search reflects every
+corrected classification, carries no stale narrative, and shows one Ma Rose.

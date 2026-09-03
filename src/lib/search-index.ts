@@ -7,7 +7,7 @@ import {
 } from '@/lib/visibility'
 import { allQuarters } from '@/lib/quarter-pages'
 import { allLocations } from '@/lib/explore'
-import { allBodies, membersOf, allFoundingNames } from '@/lib/community'
+import { allBodies, membersOf, allFoundingNames, isDiaspora } from '@/lib/community'
 import current from '@/data/current-notices.json'
 import { approvedFilms } from '@/lib/guneku-tv'
 import villageFacts from '@/data/home/village-facts.json'
@@ -79,10 +79,18 @@ function build(): SearchEntry[] {
         id: `member:${body.id}:${m.slug}`,
         title: m.display,
         group: 'People',
-        href: `/people/${body.id}`,
+        href: m.profileUrl || `/people/${body.id}`,
         /* Role and body only. No contact detail of any kind enters the index. */
         excerpt: clip([m.role, body.short].filter(Boolean).join(' · ')),
-        keywords: [...(m.aliases || []), body.short].filter(Boolean) as string[],
+        /* The dimensions are searchable so a corrected classification is findable — someone
+           searching "notable" or "queen" reaches the right people, and nobody is described as
+           a Notable who is not one. */
+        keywords: [
+          ...(m.aliases || []), body.short,
+          m.notable ? 'notable' : '',
+          m.royalRole === 'queen' ? 'queen royal family' : '',
+          m.residence || '',
+        ].filter(Boolean) as string[],
         weight: 2,
       })
     }
@@ -93,9 +101,15 @@ function build(): SearchEntry[] {
       id: `founding:${n.slug}`,
       title: n.display,
       group: 'People',
-      href: `/indigenes/founding/${n.slug}`,
-      excerpt: clip([n.role, n.chapter].filter(Boolean).join(' · ')),
-      keywords: (n.aliases || []) as string[],
+      href: n.profileUrl || `/indigenes/founding/${n.slug}`,
+      excerpt: clip([n.role, n.profession, n.residence].filter(Boolean).join(' · ')),
+      keywords: [
+        ...(n.aliases || []),
+        n.notable ? 'notable' : '',
+        n.royalRole === 'queen' ? 'queen royal family' : '',
+        isDiaspora(n) ? 'diaspora' : '',
+        n.chapter || '', n.residence || '',
+      ].filter(Boolean) as string[],
       weight: 2,
     })
   }
@@ -105,9 +119,11 @@ function build(): SearchEntry[] {
       id: `notable:${p.slug}`,
       title: rec.name || p.slug,
       group: 'People',
-      href: `/notables/${p.slug}`,
+      /* Profiles moved out of /notables on 2026-09-03: a Notable of Guneku holds a place in
+         the village's traditional governance, which a profession does not confer. */
+      href: `/sons-and-daughters/${p.slug}`,
       excerpt: clip([rec.title, rec.origin].filter(Boolean).join(' · ') || strip(rec.bio)),
-      keywords: ['notable', 'son of guneku', 'daughter of guneku'],
+      keywords: ['son of guneku', 'daughter of guneku', 'profile', 'professional'],
       weight: 2,
     })
   }
@@ -258,11 +274,20 @@ function build(): SearchEntry[] {
       'Every project and institution at the stage its own sources establish.',
       ['projects', 'development', 'register', 'work']],
     ['/people', 'The bodies of Guneku', 'People',
-      'The Traditional Council, GUDECA’s executives, the Michi Əbeŋ committee and the Palace household.',
+      'The Traditional Council, GUDECA’s executives, the Michi Əbeŋ committee and the Royal Family.',
       ['people', 'office', 'officers', 'holders', 'council', 'bodies']],
     ['/indigenes', 'The indigenes register', 'People',
       'Guneku sons and daughters worldwide, searchable by name and by quarter.',
-      ['indigenes', 'directory', 'register', 'diaspora', 'members']],
+      ['indigenes', 'directory', 'register', 'members']],
+    ['/notables', 'The Notables of Guneku', 'People',
+      'The traditional governance of Guneku around the Fon — the Traditional Council and the quarter councils.',
+      ['notables', 'notable', 'traditional council', 'quarter council', 'governance', 'titles']],
+    ['/sons-and-daughters', 'Sons and daughters of Guneku', 'People',
+      'Professional and community profiles of Guneku people at home and abroad.',
+      ['sons', 'daughters', 'profiles', 'professional']],
+    ['/diaspora', 'Guneku people abroad', 'People',
+      'Guneku people living outside Cameroon, and the overseas GUDECA chapters.',
+      ['diaspora', 'abroad', 'overseas', 'gudeca eu', 'gudeca us', 'germany', 'usa']],
     ['/gallery/images', 'The image gallery', 'Photos',
       'Fifteen albums of photographs from the Guneku archive.',
       ['photographs', 'photos', 'pictures', 'gallery', 'images', 'album', 'albums']],

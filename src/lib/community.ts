@@ -54,7 +54,7 @@ export interface Chapter {
   openForNames: boolean
 }
 
-export type BodyKind = 'governing' | 'association' | 'committee' | 'household'
+export type BodyKind = 'governing' | 'association' | 'committee' | 'household' | 'royal'
 
 export interface Body {
   id: string
@@ -86,12 +86,39 @@ export interface FoundingName {
   profileUrl?: string
   /** Recorded with respect, and never offered for claiming. */
   deceased?: boolean
+
+  /* ── The independent dimensions ─────────────────────────────────────────────────────────
+     A person can hold several of these at once, and none of them implies another. Keeping
+     them apart is the whole point of the 2026-09-03 correction: the site had been treating
+     professional prominence as though it conferred traditional standing, which it does not. */
+
+  /** Traditional governance standing around the Fon. Set explicitly, never derived from
+   *  profession, prominence, education or diaspora achievement. */
+  notable?: boolean
+  notableNote?: string
+
+  /** A place in the Royal Family. `'queen'` for a Queen of the Palace. The Palace is a
+   *  polygamous household: several Queens is the normal case, and no seniority among them is
+   *  recorded or implied. */
+  royalRole?: 'queen' | null
+
+  /** Country of residence, where the record establishes one. Feeds the diaspora dimension
+   *  when a person's chapter does not already settle it. */
+  residence?: string | null
+
+  profession?: string
+  professionPlace?: string
+  photo?: string
   note?: string
 }
 
 /** Everything a seed stub is allowed to render. Widening this type is a
  *  publication decision, not a refactor — see founding-names.json. */
 export interface CardSafe {
+  /** A fact about the person, never an office and never a title. */
+  profession?: string | null
+  notable?: boolean
+  royalRole?: 'queen' | null
   slug: string
   display: string
   role: string
@@ -147,10 +174,85 @@ export function toCardSafe(n: FoundingName): CardSafe {
     deceased:    Boolean(n.deceased),
     chapter:     n.chapter ? getChapter(n.chapter) : null,
     body:        n.body ? getBody(n.body) : null,
+    /* Carried onto the card because the Fondom supplied it — Humphrey Njoh Munan is recorded
+       as a businessman, and a card that dropped it would quietly lose what was given. It is
+       a fact about the person, not an office, and it is never a reason to call them a
+       Notable. */
+    profession:  n.profession ?? null,
+    notable:     n.notable === true,
+    royalRole:   n.royalRole ?? null,
   }
 }
 
 /* ── Bodies ───────────────────────────────────────────────────────────────── */
+
+/* ── Notables ────────────────────────────────────────────────────────────────────────────
+ * A Guneku Notable holds a place in the traditional governance of the village around the Fon.
+ * It is not a word for a distinguished son or daughter, and the site said otherwise until
+ * 2026-09-03 — /notables was a two-card professional directory, which inverted the meaning.
+ *
+ * Nothing here infers standing. `notable` is set in the record, and the only rule applied is
+ * that every member of the Traditional Council holds it, because that is what the council is.
+ * Appearing in a record as an election official, a witness, a clergyman or a participant does
+ * not make anyone a Notable. */
+export function isNotable(n: FoundingName): boolean {
+  return n.notable === true
+}
+
+export function allNotables(): FoundingName[] {
+  return NAMES.filter(isNotable)
+}
+
+/* ── Diaspora ────────────────────────────────────────────────────────────────────────────
+ * Diaspora means a Guneku person living outside Cameroon. That is all it means. It is not a
+ * second word for distinguished, and it is not conferred by GUDECA office.
+ *
+ * Derived, never stored, from two things the record already establishes:
+ *   - a chapter whose scope is 'diaspora' (GUDECA EU, GUDECA US, and the overseas locations)
+ *   - a residence outside Cameroon
+ *
+ * Yaoundé, Douala, Bamenda and Mbengwi are home chapters, so their members are not diaspora
+ * however senior their office. */
+export function isDiaspora(n: FoundingName): boolean {
+  if (n.residence) {
+    return n.residence.trim().toLowerCase() !== 'cameroon'
+  }
+  if (!n.chapter) return false
+  const c = CHAPTERS.find(x => x.id === n.chapter)
+  return c?.scope === 'diaspora'
+}
+
+export function diasporaNames(): FoundingName[] {
+  return NAMES.filter(isDiaspora)
+}
+
+/** Diaspora people grouped by the chapter or place that establishes it. */
+export function diasporaByChapter(): Array<{ chapter: Chapter; people: FoundingName[] }> {
+  return CHAPTERS
+    .filter(c => c.scope === 'diaspora')
+    .map(chapter => ({ chapter, people: NAMES.filter(n => n.chapter === chapter.id) }))
+    .filter(g => g.people.length > 0)
+}
+
+/* ── The Royal Family ────────────────────────────────────────────────────────────────────
+ * The Queens are returned in register order. No ordering by seniority is applied, because
+ * none is recorded — inventing "first" or "senior" would be inventing royal hierarchy. */
+export const ROYAL_FAMILY_BODY = 'palace-household'
+
+export function palaceQueens(): FoundingName[] {
+  return NAMES.filter(n => n.royalRole === 'queen')
+}
+
+export function royalFamilyOthers(): FoundingName[] {
+  return NAMES.filter(n => n.body === ROYAL_FAMILY_BODY && n.royalRole !== 'queen')
+}
+
+/* ── Sons and daughters ──────────────────────────────────────────────────────────────────
+ * The professional and community profiles. Deliberately separate from Notables: professional
+ * prominence is not a traditional title, and conflating them is the error being corrected. */
+export function hasProfile(n: FoundingName): boolean {
+  return Boolean(n.profileUrl)
+}
 
 export function allBodies(): Body[] {
   return BODIES

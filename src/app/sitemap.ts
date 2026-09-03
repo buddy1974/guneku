@@ -44,6 +44,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     at('/search', { priority: 0.5 }),
     at('/diaspora', { priority: 0.8 }),
     at('/notables'),
+    at('/sons-and-daughters'),
     at('/indigenes'),
     at('/updates', { priority: 0.9, changeFrequency: 'weekly' }),
     at('/gallery'),
@@ -68,7 +69,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     .map(a => at(`/kingdom/${a.slug}`, { changeFrequency: 'yearly', priority: 0.7 }))
 
   const notables = getAllNotables().map(n =>
-    at(`/notables/${n.slug}`, { changeFrequency: 'yearly' }))
+    at(`/sons-and-daughters/${n.slug}`, { changeFrequency: 'yearly' }))
 
   /* Only institutions that own a page. The routed ones are searchable and link to where
      their content actually lives, but must not be given a URL of their own here. */

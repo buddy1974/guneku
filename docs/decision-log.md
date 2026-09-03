@@ -762,3 +762,75 @@ affected - that was proved by running the whole build with no Clerk keys at all,
 public routes returned 200 and zero Clerk JavaScript reached any page - so the blast radius
 is three routes, two of which are currently placeholder pages. Verified immediately after
 deployment, with rollback available if it fails.
+
+## ADR-038 - The people model has independent dimensions, and Notable is not one of them by achievement
+
+**Owner correction, 3 September 2026.** The site had been treating professional prominence as
+though it conferred traditional standing. `/notables` read "Sons and daughters of Guneku whose
+work is recorded by the Fondom" and showed two cards - a software developer and a professor.
+That inverted the meaning of the word.
+
+**A Guneku Notable holds a place in the traditional governance of the village around the Fon.**
+It is not a term for a distinguished son or daughter. A career confers nothing traditional,
+and appearing in a record as an election official, a witness, a clergyman or a participant
+confers nothing either.
+
+**Decision: the dimensions are independent, explicit, and never inferred from one another.**
+
+| Dimension | How it is set |
+|---|---|
+| `notable` | Explicit in the record. Every Traditional Council member holds it, because that is what the council is. Nothing else derives it. |
+| `royalRole` | Explicit. `'queen'` for a Queen of the Palace. |
+| `body` / `chapter` | As before. |
+| `residence` | A country, where the record establishes one. |
+| Diaspora | **Derived, never stored** - a chapter of scope `diaspora`, or a residence outside Cameroon. |
+| `profession` | A fact about a person. Never an office, never a reason for standing. |
+
+A person holds several at once. Roland is a Notable *and* GUDECA US *and* diaspora *and* has a
+professional profile, and the first of those is not caused by the others. Marcel is GUDECA EU
+and diaspora and has a profile, and is **not** a Notable.
+
+## ADR-039 - Diaspora means living outside Cameroon, and is derived from the register
+
+`/diaspora` carried a section headed "Notable Sons & Daughters - Guneku Excellence Worldwide"
+containing exactly two hard-coded people. That was wrong twice: diaspora is not a rank, and
+presenting two professionals as the worldwide community misrepresented both the word and
+everyone it left out.
+
+**Decision.** The page derives its people from the register, so it grows as the record does and
+can never again be a curated pair. Seventeen people are recorded outside Cameroon today.
+
+The rule is exactly the owner's: verified residence outside Cameroon, or verified membership of
+an overseas GUDECA chapter. **Never** inferred from professional success, from GUDECA National
+office, or from Yaoundé, Douala, Bamenda or Mbengwi membership - those are home chapters, and
+their members live in Cameroon whatever office they hold. Verified: all five new Yaoundé
+members appear zero times on `/diaspora`.
+
+## ADR-040 - Palace household is published as the Royal Family, and the Queens are plural
+
+The body is now "The Royal Family of Guneku", `kind: 'royal'`, across navigation, registers,
+headings, cards, metadata and search. The **id stays `palace-household`** so `/people/palace-household`
+does not break, and the archive `sourceLabel` "The Palace household and its titles" is left
+exactly as written - it names a real document, and this is a change to how the Fondom presents
+the body, not a rewriting of its own past records.
+
+**The Queens are plural by design.** The Guneku Palace is a polygamous royal household, so the
+page states that and lists Queen Esther Fomuki, Queen Fomuki Carine and Mrs. Fomuki Rebecca
+together. **No seniority is expressed** - not first, senior, principal or junior. The record
+establishes none, and inventing an order among the Fon's wives would be inventing royal
+hierarchy. Verified as zero occurrences of each of those four words.
+
+Queen Esther is added from the Fondom's own information, using `public/esther.png` as supplied.
+Her biography is not expanded from the external references the owner mentioned. Mrs. Fomuki
+Rebecca is confirmed a Queen, superseding the earlier uncertainty that arose only because the
+archive named her in the 2016 council record and nowhere else.
+
+## ADR-041 - Profiles moved to /sons-and-daughters, with redirects
+
+The professional profiles lived at `/notables/[slug]`, which said the thing this correction
+exists to stop saying. They now sit at `/sons-and-daughters/[slug]`, with permanent redirects
+from the old paths so no existing link, bookmark or citation breaks - including the GUDECA
+page, the Afor Foundation record, the navigation and the Njinigom quarter page, all repointed.
+
+Sons and daughters remains a real and valuable idea. It is simply not a synonym for Notable,
+and the two are now separate pages that link to each other and explain the difference.

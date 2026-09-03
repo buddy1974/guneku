@@ -6,7 +6,7 @@
  "status": "active",
  "category": "Education",
  "founder": "Prof. Dr. Roland Teboh Forbang",
- "founderRoute": "/notables/roland-teboh-forbang",
+ "founderRoute": "/sons-and-daughters/roland-teboh-forbang",
  "venue": "Guneku Fon's Palace, Mbengwi",
  "catchment": "Mbengwi Central",
  "prize": "1,000,000 FCFA",
@@ -34,11 +34,11 @@
  ],
  "relatedRoutes": [
   "/education",
-  "/notables/roland-teboh-forbang",
+  "/sons-and-daughters/roland-teboh-forbang",
   "/projects"
  ],
  "sourceNote": "Recovered 2026-09-01 from the notable profile of Prof. Dr. Roland Teboh Forbang and the legacy village record. The 2022 distribution and the Afor Foundation annual award are separate events and are kept separate here.",
  "sourceType": "Guneku first-party / project owner supplied",
  "route": "/education",
- "routeNote": "Covered on /education and on the founder profile at /notables/roland-teboh-forbang. No standalone presentation is generated for it."
+ "routeNote": "Covered on /education and on the founder profile at /sons-and-daughters/roland-teboh-forbang. No standalone presentation is generated for it."
 }

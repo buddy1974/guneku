@@ -1,5 +1,6 @@
 import Link  from 'next/link'
 import { ArrowRight } from 'lucide-react'
+import { diasporaNames, diasporaByChapter } from '@/lib/community'
 import { Reveal } from '@/components/ui/Reveal'
 import { chaptersByScope, foundingCount } from '@/lib/community'
 
@@ -25,6 +26,9 @@ export const metadata = {
 const PLACES = chaptersByScope('diaspora')
 
 export default function DiasporaPage() {
+  const diaspora       = diasporaNames()
+  const diasporaGroups = diasporaByChapter()
+
   return (
     <div className="min-h-screen bg-background">
 
@@ -163,29 +167,76 @@ export default function DiasporaPage() {
         </section>
       </Reveal>
 
-      {/* ── NOTABLES ── */}
+      {/* ── THE DIASPORA COMMUNITY ──
+           This replaced a hard-coded pair of cards headed "Notable Sons & Daughters —
+           Guneku Excellence Worldwide", which was wrong twice over. Diaspora is not a rank:
+           it means a Guneku person living outside Cameroon, and showing two distinguished
+           professionals as though they were the worldwide community misrepresented both the
+           word and everyone it left out. The list below is derived from the register, so it
+           grows as the record does and can never again be a curated two. */}
       <Reveal>
         <section className="mx-auto max-w-7xl px-6 pb-24">
-          <div className="text-center mb-10">
-            <div className="section-label mb-4">NOTABLE SONS &amp; DAUGHTERS</div>
-            <h2 className="font-cinzel text-4xl text-foreground">Guneku Excellence Worldwide</h2>
+          <div className="mb-10">
+            <div className="section-label mb-4">GUNEKU PEOPLE ABROAD</div>
+            <h2 className="font-cinzel text-4xl text-foreground">
+              {diaspora.length} recorded outside Cameroon
+            </h2>
+            <p className="text-muted-foreground mt-3 max-w-3xl">
+              Everyone the register records as living outside Cameroon, or as a member of an
+              overseas GUDECA chapter. Belonging to the diaspora says where someone lives and
+              nothing else &mdash; it is not a title, and it is separate from being a{' '}
+              <Link href="/notables" className="text-primary underline-offset-2 hover:underline">
+                Notable of Guneku
+              </Link>, which is a place in the village&rsquo;s traditional governance.
+            </p>
+            <p className="text-muted-foreground/80 mt-2 max-w-3xl text-sm">
+              Members of the Yaound&eacute;, Douala, Bamenda and Mbengwi chapters live in
+              Cameroon and are not of the diaspora, whatever office they hold.
+            </p>
           </div>
-          <div className="grid gap-4 md:grid-cols-2">
-            {[
-              { name:'Prof. Dr. Roland Teboh Forbang', role:'Associate Professor & Cancer Specialist', location:'New Jersey, USA', link:'/notables/roland-teboh-forbang' },
-              { name:'Marcel Tabit Akwe', role:'Software Developer & AI Automation', location:'Essen, Germany', link:'/notables/marcel-tabit-akwe' },
-            ].map(n => (
-              <Link key={n.name} href={n.link} className="card-royal p-6 block no-underline group">
-                <div className="h-0.5 w-6 bg-gold-gradient mb-4" />
-                <h3 className="font-cinzel text-xl text-foreground group-hover:text-primary transition-colors">{n.name}</h3>
-                <p className="text-muted-foreground text-sm mt-1">{n.role}</p>
-                <p className="text-primary/50 text-xs mt-2 tracking-widest">{n.location}</p>
-                <div className="mt-4 flex items-center gap-2 text-primary text-xs tracking-widest">
-                  Full profile <ArrowRight className="h-3 w-3" />
-                </div>
-              </Link>
-            ))}
-          </div>
+
+          {diasporaGroups.map(group => (
+            <div key={group.chapter.id} className="mb-10">
+              <h3 className="font-cinzel text-2xl text-foreground">
+                {group.chapter.flag} {group.chapter.org} &mdash; {group.chapter.place}
+              </h3>
+              <p className="text-muted-foreground/70 text-xs tracking-widest mt-1">
+                {group.people.length} {group.people.length === 1 ? 'person' : 'people'} recorded
+              </p>
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mt-4">
+                {group.people.map(n => {
+                  const inner = (
+                    <>
+                      <div className="h-0.5 w-6 bg-gold-gradient mb-4" />
+                      <h4 className="font-cinzel text-lg text-foreground">{n.display}</h4>
+                      {n.role && <p className="text-muted-foreground text-sm mt-1">{n.role}</p>}
+                      {n.profession && (
+                        <p className="text-muted-foreground text-sm mt-1">{n.profession}</p>
+                      )}
+                      {n.residence && (
+                        <p className="text-primary/50 text-xs mt-2 tracking-widest">{n.residence}</p>
+                      )}
+                      {n.notable && (
+                        <p className="text-primary/70 text-xs mt-2 tracking-widest">
+                          A NOTABLE OF GUNEKU
+                        </p>
+                      )}
+                    </>
+                  )
+                  return n.profileUrl ? (
+                    <Link key={n.slug} href={n.profileUrl} className="card-royal p-6 block no-underline group">
+                      {inner}
+                      <div className="mt-4 flex items-center gap-2 text-primary text-xs tracking-widest">
+                        Full profile <ArrowRight className="h-3 w-3" />
+                      </div>
+                    </Link>
+                  ) : (
+                    <div key={n.slug} className="card-royal p-6">{inner}</div>
+                  )
+                })}
+              </div>
+            </div>
+          ))}
         </section>
       </Reveal>
     </div>

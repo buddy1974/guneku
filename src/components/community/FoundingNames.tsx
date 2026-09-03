@@ -27,6 +27,10 @@ export function FoundingNameCard({ n }: { n: CardSafe }) {
         </Link>
       </h3>
       <p className="inst-body mt-1 !text-[0.86rem]">{n.role}</p>
+      {/* A profession the Fondom supplied. Shown as a fact about the person, never as
+          an office and never as a reason for standing. */}
+      {n.profession && <p className="inst-meta mt-0.5">{n.profession}</p>}
+      {n.notable && <p className="inst-meta mt-0.5">A Notable of Guneku</p>}
       <p className="inst-meta mt-2">{n.sourceLabel}</p>
       {/* Only where the person already has a published profile on this site —
           the stub links to it rather than restating anything from it. */}

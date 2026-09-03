@@ -1,70 +1,72 @@
 {
-  "meta": {
-    "purpose": "The bodies of Guneku — the people who hold office, as distinct from the places they live. A person can sit in a body AND belong to a chapter: Thadeus Fon is General President of GUDECA and a member of the Douala chapter, and both are true at once.",
-    "updated": "2026-09-03",
-    "rule": "Same contract as the chapters: a seeded member publishes name, office, body and source, and nothing else. Everything further arrives from the person when they claim the entry. A deceased person is recorded but never carries a claim action."
+ "meta": {
+  "purpose": "The bodies of Guneku — the people who hold office, as distinct from the places they live. A person can sit in a body AND belong to a chapter: Thadeus Fon is General President of GUDECA and a member of the Douala chapter, and both are true at once.",
+  "updated": "2026-09-03",
+  "rule": "Same contract as the chapters: a seeded member publishes name, office, body and source, and nothing else. Everything further arrives from the person when they claim the entry. A deceased person is recorded but never carries a claim action."
+ },
+ "bodies": [
+  {
+   "id": "traditional-council",
+   "order": 1,
+   "name": "The Guneku Traditional Council",
+   "short": "Traditional Council",
+   "kind": "governing",
+   "standfirst": "The governing body of Guneku. His Royal Highness is the king; these are the people through whom the village is governed.",
+   "asRecorded": "2021",
+   "sourceNote": "The council was reconstituted through quarter elections and its councillors installed on 30 July 2021. These are the office holders as the record named them in that year. Five years have passed and a traditional council changes: this is published as the record, not as a claim about who holds office today. If the Palace confirms the present holders, this register is superseded rather than corrected.",
+   "route": "/palace/the-traditional-council-as-recorded-in-2021",
+   "routeLabel": "The council record of 2021",
+   "notablesNote": "Every member of this council is a Guneku Notable. Notable standing comes from a place in the traditional governance of the village around the Fon — never from profession, prominence or education."
   },
-  "bodies": [
-    {
-      "id": "traditional-council",
-      "order": 1,
-      "name": "The Guneku Traditional Council",
-      "short": "Traditional Council",
-      "kind": "governing",
-      "standfirst": "The governing body of Guneku. His Royal Highness is the king; these are the people through whom the village is governed.",
-      "asRecorded": "2021",
-      "sourceNote": "The council was reconstituted through quarter elections and its councillors installed on 30 July 2021. These are the office holders as the record named them in that year. Five years have passed and a traditional council changes: this is published as the record, not as a claim about who holds office today. If the Palace confirms the present holders, this register is superseded rather than corrected.",
-      "route": "/palace/the-traditional-council-as-recorded-in-2021",
-      "routeLabel": "The council record of 2021"
-    },
-    {
-      "id": "gudeca-national",
-      "order": 2,
-      "name": "GUDECA National Executive Committee",
-      "short": "GUDECA National EXCO",
-      "kind": "association",
-      "standfirst": "The elected leadership of the Guneku Development and Cultural Association, across every chapter at home and abroad.",
-      "asRecorded": "undated",
-      "sourceNote": "Recovered from the migrated village website record. Only the presidency is corroborated by a later document — the minutes of the GUDECA EU meeting of 28 March 2026 record Mr. Thadeus Fon as General President. The remaining eleven offices are published as recorded, not as a statement of who holds them today. The source carries a personal mobile number against each officer; none is published here.",
-      "route": "/gudeca/gudeca-exco",
-      "routeLabel": "The EXCO page"
-    },
-    {
-      "id": "gudeca-eu-exco",
-      "order": 3,
-      "name": "GUDECA EU Chapter — Executive",
-      "short": "GUDECA EU Executive",
-      "kind": "association",
-      "standfirst": "The officers of the Europe-wide chapter. The chapter has no fixed seat; its meetings rotate between the countries where members live.",
-      "asRecorded": "2026",
-      "sourceNote": "Confirmed by the minutes of the meeting of 28 March 2026, which are signed by the Secretary General and the President.",
-      "chapter": "gudeca-europe",
-      "route": "/gudeca/chapters/gudeca-europe",
-      "routeLabel": "The chapter register"
-    },
-    {
-      "id": "michi-ebeng-committee",
-      "order": 4,
-      "name": "Mɨchi Əbeŋ Festival — organising committee",
-      "short": "Festival committee",
-      "kind": "committee",
-      "standfirst": "The people behind the festival — the ones who put the great annual return together.",
-      "asRecorded": "2023",
-      "sourceNote": "Recorded for the 2023 edition. Not published as the present committee unless the Palace confirms it.",
-      "route": "/institutions/michi-ebeng-festival",
-      "routeLabel": "The festival"
-    },
-    {
-      "id": "palace-household",
-      "order": 5,
-      "name": "The Palace household and its titles",
-      "short": "Palace household",
-      "kind": "household",
-      "standfirst": "A Fondom is not one man. These are the people the record names around the throne of Guneku.",
-      "asRecorded": "2019–2021",
-      "sourceNote": "Each entry carries the date of the source that establishes it. Titles conferred by the Palace; family members named in the Fondom's own biographies.",
-      "route": "/palace/the-palace-household-and-its-titles",
-      "routeLabel": "The household record"
-    }
-  ]
+  {
+   "id": "gudeca-national",
+   "order": 2,
+   "name": "GUDECA National Executive Committee",
+   "short": "GUDECA National EXCO",
+   "kind": "association",
+   "standfirst": "The elected leadership of the Guneku Development and Cultural Association, across every chapter at home and abroad.",
+   "asRecorded": "undated",
+   "sourceNote": "Recovered from the migrated village website record. Only the presidency is corroborated by a later document — the minutes of the GUDECA EU meeting of 28 March 2026 record Mr. Thadeus Fon as General President. The remaining eleven offices are published as recorded, not as a statement of who holds them today. The source carries a personal mobile number against each officer; none is published here.",
+   "route": "/gudeca/gudeca-exco",
+   "routeLabel": "The EXCO page"
+  },
+  {
+   "id": "gudeca-eu-exco",
+   "order": 3,
+   "name": "GUDECA EU Chapter — Executive",
+   "short": "GUDECA EU Executive",
+   "kind": "association",
+   "standfirst": "The officers of the Europe-wide chapter. The chapter has no fixed seat; its meetings rotate between the countries where members live.",
+   "asRecorded": "2026",
+   "sourceNote": "Confirmed by the minutes of the meeting of 28 March 2026, which are signed by the Secretary General and the President.",
+   "chapter": "gudeca-europe",
+   "route": "/gudeca/chapters/gudeca-europe",
+   "routeLabel": "The chapter register"
+  },
+  {
+   "id": "michi-ebeng-committee",
+   "order": 4,
+   "name": "Mɨchi Əbeŋ Festival — organising committee",
+   "short": "Festival committee",
+   "kind": "committee",
+   "standfirst": "The people behind the festival — the ones who put the great annual return together.",
+   "asRecorded": "2023",
+   "sourceNote": "Recorded for the 2023 edition. Not published as the present committee unless the Palace confirms it.",
+   "route": "/institutions/michi-ebeng-festival",
+   "routeLabel": "The festival"
+  },
+  {
+   "id": "palace-household",
+   "order": 5,
+   "name": "The Royal Family of Guneku",
+   "short": "Royal Family",
+   "kind": "royal",
+   "standfirst": "A Fondom is not one man. These are the people the record names around the throne of Guneku — the Queens of the Palace, the royal family, and the titles the Palace has conferred.",
+   "asRecorded": "2019–2021",
+   "sourceNote": "Each entry carries the date of the source that establishes it. Titles conferred by the Palace; family members named in the Fondom's own biographies.",
+   "route": "/palace/the-palace-household-and-its-titles",
+   "routeLabel": "The household record",
+   "renameNote": "Published as \"Palace household\" until 2026-09-03, when the Fondom confirmed \"Royal Family\" as the public name. Archive quotations that use the older wording are left exactly as they were written: this is a change to how the Fondom presents the body, not a rewriting of its own past records."
+  }
+ ]
 }

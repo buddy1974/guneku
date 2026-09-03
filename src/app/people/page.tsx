@@ -7,7 +7,7 @@ import { pageMetadata } from '@/lib/seo'
 export const metadata: Metadata = pageMetadata({
   title: 'The people of Guneku',
   description:
-    'The bodies of Guneku — the Traditional Council that governs the village, the GUDECA executives at home and abroad, the festival committee and the Palace household. Every office holder, with the record that names them.',
+    'The bodies of Guneku — the Traditional Council that governs the village, the GUDECA executives at home and abroad, the festival committee and the Royal Family. Every office holder, with the record that names them.',
   path: '/people',
 })
 

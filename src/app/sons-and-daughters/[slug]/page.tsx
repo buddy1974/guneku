@@ -17,7 +17,7 @@ export async function generateMetadata(
   return pageMetadata({
     title: String(n.name),
     description: excerptFrom(n.bio || role),
-    path: `/notables/${slug}`,
+    path: `/sons-and-daughters/${slug}`,
     image: typeof n.portrait === 'string' ? n.portrait : null,
     imageAlt: typeof n.portraitAlt === 'string' ? n.portraitAlt : String(n.name),
     type: 'article',

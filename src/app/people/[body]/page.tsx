@@ -3,7 +3,8 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { PageHero } from '@/components/layout/PageHero'
 import { FoundingNames } from '@/components/community/FoundingNames'
-import { allBodies, getBody, getChapter, membersOf, memberCount, recordedLabel } from '@/lib/community'
+import { allBodies, getBody, getChapter, membersOf, memberCount, recordedLabel, palaceQueens } from '@/lib/community'
+import Image from 'next/image'
 import { pageMetadata } from '@/lib/seo'
 
 export async function generateStaticParams() {
@@ -44,6 +45,7 @@ export default async function BodyPage({
   const claimable  = members.filter(m => !m.deceased).length
   const chapter    = b.chapter ? getChapter(b.chapter) : null
   const others     = allBodies().filter(x => x.id !== b.id)
+  const queens     = b.kind === 'royal' ? palaceQueens() : []
 
   return (
     <main className="min-h-screen bg-[var(--paper)]">
@@ -52,6 +54,7 @@ export default async function BodyPage({
           b.kind === 'governing'  ? 'THE GOVERNING BODY OF GUNEKU'
           : b.kind === 'committee' ? 'THE PEOPLE BEHIND IT'
           : b.kind === 'household' ? 'AROUND THE THRONE'
+          : b.kind === 'royal'     ? 'THE ROYAL FAMILY OF GUNEKU'
           : 'THE ASSOCIATION'
         }
         title={b.name}
@@ -78,6 +81,48 @@ export default async function BodyPage({
           </div>
         </div>
       </section>
+
+      {/* ── The Palace Queens ──
+           The Guneku Palace is a polygamous royal household, so several Queens is the normal
+           case rather than an exception to explain. They are shown in register order and no
+           seniority is expressed: the record establishes none, and "first" or "senior" would
+           be inventing royal hierarchy. */}
+      {b.kind === 'royal' && queens.length > 0 && (
+        <section className="inst-wrap pb-[clamp(1.5rem,3vw,2.5rem)]">
+          <h2 className="inst-h2">The Palace Queens</h2>
+          <p className="inst-body mt-2 max-w-3xl">
+            The Guneku Palace is a polygamous royal household. Each Queen is recorded in her
+            own right; the Fondom records no order of precedence among them, and none is
+            implied here.
+          </p>
+
+          <ul className="mt-6 grid list-none gap-6 p-0 sm:grid-cols-2 lg:grid-cols-3">
+            {queens.map(q => (
+              <li key={q.slug} className="inst-card overflow-hidden">
+                {q.photo && (
+                  <div className="relative aspect-[4/5] w-full bg-[var(--stone)]">
+                    <Image src={q.photo} alt={`${q.display}, a Queen of the Guneku Palace.`}
+                           fill unoptimized sizes="(max-width: 640px) 100vw, 33vw"
+                           className="object-cover" />
+                  </div>
+                )}
+                <div className="p-5">
+                  <p className="inst-tag">Queen</p>
+                  <h3 className="inst-h3 mt-1.5">{q.display}</h3>
+                  {q.role && <p className="inst-body mt-1.5 !text-[0.86rem]">{q.role}</p>}
+                  {q.profession && (
+                    <p className="inst-meta mt-2">{q.profession}</p>
+                  )}
+                  {q.professionPlace && (
+                    <p className="inst-meta">{q.professionPlace}</p>
+                  )}
+                  <p className="inst-meta mt-2">{q.sourceLabel}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <section className="inst-wrap pb-[clamp(2.25rem,4.5vw,3.5rem)]">
         <FoundingNames
