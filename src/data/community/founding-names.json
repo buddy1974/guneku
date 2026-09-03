@@ -3,28 +3,261 @@
     "purpose": "The first names in the Indigenes Directory. A directory that opens empty converts badly; a directory that already carries your name converts well. These are seed stubs only — name, role, chapter and the source the name came from. Nothing else is published: no photograph, no location, no contact, no biography. Each one carries a Claim action and a Remove action.",
     "updated": "2026-09-03",
     "authorised_by": "Product Owner, 2026-09-03 — publish all founding names now.",
-    "publication_rule": "A seed stub may show ONLY: display name, role, chapter, source label, and — where the person already has a published profile on this site — a link to it. Any further field must come from the person themselves after they claim. Do not add photographs, employers, cities or contact details to this file.",
+    "publication_rule": "A seed stub may show ONLY: display name, role/office, body, chapter, source label, and — where the person already has a published profile on this site — a link to it. Any further field must come from the person themselves after they claim. Do not add photographs, employers, cities or contact details to this file.",
     "objection_route": "Every stub links to /indigenes/submit?intent=remove — a one-click request to have the name taken down, honoured without question. This is what makes publishing a name the person did not personally submit defensible; do not remove it.",
     "membership_rule": "Appearing in the minutes of a GUDECA meeting is NOT the same as being a member. Guests, dignitaries and speakers attend. Only add a person to a chapter when membership is confirmed, not because a record names them.",
     "removed": [
       {
         "name": "Fonjong",
         "removed": "2026-09-03",
-        "reason": "Named in the Bonn minutes as delivering a goodwill message, and titled by the Fons of Meta — but he attended the event and is not a GUDECA member. Confirmed by the Product Owner. Do not re-add from the minutes."
+        "reason": "Named in the Bonn minutes delivering a goodwill message, and titled by the Fons of Meta — but he attended the event and is not a GUDECA member. Confirmed by the Product Owner. Do not re-add from the minutes. NOTE: he is still present in institutions/gudeca-eu.json `leadership`; that file has not been changed without a decision."
       }
     ],
     "sources": {
       "gudeca-eu-bonn-2026-03-28": "Minutes of the GUDECA EU Meeting, 28 March 2026, held at the Fon's residence in Bonn — circulated to the membership.",
       "whatsapp:gudeca-eu": "The GUDECA EU WhatsApp group.",
-      "self-declared": "Listed at the person's own request."
-    }
+      "self-declared": "Listed at the person's own request.",
+      "gudeca-national-exco": "The GUDECA National Executive Committee roster, recovered from the migrated village website record. Undated.",
+      "traditional-council-2021": "The Guneku Traditional Council as recorded in 2021, councillors installed 30 July 2021.",
+      "quarter-elections-2021": "Coverage of the 2021 quarter elections (Mbengwi Online), carried in the news archive.",
+      "michi-ebeng-2023": "The Mɨchi Əbeŋ Festival organising committee, recorded for the 2023 edition.",
+      "palace-household": "The Palace household and its titles, each entry dated to the source that establishes it.",
+      "legacy-sons-daughters": "The legacy 'Sons & Daughters of Guneku Worldwide' listing from the migrated village website.",
+      "fon-biography": "The biography of the late HRH Fon Fomuki Patrick Nji."
+    },
+    "deceased_rule": "A person recorded as deceased is listed with respect and NEVER carries a claim action. `deceased: true` removes the claim button and the 'not me' link; the entry stands as a record, not an invitation.",
+    "body_rule": "`body` is an office-holding body (see bodies.json); `chapter` is a place (see chapters.json). A person may have both, one, or neither. Thadeus Fon holds national office AND belongs to the Douala chapter.",
+    "relationship_rule": "Family relationships stated privately by a member of the community are NOT published here. If a relationship belongs on the site, it comes from the Palace record or from the person themselves."
   },
   "names": [
     {
+      "slug": "ndingwan-primus",
+      "display": "Ndingwan Primus",
+      "aliases": [],
+      "role": "Chairman, Guneku Traditional Council",
+      "body": "traditional-council",
+      "chapter": "guneku-village",
+      "source": "traditional-council-2021",
+      "sourceLabel": "Guneku Traditional Council, as recorded 2021",
+      "note": "Also served on the 2021 quarter-election team."
+    },
+    {
+      "slug": "fodom-calvin",
+      "display": "Fodom Calvin",
+      "aliases": [
+        "Fondom Calvin"
+      ],
+      "role": "Secretary, Guneku Traditional Council; quarter head of Fun",
+      "body": "traditional-council",
+      "chapter": "guneku-village",
+      "source": "traditional-council-2021",
+      "sourceLabel": "Guneku Traditional Council, as recorded 2021",
+      "note": "Spelt 'Fondom Calvin' in the 2021 election coverage. Recorded here as the council roster spells it."
+    },
+    {
+      "slug": "amamuki-jonathan",
+      "display": "Amamuki Jonathan",
+      "aliases": [],
+      "role": "Treasurer, Guneku Traditional Council; quarter head of Njinebai",
+      "body": "traditional-council",
+      "chapter": "guneku-village",
+      "source": "traditional-council-2021",
+      "sourceLabel": "Guneku Traditional Council, as recorded 2021",
+      "note": "A different person from Mbakwa Jonathan, National Financial Secretary of GUDECA. The two share a forename only."
+    },
+    {
+      "slug": "mbakwa-bernard",
+      "display": "Mbakwa Bernard",
+      "aliases": [
+        "Ni Mbakwa Bernard"
+      ],
+      "role": "Head of the 2021 Palace electoral commission; leader of the election team",
+      "body": "traditional-council",
+      "chapter": "guneku-village",
+      "source": "traditional-council-2021",
+      "sourceLabel": "Guneku Traditional Council, as recorded 2021"
+    },
+    {
+      "slug": "ngwa-vitalis",
+      "display": "Ngwa Vitalis",
+      "aliases": [
+        "Vitalis Ngwa"
+      ],
+      "role": "Secretary of the 2021 electoral commission; the Fon's representative",
+      "body": "traditional-council",
+      "chapter": "guneku-village",
+      "source": "traditional-council-2021",
+      "sourceLabel": "Guneku Traditional Council, as recorded 2021"
+    },
+    {
+      "slug": "fon-mathias",
+      "display": "Fon Mathias",
+      "aliases": [],
+      "role": "Member of the 2021 quarter-election team",
+      "body": "traditional-council",
+      "chapter": "guneku-village",
+      "source": "quarter-elections-2021",
+      "sourceLabel": "Quarter elections coverage, 2021"
+    },
+    {
+      "slug": "mukum-charles-ndika",
+      "display": "Mukum Charles Ndika",
+      "aliases": [],
+      "role": "President, Fun Quarter Traditional Council; represents Fun on the Guneku Traditional Council",
+      "body": "traditional-council",
+      "chapter": "guneku-village",
+      "source": "quarter-elections-2021",
+      "sourceLabel": "Quarter elections coverage, 2021",
+      "note": "Elected in the Fun quarter election of July 2021."
+    },
+    {
+      "slug": "abanda-gideon",
+      "display": "Abanda Gideon",
+      "aliases": [],
+      "role": "Secretary General, Fun Quarter Traditional Council",
+      "body": "traditional-council",
+      "chapter": "guneku-village",
+      "source": "quarter-elections-2021",
+      "sourceLabel": "Quarter elections coverage, 2021",
+      "note": "Elected in the Fun quarter election of July 2021."
+    },
+    {
+      "slug": "thadeus-fon",
+      "display": "Thadeus Fon",
+      "aliases": [
+        "Thadeaus Fon",
+        "Thaddeus Fon"
+      ],
+      "role": "General President, GUDECA",
+      "body": "gudeca-national",
+      "chapter": "gudeca-douala",
+      "source": "gudeca-eu-bonn-2026-03-28",
+      "sourceLabel": "GUDECA EU minutes, 28 March 2026",
+      "note": "Home-based. He addressed the meeting of 28 March 2026 as General President; he is not a member of the EU chapter and is listed with Douala. The archive spells the name three ways; the form signed in the 2026 minutes is used here."
+    },
+    {
+      "slug": "grace-forze",
+      "display": "Grace Forze",
+      "aliases": [],
+      "role": "1st National Vice President, GUDECA",
+      "body": "gudeca-national",
+      "chapter": null,
+      "source": "gudeca-national-exco",
+      "sourceLabel": "GUDECA National EXCO roster (undated)"
+    },
+    {
+      "slug": "ticha-elias-m",
+      "display": "Ticha Elias M.",
+      "aliases": [],
+      "role": "2nd National Vice President, GUDECA",
+      "body": "gudeca-national",
+      "chapter": null,
+      "source": "gudeca-national-exco",
+      "sourceLabel": "GUDECA National EXCO roster (undated)"
+    },
+    {
+      "slug": "ngati-bah-g",
+      "display": "Ngati Bah G.",
+      "aliases": [],
+      "role": "3rd National Vice President, GUDECA",
+      "body": "gudeca-national",
+      "chapter": null,
+      "source": "gudeca-national-exco",
+      "sourceLabel": "GUDECA National EXCO roster (undated)"
+    },
+    {
+      "slug": "tah-eric-teke",
+      "display": "Tah Eric Teke",
+      "aliases": [],
+      "role": "National Secretary General, GUDECA",
+      "body": "gudeca-national",
+      "chapter": null,
+      "source": "gudeca-national-exco",
+      "sourceLabel": "GUDECA National EXCO roster (undated)"
+    },
+    {
+      "slug": "ndikum-humphrey",
+      "display": "Ndikum Humphrey",
+      "aliases": [],
+      "role": "Vice National Secretary, GUDECA",
+      "body": "gudeca-national",
+      "chapter": null,
+      "source": "gudeca-national-exco",
+      "sourceLabel": "GUDECA National EXCO roster (undated)"
+    },
+    {
+      "slug": "asukwa-victor",
+      "display": "Asukwa Victor",
+      "aliases": [],
+      "role": "National Treasurer, GUDECA",
+      "body": "gudeca-national",
+      "chapter": null,
+      "source": "gudeca-national-exco",
+      "sourceLabel": "GUDECA National EXCO roster (undated)"
+    },
+    {
+      "slug": "mbakwa-jonathan",
+      "display": "Mbakwa Jonathan",
+      "aliases": [],
+      "role": "National Financial Secretary, GUDECA",
+      "body": "gudeca-national",
+      "chapter": null,
+      "source": "gudeca-national-exco",
+      "sourceLabel": "GUDECA National EXCO roster (undated)",
+      "note": "A different person from Amamuki Jonathan, Treasurer of the Traditional Council."
+    },
+    {
+      "slug": "fah-elvis-tayong",
+      "display": "Fah Elvis Tayong",
+      "aliases": [
+        "Tayong Fah Elvis"
+      ],
+      "role": "National Publicity Secretary, GUDECA · Ngam-Fon of the Palace · Delegate, Guneku Agro CIG",
+      "body": "gudeca-national",
+      "chapter": "guneku-village",
+      "source": "gudeca-national-exco",
+      "sourceLabel": "GUDECA National EXCO roster (undated)",
+      "note": "One man in three roles, not three men. The Ngam-Fon — the holder speaks for the Fon — was conferred on him on 30 July 2021."
+    },
+    {
+      "slug": "tifuh-triphania",
+      "display": "Tifuh Triphania",
+      "aliases": [],
+      "role": "Vice National Publicity Secretary, GUDECA",
+      "body": "gudeca-national",
+      "chapter": null,
+      "source": "gudeca-national-exco",
+      "sourceLabel": "GUDECA National EXCO roster (undated)"
+    },
+    {
+      "slug": "acho-n-pascal",
+      "display": "Acho N. Pascal",
+      "aliases": [],
+      "role": "National Cultural Secretary, GUDECA",
+      "body": "gudeca-national",
+      "chapter": null,
+      "source": "gudeca-national-exco",
+      "sourceLabel": "GUDECA National EXCO roster (undated)"
+    },
+    {
+      "slug": "chick-timoh-edmond",
+      "display": "Chick Timoh Edmond",
+      "aliases": [],
+      "role": "National Youth President, GUDECA",
+      "body": "gudeca-national",
+      "chapter": null,
+      "source": "gudeca-national-exco",
+      "sourceLabel": "GUDECA National EXCO roster (undated)"
+    },
+    {
       "slug": "ndenge-constantine",
       "display": "Ndenge Constantine",
-      "aliases": ["Constantine Ndenge", "Consty"],
+      "aliases": [
+        "Constantine Ndenge",
+        "Consty"
+      ],
       "role": "President, GUDECA EU Chapter",
+      "body": "gudeca-eu-exco",
       "chapter": "gudeca-europe",
       "source": "gudeca-eu-bonn-2026-03-28",
       "sourceLabel": "GUDECA EU minutes, 28 March 2026"
@@ -34,6 +267,7 @@
       "display": "Festus Tanwi",
       "aliases": [],
       "role": "Vice President, GUDECA EU Chapter",
+      "body": "gudeca-eu-exco",
       "chapter": "gudeca-europe",
       "source": "gudeca-eu-bonn-2026-03-28",
       "sourceLabel": "GUDECA EU minutes, 28 March 2026"
@@ -43,18 +277,36 @@
       "display": "Muyang Ela",
       "aliases": [],
       "role": "Secretary General, GUDECA EU Chapter",
+      "body": "gudeca-eu-exco",
       "chapter": "gudeca-europe",
       "source": "gudeca-eu-bonn-2026-03-28",
-      "sourceLabel": "GUDECA EU minutes, 28 March 2026"
+      "sourceLabel": "GUDECA EU minutes, 28 March 2026",
+      "note": "Signed the minutes of 28 March 2026."
+    },
+    {
+      "slug": "armstrong-tinyih",
+      "display": "Armstrong Tinyih",
+      "aliases": [],
+      "role": "Financial Secretary, GUDECA EU Chapter",
+      "body": "gudeca-eu-exco",
+      "chapter": "gudeca-europe",
+      "source": "gudeca-national-exco",
+      "sourceLabel": "GUDECA National EXCO roster (undated)",
+      "note": "The EXCO roster gives him this office; the GUDECA EU group names him as a member."
     },
     {
       "slug": "sam-fongoh",
       "display": "Sam Fongoh",
-      "aliases": ["Ni Sam"],
-      "role": "Member, GUDECA EU Chapter",
+      "aliases": [
+        "Ni Sam",
+        "Sam Fongho"
+      ],
+      "role": "Digital Lead, GUDECA EU Chapter; coordinator of the 2027 meeting in the United Kingdom",
+      "body": "gudeca-eu-exco",
       "chapter": "gudeca-europe",
       "source": "gudeca-eu-bonn-2026-03-28",
-      "sourceLabel": "GUDECA EU minutes, 28 March 2026"
+      "sourceLabel": "GUDECA EU minutes, 28 March 2026",
+      "note": "Three records merged into one: 'Ni Sam' in the 2026 minutes and as the UK meeting coordinator, 'Sam Fongoh' in the GUDECA EU group, and 'Sam Fongho — Property Auction Expert, UK' in the legacy Sons & Daughters listing. If these are not the same man, say so and the record splits again."
     },
     {
       "slug": "ma-rose",
@@ -63,7 +315,8 @@
       "role": "Member, GUDECA EU Chapter",
       "chapter": "gudeca-europe",
       "source": "gudeca-eu-bonn-2026-03-28",
-      "sourceLabel": "GUDECA EU minutes, 28 March 2026"
+      "sourceLabel": "GUDECA EU minutes, 28 March 2026",
+      "note": "Led the opening prayer at the meeting of 28 March 2026."
     },
     {
       "slug": "fabian",
@@ -72,16 +325,8 @@
       "role": "Member, GUDECA EU Chapter",
       "chapter": "gudeca-europe",
       "source": "gudeca-eu-bonn-2026-03-28",
-      "sourceLabel": "GUDECA EU minutes, 28 March 2026"
-    },
-    {
-      "slug": "armstrong-tinyih",
-      "display": "Armstrong Tinyih",
-      "aliases": [],
-      "role": "Member, GUDECA EU Chapter",
-      "chapter": "gudeca-europe",
-      "source": "whatsapp:gudeca-eu",
-      "sourceLabel": "Named in the GUDECA EU group"
+      "sourceLabel": "GUDECA EU minutes, 28 March 2026",
+      "note": "Delivered the digital empowerment presentation at the meeting of 28 March 2026. Only a first name is recorded."
     },
     {
       "slug": "don-df-festoire",
@@ -112,14 +357,145 @@
       "profileUrl": "/notables/marcel-tabit-akwe"
     },
     {
-      "slug": "thadeus-fon",
-      "display": "Thadeus Fon",
+      "slug": "roland-teboh-forbang",
+      "display": "Prof. Dr. Roland Teboh Forbang",
+      "aliases": [
+        "Dr. Roland Teboh"
+      ],
+      "role": "Associate Professor & Medical Director",
+      "chapter": "gudeca-us-dmv",
+      "source": "legacy-sons-daughters",
+      "sourceLabel": "Legacy 'Sons & Daughters of Guneku' listing",
+      "profileUrl": "/notables/roland-teboh-forbang",
+      "note": "Recorded in New Jersey. Named against the Afor Foundation Scholarship."
+    },
+    {
+      "slug": "joyce-akwe",
+      "display": "Dr. Joyce Akwe",
       "aliases": [],
-      "role": "General President, GUDECA",
-      "chapter": "gudeca-douala",
-      "source": "gudeca-eu-bonn-2026-03-28",
-      "sourceLabel": "GUDECA EU minutes, 28 March 2026",
-      "note": "Home-based. He addressed the Bonn meeting as General President of GUDECA; he is not a member of the EU chapter and is listed with Douala."
+      "role": "Physician — Internal Medicine",
+      "chapter": "gudeca-us-dmv",
+      "source": "legacy-sons-daughters",
+      "sourceLabel": "Legacy 'Sons & Daughters of Guneku' listing",
+      "note": "The legacy listing records Decatur, Georgia. The US chapter is recorded as DMV and New Jersey; the placement follows the country, not the city."
+    },
+    {
+      "slug": "ephraim-toh",
+      "display": "Ephraim Toh",
+      "aliases": [],
+      "role": "Member, GUDECA US Chapter",
+      "chapter": "gudeca-us-dmv",
+      "source": "gudeca-us-2023",
+      "sourceLabel": "GUDECA US cultural event coverage, 2023",
+      "note": "Named in the coverage of the 2023 event welcoming HRH Fon Fomuki to the United States."
+    },
+    {
+      "slug": "victor-samkoh",
+      "display": "Victor Samkoh",
+      "aliases": [],
+      "role": "Cameroon Cancer Foundation",
+      "chapter": "guneku-village",
+      "source": "legacy-sons-daughters",
+      "sourceLabel": "Legacy 'Sons & Daughters of Guneku' listing",
+      "note": "The legacy listing gives the organisation and no place; recorded at home until the Palace or the man himself says otherwise."
+    },
+    {
+      "slug": "fongoh-p-ayeh",
+      "display": "Fongoh P. Ayeh",
+      "aliases": [],
+      "role": "Head of the organising committee, Mɨchi Əbeŋ Festival",
+      "body": "michi-ebeng-committee",
+      "chapter": "guneku-village",
+      "source": "michi-ebeng-2023",
+      "sourceLabel": "Mɨchi Əbeŋ organising committee, 2023",
+      "note": "Also the publisher of the Mbengwi Online community record. Shares a surname with Sam Fongoh; no relationship is recorded and none is implied."
+    },
+    {
+      "slug": "tebo-julius",
+      "display": "Tebo Julius",
+      "aliases": [],
+      "role": "Committee member, Mɨchi Əbeŋ Festival",
+      "body": "michi-ebeng-committee",
+      "chapter": "guneku-village",
+      "source": "michi-ebeng-2023",
+      "sourceLabel": "Mɨchi Əbeŋ organising committee, 2023"
+    },
+    {
+      "slug": "bandeh-godwill",
+      "display": "Bandeh Godwill",
+      "aliases": [],
+      "role": "Committee member, Mɨchi Əbeŋ Festival",
+      "body": "michi-ebeng-committee",
+      "chapter": "guneku-village",
+      "source": "michi-ebeng-2023",
+      "sourceLabel": "Mɨchi Əbeŋ organising committee, 2023"
+    },
+    {
+      "slug": "fomuki-carine",
+      "display": "Fomuki Carine",
+      "aliases": [],
+      "role": "A queen of the Guneku Palace; disability expert, SEEPD Programme",
+      "body": "palace-household",
+      "chapter": "guneku-village",
+      "source": "palace-household",
+      "sourceLabel": "The Palace household and its titles",
+      "note": "Present at the Palace occasions for people living with disabilities in December 2019 and December 2021, and in the Guneku delegation to the House of Hope orphanage in July 2021."
+    },
+    {
+      "slug": "alhaji-hassan-djibo",
+      "display": "Alhaji Hassan Djibo",
+      "aliases": [],
+      "role": "Ardo of Guneku — the highest Mbororo authority in the village",
+      "body": "palace-household",
+      "chapter": "guneku-village",
+      "source": "palace-household",
+      "sourceLabel": "The Palace household and its titles",
+      "note": "The Bantu and Mbororo peoples of Guneku live together in the village, and the record of Guneku is not complete without the Mbororo authority in it."
+    },
+    {
+      "slug": "fomuki-rebecca",
+      "display": "Fomuki Rebecca",
+      "aliases": [],
+      "role": "Of the Palace family",
+      "body": "palace-household",
+      "chapter": "guneku-village",
+      "source": "village-council-2016",
+      "sourceLabel": "Guneku village council record, April 2016",
+      "note": "Named in the 2016 village council record. The role the record gives her is not stated; only the name is carried here."
+    },
+    {
+      "slug": "fomuki-william-tabot",
+      "display": "Fomuki William Tabot",
+      "aliases": [],
+      "role": "Of the Palace family",
+      "body": "palace-household",
+      "chapter": "guneku-village",
+      "source": "fon-biography",
+      "sourceLabel": "Biography of the late HRH Fon Fomuki Patrick Nji",
+      "note": "Named in the late Fon’s biography. The record does not state the relationship precisely, and none is invented here."
+    },
+    {
+      "slug": "mama-ngum-fomuki",
+      "display": "Mama Ngum Fomuki",
+      "aliases": [],
+      "role": "Mother of the late HRH Fon Fomuki Patrick Nji",
+      "body": "palace-household",
+      "chapter": "guneku-village",
+      "source": "fon-biography",
+      "sourceLabel": "Biography of the late HRH Fon Fomuki Patrick Nji",
+      "deceased": true
+    },
+    {
+      "slug": "akwe-thadeus-acho",
+      "display": "Akwe Thadeus Acho",
+      "aliases": [],
+      "role": "Named in the Fondom record",
+      "body": "palace-household",
+      "chapter": "guneku-village",
+      "source": "fon-biography",
+      "sourceLabel": "Biography of the late HRH Fon Fomuki Patrick Nji",
+      "deceased": true,
+      "note": "Of blessed memory. Named in the biography of the late HRH Fon Fomuki Patrick Nji."
     }
   ]
 }

@@ -40,10 +40,13 @@ const NAV: Item[] = [
   {
     href: '/indigenes', label: 'Our People',
     children: [
-      { href: '/indigenes',           label: 'Indigenes Directory' },
-      { href: '/notables',            label: 'Notables'            },
-      { href: '/gudeca/guyodeca',     label: 'GUYODECA — Youth'    },
-      { href: '/gudeca/gudeca-exco',  label: 'GUDECA Executive'    },
+      { href: '/indigenes',                    label: 'Indigenes Directory'  },
+      /* Who holds office, as distinct from who the sons and daughters are. */
+      { href: '/people',                       label: 'Who holds office'     },
+      { href: '/people/traditional-council',   label: 'Traditional Council'  },
+      { href: '/notables',                     label: 'Notables'             },
+      { href: '/gudeca/guyodeca',              label: 'GUYODECA — Youth'     },
+      { href: '/gudeca/gudeca-exco',           label: 'GUDECA Executive'     },
     ],
   },
   {

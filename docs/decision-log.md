@@ -340,3 +340,62 @@ is evidence they were present, not evidence they are a member.
 site, the stub may carry a link to it — `profileUrl`, the only field added to `CardSafe`
 since ADR-014 — but restates nothing from it. The two stay separate records until the entry
 is claimed.
+
+## ADR-019 — A body is not a place, and the governing body gets a register of its own
+
+**Context.** The Traditional Council existed on the site as prose inside one palace
+article. It is the governing body of Guneku — His Royal Highness is the king, and these
+are the people through whom the village is governed — and it was less visible than a
+photo gallery. The same was true of the GUDECA national executive (twelve officers,
+recovered from a migrated record), the EU executive, the festival committee and the
+Palace household.
+
+**Decision.** `bodies.json` records the office-holding bodies; `chapters.json` records
+places. A person carries `body`, `chapter`, both or neither — Thadeus Fon is General
+President of GUDECA *and* a member of the Douala chapter, and forcing that into one field
+is what produced the Essen/Bonn error a level up (ADR-017). `/people` indexes the bodies,
+`/people/[body]` publishes each roster, and the governing body carries a card on the
+front page.
+
+Two rules the code enforces:
+
+- **Office order, never alphabetical.** `membersOf` preserves the register's order. A
+  roster sorted A–Z puts the Chairman wherever his initial falls and stops being a roster.
+- **Every roster states the year it describes**, in the reader's line of sight. The
+  council record is from 2021 and a council changes; the national EXCO is undated and says
+  so. The date is the reader's warning, so it is not buried.
+
+Claiming works exactly as it does for the indigenes seeds — one form, one route, one
+inbox. The office stays as the record has it; everything else is the person's to write.
+
+## ADR-020 — The dead are recorded, and never invited to claim
+
+**Context.** The register carries people who have died: Mama Ngum Fomuki, mother of the
+late Fon, and Akwe Thadeus Acho. A "This is me — claim it" button under either name would
+be grotesque.
+
+**Decision.** `deceased: true` removes the claim action and the "not me" link, on the card
+and on the entry page, and replaces them with a line stating that the entry is kept as a
+record and a route for the family to write to the Palace. The entry itself stays: the
+record of a Fondom includes those who are gone. `founding-names.json` carries the rule so
+it is not undone by a later editor adding a field.
+
+**Also decided.** A family relationship stated privately to a maintainer is not published.
+Where a relationship belongs on the site it comes from the Palace record or from the person
+themselves — recorded as `relationship_rule` in the data file.
+
+## ADR-021 — Three records merged into one man, on the balance of the evidence
+
+**Context.** "Ni Sam" is Digital Lead of GUDECA EU in the roster and coordinator of the
+2027 meeting in the United Kingdom. "Sam Fongoh" is a member in the WhatsApp group. "Sam
+Fongho — Property Auction Expert, UK" is in the legacy Sons & Daughters listing. Three
+records, one plausible man.
+
+**Decision.** Merged into `sam-fongoh`, with the other two as aliases and the reasoning in
+the record's own note, on the Product Owner's instruction to match names intelligently. The
+UK coordination and the UK listing are what tip it. The note says plainly that if these are
+not the same man the record splits again — the merge is reversible in one edit, and a wrong
+merge is visible to the man himself the moment he sees the page.
+
+The reverse call was made for Amamuki Jonathan and Mbakwa Jonathan, who share a forename
+only: they stay two people, and each record says so.

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { allFoundingNames, foundingNamesFor, getChapter, toCardSafe } from '@/lib/community'
+import { allFoundingNames, foundingNamesFor, getChapter, membersOf, toCardSafe } from '@/lib/community'
 import type { CardSafe } from '@/lib/community'
 
 /* The founding names — the entries the directory opens with.
@@ -17,7 +17,9 @@ export function FoundingNameCard({ n }: { n: CardSafe }) {
   return (
     <article className="inst-card flex flex-col p-4">
       <p className="inst-tag">
-        {n.chapter ? `${n.chapter.flag} ${n.chapter.short}` : 'Guneku'}
+        {/* The office comes first where there is one: on a roster of the governing
+            body, "Traditional Council" tells the reader more than the village name. */}
+        {n.body ? n.body.short : n.chapter ? `${n.chapter.flag} ${n.chapter.short}` : 'Guneku'}
       </p>
       <h3 className="inst-h3 mt-1.5">
         <Link href={`/indigenes/founding/${n.slug}`} className="no-underline hover:text-[var(--burgundy-i)]">
@@ -34,16 +36,23 @@ export function FoundingNameCard({ n }: { n: CardSafe }) {
         </Link>
       )}
 
+      {/* A person recorded as deceased is never offered for claiming. */}
       <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-[var(--rule)] pt-3">
-        <Link href={`/indigenes/submit?intent=claim&entry=${n.slug}`} className="inst-link">
-          This is me — claim it →
-        </Link>
-        <Link
-          href={`/indigenes/submit?intent=remove&entry=${n.slug}`}
-          className="inst-meta underline underline-offset-2 hover:text-[var(--oxblood)]"
-        >
-          Not me / take it down
-        </Link>
+        {n.deceased ? (
+          <span className="inst-meta">Of blessed memory — kept as a record</span>
+        ) : (
+          <>
+            <Link href={`/indigenes/submit?intent=claim&entry=${n.slug}`} className="inst-link">
+              This is me — claim it →
+            </Link>
+            <Link
+              href={`/indigenes/submit?intent=remove&entry=${n.slug}`}
+              className="inst-meta underline underline-offset-2 hover:text-[var(--oxblood)]"
+            >
+              Not me / take it down
+            </Link>
+          </>
+        )}
       </div>
     </article>
   )
@@ -51,15 +60,24 @@ export function FoundingNameCard({ n }: { n: CardSafe }) {
 
 export function FoundingNames({
   chapterId,
+  bodyId,
   heading = 'The founding names',
+  standfirst,
   showAddCta = true,
 }: {
   /** Limit to one chapter. Omitted, every founding name is shown. */
   chapterId?: string
+  /** Limit to one body — kept in office order, not sorted. */
+  bodyId?: string
   heading?: string
+  standfirst?: string
   showAddCta?: boolean
 }) {
-  const names   = (chapterId ? foundingNamesFor(chapterId) : allFoundingNames()).map(toCardSafe)
+  const names = (
+    bodyId ? membersOf(bodyId)
+    : chapterId ? foundingNamesFor(chapterId)
+    : allFoundingNames()
+  ).map(toCardSafe)
   const chapter = chapterId ? getChapter(chapterId) : null
 
   if (names.length === 0) {
@@ -97,10 +115,14 @@ export function FoundingNames({
         )}
       </div>
       <p className="inst-body mt-2 max-w-2xl">
-        These entries were opened from the Fondom&rsquo;s own records, so the directory
-        does not start empty. Each shows only a name, a role and where it came from.
-        Everything else belongs to the person &mdash; it appears when they claim the
-        entry and fill it in themselves.
+        {standfirst ?? (
+          <>
+            These entries were opened from the Fondom&rsquo;s own records, so the register
+            does not start empty. Each shows only a name, an office and where it came from.
+            Everything else belongs to the person &mdash; it appears when they claim the
+            entry and fill it in themselves.
+          </>
+        )}
       </p>
 
       <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

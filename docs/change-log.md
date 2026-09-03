@@ -219,3 +219,52 @@ pre-existing `set-state-in-effect` error in `/indigenes/page.tsx` is untouched);
 `/gudeca/chapters/gudeca-douala` lists Thadeus Fon alone; `/gudeca/chapters/germany` shows
 the EU chapter's register and says so; the string "GUDECA Europe" no longer appears on
 `/diaspora`, `/gudeca`, the EU chapter page or `/indigenes`.
+
+## 2026-09-03 — The bodies of Guneku: governing body, executives, committee, household (branch, not deployed)
+
+Product Owner task: extract every name and role in the repository, then publish the people
+who hold office as claimable registers — the Traditional Council with a card on the front
+page, the GUDECA executives, the festival committee — and match the loose names to their
+chapters. ADR-019, ADR-020 and ADR-021 record the decisions; R-015 to R-017 record what is
+carried.
+
+**Extraction.** 72 people found across 23 files, delivered to the Product Owner as
+`guneku-people-register.xlsx`. 43 are now published in the register.
+
+**New data**
+- `src/data/community/bodies.json` — five bodies: the Traditional Council (the governing
+  body), GUDECA National EXCO, GUDECA EU Executive, the Mɨchi Əbeŋ organising committee,
+  and the Palace household. Each carries the year its roster describes and its source note.
+- `founding-names.json` — 11 → 43 names, each with `body` and/or `chapter`, plus
+  `deceased`, `profileUrl` and aliases. Publication, membership, deceased, body and
+  relationship rules are all carried in the file's own metadata.
+
+**New surfaces**
+- `/people` — the index of bodies.
+- `/people/[body]` — five rosters, in office order, each claimable.
+- Front page — a governing-body section with the council and every body beside it.
+- `Our People` nav gains "Who holds office" and "Traditional Council".
+- `/gudeca/gudeca-exco` and `/institutions/michi-ebeng-festival` link to their registers.
+
+**Matching, as directed**
+- Sam Fongho (legacy UK listing) merged into Sam Fongoh with "Ni Sam" — ADR-021.
+- Dr. Joyce Akwe, Prof. Dr. Roland Teboh Forbang and Ephraim Toh → GUDECA US chapter.
+- Victor Samkoh → home; the legacy listing gives an organisation and no place.
+- Every Fomuki name → the Palace household, per the Product Owner.
+- Fah Elvis Tayong: one man, three offices — National Publicity Secretary, Ngam-Fon, and
+  Delegate of the Agro CIG — in one record.
+- Armstrong Tinyih upgraded from "Member" to Financial Secretary, per the EXCO roster.
+- Fonjong stays out (ADR-018); `institutions/gudeca-eu.json` still names him — R-015.
+
+Registers: Traditional Council 8 · GUDECA National 12 · GUDECA EU Executive 5 · festival
+committee 3 · Palace household 6 · unaffiliated chapter members 9. Two entries are recorded
+as deceased and carry no claim action.
+
+Verification: `npx tsc --noEmit` clean; `npx eslint` clean on every new and touched file
+(the one pre-existing `no-explicit-any` in `institutions/[slug]` and the pre-existing
+`set-state-in-effect` in `/indigenes` are untouched); `npm run build` clean, **188 static
+pages, up from 150**; every body page, every entry page and the cross-linked institution and
+EXCO pages return 200; asserted that the two deceased entries offer no claim or removal link
+and do show the memorial notice, and that living entries offer both.
+
+Not merged and not deployed — release approval is the Product Owner's (CLAUDE.md).

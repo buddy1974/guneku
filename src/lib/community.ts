@@ -15,6 +15,13 @@
  * ONE SOURCE. /diaspora, /gudeca and the chapter pages all read `chapters.json`,
  * so a fact about a chapter is corrected once, in one file.
  *
+ * A BODY IS NOT A PLACE. A chapter answers "where", a body answers "which office".
+ * Thadeus Fon is General President of GUDECA and a member of the Douala chapter, and
+ * both are true at once, so `body` and `chapter` are separate fields and either may
+ * be absent. The Traditional Council is the governing body of the village — His
+ * Royal Highness is the king, and these are the people through whom Guneku is
+ * governed — so it gets a register of its own rather than a paragraph in an article.
+ *
  * A SEED STUB IS NOT A PROFILE. A founding name publishes four things and no
  * more — display name, role, chapter, and the source the name came from. Every
  * other field belongs to the person, and arrives only when they claim the entry
@@ -23,6 +30,7 @@
  */
 
 import chaptersDoc from '@/data/community/chapters.json'
+import bodiesDoc   from '@/data/community/bodies.json'
 import namesDoc    from '@/data/community/founding-names.json'
 
 export type ChapterScope = 'home' | 'diaspora'
@@ -46,16 +54,38 @@ export interface Chapter {
   openForNames: boolean
 }
 
+export type BodyKind = 'governing' | 'association' | 'committee' | 'household'
+
+export interface Body {
+  id: string
+  order: number
+  name: string
+  short: string
+  kind: BodyKind
+  standfirst: string
+  /** The year the roster describes, or 'undated'. Always shown. */
+  asRecorded: string
+  sourceNote: string
+  chapter?: string
+  route?: string
+  routeLabel?: string
+}
+
 export interface FoundingName {
   slug: string
   display: string
   aliases: string[]
   role: string
-  chapter: string
+  /** The office-holding body, if any. */
+  body?: string
+  /** The place, if any. Null for an officer whose location the record omits. */
+  chapter: string | null
   source: string
   sourceLabel: string
   /** Only where the person already has a published profile on this site. */
   profileUrl?: string
+  /** Recorded with respect, and never offered for claiming. */
+  deceased?: boolean
   note?: string
 }
 
@@ -67,10 +97,13 @@ export interface CardSafe {
   role: string
   sourceLabel: string
   profileUrl?: string
+  deceased: boolean
   chapter: Chapter | null
+  body: Body | null
 }
 
 const CHAPTERS = (chaptersDoc.chapters as Chapter[])
+const BODIES   = (bodiesDoc.bodies as Body[]).slice().sort((a, b) => a.order - b.order)
 const NAMES    = (namesDoc.names as FoundingName[])
 
 export function allChapters(): Chapter[] {
@@ -111,8 +144,41 @@ export function toCardSafe(n: FoundingName): CardSafe {
     role:        n.role,
     sourceLabel: n.sourceLabel,
     profileUrl:  n.profileUrl,
-    chapter:     getChapter(n.chapter),
+    deceased:    Boolean(n.deceased),
+    chapter:     n.chapter ? getChapter(n.chapter) : null,
+    body:        n.body ? getBody(n.body) : null,
   }
+}
+
+/* ── Bodies ───────────────────────────────────────────────────────────────── */
+
+export function allBodies(): Body[] {
+  return BODIES
+}
+
+export function getBody(id: string): Body | null {
+  return BODIES.find(b => b.id === id) ?? null
+}
+
+/** The members of a body, in the order the register lists them — which is the
+ *  order of office, not alphabetical. A roster read alphabetically loses its
+ *  meaning: the Chairman belongs at the top. */
+export function membersOf(bodyId: string): FoundingName[] {
+  return NAMES.filter(n => n.body === bodyId)
+}
+
+export function memberCount(bodyId: string): number {
+  return membersOf(bodyId).length
+}
+
+/** The governing body of the village. Named once, here. */
+export const GOVERNING_BODY = 'traditional-council'
+
+/** How a roster's date is written. An undated roster says so plainly rather than
+ *  reading "as recorded undated" — the date is the reader's warning that a roster
+ *  may be out of date, so it has to be legible. */
+export function recordedLabel(b: Body): string {
+  return b.asRecorded === 'undated' ? 'undated' : `as recorded ${b.asRecorded}`
 }
 
 /* ── Chapters vs locations ────────────────────────────────────────────────── */

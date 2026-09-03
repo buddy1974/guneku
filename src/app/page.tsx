@@ -15,8 +15,16 @@ import { FaqSection }     from '@/components/home/FaqSection'
 import { TalkToPalace }   from '@/components/home/TalkToPalace'
 import { AskPalace }      from '@/components/home/AskPalace'
 import { UpdateCardMedia } from '@/components/ui/UpdateCardMedia'
+import { allBodies, memberCount, recordedLabel, GOVERNING_BODY, getBody } from '@/lib/community'
 import current            from '@/data/current-notices.json'
 import type { Metadata } from 'next'
+
+/* The governing body, on the front page.
+   A visitor should be able to see who runs the village without hunting for it, and
+   every one of these people can claim their own entry from the card. */
+const COUNCIL       = getBody(GOVERNING_BODY)
+const COUNCIL_COUNT = memberCount(GOVERNING_BODY)
+const BODIES        = allBodies()
 
 /* The root layout no longer sets a canonical, so the homepage declares its own. */
 export const metadata: Metadata = {
@@ -185,6 +193,61 @@ export default function HomePage() {
           </aside>
         </div>
       </section>
+
+      {/* ── 5b · The governing body ──
+          His Royal Highness is the king; these are the people through whom Guneku is
+          governed. Each entry is claimable by the person it names, exactly as the
+          indigenes directory works. */}
+      {COUNCIL && (
+        <section className="border-b border-[var(--rule)]">
+          <div className="inst-wrap inst-sec grid items-start gap-8 lg:grid-cols-[1.25fr_1fr] lg:gap-12">
+            <div>
+              <p className="inst-eyebrow">Who holds office</p>
+              <h2 className="inst-h2 mt-1.5">{COUNCIL.name}</h2>
+              <p className="inst-body mt-3">
+                A Fondom is not one man. His Royal Highness is the king of Guneku, and these
+                are the people through whom the village is governed — a chairman, a secretary,
+                a treasurer, quarter heads, and the commission that ran the elections that put
+                them there.
+              </p>
+              <p className="inst-body mt-3">
+                <strong className="text-[var(--ink-900)]">{COUNCIL_COUNT} office holders</strong>{' '}
+                are on record, as the Fondom recorded them in {COUNCIL.asRecorded}. Each one can
+                claim their own entry and complete their profile — the office stays as the record
+                has it; everything else is theirs to write.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link href={`/people/${COUNCIL.id}`} className="inst-btn inst-btn-primary">
+                  See the council
+                </Link>
+                <Link href="/people" className="inst-btn inst-btn-quiet">All the bodies</Link>
+              </div>
+            </div>
+
+            <aside className="inst-card self-start p-5">
+              <p className="inst-tag">The bodies of Guneku</p>
+              <ul className="mt-3 list-none p-0">
+                {BODIES.map(b => (
+                  <li key={b.id} className="inst-row py-2.5">
+                    <Link href={`/people/${b.id}`} className="no-underline">
+                      <span className="inst-h3 block !text-[0.96rem] hover:text-[var(--burgundy-i)]">
+                        {b.short}
+                      </span>
+                      <span className="inst-meta">
+                        {memberCount(b.id)} on record · {recordedLabel(b)}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <p className="inst-meta mt-4">
+                Every entry shows a name, an office and its source — and nothing else until
+                the person claims it.
+              </p>
+            </aside>
+          </div>
+        </section>
+      )}
 
       {/* ── 6 · Latest from Guneku ── */}
       <section className="border-b border-[var(--rule)]">

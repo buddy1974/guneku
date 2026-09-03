@@ -123,3 +123,31 @@ The sourced number was left alone rather than quietly changed to match a list I 
 
 Not executed: ask the Palace or the GUDECA exco for the authoritative list of constituted
 chapters, then reconcile the register and the sentence in one pass.
+
+## R-015 — The GUDECA EU record still names Fonjong and still sits in Bonn
+
+`institutions/gudeca-eu.json` lists "Mr. Fonjong — Title Holder" in its `leadership` array
+and carries `meetingVenue: "Fon's Palace, Bonn, Germany"`. Both contradict decisions
+already taken: Fonjong attended the Bonn meeting but is not a GUDECA member (ADR-018), and
+GUDECA EU is a Europe-wide chapter with no fixed seat (ADR-017). The same file's
+`nextMeeting` — 24 July 2027, United Kingdom — is itself evidence for the second point.
+
+The file was not changed, because changing an institution record is a content decision and
+the Product Owner has not made it. Recorded so it is not lost.
+
+## R-016 — The register's people are not the DB directory's people
+
+`/people/*` and the founding names are static JSON; `/indigenes` reads Neon through
+`/api/indigenes/all`. A person who claims a seeded entry and then registers has a record in
+both, and nothing joins them. Claim-by-review keeps a human in that loop, so a duplicate is
+caught by the Palace rather than by the data layer — but the join is the substance of the
+DB claim work already recorded as backlog, and the longer the register grows the more it is
+worth doing.
+
+## R-017 — Two names have no chapter recorded
+
+Eleven of the twelve GUDECA national officers have no place in any source, so they carry no
+chapter and appear only on their body's roster, not in any chapter register. That is
+correct — inventing a location for an officer would be worse — but it means the chapter
+counts on `/diaspora` and `/gudeca` understate the register. Resolved when the officers
+claim their entries and say where they are.

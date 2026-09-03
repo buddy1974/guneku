@@ -40,6 +40,21 @@ export default function GudecaExcoPage() {
         subtitle="The elected leadership of the Guneku Development and Cultural Association."
       />
       <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '5rem 1.5rem' }}>
+        {/* The same officers now sit in a claimable register: each can take over their
+            own entry and complete a profile. Names and offices here stay as recorded. */}
+        <div className="inst-card mb-8 grid gap-4 p-5 sm:grid-cols-[1fr_auto] sm:items-center">
+          <div>
+            <p className="inst-tag">Are you on this roster?</p>
+            <p className="inst-body mt-1.5 !text-[0.9rem]">
+              Every officer below has an entry in the people register, and can claim it and
+              write their own profile. The office stays as the record has it.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/people/gudeca-national" className="inst-btn inst-btn-primary">National EXCO register</Link>
+            <Link href="/people/gudeca-eu-exco" className="inst-btn inst-btn-quiet">EU executive</Link>
+          </div>
+        </div>
         <p style={{ color: 'oklch(0.470 0.018 150)', fontFamily: 'Inter, sans-serif',
                     fontSize: '1rem', lineHeight: 1.8, maxWidth: '680px', marginBottom: '2rem' }}>
           GUDECA&apos;s Executive Committee is elected every four years, with a mandate

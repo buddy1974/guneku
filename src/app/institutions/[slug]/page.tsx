@@ -5,6 +5,11 @@ import { PageHero } from '@/components/layout/PageHero'
 import { Reveal }   from '@/components/ui/Reveal'
 import { notFound } from 'next/navigation'
 import Link         from 'next/link'
+import { getBody, memberCount, recordedLabel } from '@/lib/community'
+
+/* Institutions whose people now sit in a claimable register. The record on the page
+   stays as it is; this adds the way in for the people named on it. */
+const BODY_FOR: Record<string, string> = { 'michi-ebeng-festival': 'michi-ebeng-committee' }
 
 /* Detail pages exist only for institutions that have no page of their own already.
    Where a dedicated page exists the record carries a `route` and the index links
@@ -106,6 +111,8 @@ export default async function InstitutionPage({
   const objectFields = Object.entries(inst)
     .filter(([k, v]) => !SKIP.has(k) && v && typeof v === 'object' && !Array.isArray(v))
 
+  const body = BODY_FOR[slug] ? getBody(BODY_FOR[slug]) : null
+
   return (
     <main className="min-h-screen bg-background">
       <PageHero
@@ -117,6 +124,23 @@ export default async function InstitutionPage({
         <section className="max-w-4xl mx-auto px-6 py-14">
           {typeof inst.description === 'string' && (
             <p className="text-foreground/90 leading-relaxed">{String(inst.description)}</p>
+          )}
+
+          {/* Where the people behind an institution are in the register, the way in
+              belongs on the institution's own page — not three clicks away. */}
+          {body && (
+            <div className="card-royal mt-8 grid gap-4 p-5 sm:grid-cols-[1fr_auto] sm:items-center">
+              <div>
+                <div className="section-label">THE PEOPLE BEHIND IT</div>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {memberCount(body.id)} on record, {recordedLabel(body)}. Each can claim
+                  their own entry and complete a profile.
+                </p>
+              </div>
+              <Link href={`/people/${body.id}`} className="btn-royal inline-flex">
+                {body.short}
+              </Link>
+            </div>
           )}
 
           {scalars.length > 0 && (
