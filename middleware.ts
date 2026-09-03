@@ -21,6 +21,7 @@ const isProtected = createRouteMatcher([
   '/api/claims(.*)',
   '/api/contributions(.*)',
   '/api/indigenes/profile(.*)',
+  '/api/indigenes/upload(.*)',
 ])
 
 /* When Clerk is not configured, the middleware must not mount it. `clerkMiddleware` throws on
@@ -66,5 +67,11 @@ export const config = {
     '/api/claims/:path*',
     '/api/contributions/:path*',
     '/api/indigenes/profile/:path*',
+    /* Every route whose handler calls auth() must be matched here, or Clerk throws
+       "auth() was called but Clerk can't detect usage of clerkMiddleware()" and the handler's
+       own 401 never runs. The upload route was hardened in Phase 2 and missed from this list;
+       it stayed hidden until Clerk went live, because until then the configuration guard
+       returned before auth() was ever reached. */
+    '/api/indigenes/upload/:path*',
   ],
 }
