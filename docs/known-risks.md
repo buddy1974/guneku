@@ -559,3 +559,33 @@ change nothing about the security and would cost a cached page.
 discovers on submit that they are not signed in. Adding the route to the middleware matcher
 would redirect them - to a sign-in page that is itself closed. Left as is; worth revisiting
 when Clerk is configured.
+
+## R-037 - The production database is reachable and empty, and my "all secrets are empty" claim was wrong
+
+With the proxy fixed (R-033) the query reached Postgres, and Postgres answered:
+`relation "indigene_profiles" does not exist`, SQLSTATE **42P01**.
+
+That single line corrects a conclusion I had drawn and reported. I had inferred from
+`vercel env pull` returning an empty string for every secret that the variables themselves
+were empty. For `DATABASE_URL` that is **false**: it is populated, valid, and connects — the
+query travelled to Neon and came back with a schema error, which is impossible with an empty
+connection string. The pull was redacting after all.
+
+`CLERK_SECRET_KEY` is genuinely a different case: the runtime said *Missing secretKey*, which
+is direct evidence of absence at that moment. So the two variables are in different states and
+should not have been generalised together. The lesson is narrow and worth keeping: an
+inference from tooling silence is weaker than one runtime error message, and I should have
+waited for the second before reporting the first.
+
+**What it means operationally:** the database has never had a migration applied. `0000` — which
+creates `indigene_profiles` — was recorded as "already applied wherever the table exists", and
+in this database it does not exist.
+
+**Handled** by treating 42P01 as a provisioning state rather than a fault: a controlled **503
+"This part of Guneku is not available yet"**, with a server-side log naming the cause and the
+remedy. Not papered over — the table genuinely does not exist, and telling a visitor the
+directory is not open yet is the accurate statement.
+
+**Owner action:** run `npm run db:migrate` against the production database. It applies `0000`
+and `0001`, both additive and idempotent, and creates `indigene_profiles`, `community_members`,
+`follows` and `schema_migrations`. It needs a readable `DATABASE_URL`, which is R-031.

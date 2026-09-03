@@ -26,11 +26,21 @@ export default function IndigenesPage() {
       ...(search  ? { search }  : {}),
       ...(quarter ? { quarter } : {}),
     })
-    const res  = await fetch(`/api/indigenes/all?${params}`)
-    const data = await res.json()
-    setProfiles(data.profiles || [])
-    setTotal(data.total || 0)
-    setLoading(false)
+    try {
+      const res  = await fetch(`/api/indigenes/all?${params}`)
+      const data = await res.json()
+      /* A 503 means the directory is not provisioned yet and answers with an error object
+         rather than profiles. Treating that as "no one is registered" is the truthful
+         reading: the founding names below are still shown, and nothing claims otherwise. */
+      setProfiles(Array.isArray(data.profiles) ? data.profiles : [])
+      setTotal(typeof data.total === 'number' ? data.total : 0)
+    } catch {
+      /* A rejected fetch must not leave the page spinning forever. */
+      setProfiles([])
+      setTotal(0)
+    } finally {
+      setLoading(false)
+    }
   }, [search, quarter, page])
 
   useEffect(() => { fetchProfiles() }, [fetchProfiles])
