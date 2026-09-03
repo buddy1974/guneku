@@ -415,3 +415,29 @@ the map"); OSM attribution present; the only occurrence of "Google" is the delib
 statement that none of its imagery is used; and zero `maplibre` references in the HTML of `/`,
 `/projects`, `/quarters` or `/explore`, proving the library loads on scroll rather than
 shipping with any page.
+
+## 2026-09-03 - Phase 7: Search Guneku
+
+- **New** `/search` (server-rendered, plain GET form, nine result groups) and
+  `src/lib/search-index.ts`. `/api/search` rewritten for typeahead against the same
+  filtered index.
+- **270 entries** across People (61), Places (44), Palace & history (12), Projects (29),
+  Institutions (17), News & records (39), Photos (16), Films (46) and Questions (12).
+- **Two indexing bugs found and fixed while testing.** Films read `title`, which is null on
+  44 of the 46 approved videos - 2 were indexed instead of 46; the curated field is
+  `displayTitle`. And the nine institutions whose records carry a `route` were excluded, so
+  searching "Afor Foundation" or "GUYODECA" found nothing at all; they are now indexed and
+  point at the page that holds them.
+- **Header wired.** Its dropdown expected `r.section` and `r.id`, which the new route did not
+  emit - it would have rendered blank labels with undefined React keys. Both sides corrected,
+  and the dropdown now offers "See all results" into `/search`.
+- **Three pre-existing lint errors removed** with the old route. Repo-wide eslint went from
+  76 problems / 69 errors at baseline `bf11ca5` to 72 / 66, and every file this session
+  touched is clean.
+
+Verified: `tsc` clean; build clean at **218 static pages**; `/search` 200 and rendering all
+nine groups; a plain `?q=` GET works with no JavaScript; typeahead returns the exact shape
+the header consumes. Privacy sweep on the index: "touristic sites" 0 results, "religion" 0,
+"map of guneku" 1 (the map page), `/institutions/business-directory` still 404 and absent
+from the sitemap. The one hit for "Business Directory" is a published FAQ about the
+*indigenes* directory - a false positive on the word, not a leak.

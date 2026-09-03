@@ -79,7 +79,7 @@ export function Header({ nav: _nav }: HeaderProps) {
   const [openMenu,   setOpenMenu]   = useState<string | null>(null)
   const [expanded,   setExpanded]   = useState<string | null>(null)
   const [query,      setQuery]      = useState('')
-  const [results,    setResults]    = useState<{ id: string; title: string; section: string; href: string }[]>([])
+  const [results,    setResults]    = useState<{ id: string; title: string; group: string; href: string }[]>([])
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const pathname   = usePathname()
 
@@ -247,10 +247,21 @@ export function Header({ nav: _nav }: HeaderProps) {
                       className="flex min-h-[44px] items-center justify-between gap-4 border-b border-[var(--rule)] py-2.5 text-sm text-[var(--ink-900)] no-underline hover:text-[var(--burgundy-i)]"
                     >
                       <span>{r.title}</span>
-                      <span className="inst-meta shrink-0">{r.section}</span>
+                      <span className="inst-meta shrink-0">{r.group}</span>
                     </Link>
                   </li>
                 ))}
+                <li>
+                  {/* The dropdown shows a few; /search shows everything, grouped, and works
+                      without JavaScript. */}
+                  <Link
+                    href={`/search?q=${encodeURIComponent(query)}`}
+                    onClick={() => { setSearchOpen(false); setQuery('') }}
+                    className="flex min-h-[44px] items-center py-2.5 text-sm font-semibold text-[var(--royal-green)] no-underline"
+                  >
+                    See all results for &ldquo;{query}&rdquo; →
+                  </Link>
+                </li>
               </ul>
             )}
           </div>

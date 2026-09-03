@@ -1,42 +1,31 @@
 import { NextRequest, NextResponse } from 'next/server'
-import {
-  getAllUpdates, getAllPalaceArticles, getAllKingdomArticles,
-  getAllNotables, getAllPages,
-} from '@/lib/content'
+import { search } from '@/lib/search-index'
+
+/* Typeahead for the header search box. It answers from the same filtered index as /search,
+ * which is the point of replacing what was here before: the previous version substring-
+ * matched four content types directly out of the unfiltered content loaders, so an
+ * unpublished record could be surfaced by typing part of its title. It also missed people,
+ * quarters, places, projects, institutions, photographs, films and the FAQ entirely.
+ *
+ * Deliberately small: a few results per group, enough for a dropdown. The full answer is
+ * /search, which is server-rendered and works with no JavaScript at all. No model is
+ * involved, so this route costs nothing per keystroke beyond the string comparison. */
 
 export async function GET(req: NextRequest) {
-  const q = req.nextUrl.searchParams.get('q')?.toLowerCase().trim() || ''
-  if (q.length < 2) return NextResponse.json({ results: [] })
+  const q = req.nextUrl.searchParams.get('q')?.slice(0, 120) || ''
+  if (q.trim().length < 2) return NextResponse.json({ results: [], total: 0 })
 
-  const results: { id: string; title: string; section: string; href: string }[] = []
+  try {
+    const { groups, total } = search(q, 3)
 
-  const updates = getAllUpdates()
-  for (const u of updates) {
-    if (u.title.toLowerCase().includes(q) || u.excerpt?.toLowerCase().includes(q)) {
-      results.push({ id: u.id, title: u.title, section: 'Village Square', href: `/updates/${u.slug}` })
-    }
+    /* Flattened for a dropdown, but each row keeps its group so the UI can label it. */
+    const results = groups.flatMap(g =>
+      g.results.map(r => ({ id: r.id, title: r.title, group: g.group, href: r.href, excerpt: r.excerpt })),
+    ).slice(0, 10)
+
+    return NextResponse.json({ results, total })
+  } catch (err) {
+    console.error('Search route failed:', err)
+    return NextResponse.json({ error: 'Search is unavailable. Please try again.' }, { status: 500 })
   }
-
-  const palace = getAllPalaceArticles()
-  for (const a of palace) {
-    if (a.title.toLowerCase().includes(q) || a.body?.toLowerCase().includes(q)) {
-      results.push({ id: a.id, title: a.title, section: 'The Palace', href: `/palace/${a.slug}` })
-    }
-  }
-
-  const kingdom = getAllKingdomArticles()
-  for (const a of kingdom) {
-    if (a.title.toLowerCase().includes(q) || a.body?.toLowerCase().includes(q)) {
-      results.push({ id: a.id, title: a.title, section: 'The Kingdom', href: `/kingdom/${a.slug}` })
-    }
-  }
-
-  const notables = getAllNotables()
-  for (const n of notables) {
-    if ((n as any).name?.toLowerCase().includes(q) || (n as any).bio?.toLowerCase().includes(q)) {
-      results.push({ id: n.id, title: (n as any).name, section: 'Notables', href: `/notables/${n.slug}` })
-    }
-  }
-
-  return NextResponse.json({ results: results.slice(0, 8) })
 }

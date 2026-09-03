@@ -35,6 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     at('/institutions', { priority: 0.8 }),
     at('/quarters', { priority: 0.8 }),
     at('/explore', { priority: 0.8 }),
+    at('/search', { priority: 0.5 }),
     at('/diaspora', { priority: 0.8 }),
     at('/notables'),
     at('/indigenes'),

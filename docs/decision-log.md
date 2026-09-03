@@ -554,3 +554,36 @@ about. Verified: zero `maplibre` references in the HTML of `/`, `/projects`, `/q
 
 A coordinate is also bounds-checked before it is drawn, so a transposed lat/lng or a stray
 zero cannot silently place Guneku in the Gulf of Guinea.
+
+## ADR-030 - Search is an allow-list, and one term missing means no result
+
+**Context.** Phase 7 asked for one deterministic search across the whole record, with
+nothing held in the index. The route that existed substring-matched four content types
+straight out of the unfiltered content loaders.
+
+**Two decisions worth recording.**
+
+**The index is an allow-list, not a sweep.** Search is the one surface that can expose
+anything: a held record that no page links is still exposed the moment a search finds it.
+So every source is reached through a named loader and filtered before it is added, and the
+searchable text of each entry is assembled field by field - which means a field added to a
+record later cannot become searchable by accident. Excluded: `publicVisibility: 'hold'` (the
+Business Directory), `noindex: true` (the six empty Kingdom stubs), records with no
+`publishedAt` (the loaders do not filter these themselves - the defect R-026 was about),
+`pages/gudeca-exco.json` (R-011, fictitious names), `src/data/about/` (R-012), and
+`articles-index.json` (would duplicate every update). No phone number, email or private note
+enters an entry.
+
+**Every term must land, or the entry is not a result.** A proportional penalty was tried
+first and was not enough: "map of guneku" returned 159 rows, because "guneku" alone matches
+most of the archive. A query is a sentence the reader means, not a bag of words to be
+partially satisfied. With strict coverage it returns one row - the map page. "traditional
+council" fell from 30 to 15, and "purple elephant council" correctly returns nothing.
+
+**Also decided:** the site's own eleven main pages are indexed. Without them a reader who
+types what they want to *reach* - "map", "photographs", "guneku tv", "donate" - finds records
+that mention it and never the page that is it.
+
+Search runs on the server behind a plain GET form, so it works with no JavaScript, a result
+page is linkable and shareable, and the back button behaves. No model is involved: the same
+query always returns the same results in the same order.
