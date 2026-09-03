@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import { SignUp } from '@clerk/nextjs'
+import { clerkConfigured } from '@/lib/clerk-config'
+import { MemberAreaNotice } from '@/components/auth/MemberAreaNotice'
 import { pageMetadata } from '@/lib/seo'
 
 export const metadata = {
@@ -15,6 +17,8 @@ export const metadata = {
    register, not a place in a quarter, and not an office — each of those is a Guneku fact
    established from sources and reviewed by the Palace, never something a form confers. */
 export default function SignUpPage() {
+  if (!clerkConfigured()) return <MemberAreaNotice title="Accounts are not open yet" />
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-[var(--paper)] px-5 py-14">
       <div className="w-full max-w-[26rem]">

@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import { SignIn } from '@clerk/nextjs'
+import { clerkConfigured } from '@/lib/clerk-config'
+import { MemberAreaNotice } from '@/components/auth/MemberAreaNotice'
 import { pageMetadata } from '@/lib/seo'
 
 export const metadata = {
@@ -15,6 +17,8 @@ export const metadata = {
    open to a visitor with no account at all, and the copy here says so plainly rather than
    letting a sign-in wall imply otherwise. */
 export default function SignInPage() {
+  if (!clerkConfigured()) return <MemberAreaNotice title="Member sign-in is not open yet" />
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-[var(--paper)] px-5 py-14">
       <div className="w-full max-w-[26rem]">

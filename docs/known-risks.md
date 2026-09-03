@@ -450,3 +450,30 @@ rollback.
 
 Verified immediately after deployment. If the keys are stale, the fix is new keys from the
 Clerk dashboard, not a code change.
+
+## R-032 — The production Clerk keys have never been exercised — CONFIRMED AND HANDLED
+
+**Confirmed on deployment, 2026-09-03.** `/sign-in`, `/sign-up` and `/my-guneku` returned 500
+in production with `@clerk/nextjs: Missing secretKey`. Every public route was unaffected, as
+predicted.
+
+**And it corrected an earlier conclusion of mine.** I had recorded the Vercel secrets as
+"marked Sensitive, therefore write-only". The runtime error says *missing*, not *invalid* —
+and the pull that returned an empty string for every secret also returned
+`VERCEL_OIDC_TOKEN` at full length. A redacting pull would have redacted that too. So the
+variables exist **by name with no value**, and R-031's diagnosis was wrong: nothing is being
+withheld from me, there is simply nothing there.
+
+That has a wider implication worth checking: `DATABASE_URL`, `RESEND_API_KEY`,
+`ANTHROPIC_API_KEY` and `YOUTUBE_API_KEY` are in the same state, which means the contact and
+support forms in production may never have been able to send.
+
+**Handled by degrading rather than rolling back.** Rolling the release back would have
+withdrawn Guneku TV, search, the map, the twenty-seven quarter pages and four security fixes
+to repair three routes, two of which were placeholder pages the day before. Instead
+`src/lib/clerk-config.ts` gates every Clerk mount point — the middleware, the three layouts,
+the three pages and `optionalUser()` — so an unconfigured Clerk produces an honest page and a
+401, never a 500.
+
+**Still open:** members cannot sign in until real Clerk keys are set. That is one owner action
+in the Vercel dashboard, not a code change.

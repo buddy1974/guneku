@@ -1,4 +1,6 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+import { NextResponse } from 'next/server'
+import { clerkPublishableKeyPresent } from '@/lib/clerk-config'
 
 /* Guneku is a public village record first. Reading it must never require an account, and
  * that is enforced here by construction rather than by configuration: the matcher below
@@ -21,13 +23,21 @@ const isProtected = createRouteMatcher([
   '/api/indigenes/profile(.*)',
 ])
 
-export default clerkMiddleware(async (auth, req) => {
-  if (isProtected(req)) {
-    /* Sends a signed-out visitor to sign-in and brings them back afterwards. The pages and
-       handlers behind this still check for themselves. */
-    await auth.protect()
-  }
-})
+/* When Clerk is not configured, the middleware must not mount it. `clerkMiddleware` throws
+   on any matched request without a key, which is how /sign-in, /sign-up and /my-guneku
+   returned 500 in production on 2026-09-03 while every public page was fine. An unconfigured
+   dependency degrades to an honest page; it does not take routes down. */
+const configured = clerkPublishableKeyPresent()
+
+export default configured
+  ? clerkMiddleware(async (auth, req) => {
+      if (isProtected(req)) {
+        /* Sends a signed-out visitor to sign-in and brings them back afterwards. The pages
+           and handlers behind this still check for themselves. */
+        await auth.protect()
+      }
+    })
+  : () => NextResponse.next()
 
 export const config = {
   matcher: [

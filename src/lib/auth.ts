@@ -1,5 +1,6 @@
 import 'server-only'
 import { auth } from '@clerk/nextjs/server'
+import { clerkConfigured } from './clerk-config'
 
 /* Server-side authorisation for Guneku.
  *
@@ -38,6 +39,11 @@ function roleFrom(claims: unknown): Role {
 /** The signed-in user, or null. Use where a page shows more to a member but still works
  *  for a visitor — the public site must keep working without an account. */
 export async function optionalUser(): Promise<GunekuUser | null> {
+  /* With no Clerk configured, `auth()` throws. There is no session to be had, so the honest
+     answer is "nobody is signed in" — and a protected route then returns its own 401 rather
+     than a 500 that tells a caller the server is broken. */
+  if (!clerkConfigured()) return null
+
   const { userId, sessionClaims } = await auth()
   if (!userId) return null
   return { userId, role: roleFrom(sessionClaims) }

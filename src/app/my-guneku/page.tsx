@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { UserButton } from '@clerk/nextjs'
 import { optionalUser, type Role } from '@/lib/auth'
+import { clerkConfigured } from '@/lib/clerk-config'
+import { MemberAreaNotice } from '@/components/auth/MemberAreaNotice'
 import { getMember, listFollows } from '@/lib/db/members'
 import { GUNEKU_QUARTERS_27 } from '@/lib/quarters'
 import { MemberDetailsForm } from './MemberDetailsForm'
@@ -27,6 +29,10 @@ const ROLE_LABEL: Record<Role, string> = {
    glass, no stock dashboard furniture. It should read as the Fondom's own office, not as a
    SaaS product someone bolted onto a village. */
 export default async function MyGunekuPage() {
+  /* Before asking Clerk anything, check it exists. Without this the page throws rather than
+     explaining itself — see src/lib/clerk-config.ts. */
+  if (!clerkConfigured()) return <MemberAreaNotice />
+
   const user = await optionalUser()
   /* The middleware already protects this path; this is the second lock, on the page itself,
      because a matcher is configuration and configuration can be edited by mistake. */
