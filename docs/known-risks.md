@@ -181,10 +181,22 @@ Not executed: give them the same treatment — log server-side, return one fixed
 
 ## R-021 — The rate limiter depends on guneku.org not being proxied
 
-`src/lib/rate-limit.ts` keys on `x-forwarded-for`. Verified correct on 2026-09-03:
-`guneku.org` resolves to `76.76.21.21` and `www.guneku.org` to `cname.vercel-dns.com`, and
-the live response carries `Server: Vercel` with no `cf-ray`. Cloudflare handles DNS and SSL
-for the domain but is **not** proxying, so Vercel sees the visitor's own address.
+`src/lib/rate-limit.ts` keys on `x-forwarded-for`. Verified correct on 2026-09-03.
+
+Cloudflare **does** run the zone — the nameservers are `jobs.ns.cloudflare.com` and
+`nola.ns.cloudflare.com`. That on its own proves nothing about proxying, and the two must
+not be conflated: Cloudflare marks proxying per record, not per zone. The records are
+answering with the origin, which a proxied record never does — a proxied record returns
+Cloudflare's own anycast address (104.16–31.x, 104.21.x, 172.67.x, 188.114.x) and flattens
+the CNAME. Instead, through a public resolver:
+
+- `guneku.org` → `76.76.21.21`, Vercel's apex address
+- `www.guneku.org` → CNAME `cname.vercel-dns.com`, returned unflattened
+- both hostnames answer `Server: Vercel` with `X-Vercel-Id`, and **no** `cf-ray` or
+  `cf-cache-status`
+
+So the zone is on Cloudflare nameservers with the records grey-clouded, and Vercel sees the
+visitor's own address.
 
 If the record is ever switched to proxied (the orange cloud), Vercel will see Cloudflare's
 edge addresses as the client, every visitor will collapse into one bucket, and twelve
