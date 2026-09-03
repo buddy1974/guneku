@@ -421,8 +421,10 @@ shipping with any page.
 - **New** `/search` (server-rendered, plain GET form, nine result groups) and
   `src/lib/search-index.ts`. `/api/search` rewritten for typeahead against the same
   filtered index.
-- **270 entries** across People (61), Places (44), Palace & history (12), Projects (29),
-  Institutions (17), News & records (39), Photos (16), Films (46) and Questions (12).
+- **270 entries**: People 52, Places 43, Palace & history 13, Projects 30, Institutions 18,
+  News & records 39, Photos 16, Films 47, Questions 12. The Films and Institutions counts
+  exceed the record counts (46 films, 17 institutions) because the eleven indexed site pages
+  are counted in whichever group they belong to.
 - **Two indexing bugs found and fixed while testing.** Films read `title`, which is null on
   44 of the 46 approved videos - 2 were indexed instead of 46; the curated field is
   `displayTitle`. And the nine institutions whose records carry a `route` were excluded, so
