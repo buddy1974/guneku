@@ -42,7 +42,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     at('/updates', { priority: 0.9, changeFrequency: 'weekly' }),
     at('/gallery'),
     at('/gallery/images'),
-    at('/gallery/videos'),
+    /* /gallery/videos redirects to /watch, so only one film library is indexable. */
+    at('/watch', { priority: 0.8, changeFrequency: 'monthly' }),
     at('/contact'),
   ]
 

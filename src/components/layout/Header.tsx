@@ -63,7 +63,7 @@ const NAV: Item[] = [
     href: '/gallery', label: 'Media',
     children: [
       { href: '/gallery/images', label: 'Image Gallery' },
-      { href: '/gallery/videos', label: 'Video Gallery' },
+      { href: '/watch', label: 'Guneku TV' },
       { href: '/updates',        label: 'Village Square' },
     ],
   },

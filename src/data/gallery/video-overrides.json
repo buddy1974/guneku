@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "purpose": "The editorial layer over the film record. When the Palace corrects a title, moves a film to another category, writes better context, features it, or holds it back, the correction is written here — never by editing the source record and never by letting a YouTube sync overwrite it.",
+    "updated": "2026-09-03",
+    "why": "Two things must both stay true. The source record is evidence: it says what the archive established and when, and rewriting it in place destroys that. And a later YouTube synchronisation must be able to run repeatedly without undoing anybody's editorial work. Separating the two is what makes both possible — the source stays as it was, this file wins over it, and a sync fills gaps in neither.",
+    "precedence": "canonical source record  <  these overrides. A sync only ever fills a field that neither has set.",
+    "fields": {
+      "displayTitle": "The title shown on the site. Overrides the record's own.",
+      "group": "One of Palace | Culture | Development | GUDECA | Community | Archive. Overrides the resolver.",
+      "category": "The fine-grained sourced label shown as a tag and used as a filter.",
+      "context": "The line of context under the title.",
+      "relatedRoute": "The Guneku page this film documents.",
+      "ordering": "Lower sorts earlier. Overrides the record's ordering.",
+      "featured": "true puts it in the featured position. At most one film should carry this.",
+      "highlight": "true includes it in the editorial selection shown on the homepage.",
+      "state": "'approved' | 'held'. 'held' removes a film from every public surface, immediately and everywhere."
+    },
+    "holdRule": "Setting state to 'held' is the kill switch. It is honoured by the approval predicate in src/lib/guneku-tv.ts, which every public surface goes through — the watch hub, the homepage, the search index, the sitemap and the structured data. There is no second path to a film that bypasses it."
+  },
+  "overrides": {}
+}

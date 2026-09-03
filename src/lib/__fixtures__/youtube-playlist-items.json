@@ -1,0 +1,158 @@
+{
+  "_note": "A recorded shape of a YouTube playlistItems response, hand-built to exercise classification without a key. Covers: films already in the record, the deny-listed private id, a genuinely new upload, YouTube's Private/Deleted placeholder titles, and two malformed entries. No live response was captured and no key was used to make this.",
+  "items": [
+    {
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "publishedAt": "2026-01-01T00:00:00Z",
+        "title": "ST THIERRY UNIVERSITY VISITS GUNEKU MEDPHISATG, His Royal Highness SCHOLARSHIPS 2026/2027",
+        "description": "",
+        "thumbnails": {
+          "high": {
+            "url": "https://i.ytimg.com/vi/UfpBzWOEDZM/hqdefault.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/UfpBzWOEDZM/mqdefault.jpg"
+          }
+        },
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "UfpBzWOEDZM"
+        }
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "publishedAt": "2026-01-01T00:00:00Z",
+        "title": "His Majesty, Fon Fomuki's New Year's address to the subjects of Guneku Fondom at home and abroad.",
+        "description": "",
+        "thumbnails": {
+          "high": {
+            "url": "https://i.ytimg.com/vi/11pAXbEfPgc/hqdefault.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/11pAXbEfPgc/mqdefault.jpg"
+          }
+        },
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "11pAXbEfPgc"
+        }
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "publishedAt": "2026-01-01T00:00:00Z",
+        "title": "Open Door Medical Clinic, Njinebai — documentary",
+        "description": "",
+        "thumbnails": {
+          "high": {
+            "url": "https://i.ytimg.com/vi/0FoAKZk54kw/hqdefault.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/0FoAKZk54kw/mqdefault.jpg"
+          }
+        },
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "0FoAKZk54kw"
+        }
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "publishedAt": "2026-05-01T00:00:00Z",
+        "title": "Some private upload",
+        "description": "",
+        "thumbnails": {
+          "high": {
+            "url": "https://i.ytimg.com/vi/2jS-ael4Ccg/hqdefault.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/2jS-ael4Ccg/mqdefault.jpg"
+          }
+        },
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "2jS-ael4Ccg"
+        }
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "publishedAt": "2026-09-01T00:00:00Z",
+        "title": "Guneku something new on the channel",
+        "description": "",
+        "thumbnails": {
+          "high": {
+            "url": "https://i.ytimg.com/vi/NEWvid123ab/hqdefault.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/NEWvid123ab/mqdefault.jpg"
+          }
+        },
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "NEWvid123ab"
+        }
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "publishedAt": "2026-08-01T00:00:00Z",
+        "title": "Private video",
+        "description": "",
+        "thumbnails": {
+          "high": {
+            "url": "https://i.ytimg.com/vi/privateHid01/hqdefault.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/privateHid01/mqdefault.jpg"
+          }
+        },
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "privateHid01"
+        }
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "snippet": {
+        "publishedAt": "2026-08-02T00:00:00Z",
+        "title": "Deleted video",
+        "description": "",
+        "thumbnails": {
+          "high": {
+            "url": "https://i.ytimg.com/vi/deletedHid02/hqdefault.jpg"
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/deletedHid02/mqdefault.jpg"
+          }
+        },
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "deletedHid02"
+        }
+      }
+    },
+    {
+      "snippet": {
+        "title": "No id here",
+        "resourceId": {}
+      }
+    },
+    {
+      "snippet": {
+        "resourceId": {
+          "videoId": "noTitle0001"
+        }
+      }
+    }
+  ]
+}

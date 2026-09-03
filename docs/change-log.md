@@ -443,3 +443,34 @@ the header consumes. Privacy sweep on the index: "touristic sites" 0 results, "r
 "map of guneku" 1 (the map page), `/institutions/business-directory` still 404 and absent
 from the sitemap. The one hit for "Business Directory" is a published FAQ about the
 *indigenes* directory - a false positive on the word, not a leak.
+
+## 2026-09-03 - Phase 6: Guneku TV
+
+- **New** `/watch` - featured film, six-group and nine-category filters, search, pagination,
+  the held-material note and the channel link. Plus `src/lib/guneku-tv.ts` (the approval
+  predicate), `src/lib/youtube-normalise.ts` (pure sync logic), `src/lib/youtube-sync.ts`
+  (the key-holding half), `src/components/watch/FilmCard.tsx`,
+  `src/data/gallery/video-overrides.json` and a YouTube API fixture.
+- **`/gallery/videos` removed and 308-redirected to `/watch`** (ADR-034). Header, gallery
+  landing page, sitemap and two legacy Joomla routes all repointed. `/gallery/images` and its
+  album pages are untouched and verified.
+- **Homepage migrated to the same predicate.** It filtered `dbVideos.state === 1` inline; it
+  now reads `approvedFilms()`, shows one featured film plus three, and carries no iframe.
+- **Search migrated too**, which is where the bug was: it read `dbVideos` directly, so a held
+  film would have disappeared from the hub and stayed searchable.
+- **A privacy fix**: the private channel upload's id was published verbatim by the retired
+  page. `heldNote()` now redacts it while keeping the transparency (ADR-033).
+
+Verified: `tsc` clean; build clean at **218 static pages**; lint clean on every new and
+touched file bar the pre-existing `_nav` warning; **all 46 films present across the four
+pages**; every filter, search and pagination view 200. Sync classification tested against a
+fixture with no key: 9 items to 5 after normalisation (Private/Deleted/malformed dropped),
+3 unchanged, 1 `discovered`, the deny-listed id skipped, 43 reported missing and none
+removed, and **zero discovered films reaching the public**. The hold kill switch was proved
+in both directions across hub, homepage, facets and search. Privacy sweep: the private id 0
+occurrences anywhere, `.mp4` and "WhatsApp Video" 0, iframes 0, no API key value in any
+bundle, 25 public routes 200 with no Clerk keys and zero Clerk JavaScript.
+
+**Runtime verification pending:** `fetchChannelUploads` has never run against the live API.
+`YOUTUBE_API_KEY` is set in Vercel but not readable here (R-024), so the request itself is
+untested - only the classification it feeds.

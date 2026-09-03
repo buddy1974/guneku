@@ -390,3 +390,21 @@ Recorded through the contribution route so each arrives with a source.
 coordinate under a `coordinates` key, where a future contributor could reasonably mistake it
 for the village. It was left rather than changed, because editing a config value that
 something else might read is not an audit's decision.
+
+## R-030 - The YouTube sync has never run against the live API
+
+`src/lib/youtube-sync.ts` is written, typed and wired, and the pure logic it feeds is tested
+against a fixture. `fetchChannelUploads()` itself has **never been executed**: the key is set
+in Production and Preview but is not readable in this environment (R-024), and no key was
+invented to test it.
+
+What that leaves unverified is narrow and worth naming: the playlist id derivation
+(`UC` to `UU`), pagination through `nextPageToken`, the real shape of a `playlistItems`
+response against the normaliser, and quota behaviour. Everything downstream - what is dropped,
+what counts as discovered, what is denied, what stays out of public view - is tested.
+
+Nothing public depends on it. `/watch` renders from the canonical record and would render
+identically if YouTube were unreachable for a week.
+
+Owner action when convenient: run a sync in an environment that has the key, and check the
+report. It writes nothing, so it is safe to run.

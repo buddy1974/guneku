@@ -111,7 +111,7 @@ export default function GalleryPage() {
               Speeches, cultural events, and community life — full YouTube archive.
             </p>
             <div className="flex gap-4 justify-center flex-wrap">
-              <Link href="/gallery/videos" className="btn-royal inline-flex">Browse Videos</Link>
+              <Link href="/watch" className="btn-royal inline-flex">Guneku TV</Link>
               <Link href="/gallery/images" className="btn-royal-outline inline-flex">Image Gallery</Link>
             </div>
           </div>

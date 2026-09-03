@@ -8,7 +8,7 @@ import { allQuarters } from '@/lib/quarter-pages'
 import { allLocations } from '@/lib/explore'
 import { allBodies, membersOf, allFoundingNames } from '@/lib/community'
 import current from '@/data/current-notices.json'
-import videoGallery from '@/data/gallery/video-gallery.json'
+import { approvedFilms } from '@/lib/guneku-tv'
 import villageFacts from '@/data/home/village-facts.json'
 
 /* One index for everything a visitor may search. Deterministic: built from the published
@@ -235,30 +235,24 @@ function build(): SearchEntry[] {
     })
   }
 
-  /* ── Films: the approved corpus only ── */
-  type Vid = {
-    youtubeId?: string
-    /** The curated title. Present on all 46; `title` is null on most of them, which is why
-     *  this is the one read first — reading `title` alone indexed 2 films out of 46. */
-    displayTitle?: string
-    title?: string | null
-    category?: string
-    context?: string
-    relatedRoute?: string | null
-  }
-  for (const v of (videoGallery.dbVideos || []) as Vid[]) {
-    const title = v.displayTitle || v.title
-    if (!title) continue
+  /* ── Films ──
+     Read through `approvedFilms()` rather than out of the raw record. That is the whole point
+     of the predicate: a film held in `video-overrides.json` must vanish from search at the
+     same moment it vanishes from the watch hub, and reading `dbVideos` directly here would
+     have left search as the one surface that kept showing it. */
+  for (const f of approvedFilms()) {
     push({
-      id: `film:${v.youtubeId || title}`,
-      title,
+      id: `film:${f.youtubeId}`,
+      title: f.displayTitle,
       group: 'Films',
-      /* There is no per-film route, so a result lands on the film archive. `relatedRoute`
-         points at the record a film documents, not at the film, so it is offered as a
-         keyword rather than as the destination. */
-      href: '/gallery/videos',
-      excerpt: clip(v.context || 'A film from the Guneku Fondom channel'),
-      keywords: ['film', 'video', 'watch', v.category || '', v.relatedRoute || ''].filter(Boolean),
+      /* There is no per-film route, so a result lands on Guneku TV. `relatedRoute` points at
+         the record a film documents, not at the film, so it is a keyword not a destination. */
+      href: '/watch',
+      excerpt: clip(f.context || 'A film from the Guneku Fondom channel'),
+      keywords: [
+        'film', 'video', 'watch', 'guneku tv',
+        f.category, f.group || '', f.relatedRoute || '',
+      ].filter(Boolean),
       weight: 1,
     })
   }
@@ -285,9 +279,9 @@ function build(): SearchEntry[] {
     ['/gallery/images', 'The image gallery', 'Photos',
       'Fifteen albums of photographs from the Guneku archive.',
       ['photographs', 'photos', 'pictures', 'gallery', 'images', 'album', 'albums']],
-    ['/gallery/videos', 'Guneku films', 'Films',
-      'Films from the Fondom’s own channel.',
-      ['films', 'videos', 'watch', 'guneku tv', 'television', 'channel']],
+    ['/watch', 'Guneku TV', 'Films',
+      'Films from the Fondom’s own channel, each attached to the record it documents.',
+      ['films', 'videos', 'watch', 'guneku tv', 'television', 'channel', 'video gallery']],
     ['/gudeca', 'GUDECA', 'Institutions',
       'The Guneku Development and Cultural Association and its chapters.',
       ['gudeca', 'chapters', 'association', 'diaspora']],

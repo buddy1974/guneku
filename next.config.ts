@@ -26,7 +26,7 @@ const LEGACY_ROUTES: Array<[string, string]> = [
   ['/guneku-palace/the-legacy-of-hrh-chief-fomuki-p-n', '/palace/the-legacy-of-hrh-chief-fomuki-p-n'],
 
   // Gallery
-  ['/gallery/video-gallery', '/gallery/videos'],
+  ['/gallery/video-gallery', '/watch'],
   ['/gallery/image-gallery', '/gallery/images'],
 
   // Former /pages/* container
@@ -37,7 +37,7 @@ const LEGACY_ROUTES: Array<[string, string]> = [
   ['/pages/tributes', '/palace/tributes'],
   ['/pages/exhibitions', '/kingdom/exhibitions'],
   ['/pages/about-template', '/kingdom/about-guneku'],
-  ['/pages/video', '/gallery/videos'],
+  ['/pages/video', '/watch'],
   ['/pages/home-page', '/'],
 
   // Joomla's own homepage alias
@@ -70,6 +70,13 @@ const nextConfig: NextConfig = {
       },
 
       ...legacy,
+
+      /* The film library moved to /watch. One indexable library, not two competing ones:
+         /gallery/videos was linked from the header, the gallery landing page, the sitemap and
+         two legacy Joomla routes, so it redirects rather than 404s. The image gallery routes
+         under /gallery/images are untouched. */
+      { source: '/gallery/videos',            destination: '/watch', permanent: true },
+      { source: '/index.php/gallery/videos',  destination: '/watch', permanent: true },
 
       /* Joomla SEF article URLs carried a numeric id prefix, e.g.
          /updates/23-minutes-of-meeting. The slug that follows is the alias the

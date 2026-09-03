@@ -587,3 +587,87 @@ that mention it and never the page that is it.
 Search runs on the server behind a plain GET form, so it works with no JavaScript, a result
 page is linkable and shareable, and the back button behaves. No model is involved: the same
 query always returns the same results in the same order.
+
+## ADR-031 - Guneku TV: one approval predicate, and a sync that only ever reports
+
+**Context.** Phase 6. Forty-six curated films exist in the record; the YouTube API is
+configured in Vercel and called by nothing. The task was a real media hub that does not
+depend on the API, and an architecture ready for synchronisation later.
+
+**One predicate.** `approvedFilms()` in `src/lib/guneku-tv.ts` is the only way a film becomes
+public. The watch hub, the homepage selection, the search index, the sitemap and the
+structured data all go through it. There is deliberately no second path, because the moment
+there are two, one of them forgets an exclusion - which is exactly what was found while
+building this: the search index had been reading `dbVideos` directly, so a held film would
+have vanished from the hub and stayed in search.
+
+Proved end to end rather than asserted. Holding one film in `video-overrides.json` and
+rebuilding removed it from `/watch` across all four pages, from the homepage, from the
+featured slot, from the category facets, and dropped the search index's Films count from 47
+to 46. Restoring it brought all of them back.
+
+**Four states, not a boolean.** `discovered | reviewed | approved | held`. A video appearing
+on the channel is not the Fondom asserting something about Guneku's history, and the gap
+between those two is where a sync script does real damage - captioning a funeral as a
+celebration, surfacing a family's footage, dating an event wrongly. So the strongest verdict
+`classify()` can reach is `discovered`, and only a person moves anything past it.
+
+**The sync reports; it never writes.** `missingFromChannel` is reported and never acted on: a
+film going private, or one failed page, must not delete part of the Fondom's record. The
+archive is not a mirror of YouTube's current state.
+
+**Split for testability.** The pure half - normalisation and classification - lives in
+`youtube-normalise.ts` and is deliberately NOT `server-only`, so it can be exercised against a
+fixture in a plain script. The half that holds the key is `server-only`. A guard over the
+pure logic would have bought no safety, since the key is not in it, and would have made the
+part that most needs testing untestable.
+
+## ADR-032 - Categories come from the record, and no film is moved to fill a gap
+
+The brief named six groups: Palace, Culture, Development, GUDECA, Community, Archive. The
+record carries nine of its own labels, and they do not map cleanly onto six.
+
+`resolveGroup()` is deterministic and ordered: an explicit override, then GUDECA, then
+Palace, then Culture, then an exact Community, then **null**. GUDECA precedes Palace on
+purpose - "GUDECA Europe, Bonn 2026" is a chapter's meeting, not a Palace occasion, even
+where the Fon attends.
+
+Health, Governance and Education reach the null case: 8 of the 46 films. Nothing was invented
+to place them. "Development" would be a claim about what a health documentary is, and
+"Archive" would say something false about when it was made. They keep their sourced label,
+which is more useful to a reader anyway. **Development and Archive therefore show zero films,
+and the page says so** rather than quietly redistributing films to make six full buckets.
+
+No model classifies anything. A misfiled film is a small error; a model deciding a funeral is
+a festival is a different kind, and on a village's own record it is not recoverable by an
+apology.
+
+## ADR-033 - No iframe until someone asks, and the private id is not printed
+
+**Performance.** Forty-six embedded players would each pull player code and set cookies before
+a reader had chosen to watch anything. Most of this audience is on a mid-range Android over a
+throttled connection. So a card is a poster frame and a button; the iframe is created in
+place, once, for the one film the reader picked. Verified as **zero `<iframe>` in the HTML of
+`/watch` and the homepage**. Embeds use `youtube-nocookie.com`, and nothing is requested from
+YouTube at all until play is pressed.
+
+**A privacy finding fixed on the way.** The record's held-material note names the private
+channel upload by id, and the retired `/gallery/videos` page published that id verbatim.
+Printing the identifier of something deliberately not surfaced hands a reader the one thing
+the decision meant to withhold. `heldNote()` now redacts any deny-listed id, taking the
+surrounding punctuation with it so the sentence still reads. The transparency is kept - "one
+video on the channel is private and is deliberately not surfaced" - and the id is not. The
+deny list remains the enforcement; redaction only stops it being published.
+
+## ADR-034 - One film library, and the old route redirects
+
+`/gallery/videos` was linked from the header, the gallery landing page, the sitemap and two
+legacy Joomla routes. Leaving it beside `/watch` would have created two competing indexable
+libraries of the same 46 films. It now 308s to `/watch`, its page is removed, and the sitemap
+carries `/watch` in its place. The image gallery under `/gallery/images` is untouched and
+verified still serving, including an album page.
+
+`VideoObject` structured data is emitted for the featured film only, from fields actually
+known: name, abstract, thumbnail, embedUrl, publisher. **No `uploadDate`, no `duration`, no
+`description`** - YouTube knows those and this record does not, and filling them to satisfy a
+schema validator would be inventing facts about Guneku.
