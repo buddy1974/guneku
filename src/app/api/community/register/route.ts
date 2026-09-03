@@ -70,9 +70,13 @@ export async function POST(req: NextRequest) {
     })
 
     return NextResponse.json({ success: true })
-  } catch (err: unknown) {
+  } catch (err) {
+  /* The mailer sanitises its own failures before throwing, but anything else that lands
+     here — malformed JSON, a bad field, a bug — arrives with an internal message. Log the
+     real cause for us and tell the visitor one fixed, useful thing. */
+    console.error('Directory submission route failed:', err)
     return NextResponse.json(
-      { error: (err as Error).message || 'Failed to send your request' },
+      { error: 'Failed to send your request. Please try again.' },
       { status: 500 },
     )
   }

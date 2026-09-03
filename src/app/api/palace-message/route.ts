@@ -50,6 +50,10 @@ export async function POST(req: NextRequest) {
     /* The response carries nothing about who was copied. */
     return NextResponse.json({ success: true })
   } catch (err) {
-    return NextResponse.json({ error: (err as Error).message || 'Failed to send message.' }, { status: 500 })
+  /* The mailer sanitises its own failures before throwing, but anything else that lands
+     here — malformed JSON, a bad field, a bug — arrives with an internal message. Log the
+     real cause for us and tell the visitor one fixed, useful thing. */
+    console.error('Palace message route failed:', err)
+    return NextResponse.json({ error: 'Failed to send your message. Please try again.' }, { status: 500 })
   }
 }

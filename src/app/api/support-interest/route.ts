@@ -40,6 +40,10 @@ export async function POST(req: NextRequest) {
     await sendSupportInterest({ name, project, supportType, message, email, phone, organisation, location })
     return NextResponse.json({ success: true })
   } catch (err) {
-    return NextResponse.json({ error: (err as Error).message || 'Failed to send message.' }, { status: 500 })
+  /* The mailer sanitises its own failures before throwing, but anything else that lands
+     here — malformed JSON, a bad field, a bug — arrives with an internal message. Log the
+     real cause for us and tell the visitor one fixed, useful thing. */
+    console.error('Support interest route failed:', err)
+    return NextResponse.json({ error: 'Failed to send your message. Please try again.' }, { status: 500 })
   }
 }

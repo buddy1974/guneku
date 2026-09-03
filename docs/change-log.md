@@ -137,7 +137,7 @@ Not merged and not deployed — release approval is the Product Owner's (CLAUDE.
 Product Owner task: seed the directory from the GUDECA EU names, let people claim their
 entry, open every chapter — home and diaspora — to new names, correct the Germany chapter
 from Essen to Bonn, and move Thadeus Fon to the home-based Douala chapter. ADR-014,
-ADR-015 and ADR-016 record the decisions; R-012 and R-013 record what is carried.
+ADR-015 and ADR-016 record the decisions; R-019 and R-013 record what is carried.
 
 **New data**
 
@@ -284,3 +284,21 @@ one sender → 429 on every route, including routes still under their own limit;
 sender unaffected; the honeypot still answers with a success shape; the 429 body carries no
 internal detail. `npx tsc --noEmit` clean; `npm run build` clean at 188 static pages;
 eslint clean on every changed file.
+
+## 2026-09-03 — Risk-register renumber and error-message hygiene
+
+Documentation and four catch blocks. No behaviour change a visitor would notice beyond a
+steadier error message.
+
+- **Renumbered** the two risk sections appended in `3456435` that reused numbers already
+  held by the baseline table: they become **R-018** (MEFU-MECUDA archive photograph) and
+  **R-019** (three names from a private WhatsApp group). References updated in ADR-014 and
+  in the 2026-09-03 indigenes change-log entry. The register now holds R-001 to R-019, each
+  exactly once, and `src/` refers to none of them.
+- **Stopped four routes leaking internal errors** (ADR-023) — `/api/contact`,
+  `/api/palace-message`, `/api/support-interest`, `/api/community/register`. Malformed JSON
+  had been returning the parser's own message to the browser from all four.
+- **R-020** opened: the same defect stands in `/api/indigenes/all` and
+  `/api/indigenes/profile`, which are database-backed and more sensitive.
+- **R-021** opened: the limiter's `x-forwarded-for` key is correct only while guneku.org is
+  DNS-only through Cloudflare. Verified DNS-only on 2026-09-03.

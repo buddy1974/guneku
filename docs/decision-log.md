@@ -259,7 +259,7 @@ come only from the GUDECA EU WhatsApp group. `05-member-profiles.md` (the build 
 would hold those three as unlisted invitations on the ground that a private group is not
 a publication. The Product Owner, as data controller, directed on 2026-09-03 that all
 eleven be published now. That instruction is recorded here with the objection route
-(`/indigenes/submit?intent=remove`) as the mitigation, and R-012 tracks it.
+(`/indigenes/submit?intent=remove`) as the mitigation, and R-019 tracks it.
 
 **Rejected.** Publishing a full profile per seeded name (invents facts about people);
 holding the whole list until each person replies (the directory stays empty, which is
@@ -419,3 +419,18 @@ distributed flood. That is the deliberate trade — a village website should not
 ordinary sender solve a CAPTCHA, and the map is bounded so the limiter cannot itself become
 the denial of service it exists to prevent. If the inbox is ever actually flooded, this is
 the component to replace, not to tune.
+
+## ADR-023 — A form route tells the visitor one fixed thing and tells us everything
+
+**Context.** All four form routes returned `(err as Error).message` to the client. The
+mailer path was safe by accident rather than by design: `send.ts` sanitises its own Resend
+failures before throwing, so only its human message reached the browser. Anything else did
+not. Malformed JSON returned the parser's internal text verbatim from all four routes.
+
+An earlier note in this session recorded the problem as `/api/contact` only, with the three
+newer routes described as safe. That was wrong, and testing all four is what showed it.
+
+**Decision.** Every form route now logs the real error server-side and returns one fixed
+sentence. The visitor gets something useful and constant; we keep the whole cause in the
+Vercel log. `R-020` records the same defect still standing in the indigenes routes, which
+are database-backed and were outside this change.

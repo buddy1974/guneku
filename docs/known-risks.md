@@ -68,7 +68,7 @@ Recorded so they are not silently settled by a later editor:
 - **Meta clan size.** `/kingdom/about-guneku` says 31 communities; the blog sources say 29.
   A Meta-clan fact, not a Guneku one. Unresolved.
 
-## R-011 — Aug 2026 MEFU-MECUDA card still carries a 2016 photograph
+## R-018 — Aug 2026 MEFU-MECUDA card still carries a 2016 photograph
 
 `src/data/updates/mefu-mecuda-joint-meeting-guneku-palace.json` sets
 `featuredImage: /images/site/coronation-crowd.jpg` — a 2016 coronation crowd used as the
@@ -83,7 +83,10 @@ labelled palace-pool fallback, which is at least honest about not being the even
 
 Recorded 2026-09-02 alongside ADR-013. Previously noted in `guneku-image-pipeline-spec.md`.
 
-## R-012 — Three directory names published from a private WhatsApp group
+Renumbered from R-011 on 2026-09-03: the baseline table already used R-011 and R-012 for
+other risks, and the section appended in `3456435` collided with both.
+
+## R-019 — Three directory names published from a private WhatsApp group
 
 Armstrong Tinyih, Don Df Festoire and Forbang Noel are published as seed stubs in the
 Indigenes Directory. They are sourced only from the `gudeca-eu` WhatsApp group; the other
@@ -164,3 +167,28 @@ chapter and appear only on their body's roster, not in any chapter register. Tha
 correct — inventing a location for an officer would be worse — but it means the chapter
 counts on `/diaspora` and `/gudeca` understate the register. Resolved when the officers
 claim their entries and say where they are.
+
+## R-020 — The indigenes routes still return internal error text
+
+`/api/indigenes/all` and `/api/indigenes/profile` (three places) return
+`(err as Error).message` straight to the client. The four form routes were corrected on
+2026-09-03 (ADR-023); these were left because they are database-backed rather than form
+routes and were outside that change's scope. They are the more sensitive of the two sets:
+an error thrown by the Neon driver can carry connection or schema detail, and these routes
+are reachable without authentication.
+
+Not executed: give them the same treatment — log server-side, return one fixed message.
+
+## R-021 — The rate limiter depends on guneku.org not being proxied
+
+`src/lib/rate-limit.ts` keys on `x-forwarded-for`. Verified correct on 2026-09-03:
+`guneku.org` resolves to `76.76.21.21` and `www.guneku.org` to `cname.vercel-dns.com`, and
+the live response carries `Server: Vercel` with no `cf-ray`. Cloudflare handles DNS and SSL
+for the domain but is **not** proxying, so Vercel sees the visitor's own address.
+
+If the record is ever switched to proxied (the orange cloud), Vercel will see Cloudflare's
+edge addresses as the client, every visitor will collapse into one bucket, and twelve
+messages from the whole village would lock all four forms for everyone — a self-inflicted
+outage of the contact route. The fix at that point is one line: read `cf-connecting-ip`
+first in `senderKey`. Do not make that change while the domain is DNS-only, because
+`cf-connecting-ip` is then an attacker-settable header.
