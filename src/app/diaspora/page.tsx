@@ -179,11 +179,20 @@ export default function DiasporaPage() {
           <div className="mb-10">
             <div className="section-label mb-4">GUNEKU PEOPLE ABROAD</div>
             <h2 className="font-cinzel text-4xl text-foreground">
-              {diaspora.length} recorded outside Cameroon
+              Guneku people abroad
             </h2>
             <p className="text-muted-foreground mt-3 max-w-3xl">
-              Everyone the register records as living outside Cameroon, or as a member of an
-              overseas GUDECA chapter. Belonging to the diaspora says where someone lives and
+              {/* The count is what the register holds, and the sentence says exactly that.
+                  Guneku's diaspora is far larger than any list on this site: writing "17
+                  people abroad" would state a figure about the community that nobody has
+                  established, from a number that only describes a register. */}
+              <strong className="text-foreground">{diaspora.length}</strong> people are recorded
+              here so far &mdash; those the register names as living outside Cameroon, or as
+              members of an overseas GUDECA chapter. It is a record of who has been written
+              down, not a count of the Guneku diaspora, which is very much larger.
+            </p>
+            <p className="text-muted-foreground mt-3 max-w-3xl">
+              Belonging to the diaspora says where someone lives and
               nothing else &mdash; it is not a title, and it is separate from being a{' '}
               <Link href="/notables" className="text-primary underline-offset-2 hover:underline">
                 Notable of Guneku
