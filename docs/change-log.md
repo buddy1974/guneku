@@ -322,3 +322,17 @@ static pages**, identical to the pre-upgrade baseline; 28 routes 200 and the one
 the 6th post; deceased entries still carry no claim action; archive-photo marking intact;
 privacy sweep clean (BCC absent from HTML and bundles, no GUDECA personal mobile, no
 "17 January 2016", Business Directory still 404).
+
+## 2026-09-03 — Phase 1.5: Next.js 16.3.4
+
+`16.3.4` is npm's `latest` tag and the only stable release above `16.3.3`; nothing newer
+exists outside the canary and preview tags. Confirmed in Phase 1 before bumping rather than
+folded into the audit.
+
+- `next` and `eslint-config-next` → **16.3.4**, both pinned exactly (ADR-025 stands).
+- React and react-dom unchanged at 19.2.4. No codemod required.
+- Advisories unchanged at 15, no critical, and `next` itself carries none.
+
+Verified: `tsc` clean; build clean at **188 static pages**; 20 routes 200 plus the expected
+404; sitemap still 95 URLs; rate limiter still 429 on the sixth post; deceased-entry rule,
+archive-photo marking, the R-020 safe error and the BCC privacy sweep all unchanged.
