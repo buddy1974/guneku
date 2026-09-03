@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { GraduationCap, Building2, Sprout, HandCoins, Globe2, HeartHandshake, ArrowRight } from 'lucide-react'
 import { Reveal } from '@/components/ui/Reveal'
+import { allChapters, foundingCount } from '@/lib/community'
 
 export const metadata = {
   alternates: { canonical: '/gudeca' },
@@ -8,12 +9,33 @@ export const metadata = {
   description: 'Mission, vision, and projects of GUDECA — uniting Guneku indigenes across three continents.',
 }
 
+/* One register for every chapter, home and abroad, shared with /diaspora and the
+   chapter pages: `src/data/community/chapters.json`. This list previously said the
+   Germany chapter was "Essen — Ruhr Valley" while /diaspora said "Essen / Ruhr" —
+   two hand-kept lists, the same error twice. GUDECA Europe meets in BONN, where the
+   Fon lives and where the 28 March 2026 meeting was held.
+
+   Home chapters are shown alongside the diaspora rather than below it. A son of
+   Guneku in Douala is a member on the same terms as one in Bonn, and the register
+   should not imply otherwise. */
 const BRANCHES = [
-  { region:'Cameroon',       chapters:['Yaoundé','Douala','Bamenda'],       flag:'🇨🇲' },
-  { region:'Germany',        chapters:['Essen — Ruhr Valley'],               flag:'🇩🇪' },
-  { region:'United States',  chapters:['DMV','New Jersey'],                  flag:'🇺🇸' },
-  { region:'Belgium',        chapters:['Brussels'],                          flag:'🇧🇪' },
-  { region:'United Kingdom', chapters:['London'],                            flag:'🇬🇧' },
+  {
+    region:   'Cameroon — home',
+    flag:     '🇨🇲',
+    chapters: allChapters().filter(c => c.scope === 'home'),
+  },
+  ...Object.values(
+    allChapters()
+      .filter(c => c.scope === 'diaspora')
+      .reduce<Record<string, { region: string; flag: string; chapters: ReturnType<typeof allChapters> }>>(
+        (acc, c) => {
+          acc[c.country] ??= { region: c.country, flag: c.flag, chapters: [] }
+          acc[c.country].chapters.push(c)
+          return acc
+        },
+        {},
+      ),
+  ),
 ]
 
 export default function GudecaPage() {
@@ -131,14 +153,37 @@ export default function GudecaPage() {
                 </div>
                 <ul className="space-y-1.5 text-sm text-muted-foreground">
                   {b.chapters.map(c => (
-                    <li key={c} className="flex items-center gap-2">
+                    <li key={c.id} className="flex items-center gap-2">
                       <span className="h-1 w-1 rounded-full bg-primary shrink-0" />
-                      {c}
+                      <Link href={`/gudeca/chapters/${c.id}`} className="no-underline hover:text-primary">
+                        {c.city}
+                        <span className="text-xs text-muted-foreground/70">
+                          {' '}· {foundingCount(c.id) || 'add a name'}
+                          {foundingCount(c.id) ? ' on record' : ''}
+                        </span>
+                      </Link>
                     </li>
                   ))}
                 </ul>
               </div>
             ))}
+          </div>
+          <div className="card-royal mt-10 grid gap-4 p-6 sm:grid-cols-[1fr_auto] sm:items-center md:p-8">
+            <div>
+              <div className="section-label">THE REGISTER IS OPEN</div>
+              <h4 className="mt-2 font-cinzel text-2xl text-foreground">
+                Every chapter takes names — at home and abroad
+              </h4>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                Put a name forward and the Palace checks it, then the person completes
+                their own profile and chooses what it shows. If the directory already
+                carries your name, claim it and it becomes yours.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Link href="/indigenes/submit?intent=add" className="btn-royal inline-flex">Add a name</Link>
+              <Link href="/indigenes" className="btn-royal-outline inline-flex">The directory</Link>
+            </div>
           </div>
         </section>
       </Reveal>

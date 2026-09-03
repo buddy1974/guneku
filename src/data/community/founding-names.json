@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "purpose": "The first names in the Indigenes Directory. A directory that opens empty converts badly; a directory that already carries your name converts well. These are seed stubs only — name, role, chapter and the source the name came from. Nothing else is published: no photograph, no location, no contact, no biography. Each one carries a Claim action and a Remove action.",
+    "updated": "2026-09-03",
+    "authorised_by": "Product Owner, 2026-09-03 — publish all eleven now.",
+    "publication_rule": "A seed stub may show ONLY: display name, role, chapter, source label. Any further field must come from the person themselves after they claim. Do not add photographs, employers, cities or contact details to this file.",
+    "objection_route": "Every stub links to /indigenes/submit?intent=remove — a one-click request to have the name taken down, honoured without question. This is what makes publishing a name the person did not personally submit defensible; do not remove it.",
+    "sources": {
+      "gudeca-eu-bonn-2026-03-28": "Minutes of the GUDECA EU Meeting, Fon's Palace Bonn, 28 March 2026 — circulated to the membership.",
+      "whatsapp:gudeca-eu": "The GUDECA EU WhatsApp group."
+    }
+  },
+  "names": [
+    {
+      "slug": "ndenge-constantine",
+      "display": "Ndenge Constantine",
+      "aliases": ["Constantine Ndenge", "Consty"],
+      "role": "President, GUDECA Europe",
+      "chapter": "gudeca-europe",
+      "source": "gudeca-eu-bonn-2026-03-28",
+      "sourceLabel": "GUDECA EU minutes, Bonn, 28 March 2026"
+    },
+    {
+      "slug": "festus-tanwi",
+      "display": "Festus Tanwi",
+      "aliases": [],
+      "role": "Vice President, GUDECA Europe",
+      "chapter": "gudeca-europe",
+      "source": "gudeca-eu-bonn-2026-03-28",
+      "sourceLabel": "GUDECA EU minutes, Bonn, 28 March 2026"
+    },
+    {
+      "slug": "muyang-ela",
+      "display": "Muyang Ela",
+      "aliases": [],
+      "role": "Secretary General, GUDECA Europe",
+      "chapter": "gudeca-europe",
+      "source": "gudeca-eu-bonn-2026-03-28",
+      "sourceLabel": "GUDECA EU minutes, Bonn, 28 March 2026"
+    },
+    {
+      "slug": "sam-fongoh",
+      "display": "Sam Fongoh",
+      "aliases": ["Ni Sam"],
+      "role": "Member, GUDECA Europe",
+      "chapter": "gudeca-europe",
+      "source": "gudeca-eu-bonn-2026-03-28",
+      "sourceLabel": "GUDECA EU minutes, Bonn, 28 March 2026"
+    },
+    {
+      "slug": "ma-rose",
+      "display": "Ma Rose",
+      "aliases": [],
+      "role": "Member, GUDECA Europe",
+      "chapter": "gudeca-europe",
+      "source": "gudeca-eu-bonn-2026-03-28",
+      "sourceLabel": "GUDECA EU minutes, Bonn, 28 March 2026"
+    },
+    {
+      "slug": "fabian",
+      "display": "Fabian",
+      "aliases": [],
+      "role": "Member, GUDECA Europe",
+      "chapter": "gudeca-europe",
+      "source": "gudeca-eu-bonn-2026-03-28",
+      "sourceLabel": "GUDECA EU minutes, Bonn, 28 March 2026"
+    },
+    {
+      "slug": "fonjong",
+      "display": "Fonjong",
+      "aliases": [],
+      "role": "Member — titled by the Fons of Meta",
+      "chapter": "gudeca-europe",
+      "source": "gudeca-eu-bonn-2026-03-28",
+      "sourceLabel": "GUDECA EU minutes, Bonn, 28 March 2026"
+    },
+    {
+      "slug": "armstrong-tinyih",
+      "display": "Armstrong Tinyih",
+      "aliases": [],
+      "role": "Member, GUDECA Europe",
+      "chapter": "gudeca-europe",
+      "source": "whatsapp:gudeca-eu",
+      "sourceLabel": "Named in the GUDECA EU group"
+    },
+    {
+      "slug": "don-df-festoire",
+      "display": "Don Df Festoire",
+      "aliases": [],
+      "role": "Member, GUDECA Europe",
+      "chapter": "gudeca-europe",
+      "source": "whatsapp:gudeca-eu",
+      "sourceLabel": "Named in the GUDECA EU group"
+    },
+    {
+      "slug": "forbang-noel",
+      "display": "Forbang Noel",
+      "aliases": [],
+      "role": "Member, GUDECA Europe",
+      "chapter": "gudeca-europe",
+      "source": "whatsapp:gudeca-eu",
+      "sourceLabel": "Named in the GUDECA EU group"
+    },
+    {
+      "slug": "thadeus-fon",
+      "display": "Thadeus Fon",
+      "aliases": [],
+      "role": "General President, GUDECA",
+      "chapter": "gudeca-douala",
+      "source": "gudeca-eu-bonn-2026-03-28",
+      "sourceLabel": "GUDECA EU minutes, Bonn, 28 March 2026",
+      "note": "Home-based. Addressed the Bonn meeting as General President; he is not a diaspora member and is listed with the Douala chapter."
+    }
+  ]
+}

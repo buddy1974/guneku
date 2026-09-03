@@ -3,6 +3,13 @@
 import { useEffect, useState, useCallback } from 'react'
 import { IndigeneProfile, GUNEKU_QUARTERS } from '@/types/indigene'
 import Link from 'next/link'
+import { FoundingNames } from '@/components/community/FoundingNames'
+import { allFoundingNames } from '@/lib/community'
+
+/* Entries opened from the Fondom's own records, so the directory does not greet
+   the first visitor with an empty grid. They are seed stubs, not profiles: see
+   src/lib/community.ts for what a stub is allowed to show. */
+const FOUNDING_COUNT = allFoundingNames().length
 
 export default function IndigenesPage() {
   const [profiles, setProfiles] = useState<IndigeneProfile[]>([])
@@ -49,12 +56,15 @@ export default function IndigenesPage() {
           </h1>
           <p style={{ color:'oklch(0.470 0.018 150)', fontFamily:'Inter, sans-serif', fontSize:'1.05rem', lineHeight:1.7, maxWidth:'600px', margin:'0 auto 2rem' }}>
             {total > 0 ? (
-              <><strong style={{ color:'oklch(0.320 0.060 158)' }}>{total}</strong> Guneku indigenes registered worldwide. From Essen to New Jersey — one people, one village.</>
-            ) : 'The first digital directory of Guneku indigenes worldwide.'}
+              <><strong style={{ color:'oklch(0.320 0.060 158)' }}>{total}</strong> Guneku indigenes registered worldwide, and <strong style={{ color:'oklch(0.320 0.060 158)' }}>{FOUNDING_COUNT}</strong> founding names waiting to be claimed. From Bonn to New Jersey — one people, one village.</>
+            ) : <>The directory of Guneku indigenes worldwide — opening with <strong style={{ color:'oklch(0.320 0.060 158)' }}>{FOUNDING_COUNT}</strong> names from the Fondom&rsquo;s own records.</>}
           </p>
           <div style={{ display:'flex', gap:'1rem', justifyContent:'center', flexWrap:'wrap' }}>
             <Link href="/indigenes/onboarding" style={{ backgroundColor:'oklch(0.320 0.060 158)', color:'oklch(0.965 0.012 85)', fontFamily:'var(--font-sans)', fontWeight:700, padding:'0.9rem 2rem', fontSize:'0.8rem', letterSpacing:'0.12em', textTransform:'uppercase', textDecoration:'none', display:'inline-block' }}>
               Create My Profile
+            </Link>
+            <Link href="/indigenes/submit?intent=add" style={{ border:'1px solid oklch(0.878 0.010 90)', color:'oklch(0.245 0.022 150)', fontFamily:'var(--font-sans)', fontWeight:700, padding:'0.9rem 2rem', fontSize:'0.8rem', letterSpacing:'0.12em', textTransform:'uppercase', textDecoration:'none', display:'inline-block' }}>
+              Add a name
             </Link>
           </div>
         </div>
@@ -148,12 +158,25 @@ export default function IndigenesPage() {
         )}
       </section>
 
+      {/* The founding names — unclaimed entries opened from Fondom and GUDECA
+          records. Each one is claimable by its owner and removable on request. */}
+      <section className="inst-alt inst-rule">
+        <div className="inst-wrap inst-sec">
+          <FoundingNames />
+        </div>
+      </section>
+
       <div style={{ backgroundColor:'#0A0A0A', borderTop:'1px solid rgba(242,169,11,0.1)', padding:'4rem 1.5rem', textAlign:'center' }}>
         <h3 style={{ fontFamily:'"Bebas Neue", sans-serif', fontSize:'2.5rem', color:'oklch(0.245 0.022 150)', letterSpacing:'0.05em', margin:'0 0 1rem' }}>ARE YOU A SON OR DAUGHTER OF GUNEKU?</h3>
         <p style={{ color:'oklch(0.560 0.016 150)', fontFamily:'Inter, sans-serif', fontSize:'1rem', margin:'0 0 2rem' }}>Join the official directory of Guneku sons and daughters worldwide.</p>
-        <Link href="/indigenes/onboarding" style={{ backgroundColor:'oklch(0.320 0.060 158)', color:'oklch(0.965 0.012 85)', fontFamily:'var(--font-sans)', fontWeight:700, padding:'1rem 3rem', fontSize:'0.85rem', letterSpacing:'0.15em', textTransform:'uppercase', textDecoration:'none', display:'inline-block' }}>
-          Create My Profile
-        </Link>
+        <div style={{ display:'flex', gap:'1rem', justifyContent:'center', flexWrap:'wrap' }}>
+          <Link href="/indigenes/onboarding" style={{ backgroundColor:'oklch(0.320 0.060 158)', color:'oklch(0.965 0.012 85)', fontFamily:'var(--font-sans)', fontWeight:700, padding:'1rem 3rem', fontSize:'0.85rem', letterSpacing:'0.15em', textTransform:'uppercase', textDecoration:'none', display:'inline-block' }}>
+            Create My Profile
+          </Link>
+          <Link href="/indigenes/submit?intent=add" style={{ border:'1px solid oklch(0.878 0.010 90)', color:'oklch(0.245 0.022 150)', fontFamily:'var(--font-sans)', fontWeight:700, padding:'1rem 3rem', fontSize:'0.85rem', letterSpacing:'0.15em', textTransform:'uppercase', textDecoration:'none', display:'inline-block' }}>
+            Add someone&rsquo;s name
+          </Link>
+        </div>
       </div>
     </main>
   )

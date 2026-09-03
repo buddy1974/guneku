@@ -1,6 +1,7 @@
 import Link  from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { Reveal } from '@/components/ui/Reveal'
+import { chaptersByScope, foundingCount } from '@/lib/community'
 
 export const metadata = {
   alternates: { canonical: '/diaspora' },
@@ -8,25 +9,16 @@ export const metadata = {
   description: 'Guneku sons and daughters across the world — GUDECA chapters in Cameroon, Europe and North America.',
 }
 
-/* Countries where Guneku people are organised. The community's own record
-   (legacy "About Guneku") states GUDECA has branches in Europe, Canada and
-   America; the Europe chapter meets in Bonn and the US chapter in the DMV.
-   Per-country population counts previously shown here were not supported by
-   any source in the repository and have been removed rather than guessed. */
-const PLACES = [
-  { flag:'🇨🇲', country:'Cameroon',     city:'Mbengwi', org:'Home community'              },
-  { flag:'🇩🇪', country:'Germany',      city:'Essen / Ruhr',    org:"GUDECA Europe · Fon's home"  },
-  { flag:'🇺🇸', country:'USA',          city:'DMV · NJ',    org:'GUDECA US Chapter'           },
-  { flag:'🇧🇪', country:'Belgium',      city:'Brussels',    org:'GUDECA Europe'               },
-  { flag:'🇬🇧', country:'UK',           city:'London',    org:'Active members'              },
-  { flag:'🇮🇹', country:'Italy',        city:'Milan',    org:'Active members'              },
-  { flag:'🇸🇪', country:'Sweden',       city:'Stockholm',     org:'Active members'              },
-  { flag:'🇦🇪', country:'UAE',          city:'Dubai',    org:'GUDECA UAE — 2023'           },
-  { flag:'🇶🇦', country:'Qatar',        city:'Doha',     org:'Active members'              },
-  { flag:'🇳🇬', country:'Nigeria',      city:'Lagos',    org:'Active members'              },
-  { flag:'🇨🇳', country:'China',        city:'Shanghai',     org:'Active members'              },
-  { flag:'🇯🇵', country:'Japan',        city:'Tokyo',     org:'Active members'              },
-]
+/* The places Guneku people are organised now come from one register,
+   `src/data/community/chapters.json`, shared with /gudeca and the chapter pages.
+   Before this they were two hand-kept lists that disagreed: both said the Germany
+   chapter sat in Essen, and both were wrong — GUDECA Europe meets in BONN, at the
+   Fon's Palace there, which is where the 28 March 2026 meeting was held. A fact
+   held in one place can be corrected once.
+
+   Per-country population counts previously shown here were not supported by any
+   source in the repository and have been removed rather than guessed. */
+const PLACES = chaptersByScope('diaspora')
 
 export default function DiasporaPage() {
   return (
@@ -116,16 +108,49 @@ export default function DiasporaPage() {
       <Reveal>
         <section className="mx-auto max-w-7xl px-6 pb-24">
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
-            {PLACES.map(p => (
-              <div key={p.country} className="group card-royal p-5 transition-all">
-                <div className="mb-3">
-                  <span className="text-4xl">{p.flag}</span>
-                </div>
-                <div className="font-cinzel text-lg text-foreground">{p.country}</div>
-                <div className="text-xs text-muted-foreground">{p.city}</div>
-                <div className="mt-1 text-xs text-primary/60">{p.org}</div>
-              </div>
-            ))}
+            {PLACES.map(p => {
+              const on = foundingCount(p.id)
+              return (
+                <Link key={p.id} href={`/gudeca/chapters/${p.id}`}
+                      className="group card-royal block p-5 no-underline transition-all">
+                  <div className="mb-3">
+                    <span className="text-4xl">{p.flag}</span>
+                  </div>
+                  <div className="font-cinzel text-lg text-foreground">{p.country}</div>
+                  <div className="text-xs text-muted-foreground">{p.city}</div>
+                  <div className="mt-1 text-xs text-primary/60">{p.org}</div>
+                  <div className="mt-3 border-t border-border pt-2 text-xs text-muted-foreground">
+                    {on === 0 ? 'Add the first name →' : `${on} on record →`}
+                  </div>
+                </Link>
+              )
+            })}
+          </div>
+        </section>
+      </Reveal>
+
+      {/* ── ADD A NAME ──
+          The register is only as complete as the community makes it, so the way in
+          sits on the page rather than behind a form somewhere else. Home chapters
+          carry the same invitation on their own pages. */}
+      <Reveal>
+        <section className="mx-auto max-w-7xl px-6 pb-24">
+          <div className="card-royal grid gap-4 p-6 sm:grid-cols-[1fr_auto] sm:items-center md:p-8">
+            <div>
+              <div className="section-label">EVERY CHAPTER IS OPEN</div>
+              <h2 className="mt-2 font-cinzel text-2xl text-foreground">
+                Know a son or daughter of Guneku who is not here?
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                Put the name forward — your own, or someone you know belongs. The Palace
+                checks it, then the person is invited to complete their own profile and
+                decide what it shows. Nobody writes another person&rsquo;s profile for them.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Link href="/indigenes/submit?intent=add" className="btn-royal inline-flex">Add a name</Link>
+              <Link href="/indigenes" className="btn-royal-outline inline-flex">The directory</Link>
+            </div>
           </div>
         </section>
       </Reveal>

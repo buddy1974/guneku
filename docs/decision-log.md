@@ -232,3 +232,71 @@ leaving the plates (the reason this was raised).
 **Consequence.** `/public/images/fallback/` is now a governed asset set: 27 files, 720×450,
 cropped from photographs already published on the site or in the public galleries. Adding a
 record's real photograph to its JSON automatically retires its fallback — no code change.
+
+## ADR-014 — Seed the directory from the record, but a stub is not a profile
+
+**Context.** `/indigenes` opened empty for every visitor. An empty "register here" form
+converts badly; a page that already carries your name converts well. The Fondom's own
+records name people — the GUDECA EU minutes of 28 March 2026 name eight, and the
+`gudeca-eu` group names three more — so the directory can open with eleven entries
+instead of nothing.
+
+**Decision.** Seeded entries are published, and are constrained to four fields:
+display name, role, chapter, and the source the name came from. `CardSafe` in
+`src/lib/community.ts` is that constraint in the type system — a stub component cannot
+render anything else, and widening it is a publication decision, not a refactor.
+Everything further — photograph, city, employer, contact, biography — arrives only from
+the person, after they claim the entry.
+
+Every stub carries two actions, and both are load-bearing: **claim**, which hands the
+entry to its owner, and **not me / take it down**, which removes it. A directory that
+publishes a name the person did not personally submit must make leaving as easy as
+joining; `founding-names.json` records that the removal route is not to be taken out.
+
+**Consent position, stated plainly.** Eight of the eleven names come from minutes
+circulated to the membership. Three — Armstrong Tinyih, Don Df Festoire, Forbang Noel —
+come only from the GUDECA EU WhatsApp group. `05-member-profiles.md` (the build spec)
+would hold those three as unlisted invitations on the ground that a private group is not
+a publication. The Product Owner, as data controller, directed on 2026-09-03 that all
+eleven be published now. That instruction is recorded here with the objection route
+(`/indigenes/submit?intent=remove`) as the mitigation, and R-012 tracks it.
+
+**Rejected.** Publishing a full profile per seeded name (invents facts about people);
+holding the whole list until each person replies (the directory stays empty, which is
+the problem being solved).
+
+## ADR-015 — One register for every chapter, home and diaspora on the same terms
+
+**Context.** `/gudeca` said the Germany chapter was "Essen — Ruhr Valley"; `/diaspora`
+said "Essen / Ruhr". Two hand-kept lists, the same error twice: GUDECA Europe meets in
+**Bonn**, where the Fon lives, and the 28 March 2026 meeting was held at the Fon's Palace
+there. Separately, Thadeus Fon — General President, home-based — was being counted as a
+diaspora member because he addressed that meeting.
+
+**Decision.** `src/data/community/chapters.json` is the single register. `/diaspora`,
+`/gudeca` and `/gudeca/chapters/[id]` all read from it, so a chapter fact is corrected
+once. Home chapters carry the same register, the same "Add a name" and the same claim
+route as chapters abroad — a son of Guneku in Douala is a member on the same terms as one
+in Bonn, and the site should not imply otherwise. Thadeus Fon is listed with Douala.
+
+**Consequence.** The Essen correction is scoped to the two chapter listings. Marcel Tabit
+Akwe's own profile, the contact page, and the 2023 reception gallery still say Essen —
+that reception genuinely took place in Essen and is a record, not a chapter fact.
+
+## ADR-016 — A name enters the public directory through a person, not an endpoint
+
+**Context.** Claim, add-a-name and take-it-down all needed a way in. The directory is
+Neon + Drizzle + Clerk, one profile per signed-in user; a seed-and-claim system in the
+database means nullable `clerk_user_id`, tier and claim-token columns, and a migration
+against production.
+
+**Decision.** Ship the motion without the migration. `POST /api/community/register`
+takes all three intents, validates, and sends the request to the Palace by email
+(`sendDirectorySubmission`, the same Resend path the contact and support forms use).
+Nothing is written to the database and nothing is auto-published: a person's name entering
+— or leaving — a public directory is decided by a human. The chapter and entry are
+resolved from our own data rather than trusted from the client, so a crafted query string
+cannot put invented text in the Palace's inbox, and a honeypot field absorbs bots.
+
+Token-based auto-binding remains the right end state and is recorded as backlog, not built:
+it is a material architecture change and needs its own authorisation.

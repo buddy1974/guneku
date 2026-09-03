@@ -173,3 +173,63 @@ function enquiryHtml(heading: string, rows: Array<[string, string]>, message: st
   <p style="margin:22px 0 0;font-size:12px;color:#6f6965">Sent from the message form on guneku.org.</p>
 </div></body></html>`
 }
+
+/* ── Directory submissions ──────────────────────────────────────────────────
+   Claiming a seeded entry, adding a name to a chapter, and asking for a name to
+   be taken down all arrive here. Deliberately no database write and no
+   auto-publication: a person's name entering — or leaving — the public directory
+   is a decision the Palace makes with a human in the loop. The subject line
+   carries the intent so removals can be filtered and answered first. */
+
+export type DirectorySubmission = {
+  intent:      'claim' | 'add' | 'remove'
+  personName:  string
+  senderName:  string
+  senderEmail?: string
+  senderPhone?: string
+  relationship?: string
+  chapterLabel?: string
+  quarter?:    string
+  entrySlug?:  string
+  message?:    string
+}
+
+const INTENT_SUBJECT = {
+  claim:  'Claim',
+  add:    'New name',
+  remove: 'REMOVAL REQUEST',
+} as const
+
+const INTENT_HEADING = {
+  claim:  'Claim of a directory entry',
+  add:    'A name put forward for the directory',
+  remove: 'Request to remove a name from the directory',
+} as const
+
+export async function sendDirectorySubmission(p: DirectorySubmission) {
+  const rows: Array<[string, string]> = [
+    ['Request', INTENT_HEADING[p.intent]],
+    ['Name concerned', p.personName],
+    ['Existing entry', p.entrySlug ? `/indigenes/founding/${p.entrySlug}` : '— (not a seeded entry)'],
+    ['Chapter', p.chapterLabel || '—'],
+    ['Quarter', p.quarter || '—'],
+    ['Submitted by', p.senderName],
+    ['Relationship', p.relationship || '—'],
+    ['Email', p.senderEmail || '—'],
+    ['Telephone', p.senderPhone || '—'],
+  ]
+
+  const { error } = await resend.emails.send({
+    from:    FROM,
+    to:      ADMIN,
+    ...(BCC ? { bcc: BCC } : {}),
+    ...(p.senderEmail ? { replyTo: p.senderEmail } : {}),
+    subject: `[Guneku Directory] ${INTENT_SUBJECT[p.intent]} — ${p.personName}`,
+    html:    enquiryHtml(INTENT_HEADING[p.intent], rows, p.message || '—'),
+  })
+
+  if (error) {
+    console.error('Directory submission failed:', error)
+    throw new Error('Failed to send your request. Please try again.')
+  }
+}

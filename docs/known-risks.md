@@ -82,3 +82,31 @@ pipeline spec assumes), or clear `featuredImage` on that record so it falls thro
 labelled palace-pool fallback, which is at least honest about not being the event.
 
 Recorded 2026-09-02 alongside ADR-013. Previously noted in `guneku-image-pipeline-spec.md`.
+
+## R-012 — Three directory names published from a private WhatsApp group
+
+Armstrong Tinyih, Don Df Festoire and Forbang Noel are published as seed stubs in the
+Indigenes Directory. They are sourced only from the `gudeca-eu` WhatsApp group; the other
+eight founding names come from the Bonn minutes, which were circulated to the membership.
+
+`05-member-profiles.md` holds that a private group is not a publication and that such a
+name should stay an unlisted invitation. The Product Owner, as data controller, directed
+on 2026-09-03 that all eleven be published (ADR-014).
+
+Mitigations in place: the stub publishes only name, role, chapter and source label — no
+photograph, city, employer or contact; every stub carries a one-click removal route
+(`/indigenes/submit?intent=remove`) honoured without question; the source label on the
+card says the name came from the group rather than from a published record.
+
+Residual exposure: a GDPR objection, or a community objection, from someone who did not
+expect their name on a public web page. Recommended next step, not executed: the EU exco
+posts a short notice in the group naming the three and pointing at the removal link.
+
+## R-013 — Directory submissions have no rate limit
+
+`POST /api/community/register` is unauthenticated by design — anyone may put a name
+forward. It validates input, resolves chapter and entry from our own data, and carries a
+honeypot, but it has no rate limit and no CAPTCHA, so it can be used to flood the Palace
+inbox. The same is already true of `/api/contact`, `/api/palace-message` and
+`/api/support-interest`; this route adds a fourth surface rather than a new class of risk.
+Recorded, not executed: one shared rate limiter across all four form routes.

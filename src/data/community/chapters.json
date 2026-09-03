@@ -1,0 +1,159 @@
+{
+  "meta": {
+    "purpose": "One list of every GUDECA chapter and organised Guneku community, home and abroad. The diaspora page, the GUDECA page and the chapter pages all read from here, so a chapter can never say Bonn on one page and Essen on another.",
+    "updated": "2026-09-03",
+    "corrections": [
+      "2026-09-03 — The Germany chapter meets in BONN, not Essen/Ruhr. Essen was wrong on /diaspora and /gudeca and is corrected here. The 2023 reception gallery for HRH Fon Fomuki genuinely took place in Essen and is untouched.",
+      "2026-09-03 — Thadeus Fon, General President of GUDECA, is home-based and belongs to the Douala chapter, not to any diaspora chapter."
+    ]
+  },
+  "chapters": [
+    {
+      "id": "guneku-village",
+      "scope": "home",
+      "flag": "🇨🇲",
+      "country": "Cameroon",
+      "city": "Guneku",
+      "org": "The village — twenty-seven quarters",
+      "note": "Home. Every indigene traces to one of the twenty-seven quarters.",
+      "openForNames": true
+    },
+    {
+      "id": "gudeca-douala",
+      "scope": "home",
+      "flag": "🇨🇲",
+      "country": "Cameroon",
+      "city": "Douala",
+      "org": "GUDECA Douala",
+      "note": "Home-based chapter. Seat of the General President.",
+      "openForNames": true
+    },
+    {
+      "id": "gudeca-yaounde",
+      "scope": "home",
+      "flag": "🇨🇲",
+      "country": "Cameroon",
+      "city": "Yaoundé",
+      "org": "GUDECA Yaoundé",
+      "openForNames": true
+    },
+    {
+      "id": "gudeca-bamenda",
+      "scope": "home",
+      "flag": "🇨🇲",
+      "country": "Cameroon",
+      "city": "Bamenda",
+      "org": "GUDECA Bamenda",
+      "openForNames": true
+    },
+    {
+      "id": "gudeca-mbengwi",
+      "scope": "home",
+      "flag": "🇨🇲",
+      "country": "Cameroon",
+      "city": "Mbengwi",
+      "org": "Home community — Mbengwi Subdivision",
+      "openForNames": true
+    },
+    {
+      "id": "gudeca-europe",
+      "scope": "diaspora",
+      "flag": "🇩🇪",
+      "country": "Germany",
+      "city": "Bonn",
+      "org": "GUDECA Europe · Fon's home",
+      "note": "The Europe chapter meets in Bonn, where the Fon lives. The 28 March 2026 meeting was held at the Fon's Palace, Bonn.",
+      "openForNames": true
+    },
+    {
+      "id": "gudeca-us-dmv",
+      "scope": "diaspora",
+      "flag": "🇺🇸",
+      "country": "USA",
+      "city": "DMV · New Jersey",
+      "org": "GUDECA US Chapter",
+      "openForNames": true
+    },
+    {
+      "id": "gudeca-belgium",
+      "scope": "diaspora",
+      "flag": "🇧🇪",
+      "country": "Belgium",
+      "city": "Brussels",
+      "org": "GUDECA Europe",
+      "openForNames": true
+    },
+    {
+      "id": "guneku-uk",
+      "scope": "diaspora",
+      "flag": "🇬🇧",
+      "country": "UK",
+      "city": "London",
+      "org": "Active members",
+      "openForNames": true
+    },
+    {
+      "id": "guneku-italy",
+      "scope": "diaspora",
+      "flag": "🇮🇹",
+      "country": "Italy",
+      "city": "Milan",
+      "org": "Active members",
+      "openForNames": true
+    },
+    {
+      "id": "guneku-sweden",
+      "scope": "diaspora",
+      "flag": "🇸🇪",
+      "country": "Sweden",
+      "city": "Stockholm",
+      "org": "Active members",
+      "openForNames": true
+    },
+    {
+      "id": "gudeca-uae",
+      "scope": "diaspora",
+      "flag": "🇦🇪",
+      "country": "UAE",
+      "city": "Dubai",
+      "org": "GUDECA UAE — 2023",
+      "openForNames": true
+    },
+    {
+      "id": "guneku-qatar",
+      "scope": "diaspora",
+      "flag": "🇶🇦",
+      "country": "Qatar",
+      "city": "Doha",
+      "org": "Active members",
+      "openForNames": true
+    },
+    {
+      "id": "guneku-nigeria",
+      "scope": "diaspora",
+      "flag": "🇳🇬",
+      "country": "Nigeria",
+      "city": "Lagos",
+      "org": "Active members",
+      "openForNames": true
+    },
+    {
+      "id": "guneku-china",
+      "scope": "diaspora",
+      "flag": "🇨🇳",
+      "country": "China",
+      "city": "Shanghai",
+      "org": "Active members",
+      "openForNames": true
+    },
+    {
+      "id": "guneku-japan",
+      "scope": "diaspora",
+      "flag": "🇯🇵",
+      "country": "Japan",
+      "city": "Tokyo",
+      "org": "Active members",
+      "openForNames": true
+    }
+  ]
+}

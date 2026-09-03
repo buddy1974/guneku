@@ -131,3 +131,59 @@ Verification: `npx tsc --noEmit` clean; `npx eslint` clean on the four touched f
 `npm run build` clean, 120 static pages; every resolved path asserted to exist on disk;
 determinism asserted by resolving each record twice; homepage grid measured at 390 and 1440.
 Not merged and not deployed — release approval is the Product Owner's (CLAUDE.md).
+
+## 2026-09-03 — Indigenes Directory: founding names, claim, and one chapter register (branch, not deployed)
+
+Product Owner task: seed the directory from the GUDECA EU names, let people claim their
+entry, open every chapter — home and diaspora — to new names, correct the Germany chapter
+from Essen to Bonn, and move Thadeus Fon to the home-based Douala chapter. ADR-014,
+ADR-015 and ADR-016 record the decisions; R-012 and R-013 record what is carried.
+
+**New data**
+
+- `src/data/community/chapters.json` — 16 chapters, 5 home and 11 diaspora, each with
+  scope, place and whether it takes names. The single source `/diaspora`, `/gudeca` and
+  the chapter pages read.
+- `src/data/community/founding-names.json` — the 11 founding names, each with role,
+  chapter and the source it came from. Carries the publication rule and the objection
+  route in its own metadata so a later editor sees them before adding a field.
+
+**New code**
+
+- `src/lib/community.ts` — chapter and name lookups, and `CardSafe`, the four-field shape
+  a seed stub is allowed to render.
+- `src/components/community/FoundingNames.tsx` — the stub cards, each with claim and
+  take-it-down.
+- `src/components/community/DirectoryForm.tsx` — one form, three intents.
+- `src/app/indigenes/submit/page.tsx` — claim / add / remove, `noindex`, pre-filled from
+  the entry or chapter it was reached from.
+- `src/app/indigenes/founding/[slug]/page.tsx` — 11 unclaimed-entry pages.
+- `src/app/gudeca/chapters/[id]/page.tsx` — 16 chapter pages, each with its register and
+  its own Add-a-name.
+- `src/app/api/community/register/route.ts` + `sendDirectorySubmission` in
+  `src/lib/email/send.ts` — validation, honeypot, server-side resolution of chapter and
+  entry, delivery to the Palace. No database write, no auto-publication.
+
+**Changed**
+
+- `src/app/diaspora/page.tsx` — reads the register; **Essen / Ruhr → Bonn**; every country
+  card links to its chapter and shows how many names are on record; an Add-a-name band.
+- `src/app/gudeca/page.tsx` — reads the register; **Essen — Ruhr Valley → Bonn**; home
+  chapters shown alongside the diaspora; chapters link through; a claim/add band.
+- `src/app/indigenes/page.tsx` — founding-names section, Add-a-name beside Create Profile
+  in both calls to action, hero count includes the unclaimed entries, "From Essen to New
+  Jersey" → "From Bonn to New Jersey".
+
+**Deliberately unchanged.** Marcel Tabit Akwe's profile, `/contact`, and the 2023
+reception gallery still say Essen — that reception happened in Essen. The Essen→Bonn
+correction is a chapter fact, not a search-and-replace.
+
+Verification: `npx tsc --noEmit` clean; `npx eslint` clean on every new and touched file
+(one pre-existing `set-state-in-effect` error in `/indigenes/page.tsx`, present on the
+baseline, untouched); `npm run build` clean, **149 static pages, up from 120**; all 11
+founding pages, all 16 chapter pages and the three form intents return 200; API validation
+exercised for unknown intent, missing names, missing contact, malformed email, honeypot and
+a forged chapter id — all rejected or neutralised; Thadeus Fon asserted present on the
+Douala chapter and absent from Europe; grid measured at 390 and 1440.
+
+Not merged and not deployed — release approval is the Product Owner's (CLAUDE.md).
