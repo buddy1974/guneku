@@ -29,7 +29,7 @@
 | R-007 | 14 `.mp4` files and roughly 180 photographs under `public/images/gallery/` are tracked, deployed and publicly retrievable at guessable paths. Nine of the videos are the Bonn 28 March 2026 footage held pending consent. | Privacy | High | Certain — live now | Not linked from any page and not linked by this pass. Leave, link or remove is Marcel's decision. Predates this changeset. | Marcel | Open |
 | R-008 | Mobile performance is unverified. Lighthouse is not installed locally and no run was performed. A large share of the audience is on a mid-range Android in Cameroon on a throttled connection. | Scaling | Medium | Certain | Responsive layout was checked at six widths. Run Lighthouse against the Vercel preview before release. | Marcel | Open |
 | R-009 | 44 of the 46 video records carry no verified YouTube title. | Debt | Low | Certain | `titleVerified: false`; no title is asserted and the player shows the channel's own. Verify against the channel when convenient. | — | Open — mitigated |
-| R-010 | `_shortlist/guneku-map.jpg` in the legacy archive is a Google Maps screenshot carrying the Google logo. Re-hosting it on the site is a third-party licensing question, not a content question. | Security / Legal | Medium | Certain if used | Not ingested. `/kingdom/map-of-guneku` remains a stub. Use a Google Maps embed with proper attribution, an OpenStreetMap-based render, or a commissioned map. | Marcel | Open |
+| R-010 | `_shortlist/guneku-map.jpg` in the legacy archive is a Google Maps screenshot carrying the Google logo. Re-hosting it on the site is a third-party licensing question, not a content question. | Security / Legal | Medium | Certain if used | **Mitigated 2026-09-03, not resolved.** Not ingested, not traced. `/explore` now renders a licensing-safe map (MapLibre GL JS, BSD-3-Clause, over OpenStreetMap raster tiles with ODbL attribution) and no Google imagery is used anywhere. But it carries **one** marker, because one coordinate exists in the whole repository — see R-029. `/kingdom/map-of-guneku` is still a stub. A map of Guneku's quarters needs coordinates the archive does not have. | Marcel | Open — mitigated |
 | R-011 | `src/data/pages/gudeca-exco.json` contains Joomla sample data — four fictitious names that are not Guneku people. | Bug | Medium if rendered | Low | Unrouted, unsearched and verified absent from all rendered output. Delete once nothing references it. | — | Open — mitigated |
 | R-012 | `src/data/about/` is nine dead files duplicating records in `kingdom/` and `palace/`. No reader reads that directory. | Debt | Low | Certain | Harmless but misleading to a future editor. Remove in a housekeeping pass. | — | Open |
 
@@ -356,3 +356,37 @@ from a search should not be told the Fondom knows nothing about their quarter.
 
 **Owner action:** ask the Palace for the authoritative roster. Until then the list stands as
 approved and no name was added, removed or renamed.
+
+## R-029 - The archive holds one coordinate, so Guneku cannot yet be mapped
+
+Building `/explore` (Phase 9) required finding every coordinate in the repository. There are
+two number pairs and only one of them is a place:
+
+- `home/village-facts.json` - `6.083333, 9.916667`, a **place-marker for the village as a
+  whole**, taken from the legacy village record's own map link. Not a survey, not a boundary,
+  not a centre. This is the single marker `/explore` draws.
+- `site-config.json` - `6.2307346, 9.664737`, which that same record's own precision note
+  identifies as **the legacy map's viewport centre, not the village**. It is not used.
+
+Nothing else has a position. Not the Palace. Not any of the three Integrated Health Centres,
+though their quarters are recorded. Not the Open Door Medical Clinic, the market at Ngong, the
+proposed market at Windig, the River Batmuki, the stream at Ngong, the library, the Agro CIG,
+the Tonmukom-Windik road, the GUYODECA bridges or the FUN electricity project. Not one of the
+27 quarters.
+
+**Nothing was estimated.** An approximate pin is not a rougher version of the truth about
+where a health centre stands; it is a different and false claim, and on a village map read by
+the people who live there it would be both obvious and insulting. So `/explore` draws one
+marker and lists the other fourteen places with the reason each has no position. The list is
+rendered on the server and is the authoritative view - the map is an enhancement over it, not
+the other way round.
+
+**Owner action to make the map worth having:** positions for the Palace, the three health
+centres, the markets and the schools would turn one pin into a real map. A phone's GPS
+reading, taken standing at each place, is enough and is better provenance than any map trace.
+Recorded through the contribution route so each arrives with a source.
+
+**A second thing to settle with it:** `site-config.json` still carries the viewport-centre
+coordinate under a `coordinates` key, where a future contributor could reasonably mistake it
+for the village. It was left rather than changed, because editing a config value that
+something else might read is not an audit's decision.

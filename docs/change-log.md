@@ -394,3 +394,24 @@ Verified: `tsc` clean; eslint clean; build clean at **216 static pages** (188 + 
 all 27 pages and the index return 200; an unknown slug 404s; the sitemap grew to 106 URLs and
 lists only the ten recorded quarters plus the index; empty pages emit
 `<meta name="robots" content="noindex, follow">` and recorded ones `index, follow`.
+
+## 2026-09-03 - Phase 9: the Guneku map
+
+- **New** `/explore`, plus `src/data/explore/locations.json`, `src/lib/explore.ts` and
+  `src/components/explore/GunekuMap.tsx`. `maplibre-gl@6.7.0` (BSD-3-Clause) added.
+- **One marker, fifteen places.** The village is drawn; the Palace, three health centres, a
+  clinic, two markets, two watercourses, the library, the Agro CIG, a road, the bridges and
+  the FUN electricity project are listed with the reason each has no recorded position.
+- **Four layers explicitly refused** on the page itself, with reasons: the 27 quarters as
+  pins, schools, churches, and the caves and waterfalls the record mentions but never names.
+- **R-010 -> Open, mitigated.** A licensing-safe map exists and no Google imagery is used or
+  traced, but `/kingdom/map-of-guneku` is still a stub and one pin is not a map of Guneku.
+- **R-029 opened**: the archive holds exactly one coordinate. Owner action recorded - a GPS
+  reading taken standing at each place is better provenance than any map trace.
+
+Verified: `tsc` clean; eslint clean; build clean at **217 static pages**; `/explore` 200; the
+full list renders in server HTML with no JavaScript (34 "No position recorded" strings, 2 "On
+the map"); OSM attribution present; the only occurrence of "Google" is the deliberate
+statement that none of its imagery is used; and zero `maplibre` references in the HTML of `/`,
+`/projects`, `/quarters` or `/explore`, proving the library loads on scroll rather than
+shipping with any page.

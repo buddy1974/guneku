@@ -1,0 +1,178 @@
+{
+  "meta": {
+    "purpose": "The places of Guneku, in one structure, so a map can be drawn from the record rather than from memory. Each entry carries where its position came from and how precise that is — or says plainly that no position is recorded.",
+    "updated": "2026-09-03",
+    "coordinateRule": "A coordinate is published only where a source gives one. Nothing here is estimated, interpolated from a neighbouring place, or read off a picture of a map. A place with no recorded position appears in the list with `coordinate: null` and is NOT drawn on the map: an approximate pin on a village map is not a smaller truth than a missing one, it is a different and false claim about where something is.",
+    "state": "One coordinate exists in this repository. It is the village itself, and even that is a place-marker from a legacy map link rather than a survey. Every other place below — the Palace, the three health centres, the markets, the river, the schools, the projects — has no recorded position at all.",
+    "attribution": "Map tiles and base geography: © OpenStreetMap contributors, ODbL. Rendered with MapLibre GL JS. No Google Maps imagery is used, re-hosted or traced (R-010)."
+  },
+
+  "locations": [
+    {
+      "id": "guneku-village",
+      "name": "Guneku",
+      "type": "village",
+      "coordinate": { "lat": 6.083333, "lng": 9.916667 },
+      "precision": "place-marker",
+      "precisionNote": "A single point standing for the whole village, not its boundary and not its centre as surveyed. It is the coordinate carried in the legacy village record's own map link for Guneku, Cameroon.",
+      "source": "src/data/pages/about-template.json — legacy map place link",
+      "publicUrl": "/kingdom/about-guneku",
+      "description": "Guneku lies in Mbengwi Subdivision, Momo Division, in the North West Region of Cameroon, reachable by road from Mbengwi and from Bamenda. It shares boundaries with Mbemi, Nyen, Tugi, Zang-Tembeng, Oshie, Mundum and Bafut."
+    },
+
+    {
+      "id": "guneku-palace",
+      "name": "The Guneku Palace",
+      "type": "palace",
+      "coordinate": null,
+      "reason": "No source in this repository gives the Palace a coordinate.",
+      "publicUrl": "/palace",
+      "description": "The seat of HRH Fon Fomuki Walters Ticha IX and of the Guneku Traditional Council."
+    },
+    {
+      "id": "munam-health-centre",
+      "name": "Munam Integrated Health Centre",
+      "type": "health",
+      "coordinate": null,
+      "reason": "The record places it in the Munam quarter and describes its condition, but gives no coordinate.",
+      "publicUrl": "/institutions/guneku-health-estate",
+      "description": "A government structure offering general consultations. Operational, and took an additional GUDECA-funded nurse in 2020.",
+      "quarter": "Munam"
+    },
+    {
+      "id": "mbengeghang-health-centre",
+      "name": "Mbengeghang Integrated Health Centre",
+      "type": "health",
+      "coordinate": null,
+      "reason": "Quarter recorded, coordinate not.",
+      "publicUrl": "/institutions/guneku-health-estate",
+      "description": "Operates without electricity.",
+      "quarter": "Mbengeghang"
+    },
+    {
+      "id": "fringyeng-health-centre",
+      "name": "Fringyeng Integrated Health Centre",
+      "type": "health",
+      "coordinate": null,
+      "reason": "Quarter recorded, coordinate not.",
+      "publicUrl": "/institutions/guneku-health-estate",
+      "description": "Built, but not operating.",
+      "quarter": "Fringyeng"
+    },
+    {
+      "id": "open-door-medical-clinic",
+      "name": "Open Door Medical Clinic",
+      "type": "health",
+      "coordinate": null,
+      "reason": "The record names Njinebai as its location. Njinebai is not on the Fondom's 27-quarter list (R-028), and no coordinate is recorded.",
+      "publicUrl": "/institutions/open-door-medical-clinic",
+      "description": "A clinic recorded in the archive at Njinebai."
+    },
+    {
+      "id": "ngong-market",
+      "name": "The market at Ngong",
+      "type": "market",
+      "coordinate": null,
+      "reason": "The 2016 AGM proposals refer to \"the existing Ngong market\" but give no position.",
+      "publicUrl": "/quarters/ngong",
+      "description": "A market of its own in the Ngong quarter, distinct from Ngon — the name of the village market day.",
+      "quarter": "Ngong"
+    },
+    {
+      "id": "windig-market",
+      "name": "The proposed daily market at Windig",
+      "type": "market",
+      "coordinate": null,
+      "reason": "Proposed in the record; no position given, and the market itself is a proposal rather than a place that exists.",
+      "publicUrl": "/quarters/windig",
+      "description": "HRH Fon Fomuki proposed the creation of a daily market at Windig to ease the sale of farm produce.",
+      "quarter": "Windig"
+    },
+    {
+      "id": "river-batmuki",
+      "name": "The River Batmuki",
+      "type": "river",
+      "coordinate": null,
+      "reason": "A river is a line, not a point, and no course or trace is recorded. Drawing one from the description would be inventing geography.",
+      "publicUrl": "/kingdom/about-guneku",
+      "description": "Runs through the village from upper Guneku and joins the Mezam River. Youths of Guneku and neighbouring villages take sand from it."
+    },
+    {
+      "id": "ngong-stream",
+      "name": "The stream at Ngong",
+      "type": "river",
+      "coordinate": null,
+      "reason": "No position recorded.",
+      "publicUrl": "/updates/ngong-river-rescue-and-water-supply-2026",
+      "description": "The stream where a child was rescued in June 2026, and the water shortage behind that story.",
+      "quarter": "Ngong"
+    },
+    {
+      "id": "guneku-royal-community-library",
+      "name": "Guneku Royal Community Library",
+      "type": "institution",
+      "coordinate": null,
+      "reason": "No position recorded.",
+      "publicUrl": "/projects",
+      "description": "A community library recorded in the development register, with photographs in the archive."
+    },
+    {
+      "id": "guneku-agro-cig",
+      "name": "Guneku Agro CIG",
+      "type": "project",
+      "coordinate": null,
+      "reason": "The register places it at Ngong Quarter but gives no coordinate.",
+      "publicUrl": "/institutions/guneku-agro-cig",
+      "description": "Community-owned agricultural enterprise at Ngong Quarter.",
+      "quarter": "Ngong"
+    },
+    {
+      "id": "tonmukom-windik-road",
+      "name": "The Tonmukom–Windik road",
+      "type": "project",
+      "coordinate": null,
+      "reason": "A road is a line between two points, and neither endpoint has a recorded coordinate.",
+      "publicUrl": "/projects",
+      "description": "Road work through Guneku, photographed in the archive."
+    },
+    {
+      "id": "guyodeca-bridges",
+      "name": "The GUYODECA bridges",
+      "type": "project",
+      "coordinate": null,
+      "reason": "No position recorded for any of the bridges.",
+      "publicUrl": "/institutions/guyodeca",
+      "description": "Bridge construction recorded in the development register.",
+      "quarter": null
+    },
+    {
+      "id": "fun-electricity",
+      "name": "The FUN electricity project",
+      "type": "project",
+      "coordinate": null,
+      "reason": "Quarter recorded, coordinate not.",
+      "publicUrl": "/quarters/fun",
+      "description": "GUDECA Europe contributed toward the FUN electricity project in 2025.",
+      "quarter": "Fun"
+    }
+  ],
+
+  "omitted": [
+    {
+      "what": "The 27 quarters as map areas or pins",
+      "why": "No quarter has a recorded coordinate or boundary. Placing 27 pins by guesswork would draw a false map of the village, and drawing only the ten with records would misrepresent the other seventeen as absent rather than unrecorded. They are listed on /quarters instead."
+    },
+    {
+      "what": "Schools",
+      "why": "The record's own editor note flags the school count as unresolved — \"4 primary schools, one secondary school\" against \"two government secondary and seven government primary\" — and no individual school has a recorded position. Naming and placing them would compound an unresolved count with invented geography."
+    },
+    {
+      "what": "Churches",
+      "why": "The record says both \"as many churches as there are quarters\" and enumerates a survey of 19. Neither figure is settled and none is placed."
+    },
+    {
+      "what": "Caves, waterfalls, mountains, hills and springs",
+      "why": "The village record mentions these in general terms — \"caves, mountains and waterfalls, alongside hills and valleys, rivers and springs\" — but names not one of them, and /kingdom/touristic-sites is an empty stub in every source."
+    }
+  ]
+}

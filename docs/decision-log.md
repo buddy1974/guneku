@@ -526,3 +526,31 @@ applied. That is survivable *only* because every statement in these files is ide
 the runner's comment says so: a migration that is not idempotent must move to the pooled
 driver and a real transaction first. `db:status` changes nothing and exits cleanly when
 `DATABASE_URL` is absent.
+
+## ADR-029 - A licensing-safe map that draws only what the record can place
+
+**Context.** R-010: the legacy archive holds a Google Maps screenshot carrying the Google
+logo, which cannot be re-hosted. Phase 9 asked for an interactive map on a licensing-safe
+stack.
+
+**Decision.** `/explore` uses MapLibre GL JS (BSD-3-Clause) over OpenStreetMap raster tiles
+with the required ODbL attribution, and an inline style object rather than a hosted style -
+so the page needs **no API key and no third-party style endpoint**, and no new credential.
+The Google screenshot is neither ingested nor traced.
+
+**The harder decision was what to draw.** One coordinate exists in the repository (R-029), so
+the map carries one marker and the other fourteen places are listed with the reason each has
+no position. The alternative - placing pins near where things probably are - was rejected
+outright. A village map is read by the people who live in the village; a wrong pin is not an
+approximation to them, it is a mistake about their own home.
+
+**Loading, shaped by the audience.** Much of this readership is on a mid-range Android over a
+throttled connection, and MapLibre is most of a megabyte. So the list is server-rendered and
+complete without JavaScript, and the map is layered on top: dynamically imported so it stays
+out of the `/explore` bundle, loaded only when scrolled into view, and **not loaded at all**
+under `prefers-reduced-motion` - a panning, animating map is exactly what that preference is
+about. Verified: zero `maplibre` references in the HTML of `/`, `/projects`, `/quarters` **or
+`/explore`**; the library sits in separate chunks that load on scroll.
+
+A coordinate is also bounds-checked before it is drawn, so a transposed lat/lng or a stray
+zero cannot silently place Guneku in the Gulf of Guinea.
