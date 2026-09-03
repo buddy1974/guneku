@@ -12,7 +12,11 @@ export async function GET(req: NextRequest) {
       limit:   24,
     })
     return NextResponse.json({ profiles: result.profiles, total: result.total })
-  } catch (err: unknown) {
-    return NextResponse.json({ error: (err as Error).message }, { status: 500 })
+  } catch (err) {
+  /* Never return the caught message: this route talks to Neon, and a driver error can
+     carry connection or schema detail. Log the cause for us, tell the caller one fixed
+     thing. Closes R-020. */
+    console.error('Indigenes listing failed:', err)
+    return NextResponse.json({ error: 'Could not load the directory. Please try again.' }, { status: 500 })
   }
 }
