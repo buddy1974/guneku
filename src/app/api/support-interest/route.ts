@@ -1,28 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { rateLimited, senderKey, RATE_LIMIT_MESSAGE } from '@/lib/rate-limit'
 import { sendSupportInterest } from '@/lib/email/send'
 
 const SUPPORT_TYPES = [
   'Financial support', 'Materials', 'Professional expertise', 'Volunteer support', 'Partnership',
 ]
 
-const hits = new Map<string, number[]>()
-const WINDOW_MS = 10 * 60 * 1000
-const MAX_PER_WINDOW = 5
-
-function rateLimited(ip: string) {
-  const now = Date.now()
-  const recent = (hits.get(ip) || []).filter(t => now - t < WINDOW_MS)
-  recent.push(now)
-  hits.set(ip, recent)
-  if (hits.size > 5000) hits.clear()
-  return recent.length > MAX_PER_WINDOW
-}
 
 export async function POST(req: NextRequest) {
   try {
-    const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
-    if (rateLimited(ip)) {
-      return NextResponse.json({ error: 'Too many messages from this connection. Please try again later.' }, { status: 429 })
+    if (rateLimited('support-interest', senderKey(req))) {
+      return NextResponse.json({ error: RATE_LIMIT_MESSAGE }, { status: 429 })
     }
 
     const b = await req.json()

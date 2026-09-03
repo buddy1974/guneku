@@ -102,7 +102,7 @@ Residual exposure: a GDPR objection, or a community objection, from someone who 
 expect their name on a public web page. Recommended next step, not executed: the EU exco
 posts a short notice in the group naming the three and pointing at the removal link.
 
-## R-013 — Directory submissions have no rate limit
+## R-013 — Directory submissions have no rate limit — CLOSED 2026-09-03
 
 `POST /api/community/register` is unauthenticated by design — anyone may put a name
 forward. It validates input, resolves chapter and entry from our own data, and carries a
@@ -110,6 +110,19 @@ honeypot, but it has no rate limit and no CAPTCHA, so it can be used to flood th
 inbox. The same is already true of `/api/contact`, `/api/palace-message` and
 `/api/support-interest`; this route adds a fourth surface rather than a new class of risk.
 Recorded, not executed: one shared rate limiter across all four form routes.
+
+**Closed 2026-09-03 (ADR-022).** `src/lib/rate-limit.ts` now guards all four routes with
+two buckets: 5 per route per 10 minutes, and 12 per sender per 10 minutes across the four
+together, so rotating between forms no longer multiplies the budget. `/api/contact` and
+`/api/community/register` had no limit at all before this; they do now. Verified against a
+running production build: the sixth post to one route returns 429, the thirteenth post from
+one sender returns 429 on every route including unused ones, and an unrelated sender is
+unaffected.
+
+What remains true, and is the reason this is a mitigation rather than a solution: the
+counter is in memory and per-instance, so it resets on redeploy and a serverless fleet
+keeps one counter per instance. It blunts casual abuse. It would not stop a distributed
+flood, and no CAPTCHA was added.
 
 ## R-014 — The chapter count on /gudeca is not the register's count
 

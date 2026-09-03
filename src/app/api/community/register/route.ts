@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { rateLimited, senderKey, RATE_LIMIT_MESSAGE } from '@/lib/rate-limit'
 import { sendDirectorySubmission } from '@/lib/email/send'
 import { getChapter, getFoundingName, isIntent, placeLabel } from '@/lib/community'
 
@@ -13,6 +14,10 @@ const clean = (v: unknown, max: number) =>
 
 export async function POST(req: NextRequest) {
   try {
+    if (rateLimited('community-register', senderKey(req))) {
+      return NextResponse.json({ error: RATE_LIMIT_MESSAGE }, { status: 429 })
+    }
+
     const body = await req.json()
 
     /* Bots fill in every field they are given. A human never sees this one. */

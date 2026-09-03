@@ -268,3 +268,19 @@ EXCO pages return 200; asserted that the two deceased entries offer no claim or 
 and do show the memorial notice, and that living entries offer both.
 
 Not merged and not deployed — release approval is the Product Owner's (CLAUDE.md).
+
+## 2026-09-03 — Shared rate limiter across the four form routes (R-013)
+
+On `feat/village-square-archive-fallback`, after the four patch commits.
+
+- **New** `src/lib/rate-limit.ts` (ADR-022): 5 per route and 12 per sender per 10 minutes.
+- **Wired** into `/api/contact`, `/api/palace-message`, `/api/support-interest` and
+  `/api/community/register`. The first and last had no limit at all before this.
+- **Removed** the two duplicated in-route limiters.
+- R-013 closed, with its residual weakness recorded rather than papered over.
+
+Verified against a running production build: 6th post to one route → 429; 13th post from
+one sender → 429 on every route, including routes still under their own limit; an unrelated
+sender unaffected; the honeypot still answers with a success shape; the 429 body carries no
+internal detail. `npx tsc --noEmit` clean; `npm run build` clean at 188 static pages;
+eslint clean on every changed file.

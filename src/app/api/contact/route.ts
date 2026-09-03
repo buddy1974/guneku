@@ -1,8 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { rateLimited, senderKey, RATE_LIMIT_MESSAGE } from '@/lib/rate-limit'
 import { sendContactEmail } from '@/lib/email/send'
 
 export async function POST(req: NextRequest) {
   try {
+    if (rateLimited('contact', senderKey(req))) {
+      return NextResponse.json({ error: RATE_LIMIT_MESSAGE }, { status: 429 })
+    }
+
     const body = await req.json()
     const { name, email, subject, message } = body
 

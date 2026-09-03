@@ -399,3 +399,23 @@ merge is visible to the man himself the moment he sees the page.
 
 The reverse call was made for Amamuki Jonathan and Mbakwa Jonathan, who share a forename
 only: they stay two people, and each record says so.
+
+## ADR-022 — One rate limiter for every form route, with a cross-route ceiling
+
+**Context.** Four public forms — contact, the Palace message, the support offer and a
+directory submission — all deliver to the same Palace inbox. Two carried a copy-pasted
+in-memory limiter; `/api/contact` and `/api/community/register` carried none. Limiting each
+route independently misses the actual risk: a sender stopped on one form moves to the next.
+
+**Decision.** `src/lib/rate-limit.ts` is the single limiter, `server-only`, no dependency.
+Two buckets per sender: 5 in 10 minutes on any one route, and 12 in 10 minutes across all
+four together. The check runs before any other work, so a refused request costs nothing,
+and both buckets are recorded on every call — a request refused by its route still counts
+against the sender's overall budget.
+
+**Honestly stated.** The counter is in memory and per-instance: it resets on redeploy and a
+serverless fleet keeps one per instance. This blunts casual abuse; it does not defeat a
+distributed flood. That is the deliberate trade — a village website should not make an
+ordinary sender solve a CAPTCHA, and the map is bounded so the limiter cannot itself become
+the denial of service it exists to prevent. If the inbox is ever actually flooded, this is
+the component to replace, not to tune.
