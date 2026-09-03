@@ -35,11 +35,25 @@ const configured = clerkConfigured()
 
 export default configured
   ? clerkMiddleware(async (auth, req) => {
-      if (isProtected(req)) {
-        /* Sends a signed-out visitor to sign-in and brings them back afterwards. The pages
-           and handlers behind this still check for themselves. */
-        await auth.protect()
-      }
+      if (!isProtected(req)) return
+
+      const { userId } = await auth()
+      if (userId) return
+
+      /* `auth.protect()` was used here and was wrong for both kinds of protected route. For a
+         signed-out caller it performs a "protect-rewrite" to a 404 — so /api/me answered 404
+         with an HTML body instead of the JSON 401 its own handler produces, and /my-guneku
+         told a villager the page did not exist rather than inviting them to sign in.
+
+         An API route answers for itself. `requireUser()` in the handler returns
+         {"error":"Sign in to continue."} with a 401, which is the correct and useful answer,
+         and the middleware must not pre-empt it with an HTML page. */
+      if (req.nextUrl.pathname.startsWith('/api/')) return
+
+      /* A page sends the visitor to sign in and brings them back to where they were going. */
+      const signIn = new URL('/sign-in', req.url)
+      signIn.searchParams.set('redirect_url', req.nextUrl.pathname + req.nextUrl.search)
+      return NextResponse.redirect(signIn)
     })
   : () => NextResponse.next()
 
