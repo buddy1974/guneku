@@ -6,10 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:migrate": "tsx src/lib/db/migrate.ts",
+    "db:status": "tsx src/lib/db/migrate.ts status"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.87.0",
+    "@clerk/nextjs": "^7.9.0",
     "@hookform/resolvers": "^5.2.2",
     "@neondatabase/serverless": "^1.1.0",
     "@radix-ui/react-accordion": "^1.2.12",
@@ -76,6 +79,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.3.4",
     "tailwindcss": "^4",
+    "tsx": "^4.23.13",
     "typescript": "^5"
   }
 }

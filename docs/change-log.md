@@ -336,3 +336,40 @@ folded into the audit.
 Verified: `tsc` clean; build clean at **188 static pages**; 20 routes 200 plus the expected
 404; sitemap still 95 URLs; rate limiter still 429 on the sixth post; deceased-entry rule,
 archive-photo marking, the R-020 safe error and the BCC privacy sweep all unchanged.
+
+## 2026-09-03 — Phase 2: real Clerk authentication
+
+Closes R-022 (no Clerk integration), R-023 (`demo-user`) and R-027 (the open upload route).
+
+**Auth.** `@clerk/nextjs@7.9.0`, whose peer range `^16.1.0-0` covers Next 16.3.4 and
+`~19.2.3` covers React 19.2.4. `ClerkScope` mounts the provider in three subtrees only
+(ADR-026). `middleware.ts` replaces the empty stub with `clerkMiddleware` matching only
+`/my-guneku`, `/sign-in`, `/sign-up` and the personal API routes. `src/lib/auth.ts` provides
+`optionalUser`, `requireUser`, `requireRole`, `atLeast` and an `AuthError` that carries its
+own status, so a protected route never leaks why it failed (ADR-027).
+
+**Pages.** `/sign-in` and `/sign-up` replace the "coming soon" placeholders with Clerk's
+components in the institutional palette, both `noindex`, both saying plainly that reading
+Guneku needs no account. `/my-guneku` is the new dashboard — details, claims, following,
+contributions, account — `force-dynamic`, `noindex`, built from the existing `inst-*`
+vocabulary. It renders and explains itself when the database is unavailable rather than
+erroring.
+
+**Data.** `0001_my_guneku.sql` adds `community_members` and `follows`. **Not applied.**
+Migration runner and `db:migrate` / `db:status` scripts added (ADR-028), with `0000` holding
+the recovered original DDL. `tsx` added as a devDependency to run them.
+
+**Closed blockers.** `demo-user` appears nowhere in `src/` except as a comment recording
+what it was. `/api/indigenes/profile` and `/api/indigenes/upload` both require a session,
+scope writes to it, and are rate limited.
+
+Verified: `tsc` clean; `npm run build` clean at **189 static pages** (188 + `/my-guneku`);
+eslint clean on every new file; **19 of 20 public routes still 200 with no Clerk keys present
+at all**, and zero occurrences of "clerk" in the HTML of `/`, `/projects` or `/indigenes`;
+zero secret-shaped values in client bundles (`sk_live`, `sk_test`, `sk-ant-`, Resend keys,
+Postgres URLs all absent — only Clerk's own `process.env.CLERK_SECRET_KEY` reference by
+name); no handler reads a user id from input; `/api/me` discards `role` from the body.
+
+**Not verified, and cannot be here:** that a signed-in member can save their details, that a
+member cannot reach an admin area, and that one user cannot update another's row. All three
+need a session. See R-024 and the owner action below.

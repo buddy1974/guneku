@@ -463,3 +463,66 @@ version the owner named. A caret range would let a future `npm install` drift th
 silently, which is precisely what a controlled upgrade phase exists to prevent. That
 `16.3.4` exists is reported rather than taken unilaterally: moving further is the owner's
 call, not a detail to slip into an upgrade he specified to the patch.
+
+## ADR-026 — ClerkProvider is scoped to three subtrees, not mounted at the root
+
+**Context.** Clerk's documented setup wraps the root layout. Guneku's root layout renders 188
+public pages that are a village record anyone may read without an account.
+
+**Decision.** The provider lives in `src/components/auth/ClerkScope.tsx` and is mounted only
+by `/my-guneku`, `/sign-in` and `/sign-up`. `middleware.ts` matches only those paths plus the
+personal API routes, so no other request enters Clerk at all.
+
+**Why it matters more than tidiness.** Two things follow that a root provider would not give:
+
+1. **Public reading stays account-free by construction.** It is not a setting someone can
+   change without noticing; the public tree has no provider to read a session from.
+2. **No Clerk JavaScript reaches a public page.** Verified: `/`, `/projects` and
+   `/indigenes` contain zero occurrences of "clerk" in their HTML. Most of this audience
+   reads on a mid-range Android over a throttled connection, and they should not download an
+   authentication runtime to look at photographs of their village.
+
+Proved by the failure mode too: with no Clerk keys present at all, 19 of 20 public routes
+still return 200 and only the protected routes fail. The blast radius of an auth
+misconfiguration is three subtrees, not the whole site.
+
+**Cost, stated.** Clerk's `<SignedIn>` / `<SignedOut>` components do not work outside those
+subtrees, so public navigation links to `/sign-in` as a plain link. That is the better
+behaviour anyway — the public header should not change shape depending on who is reading.
+
+## ADR-027 — What Clerk owns, and what it must never own
+
+**Decision, following the owner's instruction.** Clerk owns identity, session, and one
+platform role from `member | contributor | reviewer | palace-admin`, defaulting to `member`
+and read from Clerk *public* metadata. Private metadata is never read, so it cannot be
+leaked into a payload by accident.
+
+Clerk owns **nothing** about the village. Not a quarter, not a GUDECA chapter, not a body or
+office, not a Palace family relationship, not a historical identity, and not the state of a
+profile claim. Those are Guneku facts: they live in the reviewed JSON records and in Neon,
+where they can be sourced, disputed and corrected. A role is permission to use the software.
+It is never a statement about who someone is in Guneku.
+
+Enforced in three places rather than trusted: `requireUser()` takes the id from the session
+and no handler reads one from input (verified: zero occurrences of `body.userId` or
+equivalent across `src/app/api`); `/api/me` writes through a field allow-list that silently
+discards `role` and `clerk_user_id`; and a member's self-declared `quarter` is constrained to
+the 27 canonical quarters, so a form cannot invent a place in Guneku.
+
+## ADR-028 — Versioned migrations, and the honest limit of the runner
+
+**Context.** R-025: the one existing table was created by an unversioned
+`CREATE TABLE IF NOT EXISTS` script with no record of what any environment had applied.
+
+**Decision.** `src/lib/db/migrations/` holds numbered SQL files, `schema_migrations` records
+what has been applied, and `npm run db:migrate` / `npm run db:status` drive it. The original
+DDL was recovered from commit `61d5e00` and preserved as `0000_indigene_profiles.sql` so the
+history of the live table is not lost. `0001_my_guneku.sql` adds `community_members` and
+`follows`. **Neither has been applied anywhere.**
+
+**The limit, stated rather than glossed.** Neon's HTTP driver sends one statement per request
+and cannot wrap a file in a transaction, so a failed migration can leave earlier statements
+applied. That is survivable *only* because every statement in these files is idempotent, and
+the runner's comment says so: a migration that is not idempotent must move to the pooled
+driver and a real transaction first. `db:status` changes nothing and exits cleanly when
+`DATABASE_URL` is absent.

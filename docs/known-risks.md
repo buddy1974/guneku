@@ -277,3 +277,20 @@ Recommendation: delete the route and `AIAssistant.tsx` rather than carry them. P
 layer 2 should be built fresh on `palace-knowledge.ts` with a filtered retrieval step, and
 reuse nothing here but the SDK. Deleting a live route is a small architecture change, so it
 is recorded for the owner rather than done inside an audit.
+
+## R-027 — Two public write endpoints were open, and one was worse than recorded
+
+R-023 recorded `/api/indigenes/profile` as an unauthenticated write keyed to `demo-user`. A
+second route had the same defect and more exposure: `/api/indigenes/upload` accepted a file
+from **anyone**, with no session, no rate limit and no format allow-list, and wrote it to
+Vercel Blob under `indigenes/demo-user/`. Storage cost was the smaller problem; serving a
+stranger's uploaded content from the Fondom's own hosting was the larger one.
+
+Both are closed as of Phase 2. Both now require a Clerk session, scope their write to that
+session's own user id, and are rate limited. The upload additionally derives the file
+extension from the sniffed content type rather than the client-supplied filename, and rejects
+SVG, which can carry script and would have been served from our origin.
+
+Recorded rather than folded silently into R-023 because the exposure was materially
+different, and because it is a reminder that "one route has this defect" should always be
+read as "grep for the pattern".
