@@ -589,3 +589,29 @@ directory is not open yet is the accurate statement.
 **Owner action:** run `npm run db:migrate` against the production database. It applies `0000`
 and `0001`, both additive and idempotent, and creates `indigene_profiles`, `community_members`,
 `follows` and `schema_migrations`. It needs a readable `DATABASE_URL`, which is R-031.
+
+## R-038 - Two production tasks are blocked on one owner action each
+
+Both are credential states, not defects, and neither has a workaround I am willing to build.
+
+**The database schema.** `DATABASE_URL` is valid and connects; the database is simply empty.
+`/api/indigenes/all` returns a controlled 503 and `/indigenes` renders its founding names, so
+nothing is broken for a visitor - the live directory is just not open. The migrations are
+written, reviewed, additive and idempotent, and the endpoint that applies them is deployed and
+inert.
+
+*Smallest action:* set `MIGRATE_TOKEN` in Vercel to any random string, redeploy, and either
+call the endpoint or pass the token along so it can be called. Unset it afterwards.
+*Alternative:* un-mark `DATABASE_URL` as Sensitive, or place it in `.env.local`, and
+`npm run db:migrate` runs from a developer machine instead.
+
+**Clerk.** `CLERK_SECRET_KEY` is absent from the production runtime. This was established from
+the environment rather than inferred: with the guard checking only the publishable key,
+production still failed with `Missing secretKey`, which can only happen if the publishable
+check passed. The publishable key has a value; the secret does not.
+
+*Smallest action:* set `CLERK_SECRET_KEY` on the **existing** Clerk application and redeploy.
+No second application, and the publishable key is working and must not be rotated.
+
+Until then `/sign-in`, `/sign-up` and `/my-guneku` render the member-area notice, the protected
+API routes answer 401, and the public site is unaffected.

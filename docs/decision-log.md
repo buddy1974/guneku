@@ -834,3 +834,49 @@ page, the Afor Foundation record, the navigation and the Njinigom quarter page, 
 
 Sons and daughters remains a real and valuable idea. It is simply not a synonym for Notable,
 and the two are now separate pages that link to each other and explain the difference.
+
+## ADR-042 - The migration runs where the credential is, not the other way round
+
+**Context.** Production's `DATABASE_URL` is marked Sensitive in Vercel, so `vercel env pull`
+returns an empty string for it in every environment. The production runtime holds the real
+value and uses it successfully - proven when Postgres answered `42P01` rather than a
+connection error. So the schema could be created, but not from a developer machine.
+
+**Rejected: reading the secret anyway.** The Sensitive flag is a deliberate control over a
+value that is a password. Building something to extract it - a debug route that echoes the
+environment, a build step that writes it to a file - would have defeated a security decision
+in order to save the owner one click, and would have left that capability in the repository
+afterwards.
+
+**Decision.** `POST /api/admin/migrate` applies the pending versioned migrations inside the
+production runtime, which already has the credential. The credential never moves.
+
+**What keeps it from being a backdoor:**
+
+- **Inert by default.** With `MIGRATE_TOKEN` unset - how it ships - every request returns 404,
+  indistinguishable from a route that does not exist. Not 403: a 403 would confirm it is there.
+- **Disabled by unsetting the variable**, with no deploy and no code change. The lifecycle is
+  set it, migrate, unset it.
+- **It can only apply the files in this repository.** Twelve statements, every one
+  `CREATE ... IF NOT EXISTS`, no `DROP`, `TRUNCATE`, `DELETE` or `UPDATE` anywhere, recorded in
+  `schema_migrations` so a second run applies nothing. It accepts no SQL from the caller and
+  has no parameter that could carry any.
+- Constant-time token comparison, rate limited, and it never returns or logs the connection
+  string, its host, or the token.
+
+**It should be removed once the schema is settled.** A one-time job does not need a permanent
+endpoint, and unsetting the variable is the interim guarantee rather than the final one.
+
+## ADR-043 - A register count is not a population figure
+
+The owner's instruction on `/diaspora`: do not present 17 as the size of the Guneku diaspora.
+
+The page now says how many people are **recorded here so far**, and states plainly that this
+is a record of who has been written down rather than a count of the community, which is very
+much larger.
+
+Worth recording as a principle and not just a wording fix, because the same trap recurs
+across this site: the church count, the school count, the chapter count, the quarter list.
+A number that describes the archive will be read as a number that describes Guneku unless the
+sentence around it does the work. Publishing "17 people abroad" would have asserted something
+about the village that nobody has established, from a figure that only describes a register.
