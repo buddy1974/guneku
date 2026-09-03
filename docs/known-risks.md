@@ -232,3 +232,48 @@ Live impact today is small — the row is a demo record and `/indigenes` reads t
 through a different route — but it is a public write endpoint against Neon. It should be
 closed by the identity work in Phase 2 rather than patched in isolation, since the correct
 fix is the real session the route was always waiting for.
+
+## R-024 — No credential in the stack has been validated
+
+`vercel env pull` returns every secret as an empty string in this project, and `.env.local`
+holds no Clerk keys and an empty `DATABASE_URL`. So the Clerk, Neon, Resend and YouTube keys
+are established as *present* in Vercel and nothing more. None was exercised.
+
+The consequence is not cosmetic. Phases 2 to 5, 11, 13 and 14 all need a working database
+and a working identity provider to be *tested*, not merely written. Code can be written
+blind; "unauthenticated request is denied", "a member cannot reach the admin area" and "one
+user cannot update another user's row" cannot be demonstrated without a session to hold.
+
+Owner action: place development Clerk keys and a working `DATABASE_URL` in `.env.local`, or
+make the branch preview reachable so the deployed environment can be exercised instead.
+
+## R-025 — There is no migration path for a programme that adds a dozen tables
+
+The single existing table was created by running `src/lib/db/migrate.ts`, a script of
+`CREATE TABLE IF NOT EXISTS` with no version tracking. There is no `drizzle.config.*`, no
+migrations directory, no applied-migration table, and no npm script that runs anything.
+`drizzle-kit` is installed and unwired.
+
+Claims, submissions, subscriptions, follows, correspondence and locations are all coming.
+Adding them through an unversioned script means no ordering, no rollback and no way to know
+what a given environment has already had applied — and Preview may or may not share the
+Production branch (R-021 territory, unresolved). A migration path is a prerequisite for
+Phase 3, not a tidy-up afterwards.
+
+## R-026 — The dormant chat route is instructed to speak as the Fondom, from memory
+
+`src/app/api/chat/route.ts` is live as a route and reachable, though the only component that
+calls it is not rendered anywhere. Its system prompt is `site-config.json` →
+`aiPersonality`, which opens *"You are the voice of Guneku Fondom"* and continues *"You only
+answer based on what you know about Guneku"*. Both are direct contradictions of the
+programme's AI rules: it speaks for the Palace, and it answers from model memory.
+
+Its corpus is also unfiltered. `getAllKingdomArticles()`, `getAllPalaceArticles()` and
+`getAllUpdates()` do not filter by published state — the last merely sorts null
+`publishedAt` records to the end and returns them. One unpublished record exists today and
+would enter the prompt. There is no rate limit, no input cap and no timeout.
+
+Recommendation: delete the route and `AIAssistant.tsx` rather than carry them. Phase 8's
+layer 2 should be built fresh on `palace-knowledge.ts` with a filtered retrieval step, and
+reuse nothing here but the SDK. Deleting a live route is a small architecture change, so it
+is recorded for the owner rather than done inside an audit.
