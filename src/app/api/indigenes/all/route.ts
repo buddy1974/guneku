@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { listProfiles } from '@/lib/db/queries'
+import { dbErrorResponse } from '@/lib/db/responses'
 
 export async function GET(req: NextRequest) {
   try {
@@ -13,10 +14,9 @@ export async function GET(req: NextRequest) {
     })
     return NextResponse.json({ profiles: result.profiles, total: result.total })
   } catch (err) {
-  /* Never return the caught message: this route talks to Neon, and a driver error can
-     carry connection or schema detail. Log the cause for us, tell the caller one fixed
-     thing. Closes R-020. */
-    console.error('Indigenes listing failed:', err)
-    return NextResponse.json({ error: 'Could not load the directory. Please try again.' }, { status: 500 })
+    /* Never return the caught message: this route talks to Neon, and a driver error can
+       carry connection or schema detail (R-020). An unconfigured database answers 503
+       rather than 500 — nothing is broken and retrying will not help. */
+    return dbErrorResponse('Indigenes listing failed', err)
   }
 }

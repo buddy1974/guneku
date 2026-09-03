@@ -477,3 +477,85 @@ the three pages and `optionalUser()` — so an unconfigured Clerk produces an ho
 
 **Still open:** members cannot sign in until real Clerk keys are set. That is one owner action
 in the Vercel dashboard, not a code change.
+
+## R-033 - Every database call has thrown since the Neon migration - FIXED 2026-09-03
+
+`GET /api/indigenes/all` returned 500 in production with `TypeError: t.sql is not a function`,
+before any outgoing request. The cause was in `src/lib/db/client.ts` and predates this
+programme entirely - commit `5a4ecf3`, the Supabase-to-Neon swap.
+
+The lazy client was `new Proxy({}, { apply, get })`. A Proxy's `apply` trap only fires when
+the **target is callable**, and `{}` is not. So `typeof sql` was `"object"`, every tagged
+template threw at the call site, and the trap meant to handle it never ran once. Reproduced
+directly rather than reasoned about:
+
+    new Proxy({},           {apply}) -> typeof "object",   calling throws TypeError
+    new Proxy(function(){}, {apply}) -> typeof "function", the trap runs
+
+What made it survive unnoticed is that **property access worked**: `get` traps fine on a plain
+object, so `sql.query(...)` would have been fine. Only the tagged-template form was broken -
+which is the form every query in this repository actually uses. The indigenes directory has
+therefore never loaded in production, and no amount of database configuration would have
+fixed it.
+
+**Fixed** by giving the Proxy a callable target. Not by optional chaining, and not by catching
+and returning an empty list: either would have hidden a permanently broken data layer behind a
+plausible empty state.
+
+## R-034 - Database configuration is classified, not truth-tested
+
+The old client did `if (!process.env.DATABASE_URL) throw`, collapsing *unset*, *empty* and
+*malformed* into one condition and one message. Those are three different operational problems
+and the logs could not tell them apart.
+
+`databaseConfigState()` now distinguishes `missing`, `empty`, `malformed` and valid - where
+malformed covers a non-URL, a non-Postgres protocol, and a URL with no host. A configuration
+failure raises `DbConfigError`, which `dbErrorResponse()` turns into **503 "This part of
+Guneku is not available yet"** rather than a 500: nothing is broken, and retrying will not
+help until a variable is set.
+
+Nothing logs the connection string, its host, or any part of it. A database URL carries a
+password, and a log line saying "the host is X" is one screenshot from being a credential
+leak. The diagnostic names the *kind* of problem and nothing else - verified as
+`Database unavailable: DATABASE_URL is empty.`
+
+## R-035 - Clerk state resolved: the publishable key is present, the secret is not
+
+Whether the member area is closed by intent or by missing credential is settled from source
+and history, not inferred.
+
+There is **no launch flag**. `clerkConfigured()` reads exactly two variables -
+`NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` and `CLERK_SECRET_KEY` - and requires both to be non-empty
+after trimming. Nothing else can close the member area.
+
+The decisive evidence is the failure sequence of 2026-09-03. Commit `94abd2a` gated Clerk on
+the **publishable key alone**, and production still returned 500 with `Missing secretKey`.
+That can only happen if the publishable check passed. So: **the publishable key carries a
+value; the secret key is absent or empty at runtime.** Commit `3d671a2` then required both,
+and the routes recovered.
+
+The graceful copy a reader now sees is a fallback authored during that incident, not a
+pre-launch product state. The member area is closed because the secret is missing, and it will
+open when the secret is set - no code change required.
+
+**One misclassification path worth knowing:** `NEXT_PUBLIC_*` is inlined at build time while
+`CLERK_SECRET_KEY` is read at runtime. A deployment built before the publishable key existed
+would bake in `undefined` and keep reporting unconfigured even after the variable is set. If
+the keys are set and the member area stays closed, redeploy before investigating anything else.
+
+## R-036 - /indigenes/onboarding is statically rendered, and that is safe
+
+Assessed rather than assumed. `/indigenes/profile` is a static placeholder with no data and no
+fetches. `/indigenes/onboarding` is a client form that embeds **no** server data at build - its
+country and quarter lists are public constants - and every mutation it makes goes to
+`/api/indigenes/profile` or `/api/indigenes/upload`, both of which call `requireUser()` and
+scope every write to the session's own id.
+
+So: no personal data in generated HTML, no unauthenticated mutation, no cross-user access, and
+no reliance on hidden UI. Static rendering is **not** forced to dynamic, because doing so would
+change nothing about the security and would cost a cached page.
+
+**A usability note, not a defect:** a signed-out visitor can open the onboarding form and only
+discovers on submit that they are not signed in. Adding the route to the middleware matcher
+would redirect them - to a sign-in page that is itself closed. Left as is; worth revisiting
+when Clerk is configured.
