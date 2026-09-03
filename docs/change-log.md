@@ -525,3 +525,33 @@ no unsupported 17 January 2016 chronology; no claim action on a deceased entry; 
 `demo-user` in code (two remaining mentions are comments recording the fix); no raw provider
 error returned by any API route; no iframe before interaction; zero Clerk JavaScript on public
 pages.
+
+## 2026-09-03 — Production live, and the two-step recovery it needed
+
+`main` fast-forwarded from `bf11ca5` to the release and deployed. Production verified at
+**https://www.guneku.org**: 27 routes 200, all 27 quarter pages, 46 of 46 films, 270 search
+entries, 108 sitemap URLs, `/gallery/videos` 308 to `/watch`, 404s correct, canonicals correct,
+and every privacy check at zero.
+
+**It did not go cleanly, and the sequence is worth keeping.** The first deployment returned 500
+on `/sign-in`, `/sign-up` and `/my-guneku` — the risk recorded as R-032 before release. Every
+public route was unaffected, exactly as predicted.
+
+The fix was made forward rather than by rollback: withdrawing Guneku TV, search, the map, the
+quarter pages and four security remediations to repair three routes — two of which had been
+placeholder pages the day before — would have been the wrong trade.
+
+**The first fix was wrong.** It gated Clerk on the publishable key alone, and production still
+returned 500. The case I had not considered: in this project the publishable key carries a
+value while `CLERK_SECRET_KEY` is empty, so a publishable-only check reported "configured",
+mounted Clerk in the middleware, and threw on the secret a moment later. The second fix
+requires both keys and removes the half-check helper rather than leaving it to be reached for
+again.
+
+**And the error corrected a diagnosis of mine.** I had recorded the Vercel secrets as "marked
+Sensitive, therefore write-only to the CLI". The runtime said *missing*, not *invalid*, and the
+same pull that returned an empty string for every secret returned `VERCEL_OIDC_TOKEN` at full
+length — which a redacting pull would also have redacted. The variables exist by name with no
+value. Nothing was withheld from me; there is nothing there. That very likely applies to
+`DATABASE_URL`, `RESEND_API_KEY`, `ANTHROPIC_API_KEY` and `YOUTUBE_API_KEY` as well, which
+would mean the contact and support forms in production have never been able to send.
