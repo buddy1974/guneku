@@ -1,6 +1,6 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
-import { clerkPublishableKeyPresent } from '@/lib/clerk-config'
+import { clerkConfigured } from '@/lib/clerk-config'
 
 /* Guneku is a public village record first. Reading it must never require an account, and
  * that is enforced here by construction rather than by configuration: the matcher below
@@ -23,11 +23,15 @@ const isProtected = createRouteMatcher([
   '/api/indigenes/profile(.*)',
 ])
 
-/* When Clerk is not configured, the middleware must not mount it. `clerkMiddleware` throws
-   on any matched request without a key, which is how /sign-in, /sign-up and /my-guneku
-   returned 500 in production on 2026-09-03 while every public page was fine. An unconfigured
-   dependency degrades to an honest page; it does not take routes down. */
-const configured = clerkPublishableKeyPresent()
+/* When Clerk is not configured, the middleware must not mount it. `clerkMiddleware` throws on
+   any matched request without a key, which is how /sign-in, /sign-up and /my-guneku returned
+   500 in production on 2026-09-03 while every public page was fine.
+
+   BOTH keys are required, and checking only the publishable one was the second mistake in the
+   same hour: in this project the publishable key carries a value and the secret key is empty,
+   so a publishable-only check said "configured", mounted Clerk, and threw on the secret. The
+   pair is the condition, not either half of it. */
+const configured = clerkConfigured()
 
 export default configured
   ? clerkMiddleware(async (auth, req) => {

@@ -24,8 +24,8 @@ export function clerkConfigured(): boolean {
   return Boolean(pk && sk)
 }
 
-/** The publishable key alone. Used by the middleware, which needs to know whether to run at
- *  all before any request reaches a page. */
-export function clerkPublishableKeyPresent(): boolean {
-  return Boolean(process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY?.trim())
-}
+/* There is deliberately no "publishable key only" helper. An earlier version of this file had
+   one, the middleware used it, and it failed in exactly the way that matters: this project's
+   publishable key carries a value while the secret key is empty, so the check said
+   "configured", Clerk mounted, and threw on the secret it needed a moment later. Clerk needs
+   both keys, so `clerkConfigured()` is the only question worth asking. */
