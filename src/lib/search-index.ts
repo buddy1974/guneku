@@ -1,9 +1,10 @@
 import 'server-only'
 
+import { getAllNotables, getImageGallery } from '@/lib/content'
 import {
-  getAllUpdates, getAllPalaceArticles, getAllKingdomArticles,
-  getAllNotables, getAllInstitutions, getImageGallery,
-} from '@/lib/content'
+  publicUpdates, publicPalaceArticles, publicKingdomArticles,
+  publicInstitutions, institutionHref,
+} from '@/lib/visibility'
 import { allQuarters } from '@/lib/quarter-pages'
 import { allLocations } from '@/lib/explore'
 import { allBodies, membersOf, allFoundingNames } from '@/lib/community'
@@ -18,15 +19,14 @@ import villageFacts from '@/data/home/village-facts.json'
  * loader and filtered before it is added, because search is the one surface that can surface
  * anything — a held record that no page links is still exposed the moment a search finds it.
  *
- * What is deliberately excluded, and why:
- *   - `publicVisibility: 'hold'`  — the Business Directory, held pending separate approval
- *   - `noindex: true`             — the six empty Kingdom stubs
- *   - a missing `publishedAt`     — unpublished records; the content loaders do not filter
- *                                   these themselves, which is the defect R-026 was about
- *   - `src/data/pages/gudeca-exco.json` — Joomla sample data, four fictitious names (R-011)
- *   - `src/data/about/`           — nine dead duplicate files (R-012)
- *   - `articles-index.json`       — a legacy index that would duplicate every update
- *   - officers' personal mobile numbers, and anything the content pass withheld
+ * The exclusions themselves live in `src/lib/visibility.ts`, which every public surface now
+ * asks rather than restating: held institutions, noindex stubs, unpublished dated records,
+ * and the dead data behind R-011 and R-012. Films come through `approvedFilms()`, which
+ * carries its own lifecycle. Reading a raw loader here again would reintroduce exactly the
+ * bug that was found in the film block — search kept showing what the hub had dropped.
+ *
+ * Still enforced locally, because it is about fields rather than records: officers' personal
+ * mobile numbers and anything the content pass withheld never enter an entry.
  *
  * Neither loader nor page ever reads a phone number, an email or a private note into an
  * entry: the searchable text of every entry is assembled field by field below, so a field
@@ -140,8 +140,7 @@ function build(): SearchEntry[] {
   }
 
   /* ── Palace & history ── */
-  for (const a of getAllPalaceArticles()) {
-    if (!a.publishedAt) continue
+  for (const a of publicPalaceArticles()) {
     push({
       id: `palace:${a.slug}`,
       title: a.title,
@@ -152,10 +151,7 @@ function build(): SearchEntry[] {
       weight: 3,
     })
   }
-  for (const a of getAllKingdomArticles()) {
-    /* The six empty stubs carry noindex and stay out: a search result that leads to an
-       empty page is worse than no result. */
-    if ((a as unknown as { noindex?: boolean }).noindex) continue
+  for (const a of publicKingdomArticles()) {
     push({
       id: `kingdom:${a.slug}`,
       title: a.title,
@@ -182,17 +178,11 @@ function build(): SearchEntry[] {
   }
 
   /* ── Institutions ── */
-  for (const i of getAllInstitutions()) {
-    /* `hold` is the Business Directory, held pending separate approval. It is the only
-       institution excluded. */
-    if (i.publicVisibility === 'hold') continue
-
-    /* Nine records carry a `route` because their content lives on another page — the Afor
-       Foundation on /education, GUYODECA on /gudeca/guyodeca, and so on. They were briefly
-       excluded here, which meant searching "Afor Foundation" found nothing at all. They are
-       real institutions people search by name, so they are indexed and pointed at the page
-       that actually holds them. */
-    const href = typeof i.route === 'string' ? i.route : `/institutions/${i.id}`
+  for (const i of publicInstitutions()) {
+    /* Routed institutions are included and pointed at the page that holds them — the Afor
+       Foundation on /education, GUYODECA on /gudeca/guyodeca. Excluding them once meant
+       searching "Afor Foundation" found nothing at all. */
+    const href = institutionHref(i)
 
     push({
       id: `institution:${i.id}`,
@@ -206,17 +196,14 @@ function build(): SearchEntry[] {
   }
 
   /* ── News & records ── */
-  for (const u of getAllUpdates()) {
-    /* An update with no publishedAt is not published. The loader does not filter these,
-       so the filter lives here. */
-    if (!u.publishedAt) continue
+  for (const u of publicUpdates()) {
     push({
       id: `update:${u.slug}`,
       title: u.title,
       group: 'News & records',
       href: `/updates/${u.slug}`,
       excerpt: clip(u.excerpt || strip(u.body)),
-      keywords: ['news', 'update', 'record', new Date(u.publishedAt).getFullYear().toString()],
+      keywords: ['news', 'update', 'record', new Date(u.publishedAt as string).getFullYear().toString()],
       weight: 2,
     })
   }

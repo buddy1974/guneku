@@ -474,3 +474,24 @@ bundle, 25 public routes 200 with no Clerk keys and zero Clerk JavaScript.
 **Runtime verification pending:** `fetchChannelUploads` has never run against the live API.
 `YOUTUBE_API_KEY` is set in Vercel but not readable here (R-024), so the request itself is
 untested - only the classification it feeds.
+
+## 2026-09-03 - Shared visibility predicate
+
+- **New** `src/lib/visibility.ts`: `isPublished`, `isIndexable`, `isHeldInstitution`,
+  `isRoutedInstitution`, `institutionHref`, `publicUpdates`, `publicPalaceArticles`,
+  `publicKingdomArticles`, `publicInstitutions`, `sitemapInstitutions`, `visibilityReport`.
+- **Migrated** `src/lib/search-index.ts` and `src/app/sitemap.ts` to it. Neither now restates
+  an exclusion; both ask.
+- **Closed two latent divergences**: the sitemap had no published check on updates or Palace
+  articles, and routed-institution handling was decided separately in each surface.
+
+Proved to change nothing visible. Sitemap byte-identical at **108 URLs, zero added, zero
+removed**. Search index unchanged at **270 entries** across all nine groups. Sweeps after the
+change: the held Business Directory 404s and is absent from sitemap and search; none of the
+six noindex Kingdom stubs appears in the sitemap or in search for any of six probe queries -
+the two hits for "history" are `/kingdom/about-guneku` and `/kingdom/exhibitions`, which are
+the genuinely public articles; the private film id has 0 occurrences anywhere; no secret value
+in any client bundle; eight public routes 200 with no Clerk keys.
+
+Current state by the predicate's own report: 17 institutions - 1 held, 9 routed, 7 with a page
+of their own; 8 Kingdom articles - 6 noindex stubs, 2 public; 39 updates, all dated.

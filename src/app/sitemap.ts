@@ -1,9 +1,9 @@
 import type { MetadataRoute } from 'next'
 import { recordedQuarters } from '@/lib/quarter-pages'
+import { getAllNotables, getImageGallery } from '@/lib/content'
 import {
-  getAllUpdates, getAllPalaceArticles, getAllKingdomArticles,
-  getAllNotables, getAllInstitutions, getImageGallery,
-} from '@/lib/content'
+  publicUpdates, publicPalaceArticles, publicKingdomArticles, sitemapInstitutions,
+} from '@/lib/visibility'
 import { SITE_URL } from '@/lib/seo'
 
 type Entry = MetadataRoute.Sitemap[number]
@@ -16,9 +16,15 @@ const at = (path: string, opts: Partial<Entry> = {}): Entry => ({
   ...opts,
 })
 
-/* Held, private and transactional routes are deliberately absent:
-   /sign-in, /sign-up, /indigenes/profile, /indigenes/onboarding, and any
-   institution record carrying `route` (covered elsewhere) or `publicVisibility: hold`. */
+/* What may appear here is decided by `src/lib/visibility.ts`, the same predicate the search
+   index uses, rather than by filters written out again in this file. The sitemap previously
+   read the raw loaders for updates and Palace articles with no published check — harmless
+   today, because every update carries a date, but it is precisely the latent divergence the
+   shared predicate exists to remove.
+
+   Held, private and transactional routes remain absent: /sign-in, /sign-up, /my-guneku,
+   /indigenes/profile, /indigenes/onboarding, the held Business Directory, the empty Kingdom
+   stubs, and any institution whose content lives on another page. */
 export default function sitemap(): MetadataRoute.Sitemap {
   const statics: Entry[] = [
     at('/', { priority: 1.0, changeFrequency: 'weekly' }),
@@ -47,26 +53,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     at('/contact'),
   ]
 
-  const updates = getAllUpdates().map(u =>
+  const updates = publicUpdates().map(u =>
     at(`/updates/${u.slug}`, {
       lastModified: u.publishedAt ? new Date(u.publishedAt) : new Date(),
       changeFrequency: 'yearly',
       priority: 0.7,
     }))
 
-  const palace = getAllPalaceArticles().map(a =>
+  const palace = publicPalaceArticles().map(a =>
     at(`/palace/${a.slug}`, { changeFrequency: 'yearly', priority: 0.7 }))
 
   /* Unsupported stubs are excluded until they carry content. */
-  const kingdom = getAllKingdomArticles()
-    .filter(a => !(a as unknown as { noindex?: boolean }).noindex)
+  const kingdom = publicKingdomArticles()
     .map(a => at(`/kingdom/${a.slug}`, { changeFrequency: 'yearly', priority: 0.7 }))
 
   const notables = getAllNotables().map(n =>
     at(`/notables/${n.slug}`, { changeFrequency: 'yearly' }))
 
-  const institutions = getAllInstitutions()
-    .filter(i => typeof i.route !== 'string' && i.publicVisibility !== 'hold')
+  /* Only institutions that own a page. The routed ones are searchable and link to where
+     their content actually lives, but must not be given a URL of their own here. */
+  const institutions = sitemapInstitutions()
     .map(i => at(`/institutions/${i.id}`, { changeFrequency: 'yearly', priority: 0.7 }))
 
   /* Only quarters the archive actually says something about. A page reading "nothing

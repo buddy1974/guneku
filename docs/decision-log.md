@@ -671,3 +671,38 @@ verified still serving, including an album page.
 known: name, abstract, thumbnail, embedUrl, publisher. **No `uploadDate`, no `duration`, no
 `description`** - YouTube knows those and this record does not, and filling them to satisfy a
 schema validator would be inventing facts about Guneku.
+
+## ADR-035 - One visibility predicate, asked rather than remembered
+
+**Context.** The architecture record named this as the single most useful hardening left: the
+exclusion list - held institutions, noindex stubs, unpublished dated records, the R-011 sample
+names, the R-012 dead directory - had been written out by hand in every surface that needed
+it, and re-applied from memory at each new phase. Phase 6 then found the predictable result:
+the search index read `dbVideos` directly, so a film held in the override file would have
+vanished from the watch hub and stayed searchable.
+
+**Decision.** `src/lib/visibility.ts` holds the rules. The search index and the sitemap ask it
+instead of restating them, and a new public surface inherits every exclusion by calling one
+function rather than recalling seven.
+
+**Conservative, but deliberately not blunt.** "Uncertain means not public" is the rule, and an
+early draft applied it by requiring `publishedAt` on everything under `palace/`. That would
+have dropped the reigning Fon's own profile page from the sitemap - it carries no publication
+date because it is not a dated article. So the predicate is type-aware: a dated article must
+be dated; a profile, a register or an institution is judged on its own terms. Being careful
+and being strict are not the same thing, and confusing them hides real content.
+
+**Two latent divergences closed on the way.** The sitemap read the raw loaders for updates and
+Palace articles with no published check at all - harmless today because every update carries a
+date, but exactly the drift the shared predicate exists to remove. And routed institutions are
+now handled in one place: included in search, pointed at the page that holds them, and kept
+out of the sitemap, rather than each surface deciding again.
+
+**Proved to change nothing.** The sitemap is byte-identical before and after - 108 URLs, zero
+added, zero removed - and the search index is unchanged across all nine groups at 270 entries.
+A refactor of visibility rules that quietly altered what is visible would be the worst possible
+outcome, so the comparison was the point of the exercise rather than a formality.
+
+**Films stay separate.** `approvedFilms()` keeps its own predicate, because a film carries a
+lifecycle - discovered, reviewed, approved, held - that no other record has. Neither is a
+fallback for the other.
