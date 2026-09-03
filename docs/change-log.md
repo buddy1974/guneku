@@ -495,3 +495,33 @@ in any client bundle; eight public routes 200 with no Clerk keys.
 
 Current state by the predicate's own report: 17 institutions - 1 held, 9 routed, 7 with a page
 of their own; 8 Kingdom articles - 6 noindex stubs, 2 public; 39 updates, all dated.
+
+## 2026-09-03 - Production release: the accepted checkpoint
+
+Merged to `main` and deployed to production under explicit owner authorisation, superseding
+the previous preview-only hold.
+
+**In this release:** Next.js 16.3.4; Clerk authentication and `/my-guneku`; Guneku TV at
+`/watch` with the film approval predicate; unified search at `/search`; the licensing-safe map
+at `/explore`; twenty-seven quarter pages; the shared visibility predicate; removal of the
+legacy Fondom-voice AI route; and the R-020, R-023, R-026 and R-027 security remediations.
+Three critical npm advisories were eliminated along the way by removing an unused `next-auth`.
+
+**Not in this release:** Phases 3, 4, 5, 8, 11, 12, 13, 14 - blocked on credentials that
+cannot be read from this environment (ADR-037). Phase 15 cancelled by owner decision
+(ADR-036).
+
+**Release audit, run against a local production build before merge:** `tsc` clean; build clean
+at 218 static pages; `npm audit` 15 advisories, none critical, `next` itself clean; eslint 72
+problems against a baseline of 76, none in any file this programme touched; 38 public routes
+200; all 27 quarter pages 200; 404s correct on three probes; `/gallery/videos` 308s to
+`/watch`; canonicals correct on eight routes; sitemap 108 URLs; 46 of 46 films accounted for.
+
+**Privacy sweep, every check at zero:** Business Directory 404 and absent from the sitemap; the
+private film id absent from every surface; the held `.mp4` originals and "WhatsApp Video"
+unreferenced; the six noindex Kingdom stubs out of the sitemap; the GUDECA private mobile
+absent; the BCC address absent from HTML and bundles; no secret value in any client bundle;
+no unsupported 17 January 2016 chronology; no claim action on a deceased entry; no
+`demo-user` in code (two remaining mentions are comments recording the fix); no raw provider
+error returned by any API route; no iframe before interaction; zero Clerk JavaScript on public
+pages.

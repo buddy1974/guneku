@@ -706,3 +706,59 @@ outcome, so the comparison was the point of the exercise rather than a formality
 **Films stay separate.** `approvedFilms()` keeps its own predicate, because a film carries a
 lifecycle - discovered, reviewed, approved, held - that no other record has. Neither is a
 fallback for the other.
+
+## ADR-036 - Phase 15 cancelled: the owner accepts shared production infrastructure
+
+**Decision, made by Marcel on 2026-09-03 and recorded here at his instruction.** Guneku will
+not have an isolated Preview database. Production and Preview stay connected to the same
+infrastructure.
+
+**Reason, in his words rather than mine.** Guneku is his personal project; he chose
+operational simplicity and direct production execution over the isolation this programme had
+been treating as a prerequisite. He understands the risk and accepts it.
+
+**Residual risk, stated plainly so it is not lost in the acceptance.** A preview deployment of
+any branch writes to the same database as the live site. Once claims, subscriptions and
+contributions exist, a test run and a villager's real submission share one store. A migration
+applied against "preview" is applied against production.
+
+**Mitigations that therefore carry more weight than they otherwise would:**
+
+- migrations are versioned, recorded in `schema_migrations`, and additive only
+- no destructive migration runs without an explicit owner decision
+- every mutation is authenticated and scoped to the session's own user id
+- Neon's own restore capability is the backstop
+- release testing happens against a local production build before anything reaches main
+
+**Phase 15: CLOSED - owner accepted risk, isolation declined.** R-021's preview-isolation
+element is reclassified from open to owner-accepted. This is not to be raised again unless the
+owner reopens it.
+
+## ADR-037 - What this release contains, and what it does not
+
+The launch authorised on 2026-09-03 carries the accepted checkpoint at
+`5087e5204e003826a633b3b0bb146ad91003b6f9`: Phases 0, 1, 1.5, 2 (code), 6, 7, 9, 10, the
+shared visibility predicate, the legacy AI removal, and the R-020 / R-023 / R-026 / R-027
+remediations.
+
+It does **not** carry Phases 3, 4, 5, 8, 11, 12, 13 or 14. Those were blocked before a line
+of them could be written, and the reason is worth recording precisely rather than as "pending":
+
+**Every secret in this Vercel project is marked Sensitive**, which makes it write-only to the
+CLI. `vercel env pull` returns an empty string for each one, in all three environments, and
+`.env.local` holds no Clerk keys and an empty `DATABASE_URL`. `npx clerk@latest env pull`
+reports `not_linked` and linking requires an interactive browser session.
+
+So there was no way to obtain a database connection or a Clerk session without either
+inventing a credential or asking for one to be pasted into a chat transcript. Neither was
+acceptable. The phases that need them are written up in full in
+`docs/programme-architecture.md` - schema, migrations, routes and rules - so that when a
+credential arrives the work is implementation rather than discovery.
+
+**One consequence of shipping Phase 2's code without being able to exercise it:** the Clerk
+keys in Vercel were created 132 days ago and are used by nothing. If they are stale,
+`/sign-in`, `/sign-up` and `/my-guneku` will fail in production. The public site cannot be
+affected - that was proved by running the whole build with no Clerk keys at all, where 38
+public routes returned 200 and zero Clerk JavaScript reached any page - so the blast radius
+is three routes, two of which are currently placeholder pages. Verified immediately after
+deployment, with rollback available if it fails.

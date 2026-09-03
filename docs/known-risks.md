@@ -181,6 +181,8 @@ Not executed: give them the same treatment — log server-side, return one fixed
 
 ## R-021 — The rate limiter depends on guneku.org not being proxied
 
+*(The separate preview-database-isolation concern once tracked alongside this is closed as owner-accepted — see ADR-036. What follows concerns only the Cloudflare proxy state.)*
+
 `src/lib/rate-limit.ts` keys on `x-forwarded-for`. Verified correct on 2026-09-03.
 
 Cloudflare **does** run the zone — the nameservers are `jobs.ns.cloudflare.com` and
@@ -408,3 +410,43 @@ identically if YouTube were unreachable for a week.
 
 Owner action when convenient: run a sync in an environment that has the key, and check the
 report. It writes nothing, so it is safe to run.
+
+## R-031 - Every Vercel secret is write-only, so no credentialed work can be verified locally
+
+Not a defect in Guneku - a project setting - but it is the single thing gating Phases 3, 4, 5,
+8, 11, 12, 13 and 14, so it belongs in the register rather than in a chat message.
+
+Every environment variable in this Vercel project is marked **Sensitive**. `vercel env pull`
+returns an empty string for each one in production, preview and development alike.
+`.env.local` carries no Clerk keys and an empty `DATABASE_URL`. `npx clerk@latest env pull`
+reports `not_linked`, and `clerk link` needs an interactive browser session.
+
+The consequence is not that the code cannot be written - it is that it cannot be *tested*.
+"An unauthenticated request is denied", "a member cannot reach the admin area" and "one user
+cannot update another user's row" are claims that require a session to hold, and writing eight
+phases of database-backed code that has never once run would produce something worse than
+nothing: a large body of plausible, unverified work.
+
+**Owner action, either one:**
+
+1. In Vercel, uncheck **Sensitive** for `DATABASE_URL`, `CLERK_SECRET_KEY` and
+   `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, then `vercel env pull` can supply them; or
+2. put development Clerk keys and a `DATABASE_URL` directly into `.env.local`, which is
+   gitignored and never leaves the machine.
+
+The second is the smaller change and keeps the production variables sensitive.
+
+## R-032 - The production Clerk keys have never been exercised
+
+`CLERK_SECRET_KEY` and `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` were created in Vercel 132 days ago
+and, until this release, were read by no code at all. Their validity is unknown and could not
+be checked before deployment (R-031).
+
+If they are stale, `/sign-in`, `/sign-up` and `/my-guneku` fail in production. The public site
+cannot be affected: the entire build was exercised with no Clerk keys present, and 38 public
+routes returned 200 with zero Clerk JavaScript on any page. Two of the three affected routes
+are currently placeholder pages, so the regression risk is small and reversible by a Vercel
+rollback.
+
+Verified immediately after deployment. If the keys are stale, the fix is new keys from the
+Clerk dashboard, not a code change.
