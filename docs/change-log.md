@@ -373,3 +373,24 @@ name); no handler reads a user id from input; `/api/me` discards `role` from the
 **Not verified, and cannot be here:** that a signed-in member can save their details, that a
 member cannot reach an admin area, and that one user cannot update another's row. All three
 need a session. See R-024 and the owner action below.
+
+## 2026-09-03 — Phase 10: the twenty-seven quarter pages
+
+- **New** `/quarters` (index of all 27) and `/quarters/[slug]` (one page each), plus
+  `src/data/quarters/quarter-registry.json` and `src/lib/quarter-pages.ts`.
+- **Every link is curated, not matched.** Each record attached to a quarter carries the
+  sentence from that record which justifies it, rendered on the page so a reader can see
+  why. Text matching was rejected after it attached *HRH Akam M. of Kai* — a different
+  fondom's Fon — to a Guneku quarter, and matched "Fun" against the ordinary English word.
+- **Ten quarters carry records.** Seventeen carry none and say so; their pages are
+  `noindex` and excluded from the sitemap.
+- **A load-time guard** fails the build if the registry and `GUNEKU_QUARTERS_27` ever drift,
+  in either direction. Verified by deliberately removing one quarter: the build stopped with
+  `Missing pages for: Kai`.
+- **R-028 opened**: the canonical list and the records disagree substantially, including one
+  outright contradiction about Bessi. Nothing was changed; the Palace decides.
+
+Verified: `tsc` clean; eslint clean; build clean at **216 static pages** (188 + 27 + index);
+all 27 pages and the index return 200; an unknown slug 404s; the sitemap grew to 106 URLs and
+lists only the ten recorded quarters plus the index; empty pages emit
+`<meta name="robots" content="noindex, follow">` and recorded ones `index, follow`.

@@ -310,3 +310,49 @@ SVG, which can carry script and would have been served from our origin.
 Recorded rather than folded silently into R-023 because the exposure was materially
 different, and because it is a reminder that "one route has this defect" should always be
 read as "grep for the pattern".
+
+## R-028 — The canonical 27-quarter list and the records disagree, in both directions
+
+Building the quarter pages (Phase 10) required reading every mention of every quarter. The
+canonical list in `src/lib/quarters.ts` and the Fondom's own records do not match, and the
+mismatch is large enough that it needs the Palace rather than a judgement from me. **Nothing
+was changed**: the list is still the approved 27, and all 27 have pages.
+
+**Seventeen of the 27 are named in no record at all.** Ten have a reference that puts their
+name beside the word "quarter": Njinigom, Ngong, Fun, Fringyeng, Windig, Munam, Ngamunghe,
+Mbengeghang, Nyang and Central Guneku. The other seventeen — Wumfi-Ku, Keuhchah, Ndobo,
+Tonenge, Upper Guneku, Lower Guneku, Akwen, Bali-Dingi, Bessi, Boa, Egock, Eku-Bessi, Eshie,
+Esimbi, Etwii, Guneku Centre, Kai — appear nowhere.
+
+**One entry contradicts a record outright.** `updates/mujang-berto-prince-tournament-final-2026`
+carries this in its own `sourceNote`, written 2026-09-02:
+
+> whether Gunenung, Njinibi, Zem and **Bessi** are Guneku quarters is not established by the
+> Fondom's own 27-quarter list
+
+But `GUNEKU_QUARTERS_27` **contains** Bessi. One of the two is wrong: either that note was
+written against a different list, or Bessi entered the list without a Palace source.
+
+**One entry matches another fondom.** "Kai" appears in the archive only as *HRH Akam M. of
+Kai*, a Fon of a different fondom, in the tributes record. Nothing connects the name to a
+quarter of Guneku. This is also why the registry links records by hand: matching a quarter's
+name against text would have attached another fondom's Fon to a Guneku quarter, and "Fun"
+would have matched the ordinary English word.
+
+**Two entries look like the same place twice.** "Central Guneku" and "Guneku Centre" are both
+on the list. The only record that uses either treats "upper, lower and central Guneku" as
+areas the electoral commission toured, not as named quarters in their own right.
+
+**Four names the records do call quarters are missing from the list:** Njinebai, Nyeh, Toh
+and Tuengyie. Toh, Nyeh and Tuengyie appear together in a zone roster — *"Zone 1 whose
+quarters are Fun/Mbong, Ngong, Toh, Nyang, Nyeh and Tuengyie"* — which reads as a Fondom
+listing of quarters.
+
+**What was done instead of resolving it.** All 27 pages exist. Each carries only records that
+name it, with the justifying sentence quoted beside each link. The seventeen empty pages say
+plainly that the archive holds nothing about them, and are `robots: noindex` and excluded
+from the sitemap — thin pages should not be offered to a search engine, and a reader arriving
+from a search should not be told the Fondom knows nothing about their quarter.
+
+**Owner action:** ask the Palace for the authoritative roster. Until then the list stands as
+approved and no name was added, removed or renamed.

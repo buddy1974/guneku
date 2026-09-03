@@ -1,0 +1,196 @@
+{
+  "meta": {
+    "purpose": "One page per quarter of Guneku, carrying only what the Fondom's own records establish about it. A quarter with nothing recorded gets a page that says so, and an invitation to help fill it. No overview, history, market or institution is written here that is not already in a reviewed record.",
+    "updated": "2026-09-03",
+    "canonicalSource": "src/lib/quarters.ts — GUNEKU_QUARTERS_27, the settled 27-quarter list. This registry does not add to it, rename anything in it, or reorder it.",
+    "linkRule": "Every link below was found by reading the record, not by matching the quarter's name against text. Short names make text matching unsafe: 'Fun' matches the ordinary word, and 'Kai' matches HRH Akam M. of Kai, the Fon of a different fondom, in the tributes record. Each link therefore carries the sentence that justifies it.",
+    "emptyRule": "17 of the 27 have no reference in any record that puts their name beside the word 'quarter'. Their pages stay empty rather than being filled with plausible-sounding text. An empty page is a true statement about the archive."
+  },
+
+  "quarters": [
+    {
+      "slug": "njinigom",
+      "name": "Njinigom",
+      "links": [
+        {
+          "href": "/notables/marcel-tabit-akwe",
+          "label": "Marcel Tabit Akwe",
+          "kind": "person",
+          "evidence": "The profile records `quarter: \"Njinigom\"` and `family_home: \"Njinigom Quarter, Guneku\"` as structured fields, not prose."
+        }
+      ]
+    },
+    {
+      "slug": "ngong",
+      "name": "Ngong",
+      "note": "Ngong keeps a market of its own, which is separate from Ngon — the name of the village market day. The two are different things and are deliberately not spelled alike.",
+      "links": [
+        {
+          "href": "/institutions/guneku-agro-cig",
+          "label": "Guneku Agro CIG",
+          "kind": "institution",
+          "evidence": "The development register describes it as a \"Community-owned agricultural enterprise at Ngong Quarter\"."
+        },
+        {
+          "href": "/updates/ngong-river-rescue-and-water-supply-2026",
+          "label": "Rescue at the Ngong stream, and the water shortage behind it",
+          "kind": "update",
+          "evidence": "The record is about the stream at Ngong and the village water supply."
+        },
+        {
+          "href": "/updates/proposals-from-his-royal-highness-fon-fomuki-during-the-gudeca-agm-at-mutegene-2016",
+          "label": "Proposals of HRH Fon Fomuki, GUDECA AGM 2016",
+          "kind": "update",
+          "evidence": "Proposes \"use the existing Ngong market for a daily market\" — the Fondom's own record of a market at Ngong."
+        }
+      ]
+    },
+    {
+      "slug": "fun",
+      "name": "Fun",
+      "links": [
+        {
+          "href": "/people/traditional-council",
+          "label": "The Guneku Traditional Council",
+          "kind": "people",
+          "evidence": "The register records a councillor as \"Secretary, Guneku Traditional Council; quarter head of Fun\", and another as \"President, Fun Quarter Traditional Council; represents Fun on the Guneku Traditional Council\"."
+        },
+        {
+          "href": "/projects",
+          "label": "The FUN electricity project",
+          "kind": "project",
+          "evidence": "The development register carries a \"FUN electricity project\", toward which GUDECA Europe contributed in 2025."
+        }
+      ]
+    },
+    {
+      "slug": "fringyeng",
+      "name": "Fringyeng",
+      "note": "The market day that falls in Fringyeng is called Kwe.",
+      "links": [
+        {
+          "href": "/institutions/ifuh-itah-festival",
+          "label": "The Ifuh Itah festival",
+          "kind": "institution",
+          "evidence": "The institution record carries `quarter: \"Fringyeng\"` as a structured field."
+        },
+        {
+          "href": "/institutions/guneku-health-estate",
+          "label": "The Guneku health centres",
+          "kind": "institution",
+          "evidence": "The register records that the Fringyeng health centre \"was built but is not operating\"."
+        },
+        {
+          "href": "/kingdom/about-guneku",
+          "label": "About Guneku",
+          "kind": "kingdom",
+          "evidence": "Names \"Kwe\" as the market day falling in Fringyeng, within the eight-day cycle."
+        }
+      ]
+    },
+    { "slug": "wumfi-ku", "name": "Wumfi-Ku", "links": [] },
+    {
+      "slug": "windig",
+      "name": "Windig",
+      "links": [
+        {
+          "href": "/updates/proposals-from-his-royal-highness-fon-fomuki-during-the-gudeca-agm-at-mutegene-2016",
+          "label": "Proposals of HRH Fon Fomuki, GUDECA AGM 2016",
+          "kind": "update",
+          "evidence": "Proposes the \"Creation of a daily market at Windig to ease the sales of farm produce\"."
+        }
+      ]
+    },
+    { "slug": "keuhchah", "name": "Keuhchah", "links": [] },
+    {
+      "slug": "munam",
+      "name": "Munam",
+      "note": "The record also writes this name as Ngamunam. The market day falling here is called Eje'e.",
+      "links": [
+        {
+          "href": "/institutions/guneku-health-estate",
+          "label": "The Guneku health centres",
+          "kind": "institution",
+          "evidence": "The register records the Munam Integrated Health Centre as operational, and that it took an additional GUDECA-funded nurse in 2020."
+        },
+        {
+          "href": "/kingdom/about-guneku",
+          "label": "About Guneku",
+          "kind": "kingdom",
+          "evidence": "Names \"Eje'e\" as the market day falling in Ngamunam or Munam."
+        }
+      ]
+    },
+    {
+      "slug": "ngamunghe",
+      "name": "Ngamunghe",
+      "note": "The market day that falls in Ngamunghe is called Tan.",
+      "links": [
+        {
+          "href": "/kingdom/about-guneku",
+          "label": "About Guneku",
+          "kind": "kingdom",
+          "evidence": "Names \"Tan\" as the market day falling in Ngamunghe, within the eight-day cycle."
+        }
+      ]
+    },
+    {
+      "slug": "mbengeghang",
+      "name": "Mbengeghang",
+      "note": "The market day that falls in Mbengeghang is called Mbon.",
+      "links": [
+        {
+          "href": "/institutions/guneku-health-estate",
+          "label": "The Guneku health centres",
+          "kind": "institution",
+          "evidence": "The register records that the Mbengeghang health centre \"operates without electricity\"."
+        },
+        {
+          "href": "/kingdom/about-guneku",
+          "label": "About Guneku",
+          "kind": "kingdom",
+          "evidence": "Names \"Mbon\" as the market day falling in Mbengeghang."
+        }
+      ]
+    },
+    { "slug": "ndobo", "name": "Ndobo", "links": [] },
+    { "slug": "tonenge", "name": "Tonenge", "links": [] },
+    {
+      "slug": "nyang",
+      "name": "Nyang",
+      "links": [
+        {
+          "href": "/updates/democracy-in-guneku-fon-fomuki-injects-new-blood-for-easy-administration",
+          "label": "Quarter council elections across Guneku",
+          "kind": "update",
+          "evidence": "Records that a councillor was elected to represent \"the people of Nyang quarter in the Guneku traditional council\", and that the elections \"went on well\" in Nyang."
+        }
+      ]
+    },
+    { "slug": "upper-guneku", "name": "Upper Guneku", "links": [] },
+    { "slug": "lower-guneku", "name": "Lower Guneku", "links": [] },
+    {
+      "slug": "central-guneku",
+      "name": "Central Guneku",
+      "links": [
+        {
+          "href": "/updates/meta-cultural-festival-holds-in-guneku-village-2",
+          "label": "The quarter council elections",
+          "kind": "update",
+          "evidence": "Records the electoral commission touring \"upper, lower and central Guneku\" so villagers could elect their quarter councils. The record uses these as areas of the village; it does not name Central Guneku as a quarter in its own right."
+        }
+      ]
+    },
+    { "slug": "akwen", "name": "Akwen", "links": [] },
+    { "slug": "bali-dingi", "name": "Bali-Dingi", "links": [] },
+    { "slug": "bessi", "name": "Bessi", "links": [] },
+    { "slug": "boa", "name": "Boa", "links": [] },
+    { "slug": "egock", "name": "Egock", "links": [] },
+    { "slug": "eku-bessi", "name": "Eku-Bessi", "links": [] },
+    { "slug": "eshie", "name": "Eshie", "links": [] },
+    { "slug": "esimbi", "name": "Esimbi", "links": [] },
+    { "slug": "etwii", "name": "Etwii", "links": [] },
+    { "slug": "guneku-centre", "name": "Guneku Centre", "links": [] },
+    { "slug": "kai", "name": "Kai", "links": [] }
+  ]
+}
