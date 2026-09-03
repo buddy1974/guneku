@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { GraduationCap, Building2, Sprout, HandCoins, Globe2, HeartHandshake, ArrowRight } from 'lucide-react'
 import { Reveal } from '@/components/ui/Reveal'
-import { allChapters, foundingCount } from '@/lib/community'
+import { allChapters, constitutedChapters, foundingCount } from '@/lib/community'
+import type { Chapter } from '@/lib/community'
 
 export const metadata = {
   alternates: { canonical: '/gudeca' },
@@ -9,34 +10,41 @@ export const metadata = {
   description: 'Mission, vision, and projects of GUDECA — uniting Guneku indigenes across three continents.',
 }
 
-/* One register for every chapter, home and abroad, shared with /diaspora and the
-   chapter pages: `src/data/community/chapters.json`. This list previously said the
-   Germany chapter was "Essen — Ruhr Valley" while /diaspora said "Essen / Ruhr" —
-   two hand-kept lists, the same error twice. GUDECA Europe meets in BONN, where the
-   Fon lives and where the 28 March 2026 meeting was held.
+/* One register for every chapter and every place, shared with /diaspora and the
+   chapter pages: `src/data/community/chapters.json`.
 
-   Home chapters are shown alongside the diaspora rather than below it. A son of
-   Guneku in Douala is a member on the same terms as one in Bonn, and the register
-   should not imply otherwise. */
-const BRANCHES = [
+   The grouping mirrors how GUDECA is actually constituted, which is what the two
+   earlier hand-kept lists got wrong. GUDECA EU is ONE chapter for the whole of
+   Europe; the countries beneath it are where its members live, not chapters of
+   their own. The chapter has no seat — meetings rotate. Bonn is the official
+   residence of H.R.H. the Fon, which is why the March 2026 meeting was held there.
+
+   Home chapters are shown first and on the same terms as the diaspora: a son of
+   Guneku in Douala is a member exactly as one in Europe is. */
+type Branch = { region: string; flag: string; note?: string; places: Chapter[] }
+
+const DIASPORA = allChapters().filter(c => c.scope === 'diaspora')
+
+const BRANCHES: Branch[] = [
   {
-    region:   'Cameroon — home',
-    flag:     '🇨🇲',
-    chapters: allChapters().filter(c => c.scope === 'home'),
+    region: 'Cameroon — home',
+    flag:   '🇨🇲',
+    places: allChapters().filter(c => c.scope === 'home'),
   },
-  ...Object.values(
-    allChapters()
-      .filter(c => c.scope === 'diaspora')
-      .reduce<Record<string, { region: string; flag: string; chapters: ReturnType<typeof allChapters> }>>(
-        (acc, c) => {
-          acc[c.country] ??= { region: c.country, flag: c.flag, chapters: [] }
-          acc[c.country].chapters.push(c)
-          return acc
-        },
-        {},
-      ),
-  ),
-]
+  /* Each constituted chapter abroad, with the countries that sit under it. */
+  ...constitutedChapters('diaspora').map(ch => ({
+    region: ch.org,
+    flag:   ch.flag,
+    note:   ch.country === 'Europe' ? 'No fixed seat — meetings rotate' : ch.place,
+    places: [ch, ...DIASPORA.filter(c => c.partOf === ch.id)],
+  })),
+  /* Places with no chapter of their own. Named, because people live there. */
+  {
+    region: 'Members without a chapter',
+    flag:   '🌍',
+    places: DIASPORA.filter(c => c.kind === 'location' && !c.partOf),
+  },
+].filter(b => b.places.length > 0)
 
 export default function GudecaPage() {
   return (
@@ -147,19 +155,26 @@ export default function GudecaPage() {
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {BRANCHES.map(b => (
               <div key={b.region} className="card-royal p-6">
-                <div className="flex items-center gap-3 mb-4">
+                <div className="flex items-center gap-3 mb-1">
                   <span className="text-3xl">{b.flag}</span>
                   <div className="font-cinzel text-xl text-foreground">{b.region}</div>
                 </div>
-                <ul className="space-y-1.5 text-sm text-muted-foreground">
-                  {b.chapters.map(c => (
+                {b.note && <p className="mb-3 text-xs text-muted-foreground">{b.note}</p>}
+                <ul className={`space-y-1.5 text-sm text-muted-foreground ${b.note ? '' : 'mt-3'}`}>
+                  {b.places.map(c => (
                     <li key={c.id} className="flex items-center gap-2">
                       <span className="h-1 w-1 rounded-full bg-primary shrink-0" />
                       <Link href={`/gudeca/chapters/${c.id}`} className="no-underline hover:text-primary">
-                        {c.city}
+                        {c.short}
+                        {/* A country under a chapter shares that chapter's register.
+                            Printing the same count beside each of them would read as
+                            though every country held its own ten names. */}
                         <span className="text-xs text-muted-foreground/70">
-                          {' '}· {foundingCount(c.id) || 'add a name'}
-                          {foundingCount(c.id) ? ' on record' : ''}
+                          {c.partOf
+                            ? ' · in this chapter'
+                            : foundingCount(c.id)
+                              ? ` · ${foundingCount(c.id)} on record`
+                              : ' · add a name'}
                         </span>
                       </Link>
                     </li>

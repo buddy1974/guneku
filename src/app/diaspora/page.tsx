@@ -9,12 +9,16 @@ export const metadata = {
   description: 'Guneku sons and daughters across the world — GUDECA chapters in Cameroon, Europe and North America.',
 }
 
-/* The places Guneku people are organised now come from one register,
+/* The places Guneku people are organised come from one register,
    `src/data/community/chapters.json`, shared with /gudeca and the chapter pages.
-   Before this they were two hand-kept lists that disagreed: both said the Germany
-   chapter sat in Essen, and both were wrong — GUDECA Europe meets in BONN, at the
-   Fon's Palace there, which is where the 28 March 2026 meeting was held. A fact
-   held in one place can be corrected once.
+   Two hand-kept lists disagreed here before: both pinned the Europe chapter to a
+   German city — first Essen, then Bonn — and both were wrong for the same reason.
+   GUDECA EU is one chapter for the whole of Europe with no fixed seat; meetings
+   rotate. Bonn is the official residence of H.R.H. the Fon, which is why the
+   28 March 2026 meeting was held there.
+
+   So this grid shows the chapter AND the countries beneath it: the countries are
+   where members live, and each card leads to the register that holds their names.
 
    Per-country population counts previously shown here were not supported by any
    source in the repository and have been removed rather than guessed. */
@@ -117,10 +121,14 @@ export default function DiasporaPage() {
                     <span className="text-4xl">{p.flag}</span>
                   </div>
                   <div className="font-cinzel text-lg text-foreground">{p.country}</div>
-                  <div className="text-xs text-muted-foreground">{p.city}</div>
+                  <div className="text-xs text-muted-foreground">{p.place}</div>
                   <div className="mt-1 text-xs text-primary/60">{p.org}</div>
+                  {/* A country under a chapter shares that chapter's register, so it
+                      points at the chapter rather than claiming a count of its own. */}
                   <div className="mt-3 border-t border-border pt-2 text-xs text-muted-foreground">
-                    {on === 0 ? 'Add the first name →' : `${on} on record →`}
+                    {p.partOf
+                      ? 'GUDECA EU Chapter →'
+                      : on === 0 ? 'Add the first name →' : `${on} on record →`}
                   </div>
                 </Link>
               )

@@ -110,3 +110,16 @@ honeypot, but it has no rate limit and no CAPTCHA, so it can be used to flood th
 inbox. The same is already true of `/api/contact`, `/api/palace-message` and
 `/api/support-interest`; this route adds a fourth surface rather than a new class of risk.
 Recorded, not executed: one shared rate limiter across all four form routes.
+
+## R-014 — The chapter count on /gudeca is not the register's count
+
+`/gudeca` states "eight constituted chapters · five countries · three continents", sourced
+from the community's own record. `chapters.json` currently holds six constituted chapters
+(Douala, Yaoundé, Bamenda, GUDECA EU, GUDECA US, GUDECA UAE) plus eleven locations.
+
+The two are not necessarily in conflict — the register lists what the site surfaces and
+does not claim to enumerate every constituted chapter — but a reader can count the cards.
+The sourced number was left alone rather than quietly changed to match a list I assembled.
+
+Not executed: ask the Palace or the GUDECA exco for the authoritative list of constituted
+chapters, then reconcile the register and the sentence in one pass.

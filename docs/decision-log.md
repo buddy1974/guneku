@@ -300,3 +300,43 @@ cannot put invented text in the Palace's inbox, and a honeypot field absorbs bot
 
 Token-based auto-binding remains the right end state and is recorded as backlog, not built:
 it is a material architecture change and needs its own authorisation.
+
+## ADR-017 — A chapter is not a city
+
+**Context.** The Germany chapter was recorded as "Essen — Ruhr Valley", corrected to
+"Bonn", and was still wrong. GUDECA EU is **one chapter for the whole of Europe** with no
+fixed seat; meetings rotate between the countries where members live. Bonn is the official
+residence of H.R.H. the Fon — the 28 March 2026 meeting was held there because that is
+where the Fon lives, not because the chapter sits there. The error survived one correction
+because the data model invited it: a chapter had a `city` field, so somebody always filled
+it with a city.
+
+**Decision.** The register distinguishes two kinds. A **chapter** is a constituted GUDECA
+body that keeps a register of its own. A **location** is a country or city where Guneku
+people live, and may sit under a chapter via `partOf`. A chapter carries `place` — free
+text — so a body that moves can say "Meetings rotate across Europe" instead of naming a
+city that is not its seat. Germany, Belgium, the UK, Italy and Sweden are now locations
+under `gudeca-europe`; their names are recorded in that chapter's register, and their cards
+point at the chapter rather than claiming a count of their own.
+
+**Consequence.** The mistake is now hard to repeat: there is no city field on a chapter to
+fill in wrongly. `placeLabel()` writes a chapter's place in prose, so a rotating chapter
+never renders as a city anywhere on the site.
+
+## ADR-018 — Attendance in the minutes is not membership
+
+**Context.** Fonjong was seeded into the EU chapter because the Bonn minutes name him
+delivering a goodwill message, titled by the Fons of Meta. He attended the event; he is
+not a GUDECA member. Confirmed by the Product Owner on 2026-09-03.
+
+**Decision.** His entry is removed, and the reason is written into
+`founding-names.json` under `meta.removed` so that a future pass over the same minutes does
+not re-add him. The file also now carries `meta.membership_rule` stating the general form of
+the error: guests, dignitaries and speakers appear in minutes, and a record naming a person
+is evidence they were present, not evidence they are a member.
+
+**Also decided.** Marcel Tabit Akwe is added to the EU chapter at his own request
+(`source: self-declared`). Where a seeded person already has a published profile on this
+site, the stub may carry a link to it — `profileUrl`, the only field added to `CardSafe`
+since ADR-014 — but restates nothing from it. The two stay separate records until the entry
+is claimed.

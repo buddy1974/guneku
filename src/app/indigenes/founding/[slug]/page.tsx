@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { PageHero } from '@/components/layout/PageHero'
-import { allFoundingNames, getFoundingName, getChapter, foundingNamesFor, toCardSafe } from '@/lib/community'
+import { allFoundingNames, getFoundingName, getChapter, foundingNamesFor, toCardSafe, placeLabel } from '@/lib/community'
 import { FoundingNameCard } from '@/components/community/FoundingNames'
 import { pageMetadata } from '@/lib/seo'
 
@@ -19,7 +19,7 @@ export async function generateMetadata(
   const chapter = getChapter(n.chapter)
   return pageMetadata({
     title: n.display,
-    description: `${n.display} — ${n.role}${chapter ? `, ${chapter.city}` : ''}. An unclaimed entry in the Guneku Indigenes Directory, open to be claimed by its owner.`,
+    description: `${n.display} — ${n.role}${chapter ? `, ${chapter.org}` : ''}. An unclaimed entry in the Guneku Indigenes Directory, open to be claimed by its owner.`,
     path: `/indigenes/founding/${slug}`,
   })
 }
@@ -46,9 +46,10 @@ export default async function FoundingNamePage({
       <PageHero
         label="INDIGENES DIRECTORY · UNCLAIMED ENTRY"
         title={n.display}
-        /* The role usually already names the chapter ("President, GUDECA Europe"),
-           so the subtitle adds place, not the organisation a second time. */
-        subtitle={`${n.role}${chapter ? ` · ${chapter.flag} ${chapter.city}, ${chapter.country}` : ''}`}
+        /* The role usually already names the chapter ("President, GUDECA EU
+           Chapter"), so the subtitle adds where that body sits, not the
+           organisation a second time. */
+        subtitle={`${n.role}${chapter ? ` · ${chapter.flag} ${chapter.place}` : ''}`}
       />
 
       <section className="inst-wrap inst-sec grid items-start gap-8 lg:grid-cols-[1.35fr_1fr] lg:gap-12">
@@ -59,7 +60,7 @@ export default async function FoundingNamePage({
               {[
                 ['Name', n.display],
                 ['Role', n.role],
-                ['Chapter', chapter ? `${chapter.flag} ${chapter.org} — ${chapter.city}, ${chapter.country}` : '—'],
+                ['Chapter', chapter ? `${chapter.flag} ${chapter.org} — ${chapter.place}` : '—'],
                 ['Source', n.sourceLabel],
               ].map(([k, v]) => (
                 <div key={k} className="inst-row grid gap-1 py-3 sm:grid-cols-[9rem_1fr] sm:gap-4">
@@ -74,6 +75,13 @@ export default async function FoundingNamePage({
               details &mdash; none of that has been offered by
               {' '}{n.display.split(' ')[0]}, so none of it is published here.
             </p>
+            {n.profileUrl && (
+              <p className="inst-body mt-3 !text-[0.9rem]">
+                {n.display.split(' ')[0]} already has a published profile on this site:{' '}
+                <Link href={n.profileUrl} className="inst-link">see it here</Link>. This entry
+                stays thin all the same — the two are separate records until it is claimed.
+              </p>
+            )}
             {n.note && <p className="inst-meta mt-3">{n.note}</p>}
           </div>
 
@@ -103,7 +111,7 @@ export default async function FoundingNamePage({
             <div className="mt-5 border-t border-[var(--rule)] pt-4">
               <p className="inst-tag">Chapter</p>
               <Link href={`/gudeca/chapters/${chapter.id}`} className="inst-link mt-2 inline-block">
-                {chapter.flag} {chapter.org} — {chapter.city} →
+                {chapter.flag} {chapter.org} — {chapter.place} →
               </Link>
             </div>
           )}
@@ -114,7 +122,7 @@ export default async function FoundingNamePage({
         <section className="inst-alt inst-rule">
           <div className="inst-wrap inst-sec">
             <div className="flex flex-wrap items-baseline justify-between gap-3">
-              <h2 className="inst-h2">Others recorded in {chapter.city}</h2>
+              <h2 className="inst-h2">Others in the {chapter.short} register</h2>
               <Link href={`/indigenes/submit?intent=add&chapter=${chapter.id}`} className="inst-link">
                 Add a name →
               </Link>

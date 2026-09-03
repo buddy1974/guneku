@@ -122,12 +122,12 @@ export function DirectoryForm({
               <option value="">Not sure / not listed</option>
               <optgroup label="Home — Cameroon">
                 {chapters.filter(c => c.scope === 'home').map(c => (
-                  <option key={c.id} value={c.id}>{c.city} — {c.org}</option>
+                  <option key={c.id} value={c.id}>{c.place} — {c.org}</option>
                 ))}
               </optgroup>
               <optgroup label="Diaspora">
                 {chapters.filter(c => c.scope === 'diaspora').map(c => (
-                  <option key={c.id} value={c.id}>{c.flag} {c.country} — {c.city}</option>
+                  <option key={c.id} value={c.id}>{c.flag} {c.short} — {c.org}</option>
                 ))}
               </optgroup>
             </select>

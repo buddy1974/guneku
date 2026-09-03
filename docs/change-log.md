@@ -187,3 +187,35 @@ a forged chapter id — all rejected or neutralised; Thadeus Fon asserted presen
 Douala chapter and absent from Europe; grid measured at 390 and 1440.
 
 Not merged and not deployed — release approval is the Product Owner's (CLAUDE.md).
+
+## 2026-09-03 — Chapter model correction and directory membership fixes (branch, not deployed)
+
+Product Owner corrections to the same day's directory build, applied as a second pass.
+ADR-017 and ADR-018 record the decisions; R-014 records what was left for the Palace.
+
+- **GUDECA EU is a Europe-wide chapter, not a Bonn one.** `chapters.json` now separates a
+  constituted `chapter` from a `location`, and a chapter carries `place` rather than a
+  city — so "Meetings rotate across Europe" is expressible and the third repetition of the
+  Essen→Bonn error is structurally prevented. Bonn is recorded for what it is: the official
+  residence of H.R.H. the Fon, where the March 2026 meeting happened to be held.
+- **Germany, Belgium, UK, Italy and Sweden** became locations under `gudeca-europe`. Their
+  cards point at the chapter's register rather than each showing the same count as if they
+  held ten names apiece. `/gudeca` groups by chapter, with a "Members without a chapter"
+  group for Qatar, Nigeria, China and Japan.
+- **Fonjong removed** — named in the minutes as delivering a goodwill message, but an
+  attendee, not a member. The removal and its reason are recorded in `founding-names.json`
+  so the same minutes cannot re-seed him, alongside a general `membership_rule`.
+- **Marcel Tabit Akwe added** to the EU chapter at his own request. `profileUrl` is the one
+  field added to `CardSafe` since ADR-014: where a seeded person already has a published
+  profile here, the stub links to it and restates nothing from it.
+- **Thadeus Fon** stays with Douala, confirmed correct.
+
+Founding names: 11 → 11 (one out, one in). EU chapter 10, Douala 1.
+
+Verification: `npx tsc --noEmit` clean; `npx eslint` clean on new and touched files (the one
+pre-existing `set-state-in-effect` error in `/indigenes/page.tsx` is untouched);
+`npm run build` clean, **150 static pages**; `/indigenes/founding/fonjong` returns 404;
+`/gudeca/chapters/gudeca-europe` lists exactly the ten EU names including Marcel;
+`/gudeca/chapters/gudeca-douala` lists Thadeus Fon alone; `/gudeca/chapters/germany` shows
+the EU chapter's register and says so; the string "GUDECA Europe" no longer appears on
+`/diaspora`, `/gudeca`, the EU chapter page or `/indigenes`.

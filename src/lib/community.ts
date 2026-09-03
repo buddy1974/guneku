@@ -3,11 +3,17 @@
  *
  * Two rules this module exists to enforce.
  *
- * ONE SOURCE FOR CHAPTERS. /diaspora, /gudeca and the chapter pages all read
- * `chapters.json`. Before this, the Germany chapter said "Essen — Ruhr Valley"
- * on /gudeca and "Essen / Ruhr" on /diaspora, and both were wrong: the Europe
- * chapter meets in BONN, at the Fon's Palace there. A fact kept in one place
- * can be corrected once.
+ * A CHAPTER IS NOT A CITY. This is the correction that shaped the model. The
+ * Germany chapter was first recorded as "Essen — Ruhr Valley", then corrected to
+ * "Bonn", and both were wrong in the same way: GUDECA EU is a Europe-wide chapter
+ * whose meetings rotate, and Bonn is the official residence of H.R.H. the Fon —
+ * where the March 2026 meeting happened to be held, not where the chapter sits.
+ * So `kind` separates a constituted chapter from a place people live, and a
+ * chapter carries `place` (free text, "Meetings rotate across Europe") rather
+ * than a city field that invites the same mistake a third time.
+ *
+ * ONE SOURCE. /diaspora, /gudeca and the chapter pages all read `chapters.json`,
+ * so a fact about a chapter is corrected once, in one file.
  *
  * A SEED STUB IS NOT A PROFILE. A founding name publishes four things and no
  * more — display name, role, chapter, and the source the name came from. Every
@@ -20,14 +26,22 @@ import chaptersDoc from '@/data/community/chapters.json'
 import namesDoc    from '@/data/community/founding-names.json'
 
 export type ChapterScope = 'home' | 'diaspora'
+export type ChapterKind  = 'chapter' | 'location'
 
 export interface Chapter {
   id: string
+  /** A constituted chapter keeps a register. A location is a place people live. */
+  kind: ChapterKind
   scope: ChapterScope
   flag: string
   country: string
-  city: string
+  /** Where this body actually sits. For a chapter that rotates, it says so. */
+  place: string
+  /** Short badge label — "GUDECA EU", "Douala". */
+  short: string
   org: string
+  /** A location under a chapter: names recorded here belong to that chapter. */
+  partOf?: string
   note?: string
   openForNames: boolean
 }
@@ -40,6 +54,8 @@ export interface FoundingName {
   chapter: string
   source: string
   sourceLabel: string
+  /** Only where the person already has a published profile on this site. */
+  profileUrl?: string
   note?: string
 }
 
@@ -50,6 +66,7 @@ export interface CardSafe {
   display: string
   role: string
   sourceLabel: string
+  profileUrl?: string
   chapter: Chapter | null
 }
 
@@ -77,10 +94,12 @@ export function getFoundingName(slug: string): FoundingName | null {
 }
 
 export function foundingNamesFor(chapterId: string): FoundingName[] {
-  return NAMES.filter(n => n.chapter === chapterId)
+  const c  = getChapter(chapterId)
+  const id = c ? registerIdFor(c) : chapterId
+  return NAMES.filter(n => n.chapter === id)
 }
 
-/** How many seeded names a chapter carries — used for the chapter cards. */
+/** How many seeded names a place shows — its own register, or its chapter's. */
 export function foundingCount(chapterId: string): number {
   return foundingNamesFor(chapterId).length
 }
@@ -91,8 +110,31 @@ export function toCardSafe(n: FoundingName): CardSafe {
     display:     n.display,
     role:        n.role,
     sourceLabel: n.sourceLabel,
+    profileUrl:  n.profileUrl,
     chapter:     getChapter(n.chapter),
   }
+}
+
+/* ── Chapters vs locations ────────────────────────────────────────────────── */
+
+/** Only constituted chapters keep a register of their own. */
+export function constitutedChapters(scope?: ChapterScope): Chapter[] {
+  return CHAPTERS.filter(c => c.kind === 'chapter' && (!scope || c.scope === scope))
+}
+
+/** Where a place's names are actually recorded: its parent chapter, or itself. */
+export function registerIdFor(c: Chapter): string {
+  return c.partOf ?? c.id
+}
+
+/** The chapter a place belongs to, if it belongs to one. */
+export function parentChapter(c: Chapter): Chapter | null {
+  return c.partOf ? getChapter(c.partOf) : null
+}
+
+/** How a place is written on a card or in a sentence. */
+export function placeLabel(c: Chapter): string {
+  return c.kind === 'chapter' && c.country === 'Europe' ? c.org : `${c.place}, ${c.country}`
 }
 
 /* ── The one submission contract ───────────────────────────────────────────

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendDirectorySubmission } from '@/lib/email/send'
-import { getChapter, getFoundingName, isIntent } from '@/lib/community'
+import { getChapter, getFoundingName, isIntent, placeLabel } from '@/lib/community'
 
 /* One route for the three directory motions: claim an entry, add a name, ask for
    a name to come down. Nothing is written to the database and nothing is published
@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
       senderPhone:  senderPhone  || undefined,
       relationship: clean(body.relationship, MAX.short) || undefined,
       quarter:      clean(body.quarter, MAX.short)      || undefined,
-      chapterLabel: chapter ? `${chapter.org} — ${chapter.city}, ${chapter.country}` : undefined,
+      chapterLabel: chapter ? `${chapter.org} — ${placeLabel(chapter)}` : undefined,
       entrySlug:    entry?.slug,
       message:      clean(body.message, MAX.text) || undefined,
     })

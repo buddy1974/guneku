@@ -17,7 +17,7 @@ export function FoundingNameCard({ n }: { n: CardSafe }) {
   return (
     <article className="inst-card flex flex-col p-4">
       <p className="inst-tag">
-        {n.chapter ? `${n.chapter.flag} ${n.chapter.city}` : 'Guneku'}
+        {n.chapter ? `${n.chapter.flag} ${n.chapter.short}` : 'Guneku'}
       </p>
       <h3 className="inst-h3 mt-1.5">
         <Link href={`/indigenes/founding/${n.slug}`} className="no-underline hover:text-[var(--burgundy-i)]">
@@ -26,6 +26,13 @@ export function FoundingNameCard({ n }: { n: CardSafe }) {
       </h3>
       <p className="inst-body mt-1 !text-[0.86rem]">{n.role}</p>
       <p className="inst-meta mt-2">{n.sourceLabel}</p>
+      {/* Only where the person already has a published profile on this site —
+          the stub links to it rather than restating anything from it. */}
+      {n.profileUrl && (
+        <Link href={n.profileUrl} className="inst-meta mt-1 underline underline-offset-2 hover:text-[var(--burgundy-i)]">
+          Has a profile on guneku.org →
+        </Link>
+      )}
 
       <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-[var(--rule)] pt-3">
         <Link href={`/indigenes/submit?intent=claim&entry=${n.slug}`} className="inst-link">
@@ -61,7 +68,7 @@ export function FoundingNames({
         <p className="inst-h3">No names here yet</p>
         <p className="inst-body mt-2">
           {chapter
-            ? `Nobody has been recorded for ${chapter.city} yet. Be the first — the register opens with whoever puts a name forward.`
+            ? `Nobody has been recorded for ${chapter.short} yet. Be the first — the register opens with whoever puts a name forward.`
             : 'The register opens with whoever puts a name forward.'}
         </p>
         {showAddCta && (
