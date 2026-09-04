@@ -24,6 +24,9 @@ const isProtected = createRouteMatcher([
      gate belongs at the front of the journey, not at the end of it. */
   '/indigenes/onboarding(.*)',
   '/indigenes/profile(.*)',
+  /* Moderation. Being matched only makes a session available here — who may actually see a
+     claim queue is decided by `requireRole('reviewer')` inside the page, server-side. */
+  '/review(.*)',
   '/api/me(.*)',
   '/api/claims(.*)',
   '/api/contributions(.*)',
@@ -81,6 +84,7 @@ export const config = {
        other /indigenes path stays out of the matcher and stays account-free. */
     '/indigenes/onboarding/:path*',
     '/indigenes/profile/:path*',
+    '/review/:path*',
     /* Every route whose handler calls auth() must be matched here, or Clerk throws
        "auth() was called but Clerk can't detect usage of clerkMiddleware()" and the handler's
        own 401 never runs. The upload route was hardened in Phase 2 and missed from this list;

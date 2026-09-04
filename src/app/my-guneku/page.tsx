@@ -6,6 +6,10 @@ import { clerkConfigured } from '@/lib/clerk-config'
 import { MemberAreaNotice } from '@/components/auth/MemberAreaNotice'
 import { getMember, listFollows } from '@/lib/db/members'
 import { profileExists } from '@/lib/db/queries'
+import { listMyClaims } from '@/lib/db/claims'
+import { getFoundingName } from '@/lib/community'
+import { atLeast } from '@/lib/auth'
+import { MyClaims, type ClaimView } from './MyClaims'
 import { GUNEKU_QUARTERS_27 } from '@/lib/quarters'
 import { MemberDetailsForm } from './MemberDetailsForm'
 
@@ -29,7 +33,13 @@ const ROLE_LABEL: Record<Role, string> = {
    visual family: the inst-* vocabulary, deep green, oxblood, ochre, paper. No gradient, no
    glass, no stock dashboard furniture. It should read as the Fondom's own office, not as a
    SaaS product someone bolted onto a village. */
-export default async function MyGunekuPage() {
+export default async function MyGunekuPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ claim?: string }>
+}) {
+  const claimSent = (await searchParams).claim === 'sent'
+
   /* Before asking Clerk anything, check it exists. Without this the page throws rather than
      explaining itself — see src/lib/clerk-config.ts. */
   if (!clerkConfigured()) return <MemberAreaNotice />
@@ -44,6 +54,7 @@ export default async function MyGunekuPage() {
   let member = null
   let follows: Awaited<ReturnType<typeof listFollows>> = []
   let hasProfile = false
+  let claims: ClaimView[] = []
   let dataUnavailable = false
   try {
     member  = await getMember(user.userId)
@@ -58,6 +69,30 @@ export default async function MyGunekuPage() {
        than showing a stack trace or pretending the member has no data. */
     console.error('My Guneku data unavailable:', err)
     dataUnavailable = true
+  }
+
+  /* Claims are read in their own try, deliberately separate from the one above.
+     `profile_claims` arrives with migration 0002, and folding this into the same block would
+     mean that an environment without that table reported "your details are not saved yet"
+     and disabled the member's details form — which works perfectly well. One feature being
+     unprovisioned must not take another down with it.
+
+     Only this member's own claims, already stripped of reviewer identity by
+     `toClaimantView`. The person's display name is resolved here from the reviewed register
+     rather than stored alongside the claim: the record is the record, and copying its name
+     into the database would create a second version of it to drift. */
+  let claimsUnavailable = false
+  try {
+    claims = (await listMyClaims(user.userId)).map(c => ({
+      id:          c.id,
+      person_slug: c.person_slug,
+      person_name: getFoundingName(c.person_slug)?.display ?? c.person_slug,
+      status:      c.status,
+      created_at:  c.created_at,
+    }))
+  } catch (err) {
+    console.error('My Guneku claims unavailable:', err)
+    claimsUnavailable = true
   }
 
   return (
@@ -153,15 +188,27 @@ export default async function MyGunekuPage() {
           </section>
 
           <section aria-labelledby="mg-claims" className="border-t border-[var(--rule)] pt-7">
-            <h2 id="mg-claims" className="inst-h3">Claims</h2>
+            <h2 id="mg-claims" className="inst-h3">Profile claims</h2>
             <p className="inst-body mt-2 !text-[0.88rem]">
               Entries in the Guneku registers that you have said are you. Each one is
-              reviewed by the Palace before it is marked as claimed.
+              reviewed by the Palace, and nothing on the public record changes until it is.
             </p>
-            <p className="inst-meta mt-3">
-              Nothing claimed yet.{' '}
-              <Link href="/indigenes" className="inst-link">Browse the register →</Link>
-            </p>
+            {claimSent && (
+              <p className="mt-3 rounded-[3px] border border-[var(--royal-green)]/35 bg-[var(--royal-green)]/[0.06] px-3 py-2 text-[0.86rem] leading-[1.55] text-[var(--ink-900)]">
+                <strong>Your request has been sent.</strong> The Palace will review it.
+              </p>
+            )}
+            {claimsUnavailable ? (
+              <p className="inst-meta mt-3">
+                Claims cannot be read in this environment yet. You can still{' '}
+                <Link href="/indigenes/submit?intent=claim" className="inst-link">
+                  write to the Palace about an entry
+                </Link>
+                .
+              </p>
+            ) : (
+              <MyClaims claims={claims} />
+            )}
           </section>
 
           <section aria-labelledby="mg-following" className="border-t border-[var(--rule)] pt-7">
@@ -191,6 +238,20 @@ export default async function MyGunekuPage() {
             </p>
             <p className="inst-meta mt-3">Nothing submitted yet.</p>
           </section>
+
+          {/* Shown only to a reviewer or palace-admin. The link is a convenience, not the
+              control: /review/claims decides for itself with requireRole('reviewer'). */}
+          {atLeast(user.role, 'reviewer') && (
+            <section aria-labelledby="mg-review" className="border-t border-[var(--rule)] pt-7">
+              <h2 id="mg-review" className="inst-h3">Palace review</h2>
+              <p className="inst-body mt-2 !text-[0.88rem]">
+                Claims from members waiting for a decision.
+              </p>
+              <Link href="/review/claims" className="inst-btn inst-btn-quiet mt-3">
+                Open the review queue
+              </Link>
+            </section>
+          )}
 
           <section aria-labelledby="mg-account" className="border-t border-[var(--rule)] pt-7">
             <h2 id="mg-account" className="inst-h3">Account</h2>

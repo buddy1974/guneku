@@ -629,3 +629,44 @@ Verified: `tsc` clean; **92 focused tests** added and passing (Vitest, new to th
 build clean at **226 static pages** - 228 minus the two member pages that are now
 per-request, which is the intended effect; repo eslint **0 errors**, 5 warnings, all
 pre-existing and carried with their files.
+
+## 2026-09-04 - Phase 3: moderated profile claiming
+
+A signed-in member can ask to be connected to an existing record in the Guneku register, and
+a person at the Palace decides. Built as a request-for-review workflow throughout: there is
+no path anywhere in this release by which a claim changes a public record.
+
+- **`profile_claims`** (migration 0002, additive: one CREATE TABLE, five CREATE INDEX, all
+  `IF NOT EXISTS`). Four states - `pending`, `approved`, `rejected`, `withdrawn` - enforced by
+  a CHECK constraint as well as by the code. `person_slug` is a plain TEXT pointer to
+  `founding-names.json`, with no foreign key and no copy of the person's name, office or
+  history: the register is upstream of this table and stays upstream of it.
+- **Two partial unique indexes** do the integrity work: one live claim per member per record,
+  and one approved claim per record. Both cover `pending`/`approved` only, so a withdrawn or
+  rejected request never permanently blocks somebody from asking again.
+- **Deceased records are never claimable.** Read from the explicit `deceased` flag that has
+  been on the register since it was written - nothing is inferred. Refused in the eligibility
+  function, in the claim page, in the POST handler, and again in the reviewer queue if a
+  record is marked deceased after a request was made. A second lever, `claimable: false`, lets
+  the Palace withhold a record from claiming as a data decision rather than a code change.
+- **Review is role-gated server-side.** `member` and `contributor` cannot approve or reject -
+  `requireRole('reviewer')` answers 403 from the session's own claims, never from a role in a
+  request body. A claimant can never decide their own case whatever role they hold, which is
+  checked explicitly and separately from the role system.
+- **`/review/claims`** is the reviewer surface: pending claims oldest first, the canonical
+  record, the claimant as the claimant described themselves in My Guneku, their note, and
+  approve/reject. No Clerk id reaches the page.
+- **My Guneku** shows the member's own claims with status, date, next action and withdrawal
+  for a pending one. Reviewer identity and moderation reasoning are stripped in
+  `toClaimantView` before anything leaves the database layer.
+- **Approval associates and nothing more.** It writes a status, a timestamp and a reviewer id
+  to one row. No biography, office, Royal Family standing, Notable standing, GUDECA membership
+  or diaspora classification is touched, and no permission is granted.
+
+Verified: `tsc` clean; **223 tests** passing (up from 92); build clean at **227 pages** with
+the static and SSG counts unchanged; eslint clean on everything touched.
+
+**The migration is NOT applied.** `DATABASE_URL` is empty locally and the temporary migration
+endpoint was deliberately removed on 2026-09-04. Until Marcel applies it, every claim surface
+degrades honestly and the claim page offers the Palace route that has always worked, so the
+register keeps a working way to say "this is me".

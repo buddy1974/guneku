@@ -119,7 +119,11 @@ export default async function FoundingNamePage({
             </div>
           ) : (
             <div className="mt-6 flex flex-wrap items-center gap-4">
-              <Link href={`/indigenes/submit?intent=claim&entry=${n.slug}`} className="inst-btn inst-btn-primary">
+              {/* The claim workflow, not the Palace inbox. A signed-out visitor is sent to
+                  sign in and brought straight back here by the middleware, so the register
+                  itself stays a static, account-free page. Deceased entries never reach this
+                  branch, and /my-guneku/claims/new refuses them again if they somehow do. */}
+              <Link href={`/my-guneku/claims/new?person=${n.slug}`} className="inst-btn inst-btn-primary">
                 This is me — claim this entry
               </Link>
               <Link href={`/indigenes/submit?intent=remove&entry=${n.slug}`} className="inst-link">
@@ -134,10 +138,10 @@ export default async function FoundingNamePage({
             <>
               <p className="inst-tag">What claiming does</p>
               <p className="inst-body mt-2 !text-[0.9rem]">
-                The entry becomes yours. You say where you are, what you do, which quarter you
-                come from, and which of the Fondom&rsquo;s projects you want to stand behind
-                &mdash; and you choose, field by field, what the public sees. The office stays
-                as the record has it; the rest is yours to write.
+                You ask the Palace to connect your member account to this entry, and a person
+                reviews it. Nothing on this page changes when you ask, and nothing changes
+                without that review. The office, the sources and the history stay as the
+                record has them.
               </p>
             </>
           )}

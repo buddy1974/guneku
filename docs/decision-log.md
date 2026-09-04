@@ -933,3 +933,52 @@ that wins.
 
 The property the original COALESCE was protecting is kept: a partial submission still cannot
 erase what it did not mention.
+
+## ADR-047 - A claim is a request, and the database cannot reach the record
+
+The people of Guneku live in reviewed JSON: sourced, public, and edited by a person. The claim
+workflow lives in Neon. The two are connected by one TEXT column holding a slug, and by
+nothing else - no foreign key, no copied name, no cached office, no mirrored biography.
+
+That is the whole safety property of this phase, and it is structural rather than careful.
+`src/lib/db/claims.ts` issues eight statements and every one of them names `profile_claims`;
+there is no code path from a claim decision to a person's record because no such path exists
+to be taken by mistake. A test asserts it over every statement the module can issue.
+
+An approved claim therefore establishes exactly one fact - *this authenticated member has been
+reviewed and associated with this record* - and the approved row is that fact. There is no
+second "ownership" table, because a second table would be the same fact stored twice and two
+places for it to disagree.
+
+## ADR-048 - Deceased is read, never inferred, and checked four times
+
+A record marked `deceased` is never claimable. The flag has been on the register since it was
+written and the entry page has never offered a claim action for one; this phase adds the same
+refusal in `claimEligibility`, in the claim page, in `POST /api/claims`, and once more in the
+reviewer queue for a record marked deceased *after* a request was made.
+
+Four checks for one rule is not redundancy, it is the shape of the risk. A page that does not
+render a button is not a rule - anyone can type a URL - and offering to claim the identity of
+someone's dead father because a queue was built ten minutes ago is not a bug anyone wants to
+explain. Nothing is inferred from a date, a photograph, a wording or an absence.
+
+`claimable: false` is the second lever, and it exists so the Palace can withhold a record for
+a reason other than death by recording it in the data. `deceased` is checked first and cannot
+be overridden by it.
+
+## ADR-049 - Holding the reviewer role is not permission to decide your own case
+
+`requireRole('reviewer')` gates approval and rejection, and `member` and `contributor` are
+refused by it. That is necessary and not sufficient: a reviewer is also a son or daughter of
+Guneku and may perfectly well have a claim of their own waiting in the queue.
+
+So the route checks, separately and explicitly, that the reviewer is not the claimant. The
+button is also absent in the UI, which is a courtesy - the check that matters compares the
+claim's `clerk_user_id` against the Clerk session server-side, and would refuse the request
+whatever the browser sent.
+
+The concurrency control is in the SQL rather than in TypeScript for the same reason: both
+`withdrawOwnClaim` and `decideClaim` carry `AND status = 'pending'` in the UPDATE, so two
+reviewers pressing approve in the same second both pass a read-then-write check and only one
+passes the statement. The loser updates no rows, gets null, and is told the claim has already
+been decided.

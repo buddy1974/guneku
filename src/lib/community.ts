@@ -87,6 +87,13 @@ export interface FoundingName {
   /** Recorded with respect, and never offered for claiming. */
   deceased?: boolean
 
+  /** Set to `false` to withhold a record from the claiming workflow for a reason other than
+   *  death — so that "this one should not be claimed" is a decision the Palace records in the
+   *  data, not a rule somebody has to code. Absent means claimable: the register is a
+   *  register of living sons and daughters, and the ordinary case must not need a flag.
+   *  `deceased` is checked first and cannot be overridden by this. See src/lib/claims.ts. */
+  claimable?: boolean
+
   /* ── The independent dimensions ─────────────────────────────────────────────────────────
      A person can hold several of these at once, and none of them implies another. Keeping
      them apart is the whole point of the 2026-09-03 correction: the site had been treating
