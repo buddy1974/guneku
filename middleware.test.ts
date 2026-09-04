@@ -1,0 +1,54 @@
+import { describe, it, expect } from 'vitest'
+import { config } from './middleware'
+
+/* The matcher is configuration, and configuration is where this project has been bitten.
+ *
+ * `/api/indigenes/upload` was hardened in Phase 2 and left out of this list. It stayed hidden
+ * until Clerk went live, because until then the configuration guard returned before `auth()`
+ * was ever reached — and then it threw "auth() was called but Clerk can't detect usage of
+ * clerkMiddleware()" in production. Every route that asks who the caller is must be here, so
+ * the list is asserted rather than trusted. */
+
+const matches = (path: string) =>
+  config.matcher.some(pattern => {
+    /* Next's matcher syntax, reduced to what this file actually uses: a `:name*` segment
+       stands for zero or more path segments. */
+    const source = '^' + pattern.replace(/\/:[A-Za-z]+\*/g, '(?:/.*)?') + '$'
+    return new RegExp(source).test(path)
+  })
+
+describe('every route that reads a session is matched', () => {
+  it.each([
+    '/my-guneku',
+    '/my-guneku/anything',
+    '/sign-in',
+    '/sign-up',
+    '/api/me',
+    '/api/indigenes/profile',
+    /* Missed once already, in production. */
+    '/api/indigenes/upload',
+    /* Added 2026-09-04: both are server components that call optionalUser(), and being
+       matched is also what produces the redirect carrying redirect_url. */
+    '/indigenes/onboarding',
+    '/indigenes/profile',
+  ])('matches %s', path => {
+    expect(matches(path)).toBe(true)
+  })
+})
+
+describe('the public village record stays out of it', () => {
+  it.each([
+    '/',
+    '/indigenes',
+    '/indigenes/submit',
+    '/indigenes/founding/some-name',
+    '/notables',
+    '/palace',
+    '/kingdom/about-guneku',
+    '/api/indigenes/all',
+    '/api/search',
+    '/api/contact',
+  ])('does not match %s', path => {
+    expect(matches(path)).toBe(false)
+  })
+})

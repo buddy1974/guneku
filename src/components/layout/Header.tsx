@@ -6,6 +6,7 @@ import Image           from 'next/image'
 import { usePathname } from 'next/navigation'
 import { Menu, X, Search, ChevronDown, ArrowRight } from 'lucide-react'
 import { cn }          from '@/lib/utils'
+import { MemberNavLink } from './MemberNavLink'
 import type { NavItem } from '@/lib/content'
 
 /* Information architecture — every href below resolves to a real route with
@@ -204,6 +205,13 @@ export function Header({ nav: _nav }: HeaderProps) {
             </Link>
           </span>
 
+          {/* The member entry: "Sign in" to a visitor, "My Guneku" to someone who already
+              has an account. Quiet by design — an account is for taking part in Guneku, never
+              for reading it, and the navigation should not suggest otherwise. */}
+          <span className="hidden lg:block">
+            <MemberNavLink className="whitespace-nowrap px-2.5 py-2 text-[0.83rem] font-semibold text-[var(--ink-900)] no-underline transition-colors hover:text-[var(--burgundy-i)]" />
+          </span>
+
           <button
             onClick={() => setSearchOpen(s => !s)}
             aria-label={searchOpen ? 'Close search' : 'Search the site'}
@@ -328,6 +336,11 @@ export function Header({ nav: _nav }: HeaderProps) {
           >
             Join our community <ArrowRight className="h-4 w-4" />
           </Link>
+
+          <MemberNavLink
+            onNavigate={() => setOpen(false)}
+            className="inst-btn inst-btn-quiet mt-3 w-full justify-center"
+          />
         </nav>
       </div>
     </header>

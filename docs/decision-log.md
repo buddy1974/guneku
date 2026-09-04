@@ -880,3 +880,56 @@ across this site: the church count, the school count, the chapter count, the qua
 A number that describes the archive will be read as a number that describes Guneku unless the
 sentence around it does the work. Publishing "17 people abroad" would have asserted something
 about the village that nobody has established, from a figure that only describes a register.
+
+## ADR-044 - The public directory publishes a column list, not a row
+
+`/api/indigenes/all` selected `*` and spread the row into the response. With no profiles in
+the table that published nothing; with one profile it would have published `clerk_user_id` -
+the identifier the entire authorisation model is built on - and `total_count`, a window column
+that belongs to the query rather than to a person.
+
+Nothing could be done with the id. There is no route anywhere that takes a user id as input,
+which is exactly the property `requireUser()` exists to preserve. So this was not an exposure
+with a consequence; it was an exposure waiting for one.
+
+The fix is a fixed list of public columns plus a mapper that builds the response field by
+field. Deliberately **not** `Omit<IndigeneProfile, 'clerk_user_id'>`: an Omit keeps inheriting
+every future column by default, so the next private field somebody adds is published unless
+they remember. A list means a new column is private until a person decides otherwise. The
+default should point towards privacy, not away from it.
+
+## ADR-045 - The navigation reads a cookie, not a session
+
+The member area needed an entry point in the header. The obvious implementations are both
+closed here, and for reasons worth writing down before someone reopens them:
+
+- **Clerk's `<SignedIn>` / `<SignedOut>`** need ClerkProvider, which is deliberately scoped to
+  the three member subtrees so that Guneku's public pages carry no authentication runtime at
+  all. Mounting it globally to decide one word in the navigation would put an SDK on every
+  page of a village record anybody may read - on a mid-range Android over a throttled
+  connection, for a link most readers never use.
+- **Reading the session server-side** means `cookies()` in the root layout, which makes all
+  226 pages dynamic and ends the static build.
+
+So `MemberNavLink` reads `__client_uat`, the small non-HttpOnly cookie Clerk maintains for
+this purpose. It is a **display hint and nothing else**: it chooses a label, never access.
+`/my-guneku` is protected by the middleware and again by the page, so a stale cookie costs a
+signed-out visitor one redirect and a missing one costs a member one extra click. Neither can
+show anybody another person's anything. `useSyncExternalStore` reads it, so the server render
+and the first client render agree and hydration stays honest.
+
+## ADR-046 - An edit that cannot undo is not an edit
+
+`updateProfile` was written as `COALESCE(${value}, column)` for every column. An empty string
+arrived as null and COALESCE read null as "leave it alone", so a member could set a field and
+change a field but could never remove one: a wrong employer, an old link or a bio they had
+thought better of stayed on their public profile permanently.
+
+The SET clause is now built from what the caller actually sent - absent means unchanged, empty
+string means remove - which is the distinction the form was always trying to express. Column
+names come from two fixed lists in the module and never from the request; `full_name` is set
+but never cleared, because the schema says NOT NULL and the database's own rule is the one
+that wins.
+
+The property the original COALESCE was protecting is kept: a partial submission still cannot
+erase what it did not mention.

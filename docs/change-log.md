@@ -586,3 +586,46 @@ response is the site-wide `meta name="creator"` inside the RSC payload. All five
 members appear 0 times on `/diaspora`. All four GUDECA EU additions and both diaspora profiles
 appear. Zero occurrences of "first/senior/principal/junior queen". Search reflects every
 corrected classification, carries no stale narrative, and shows one Ma Rose.
+
+## 2026-09-04 - My Guneku profile ownership and onboarding hardening
+
+The directory could be joined and never revisited. This release turns a one-way form into a
+profile the member owns, and closes the defects the readiness inspection found in the journey
+that was already live.
+
+- **Onboarding is gated.** `/indigenes/onboarding` and `/indigenes/profile` are now in the
+  middleware matcher and in `isProtected`, so a signed-out visitor is redirected to `/sign-in`
+  with `redirect_url` before the first step rather than after the fifth. Each page checks
+  again server-side: a matcher is configuration, and configuration can be edited by mistake.
+- **A second profile is no longer a 500.** The create handler asks `profileExists` first and
+  answers **409** with the link to the profile that exists; a lost race on the UNIQUE
+  constraint (23505) produces the same 409. The constraint stays as defence in depth.
+- **`/indigenes/profile` is real.** It replaced a stub reading "Member authentication coming
+  soon" - which had stopped being true, and which the onboarding confirmation email linked
+  people to. It shows only the signed-in member's own row, fetched by the session's user id;
+  there is no id in the route and none in the query string.
+- **Editing that can undo.** `updateProfile` was a fixed `COALESCE(value, column)` per column,
+  which could set a field but never clear one. It now builds the SET clause from what was
+  actually sent: absent means unchanged, empty means remove. `full_name` is set but never
+  cleared, because the column is NOT NULL.
+- **No more silent failures.** Every mutation in both the onboarding form and the editor now
+  has a loading, success and human-readable failure state. A 401 bounces to sign-in and back;
+  a 409 routes to the existing profile. Nothing returns a driver message, a stack trace or an
+  internal identifier.
+- **The public directory stopped publishing `clerk_user_id`.** `/api/indigenes/all` answered
+  `SELECT *` plus an object spread, so the identifier every row is owned by - and the
+  `total_count` window column - went to anyone who asked. It is now an explicit column list
+  and a field-by-field mapper, so a future column is private until somebody decides otherwise.
+- **The member area has a door.** My Guneku existed, was protected, worked, and appeared in no
+  header, drawer or footer. `MemberNavLink` adds it to both desktop and mobile navigation -
+  "Sign in" to a visitor, "My Guneku" to a member - reading Clerk's `__client_uat` cookie
+  rather than mounting ClerkProvider on 188 public pages or making the root layout dynamic.
+- **My Guneku connects to the directory**: Create your profile, or View or edit your profile.
+  Claims, contributions and follows are untouched placeholders, as instructed.
+
+No migration. No schema change. No Clerk or Cloudflare change.
+
+Verified: `tsc` clean; **92 focused tests** added and passing (Vitest, new to the repository);
+build clean at **226 static pages** - 228 minus the two member pages that are now
+per-request, which is the intended effect; repo eslint **0 errors**, 5 warnings, all
+pre-existing and carried with their files.

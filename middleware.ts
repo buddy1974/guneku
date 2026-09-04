@@ -17,6 +17,13 @@ import { clerkConfigured } from '@/lib/clerk-config'
 
 const isProtected = createRouteMatcher([
   '/my-guneku(.*)',
+  /* A person's own directory profile, and the journey that creates it. Both were public
+     until 2026-09-04, which meant a signed-out villager could fill in five steps of the
+     onboarding form and have the submit button do nothing at all: the write behind it has
+     required a session since Phase 2, so the answer was a 401 the form never showed. The
+     gate belongs at the front of the journey, not at the end of it. */
+  '/indigenes/onboarding(.*)',
+  '/indigenes/profile(.*)',
   '/api/me(.*)',
   '/api/claims(.*)',
   '/api/contributions(.*)',
@@ -67,6 +74,13 @@ export const config = {
     '/api/claims/:path*',
     '/api/contributions/:path*',
     '/api/indigenes/profile/:path*',
+    /* The two member-owned pages under /indigenes. They are server components that call
+       optionalUser(), so they must be matched for the same reason the API routes are —
+       and being matched is also what produces the redirect that carries `redirect_url`,
+       so a villager who signs in lands back on the step they were trying to reach. Every
+       other /indigenes path stays out of the matcher and stays account-free. */
+    '/indigenes/onboarding/:path*',
+    '/indigenes/profile/:path*',
     /* Every route whose handler calls auth() must be matched here, or Clerk throws
        "auth() was called but Clerk can't detect usage of clerkMiddleware()" and the handler's
        own 401 never runs. The upload route was hardened in Phase 2 and missed from this list;

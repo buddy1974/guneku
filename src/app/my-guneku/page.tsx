@@ -5,6 +5,7 @@ import { optionalUser, type Role } from '@/lib/auth'
 import { clerkConfigured } from '@/lib/clerk-config'
 import { MemberAreaNotice } from '@/components/auth/MemberAreaNotice'
 import { getMember, listFollows } from '@/lib/db/members'
+import { profileExists } from '@/lib/db/queries'
 import { GUNEKU_QUARTERS_27 } from '@/lib/quarters'
 import { MemberDetailsForm } from './MemberDetailsForm'
 
@@ -42,10 +43,15 @@ export default async function MyGunekuPage() {
      state rather than an error. */
   let member = null
   let follows: Awaited<ReturnType<typeof listFollows>> = []
+  let hasProfile = false
   let dataUnavailable = false
   try {
     member  = await getMember(user.userId)
     follows = await listFollows(user.userId)
+    /* The two are separate records on purpose: `community_members` is who this person is on
+       the platform, `indigene_profiles` is what they have published about themselves in the
+       directory. A member may have one, both or neither. This page only asks which. */
+    hasProfile = await profileExists(user.userId)
   } catch (err) {
     /* The tables arrive with migration 0001, which has not been applied anywhere yet
        (R-024/R-025). Until then this page must still render and say so honestly, rather
@@ -121,7 +127,32 @@ export default async function MyGunekuPage() {
 
         {/* ── The three registers of activity ── */}
         <div className="grid gap-8 self-start">
-          <section aria-labelledby="mg-claims">
+          <section aria-labelledby="mg-directory">
+            <h2 id="mg-directory" className="inst-h3">Your directory profile</h2>
+            {hasProfile ? (
+              <>
+                <p className="inst-body mt-2 !text-[0.88rem]">
+                  You have an entry in the indigenes directory. It is yours to change or take
+                  down whenever you like.
+                </p>
+                <Link href="/indigenes/profile" className="inst-btn inst-btn-quiet mt-3">
+                  View or edit my profile
+                </Link>
+              </>
+            ) : (
+              <>
+                <p className="inst-body mt-2 !text-[0.88rem]">
+                  You are not in the indigenes directory yet — the record of Guneku sons and
+                  daughters at home and abroad. What you put on it is yours to decide.
+                </p>
+                <Link href="/indigenes/onboarding" className="inst-btn inst-btn-quiet mt-3">
+                  Create my profile
+                </Link>
+              </>
+            )}
+          </section>
+
+          <section aria-labelledby="mg-claims" className="border-t border-[var(--rule)] pt-7">
             <h2 id="mg-claims" className="inst-h3">Claims</h2>
             <p className="inst-body mt-2 !text-[0.88rem]">
               Entries in the Guneku registers that you have said are you. Each one is
