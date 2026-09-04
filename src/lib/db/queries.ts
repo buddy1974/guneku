@@ -121,22 +121,31 @@ export async function listProfiles(opts: {
   const quarter = opts.quarter || null
   const country = opts.country || null
 
+  /* Every optional parameter is cast explicitly.
+   *
+   * Without the casts Postgres refuses the query outright: `$1 IS NULL` gives it a parameter
+   * in a context that implies no type, and it answers `could not determine data type of
+   * parameter $1` (SQLSTATE 42P18). That is what /api/indigenes/all returned the moment the
+   * table existed and the query could finally be attempted at all — the bug had been sitting
+   * behind a missing table and, before that, behind a client that could never be called.
+   *
+   * `::text` on each side of the null check is the whole fix. */
   const rows = await sql`
     SELECT *, COUNT(*) OVER() AS total_count
     FROM indigene_profiles
     WHERE is_public = true
       AND (
-        ${search} IS NULL OR (
-          LOWER(full_name)                  LIKE ${search} OR
-          LOWER(COALESCE(profession, ''))   LIKE ${search} OR
-          LOWER(COALESCE(current_city,''))  LIKE ${search}
+        ${search}::text IS NULL OR (
+          LOWER(full_name)                  LIKE ${search}::text OR
+          LOWER(COALESCE(profession, ''))   LIKE ${search}::text OR
+          LOWER(COALESCE(current_city,''))  LIKE ${search}::text
         )
       )
-      AND (${quarter} IS NULL OR quarter = ${quarter})
-      AND (${country} IS NULL OR current_country = ${country})
+      AND (${quarter}::text IS NULL OR quarter = ${quarter}::text)
+      AND (${country}::text IS NULL OR current_country = ${country}::text)
     ORDER BY created_at DESC
-    LIMIT ${limit}
-    OFFSET ${offset}
+    LIMIT ${limit}::int
+    OFFSET ${offset}::int
   `
 
   const total    = rows[0] ? Number((rows[0] as any).total_count) : 0
