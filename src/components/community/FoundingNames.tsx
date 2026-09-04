@@ -46,7 +46,10 @@ export function FoundingNameCard({ n }: { n: CardSafe }) {
           <span className="inst-meta">Of blessed memory — kept as a record</span>
         ) : (
           <>
-            <Link href={`/indigenes/submit?intent=claim&entry=${n.slug}`} className="inst-link">
+            {/* The claim workflow, the same destination as the entry page's own button.
+                Two different journeys behind one phrase is how a site starts meaning two
+                things by "claim"; a signed-out reader is sent to sign in and brought back. */}
+            <Link href={`/my-guneku/claims/new?person=${n.slug}`} className="inst-link">
               This is me — claim it →
             </Link>
             <Link
