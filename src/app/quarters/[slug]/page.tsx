@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { PageHero } from '@/components/layout/PageHero'
 import { pageMetadata } from '@/lib/seo'
 import { allQuarters, getQuarter, type QuarterLink } from '@/lib/quarter-pages'
+import { councilFor } from '@/lib/quarter-councils'
 
 export function generateStaticParams() {
   return allQuarters().map(q => ({ slug: q.slug }))
@@ -43,6 +44,9 @@ export default async function QuarterPage({ params }: { params: Promise<{ slug: 
   const { slug } = await params
   const q = getQuarter(slug)
   if (!q) notFound()
+
+  /* Whoever the archive names in this quarter's traditional council — usually nobody. */
+  const council = councilFor(q.name)
 
   return (
     <main className="min-h-screen bg-[var(--paper)]">
@@ -108,6 +112,65 @@ export default async function QuarterPage({ params }: { params: Promise<{ slug: 
                 </p>
               </div>
             )}
+            {/* ── The quarter council ──────────────────────────────────────────────────
+                Every quarter of Guneku has a traditional council. The Fon called quarter
+                elections in 2021 and councillors were installed in the Palace, so the
+                councils exist as a matter of record. What the archive mostly does not hold
+                is who sits on them.
+
+                Omitting the council would publish the false impression that this quarter has
+                no governance. Filling it with a plausible name, or a "TBC" that reads as a
+                person, would be worse. So the structure is shown, what is known is published,
+                the gap is named as a gap, and the people who know are given a way in. */}
+            <div className="mt-10 border-t border-[var(--rule)] pt-8">
+              <h2 className="inst-h2">The {q.name} quarter council</h2>
+
+              {council.members.length > 0 ? (
+                <>
+                  <p className="inst-body mt-2 max-w-2xl">
+                    Those the Fondom&rsquo;s records name in this quarter&rsquo;s council. The
+                    words beside each name are the record&rsquo;s own.
+                  </p>
+                  <ul className="mt-5 list-none p-0">
+                    {council.members.map(m => (
+                      <li key={m.slug} className="inst-row py-3.5">
+                        <Link href={`/indigenes/founding/${m.slug}`}
+                              className="inst-h3 no-underline hover:text-[var(--royal-green)]">
+                          {m.display}
+                        </Link>
+                        <p className="inst-body mt-1 max-w-2xl !text-[0.88rem]">{m.role}</p>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="inst-meta mt-4 max-w-2xl">
+                    A council has more members than the archive names. If you know who else
+                    serves on this one, the record is open to you.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="inst-body mt-2 max-w-2xl">
+                    {q.name} holds its own traditional council, as every quarter of Guneku
+                    does. <strong className="text-[var(--ink-900)]">The Fondom&rsquo;s record
+                    does not yet name who sits on it.</strong>
+                  </p>
+                  <p className="inst-body mt-3 max-w-2xl !text-[0.9rem]">
+                    No name is supplied here by guesswork. The council is shown because it
+                    exists; it is empty because the record is silent, and that is a gap the
+                    people of {q.name} can close.
+                  </p>
+                </>
+              )}
+
+              <Link
+                href={`/my-guneku/contribute/new?type=quarter-information&targetType=quarter&targetId=${encodeURIComponent(q.name)}`}
+                className="inst-btn inst-btn-primary mt-5"
+              >
+                {council.members.length > 0
+                  ? 'Add to this council’s record'
+                  : 'Provide this council’s information'}
+              </Link>
+            </div>
           </div>
 
           <aside className="self-start">
@@ -118,8 +181,9 @@ export default async function QuarterPage({ params }: { params: Promise<{ slug: 
                 there, its market, its families &mdash; put it forward. Nothing is published
                 until the Palace has reviewed it.
               </p>
-              <Link href="/indigenes/submit?intent=add"
-                    className="inst-btn inst-btn-primary mt-4 w-full justify-center">
+              <Link
+                href={`/my-guneku/contribute/new?targetType=quarter&targetId=${encodeURIComponent(q.name)}`}
+                className="inst-btn inst-btn-primary mt-4 w-full justify-center">
                 Contribute to the record
               </Link>
             </div>

@@ -11,6 +11,9 @@ import { getFoundingName } from '@/lib/community'
 import { atLeast } from '@/lib/auth'
 import { MyClaims, type ClaimView } from './MyClaims'
 import { StayConnected, type FollowState } from './StayConnected'
+import { MyContributions, type ContributionView } from './MyContributions'
+import { listMyContributions } from '@/lib/db/contributions'
+import { contributionTargetLabel, contributionTargetHref } from '@/lib/contribution-targets'
 import { GUNEKU_QUARTERS_27 } from '@/lib/quarters'
 import { MemberDetailsForm } from './MemberDetailsForm'
 
@@ -37,9 +40,11 @@ const ROLE_LABEL: Record<Role, string> = {
 export default async function MyGunekuPage({
   searchParams,
 }: {
-  searchParams: Promise<{ claim?: string }>
+  searchParams: Promise<{ claim?: string; contribution?: string }>
 }) {
-  const claimSent = (await searchParams).claim === 'sent'
+  const sp = await searchParams
+  const claimSent        = sp.claim === 'sent'
+  const contributionSent = sp.contribution === 'sent'
 
   /* Before asking Clerk anything, check it exists. Without this the page throws rather than
      explaining itself — see src/lib/clerk-config.ts. */
@@ -90,6 +95,26 @@ export default async function MyGunekuPage({
      `toClaimantView`. The person's display name is resolved here from the reviewed register
      rather than stored alongside the claim: the record is the record, and copying its name
      into the database would create a second version of it to drift. */
+  /* Its own try, like the claims block below and for the same reason: `contributions`
+     arrives with migration 0003, and folding this in with the member's details would mean an
+     environment without that table reported "your details are not saved yet" and disabled a
+     form that works perfectly well. */
+  let contributions: ContributionView[] = []
+  let contributionsUnavailable = false
+  try {
+    contributions = (await listMyContributions(user.userId)).map(c => ({
+      id:           c.id,
+      type:         c.type,
+      target_label: contributionTargetLabel(c.target_type, c.target_id),
+      target_href:  contributionTargetHref(c.target_type, c.target_id),
+      status:       c.status,
+      created_at:   c.created_at,
+    }))
+  } catch (err) {
+    console.error('My Guneku contributions unavailable:', err)
+    contributionsUnavailable = true
+  }
+
   let claimsUnavailable = false
   try {
     claims = (await listMyClaims(user.userId)).map(c => ({
@@ -240,9 +265,20 @@ export default async function MyGunekuPage({
             <h2 id="mg-contrib" className="inst-h3">Contributions</h2>
             <p className="inst-body mt-2 !text-[0.88rem]">
               Corrections and information you have put forward for the record, with where
-              each one has reached in review.
+              each one has reached in review. Nothing you send changes a page by itself.
             </p>
-            <p className="inst-meta mt-3">Nothing submitted yet.</p>
+            {contributionSent && (
+              <p className="mt-3 rounded-[3px] border border-[var(--royal-green)]/35 bg-[var(--royal-green)]/[0.06] px-3 py-2 text-[0.86rem] leading-[1.55] text-[var(--ink-900)]">
+                <strong>Thank you — the Palace has it.</strong> A person will read it.
+              </p>
+            )}
+            {contributionsUnavailable ? (
+              <p className="inst-meta mt-3">
+                Contributions cannot be read in this environment yet.
+              </p>
+            ) : (
+              <MyContributions contributions={contributions} />
+            )}
           </section>
 
           {/* Shown only to a reviewer or palace-admin. The link is a convenience, not the
@@ -251,11 +287,16 @@ export default async function MyGunekuPage({
             <section aria-labelledby="mg-review" className="border-t border-[var(--rule)] pt-7">
               <h2 id="mg-review" className="inst-h3">Palace review</h2>
               <p className="inst-body mt-2 !text-[0.88rem]">
-                Claims from members waiting for a decision.
+                Claims and contributions from members, waiting for a decision.
               </p>
-              <Link href="/review/claims" className="inst-btn inst-btn-quiet mt-3">
-                Open the review queue
-              </Link>
+              <div className="mt-3 flex flex-wrap gap-2.5">
+                <Link href="/review/claims" className="inst-btn inst-btn-quiet">
+                  Claims
+                </Link>
+                <Link href="/review/contributions" className="inst-btn inst-btn-quiet">
+                  Contributions
+                </Link>
+              </div>
             </section>
           )}
 

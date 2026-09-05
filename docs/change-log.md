@@ -737,3 +737,47 @@ consent it has not been given.
 Verified: `tsc` clean; **346 tests** passing, up from 223; build clean at 228 routes with
 static (27) and SSG (38) counts unchanged - the only addition is `ƒ /api/follows`; eslint
 clean on every touched file.
+
+## 2026-09-05 - Phase 5: moderated contributions
+
+How a son or daughter of Guneku supplies what the record is missing, or corrects what it has
+wrong. Nothing submitted publishes automatically, and accepting a contribution changes no
+canonical content.
+
+- **The standing editorial principle**, implemented and documented in `src/lib/contributions.ts`
+  and `src/lib/quarter-councils.ts`: **structural completeness is encouraged, factual
+  fabrication is prohibited.** A known institution whose record is incomplete is shown as a
+  structure, with what is known published, the gap named as a gap, and a route for the people
+  who can close it. An unknown person or office is never invented.
+- **All 27 quarter councils are now represented.** Every quarter of Guneku holds a traditional
+  council - the Fon called quarter elections in 2021 and councillors were installed - and the
+  archive names members for **one** of the twenty-seven. Omitting the other twenty-six would
+  publish the false impression that those quarters have no governance; filling them would be
+  invention. Each page now shows the council, names whoever the record actually names in the
+  record's own words, says plainly where it is silent, and offers the contribution route.
+- **`contributions`** (migration 0003, additive: one CREATE TABLE, four CREATE INDEX, all
+  `IF NOT EXISTS`, plus two CHECK constraints and no foreign key). Eight types and six target
+  kinds, both closed sets enforced in the database as well as the application.
+- **Targets are validated against the canonical records.** A browser cannot invent a quarter,
+  a person, a body or a chapter, and the label a reviewer sees is read from those records
+  rather than from anything the contributor typed.
+- **Claim and contribution stay separate concepts.** A claim says *this record is me*; a
+  contribution says *something about this record should change*. A deceased record remains
+  permanently unclaimable, and can be contributed about - refusing that would lose the
+  families who remember best.
+- **`/review/contributions`**, role-gated exactly as claim review is. `member` and
+  `contributor` are refused; being able to submit is not being able to decide, and nobody
+  decides their own submission whatever role they hold.
+- **"Accepted" never says "published."** Accepting records that Guneku has taken a
+  contribution up for editorial action. Making the change is a separate, deliberate act by a
+  person, and a test asserts the word "publish" appears in no accepted-status wording.
+
+**Photographs are described, not uploaded** (ADR-055). The `photo-archive` type exists; a file
+input does not. Guneku's blob store serves files publicly once written, so accepting an image
+would put unreviewed material on the Fondom's own hosting before anyone had looked at it.
+
+Verified: `tsc` clean; **524 tests** passing, up from 346; build clean at 229 routes with
+static (27) and SSG (38) counts unchanged; eslint clean on every touched file.
+
+**Migration 0003 is NOT applied.** The hardened migration endpoint is restored and deployed
+inert, awaiting `MIGRATE_TOKEN`. Until then every contribution surface degrades honestly.

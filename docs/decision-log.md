@@ -1027,3 +1027,66 @@ nobody has given. When Guneku can actually send something, it arrives with its o
 The honest consequence, stated rather than hidden: the follows table currently records wishes
 that nothing acts on. That is the correct state for a village record that has not yet decided
 how it wants to speak to people.
+
+## ADR-053 - Structural completeness is encouraged; factual fabrication is prohibited
+
+Written down as a standing rule because it governs more than one page and will govern more
+still.
+
+Guneku must not hide a known institution merely because its record is incomplete. The four
+cases, and what each requires:
+
+- **known fact** - publish it accurately
+- **known body, quarter, chapter or category with an incomplete record** - represent its
+  proper structure, publish what is known, visibly identify what is missing, and provide a
+  route by which it can be completed
+- **unknown person, office or historical fact** - never invent. No plausible name, no "TBC"
+  that reads as a person, no office inferred from proximity
+- **owner-supplied correction or assignment** - authoritative current Guneku content, unless
+  the owner explicitly marks it tentative
+
+The failure mode this exists to prevent is subtle: a site that omits what it cannot complete
+looks tidy and lies by omission, and a site that completes what it does not know looks
+authoritative and lies outright. The third option - showing the structure and naming the gap -
+looks unfinished, and is the only honest one.
+
+## ADR-054 - The 27 quarter councils, and the discrepancy underneath them
+
+Every quarter of Guneku holds a traditional council. The 2021 election reports establish it:
+the Fon called elections, the commission toured the village, councillors were installed in the
+Palace. The councils exist as a matter of record.
+
+The archive names members for **one** of the twenty-seven. So each quarter page now carries the
+council as a structure, names whoever the register actually names - in the register's own
+words, quoted rather than paraphrased into an office - and where it is silent says so and
+offers the contribution route. Attachment is by whole-word match of the canonical quarter name
+in the record's own `role` string, and nothing is inferred from residence, profession or body
+membership.
+
+**A discrepancy is surfaced and deliberately not resolved.** The register names quarter
+office-holders for places absent from the canonical twenty-seven - Njinebai, for one - and the
+2021 reports name many more: Toh, Nyeh, Tuengyie, Benjoh, Njizam, Sang, Kimbot, Wunmenyeh,
+Tonmitoh, Bighebomi, Mbengtibat. Two Fondom sources disagree about what the quarters of Guneku
+are called.
+
+It is not this code's place to decide that a quarter the archive names does not exist, nor to
+add names to a canonical list that carries a "do not change without a Palace source"
+instruction. `councilNamesOutsideCanonicalQuarters()` reports them, nothing public consumes it,
+and the question goes to the owner. This is exactly the class of question the contribution
+system was built to answer.
+
+## ADR-055 - Photographs are described, not uploaded
+
+`photo-archive` is a contribution type. A file input is not.
+
+Guneku's blob store is written with `access: 'public'`: a file put there is served from the
+Fondom's own hosting the moment it exists, before any person has looked at it. A contribution
+is private while pending, and an upload that is public on arrival cannot be. The two cannot
+both be true, and the one that must give way is the upload.
+
+So a contributor describes what they hold - what it shows, roughly when, who is in it - and
+the Palace comes back to them about how to send it. Slower, and the only version in which
+"nothing is published until a person has reviewed it" is actually true.
+
+This is not a permanent refusal of media contributions. It is a refusal to ship one before
+there is a private store to put it in, which is its own piece of work.

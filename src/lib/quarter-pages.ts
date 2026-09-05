@@ -63,6 +63,16 @@ export function getQuarter(slug: string): Quarter | null {
 /** Quarters the archive actually says something about. Used for the index's ordering and to
  *  decide what belongs in the sitemap: a page with no content should not be offered to a
  *  search engine as though it had some. */
+/** Find a quarter by its slug or by its canonical name. Contributions store the canonical
+ *  name (which is what `GUNEKU_QUARTERS_27` holds and what the register validates against),
+ *  while the pages are addressed by slug — this is the one place that bridges the two. */
+export function getQuarterBySlugOrName(value: string): Quarter | null {
+  const v = value.trim()
+  return QUARTERS.find(q => q.slug === v)
+    ?? QUARTERS.find(q => q.name.toLowerCase() === v.toLowerCase())
+    ?? null
+}
+
 export function recordedQuarters(): Quarter[] {
   return allQuarters().filter(q => q.links.length > 0)
 }
