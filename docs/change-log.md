@@ -781,3 +781,28 @@ static (27) and SSG (38) counts unchanged; eslint clean on every touched file.
 
 **Migration 0003 is NOT applied.** The hardened migration endpoint is restored and deployed
 inert, awaiting `MIGRATE_TOKEN`. Until then every contribution surface degrades honestly.
+
+## 2026-09-05 - Migration 0003 applied; the migration endpoint removed again
+
+`contributions` exists in production. The Phase 5 contribution workflow is live.
+
+Third use of the endpoint, third removal in the same session. The lifecycle - restore, apply,
+verify, delete - is what makes it safe, and the last step is the one that would be tempting
+to skip.
+
+- **Applied:** `0003_contributions.sql`. `0000`, `0001` and `0002` were already recorded and
+  were not re-run. The ledger now holds four rows.
+- **Proved rather than asserted:** a second call applied **nothing** (`"applied": []`).
+- **Created:** `contributions`, with all four indexes plus the primary key, and the two CHECK
+  constraints that keep the type and status vocabularies closed in the database as well as in
+  the application.
+- **Existing tables untouched:** all six now present - `community_members`, `contributions`,
+  `follows`, `indigene_profiles`, `profile_claims`, `schema_migrations`. Verified through the
+  live app rather than by assertion: `/api/indigenes/all` answers 200 on both the plain and
+  the filtered query, so the 42P18 fix still holds, and `/api/me`, `/api/claims`,
+  `/api/follows` and `/api/contributions` all answer 401 signed out.
+- **Removed:** `src/app/api/admin/migrate/` in full. No `MIGRATE_TOKEN` reference remains in
+  any source file.
+
+No fake identity and no fake contribution was created in production. Verification was
+signed-out behaviour and catalogue reads only.
