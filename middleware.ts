@@ -29,6 +29,7 @@ const isProtected = createRouteMatcher([
   '/review(.*)',
   '/api/me(.*)',
   '/api/claims(.*)',
+  '/api/follows(.*)',
   '/api/contributions(.*)',
   '/api/indigenes/profile(.*)',
   '/api/indigenes/upload(.*)',
@@ -75,6 +76,7 @@ export const config = {
     '/sign-up/:path*',
     '/api/me/:path*',
     '/api/claims/:path*',
+    '/api/follows/:path*',
     '/api/contributions/:path*',
     '/api/indigenes/profile/:path*',
     /* The two member-owned pages under /indigenes. They are server components that call

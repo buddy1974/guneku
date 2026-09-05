@@ -31,6 +31,11 @@ describe('every route that reads a session is matched', () => {
        matched is also what produces the redirect carrying redirect_url. */
     '/indigenes/onboarding',
     '/indigenes/profile',
+    /* Added 2026-09-05 with the claim workflow and Stay Connected. */
+    '/review/claims',
+    '/api/claims',
+    '/api/claims/some-id',
+    '/api/follows',
   ])('matches %s', path => {
     expect(matches(path)).toBe(true)
   })

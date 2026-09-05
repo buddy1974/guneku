@@ -982,3 +982,48 @@ The concurrency control is in the SQL rather than in TypeScript for the same rea
 reviewers pressing approve in the same second both pass a read-then-write check and only one
 passes the statement. The loser updates no rows, gets null, and is told the claim has already
 been decided.
+
+## ADR-050 - Stay Connected needed no migration, because 0001 already described it
+
+The `follows` table was written in migration 0001 with a constrained `subject_type`, a free
+`subject_id` and a UNIQUE across (member, type, id). Phase 4 needed a member-controlled set of
+subscriptions with exactly-once semantics, and that is what was already there.
+
+So the eight topics are `('topic', <id>)` and My quarter is `('quarter', <their quarter>)`,
+and no schema changed. Worth recording because the temptation was real: a `subscriptions`
+table with a `topic` column would have looked tidier and would have been a second way to say
+the same thing, with its own constraint to keep in step and its own migration to apply against
+a production database that is not reachable from here without an endpoint that should not
+exist.
+
+`subject_type` 'project' and 'event' are deliberately left unused. They are for following one
+specific project or one specific event later; the *categories* "Projects" and "Events" are
+topics. Storing both in the same value would make "following Projects" and "following the
+water project" indistinguishable in the same column.
+
+## ADR-051 - A closed taxonomy, and two topics with nowhere to point
+
+What a member may follow is a fixed list of nine choices, validated server-side. An arbitrary
+string must never become a subscription: it would let a caller invent parts of village life
+that do not exist, and fill the table with targets nobody can ever publish to.
+
+Culture and Events are on the list and have **no route**, because Guneku has no page for
+either. The alternative was to invent `/culture` and `/events` so every row could render a
+link - publishing two routes to nothing in order to make a component tidier. The type carries
+`route: string | null` and the UI simply omits the link. A member can still say they want to
+hear about culture; the Fondom simply has not written that page yet.
+
+## ADR-052 - Following is not consent to be emailed
+
+This phase establishes preferences and sends nothing. Nothing in the follow path imports the
+mailer, and a test asserts it by reading the route's own source - a route that *could* send is
+a route that eventually will.
+
+The UI is worded to match what is true: "choose what you want to hear about", not "email me
+about". No channel, no frequency, no digest, no unsubscribe - because none of those exist, and
+offering them would be promising a delivery the Fondom has not built and claiming a consent
+nobody has given. When Guneku can actually send something, it arrives with its own controls.
+
+The honest consequence, stated rather than hidden: the follows table currently records wishes
+that nothing acts on. That is the correct state for a village record that has not yet decided
+how it wants to speak to people.

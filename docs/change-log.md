@@ -699,3 +699,41 @@ behaviour and catalogue reads only.
 
 Verified on the clean deployment: `tsc` clean; 223 tests passing; build clean at 227 pages;
 eslint clean across every file this work touched.
+
+## 2026-09-05 - Phase 4: Stay Connected
+
+A signed-in member can choose which parts of village life they want to follow. It is a
+preference store, not a social graph and not a notification system: there are no follower
+counts, nobody follows a person, and following something sends nothing.
+
+- **No migration.** The `follows` table from migration 0001 already had exactly the right
+  shape - `subject_type` constrained to a five-value set, `subject_id`, and
+  `UNIQUE (clerk_user_id, subject_type, subject_id)`. The eight topics store as
+  `('topic', <id>)` and My quarter as `('quarter', <the member's canonical quarter>)`. The
+  existing `addFollow` was already `ON CONFLICT DO NOTHING`, so idempotency is the database's
+  job rather than a handler's.
+- **A closed taxonomy** in `src/lib/follow-topics.ts`: Palace announcements, Projects,
+  Education, GUDECA, Culture, Events, Diaspora, Guneku TV - plus My quarter. An unapproved
+  string is refused with 400 before it can reach the table, because a subscription to
+  something that does not exist is one nobody can ever deliver.
+- **Culture and Events carry no link.** Neither has a page on this site, and inventing
+  `/culture` and `/events` so the UI could show one would be publishing a route to nothing.
+  A member may still follow them.
+- **My quarter is never guessed.** It resolves from the member's own `community_members` row,
+  server-side, re-validated against the 27 the Fondom publishes. A member who has not set one
+  is asked to - 409 with the instruction - and a stored value that is not canonical is
+  refused rather than followed.
+- **`/api/follows`** GET/POST/DELETE, added to the middleware matcher in the same change. That
+  matcher omission is the exact defect that hid in `/api/indigenes/upload` until Clerk went
+  live, and the matcher test now asserts this route too.
+- **The response speaks the taxonomy's terms**, not the table's: `{topics, quarter}`, with no
+  row id, no `subject_type`, no timestamp and no Clerk id.
+
+**No email, and no path to one.** Nothing in the follow path imports the mailer, and a test
+asserts that by reading the route's own source. Delivery, consent and channel belong to the
+later notification work. The UI says "choose what you want to hear about" and does not claim
+consent it has not been given.
+
+Verified: `tsc` clean; **346 tests** passing, up from 223; build clean at 228 routes with
+static (27) and SSG (38) counts unchanged - the only addition is `ƒ /api/follows`; eslint
+clean on every touched file.

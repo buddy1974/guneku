@@ -10,6 +10,7 @@ import { listMyClaims } from '@/lib/db/claims'
 import { getFoundingName } from '@/lib/community'
 import { atLeast } from '@/lib/auth'
 import { MyClaims, type ClaimView } from './MyClaims'
+import { StayConnected, type FollowState } from './StayConnected'
 import { GUNEKU_QUARTERS_27 } from '@/lib/quarters'
 import { MemberDetailsForm } from './MemberDetailsForm'
 
@@ -69,6 +70,14 @@ export default async function MyGunekuPage({
        than showing a stack trace or pretending the member has no data. */
     console.error('My Guneku data unavailable:', err)
     dataUnavailable = true
+  }
+
+  /* The follow rows, reshaped into what the taxonomy calls them. The client draws switches,
+     so it has no use for a row id, a subject_type or a timestamp — and the less of the
+     table's shape that reaches a browser, the less there is to leak or to depend on. */
+  const followState: FollowState = {
+    topics:  follows.filter(f => f.subject_type === 'topic').map(f => f.subject_id),
+    quarter: follows.find(f => f.subject_type === 'quarter')?.subject_id ?? null,
   }
 
   /* Claims are read in their own try, deliberately separate from the one above.
@@ -212,21 +221,18 @@ export default async function MyGunekuPage({
           </section>
 
           <section aria-labelledby="mg-following" className="border-t border-[var(--rule)] pt-7">
-            <h2 id="mg-following" className="inst-h3">Following</h2>
-            {follows.length === 0 ? (
+            <h2 id="mg-following" className="inst-h3">Stay connected</h2>
+            {dataUnavailable ? (
               <p className="inst-meta mt-2">
-                Not following anything yet.{' '}
-                <Link href="/projects" className="inst-link">See the projects →</Link>
+                Your choices cannot be read in this environment yet.
               </p>
             ) : (
-              <ul className="mt-3 list-none p-0">
-                {follows.map(f => (
-                  <li key={f.id} className="inst-row">
-                    <span className="inst-tag">{f.subject_type}</span>{' '}
-                    <span className="inst-body !text-[0.88rem]">{f.subject_id}</span>
-                  </li>
-                ))}
-              </ul>
+              <StayConnected
+                initial={followState}
+                /* Read from the member's own row. Never inferred — a member who has not told
+                   us their quarter is asked, not guessed at. */
+                memberQuarter={member?.quarter ?? null}
+              />
             )}
           </section>
 
