@@ -806,3 +806,40 @@ to skip.
 
 No fake identity and no fake contribution was created in production. Verification was
 signed-out behaviour and catalogue reads only.
+
+## 2026-09-05 - Project transparency
+
+/projects became a structured institutional register: what each entry is, who carries it, the
+record it rests on, and a route by which a member can correct or complete any of it.
+
+**The source audit is the finding.** `current-notices.json → development` holds 28 entries and
+8 fields, and **every field is populated on every entry** - the register is complete for what
+it defines. What it does not define is uniform across all 28: no location, no timeline, no
+current stage, no statement of needs, and **no financial field of any kind**. Not a target,
+not an amount raised, not an amount spent, not a balance, not a donor total.
+
+So nothing financial is published, and nothing is calculated. Rendering
+"Financial information awaiting update" on 28 records would assert that Guneku keeps project
+accounts and has not refreshed them, which nobody has established. The five absences are
+stated **once**, precisely, at register level rather than as 140 empty rows.
+
+- **Added:** the register's own provenance (source note and review date, previously in the
+  file and never shown), the responsible body per entry, the evidence each entry rests on, a
+  stable anchor per entry, jump links, the counted status vocabulary, and a contribution route.
+- **Not added:** progress bars, KPI cards, completion percentages, invented categories, or a
+  `/projects/<slug>` page per entry - 27 of the 28 already link to a canonical record and
+  minting a second URL for those would create a duplicate project identity.
+- **`lastUpdate` is published as "As recorded", not as a date.** The register's value is
+  provenance as often as a date ("Recognised by the Ministry of Arts and Culture", "Burned
+  September 2022"), and parsing it into a timeline would invent one.
+- **The responsible body links only on an exact match** against a canonical record. "GUDECA
+  Europe" is not the string "GUDECA EU Chapter — Executive"; deciding they are the same body
+  is a Palace judgement, not a normalisation.
+- **Contributions target a project by its validated anchor**, `/projects#<slug>`, checked
+  against the register - so a browser cannot invent a project. It is the only `page` target
+  rendered as a link, because it is the only one validated rather than accepted.
+- **No payment mechanism of any kind** was built. Project transparency is informational.
+
+Verified: `tsc` clean; **556 tests** passing, up from 524; build clean at 229 routes with
+static (27), SSG (38) and dynamic (28) counts all unchanged; eslint clean on every touched
+file. No migration - the register stays a static canonical record.

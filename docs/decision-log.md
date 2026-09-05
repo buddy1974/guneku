@@ -1090,3 +1090,58 @@ the Palace comes back to them about how to send it. Slower, and the only version
 
 This is not a permanent refusal of media contributions. It is a refusal to ship one before
 there is a private store to put it in, which is its own piece of work.
+
+## ADR-056 - The projects register publishes no financial figure, and no empty one either
+
+`current-notices.json → development` contains no financial field. Not an empty one - none at
+all, on any of the twenty-eight entries. No target, raised, spent, balance or donor total.
+
+The brief for this phase listed those fields among the ones to normalise "where supported by
+current records". Nothing supports them, so nothing is published - and, importantly, no empty
+row is published either.
+
+That second half is the decision worth recording. A row reading "Amount raised: information
+awaiting update" looks like scrupulous honesty and is not: it asserts that Guneku keeps
+project accounts, that this figure is one of them, and that it is merely stale. None of that
+has been established. The same reasoning retires the progress bar, the completion percentage
+and the location row.
+
+The five absences are stated once, at register level, in `NOT_RECORDED` - naming exactly what
+is not held and saying plainly that none of it is calculated. Naming a gap once is honest;
+manufacturing it on every card is a different claim wearing the same clothes.
+
+## ADR-057 - A project is addressed by its anchor, because it must not have two identities
+
+Twenty-seven of the twenty-eight register entries already link to a canonical record - an
+institution page, an update, a gallery album. Creating `/projects/<slug>` for each would give
+those projects a second URL, a second title and a second thing for search to index: two
+identities for one project, which is the failure a register exists to prevent.
+
+So there is no per-project page. Each entry has a stable anchor on `/projects`, and a
+contribution about it targets `/projects#<slug>` - validated against the register, so a
+browser cannot invent a project. It is the only `page` target that becomes a link anywhere in
+the contribution system, and only because it is the only one checked against a canonical
+record rather than accepted from a request.
+
+The one entry with no record of its own now resolves in search to its anchor rather than to
+the top of a twenty-eight entry page.
+
+Noted while doing this, not introduced by it: a few names appear in both the Projects and
+Institutions groups of the search index, with different hrefs - an institution indexed as an
+institution and again as a line in the development register. That is arguably correct and is
+left alone; it is not a duplicate *project* identity, since the register entry still points at
+the record the register names.
+
+## ADR-058 - The register's status vocabulary is kept, not replaced
+
+The phase brief suggested planned / active / paused / completed. The register already uses
+Active, Ongoing, Proposed, Historical, Open issue and Documented - six values the sources
+establish, carried from the records rather than derived.
+
+Replacing them would mean re-deriving each entry's status from a vocabulary the sources do not
+use, and every mapping would be an inference: is "Documented" completed or active? Is
+"Historical" paused? The honest answer is that the sources say what they say, and a status is
+one of the easiest things to quietly get wrong.
+
+The vocabulary is therefore published as it stands, counted from the register so the page can
+never claim a distribution the data does not have.

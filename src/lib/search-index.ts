@@ -9,6 +9,7 @@ import { allQuarters } from '@/lib/quarter-pages'
 import { allLocations } from '@/lib/explore'
 import { allBodies, membersOf, allFoundingNames, isDiaspora } from '@/lib/community'
 import current from '@/data/current-notices.json'
+import { projectSlug } from './projects'
 import { approvedFilms } from '@/lib/guneku-tv'
 import villageFacts from '@/data/home/village-facts.json'
 
@@ -186,7 +187,11 @@ function build(): SearchEntry[] {
       id: `project:${d.name}`,
       title: d.name,
       group: 'Projects',
-      href: d.href,
+      /* An entry whose register href is `/projects` has no record of its own, and sending a
+         searcher to the top of a 28-entry page is sending them to look for it themselves.
+         Its anchor on the register is the nearest thing it has to an address. Entries that
+         DO have a record keep pointing at that record — the register is not their identity. */
+      href: d.href === '/projects' ? `/projects#${projectSlug(d.name)}` : d.href,
       excerpt: clip([d.status, d.description].filter(Boolean).join(' — ')),
       keywords: [d.class || '', 'project', 'development'].filter(Boolean),
       weight: 3,

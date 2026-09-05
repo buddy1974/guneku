@@ -1,5 +1,6 @@
 import { getFoundingName, getBody, getChapter } from './community'
 import { GUNEKU_QUARTERS_27 } from './quarters'
+import { getProject } from './projects'
 
 /* Moderated contributions: the rules, with no database and no Clerk in sight.
  *
@@ -85,6 +86,23 @@ const QUARTERS = new Set<string>(GUNEKU_QUARTERS_27)
    that becomes an href is how an open redirect starts. The charset is deliberately narrow. */
 const PAGE_PATH = /^\/[A-Za-z0-9/_-]{0,120}$/
 
+/* One page path IS a canonical identity: a project in the development register, addressed by
+   its anchor on /projects. The register has no separate page per project — twenty-seven of
+   the twenty-eight entries already link to a record of their own, and minting
+   /projects/<slug> for those would create a second identity for the same project, which is
+   the one thing a register must not do.
+ *
+ * So the anchor is the address, and the slug after the '#' is checked against the register
+ * rather than accepted on trust. A contribution cannot name a project that does not exist,
+ * and because the value is validated it is the only page target safe to render as a link. */
+const PROJECT_ANCHOR = /^\/projects#([a-z0-9-]{1,120})$/
+
+export function projectSlugFromPath(path: string): string | null {
+  const match = PROJECT_ANCHOR.exec(path)
+  if (!match) return null
+  return getProject(match[1]) ? match[1] : null
+}
+
 export type ResolvedTarget =
   | { ok: true;  targetType: TargetType; targetId: string | null; label: string }
   | { ok: false; error: string }
@@ -133,6 +151,16 @@ export function resolveTarget(targetType: unknown, targetId: unknown): ResolvedT
       return { ok: true, targetType, targetId: chapter.id, label: `${chapter.org} — ${chapter.place}` }
     }
     case 'page': {
+      /* A project in the development register, named by its anchor. Validated against the
+         register, so the label below is the project's own name rather than a path. */
+      const projectSlug = projectSlugFromPath(id)
+      if (projectSlug) {
+        const project = getProject(projectSlug)!
+        return { ok: true, targetType, targetId: id, label: project.name }
+      }
+
+      /* An ordinary page. Accepted so a reviewer knows where the reader was, and rendered
+         as text rather than as a link. */
       if (!PAGE_PATH.test(id)) {
         return { ok: false, error: 'That is not a page on Guneku.org.' }
       }
