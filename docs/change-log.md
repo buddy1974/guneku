@@ -887,3 +887,26 @@ Verified: `tsc` clean; **681 tests** passing, up from 562; build clean at 230 ro
 clean on every touched file.
 
 **Migration 0004 is NOT applied.** The hardened endpoint is restored and deployed inert.
+
+## 2026-09-05 - Migration 0004 applied; the migration endpoint removed again
+
+`palace_correspondence` exists in production. Palace correspondence is live.
+
+Fourth use of the endpoint, fourth removal. The lifecycle - restore, apply, verify, delete -
+is the safeguard, and the last step is the one that would be tempting to skip.
+
+- **Applied:** `0004_palace_correspondence.sql`. `0000` through `0003` were already recorded
+  and were not re-run. The ledger now holds five rows.
+- **Proved rather than asserted:** a second call applied **nothing** (`"applied": []`).
+- **Created:** `palace_correspondence` with all four indexes plus the primary key, the two
+  CHECK constraints keeping the category and status vocabularies closed, the constraint
+  requiring a contact route, and the constraint pairing a response with its timestamp.
+- **All seven tables verified healthy** through the live app rather than by assertion:
+  `community_members`, `contributions`, `follows`, `indigene_profiles`,
+  `palace_correspondence`, `profile_claims`, `schema_migrations`. `/api/indigenes/all` answers
+  200 on both the plain and the filtered query, so the 42P18 fix still holds, and every
+  protected route answers 401 signed out.
+- **Removed:** `src/app/api/admin/migrate/` in full. No `MIGRATE_TOKEN` reference remains in
+  any source file.
+
+No fake identity and no fake correspondence was created in production.
