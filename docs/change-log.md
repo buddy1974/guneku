@@ -670,3 +670,32 @@ the static and SSG counts unchanged; eslint clean on everything touched.
 endpoint was deliberately removed on 2026-09-04. Until Marcel applies it, every claim surface
 degrades honestly and the claim page offers the Palace route that has always worked, so the
 register keeps a working way to say "this is me".
+
+## 2026-09-05 - Migration 0002 applied; the migration endpoint removed again
+
+`profile_claims` exists in production. The Phase 3 claim workflow is live.
+
+The endpoint was restored for one job, used twice, and deleted in the same session - which is
+the lifecycle that makes it safe, and the step that would be tempting to skip.
+
+- **Applied:** `0002_profile_claims.sql`. `0000` and `0001` were already recorded and were not
+  re-run. The ledger now holds three rows.
+- **Proved rather than asserted:** a second call applied **nothing** (`"applied": []`), which
+  is the idempotency claim demonstrated.
+- **Created:** `profile_claims`, with all five indexes plus the primary key - including both
+  partial unique indexes, `profile_claims_one_live_per_member_idx` and
+  `profile_claims_one_approved_per_person_idx`, which are what stop a member accumulating live
+  claims and stop one record being approved to two people.
+- **Existing tables untouched:** `indigene_profiles`, `community_members`, `follows` and
+  `schema_migrations` all still present and answering. `/api/indigenes/all` returns 200 on both
+  the plain and the filtered query, so the 42P18 parameter-typing fix still holds.
+- **Removed:** `src/app/api/admin/migrate/` in full. No `MIGRATE_TOKEN` reference remains in
+  any source file. `docs/known-risks.md` R-024 and R-038 are marked closed, and the standing
+  instruction in R-038 to set `MIGRATE_TOKEN` - which is now wrong and would mislead - has been
+  replaced with the correct note that the endpoint no longer exists.
+
+No fake identity and no fake claim was created in production. Verification was signed-out
+behaviour and catalogue reads only.
+
+Verified on the clean deployment: `tsc` clean; 223 tests passing; build clean at 227 pages;
+eslint clean across every file this work touched.

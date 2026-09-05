@@ -590,20 +590,28 @@ directory is not open yet is the accurate statement.
 and `0001`, both additive and idempotent, and creates `indigene_profiles`, `community_members`,
 `follows` and `schema_migrations`. It needs a readable `DATABASE_URL`, which is R-031.
 
-## R-038 - Two production tasks are blocked on one owner action each
+> **CLOSED 2026-09-04.** `0000` and `0001` were applied to production and recorded in
+> `schema_migrations`. `0002_profile_claims.sql` followed on **2026-09-05**. All five tables
+> exist and a second run applies nothing. The entry is kept for the lesson it carries about
+> inferring from tooling silence, not as an open risk.
+
+## R-038 - Two production tasks are blocked on one owner action each — BOTH CLOSED
 
 Both are credential states, not defects, and neither has a workaround I am willing to build.
 
-**The database schema.** `DATABASE_URL` is valid and connects; the database is simply empty.
-`/api/indigenes/all` returns a controlled 503 and `/indigenes` renders its founding names, so
-nothing is broken for a visitor - the live directory is just not open. The migrations are
-written, reviewed, additive and idempotent, and the endpoint that applies them is deployed and
-inert.
+**The database schema. CLOSED - 0000 and 0001 on 2026-09-04, 0002 on 2026-09-05.** All five
+tables exist in production and every migration is recorded in `schema_migrations`.
 
-*Smallest action:* set `MIGRATE_TOKEN` in Vercel to any random string, redeploy, and either
-call the endpoint or pass the token along so it can be called. Unset it afterwards.
-*Alternative:* un-mark `DATABASE_URL` as Sensitive, or place it in `.env.local`, and
-`npm run db:migrate` runs from a developer machine instead.
+The instruction that stood here - set `MIGRATE_TOKEN` in Vercel and call the endpoint - is
+**no longer actionable and must not be followed**. The endpoint has been removed from the
+codebase both times it was used, and there is nothing in a deployed build for a token to
+enable. `MIGRATE_TOKEN` should not exist in Vercel; if it does, delete it.
+
+The mechanism, if a future migration needs it: restore the endpoint from git
+(`git show 8cc7165:src/app/api/admin/migrate/route.ts`), set the variable, apply, verify,
+then remove the endpoint and the variable again. That lifecycle - set it, migrate, unset it -
+is the whole of what makes it safe, and skipping the last step is what would turn a one-time
+job into a permanent door.
 
 **Clerk.** `CLERK_SECRET_KEY` is absent from the production runtime. This was established from
 the environment rather than inferred: with the guard checking only the publishable key,
