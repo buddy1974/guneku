@@ -180,9 +180,15 @@ export function responsibleBodyLink(body: string): string | null {
 export const NOT_RECORDED: readonly { field: string; note: string }[] = [
   {
     field: 'Financial information',
-    note: 'The register records no target, no amount raised, no amount spent and no balance '
-        + 'for any entry. None is shown, and none is calculated. Figures will appear here '
-        + 'only when the Palace supplies them officially.',
+    /* Worded precisely, because an inaccurate transparency statement is worse than none.
+       Two entries DO quote an amount inside their own description — the Afor scholarship and
+       €800 reported toward Solar Phase II — as their sources state it. What the register has
+       no field for is a target, a total raised, a total spent or a balance, and nothing here
+       lifts a figure out of prose into one or adds two of them together. */
+    note: 'The register has no field for a target, a total raised, a total spent or a '
+        + 'balance, and none is calculated here. Where an entry’s own description quotes an '
+        + 'amount, it is quoted as its source states it and is never aggregated into a total. '
+        + 'Project accounts will appear only when the Palace supplies them officially.',
   },
   {
     field: 'Location',

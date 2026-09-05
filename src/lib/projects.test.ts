@@ -133,6 +133,29 @@ describe('missing facts stay missing — nothing is fabricated', () => {
     /* And it says plainly that nothing is calculated. */
     expect(NOT_RECORDED[0].note).toMatch(/none is calculated/i)
   })
+
+  /* Two register descriptions quote an amount as their source states it — the Afor
+     scholarship, and EUR 800 reported toward Solar Phase II. That is source-stated prose and
+     stays. What must never happen is a figure being lifted out of prose into a structured
+     field, or two of them being added together into a total. */
+  it('quotes an amount only inside the description its source wrote it in', () => {
+    const MONEY = /[0-9][0-9,.]*\s*(FCFA|CFA|XAF)|[€$£]\s?[0-9]/i
+
+    for (const p of allProjects()) {
+      for (const [field, value] of Object.entries(p)) {
+        if (field === 'description') continue
+        expect(MONEY.test(String(value))).toBe(false)
+      }
+    }
+  })
+
+  it('states the financial position precisely, without contradicting those descriptions', () => {
+    const note = NOT_RECORDED[0].note
+    /* It must not claim the register records no amount anywhere — two descriptions do. */
+    expect(note).toMatch(/no field for/i)
+    expect(note).toMatch(/never aggregated/i)
+    expect(note).not.toMatch(/records no amount raised/i)
+  })
 })
 
 describe('the responsible body is never invented', () => {
