@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import {
   allProjects, getProject, projectsByClass, statusVocabulary, projectSlug,
-  responsibleBodyLink, registerProvenance, contributeHref, NOT_RECORDED,
+  responsibleBodyLink, registerProvenance, contributeHref, NOT_RECORDED, stripRepoPaths,
 } from './projects'
 import { resolveTarget, projectSlugFromPath } from './contributions'
 import { contributionTargetLabel, contributionTargetHref } from './contribution-targets'
@@ -305,5 +305,31 @@ describe('search keeps one identity per project', () => {
   it('creates exactly one search identity per project', () => {
     const ids = allProjects().map(p => `project:${p.name}`)
     expect(new Set(ids).size).toBe(ids.length)
+  })
+})
+
+describe('the published provenance carries no internal path', () => {
+  it('strips a repository path from the source note', () => {
+    const { sourceNote } = registerProvenance()
+    expect(sourceNote).not.toMatch(/src\//)
+    expect(sourceNote).not.toMatch(/\.json/)
+    expect(sourceNote).not.toMatch(/source record is retained at/i)
+  })
+
+  it('keeps the part a reader is actually owed', () => {
+    const { sourceNote } = registerProvenance()
+    expect(sourceNote).toMatch(/verified record/i)
+    expect(sourceNote).toMatch(/statuses the sources establish/i)
+    /* Including the honest statement that explains an absence. */
+    expect(sourceNote).toMatch(/Business Directory is held/i)
+  })
+
+  it('leaves a note with no path untouched apart from whitespace', () => {
+    const clean = 'Every entry is drawn from a verified record. Reviewed 2026-09-01.'
+    expect(stripRepoPaths(clean)).toBe(clean)
+  })
+
+  it('does not leave a doubled full stop where the clause was removed', () => {
+    expect(registerProvenance().sourceNote).not.toMatch(/\.\./)
   })
 })

@@ -211,11 +211,26 @@ export const NOT_RECORDED: readonly { field: string; note: string }[] = [
   },
 ]
 
+/* The register's source note is written for whoever maintains the register, and it names
+   repository paths — "its source record is retained at src/data/institutions/…". Useful to a
+   maintainer, and internal implementation detail on a public page: a file path tells a reader
+   nothing they can act on and tells anyone else exactly where a held record lives.
+
+   The note is published because a reader is owed the rule the register follows; the paths are
+   stripped because they are not part of that rule. What remains is still the Fondom's own
+   sentence, including the honest statement that the Business Directory is held pending a
+   consent review — which explains an absence rather than exposing anything. */
+const REPO_PATH = /\s*(?:;|,)?\s*its source record is retained at\s+\S+\.json\.?/gi
+
+export function stripRepoPaths(note: string): string {
+  return note.replace(REPO_PATH, '.').replace(/\.\.+/g, '.').replace(/\s+/g, ' ').trim()
+}
+
 /** The register's own provenance, published rather than kept in the file. A reader is owed
  *  the date the record was last reviewed and the rule its statuses follow. */
 export function registerProvenance(): { sourceNote: string; reviewedOn: string } {
   return {
-    sourceNote: (current as { sourceNote: string }).sourceNote,
+    sourceNote: stripRepoPaths((current as { sourceNote: string }).sourceNote),
     reviewedOn: (current as { reviewedOn: string }).reviewedOn,
   }
 }
