@@ -3,7 +3,7 @@ import { Reveal }   from '@/components/ui/Reveal'
 import Link         from 'next/link'
 import {
   allProjects, projectsByClass, statusVocabulary, responsibleBodyLink,
-  registerProvenance, contributeHref, NOT_RECORDED,
+  REGISTER_STATEMENT, registerReviewedOn, contributeHref, NOT_RECORDED,
   type Project, type ProjectClass,
 } from '@/lib/projects'
 
@@ -106,7 +106,7 @@ export default function ProjectsPage() {
   const register   = allProjects()
   const groups     = projectsByClass()
   const statuses   = statusVocabulary()
-  const provenance = registerProvenance()
+  const reviewedOn = registerReviewedOn()
 
   /* Counted, not asserted. */
   const total    = register.length
@@ -213,11 +213,13 @@ export default function ProjectsPage() {
         <section className="max-w-7xl mx-auto px-6 pb-16">
           <div className="border-t border-[var(--rule)] pt-6 max-w-3xl">
             <h2 className="section-label">About this register</h2>
-            <p className="mt-3 text-muted-foreground text-sm leading-relaxed">
-              {provenance.sourceNote}
-            </p>
-            <p className="mt-3 text-[var(--ink-400)] text-xs tracking-widest">
-              Last reviewed {provenance.reviewedOn}
+            {REGISTER_STATEMENT.map((line, i) => (
+              <p key={i} className="mt-3 text-muted-foreground text-sm leading-relaxed">
+                {line}
+              </p>
+            ))}
+            <p className="mt-4 text-[var(--ink-400)] text-xs tracking-widest">
+              Last reviewed {reviewedOn}
             </p>
           </div>
         </section>

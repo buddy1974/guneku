@@ -211,28 +211,43 @@ export const NOT_RECORDED: readonly { field: string; note: string }[] = [
   },
 ]
 
-/* The register's source note is written for whoever maintains the register, and it names
-   repository paths — "its source record is retained at src/data/institutions/…". Useful to a
-   maintainer, and internal implementation detail on a public page: a file path tells a reader
-   nothing they can act on and tells anyone else exactly where a held record lives.
+/* ── What a reader is told about how this register works ─────────────────────────────────
+ *
+ * The register's own `sourceNote` is written for whoever maintains it. It is accurate and it
+ * is not public prose: it says "already in this repository", names "the fixed vocabulary in
+ * classVocabulary", and used to end by naming a repository file path — which put the location
+ * of the one deliberately withheld record on a public page.
+ *
+ * So the note is NOT published verbatim. The statement below carries the same meaning in the
+ * Fondom's own register: where entries come from, that classes and statuses come from the
+ * records rather than from anyone's judgement, that a proposal stays a proposal, and that
+ * some material is deliberately held back. The canonical record is left exactly as it is —
+ * rewriting a maintainer's note so it reads well in public would be editing the source to
+ * suit the presentation, which is backwards.
+ *
+ * The review date is not rewritten. It is read from the record, because it is a fact. */
+export const REGISTER_STATEMENT: readonly string[] = [
+  'Every entry in this register comes from a record the Fondom has reviewed for publication '
+  + 'on Guneku.org. Nothing is listed here that no record establishes.',
 
-   The note is published because a reader is owed the rule the register follows; the paths are
-   stripped because they are not part of that rule. What remains is still the Fondom's own
-   sentence, including the honest statement that the Business Directory is held pending a
-   consent review — which explains an absence rather than exposing anything. */
-const REPO_PATH = /\s*(?:;|,)?\s*its source record is retained at\s+\S+\.json\.?/gi
+  'Each entry is classed by what it actually is, from a fixed set of classes — a project, a '
+  + 'programme, a standing institution, a proposal, a completed record, or an open issue. A '
+  + 'proposal is shown as a proposal and is never promoted to work under way.',
 
-export function stripRepoPaths(note: string): string {
-  return note.replace(REPO_PATH, '.').replace(/\.\.+/g, '.').replace(/\s+/g, ' ').trim()
-}
+  'Statuses are the statuses the records establish, not an assessment made here. Where the '
+  + 'records are silent, this register says so rather than estimating.',
 
-/** The register's own provenance, published rather than kept in the file. A reader is owed
- *  the date the record was last reviewed and the rule its statuses follow. */
-export function registerProvenance(): { sourceNote: string; reviewedOn: string } {
-  return {
-    sourceNote: stripRepoPaths((current as { sourceNote: string }).sourceNote),
-    reviewedOn: (current as { reviewedOn: string }).reviewedOn,
-  }
+  'Some material is deliberately held back pending the Fondom’s own consent review, and '
+  + 'does not appear in this register while that is the case.',
+
+  'The register is reviewed again whenever any of the records behind it changes.',
+]
+
+/** The date the register was last reviewed, read from the record because it is a fact about
+ *  the record. Nothing else from the maintainer's note is published — see the comment above
+ *  and `REGISTER_STATEMENT`. */
+export function registerReviewedOn(): string {
+  return (current as { reviewedOn: string }).reviewedOn
 }
 
 /** Where a member goes to supply or correct a project's record. The target is the register

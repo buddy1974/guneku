@@ -30,6 +30,7 @@ const isProtected = createRouteMatcher([
   '/api/me(.*)',
   '/api/claims(.*)',
   '/api/follows(.*)',
+  '/api/correspondence(.*)',
   '/api/contributions(.*)',
   '/api/indigenes/profile(.*)',
   '/api/indigenes/upload(.*)',
@@ -77,6 +78,12 @@ export const config = {
     '/api/me/:path*',
     '/api/claims/:path*',
     '/api/follows/:path*',
+    '/api/correspondence/:path*',
+    /* Matched but deliberately NOT in `isProtected`. The Palace contact form must keep
+       working for a signed-out villager — being matched only makes a session *available*, so
+       `optionalUser()` can attach a member to their own letter when there is one and return
+       null when there is not. Nobody is turned away. */
+    '/api/palace-message/:path*',
     '/api/contributions/:path*',
     '/api/indigenes/profile/:path*',
     /* The two member-owned pages under /indigenes. They are server components that call

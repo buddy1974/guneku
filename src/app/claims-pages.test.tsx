@@ -29,12 +29,18 @@ const listPendingContributions = vi.fn()
 vi.mock('@/lib/db/contributions', () => ({
   listPendingContributions: (...a: unknown[]) => listPendingContributions(...a),
 }))
+
+const listForPalace = vi.fn()
+vi.mock('@/lib/db/correspondence', () => ({
+  listForPalace: (...a: unknown[]) => listForPalace(...a),
+}))
 vi.mock('@/lib/db/members', () => ({ getMember: vi.fn().mockResolvedValue(null) }))
 
 const NewClaimPage    = (await import('./my-guneku/claims/new/page')).default
 const ReviewClaimsPage = (await import('./review/claims/page')).default
 const ReviewContributionsPage = (await import('./review/contributions/page')).default
 const ContributePage = (await import('./my-guneku/contribute/new/page')).default
+const PalaceCorrespondencePage = (await import('./review/correspondence/page')).default
 
 const NAMES    = allFoundingNames()
 const LIVING   = NAMES.find(n => n.deceased !== true)!
@@ -49,6 +55,7 @@ beforeEach(() => {
   findLiveClaim.mockResolvedValue(null)
   listPendingForReview.mockResolvedValue([])
   listPendingContributions.mockResolvedValue([])
+  listForPalace.mockResolvedValue([])
   vi.spyOn(console, 'error').mockImplementation(() => {})
 })
 
@@ -203,5 +210,39 @@ describe('/my-guneku/contribute/new', () => {
     await expect(ContributePage({
       searchParams: sp({ targetType: 'quarter', targetId: 'Fun' }),
     })).resolves.toBeTruthy()
+  })
+})
+
+describe('/review/correspondence — Palace business, not record review', () => {
+  it('sends a signed-out visitor to sign in', async () => {
+    optionalUser.mockResolvedValue(null)
+    const to = await redirectFrom(() => PalaceCorrespondencePage())
+
+    expect(to).toBe('/sign-in?redirect_url=%2Freview%2Fcorrespondence')
+    expect(listForPalace).not.toHaveBeenCalled()
+  })
+
+  /* The distinction this phase turns on. Deciding what the register says is not authority
+     to answer a villager's private letter on the Fondom's behalf. */
+  it.each(['member', 'contributor', 'reviewer'] as const)(
+    'turns a %s away without reading the queue', async role => {
+      optionalUser.mockResolvedValue(session(role))
+      const to = await redirectFrom(() => PalaceCorrespondencePage())
+
+      expect(to).toBe('/my-guneku')
+      expect(listForPalace).not.toHaveBeenCalled()
+    },
+  )
+
+  it('lets a palace-admin in', async () => {
+    optionalUser.mockResolvedValue(session('palace-admin'))
+    await expect(PalaceCorrespondencePage()).resolves.toBeTruthy()
+    expect(listForPalace).toHaveBeenCalled()
+  })
+
+  it('still renders when correspondence cannot be read', async () => {
+    optionalUser.mockResolvedValue(session('palace-admin'))
+    listForPalace.mockRejectedValue(new Error('unreachable'))
+    await expect(PalaceCorrespondencePage()).resolves.toBeTruthy()
   })
 })

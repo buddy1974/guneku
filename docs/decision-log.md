@@ -1145,3 +1145,66 @@ one of the easiest things to quietly get wrong.
 
 The vocabulary is therefore published as it stands, counted from the register so the page can
 never claim a distribution the data does not have.
+
+## ADR-059 - The maintainer's note is not published; a public statement is written instead
+
+The development register's `sourceNote` is written for whoever maintains it. Publishing it put
+"this repository" and "classVocabulary" in front of villagers, and had already put a
+repository file path on a public page.
+
+Two ways to fix that, and only one is right. Rewriting the note in the canonical record so it
+reads well in public would edit a source record to suit a presentation decision - exactly
+backwards, and exactly what every other part of this system forbids. So the note stays as it
+is, and is no longer published; `REGISTER_STATEMENT` carries the same meaning in the Fondom's
+own register.
+
+The review date is still read from the record, because it is a fact about the record rather
+than prose about it.
+
+## ADR-060 - Correspondence is not Contributions, and palace-admin is not reviewer
+
+Two separations, both deliberate.
+
+**The tables are separate** because the things are. A contribution says "the public Guneku
+record should be changed" and is reviewed against the register. A letter says "I want to speak
+to the Palace about something" and is answered. Merging them would drop private family matters
+into a queue whose whole purpose is editing public content.
+
+**The roles are separate** because the authority is. `reviewer` exists to decide claims and
+contributions - questions about what the record should say. Answering a villager's private
+letter is speaking *for the Palace*, and being trusted to check a register implies nothing
+about that. `/review/correspondence` and every action behind it require `palace-admin`; a
+reviewer gets the same 403 a member does.
+
+The queue lives under `/review` only because that namespace is already matched by the
+middleware. It deliberately does not live under `/palace`, which is public content served by
+`/palace/[slug]` - a protected page there would collide with an article route and pull Clerk
+onto every public Palace page.
+
+## ADR-061 - The email is what the visitor's success depends on
+
+`/api/palace-message` has been the Fondom's working contact channel for some time. Putting a
+database behind it must not create a new way for it to fail.
+
+So the order is: validate, send, then record. If Resend accepts the message the Palace has it,
+and a recording failure - an unreachable database, a migration not yet applied - is logged and
+swallowed. A villager who has already been heard must never be told their message failed
+because a table was missing.
+
+The corollary is that correspondence storage is best-effort and may be incomplete relative to
+the inbox. That is the right trade: the inbox is the guarantee, the table is the improvement.
+
+## ADR-062 - Nothing composes a reply
+
+The Palace queue has no suggested response, no template that fills the box, and no text
+generated on a status change. An empty reply is refused rather than helpfully completed, and a
+"note" action deliberately does not advance the letter's status - jotting something down is
+not a decision.
+
+No reply is signed with a name, and none is ever attributed to the Fon. A response goes out as
+the Guneku Palace; where the person writing wants to identify themselves they do it in their
+own words, inside the text they wrote.
+
+This is the same boundary Phase 4 drew around notifications, in a place where it would be far
+easier to cross: a system that can write to villagers on the Palace's behalf is one bad default
+away from doing it without a person.

@@ -13,6 +13,8 @@ import { MyClaims, type ClaimView } from './MyClaims'
 import { StayConnected, type FollowState } from './StayConnected'
 import { MyContributions, type ContributionView } from './MyContributions'
 import { listMyContributions } from '@/lib/db/contributions'
+import { listMyCorrespondence } from '@/lib/db/correspondence'
+import { MyCorrespondence, type CorrespondenceView } from './MyCorrespondence'
 import { contributionTargetLabel, contributionTargetHref } from '@/lib/contribution-targets'
 import { GUNEKU_QUARTERS_27 } from '@/lib/quarters'
 import { MemberDetailsForm } from './MemberDetailsForm'
@@ -113,6 +115,17 @@ export default async function MyGunekuPage({
   } catch (err) {
     console.error('My Guneku contributions unavailable:', err)
     contributionsUnavailable = true
+  }
+
+  /* Its own try, like claims and contributions. `palace_correspondence` arrives with
+     migration 0004, and one unprovisioned table must never take another feature down. */
+  let correspondence: CorrespondenceView[] = []
+  let correspondenceUnavailable = false
+  try {
+    correspondence = await listMyCorrespondence(user.userId)
+  } catch (err) {
+    console.error('My Guneku correspondence unavailable:', err)
+    correspondenceUnavailable = true
   }
 
   let claimsUnavailable = false
@@ -281,6 +294,22 @@ export default async function MyGunekuPage({
             )}
           </section>
 
+          <section aria-labelledby="mg-post" className="border-t border-[var(--rule)] pt-7">
+            <h2 id="mg-post" className="inst-h3">Palace correspondence</h2>
+            <p className="inst-body mt-2 !text-[0.88rem]">
+              Messages you have sent to the Palace from this account, and any reply. These are
+              private — they are never published on Guneku.org.
+            </p>
+            {correspondenceUnavailable ? (
+              <p className="inst-meta mt-3">
+                Your correspondence cannot be read in this environment yet. Writing to the
+                Palace still works.
+              </p>
+            ) : (
+              <MyCorrespondence items={correspondence} />
+            )}
+          </section>
+
           {/* Shown only to a reviewer or palace-admin. The link is a convenience, not the
               control: /review/claims decides for itself with requireRole('reviewer'). */}
           {atLeast(user.role, 'reviewer') && (
@@ -296,6 +325,20 @@ export default async function MyGunekuPage({
                 <Link href="/review/contributions" className="inst-btn inst-btn-quiet">
                   Contributions
                 </Link>
+                {/* Correspondence is Palace business, not record review. A reviewer decides
+                    what the register says; answering a villager's private letter is speaking
+                    for the Fondom, and both the page and the route require palace-admin
+                    regardless of what is shown here.
+
+                    It lives under /review because that namespace is already protected by the
+                    middleware. It deliberately does NOT live under /palace, which is public
+                    content served by /palace/[slug] — a protected page there would collide
+                    with an article route and pull Clerk onto every public Palace page. */}
+                {atLeast(user.role, 'palace-admin') && (
+                  <Link href="/review/correspondence" className="inst-btn inst-btn-quiet">
+                    Correspondence
+                  </Link>
+                )}
               </div>
             </section>
           )}

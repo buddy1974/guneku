@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import {
   allProjects, getProject, projectsByClass, statusVocabulary, projectSlug,
-  responsibleBodyLink, registerProvenance, contributeHref, NOT_RECORDED, stripRepoPaths,
+  responsibleBodyLink, REGISTER_STATEMENT, registerReviewedOn, contributeHref, NOT_RECORDED,
 } from './projects'
 import { resolveTarget, projectSlugFromPath } from './contributions'
 import { contributionTargetLabel, contributionTargetHref } from './contribution-targets'
@@ -245,15 +245,46 @@ describe('the contribution route targets the right project', () => {
   })
 })
 
-describe('the register publishes its own provenance', () => {
-  it('carries the source note and review date from the file', () => {
-    const p = registerProvenance()
-    expect(p.sourceNote.length).toBeGreaterThan(50)
-    expect(p.reviewedOn).toMatch(/^\d{4}-\d{2}-\d{2}$/)
+describe('the register explains itself in public language', () => {
+  const text = REGISTER_STATEMENT.join(' ')
+
+  it('publishes a review date read from the record', () => {
+    expect(registerReviewedOn()).toMatch(/^\d{4}-\d{2}-\d{2}$/)
+  })
+
+  /* The maintainer's note is accurate and is not public prose. It is not published. */
+  it('uses no repository or data-model vocabulary', () => {
+    for (const word of [
+      'repository', 'classVocabulary', 'JSON', 'json', 'src/', '.json',
+      'schema', 'field', 'array', 'file', 'commit', 'database',
+    ]) {
+      expect(text).not.toContain(word)
+    }
+  })
+
+  it('carries the meaning the maintainer’s note carried', () => {
+    expect(text).toMatch(/reviewed for publication/i)
+    expect(text).toMatch(/fixed set of classes/i)
+    expect(text).toMatch(/statuses the records establish/i)
+    expect(text).toMatch(/proposal is shown as a proposal/i)
+    expect(text).toMatch(/held back/i)
+    expect(text).toMatch(/reviewed again whenever/i)
+  })
+
+  it('does not name the withheld record or where it lives', () => {
+    expect(text).not.toMatch(/business.directory/i)
+    expect(text).not.toMatch(/institutions\//i)
+  })
+
+  it('leaves the canonical source note untouched', async () => {
+    /* The fix is to stop publishing the note, not to rewrite the record so it reads better
+       in public — that would be editing the source to suit the presentation. */
+    const current = (await import('@/data/current-notices.json')).default as { sourceNote: string }
+    expect(current.sourceNote).toContain('classVocabulary')
+    expect(current.sourceNote).toContain('this repository')
   })
 
   it('does not surface the held Business Directory as an entry', () => {
-    /* It is named in the source note as held, and must not appear in the register itself. */
     for (const p of allProjects()) {
       expect(p.name.toLowerCase()).not.toContain('business directory')
     }
@@ -305,31 +336,5 @@ describe('search keeps one identity per project', () => {
   it('creates exactly one search identity per project', () => {
     const ids = allProjects().map(p => `project:${p.name}`)
     expect(new Set(ids).size).toBe(ids.length)
-  })
-})
-
-describe('the published provenance carries no internal path', () => {
-  it('strips a repository path from the source note', () => {
-    const { sourceNote } = registerProvenance()
-    expect(sourceNote).not.toMatch(/src\//)
-    expect(sourceNote).not.toMatch(/\.json/)
-    expect(sourceNote).not.toMatch(/source record is retained at/i)
-  })
-
-  it('keeps the part a reader is actually owed', () => {
-    const { sourceNote } = registerProvenance()
-    expect(sourceNote).toMatch(/verified record/i)
-    expect(sourceNote).toMatch(/statuses the sources establish/i)
-    /* Including the honest statement that explains an absence. */
-    expect(sourceNote).toMatch(/Business Directory is held/i)
-  })
-
-  it('leaves a note with no path untouched apart from whitespace', () => {
-    const clean = 'Every entry is drawn from a verified record. Reviewed 2026-09-01.'
-    expect(stripRepoPaths(clean)).toBe(clean)
-  })
-
-  it('does not leave a doubled full stop where the clause was removed', () => {
-    expect(registerProvenance().sourceNote).not.toMatch(/\.\./)
   })
 })

@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { rateLimited, senderKey, RATE_LIMIT_MESSAGE } from '@/lib/rate-limit'
 import { sendPalaceMessage } from '@/lib/email/send'
+import { optionalUser } from '@/lib/auth'
+import { categoryForTopic, MAX } from '@/lib/correspondence'
+import { createCorrespondence } from '@/lib/db/correspondence'
 
 const TOPICS = [
   'Palace / traditional matters', 'Community development', 'Project support', 'GUDECA',
@@ -45,9 +48,40 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Please give a callback number we can reach.' }, { status: 400 })
     }
 
+    /* The email goes first, and it is what the visitor's success depends on. This route has
+       been the Palace's working contact channel; adding a database behind it must not create
+       a new way for it to fail. If Resend accepts the message the Palace has it, whatever
+       happens next. */
     await sendPalaceMessage({ name, topic, message, preferredContact, email, phone, location })
 
-    /* The response carries nothing about who was copied. */
+    /* Then the letter is recorded, so it has a life beyond an inbox: a status the sender can
+       see, and a place for the Palace to answer it. Best effort by design — a database that
+       is unreachable, or a migration not yet applied, must not turn a delivered message into
+       an error for someone who has already been heard. The failure is logged for us. */
+    try {
+      /* Identity comes from the session if there is one, and is otherwise absent. A visitor
+         is never given a manufactured id, and `optionalUser()` returns null rather than
+         throwing when nobody is signed in. */
+      const user = await optionalUser()
+
+      await createCorrespondence({
+        clerkUserId: user?.userId ?? null,
+        senderName:  name.slice(0, MAX.name),
+        senderEmail: email ? email.slice(0, MAX.email) : null,
+        senderPhone: phone ? phone.slice(0, MAX.phone) : null,
+        category:    categoryForTopic(topic),
+        /* The visitor's own topic, kept verbatim. The category is a filing decision made
+           here; the subject is what they actually said it was about. */
+        subject:     topic.slice(0, MAX.subject),
+        message:     message.slice(0, MAX.message),
+      })
+    } catch (err) {
+      console.error('Palace correspondence could not be recorded (message was sent):', err)
+    }
+
+    /* The response carries nothing about who was copied, and nothing about whether the
+       letter was recorded — neither is the sender's business, and both would leak
+       operational detail from a public form. */
     return NextResponse.json({ success: true })
   } catch (err) {
   /* The mailer sanitises its own failures before throwing, but anything else that lands

@@ -36,6 +36,13 @@ describe('every route that reads a session is matched', () => {
     '/api/claims',
     '/api/claims/some-id',
     '/api/follows',
+    /* Added 2026-09-05 with Palace correspondence. */
+    '/review/correspondence',
+    '/api/correspondence',
+    '/api/correspondence/some-id',
+    /* Matched so a session is AVAILABLE, and deliberately absent from `isProtected` so a
+       signed-out villager can still write to the Palace — see the public-form tests. */
+    '/api/palace-message',
   ])('matches %s', path => {
     expect(matches(path)).toBe(true)
   })
@@ -55,5 +62,28 @@ describe('the public village record stays out of it', () => {
     '/api/contact',
   ])('does not match %s', path => {
     expect(matches(path)).toBe(false)
+  })
+})
+
+describe('the public Palace form is matched but not protected', () => {
+  /* Being in the matcher only makes a Clerk session available. Whether a caller is turned
+     away is `isProtected`, which /api/palace-message is deliberately absent from: a villager
+     must not need an account to write to their own Fon. The route's own tests prove a
+     signed-out submission succeeds. */
+  it('is in the matcher', () => {
+    expect(matches('/api/palace-message')).toBe(true)
+  })
+
+  it('is not listed among the protected paths in the middleware source', async () => {
+    const { readFileSync } = await import('node:fs')
+    const src = readFileSync(new URL('./middleware.ts', import.meta.url), 'utf-8')
+
+    const protectedBlock = src.slice(
+      src.indexOf('const isProtected'),
+      src.indexOf('])', src.indexOf('const isProtected')),
+    )
+    expect(protectedBlock).not.toContain('palace-message')
+    /* While the member-facing correspondence API is protected. */
+    expect(protectedBlock).toContain('/api/correspondence')
   })
 })

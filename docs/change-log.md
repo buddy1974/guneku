@@ -843,3 +843,47 @@ stated **once**, precisely, at register level rather than as 140 empty rows.
 Verified: `tsc` clean; **556 tests** passing, up from 524; build clean at 229 routes with
 static (27), SSG (38) and dynamic (28) counts all unchanged; eslint clean on every touched
 file. No migration - the register stays a static canonical record.
+
+## 2026-09-05 - Public provenance cleanup, and Palace correspondence
+
+**Provenance cleanup.** /projects no longer publishes the register's maintainer note. That
+note is accurate and is not public prose - it said "already in this repository", named "the
+fixed vocabulary in classVocabulary", and had already had a repository file path stripped out
+of it. It is replaced by `REGISTER_STATEMENT`, five sentences carrying the same meaning in the
+Fondom's own register: where entries come from, that classes and statuses come from the
+records, that a proposal stays a proposal, that some material is deliberately held back, and
+that the register is reviewed when its sources change. The review date is still read from the
+record, because it is a fact. **The canonical source record is unchanged** - rewriting a
+maintainer's note so it reads well in public would be editing the source to suit the
+presentation.
+
+**Palace correspondence.** Private, traceable messages to the Palace, kept deliberately
+separate from Contributions: a contribution says the public record should change, a letter
+says someone wants to speak to the Palace.
+
+- **The existing public form is unchanged for a visitor.** No account is needed to write to
+  the Palace. Honeypot, both rate limits, consent, server-side validation and the safe success
+  shape all still hold, asserted by tests.
+- **The email still comes first.** This route has been the Fondom's working contact channel,
+  so the letter is recorded only after Resend has accepted it, and a recording failure is
+  logged rather than shown - a database not yet migrated must not turn a delivered message
+  into an error for someone who has already been heard.
+- **Identity is attached only when it exists.** `clerk_user_id` is nullable and null means "no
+  account", never "unknown account". Nothing manufactures an identity for a visitor, and
+  nothing reads one from a request body.
+- **`palace-admin`, not `reviewer`.** Deciding what the register says is not authority to
+  answer a villager's private letter on the Fondom's behalf. A reviewer is turned away from
+  `/review/correspondence` exactly as a member is.
+- **The Palace answers as the Palace.** No reply is composed automatically, no template fires
+  on a status change, an empty reply is refused rather than helpfully completed, and nothing
+  is ever signed as the Fon.
+- **The internal note is private from the sender by construction** - `SenderView` has no field
+  for it, so it cannot travel to the person who wrote in even if a route returned the wrong
+  object.
+- **Nothing is public.** Correspondence appears in no page, no search index, no sitemap and no
+  public API.
+
+Verified: `tsc` clean; **681 tests** passing, up from 562; build clean at 230 routes; eslint
+clean on every touched file.
+
+**Migration 0004 is NOT applied.** The hardened endpoint is restored and deployed inert.
