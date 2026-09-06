@@ -1,0 +1,18 @@
+{
+  "meta": {
+    "purpose": "The editorial layer over the image archive. A neutral description of what a photograph shows, and nothing else, written here rather than into the canonical record.",
+    "updated": "2026-09-06",
+    "why": "Two things must both stay true, exactly as for the film record. The canonical archive is evidence: it says what the Fondom established and when, and rewriting it in place destroys that. And a description is not a fact about Guneku — it is an observation about an image — so it must never sit in the same field as a sourced title, a recorded date or a named person.",
+    "precedence": "canonical image record  <  these notes. A note never overwrites a title or caption the archive already holds.",
+    "fields": {
+      "description": "A neutral description of visible, non-sensitive scene content. What is in the frame — people, objects, setting — with no name, no date, no event, no place and no relationship. Never a fact about Guneku.",
+      "status": "'draft' | 'approved'. Only 'approved' reaches a public page or the search index. A draft is invisible everywhere.",
+      "source": "'ai' | 'human'. Recorded so a reader and a reviewer always know which. An AI description is never authoritative evidence.",
+      "reviewedOn": "The date a person approved it. Absent while the note is a draft."
+    },
+    "whatThisIsNot": "This file holds no identity, no date, no event, no location and no relationship. Those are facts about Guneku, they belong in the canonical record, and they are supplied by people through the Contributions workflow — never generated. An unidentified person stays unidentified.",
+    "reviewRule": "A draft becomes approved when a person reads it against the photograph and changes the status here, in a commit. Git is the review queue: the diff shows exactly what would become public, and nothing reaches a visitor until that commit is merged.",
+    "holdRule": "There is no publish-by-default. A photograph with no note here shows no description at all, which is the correct and honest state for 329 of the 338."
+  },
+  "notes": {}
+}

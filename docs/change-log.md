@@ -949,3 +949,53 @@ revisit.
 
 Verified: `tsc` clean; **736 tests** passing, up from 681; build clean at 230 routes; eslint
 clean on every touched file.
+
+
+## 2026-09-06 - Archive intelligence
+
+The image archive gained an editorial description layer, honest statements of what it does not
+record, and a route by which the community can complete it. No identity, date, event or place
+is ever generated.
+
+**The audit found a discrepancy worth recording.** `files-by-album.json` (April) and
+`image-gallery.json` (September) both describe 15 albums and 338 images, but the April file's
+`src` paths point at `/images/eventgallery/...`, which does not exist on disk and **returns 404
+in production**. `image-gallery.json` is what the pages actually read, its `publicPath` values
+resolve for all 338 files (19.6 MB on disk, 200 in production), and it is treated as canonical.
+`files-by-album.json` appears to be stale legacy and nothing was changed about it.
+
+Metadata completeness on the canonical record: **title 9/338, caption 0/338**, and no
+image-level date, event, location, people or provenance field exists at all. All 15 album
+descriptions are byte-identical to their titles.
+
+- **`image-notes.json`**, an editorial layer over the archive, mirroring the established
+  `video-overrides.json` pattern rather than inventing a second mechanism. It holds four
+  fields - description, status, source, reviewedOn - and deliberately has no field for a name,
+  a date, an event, a place or a relationship.
+- **Nothing publishes by default.** A note is `draft` until a person approves it in a commit;
+  a draft appears on no page and in no index. A photograph with no note shows no description,
+  which is the honest state for the archive as it stands.
+- **A caption the Fondom wrote always outranks a generated observation.**
+- **`describe-archive.ts` is a script, not a route.** There is no endpoint that describes an
+  image: that would be an unauthenticated way to spend money and a way for a description to
+  reach a page without a person reading it. It refuses to run without explicit image ids,
+  refuses more than twelve at once, and has no bulk mode.
+- **The prompt forbids** naming a person, asserting a relationship, giving a title or office,
+  naming an event or place, giving a date, or guessing at status - and instructs the model to
+  describe less rather than speculate.
+- **Album pages now say what is missing**: "People in this photograph have not yet been
+  identified in the published Guneku record", with an "Add information about this album" route
+  into the existing Contributions workflow. No second submission system.
+- **Cited Palace AI is untouched.** Archive descriptions are NOT in its source boundary and
+  are not authoritative evidence for any factual answer.
+
+**No migration.** A versioned JSON layer is sufficient, git is the review queue, and the diff
+shows exactly what would become public.
+
+Verified: `tsc` clean; **757 tests** passing, up from 736; build clean at 230 routes; eslint
+clean on new files.
+
+**The pipeline is unproven against a live image.** The local `ANTHROPIC_API_KEY` is invalid -
+the key Marcel set is in Vercel Production, where Cited Palace AI uses it successfully. The
+script failed correctly, wrote nothing and leaked no key. The request shape, draft status,
+bulk refusal and prompt constraints are covered by tests instead.

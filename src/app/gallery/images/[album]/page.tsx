@@ -3,6 +3,9 @@ import { pageMetadata } from '@/lib/seo'
 import type { Metadata } from 'next'
 import { PageHero } from '@/components/layout/PageHero'
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
+import {
+  publicDescription, contributeAlbumHref, UNIDENTIFIED_PEOPLE,
+} from '@/lib/archive-notes'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -71,12 +74,19 @@ export default async function AlbumPage({
                                        position:'relative', backgroundColor:'oklch(0.940 0.014 85)' }}>
               {/* img.publicPath has always been in this record; the page simply never
                   read it. Captions are whatever the archive holds — none is invented. */}
-              {/* Alt describes the photograph where the archive records a caption or a
-                  title, and otherwise names the album it belongs to. Never a filename,
-                  never a raw record object. */}
               {img.publicPath ? (
                 <Image src={img.publicPath}
-                       alt={[img.caption, img.title].find(x => typeof x === 'string' && x.trim() && !x.trim().startsWith('{')) || `${album.title} — photograph from the Guneku Fondom archive`}
+                       /* Alt text, in order of authority: a caption the Fondom wrote, the
+                          record's own title, an APPROVED neutral description of what is
+                          visible, and otherwise the album this photograph belongs to. A
+                          description reaches this line only after a person approved it —
+                          a draft is invisible here as everywhere else. Never a filename,
+                          never a raw record object, and never an inferred identity. */
+                       alt={
+                         [img.caption, img.title].find(x => typeof x === 'string' && x.trim() && !x.trim().startsWith('{'))
+                         || publicDescription(img)?.text
+                         || `${album.title} — photograph from the Guneku Fondom archive`
+                       }
                        fill unoptimized loading="lazy"
                        sizes="(max-width: 768px) 50vw, 240px"
                        style={{ objectFit:'cover' }} />
@@ -86,6 +96,32 @@ export default async function AlbumPage({
             </div>
           ))}
         </div>
+        {/* ── What this record does and does not hold ────────────────────────────────
+            The standing principle applied to the archive: the structure is shown, what
+            is known is published, and the gap is named as a gap rather than filled.
+            Nobody in these photographs is identified by guesswork, and no date, event or
+            place is inferred from an image. */}
+        <div className="inst-card" style={{ marginTop:'3rem', padding:'1.5rem', maxWidth:'44rem' }}>
+          <p className="inst-tag">About this album&rsquo;s record</p>
+          <p className="inst-body" style={{ marginTop:'0.5rem', fontSize:'0.9rem' }}>
+            {album.description && album.description !== album.title
+              ? album.description
+              : `${album.imageCount} photographs kept in the Guneku Fondom archive.`}
+          </p>
+          <p className="inst-body" style={{ marginTop:'0.75rem', fontSize:'0.88rem' }}>
+            {UNIDENTIFIED_PEOPLE}
+          </p>
+          <p className="inst-meta" style={{ marginTop:'0.75rem' }}>
+            If you know who is in one of these photographs, when it was taken, or what it
+            records, the Palace would like to hear it. Nothing is published until a person
+            has reviewed it.
+          </p>
+          <Link href={contributeAlbumHref(String(album.title))}
+                className="inst-btn inst-btn-quiet" style={{ marginTop:'1rem' }}>
+            Add information about this album
+          </Link>
+        </div>
+
         <div style={{ marginTop:'3rem' }}>
           <Link href="/gallery/images" style={{
             color:'oklch(0.320 0.060 158)', fontFamily:'var(--font-sans)',

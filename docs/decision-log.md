@@ -1261,3 +1261,66 @@ question are distinct parts, the evidence is wrapped and described as quoted mat
 contain anything, and a command inside a source is text to read rather than an instruction to
 follow. A public article containing "ignore previous instructions" is as inert as any other
 sentence in it.
+
+
+## ADR-066 - A description is not a fact, and they never share a field
+
+Two kinds of thing were kept apart, in different files, with different rules.
+
+**Factual metadata** - who is in a photograph, when it was taken, what it records, where, who
+supplied it - are facts about Guneku. They live in the canonical archive record, they are
+written by people, and nothing in this phase can create one. The canonical record has no
+image-level field for any of them, and a test asserts that so nothing can quietly start
+writing them.
+
+**A description** is an observation about an image. It lives in `image-notes.json`, carries
+its own `source` so a reader always knows whether a person or a model wrote it, and is never
+evidence for a claim about the Fondom.
+
+"Members of the Traditional Council celebrating the 2019 festival" asserts an identity, a body,
+an event and a year that no photograph can establish. "Several people seated outdoors beneath a
+canopy" asserts what is in the picture. Only the second kind may be generated, and the prompt
+that generates it lists the first kind's every component as forbidden.
+
+## ADR-067 - No facial recognition, and the safeguard is that nothing is ever asked
+
+There is no face detection, no biometric matching, no similarity search and no "this appears to
+be" anywhere in this phase. That is not enforced by a filter over model output - it is enforced
+by never asking the question.
+
+The model is shown one image and asked what is visible in it. It is not shown a second image,
+so there is nothing to match against; it is not given any name, so it has none to attach; and
+it is told explicitly not to name a person, assert a relationship, give a title, name an event
+or place, or give a date. Where it cannot describe without breaking one of those, it is told to
+describe less.
+
+Where people are unidentified the wording is about the *record*: "not yet been identified in
+the published Guneku record". "Unknown people" would imply that identifying them is this
+system's job. It is the community's, through Contributions, and a submission there is reviewed
+rather than published.
+
+## ADR-068 - The archive layer needs no database, and git is the review queue
+
+A versioned JSON file holds the descriptions, exactly as `video-overrides.json` holds the film
+record's editorial layer. That decision was not about avoiding work: it is what makes review
+real.
+
+A description becomes public when somebody changes `status` to `approved` in a commit. The
+diff shows the exact sentence that would appear on the site, beside the photograph id it
+belongs to. A database row changed through an admin UI shows a reviewer the same sentence, but
+leaves no reviewable artefact, needs a fifth temporary migration-endpoint cycle to create, and
+adds a table whose only content is prose that already lives well in the repository.
+
+The corollary is stated rather than hidden: approving descriptions requires a commit, so it is
+not something a non-technical reviewer can do alone. If that ever becomes the bottleneck, the
+answer is a small approval UI over the same file - not a different storage model.
+
+## ADR-069 - Archive descriptions are not evidence for the Palace assistant
+
+Cited Palace AI's source boundary was not widened. An approved description says what is visible
+in a photograph; it establishes nothing about Guneku, and letting it answer a factual question
+would put a generated sentence behind a citation - the precise failure the assistant was built
+to avoid.
+
+If archive descriptions should ever become AI-visible, that is a separate decision requiring
+its own boundary change and its own tests. The default is no.
