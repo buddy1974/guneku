@@ -1431,3 +1431,55 @@ answer remains a pipeline, and that is a decision rather than a patch.
 **No accidental dynamic rendering.** Every dynamically-rendered route is either the member
 area, a moderation queue, or genuinely query-driven (`/search`, `/watch`, `/support`). The
 980 KB MapLibre chunk is loaded by `/explore` alone and appears on no other page.
+
+## 2026-09-06 - Mega build: certified Production baseline
+
+Twelve commits from `9b72a77` to the head of this entry. Every slice audited, implemented,
+tested, security-verified, committed, deployed and verified against `www.guneku.org` before
+the next one began.
+
+**Certification, run against Production after the final deploy:**
+
+| Check | Result |
+|---|---|
+| Representative smoke, 27 routes | 27/27 `200` |
+| Canonical images | **339/339 `200`** |
+| Album routes | 15/15 `200` |
+| Protected pages signed out | 7/7 `307` to `/sign-in`, `redirect_url` preserved |
+| Protected APIs signed out | 7/7 `401`, no database, provider or stack detail |
+| Retired and private paths | 15/15 `404` — migration endpoint, TV probe, `.env`, `package.json`, both archive READMEs |
+| Held Bonn originals | 17/17 `404` |
+| Staged photographs | **162/162 `404`** |
+| Image caching | `max-age=86400, stale-while-revalidate=2592000` |
+| Sitemap | 109 URLs, all production, no private route |
+| 404 behaviour | `404` |
+| Working tree | clean |
+
+`npm test` **898 passing across 33 files** · `npx tsc --noEmit` clean · `npm run build` clean
+at 231 routes · ESLint clean on every touched file.
+
+**What the build actually found**, in the order the defects mattered:
+
+1. **Ask Guneku answered a date question with a different date** (R-046). Found by probing
+   Production, not by any test.
+2. **A Palace reply was recorded and never sent** — for most senders, who write signed out,
+   "answered" meant nothing arrived.
+3. **The DMV directory was never untracked** — it was tracked under a capitalised path,
+   deployed, and publicly retrievable, and two path-based checks had agreed with each other
+   because both were wrong the same way (R-040).
+4. **Six form fields had no label**, on a form whose labels were visible but attached to
+   nothing.
+5. **Two map links pointed at pages the site deliberately does not generate.**
+6. **Every image was revalidated on every request**, for an audience on throttled connections.
+7. **Three published sentences said 338 photographs** the day after the archive gained its
+   339th.
+8. **Two dead files held four invented people** and nine duplicate records, both "safe because
+   nothing reads them".
+
+**What was deliberately not done**, each with the reason recorded rather than the omission:
+notification delivery (R-044, R-045), the higher-resolution originals (R-042), a retention
+period (R-039), the 62 uploads and 162 photographs awaiting identification (R-043), and the
+Search Authority programme, which is post-acceptance growth work.
+
+The only remaining release action is Marcel's real-user acceptance test —
+`docs/acceptance-checklist.md`.
