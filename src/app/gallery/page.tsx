@@ -66,7 +66,7 @@ export default function GalleryPage() {
               </Link>
             </div>
             <div className="grid gap-4 md:grid-cols-3">
-              {albums.slice(0, 6).map((album: any) => (
+              {albums.slice(0, 6).map(album => (
                 <Link key={album.id} href={`/gallery/images/${album.id}`}
                       className="group card-royal overflow-hidden block no-underline">
                   <div className="relative h-48 bg-card/50 pattern-royal overflow-hidden">
