@@ -1324,3 +1324,55 @@ to avoid.
 
 If archive descriptions should ever become AI-visible, that is a separate decision requiring
 its own boundary change and its own tests. The default is no.
+
+## ADR-070 - Staged is a third state, and it is not held
+
+`archive-held/` and `archive-staging/` sit side by side, hold the same kind of files, and mean
+opposite things. The distinction is worth stating because collapsing it would be easy and
+would be a lie in both directions.
+
+**Held** is a decision: the record says this must not be published, and `archive-held/README.md`
+says why. **Staged** is the absence of one: nobody has decided what the material is yet.
+Calling staged material held would assert a judgement the owner never made. Leaving it in
+`public/` because it is *not* held would repeat R-007 - the server handing out material whose
+classification is open, with no album, no caption, no context and no route for a reader to
+correct it.
+
+The owner's direction on 2026-09-06 was explicit: these four directories are **not** held.
+Staging honours that. Nothing here is hidden from an audience, because nothing linked to it in
+the first place; what changed is that undecided material is now visibly undecided rather than
+accidentally public.
+
+The route out is deliberate in both directions. Publishing means a catalogue entry in
+`image-gallery.json` - an album, a count, a page, a correction link - not a file that merely
+answers a URL. That was R-007's lesson read the other way round: **being reachable is not being
+published, and being unreachable is not being hidden.**
+
+## ADR-071 - File identity decides which album a photograph joins; a directory name never does
+
+Reconciling 163 staged files against 338 published photographs used exactly three signals:
+SHA-256, source filename, and byte size or pixel dimensions as corroboration. No perceptual
+matching, no face detection, no model, no network call. No image was opened for anything but
+its dimensions.
+
+The result was deliberately small. One photograph was published, out of 163. Its source
+identifier falls *inside* the born-house album's own range, between two photographs already in
+that album - same source posting, established from the filename alone. Nothing else in the
+whole set reached that standard, so nothing else was published.
+
+Three things were available and were refused as evidence:
+
+- **The directory name.** `coronation/` shares not one byte and not one filename with the
+  published coronation album. The word is a filesystem label somebody typed. It is not a claim
+  about what 58 photographs show, and the Palace record deliberately keeps the stages of the
+  succession distinct rather than collapsing them into one "coronation".
+- **Adjacency.** Sixteen files come from a source posting whose identifiers interleave with the
+  born-house album's, so the two postings were made in the same period. Uploaded minutes apart
+  is not photographed at the same occasion. Sixteen photographs is a lot to leave staged over
+  that distinction, and it is the right amount to leave staged over it.
+- **Proximity to a plausible record.** One shared photograph out of 28 is a connection between
+  a folder and the GUDECA-US album. It is not licence to publish the other 27 under that
+  album's date of 29 July 2023.
+
+The corollary is that a correct reconciliation can produce almost nothing, and did. The gap is
+reported as a gap, and the decisions that would close it are the owner's.

@@ -319,7 +319,7 @@
    "date": "2023-05-18T10:02:24.000Z",
    "description": "Prince Fomuki Tibah’s Bornhouse in images",
    "coverImage": "38019119_1985263641517889_6399488609476411392_n.jpg",
-   "imageCount": 22,
+   "imageCount": 23,
    "images": [
     {
      "id": "prince-fomuki-tibahs-bornhouseinimages-001",
@@ -584,6 +584,16 @@
      "height": 960,
      "isMainImage": false,
      "downloadStatus": "pending"
+    },
+    {
+     "id": "prince-fomuki-tibahs-bornhouseinimages-023",
+     "filename": "37973461_1985263558184564_2981417368892211200_n.jpg",
+     "caption": null,
+     "title": null,
+     "publicPath": "/images/gallery/prince-fomuki-tibahs-bornhouseinimages/37973461_1985263558184564_2981417368892211200_n.jpg",
+     "width": 720,
+     "height": 960,
+     "isMainImage": false
     }
    ]
   },

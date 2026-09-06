@@ -686,9 +686,59 @@ Three tests now hold it closed: the directory must not exist under `public/`, it
 exist intact in `archive-held/` with 17 files, and no directory anywhere under `public/` may
 carry that name at any depth.
 
-**What this does not settle.** Four other directories under `public/images/gallery/` are in no
-canonical album - `coronation` (58), `enthronement` (40), `prince-tibahs-bornhouse-bonn` (37)
-and `guneku-dmv-welcomefomuki` (28, untracked by git and therefore never deployed). They are
+**What this did not settle, and what settled it.** Four other directories under
+`public/images/gallery/` were in no canonical album - `coronation` (58), `enthronement` (40),
+`prince-tibahs-bornhouse-bonn` (37) and `guneku-dmv-welcomefomuki` (28). They were
 **unclassified**, not held: being absent from the fifteen albums is not evidence of anything.
-They were deliberately left untouched pending the owner's decision - see the inventory in the
-change-log. Three of them are directly fetchable today.
+The owner confirmed on 2026-09-06 that none of them is held, and all 163 files were moved to
+`archive-staging/` pending classification - preserved in git, out of every served path. See
+R-040 and the change-log.
+
+## R-040 - A directory can be tracked, deployed and public under a name the working tree does not show - CLOSED 2026-09-06
+
+**The inventory of 2026-09-06 reported that `guneku-dmv-welcomefomuki` was untracked by git,
+had never been deployed, and was therefore not backed up by the repository. Every part of
+that was wrong**, and the reconciliation the next step found out why.
+
+Git tracked the directory as `public/images/gallery/Guneku-DMV-WelcomeFomuki`, with capitals.
+Somebody had renamed it to lower case on disk. Windows does not distinguish the two spellings,
+so `git status` showed the working tree as clean while the index held a name the filesystem
+listing never displayed. Every check ran against the lowercase name:
+
+- `git ls-files public/images/gallery/guneku-dmv-welcomefomuki` returned nothing -> "untracked"
+- a production fetch of `/images/gallery/guneku-dmv-welcomefomuki/...` returned 404 -> "never
+  deployed", because Vercel builds on Linux, where the two names are different files
+
+The capitalised URL returned `200 image/jpeg`. All 28 files were deployed and publicly
+retrievable, and the conclusion drawn from those two checks was the exact opposite of the
+truth: the material was not at risk of being lost, it was being served.
+
+**The lesson.** On a case-insensitive filesystem, the name you can see is not necessarily the
+name git and the deployment target are using. A negative result from a path-based check -
+"not tracked", "404" - is evidence about *that string*, not about the file. Ask git what it
+holds (`git ls-tree`) before concluding anything about what exists.
+
+**Closed** by `git mv` into `archive-staging/`, which resolved the case mismatch as a side
+effect: the index and the working tree now agree on one name.
+
+## R-041 - `mchibe-mta-event-guneku2023` serves 35 files its album does not list - Open
+
+Found while reconciling the four staged directories; outside that scope, recorded rather than
+acted on.
+
+The album catalogues 39 photographs. The folder holds 74 files. The 35 extras are not
+additional photographs:
+
+- **32 `.jpg` files** that share a stem with a catalogued `.jpeg` and are downscaled copies of
+  it - 600x337 against 1080x607, roughly a third of the bytes. Legacy Joomla renditions.
+- **3 further `.jpg`** with no catalogued twin.
+- **`.htaccess`**, containing `order deny,allow` / `deny from all`.
+
+That last one is the interesting part. It is an Apache instruction from the retired Joomla
+host, and **Next.js does not read it**. A file the legacy site denied to everyone is served by
+this one, along with the folder it was meant to protect. It denies nothing; it is a static
+asset like any other.
+
+Nothing here is unseen material - the photographs are published, and these are smaller copies
+of them. It is duplication and a dead access-control file, not exposure. Clearing it is a
+housekeeping decision for the owner.

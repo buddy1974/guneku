@@ -9,14 +9,21 @@ import { readFileSync, existsSync, readdirSync } from 'node:fs'
 
 const GALLERY = getImageGallery()
 const ALBUMS = GALLERY.albums ?? []
+const STAGED = [
+  'coronation', 'enthronement', 'prince-tibahs-bornhouse-bonn', 'guneku-dmv-welcomefomuki',
+]
 const IMAGES = ALBUMS.flatMap((a: { images?: unknown[] }) => a.images ?? []) as Array<{
   id: string; filename: string; publicPath?: string; caption?: string | null; title?: string | null
 }>
 
 describe('the canonical archive is what the audit found', () => {
-  it('holds fifteen albums and 338 photographs', () => {
+  it('holds fifteen albums and 339 photographs', () => {
+    /* 338 at the audit. One more since: a photograph reconciled in from
+       archive-staging/prince-tibahs-bornhouse-bonn on 2026-09-06, whose source id falls
+       inside the born-house album's own range, between two photographs already in it. No
+       new album was created and nothing was published on a guess. */
     expect(ALBUMS).toHaveLength(15)
-    expect(IMAGES).toHaveLength(338)
+    expect(IMAGES).toHaveLength(339)
   })
 
   it('gives every photograph a public path under the gallery folder', () => {
@@ -197,6 +204,51 @@ describe('held media is unreachable from the archive layer', () => {
         stack.push(`${dir}/${entry.name}`)
       }
     }
+  })
+
+  /* Staged material, 2026-09-06. Four uncatalogued directories were moved out of public/
+     while their classification is open. They are not held - no decision has been made - but
+     an undecided photograph should not be handed out by the server either, which is the same
+     lesson R-007 taught about held material. */
+  it('no staged directory is inside public/, where Next would serve it', () => {
+    for (const d of STAGED) {
+      expect(existsSync(`public/images/gallery/${d}`)).toBe(false)
+    }
+  })
+
+  it('keeps every staged directory intact in the non-served archive', () => {
+    /* Counts are the preservation guarantee: 163 files moved, one of them published into
+       the born-house album, 162 still staged. */
+    const counts = Object.fromEntries(
+      STAGED.map(d => [d, readdirSync(`archive-staging/${d}`).length]),
+    )
+    expect(counts).toEqual({
+      'coronation': 58,
+      'enthronement': 40,
+      'prince-tibahs-bornhouse-bonn': 36,
+      'guneku-dmv-welcomefomuki': 28,
+    })
+  })
+
+  it('catalogues no path into staging', () => {
+    /* Match the path, not the word. "coronation" is a substring of the published album
+       the-coronationof-hrh-fon-fomuki-walters, and a bare word check would fail on the very
+       album this reconciliation was careful not to disturb. */
+    const all = JSON.stringify(GALLERY)
+    for (const d of STAGED) expect(all).not.toContain(`/images/gallery/${d}/`)
+  })
+
+  it('the one photograph reconciled out of staging is served from its album folder', () => {
+    const added = IMAGES.find(i =>
+      i.filename === '37973461_1985263558184564_2981417368892211200_n.jpg')!
+    expect(added).toBeDefined()
+    expect(added.publicPath)
+      .toBe('/images/gallery/prince-fomuki-tibahs-bornhouseinimages/37973461_1985263558184564_2981417368892211200_n.jpg')
+    expect(existsSync(`public${added.publicPath}`)).toBe(true)
+    /* It carries no caption, title, date, place or person. The reconciliation established
+       which album the file belongs to, and nothing whatever about what it shows. */
+    expect(added.caption).toBeNull()
+    expect(added.title).toBeNull()
   })
 
   it('the private film is in no gallery record', () => {

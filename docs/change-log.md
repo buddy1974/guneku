@@ -1031,3 +1031,82 @@ they are also not backed up by the repository.
 
 Filesystem timestamps on all four are 2026-04-10, which is when they were copied into the
 project - not when the photographs were taken. Nothing here dates any image.
+
+## 2026-09-06 - Four staged directories reconciled; 163 files preserved, one published
+
+The owner classified the four uncatalogued directories as archive candidates rather than held,
+and asked for reconciliation: find out what they actually are, preserve them, connect them to
+existing records where the evidence supports it, and make the gaps visible.
+
+**All 163 files are preserved.** Moved from `public/images/gallery/` to `archive-staging/` with
+`git mv`, recorded as 163 pure renames. SHA-256 of every file verified identical before and
+after; 36.3 MB, filenames and grouping unchanged. Nothing compressed, re-encoded, described or
+sent to any model. `archive-staging/README.md` states the rule for the location and, more
+importantly, the difference between staged and held - see ADR-070.
+
+**Reconciliation used SHA-256, filename and size only.** No perceptual matching, no face
+detection, no model, no network call. Results against the 338 published photographs:
+
+| Directory | Files | Exact byte duplicates | Same source filename | Unique |
+|---|---|---|---|---|
+| `coronation` | 58 | 0 | 0 | 58 |
+| `enthronement` | 40 | 0 | 0 | 40 |
+| `prince-tibahs-bornhouse-bonn` | 37 | 0 | 18 (born-house album) | 19 |
+| `guneku-dmv-welcomefomuki` | 28 | 0 | 1 (GUDECA USA) | 27 |
+
+**Not one exact duplicate in 163 files.** The two directories named after the succession share
+neither a byte nor a filename with any published album, including the published coronation
+album. The 19 same-filename matches are all *higher-resolution copies* of photographs the site
+already serves - which turned out to be a finding in its own right, below.
+
+**One photograph was published.** `37973461_1985263558184564_…` joined
+`prince-fomuki-tibahs-bornhouseinimages`, taking it from 22 to 23 and the archive from 338 to
+339. Its source identifier falls inside that album's own range, between two photographs already
+in it. That is same-posting evidence from the filename alone, and it is the only file in the
+whole set that reached the standard. It carries no caption, no date, no place and no name -
+the reconciliation established which album it belongs to and nothing about what it shows. The
+album page's existing archive-completion language and its "Add information about this album"
+route cover it like every other photograph.
+
+**162 files remain staged**, with the outstanding decisions in the report and in ADR-071.
+
+### The published gallery is serving downscaled copies of photographs it has better versions of
+
+Nineteen staged files carry the same source filename as a published photograph and are larger
+in every case. The published record's own `width`/`height` already describe the *bigger* file:
+
+| | catalogue says | file served | staged file |
+|---|---|---|---|
+| 18 born-house photographs | e.g. 720x960 | 450x600 | **720x960** |
+| 1 GUDECA-US photograph | 2048x2048 | 600x600 | **2048x2048** |
+
+So `image-gallery.json` is internally inconsistent today, and the staged originals are what it
+describes. Swapping them in would make the record true, and is not a factual assertion - same
+source filename means the same photograph. It was **not** done: it changes bytes the site
+publishes, and the GUDECA-US case is 109 KB becoming 1.6 MB on a page load, which is a
+performance decision the owner should make rather than a reconciliation outcome.
+
+### Two corrections to the previous report
+
+**`guneku-dmv-welcomefomuki` was never untracked, and was never un-deployed.** The previous
+inventory said its 28 files existed only on the owner's machine with no repository backup. All
+28 were tracked, deployed and publicly retrievable the whole time, under a capitalised path the
+working tree did not show. R-040 records how a case-insensitive filesystem produced two false
+negatives that agreed with each other.
+
+**All 163 files were publicly fetchable in production**, not 98 as the earlier count implied -
+verified by fetching every one of them at the path the deployed build actually used. They now
+return 404, and the material is safe in git.
+
+### Also corrected
+
+A maintainer note on the GUDECA-US update called the DMV folder "held under R-007". R-007 was
+an exposure risk covering every uncatalogued folder under the served gallery directory, not a
+held classification, and the owner has confirmed the material is not held. The note now says
+so. The repoint it records still stands.
+
+### Recorded, not acted on
+
+`mchibe-mta-event-guneku2023` serves 35 files its album does not list - 32 downscaled legacy
+copies of photographs already published, 3 more, and an Apache `.htaccess` containing
+`deny from all` that Next.js does not read and serves as a static file. R-041.
