@@ -909,3 +909,46 @@ preflight are built and tested; there is no dispatch route, no mailer import any
 notification path, and tests that fail if one appears. A send button shipped before those two
 things exist would either fail silently or send twice, and both are worse than a screen that
 says plainly what it would do and why it does not.
+
+## R-046 - Ask Guneku answered a date question with a different date - CLOSED 2026-09-06
+
+Found by probing Production, not by any test.
+
+**"When exactly was HRH Fon Fomuki Walters Ticha crowned?"** returned the 2024 New Year speech
+- quoted verbatim, correctly cited, and opening with *"Guneku, Cameroon - January 1, 2024"*.
+Nothing in it was false and none of it answered the question. A reader asking when the Fon was
+crowned would reasonably read that date as the answer.
+
+**This is the worst wrong answer this archive can give.** The one date it has withdrawn is a
+coronation date (ADR-001), and the succession is deliberately published as four distinct stages
+rather than one crowning. An assistant that supplies a plausible date to that question undoes
+the most careful decision in the record.
+
+**Why it happened.** The article's title repeats the Fon's name - *"...by HRH Fon Fomuki
+Walters Ticha IX"* - so the question's five name tokens each scored a full keyword hit, against
+the succession record's one hit on the word the question was actually about. Five weak signals
+outscored one strong one: 9.70 to 8.59.
+
+Three changes, each fixing a class rather than the instance:
+
+1. **Words are weighted by how rare they are.** "Fomuki" is in dozens of entries; "crowned" is
+   in one or two. Ordinary inverse document frequency. Naming a person no longer outweighs
+   naming the subject.
+2. **Multi-word keys now count.** `keys: ['when was he crowned']` was the author's most
+   specific anticipation of a question and was the *weakest* signal in the scorer: only
+   whole-phrase keys reached the keyword set, so the words the author wrote counted for
+   nothing unless a visitor typed the phrase verbatim.
+3. **Within a small margin, a checked answer wins.** An intent is an answer a person wrote for
+   a question a person anticipated; a record is an article whose title happened to contain some
+   of the words. When they are close, the checked one is better. Outside the margin the record
+   still wins - "Who is Marcel Tabit Akwe?" returns Marcel's record, by a wide margin - and the
+   article stays as a link beneath the answer either way.
+
+Six regression tests, including one asserting that no phrasing of the crowning question can
+return 17 January 2016.
+
+**Found alongside it:** three published sentences said the archive holds 338 photographs, the
+day after it gained its 339th. The homepage stat, the FAQ answer and two page descriptions.
+None was wrong when written, which is the problem with a number typed into prose. The intent
+now counts the record rather than quoting a total, the data files are corrected, and four
+invariant tests tie every published count to the gallery it describes.

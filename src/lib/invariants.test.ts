@@ -458,3 +458,39 @@ describe('dead files that held invented people are gone, not merely unread', () 
     expect(offenders).toEqual([])
   })
 })
+
+describe('a published count matches the thing it counts', () => {
+  /* On 2026-09-06 the archive gained one photograph and three published sentences went on
+     saying 338 — the homepage stat, the FAQ answer, and two page descriptions. None of them
+     was wrong when written, which is exactly the problem with a number typed into prose: it
+     is a fact with no link to the thing it describes. These are the ones a reader sees. */
+  const facts = JSON.parse(readFileSync('src/data/home/village-facts.json', 'utf-8'))
+  const gallery = getImageGallery()
+  const albums = gallery.albums ?? []
+  const photos = albums.flatMap((a: { images?: unknown[] }) => a.images ?? []).length
+
+  it('states the photograph count the gallery actually holds', () => {
+    const stat = (facts.glance ?? [])
+      .find((f: { id?: string }) => f.id === 'photographs')
+    expect(stat).toBeDefined()
+    expect(String(stat.value)).toBe(String(photos))
+  })
+
+  it('answers the photographs question with the same number', () => {
+    const faq = JSON.stringify(facts)
+    expect(faq).toContain(`${photos} photographs`)
+    expect(faq).not.toContain('338 photographs')
+  })
+
+  it('describes the gallery pages with the same number', () => {
+    for (const f of ['src/app/gallery/page.tsx', 'src/app/gallery/images/page.tsx']) {
+      const text = readFileSync(f, 'utf-8')
+      expect(text).toContain(String(photos))
+      expect(text).not.toMatch(/\b338 photographs\b/)
+    }
+  })
+
+  it('states the album count the gallery actually holds', () => {
+    expect(albums).toHaveLength(15)
+  })
+})

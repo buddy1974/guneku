@@ -1,3 +1,4 @@
+import { ask } from './palace-knowledge'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 /* The assistant. The Anthropic client is mocked at the module boundary — every test here is
@@ -253,5 +254,67 @@ describe('citations', () => {
   it('carry no repository path in any field', async () => {
     const res = await askPalace('What development work is under way?')
     expect(JSON.stringify(res.citations)).not.toMatch(/src\/data|\.json/)
+  })
+})
+
+describe('a checked answer beats an article that merely names the same person', () => {
+  /* Found by probing Production on 2026-09-06. "When exactly was HRH Fon Fomuki Walters
+     Ticha crowned?" returned the 2024 New Year speech — quoted verbatim, correctly cited,
+     and an answer to a different question. It opened with "January 1, 2024", which a reader
+     asking about a coronation would reasonably read as the answer.
+
+     That is the worst kind of wrong answer this archive can give. The one date it has
+     withdrawn is a coronation date (ADR-001), and the succession is deliberately published
+     as distinct stages rather than a single crowning. */
+  it('answers the succession question from the succession record', () => {
+    const r = ask('When exactly was HRH Fon Fomuki Walters Ticha crowned?')
+    expect(r.answered).toBe(true)
+    expect(r.answer).toContain('distinct stages')
+    expect(r.answer).toContain('27 February 2015')
+    expect(r.answer).toContain('30 December 2016')
+    /* And not the article that outscored it by repeating his name. */
+    expect(r.answer).not.toContain('New Year')
+    expect(r.answer).not.toContain('January 1, 2024')
+  })
+
+  it('answers the shorter phrasing the same way', () => {
+    expect(ask('When was the Fon crowned?').answer).toContain('distinct stages')
+    expect(ask('How did the succession happen?').answer).toContain('distinct stages')
+  })
+
+  it('still gives an article to somebody who asked for that article', () => {
+    /* The margin cuts one way only. A record that wins outright still wins. */
+    const r = ask('Tell me about the new year speech of 2024')
+    expect(r.answered).toBe(true)
+    expect(r.answer).toContain('New Year')
+  })
+
+  it('still answers a question about a person from that person’s record', () => {
+    const r = ask('Who is Marcel Tabit Akwe?')
+    expect(r.answered).toBe(true)
+    expect(r.answer).toContain('Marcel Tabit Akwe')
+  })
+
+  it('never publishes the withdrawn coronation date', () => {
+    for (const q of [
+      'When was the Fon crowned?',
+      'When exactly was HRH Fon Fomuki Walters Ticha crowned?',
+      'What is the coronation date?',
+      'When was the coronation?',
+    ]) {
+      const a = ask(q).answer
+      expect(a).not.toMatch(/17 January 2016|2016-01-17|January 17,? 2016/i)
+    }
+  })
+
+  it('gives the archive’s real size, not a number that went stale', () => {
+    /* Three places said 338 the day after a photograph was reconciled in from staging: the
+       homepage stat, the published FAQ answer and a hand-written intent. The intent now
+       counts the record instead of quoting it; the two data files are corrected, and an
+       invariant test ties them to the gallery so the next change cannot leave them behind. */
+    const r = ask('Where can I see photographs?')
+    expect(r.answered).toBe(true)
+    expect(r.answer).toContain('339 photographs')
+    expect(r.answer).not.toContain('338')
   })
 })

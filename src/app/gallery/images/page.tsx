@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 export const metadata = {
   alternates: { canonical: '/gallery/images' },
-  description: "Fifteen event albums and 338 photographs from the Guneku Fondom archive — the Palace, the Traditional Council, the road work, the festivals and the diaspora chapters.", title: 'Image Gallery' }
+  description: "Fifteen event albums and 339 photographs from the Guneku Fondom archive — the Palace, the Traditional Council, the road work, the festivals and the diaspora chapters.", title: 'Image Gallery' }
 
 export default function ImageGalleryPage() {
   const gallery = getImageGallery()

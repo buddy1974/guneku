@@ -5,6 +5,8 @@ import {
   getAllInstitutions, getAllNotables, getFonProfile,
 } from '@/lib/content'
 import current from '@/data/current-notices.json'
+import { getImageGallery } from '@/lib/content'
+import { approvedFilms } from '@/lib/guneku-tv'
 
 /* The knowledge behind "Ask Guneku Palace".
 
@@ -37,6 +39,13 @@ const firstSentences = (t: string, n = 2) => {
 /* Hand-written intents for the questions people actually ask. These outrank anything
    derived automatically, because the wording has been checked. */
 function intentEntries(): Entry[] {
+  /* Counted from the record itself, every time. */
+  const albums = getImageGallery()?.albums ?? []
+  const albumCount = albums.length
+  const photoCount = albums.reduce(
+    (n, a: { images?: unknown[] }) => n + (a.images?.length ?? 0), 0)
+  const filmCount = approvedFilms().length
+
   const fon = getFonProfile()
   const reg = current.development as Array<{ name: string; class?: string; status: string; description: string; href: string }>
   const running = reg.filter(d => ['PROJECT', 'PROGRAMME'].includes(String(d.class)))
@@ -113,7 +122,10 @@ function intentEntries(): Entry[] {
       id: 'photos',
       keys: ['photos', 'photographs', 'pictures', 'images', 'gallery', 'videos', 'films', 'archive', 'watch'],
       question: 'Where can I see photographs and films of Guneku?',
-      answer: 'The archive holds fifteen event albums totalling 338 photographs, and forty-six films from the Fondom’s own channel, each attached to the record it documents.',
+      /* Counted, not typed. A hard-coded 338 went stale the day a photograph was
+         reconciled in from staging, and a checked answer that quietly becomes wrong is
+         worse than one that admits it does not know. */
+      answer: `The archive holds ${albumCount} event albums totalling ${photoCount} photographs, and ${filmCount} films from the Fondom’s own channel, each attached to the record it documents.`,
       href: '/gallery/images', hrefLabel: 'The image gallery',
     },
     {
@@ -245,19 +257,84 @@ function tokens(s: string) {
   return s.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(t => t.length > 2 && !STOP.has(t))
 }
 
+/* ── How much a word tells you ──────────────────────────────────────────────────────────
+ *
+ * "Fomuki" appears in dozens of records; "crowned" appears in one or two. Scoring both the
+ * same is how a question about a date gets answered by whichever article mentions the Fon
+ * most often, and on 2026-09-06 that is exactly what happened: *"When exactly was HRH Fon
+ * Fomuki Walters Ticha crowned?"* returned the 2024 New Year speech, which says nothing
+ * about a coronation and opens with the date 1 January 2024. Cited, verbatim, and an answer
+ * to a different question — the worst kind of wrong answer this archive can give, because
+ * the one date it withdrew was a coronation date.
+ *
+ * So a token is weighted by how rare it is across the whole index. Ordinary inverse document
+ * frequency, and it fixes the class rather than the instance: naming a person no longer
+ * outweighs naming the subject. */
+let idfCache: Map<string, number> | null = null
+
+function idf(): Map<string, number> {
+  if (idfCache) return idfCache
+  const { intents, records } = index()
+  const all = [...intents, ...records]
+  const seen = new Map<string, number>()
+  for (const e of all) {
+    const inThis = new Set([
+      ...tokens(e.keys.join(' ')),
+      ...tokens(e.question),
+    ])
+    for (const t of inThis) seen.set(t, (seen.get(t) ?? 0) + 1)
+  }
+  const n = Math.max(all.length, 1)
+  idfCache = new Map(
+    [...seen].map(([t, c]) => [t, Math.log((n + 1) / (c + 1)) / Math.log(n + 1)]),
+  )
+  return idfCache
+}
+
+/** How much weight one matching word deserves. A word the index has never seen is as
+ *  distinguishing as it gets; a word in half the entries is nearly worthless. */
+function weight(token: string): number {
+  const w = idf().get(token)
+  /* Unknown to the index, but present in an answer — treated as distinguishing, because a
+     word nothing was keyed on is not a word everything shares. */
+  if (w === undefined) return 1
+  /* Floored so a common word still counts for something: a question made only of common
+     words must still reach its entry. */
+  return Math.max(0.25, w)
+}
+
 function score(entry: Entry, qTokens: string[], raw: string) {
   let hits = 0
   const keys = entry.keys.map(k => k.toLowerCase())
-  const keySet = new Set(keys)
+  /* Every key, and every word inside a key. A multi-word key like "when was he crowned" is
+     the author's most specific anticipation of a question, and until 2026-09-06 it was the
+     weakest signal in this function: only whole-phrase keys reached `keySet`, so the words
+     the author actually wrote counted for nothing unless the visitor typed the phrase. */
+  const keySet = new Set([...keys, ...tokens(keys.join(' '))])
   const hay = (keys.join(' ') + ' ' + entry.question).toLowerCase()
-  let s = 0
+
+  /* Scored strongest-first, with each further match worth less than the one before.
+   *
+   * Without that, matching five words of one long title beats matching the single word the
+   * question is actually about — which is how *"When exactly was HRH Fon Fomuki Walters Ticha
+   * crowned?"* reached an article whose title repeats the Fon's name and whose subject is a
+   * New Year speech. Five weak signals are not stronger than one strong one; they are one
+   * signal, seen five times.
+   *
+   * Saturation, in the sense every retrieval system means it. The first match carries its
+   * full weight, the second half, the third a third. */
+  const contributions: Array<{ v: number; h: number }> = []
   for (const t of qTokens) {
+    const w = weight(t)
     /* A token that *is* one of the author's keywords is a strong signal — "donate"
        should reach the support entry even when it is the only real word in the query. */
-    if (keySet.has(t)) { s += 4; hits += 1 }
-    else if (hay.includes(t)) { s += 2; hits += 1 }
-    else if (entry.answer.toLowerCase().includes(t)) { s += 0.5; hits += 0.5 }
+    if (keySet.has(t)) contributions.push({ v: 4 * w, h: 1 })
+    else if (hay.includes(t)) contributions.push({ v: 2 * w, h: 1 })
+    else if (entry.answer.toLowerCase().includes(t)) contributions.push({ v: 0.5 * w, h: 0.5 })
   }
+  contributions.sort((a, b) => b.v - a.v)
+  let s = 0
+  contributions.forEach((c, i) => { s += c.v / (i + 1); hits += c.h })
   /* A phrase the author anticipated verbatim is worth more than scattered words. */
   for (const k of keys) {
     if (k.length > 6 && raw.includes(k)) s += 3
@@ -274,6 +351,12 @@ export type AskResult = {
   question?: string
   links: Array<{ href: string; label: string }>
   suggestions: string[]
+}
+
+/* Identity, not a flag on the entry: the two sets come from different builders and an
+   entry never moves between them. */
+function isIntent(e: Entry): boolean {
+  return index().intents.includes(e)
 }
 
 export function ask(qRaw: string): AskResult {
@@ -299,11 +382,44 @@ export function ask(qRaw: string): AskResult {
     }
   }
 
-  /* Hand-written intents are weighted above derived records. */
+  /* Hand-written intents are weighted above derived records, and by a clear margin rather
+     than a nudge. The two are different kinds of thing: an intent is an answer somebody
+     checked, written to answer a question; a record is an article whose title happened to
+     contain some of the words. When both match, the checked answer is the better answer
+     nearly always — and when it is not, the record is still offered as a link beneath.
+
+     1.35 was too small a thumb on the scale. *"When exactly was HRH Fon Fomuki Walters Ticha
+     crowned?"* put a 2024 New Year speech first and the succession record second, because
+     the article's title repeats the Fon's name five times and the question named him too.
+     A question about a date was answered with a different date, cited and verbatim — and the
+     one date this archive has withdrawn was a coronation date. */
   const ranked = [
-    ...intents.map(e => { const r = score(e, effective, raw); return { e, s: r.s * 1.35, hits: r.hits } }),
+    ...intents.map(e => { const r = score(e, effective, raw); return { e, s: r.s * 1.9, hits: r.hits } }),
     ...records.map(e => { const r = score(e, effective, raw); return { e, s: r.s, hits: r.hits } }),
   ].sort((a, b) => b.s - a.s)
+
+  /* ── When a checked answer is nearly as good, it is the better answer ─────────────────
+   *
+   * A derived record can outscore an intent simply by repeating a person's name. The 2024
+   * New Year speech scored 9.70 against the succession record's 8.59 for *"When exactly was
+   * HRH Fon Fomuki Walters Ticha crowned?"* — five name tokens against the one word the
+   * question was about. It answered a question about a date with a different date, quoted
+   * and cited, and the one date this archive has withdrawn is a coronation date.
+   *
+   * Raising the global intent multiplier would have fixed that case by distorting every
+   * other one. This is narrower and says what is actually meant: **within a small margin,
+   * prefer the answer a person wrote and checked.** Outside that margin the record still
+   * wins, which is right — "Who is Marcel Tabit Akwe?" should return Marcel's record and
+   * not a topic page, and it does, by a wide margin.
+   *
+   * The record is not lost either way: it stays in `ranked` and appears as a link beneath
+   * the answer, so a reader who wanted the article still reaches it in one click. */
+  const topRecord = ranked.find(r => !isIntent(r.e))
+  const topIntent = ranked.find(r => isIntent(r.e))
+  if (topRecord && topIntent && topRecord.s > topIntent.s && topIntent.s >= topRecord.s * 0.85) {
+    ranked.splice(ranked.indexOf(topIntent), 1)
+    ranked.unshift(topIntent)
+  }
 
   const best = ranked[0]
   /* Below this the match is coincidence rather than an answer. The bar rises with the

@@ -37,7 +37,7 @@
   },
   {
    "id": "photographs",
-   "value": "338",
+   "value": "339",
    "label": "Photographs",
    "note": "Across fifteen event albums in the Fondom archive.",
    "source": "src/data/gallery/image-gallery.json",
@@ -215,7 +215,7 @@
   },
   {
    "q": "Where can I see photographs and films of Guneku?",
-   "a": "The archive holds fifteen event albums totalling 338 photographs, and forty-six films from the Fondom's own channel, each attached to the record it documents.",
+   "a": "The archive holds fifteen event albums totalling 339 photographs, and forty-six films from the Fondom's own channel, each attached to the record it documents.",
    "href": "/gallery/images",
    "hrefLabel": "The image gallery"
   },

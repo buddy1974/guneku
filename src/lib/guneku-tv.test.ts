@@ -109,7 +109,11 @@ describe('discovered uploads are a queue, not content', () => {
         const full = `${dir}/${e.name}`
         if (e.isDirectory()) { stack.push(full); continue }
         if (!/\.(ts|tsx|js|jsx)$/.test(e.name)) continue
-        if (full.endsWith('guneku-tv.test.ts')) continue
+        /* Tests are excluded, and only tests. A test cannot render anything — the two that
+           read this file read it precisely to assert that none of its 62 ids reaches the
+           film record or the search index. Everything else that could import it is in
+           scope, which is the whole point. */
+        if (/\.test\.tsx?$/.test(e.name)) continue
         if (readFileSync(full, 'utf-8').includes('video-discovered')) importers.push(full)
       }
     }
