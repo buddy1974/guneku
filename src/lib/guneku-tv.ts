@@ -26,12 +26,20 @@ import overridesDoc from '@/data/gallery/video-overrides.json'
  *   synchronisation can pull it in by accident. The record's own note says it is "deliberately
  *   not surfaced"; this is that decision expressed as code rather than as a sentence.
  *
- *   The nine Bonn WhatsApp originals are a different thing entirely and are not films in this
- *   library at all. They are uncatalogued `.mp4` files under
- *   `public/images/gallery/visit-to-fons-palace-by-eu-residents/`, held because their speakers
- *   and subjects are unconfirmed (R-007). Nothing here references them. The ten Bonn entries
- *   that ARE in this library are the films the Fondom published on its own YouTube channel —
- *   a distinction the source record draws itself, and one worth not blurring.
+ *   The Bonn WhatsApp originals are a different thing entirely and are not films in this
+ *   library at all. They are uncatalogued files — images and `.mp4` together — held because
+ *   their speakers and subjects are unconfirmed (R-007). Nothing here references them.
+ *
+ *   They lived under `public/images/gallery/visit-to-fons-palace-by-eu-residents/` until
+ *   2026-09-06, which meant "held" was true of the catalogue and false of the server: a file
+ *   inside `public/` is served whether or not anything links to it, and a direct request
+ *   returned it. They are now in `archive-held/`, outside every served path — see
+ *   `archive-held/README.md`. The classification did not change; the behaviour was brought
+ *   into line with it.
+ *
+ *   The ten Bonn entries that ARE in this library are the films the Fondom published on its
+ *   own YouTube channel — a distinction the source record draws itself, and one worth not
+ *   blurring.
  */
 
 /** Deny-listed for good. A future sync sees these and skips them. */

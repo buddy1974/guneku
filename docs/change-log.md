@@ -999,3 +999,35 @@ clean on new files.
 the key Marcel set is in Vercel Production, where Cited Palace AI uses it successfully. The
 script failed correctly, wrote nothing and leaked no key. The request shape, draft status,
 bulk refusal and prompt constraints are covered by tests instead.
+
+
+## 2026-09-06 - R-007 closed; four directories inventoried, not touched
+
+**The held Bonn material is out of `public/`.** See R-007 in `docs/known-risks.md` for the
+finding and the fix. 17 files moved byte-for-byte to `archive-held/`, verified by SHA-256
+before and after, recorded by git as 17 pure renames. Nothing deleted, re-encoded, described or
+sent to any model.
+
+`archive-held/README.md` states the rule for the location: nothing in it is reachable over
+HTTP, nothing in it may be described or catalogued, and unholding something is a deliberate
+owner decision rather than a cleanup.
+
+**Four directories were inventoried and deliberately left alone.** Their absence from the
+canonical fifteen albums is not evidence that they are held, and a directory name is a
+filesystem label rather than a fact about what the photographs show - "coronation" is not proof
+that every image in it depicts one. No file in any of them was moved, renamed, catalogued,
+published or sent to a model.
+
+| Directory | Files | Size | In git | Direct URL | Filename overlap with an album |
+|---|---|---|---|---|---|
+| `coronation` | 58 | 14.8 MB | tracked | **200** | none |
+| `enthronement` | 40 | 4.4 MB | tracked | **200** | none |
+| `prince-tibahs-bornhouse-bonn` | 37 | 5.8 MB | tracked | **200** | 18 filenames also in `prince-fomuki-tibahs-bornhouseinimages` |
+| `guneku-dmv-welcomefomuki` | 28 | 11.3 MB | **untracked** | 404 | 1 filename also in `gudeca-usa` |
+
+The last row is the one to notice twice: those 28 files exist only on the owner's machine, have
+never been committed and have never been deployed, which is why they 404. They are not at risk;
+they are also not backed up by the repository.
+
+Filesystem timestamps on all four are 2026-04-10, which is when they were copied into the
+project - not when the photographs were taken. Nothing here dates any image.

@@ -5,7 +5,7 @@ import {
 } from './archive-notes'
 import { getImageGallery } from './content'
 import notesFile from '@/data/gallery/image-notes.json'
-import { readFileSync } from 'node:fs'
+import { readFileSync, existsSync, readdirSync } from 'node:fs'
 
 const GALLERY = getImageGallery()
 const ALBUMS = GALLERY.albums ?? []
@@ -167,9 +167,36 @@ describe('no facial recognition exists anywhere in this code', () => {
 })
 
 describe('held media is unreachable from the archive layer', () => {
-  it('the nine Bonn originals are in no gallery record', () => {
+  it('the Bonn originals are in no gallery record', () => {
     const all = JSON.stringify(GALLERY)
     expect(all).not.toContain('visit-to-fons-palace-by-eu-residents')
+  })
+
+  /* R-007, closed 2026-09-06. Absence from the catalogue was never the same as being
+     unreachable: a file inside public/ is served whether or not anything links to it, and a
+     direct request returned one. The held material now lives outside every served path, and
+     this test fails the moment anything puts it back. */
+  it('the held Bonn directory is not inside public/, where Next would serve it', () => {
+    expect(existsSync('public/images/gallery/visit-to-fons-palace-by-eu-residents')).toBe(false)
+  })
+
+  it('is kept, intact, in the non-served archive', () => {
+    const dir = 'archive-held/visit-to-fons-palace-by-eu-residents'
+    expect(existsSync(dir)).toBe(true)
+    expect(readdirSync(dir)).toHaveLength(17)
+  })
+
+  it('no served directory shadows it', () => {
+    /* Nothing under public/ may carry that name at any depth. */
+    const stack = ['public']
+    while (stack.length) {
+      const dir = stack.pop()!
+      for (const entry of readdirSync(dir, { withFileTypes: true })) {
+        if (!entry.isDirectory()) continue
+        expect(entry.name).not.toBe('visit-to-fons-palace-by-eu-residents')
+        stack.push(`${dir}/${entry.name}`)
+      }
+    }
   })
 
   it('the private film is in no gallery record', () => {

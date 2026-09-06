@@ -657,3 +657,38 @@ job, no expiry column and no destructive migration. Every letter is intact.
 Whichever is chosen, two things follow: it should be stated somewhere a villager can read it,
 and any deletion is a destructive database operation needing Marcel's explicit authorisation at
 the time - not something to schedule and forget.
+
+
+## R-007 - Held Bonn material was served over HTTP - CLOSED 2026-09-06
+
+**The classification was right; the behaviour did not match it.**
+
+The Bonn WhatsApp originals have been classified as held since Guneku TV was built, because
+their speakers and subjects are unconfirmed. `src/lib/guneku-tv.ts` documented that, and the
+catalogue honoured it completely: the material appeared in no album, no search index, no
+sitemap, no page and no Cited Palace AI source.
+
+None of that stopped a direct request. The files sat in
+`public/images/gallery/visit-to-fons-palace-by-eu-residents/`, and everything inside `public/`
+is served by Next.js whether or not anything links to it. On 2026-09-06 a verification sweep
+fetched one and got `200 image/jpeg`, 269 KB.
+
+**Absence from a catalogue is not unreachability.** That is the lesson worth keeping: a `held`
+flag governs what the site *shows*, and says nothing about what the server *hands out*.
+
+**Closed** by moving the whole directory to `archive-held/`, outside every served path. All 17
+files - images and WhatsApp video together, 83.2 MB - moved byte-for-byte with `git mv`, which
+recorded every one as a pure rename. SHA-256 of all 17 verified identical before and after.
+Filenames, grouping and content unchanged. Nothing deleted, nothing re-encoded, nothing sent to
+any model.
+
+Three tests now hold it closed: the directory must not exist under `public/`, it must still
+exist intact in `archive-held/` with 17 files, and no directory anywhere under `public/` may
+carry that name at any depth.
+
+**What this does not settle.** Four other directories under `public/images/gallery/` are in no
+canonical album - `coronation` (58), `enthronement` (40), `prince-tibahs-bornhouse-bonn` (37)
+and `guneku-dmv-welcomefomuki` (28, untracked by git and therefore never deployed). They are
+**unclassified**, not held: being absent from the fifteen albums is not evidence of anything.
+They were deliberately left untouched pending the owner's decision - see the inventory in the
+change-log. Three of them are directly fetchable today.
