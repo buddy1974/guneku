@@ -1396,3 +1396,38 @@ Prompt injection, a request for private correspondence, and a request to speak a
 each refused - the last one in its own words: *"I can't do that — I'm a reading aid over the
 published Guneku record, not the Fon or the Palace."* The rate limiter then stopped the run at
 three questions, which is the protection working; the remainder were re-probed spaced out.
+
+## 2026-09-06 - Caching for a throttled connection, and robots for the member area
+
+**Every file under `public/` was served with `public, max-age=0, must-revalidate`.** That is
+Next's default and the wrong default for a photograph archive: a visitor who opens an album,
+goes back and opens it again pays a round trip for each of its twenty-odd images to be told
+nothing changed. Most of the audience is on a mid-range Android on a throttled connection in
+Cameroon (R-008), where the round trip is the expensive part and the 304 is almost free.
+
+`/images/` now carries `max-age=86400, stale-while-revalidate=2592000` - a day fresh, thirty
+days stale. Deliberately **not** `immutable` and not a year: these filenames are not
+content-hashed, so a photograph replaced at the same path has to be able to reach people. And
+deliberately images only - a cached HTML page is how a withdrawn record keeps being read, and
+this archive has already withdrawn one date.
+
+**`robots.txt` did not mention the member area or the moderation queues.** `/my-guneku`,
+`/review` and `/indigenes/submit` are now disallowed alongside the surfaces already listed.
+Each of those pages already carried `robots: { index: false }`, and both are wanted: the meta
+tag is what a crawler that ignores robots.txt sees, and the disallow is what stops the request
+being made. Neither is a security control - the pages redirect a signed-out caller and every
+route behind them checks a role server-side.
+
+Seventeen tests now hold the technical SEO position: one canonical host everywhere, a
+self-referencing canonical per page, a sitemap of absolute production URLs with no duplicate
+and no private, moderation, held or staged path in it, and a disallow list that covers every
+member surface while covering none of the archive.
+
+**R-042 stays deferred, and the audit is why.** `next.config.ts` sets `images.unoptimized:
+true`, so there is no resizing pipeline to hand a 1.6 MB original to. Serving the staged
+originals raw would put 1.6 MB on a page load for the audience R-008 describes. The right
+answer remains a pipeline, and that is a decision rather than a patch.
+
+**No accidental dynamic rendering.** Every dynamically-rendered route is either the member
+area, a moderation queue, or genuinely query-driven (`/search`, `/watch`, `/support`). The
+980 KB MapLibre chunk is loaded by `/explore` alone and appears on no other page.

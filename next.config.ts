@@ -51,6 +51,34 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  /* ── Caching for the archive ─────────────────────────────────────────────────────────
+   *
+   * Every file under `public/` is served with `public, max-age=0, must-revalidate`, which is
+   * Next's default and is the wrong default for a photograph archive. It means a visitor who
+   * opens an album, goes back, and opens it again pays a round trip for every one of its
+   * twenty-odd images to be told nothing changed. Most of the audience is on a mid-range
+   * Android on a throttled connection in Cameroon (R-008), where a round trip is the
+   * expensive part and the 304 that comes back is almost free by comparison.
+   *
+   * A day fresh, thirty days stale-while-revalidate. Not `immutable`, and not a year: these
+   * filenames are not content-hashed, so a photograph replaced at the same path has to be
+   * able to reach people. A day is long enough to make browsing the gallery feel like
+   * browsing a gallery, and short enough that a correction is never stuck.
+   *
+   * `/images/` only. The HTML is left alone deliberately — a cached page is how a withdrawn
+   * record keeps being read, and this archive has already withdrawn one date. */
+  async headers() {
+    return [
+      {
+        source: '/images/:path*',
+        headers: [{
+          key: 'Cache-Control',
+          value: 'public, max-age=86400, stale-while-revalidate=2592000',
+        }],
+      },
+    ]
+  },
+
   async redirects() {
     const legacy = LEGACY_ROUTES.flatMap(([from, to]) => ([
       { source: from, destination: to, permanent: true },
