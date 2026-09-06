@@ -1,0 +1,390 @@
+{
+ "meta": {
+  "purpose": "A review queue, and nothing else. These uploads are on the Fondom's YouTube channel and are not in the film record. \"Discovered\" is the whole of what that means: not reviewed, not approved, not public.",
+  "discoveredOn": "2026-09-06",
+  "source": "The first live run of src/lib/youtube-sync.ts against the channel's uploads playlist. 108 public uploads returned, 46 already in the record, these 62 not.",
+  "notPublic": "Nothing reads this file. No page, no search index, no sitemap, no structured data and no Cited Palace AI source imports it, and a test asserts that no module does. Publishing one of these means a person reviewing it and writing it into the canonical record or into video-overrides.json - the same route every other film took.",
+  "whyNotClassified": "A video on the channel is not the Fondom asserting something about Guneku's history, and most of these titles say nothing that could support a classification: thirty-six are called '25. March 2024'. Deciding from a title what an occasion was is exactly the mistake the film lifecycle exists to prevent.",
+  "uploadYears": {
+   "2015": 4,
+   "2023": 21,
+   "2024": 36,
+   "2026": 1
+  },
+  "countAtDiscovery": 62
+ },
+ "discovered": [
+  {
+   "youtubeId": "0AApm61HDCU",
+   "providerTitle": "Welcoming The Fon Of Guneku  In Germany",
+   "publishedAt": "2015-10-01T01:48:28Z",
+   "thumb": "https://i.ytimg.com/vi/0AApm61HDCU/sddefault.jpg"
+  },
+  {
+   "youtubeId": "6B_wodpymsk",
+   "providerTitle": "Welcoming The Fon Of Guneku  In Germany",
+   "publishedAt": "2015-10-01T01:48:35Z",
+   "thumb": "https://i.ytimg.com/vi/6B_wodpymsk/sddefault.jpg"
+  },
+  {
+   "youtubeId": "vH6JkJ8xwU0",
+   "providerTitle": "Transfiguration Ceremony of Fon Fomuki Patrick Nji of Guneku",
+   "publishedAt": "2015-10-01T11:53:44Z",
+   "thumb": "https://i.ytimg.com/vi/vH6JkJ8xwU0/maxresdefault.jpg"
+  },
+  {
+   "youtubeId": "nP4um2oI5LE",
+   "providerTitle": "Transfiguration Ceremony of Fon Fomuki Patrick Nji of Guneku",
+   "publishedAt": "2015-10-01T11:53:47Z",
+   "thumb": "https://i.ytimg.com/vi/nP4um2oI5LE/maxresdefault.jpg"
+  },
+  {
+   "youtubeId": "l_sb5k7V78U",
+   "providerTitle": "\"Mɨchi Əbeŋ\"",
+   "publishedAt": "2023-05-13T16:12:33Z",
+   "thumb": "https://i.ytimg.com/vi/l_sb5k7V78U/sddefault.jpg"
+  },
+  {
+   "youtubeId": "-56RMfMVHgs",
+   "providerTitle": "\"Mɨchi Əbeŋ\" event at Guneku",
+   "publishedAt": "2023-05-13T16:13:40Z",
+   "thumb": "https://i.ytimg.com/vi/-56RMfMVHgs/sddefault.jpg"
+  },
+  {
+   "youtubeId": "FlACjZffHqU",
+   "providerTitle": "\"Mɨchi Əbeŋ\" event Guneku Palace",
+   "publishedAt": "2023-05-13T16:15:07Z",
+   "thumb": "https://i.ytimg.com/vi/FlACjZffHqU/sddefault.jpg"
+  },
+  {
+   "youtubeId": "bMDXRe3ZJbU",
+   "providerTitle": "\"Mɨchi Əbeŋ\" event Guneku Palace",
+   "publishedAt": "2023-05-13T16:15:41Z",
+   "thumb": "https://i.ytimg.com/vi/bMDXRe3ZJbU/sddefault.jpg"
+  },
+  {
+   "youtubeId": "7WxA_TH4D_o",
+   "providerTitle": "\"Mɨchi Əbeŋ\" event Guneku Palace",
+   "publishedAt": "2023-05-13T16:16:14Z",
+   "thumb": "https://i.ytimg.com/vi/7WxA_TH4D_o/sddefault.jpg"
+  },
+  {
+   "youtubeId": "yGeTzoVl9x8",
+   "providerTitle": "\"Mɨchi Əbeŋ\" event Guneku Palace",
+   "publishedAt": "2023-05-13T16:16:42Z",
+   "thumb": "https://i.ytimg.com/vi/yGeTzoVl9x8/sddefault.jpg"
+  },
+  {
+   "youtubeId": "R98xNRtDnJU",
+   "providerTitle": "\"Mɨchi Əbeŋ\" event Guneku Palace",
+   "publishedAt": "2023-05-13T16:17:11Z",
+   "thumb": "https://i.ytimg.com/vi/R98xNRtDnJU/sddefault.jpg"
+  },
+  {
+   "youtubeId": "w3DumaP9UgQ",
+   "providerTitle": "\"Mɨchi Əbeŋ\" event Guneku Palace",
+   "publishedAt": "2023-05-13T16:17:37Z",
+   "thumb": "https://i.ytimg.com/vi/w3DumaP9UgQ/sddefault.jpg"
+  },
+  {
+   "youtubeId": "GjMZzX9J6dw",
+   "providerTitle": "\"Mɨchi Əbeŋ\" event Guneku Palace",
+   "publishedAt": "2023-05-13T16:18:04Z",
+   "thumb": "https://i.ytimg.com/vi/GjMZzX9J6dw/sddefault.jpg"
+  },
+  {
+   "youtubeId": "1qYmlTBVbcQ",
+   "providerTitle": "\"Mɨchi Əbeŋ\" event Guneku Palace",
+   "publishedAt": "2023-05-13T16:18:46Z",
+   "thumb": "https://i.ytimg.com/vi/1qYmlTBVbcQ/sddefault.jpg"
+  },
+  {
+   "youtubeId": "zQvHH71xz4o",
+   "providerTitle": "\"Mɨchi Əbeŋ\" event Guneku Palace",
+   "publishedAt": "2023-05-13T16:19:15Z",
+   "thumb": "https://i.ytimg.com/vi/zQvHH71xz4o/sddefault.jpg"
+  },
+  {
+   "youtubeId": "skMp8B4HV0Y",
+   "providerTitle": "\"Mɨchi Əbeŋ\" event Guneku Palace",
+   "publishedAt": "2023-05-13T16:19:44Z",
+   "thumb": "https://i.ytimg.com/vi/skMp8B4HV0Y/sddefault.jpg"
+  },
+  {
+   "youtubeId": "g_k5gSoDzt8",
+   "providerTitle": "\"Mɨchi Əbeŋ\" event Guneku Palace",
+   "publishedAt": "2023-05-13T16:20:13Z",
+   "thumb": "https://i.ytimg.com/vi/g_k5gSoDzt8/sddefault.jpg"
+  },
+  {
+   "youtubeId": "MnPDXObn4tQ",
+   "providerTitle": "\"Mɨchi Əbeŋ\" event Guneku Palace",
+   "publishedAt": "2023-05-13T16:20:46Z",
+   "thumb": "https://i.ytimg.com/vi/MnPDXObn4tQ/sddefault.jpg"
+  },
+  {
+   "youtubeId": "-VH2XcPJI9A",
+   "providerTitle": "\"Mɨchi Əbeŋ\" event Guneku Palace",
+   "publishedAt": "2023-05-13T16:21:24Z",
+   "thumb": "https://i.ytimg.com/vi/-VH2XcPJI9A/sddefault.jpg"
+  },
+  {
+   "youtubeId": "AweLm9-1vJI",
+   "providerTitle": "\"Mɨchi Əbeŋ\" event Guneku Palace",
+   "publishedAt": "2023-05-13T18:39:20Z",
+   "thumb": "https://i.ytimg.com/vi/AweLm9-1vJI/sddefault.jpg"
+  },
+  {
+   "youtubeId": "THOse1yGtOQ",
+   "providerTitle": "\"Mɨchi Əbeŋ\" event Guneku Palace",
+   "publishedAt": "2023-05-13T18:39:42Z",
+   "thumb": "https://i.ytimg.com/vi/THOse1yGtOQ/sddefault.jpg"
+  },
+  {
+   "youtubeId": "ZHUMs9wniwo",
+   "providerTitle": "\"Mɨchi Əbeŋ\" event Guneku Palace",
+   "publishedAt": "2023-05-13T18:40:06Z",
+   "thumb": "https://i.ytimg.com/vi/ZHUMs9wniwo/sddefault.jpg"
+  },
+  {
+   "youtubeId": "I4mi27juxPw",
+   "providerTitle": "\"Mɨchi Əbeŋ\" event Guneku Palace",
+   "publishedAt": "2023-05-13T18:40:30Z",
+   "thumb": "https://i.ytimg.com/vi/I4mi27juxPw/sddefault.jpg"
+  },
+  {
+   "youtubeId": "Crj4OBNh-zA",
+   "providerTitle": "\"Mɨchi Əbeŋ\" event Guneku Palace",
+   "publishedAt": "2023-05-13T18:40:54Z",
+   "thumb": "https://i.ytimg.com/vi/Crj4OBNh-zA/sddefault.jpg"
+  },
+  {
+   "youtubeId": "XKZ3pCLF8LY",
+   "providerTitle": "\"Mɨchi Əbeŋ\" event Guneku Palace",
+   "publishedAt": "2023-05-13T18:41:19Z",
+   "thumb": "https://i.ytimg.com/vi/XKZ3pCLF8LY/sddefault.jpg"
+  },
+  {
+   "youtubeId": "17OBm54O34E",
+   "providerTitle": "23. March 2024",
+   "publishedAt": "2024-03-23T12:34:28Z",
+   "thumb": "https://i.ytimg.com/vi/17OBm54O34E/sddefault.jpg"
+  },
+  {
+   "youtubeId": "5Y8b7ay0638",
+   "providerTitle": "23. March 2024",
+   "publishedAt": "2024-03-23T12:34:37Z",
+   "thumb": "https://i.ytimg.com/vi/5Y8b7ay0638/sddefault.jpg"
+  },
+  {
+   "youtubeId": "HViTImQJoh4",
+   "providerTitle": "23. March 2024",
+   "publishedAt": "2024-03-23T12:34:50Z",
+   "thumb": "https://i.ytimg.com/vi/HViTImQJoh4/sddefault.jpg"
+  },
+  {
+   "youtubeId": "rhXoLAhuTk0",
+   "providerTitle": "23. March 2024",
+   "publishedAt": "2024-03-23T12:35:13Z",
+   "thumb": "https://i.ytimg.com/vi/rhXoLAhuTk0/sddefault.jpg"
+  },
+  {
+   "youtubeId": "xbpqhke-5v0",
+   "providerTitle": "23. March 2024",
+   "publishedAt": "2024-03-23T12:35:21Z",
+   "thumb": "https://i.ytimg.com/vi/xbpqhke-5v0/sddefault.jpg"
+  },
+  {
+   "youtubeId": "I_mmFCsmGlM",
+   "providerTitle": "23. March 2024",
+   "publishedAt": "2024-03-23T12:35:59Z",
+   "thumb": "https://i.ytimg.com/vi/I_mmFCsmGlM/sddefault.jpg"
+  },
+  {
+   "youtubeId": "Uf78Ab79JS4",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T18:52:41Z",
+   "thumb": "https://i.ytimg.com/vi/Uf78Ab79JS4/sddefault.jpg"
+  },
+  {
+   "youtubeId": "yz8cua2T8BQ",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T18:53:25Z",
+   "thumb": "https://i.ytimg.com/vi/yz8cua2T8BQ/sddefault.jpg"
+  },
+  {
+   "youtubeId": "VayxFpzxSO0",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T18:53:58Z",
+   "thumb": "https://i.ytimg.com/vi/VayxFpzxSO0/sddefault.jpg"
+  },
+  {
+   "youtubeId": "zCenQYBi2kk",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T18:54:55Z",
+   "thumb": "https://i.ytimg.com/vi/zCenQYBi2kk/sddefault.jpg"
+  },
+  {
+   "youtubeId": "F4sdNQNUE8M",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T18:55:29Z",
+   "thumb": "https://i.ytimg.com/vi/F4sdNQNUE8M/sddefault.jpg"
+  },
+  {
+   "youtubeId": "byVczXWNekc",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T18:55:43Z",
+   "thumb": "https://i.ytimg.com/vi/byVczXWNekc/sddefault.jpg"
+  },
+  {
+   "youtubeId": "4eH6eZBBkdw",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T18:56:02Z",
+   "thumb": "https://i.ytimg.com/vi/4eH6eZBBkdw/sddefault.jpg"
+  },
+  {
+   "youtubeId": "OhM4H8vA2Qc",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T18:56:26Z",
+   "thumb": "https://i.ytimg.com/vi/OhM4H8vA2Qc/sddefault.jpg"
+  },
+  {
+   "youtubeId": "zoQ6JEAY1Q0",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T18:56:56Z",
+   "thumb": "https://i.ytimg.com/vi/zoQ6JEAY1Q0/sddefault.jpg"
+  },
+  {
+   "youtubeId": "GdZWocNRxT4",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T18:57:57Z",
+   "thumb": "https://i.ytimg.com/vi/GdZWocNRxT4/sddefault.jpg"
+  },
+  {
+   "youtubeId": "n8yiPBvWym8",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T18:58:11Z",
+   "thumb": "https://i.ytimg.com/vi/n8yiPBvWym8/sddefault.jpg"
+  },
+  {
+   "youtubeId": "ieU1JfA8QEQ",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T18:58:36Z",
+   "thumb": "https://i.ytimg.com/vi/ieU1JfA8QEQ/sddefault.jpg"
+  },
+  {
+   "youtubeId": "j3VhfiSoN1M",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T18:58:36Z",
+   "thumb": "https://i.ytimg.com/vi/j3VhfiSoN1M/sddefault.jpg"
+  },
+  {
+   "youtubeId": "IKQpf-ZGovc",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T18:59:04Z",
+   "thumb": "https://i.ytimg.com/vi/IKQpf-ZGovc/sddefault.jpg"
+  },
+  {
+   "youtubeId": "te2wM6yWr0U",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T18:59:23Z",
+   "thumb": "https://i.ytimg.com/vi/te2wM6yWr0U/sddefault.jpg"
+  },
+  {
+   "youtubeId": "7h5iEV9x8V4",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T18:59:24Z",
+   "thumb": "https://i.ytimg.com/vi/7h5iEV9x8V4/sddefault.jpg"
+  },
+  {
+   "youtubeId": "r1vN-o0WvFU",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T18:59:51Z",
+   "thumb": "https://i.ytimg.com/vi/r1vN-o0WvFU/sddefault.jpg"
+  },
+  {
+   "youtubeId": "9a0h4OjGrio",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T19:00:01Z",
+   "thumb": "https://i.ytimg.com/vi/9a0h4OjGrio/sddefault.jpg"
+  },
+  {
+   "youtubeId": "Lb4ljYSpbOs",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T19:00:29Z",
+   "thumb": "https://i.ytimg.com/vi/Lb4ljYSpbOs/sddefault.jpg"
+  },
+  {
+   "youtubeId": "mbRWccyPZaI",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T19:01:00Z",
+   "thumb": "https://i.ytimg.com/vi/mbRWccyPZaI/sddefault.jpg"
+  },
+  {
+   "youtubeId": "qwihtHtSByI",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T19:01:08Z",
+   "thumb": "https://i.ytimg.com/vi/qwihtHtSByI/sddefault.jpg"
+  },
+  {
+   "youtubeId": "cxghPjgP5Zk",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T19:01:28Z",
+   "thumb": "https://i.ytimg.com/vi/cxghPjgP5Zk/sddefault.jpg"
+  },
+  {
+   "youtubeId": "QLduddvzbFY",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T19:01:54Z",
+   "thumb": "https://i.ytimg.com/vi/QLduddvzbFY/sddefault.jpg"
+  },
+  {
+   "youtubeId": "g_LY1PQJyg4",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T19:02:01Z",
+   "thumb": "https://i.ytimg.com/vi/g_LY1PQJyg4/sddefault.jpg"
+  },
+  {
+   "youtubeId": "rMrTUbMUudU",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T19:02:19Z",
+   "thumb": "https://i.ytimg.com/vi/rMrTUbMUudU/sddefault.jpg"
+  },
+  {
+   "youtubeId": "ao_qgYAa8GA",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T19:02:45Z",
+   "thumb": "https://i.ytimg.com/vi/ao_qgYAa8GA/sddefault.jpg"
+  },
+  {
+   "youtubeId": "H9GcmC_jUDg",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T19:02:48Z",
+   "thumb": "https://i.ytimg.com/vi/H9GcmC_jUDg/sddefault.jpg"
+  },
+  {
+   "youtubeId": "x24YTFOvmqE",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T19:03:06Z",
+   "thumb": "https://i.ytimg.com/vi/x24YTFOvmqE/sddefault.jpg"
+  },
+  {
+   "youtubeId": "FsHz9IFzKK0",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T19:03:24Z",
+   "thumb": "https://i.ytimg.com/vi/FsHz9IFzKK0/sddefault.jpg"
+  },
+  {
+   "youtubeId": "dd_1UGC6EA0",
+   "providerTitle": "25. March 2024",
+   "publishedAt": "2024-03-25T19:03:37Z",
+   "thumb": "https://i.ytimg.com/vi/dd_1UGC6EA0/sddefault.jpg"
+  },
+  {
+   "youtubeId": "AEarnUryDlc",
+   "providerTitle": "Guneku Fondom | North West CameroonA Living Kingdom of Heritage, Unity & Vision",
+   "publishedAt": "2026-04-24T01:27:44Z",
+   "thumb": "https://i.ytimg.com/vi/AEarnUryDlc/maxresdefault.jpg"
+  }
+ ]
+}

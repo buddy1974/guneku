@@ -1,0 +1,248 @@
+{
+ "meta": {
+  "purpose": "What the YouTube Data API returned for each film in the record, verified against the live channel. Provider metadata, kept deliberately apart from anything the Fondom asserts about its own history.",
+  "verifiedOn": "2026-09-06",
+  "source": "youtube/v3 playlistItems on the channel's own uploads playlist, read through src/lib/youtube-sync.ts. Read-only; nothing was written to YouTube.",
+  "channelId": "UCEmIEHRMg3UTzb1wpxLZOAw",
+  "rule": "This layer fills publishedTitle and sets titleVerified. It NEVER touches displayTitle, category, group, context, ordering, state or featured - those are the archive's own editorial record, and a channel title is not evidence about Guneku's history. All 46 provider titles differ from the site's titles, which is expected: the channel writes for YouTube search, the archive writes for the Fondom.",
+  "precedence": "canonical source record < this provider layer (publishedTitle only) < video-overrides.json (everything editorial).",
+  "whatPublishedAtIsNot": "publishedAt is when the video was uploaded to YouTube. It is NOT the date of the occasion filmed, it is not rendered as one anywhere, and it must never be used as one. Four of these were uploaded in 2015 and thirty-six in 2024; that says nothing about when anything happened.",
+  "fields": {
+   "providerTitle": "The channel's own title for this video, as returned by the API.",
+   "publishedAt": "The upload timestamp YouTube returned. Provider metadata, not an event date.",
+   "thumb": "The highest-resolution thumbnail URL YouTube returned."
+  }
+ },
+ "videos": {
+  "0FoAKZk54kw": {
+   "providerTitle": "Discovering Open Door Clinic Guneku  Established by 2 American Missionaries",
+   "publishedAt": "2023-06-13T14:33:40Z",
+   "thumb": "https://i.ytimg.com/vi/0FoAKZk54kw/sddefault.jpg"
+  },
+  "11pAXbEfPgc": {
+   "providerTitle": "His Majesty, Fon Fomuki's New Year's address to the subjects of Guneku Fondom at home and abroad.",
+   "publishedAt": "2024-01-01T21:01:03Z",
+   "thumb": "https://i.ytimg.com/vi/11pAXbEfPgc/maxresdefault.jpg"
+  },
+  "1dPsLILCbKU": {
+   "providerTitle": "Welcome Address & Vision | GUDECA EU Bonn Meeting 2026",
+   "publishedAt": "2026-04-24T01:21:57Z",
+   "thumb": "https://i.ytimg.com/vi/1dPsLILCbKU/maxresdefault.jpg"
+  },
+  "3MQ9uUcm-xE": {
+   "providerTitle": "New Guneku CIG Project Explained | Poultry Farming Initiative",
+   "publishedAt": "2026-04-24T01:24:30Z",
+   "thumb": "https://i.ytimg.com/vi/3MQ9uUcm-xE/maxresdefault.jpg"
+  },
+  "3NrHXqm1zPc": {
+   "providerTitle": "Michi ebeng 2024 Edition",
+   "publishedAt": "2024-03-25T18:51:18Z",
+   "thumb": "https://i.ytimg.com/vi/3NrHXqm1zPc/sddefault.jpg"
+  },
+  "4f80GiCLaYE": {
+   "providerTitle": "A spectacular showcase of the rich Guneku culture",
+   "publishedAt": "2024-01-01T23:13:26Z",
+   "thumb": "https://i.ytimg.com/vi/4f80GiCLaYE/maxresdefault.jpg"
+  },
+  "7lmRAVBWyhg": {
+   "providerTitle": "Reception of the Paramount Fon of Guneku",
+   "publishedAt": "2024-01-01T22:56:04Z",
+   "thumb": "https://i.ytimg.com/vi/7lmRAVBWyhg/maxresdefault.jpg"
+  },
+  "7vHYQenDfIU": {
+   "providerTitle": "A Zoom into the Munam Integrated Health Centre",
+   "publishedAt": "2023-06-13T14:28:23Z",
+   "thumb": "https://i.ytimg.com/vi/7vHYQenDfIU/sddefault.jpg"
+  },
+  "82Qpfay8X2c": {
+   "providerTitle": "Gudeca a Yaounde",
+   "publishedAt": "2023-06-27T16:33:03Z",
+   "thumb": "https://i.ytimg.com/vi/82Qpfay8X2c/sddefault.jpg"
+  },
+  "BXxF8j2Vvok": {
+   "providerTitle": "Financial Report & Contributions | GUDECA EU Meeting Bonn 2026",
+   "publishedAt": "2026-04-24T01:23:26Z",
+   "thumb": "https://i.ytimg.com/vi/BXxF8j2Vvok/maxresdefault.jpg"
+  },
+  "CBM7cylT0Qs": {
+   "providerTitle": "GUDECA EU Meeting Bonn 2026 | Opening Ceremony at HRH Fon Fomuki Palace",
+   "publishedAt": "2026-04-24T01:21:17Z",
+   "thumb": "https://i.ytimg.com/vi/CBM7cylT0Qs/maxresdefault.jpg"
+  },
+  "D3mqdfN7AsI": {
+   "providerTitle": "Guneku Scholarship Offer",
+   "publishedAt": "2024-01-09T12:47:59Z",
+   "thumb": "https://i.ytimg.com/vi/D3mqdfN7AsI/sddefault.jpg"
+  },
+  "D8AnAlI9src": {
+   "providerTitle": "Transfiguration Ceremony of Fon Fomuki Patrick Nji of Guneku",
+   "publishedAt": "2016-02-04T19:14:29Z",
+   "thumb": "https://i.ytimg.com/vi/D8AnAlI9src/maxresdefault.jpg"
+  },
+  "E9nRhMDJftM": {
+   "providerTitle": "Gudeca Yaounde",
+   "publishedAt": "2023-06-27T16:35:55Z",
+   "thumb": "https://i.ytimg.com/vi/E9nRhMDJftM/sddefault.jpg"
+  },
+  "ETYKk79POT4": {
+   "providerTitle": "Watch HRH Fon Dr. Fomuki On CRTV",
+   "publishedAt": "2023-05-18T18:14:03Z",
+   "thumb": "https://i.ytimg.com/vi/ETYKk79POT4/sddefault.jpg"
+  },
+  "GtKFg4e6XNQ": {
+   "providerTitle": "Mɨchi Əbeŋ, Sat. 15 April 2023, Guneku Palace",
+   "publishedAt": "2023-05-18T17:48:03Z",
+   "thumb": "https://i.ytimg.com/vi/GtKFg4e6XNQ/sddefault.jpg"
+  },
+  "I9LZc0Su3Ok": {
+   "providerTitle": "Fundraising for Guneku Palace Renovation",
+   "publishedAt": "2024-01-01T22:55:21Z",
+   "thumb": "https://i.ytimg.com/vi/I9LZc0Su3Ok/maxresdefault.jpg"
+  },
+  "ILYKYengny8": {
+   "providerTitle": "JOACHIM BEUGRE   JACQUEVILLE   COTE DIVOIR PROSTATE CANCER SCREENING CAMPAIGN EUROLOGIE NEUWIED",
+   "publishedAt": "2023-05-21T16:48:39Z",
+   "thumb": "https://i.ytimg.com/vi/ILYKYengny8/hqdefault.jpg"
+  },
+  "JgPTIc_Fo0Q": {
+   "providerTitle": "Promotion of Meta Culture",
+   "publishedAt": "2024-01-01T22:51:06Z",
+   "thumb": "https://i.ytimg.com/vi/JgPTIc_Fo0Q/maxresdefault.jpg"
+  },
+  "KhgIX-rvKgE": {
+   "providerTitle": "nkwem group from Buea",
+   "publishedAt": "2024-03-23T14:23:56Z",
+   "thumb": "https://i.ytimg.com/vi/KhgIX-rvKgE/sddefault.jpg"
+  },
+  "Lz89ZThNNQg": {
+   "providerTitle": "Gudeca Yaounde, fund raising ceremony to build a hall",
+   "publishedAt": "2023-06-27T16:36:42Z",
+   "thumb": "https://i.ytimg.com/vi/Lz89ZThNNQg/sddefault.jpg"
+  },
+  "O_vcMHqYbeY": {
+   "providerTitle": "GUDECA-US CHAPTER in 2023",
+   "publishedAt": "2024-01-01T21:37:54Z",
+   "thumb": "https://i.ytimg.com/vi/O_vcMHqYbeY/maxresdefault.jpg"
+  },
+  "OjSdjO_FOC4": {
+   "providerTitle": "upcoming Michi Ebeng Festival",
+   "publishedAt": "2024-03-07T23:12:02Z",
+   "thumb": "https://i.ytimg.com/vi/OjSdjO_FOC4/sddefault.jpg"
+  },
+  "PII6BSDMeQI": {
+   "providerTitle": "Dancing to the tune of Guneku Music",
+   "publishedAt": "2026-04-24T01:28:36Z",
+   "thumb": "https://i.ytimg.com/vi/PII6BSDMeQI/sddefault.jpg"
+  },
+  "S7XBmkSzYgY": {
+   "providerTitle": "Our Roots Define Us” | HRH Fon Fomuki Speaks on Identity & Responsibility",
+   "publishedAt": "2026-04-24T01:31:49Z",
+   "thumb": "https://i.ytimg.com/vi/S7XBmkSzYgY/sddefault.jpg"
+  },
+  "TswnPNtU2nU": {
+   "providerTitle": "Mɨchi Əbeŋ, Sat. 15 April 2023, Guneku",
+   "publishedAt": "2023-05-13T18:41:40Z",
+   "thumb": "https://i.ytimg.com/vi/TswnPNtU2nU/sddefault.jpg"
+  },
+  "UfpBzWOEDZM": {
+   "providerTitle": "ST THIERRY UNIVERSITY VISITS GUNEKU MEDPHISATG,His Royal Highness SCHOLARSHIPS 2026/2027",
+   "publishedAt": "2026-09-01T03:55:01Z",
+   "thumb": "https://i.ytimg.com/vi/UfpBzWOEDZM/hqdefault.jpg"
+  },
+  "V5ldRqWDXy4": {
+   "providerTitle": "Welcoming The Fon Of Guneku  In Germany",
+   "publishedAt": "2015-10-01T01:49:06Z",
+   "thumb": "https://i.ytimg.com/vi/V5ldRqWDXy4/sddefault.jpg"
+  },
+  "XNM9kqGrO9w": {
+   "providerTitle": "Guneku Cultural Dance",
+   "publishedAt": "2015-10-01T02:15:40Z",
+   "thumb": "https://i.ytimg.com/vi/XNM9kqGrO9w/sddefault.jpg"
+  },
+  "Y2HZoq5c8Zo": {
+   "providerTitle": "Digital Empowerment Vision for Guneku | Internet & Skills Training Initiative",
+   "publishedAt": "2026-04-24T01:26:04Z",
+   "thumb": "https://i.ytimg.com/vi/Y2HZoq5c8Zo/maxresdefault.jpg"
+  },
+  "YG41uOn8mTU": {
+   "providerTitle": "Administrative Reorganization of Guneku Village  Sang and Kimbot Now in Order",
+   "publishedAt": "2023-06-13T15:08:27Z",
+   "thumb": "https://i.ytimg.com/vi/YG41uOn8mTU/hqdefault.jpg"
+  },
+  "YynKWsRpC9g": {
+   "providerTitle": "HRH Fon Fomuki Addresses the Guneku Diaspora | Building a Legacy Back Home",
+   "publishedAt": "2026-04-24T01:30:54Z",
+   "thumb": "https://i.ytimg.com/vi/YynKWsRpC9g/sddefault.jpg"
+  },
+  "aAw_1B10vZM": {
+   "providerTitle": "2nd edition of \"Michi Ebeng\" festival  on Saturday, March 23, 2024@ Guneku Palace",
+   "publishedAt": "2023-12-28T14:06:48Z",
+   "thumb": "https://i.ytimg.com/vi/aAw_1B10vZM/sddefault.jpg"
+  },
+  "aGZop6G66u4": {
+   "providerTitle": "Starlink for Guneku Youth | Ni Sam Fongoh on Digital Empowerment Initiative",
+   "publishedAt": "2026-04-24T01:35:27Z",
+   "thumb": "https://i.ytimg.com/vi/aGZop6G66u4/sddefault.jpg"
+  },
+  "d0lvYtNu8PQ": {
+   "providerTitle": "Meta cultural diversity on display, coupled with vibrant traditional dances",
+   "publishedAt": "2024-01-01T23:14:46Z",
+   "thumb": "https://i.ytimg.com/vi/d0lvYtNu8PQ/sddefault.jpg"
+  },
+  "dVctUptioc0": {
+   "providerTitle": "Guneku Cultural Dance at the Palace in Bonn | Diaspora Celebration 2026",
+   "publishedAt": "2026-04-24T01:37:01Z",
+   "thumb": "https://i.ytimg.com/vi/dVctUptioc0/maxresdefault.jpg"
+  },
+  "gBro0ZC-JqM": {
+   "providerTitle": "Michi ebeng",
+   "publishedAt": "2024-03-25T18:52:14Z",
+   "thumb": "https://i.ytimg.com/vi/gBro0ZC-JqM/sddefault.jpg"
+  },
+  "kuwrnSOJwmk": {
+   "providerTitle": "Cameroon’s 2024 Heilbronn Conclave: HRH Fon Fomuki Speaks",
+   "publishedAt": "2024-11-16T13:21:43Z",
+   "thumb": "https://i.ytimg.com/vi/kuwrnSOJwmk/sddefault.jpg"
+  },
+  "l5vSEOGEfrQ": {
+   "providerTitle": "A Zoom into the MbengeughangFringyeng Integrated Health Centres",
+   "publishedAt": "2023-06-13T14:30:20Z",
+   "thumb": "https://i.ytimg.com/vi/l5vSEOGEfrQ/sddefault.jpg"
+  },
+  "qmW0Y8C6nqA": {
+   "providerTitle": "ALL ABOUT PROSTATE CANCER WITH HRH DR FOMUKI",
+   "publishedAt": "2023-05-18T18:15:58Z",
+   "thumb": "https://i.ytimg.com/vi/qmW0Y8C6nqA/hqdefault.jpg"
+  },
+  "qryDlSaDXvU": {
+   "providerTitle": "H R H Ticha W  Fomuki Readjusts Administrative Setup of Guneku Village",
+   "publishedAt": "2023-06-13T14:32:21Z",
+   "thumb": "https://i.ytimg.com/vi/qryDlSaDXvU/sddefault.jpg"
+  },
+  "sYkdlM_7Cqk": {
+   "providerTitle": "GUDECA-US CHAPTER welcomes HRH Fon Fomuki",
+   "publishedAt": "2024-01-01T21:37:48Z",
+   "thumb": "https://i.ytimg.com/vi/sYkdlM_7Cqk/maxresdefault.jpg"
+  },
+  "uBHkP4gJssg": {
+   "providerTitle": "Guneku Development Projects Update 2026 | Solar Project & Community Progress",
+   "publishedAt": "2026-04-24T01:22:43Z",
+   "thumb": "https://i.ytimg.com/vi/uBHkP4gJssg/maxresdefault.jpg"
+  },
+  "ut5d36xYF48": {
+   "providerTitle": "Guneku Traditional Councillors Installed at Mini Cultural Festival",
+   "publishedAt": "2023-06-13T14:34:12Z",
+   "thumb": "https://i.ytimg.com/vi/ut5d36xYF48/sddefault.jpg"
+  },
+  "z48zhoRWC8g": {
+   "providerTitle": "SHESA Silver Jubilee Class   Guneku Palace Donate to House of Hope Orphanage  Ngyen Mbo1",
+   "publishedAt": "2023-06-13T15:07:30Z",
+   "thumb": "https://i.ytimg.com/vi/z48zhoRWC8g/sddefault.jpg"
+  },
+  "zHEb96lklMA": {
+   "providerTitle": "Sa Majesté, le Dr. Fomuki, s’exprime au Conclave de Heilbronn 2024",
+   "publishedAt": "2024-11-17T17:42:55Z",
+   "thumb": "https://i.ytimg.com/vi/zHEb96lklMA/sddefault.jpg"
+  }
+ }
+}

@@ -28,7 +28,7 @@
 | R-006 | `_shortlist/fon-portrait-formal.jpg` in the legacy archive may show the late Fon Fomuki Patrick Nji rather than the reigning Fon. | Bug | High if used | — | Not used. The GUDECA-US 2023 image of known provenance was used instead (ADR-006). | Marcel | Open — mitigated |
 | R-007 | 14 `.mp4` files and roughly 180 photographs under `public/images/gallery/` are tracked, deployed and publicly retrievable at guessable paths. Nine of the videos are the Bonn 28 March 2026 footage held pending consent. | Privacy | High | Certain — live now | Not linked from any page and not linked by this pass. Leave, link or remove is Marcel's decision. Predates this changeset. | Marcel | Open |
 | R-008 | Mobile performance is unverified. Lighthouse is not installed locally and no run was performed. A large share of the audience is on a mid-range Android in Cameroon on a throttled connection. | Scaling | Medium | Certain | Responsive layout was checked at six widths. Run Lighthouse against the Vercel preview before release. | Marcel | Open |
-| R-009 | 44 of the 46 video records carry no verified YouTube title. | Debt | Low | Certain | `titleVerified: false`; no title is asserted and the player shows the channel's own. Verify against the channel when convenient. | — | Open — mitigated |
+| R-009 | 44 of the 46 video records carry no verified YouTube title. | Debt | Low | Certain | **CLOSED 2026-09-06.** All 46 verified against the live channel; see the R-009 section below. | — | Closed |
 | R-010 | `_shortlist/guneku-map.jpg` in the legacy archive is a Google Maps screenshot carrying the Google logo. Re-hosting it on the site is a third-party licensing question, not a content question. | Security / Legal | Medium | Certain if used | **Mitigated 2026-09-03, not resolved.** Not ingested, not traced. `/explore` now renders a licensing-safe map (MapLibre GL JS, BSD-3-Clause, over OpenStreetMap raster tiles with ODbL attribution) and no Google imagery is used anywhere. But it carries **one** marker, because one coordinate exists in the whole repository — see R-029. `/kingdom/map-of-guneku` is still a stub. A map of Guneku's quarters needs coordinates the archive does not have. | Marcel | Open — mitigated |
 | R-011 | `src/data/pages/gudeca-exco.json` contains Joomla sample data — four fictitious names that are not Guneku people. | Bug | Medium if rendered | Low | Unrouted, unsearched and verified absent from all rendered output. Delete once nothing references it. | — | Open — mitigated |
 | R-012 | `src/data/about/` is nine dead files duplicating records in `kingdom/` and `palace/`. No reader reads that directory. | Debt | Low | Certain | Harmless but misleading to a future editor. Remove in a housekeeping pass. | — | Open |
@@ -235,19 +235,34 @@ through a different route — but it is a public write endpoint against Neon. It
 closed by the identity work in Phase 2 rather than patched in isolation, since the correct
 fix is the real session the route was always waiting for.
 
-## R-024 — No credential in the stack has been validated
+## R-024 — No credential in the stack has been validated — CLOSED 2026-09-06
 
-`vercel env pull` returns every secret as an empty string in this project, and `.env.local`
-holds no Clerk keys and an empty `DATABASE_URL`. So the Clerk, Neon, Resend and YouTube keys
-are established as *present* in Vercel and nothing more. None was exercised.
+The original finding stands as written: `vercel env pull` still returns every secret as an
+empty string in this project, and `.env.local` still holds no Clerk keys and an empty
+`DATABASE_URL`. What changed is that *not readable here* stopped meaning *not exercised*.
 
-The consequence is not cosmetic. Phases 2 to 5, 11, 13 and 14 all need a working database
-and a working identity provider to be *tested*, not merely written. Code can be written
-blind; "unauthenticated request is denied", "a member cannot reach the admin area" and "one
-user cannot update another user's row" cannot be demonstrated without a session to hold.
+Each credential was exercised where it already lives, in Production:
 
-Owner action: place development Clerk keys and a working `DATABASE_URL` in `.env.local`, or
-make the branch preview reachable so the deployed environment can be exercised instead.
+| Credential | How it was exercised | When |
+|---|---|---|
+| Clerk | DNS verified end-to-end, SSL issued, sign-in and the member area served | 2026-09-04 |
+| Neon `DATABASE_URL` | Four versioned migrations applied and proved idempotent | 2026-09-04 → 09-05 |
+| Anthropic | Cited Palace AI synthesis answered from evidence, with citations | 2026-09-05 |
+| YouTube | The channel's uploads playlist read live; 108 uploads returned | 2026-09-06 |
+
+The pattern each time was the same: a temporary, hardened, single-purpose endpoint deployed
+to Production, exercised, then removed along with its token. The YouTube one was the weakest
+of them by design — GET-only, writing nothing, returning a comparison — and it is gone, as is
+`TV_SYNC_TOKEN`.
+
+**Resend is the exception and is deliberately so.** It is exercised by sending mail, and
+sending mail to prove a key works means sending real mail to a real person. See ADR-076: the
+delivery path is built and unit-tested, and the first live send is Marcel's acceptance test
+rather than a probe.
+
+The lesson, which outlives the risk: *a credential that cannot be read locally can still be
+exercised — where it lives, through code that already exists, behind a token that is removed
+afterwards.* "No key here" was never the same as "untestable".
 
 ## R-025 — There is no migration path for a programme that adds a dozen tables
 
@@ -775,3 +790,48 @@ is probably to serve the originals through a resizing pipeline rather than to se
 Recorded as a future image-optimization opportunity. The originals are preserved and are not
 public; nothing is lost by leaving this open. Related: ADR-009, which declined to impose a
 three-variant image convention site-wide.
+
+## R-009 - 44 of 46 video records carried no verified YouTube title - CLOSED 2026-09-06
+
+`YOUTUBE_API_KEY` and `YOUTUBE_CHANNEL_ID` had been set in Production and Preview for 136 days
+and had never been used. `src/lib/youtube-sync.ts` was written, its pure half was tested
+against a fixture, and `fetchChannelUploads` had never met the live API - because the key is
+redacted by `vercel env pull` and there was no way to run it from here.
+
+There was a way. The key is readable where it lives, so a temporary GET-only probe was
+deployed to Production, run once, and removed with its token. It wrote nothing and could
+publish nothing; all it did was read the channel and hand back a comparison.
+
+**The first live read.** 108 public uploads returned. All 46 films in the record matched by id,
+none missing from the channel, no duplicates. The private upload was not returned as a
+publishable item, and is absent from both the verified layer and the discovered queue - the
+deny list and the normaliser exclude it independently.
+
+**All 46 titles are now verified**, in `src/data/gallery/video-provider-metadata.json`. Every
+one of the 46 differs from the title the site shows, and the difference is the reason the
+layer is separate rather than merged: the channel writes for YouTube search - *"Guneku Cultural
+Dance at the Palace in Bonn | Diaspora Celebration 2026"* - and the archive writes for the
+Fondom - *"Bonn 2026 - from the gathering"*. A sync that overwrote the second with the first
+would replace the Fondom's editorial voice with a provider's keywords, silently, on every run.
+So `publishedTitle` is filled and `displayTitle` is not touched. A test fails if that ever
+changes.
+
+The upload timestamp is stored and rendered nowhere. It is when a file reached YouTube, not
+when an occasion happened, and thirty-six of the discovered uploads share one upload day.
+
+## R-043 - 62 channel uploads are not in the film record - Open, non-blocking
+
+The same live read found 62 public uploads on the Fondom's channel that the site does not
+carry: 4 from 2015, 21 from 2023, 36 from 2024, 1 from 2026. They are recorded in
+`src/data/gallery/video-discovered.json` as a review queue and are **not public** - no page, no
+search index, no sitemap, no structured data and no Cited Palace AI source reads that file, and
+a test asserts no module imports it.
+
+They were not classified, and could not be. Thirty-six of them are titled *"25. March 2024"*.
+Deciding from a title what an occasion was is exactly the mistake the four-state film lifecycle
+exists to prevent, and the rule it encodes has not changed: a sync may add to `discovered`;
+only a person moves anything to `approved`.
+
+Publishing any of them means a person watching it and writing it into the canonical record or
+into `video-overrides.json` - the route every one of the 46 already took. Owner work, not
+engineering work.

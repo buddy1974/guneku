@@ -1,5 +1,6 @@
 import gallery from '@/data/gallery/video-gallery.json'
 import overridesDoc from '@/data/gallery/video-overrides.json'
+import providerDoc from '@/data/gallery/video-provider-metadata.json'
 
 /* Guneku TV — the one place a film becomes public.
  *
@@ -109,6 +110,29 @@ type Override = Partial<{
 
 const OVERRIDES = (overridesDoc.overrides || {}) as Record<string, Override>
 
+/* ── Verified provider metadata ───────────────────────────────────────────────────────────
+ *
+ * What YouTube returned for each film, read from the channel's own uploads playlist on
+ * 2026-09-06 — the first time the key in Production met the live API (R-024), and what closed
+ * R-009's 44 unverified titles.
+ *
+ * It fills exactly one field. `publishedTitle` becomes the channel's own title and
+ * `titleVerified` becomes true, because the channel is the only authority on what the channel
+ * calls something. It touches `displayTitle` and every editorial field not at all.
+ *
+ * That separation is the point rather than caution. All 46 provider titles differ from the
+ * site's, and they differ in kind: the channel writes for YouTube search — "Guneku Cultural
+ * Dance at the Palace in Bonn | Diaspora Celebration 2026" — and the archive writes for the
+ * Fondom — "Bonn 2026 — from the gathering". Letting a sync overwrite the second with the
+ * first would replace the Fondom's editorial voice with a provider's keywords, and would do
+ * it silently on every future run.
+ *
+ * The upload timestamp is stored and deliberately never rendered as a date. It is when a file
+ * reached YouTube, not when an occasion happened, and thirty-six of the discovered uploads
+ * carry the same upload day. */
+type ProviderMeta = { providerTitle?: string; publishedAt?: string | null; thumb?: string | null }
+const PROVIDER = (providerDoc.videos || {}) as Record<string, ProviderMeta>
+
 /* ── Category resolution ──────────────────────────────────────────────────────────────────
  *
  * Deterministic, ordered, and applied to the record's own `category` string. No model
@@ -159,15 +183,18 @@ function normalise(raw: RawFilm): Film | null {
     : sourceApproved ? 'approved'
     : 'reviewed'
 
+  const p = PROVIDER[youtubeId]
   const category = o.category || raw.category || 'Archive'
 
   return {
     youtubeId,
     youtubeUrl: raw.youtubeUrl || `https://youtu.be/${youtubeId}`,
     displayTitle: o.displayTitle || raw.displayTitle || '',
-    /* Only assert the channel's title where the archive verified it. */
-    publishedTitle: raw.titleVerified && raw.title ? raw.title : null,
-    titleVerified: Boolean(raw.titleVerified),
+    /* Only assert the channel's title where the archive verified it — against the channel,
+       not against a hope. `p.providerTitle` is a live-API reading; `raw.title` is what the
+       original migration carried for the two it had already checked. */
+    publishedTitle: p?.providerTitle || (raw.titleVerified && raw.title ? raw.title : null),
+    titleVerified: Boolean(p?.providerTitle) || Boolean(raw.titleVerified),
     thumb: raw.thumb || null,
     category,
     group: resolveGroup(category, o.group),

@@ -1170,3 +1170,38 @@ for community and Palace identification.
 
 The nineteen higher-resolution originals also stay staged, deferred as an image-delivery
 question rather than an archive one, and recorded as R-042.
+
+## 2026-09-06 - Guneku TV met its own channel for the first time
+
+`YOUTUBE_API_KEY` had been set in Production for 136 days and never used. The sync was written
+and its pure half tested against a fixture; `fetchChannelUploads` had never made a request.
+The obstacle was that `vercel env pull` redacts the key - and the answer was to run the
+existing code where the key already is, through a temporary GET-only probe that wrote nothing
+and was removed with its token the moment it had run. Same pattern as the four migrations,
+weaker by design. ADR-074.
+
+**The first live read:** 108 public uploads. All 46 films in the record matched by id. None
+missing from the channel, no duplicate ids, and the private upload returned as no publishable
+item - excluded independently by the deny list and by the normaliser, which refuses YouTube's
+"Private video" placeholder rather than storing it as a name.
+
+**All 46 titles verified** (R-009 closed), in a new layer that fills one field and no others.
+Every one of the 46 provider titles differs from the site's, and that is why the layer is
+separate: the channel writes for YouTube search, the archive writes for the Fondom. A sync that
+overwrote one with the other would replace an editorial voice with keywords, silently, on every
+run. `publishedTitle` is filled; `displayTitle` is not touched; a test fails if that changes.
+ADR-075.
+
+The upload timestamp is stored and rendered nowhere - it is when a file reached YouTube, not
+when an occasion happened.
+
+**62 uploads are on the channel and not in the record** (R-043, open and non-blocking): 4 from
+2015, 21 from 2023, 36 from 2024, 1 from 2026. Recorded as a review queue in
+`video-discovered.json`, public nowhere - no page, no search index, no sitemap, no structured
+data, no AI source reads it, and a test asserts no module imports it. They were not classified
+because they cannot be: thirty-six are titled "25. March 2024". A sync may add to `discovered`;
+only a person moves anything to `approved`.
+
+R-024 closed with it. Clerk, Neon, Anthropic and YouTube have each now been exercised in
+Production. Resend is the deliberate exception - exercising it means sending real mail to a
+real person.

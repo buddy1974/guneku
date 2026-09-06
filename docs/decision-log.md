@@ -1419,3 +1419,45 @@ This is R-007's lesson stated once more, in its plainest form. Absence from a ca
 unreachability; a `held` flag is not a lock; and a file that describes access control is not
 access control. On this site, access control is `middleware.ts`, and a path that must not be
 public lives outside `public/`.
+
+## ADR-074 - A credential that cannot be read here can still be exercised where it lives
+
+`vercel env pull` returns every secret in this project as an empty string, so for 136 days the
+YouTube integration was written, tested against a fixture, and never run. R-024 recorded that
+as "no credential in the stack has been validated" and asked the owner to place development
+keys locally.
+
+That was the wrong ask. The key is readable in Production, and the code that needs it is
+deployable there. A temporary, hardened, single-purpose endpoint - deployed, exercised, removed
+with its token - is how the four database migrations were applied and how Cited Palace AI was
+proved. The YouTube probe is the same pattern at its weakest: GET-only, writing nothing,
+returning a comparison, and inert without a token that no longer exists.
+
+**"Not readable here" is not "untestable".** The distinction matters beyond this integration,
+because the alternative - shipping code that has never met the service it integrates with and
+calling it done - is how an integration fails on the day it first matters.
+
+The limit of the pattern is worth stating too. It works for a credential whose exercise is
+*observable and harmless*: a read, a query, an idempotent migration. It does not work for
+Resend, where exercising the key means sending real mail to a real person. See ADR-076.
+
+## ADR-075 - Provider metadata and editorial record are separate layers, and the sync fills only one
+
+YouTube's title for a film and the archive's title for it are different kinds of statement.
+The channel writes for search - "Guneku Cultural Dance at the Palace in Bonn | Diaspora
+Celebration 2026". The archive writes for the Fondom - "Bonn 2026 - from the gathering". All 46
+differ, and none of the 46 differences is an error in either direction.
+
+So `video-provider-metadata.json` fills exactly one field. `publishedTitle` becomes what the
+channel calls it and `titleVerified` becomes true, because the channel is the only authority on
+that. `displayTitle`, category, group, context, ordering, state and featured are untouched, and
+a test fails if a provider title ever becomes a displayed one.
+
+Merging the two would have looked like completeness and been a loss. It would replace the
+Fondom's editorial voice with a provider's keywords, and - worse - it would do so silently on
+every future sync, so the damage would arrive without anyone deciding on it.
+
+The upload timestamp is stored and rendered nowhere. `publishedAt` is when a file reached
+YouTube; it is not when an occasion happened. Thirty-six discovered uploads share a single
+upload day, which is exactly how a date like that becomes a false claim about a village's
+history. The `Film` type has nowhere to put it, deliberately.
