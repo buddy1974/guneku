@@ -83,9 +83,12 @@ export default function IndigenesPage() {
       {/* Filter bar */}
       <div style={{ backgroundColor:'#0A0A0A', borderBottom:'1px solid oklch(0.878 0.010 90)', padding:'1rem 1.5rem', display:'flex', gap:'1rem', flexWrap:'wrap', alignItems:'center' }}>
         <div style={{ flex:1, minWidth:'200px' }}>
-          <input value={search} onChange={e => { setSearch(e.target.value); setPage(1) }} placeholder="Search by name, profession, city..." style={{ width:'100%', backgroundColor:'oklch(0.985 0.008 85)', border:'1px solid oklch(0.878 0.010 90)', color:'oklch(0.245 0.022 150)', fontFamily:'Inter, sans-serif', fontSize:'0.9rem', padding:'0.75rem 1rem', outline:'none', boxSizing:'border-box' }} />
+          {/* The filter bar carries no visible labels by design, so each control names
+              itself. A placeholder is not a label: it is gone the moment somebody
+              starts typing, and a screen reader user then has an unnamed text box. */}
+          <input aria-label="Search the directory by name, profession or city" value={search} onChange={e => { setSearch(e.target.value); setPage(1) }} placeholder="Search by name, profession, city..." style={{ width:'100%', backgroundColor:'oklch(0.985 0.008 85)', border:'1px solid oklch(0.878 0.010 90)', color:'oklch(0.245 0.022 150)', fontFamily:'Inter, sans-serif', fontSize:'0.9rem', padding:'0.75rem 1rem', outline:'none', boxSizing:'border-box' }} />
         </div>
-        <select value={quarter} onChange={e => { setQuarter(e.target.value); setPage(1) }} style={{ backgroundColor:'oklch(0.985 0.008 85)', border:'1px solid oklch(0.878 0.010 90)', color:'oklch(0.245 0.022 150)', fontFamily:'var(--font-sans)', fontSize:'0.8rem', padding:'0.75rem 1rem', letterSpacing:'0.05em', appearance:'none' }}>
+        <select aria-label="Filter the directory by quarter" value={quarter} onChange={e => { setQuarter(e.target.value); setPage(1) }} style={{ backgroundColor:'oklch(0.985 0.008 85)', border:'1px solid oklch(0.878 0.010 90)', color:'oklch(0.245 0.022 150)', fontFamily:'var(--font-sans)', fontSize:'0.8rem', padding:'0.75rem 1rem', letterSpacing:'0.05em', appearance:'none' }}>
           <option value="">All Quarters</option>
           {GUNEKU_QUARTERS.map(q => <option key={q} value={q}>{q}</option>)}
         </select>

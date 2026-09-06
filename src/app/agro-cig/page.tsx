@@ -77,7 +77,7 @@ export default function AgroCIGPage() {
         <div className="grid md:grid-cols-2 gap-12">
           <div>
             {/* Phase 2 info */}
-            <h3 className="font-cinzel text-2xl text-foreground mb-6">THE ENTERPRISE</h3>
+            <h2 className="font-cinzel text-2xl text-foreground mb-6">THE ENTERPRISE</h2>
             <div className="space-y-2 mb-8">
               {[
                 { l:'Registered name', v:cig.registration.registeredName },
@@ -113,7 +113,7 @@ export default function AgroCIGPage() {
             </div>
 
             {/* Livestock */}
-            <h3 className="font-cinzel text-2xl text-foreground mb-4">LIVESTOCK</h3>
+            <h2 className="font-cinzel text-2xl text-foreground mb-4">LIVESTOCK</h2>
             {LIVESTOCK.map(p => (
               <div key={p.name} className="flex gap-3 items-start card-royal p-4 mb-2"
                    style={{ borderLeftWidth:'3px', borderLeftColor: p.status === 'ACTIVE' ? 'oklch(0.700 0.115 78)' : 'oklch(0.560 0.016 150)' }}>
@@ -132,7 +132,7 @@ export default function AgroCIGPage() {
             ))}
 
             {/* Farm progress */}
-            <h3 className="font-cinzel text-2xl text-foreground mt-8 mb-4">FARM DEVELOPMENT</h3>
+            <h2 className="font-cinzel text-2xl text-foreground mt-8 mb-4">FARM DEVELOPMENT</h2>
             {PROGRESS.map(f => (
               <div key={f.item} className="flex gap-3 items-center py-2 border-b border-border/20">
                 <span className="shrink-0">{f.icon}</span>

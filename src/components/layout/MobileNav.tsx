@@ -53,14 +53,20 @@ const NAV_ITEMS = [
     ),
   },
   {
-    href: '/gudeca', label: 'More', exact: false,
+    /* Labelled "More" behind a hamburger until 2026-09-06, which promised a menu and
+       delivered one page. A visitor tapping three stacked lines expects the rest of the
+       site; they arrived at GUDECA and had no idea why. The destination was always
+       reasonable — GUDECA is where the chapters, the EXCO, the youth wing and the
+       directory are reached from — so the label now says so, and the icon is a group of
+       people rather than a menu. */
+    href: '/gudeca', label: 'GUDECA', exact: false,
     icon: (active: boolean) => (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
            stroke={active ? '#6d1a24' : '#8a8580'}
            strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="3" y1="6"  x2="21" y2="6"/>
-        <line x1="3" y1="12" x2="21" y2="12"/>
-        <line x1="3" y1="18" x2="21" y2="18"/>
+        <path d="M18 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"/>
+        <circle cx="10.5" cy="7" r="3.5"/>
+        <path d="M21 21v-2a4 4 0 00-3-3.87"/>
       </svg>
     ),
   },
@@ -72,6 +78,7 @@ export function MobileNav() {
   return (
     <nav
       className="md:hidden"
+      aria-label="Main"
       style={{
         position:             'fixed',
         bottom:               0,
@@ -94,7 +101,11 @@ export function MobileNav() {
             : pathname.startsWith(item.href)
 
           return (
-            <Link key={item.href} href={item.href} style={{
+            <Link key={item.href} href={item.href}
+              /* The current page is announced, not only coloured. A red dot and a bolder
+                 label say "you are here" to somebody who can see them and to nobody else. */
+              aria-current={active ? 'page' : undefined}
+              style={{
               flex: 1, display: 'flex', flexDirection: 'column',
               alignItems: 'center', justifyContent: 'center',
               gap: '3px', textDecoration: 'none', minHeight: '44px',
@@ -107,7 +118,9 @@ export function MobileNav() {
                   borderRadius: '50%', backgroundColor: '#6d1a24',
                 }} />
               )}
-              <div style={{ marginTop: active ? '6px' : '0' }}>
+              {/* The icon is decoration: the label beside it is the accessible name, so
+                  announcing both would read every item twice. */}
+              <div aria-hidden="true" style={{ marginTop: active ? '6px' : '0' }}>
                 {item.icon(active)}
               </div>
               <span style={{

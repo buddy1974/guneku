@@ -23,10 +23,10 @@ export default function GuneccullPage() {
               collectively — rooted in Guneku values of solidarity and mutual support.
             </p>
 
-            <h3 style={{ fontFamily:'"Bebas Neue", sans-serif', fontSize:'1.8rem',
+            <h2 style={{ fontFamily:'"Bebas Neue", sans-serif', fontSize:'1.8rem',
                          color:'oklch(0.245 0.022 150)', letterSpacing:'0.05em', margin:'0 0 1rem' }}>
               PRODUCTS
-            </h3>
+            </h2>
             {['Savings Accounts','Loans','Solidarity Fund Shares',
               'Membership (5,000 FCFA registration)'].map(p => (
               <div key={p} style={{
@@ -57,10 +57,10 @@ export default function GuneccullPage() {
           </div>
 
           <div>
-            <h3 style={{ fontFamily:'"Bebas Neue", sans-serif', fontSize:'1.8rem',
+            <h2 style={{ fontFamily:'"Bebas Neue", sans-serif', fontSize:'1.8rem',
                          color:'oklch(0.245 0.022 150)', letterSpacing:'0.05em', margin:'0 0 1.5rem' }}>
               BRANCHES
-            </h3>
+            </h2>
             {[
               { name:'Head Office',    location:'Guneku Village',      status:'Operational', date:'' },
               { name:'Home Branch',    location:"Guneku Fon's Palace",  status:'Operational', date:'April 15, 2023' },

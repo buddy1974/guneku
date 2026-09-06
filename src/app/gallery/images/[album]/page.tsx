@@ -1,5 +1,5 @@
 import { getImageGallery, albumCoverSrc } from '@/lib/content'
-import { pageMetadata } from '@/lib/seo'
+import { pageMetadata, shortTitle } from '@/lib/seo'
 import type { Metadata } from 'next'
 import { PageHero } from '@/components/layout/PageHero'
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
@@ -23,17 +23,31 @@ export async function generateMetadata(
     ? new Date(album.date).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })
     : ''
   return pageMetadata({
-    title: String(album.title),
-    description: `${album.imageCount} photographs from the Guneku Fondom archive${when ? ', ' + when : ''}.`,
+    /* Two albums carry a full sentence where a name would go, because that is what the
+       migrated record says. The record is not rewritten; the tab gets something that fits,
+       and the full text is on the page. */
+    title: shortTitle(String(album.title)),
+    description: `${String(album.title).replace(/\s+/g, ' ').trim()} — ${album.imageCount} photographs from the Guneku Fondom archive${when ? ', ' + when : ''}.`,
     path: `/gallery/images/${albumId}`,
     image: albumCoverSrc(album),
     imageAlt: String(album.title),
   })
 }
 
+/* The shapes this page actually reads. The record has more fields than these; naming the
+   ones used is what lets a missing `publicPath` or a renamed `imageCount` fail here rather
+   than render as blank. */
+type AlbumImage = {
+  id: string
+  filename: string
+  publicPath?: string | null
+  caption?: string | null
+  title?: string | null
+}
+
 export async function generateStaticParams() {
   const gallery = getImageGallery()
-  return (gallery?.albums || []).map((a: any) => ({ album: a.id }))
+  return (gallery?.albums || []).map((a: { id: string }) => ({ album: a.id }))
 }
 
 export default async function AlbumPage({
@@ -41,7 +55,7 @@ export default async function AlbumPage({
 }: { params: Promise<{ album: string }> }) {
   const { album: albumId } = await params
   const gallery = getImageGallery()
-  const album = gallery?.albums?.find((a: any) => a.id === albumId)
+  const album = gallery?.albums?.find((a: { id: string }) => a.id === albumId)
   if (!album) notFound()
 
   const dateStr = album.date
@@ -62,14 +76,16 @@ export default async function AlbumPage({
       }} />
       <PageHero
         label="IMAGE GALLERY"
-        title={album.title.toUpperCase()}
+        /* Set in capitals, a 160-character record title is a wall on a phone. The whole of
+           it is shown below, in the album's own record card. */
+        title={shortTitle(String(album.title), 64).toUpperCase()}
         subtitle={`${album.imageCount} photographs${dateStr ? ' · ' + dateStr : ''}`}
       />
       <section style={{ maxWidth:'1400px', margin:'0 auto', padding:'4rem 1.5rem' }}>
         <div style={{ display:'grid',
                       gridTemplateColumns:'repeat(auto-fill, minmax(min(240px,100%), 1fr))',
                       gap:'4px' }}>
-          {(album.images || []).map((img: any) => (
+          {((album.images || []) as AlbumImage[]).map(img => (
             <div key={img.id} style={{ aspectRatio:'1', overflow:'hidden',
                                        position:'relative', backgroundColor:'oklch(0.940 0.014 85)' }}>
               {/* img.publicPath has always been in this record; the page simply never

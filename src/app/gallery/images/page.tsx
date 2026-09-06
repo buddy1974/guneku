@@ -1,4 +1,4 @@
-import { getImageGallery, albumCoverSrc } from '@/lib/content'
+import { getImageGallery, albumCoverSrc, type GalleryAlbum } from '@/lib/content'
 import { PageHero } from '@/components/layout/PageHero'
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
 import Image from 'next/image'
@@ -10,8 +10,10 @@ export const metadata = {
 
 export default function ImageGalleryPage() {
   const gallery = getImageGallery()
-  const albums = gallery?.albums || []
-  const totalPhotos = albums.reduce((a: number, b: any) => a + (b.imageCount || 0), 0)
+  /* The record's own album type, so a helper that needs the whole album still gets
+     one and a renamed field fails here rather than rendering a silent zero. */
+  const albums: GalleryAlbum[] = gallery?.albums || []
+  const totalPhotos = albums.reduce((n, a) => n + (a.imageCount || 0), 0)
 
   return (
     <main style={{ backgroundColor: 'oklch(0.965 0.012 85)', minHeight: '100vh' }}>
@@ -20,11 +22,16 @@ export default function ImageGalleryPage() {
         title="GUNEKU IN PICTURES"
         subtitle={`${albums.length} event albums · ${totalPhotos} photographs`}
       />
-      <section style={{ maxWidth:'1200px', margin:'0 auto', padding:'5rem 1.5rem' }}>
+      <section aria-labelledby="albums-heading"
+               style={{ maxWidth:'1200px', margin:'0 auto', padding:'5rem 1.5rem' }}>
+        {/* The album cards were the first headings after the page title, so the structure
+            skipped a rank for anyone navigating by heading. Named, not shown: the page hero
+            already says what this is, and a second visible heading would only repeat it. */}
+        <h2 id="albums-heading" className="sr-only">Albums in the archive</h2>
         <div style={{ display:'grid',
                       gridTemplateColumns:'repeat(auto-fill, minmax(min(300px,100%), 1fr))',
                       gap:'1.5rem' }}>
-          {albums.map((album: any) => (
+          {albums.map(album => (
             <Link key={album.id} href={`/gallery/images/${album.id}`}
                   style={{ textDecoration:'none', display:'block',
                            backgroundColor:'oklch(0.985 0.008 85)',

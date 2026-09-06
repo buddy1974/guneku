@@ -103,21 +103,26 @@ export default function ContactPage() {
               </div>
             ) : (
               <>
+                {/* Every field is bound to its label by id. The labels were always here;
+                    they were not attached to anything, so a screen reader announced four
+                    fields whose only description was placeholder text — which disappears
+                    the moment somebody starts typing. A visible label is not the same as
+                    an associated one. */}
                 <div className="section-label mb-2">A LETTER TO THE COURT</div>
-                <h3 className="font-cinzel text-3xl text-foreground mb-6">Address the Kingdom</h3>
+                <h2 className="font-cinzel text-3xl text-foreground mb-6">Address the Kingdom</h2>
                 <div className="grid gap-4 sm:grid-cols-2 mb-4">
                   <div>
-                    <label className="section-label text-[0.6rem] block mb-2">Your Name</label>
-                    <input name="name" required value={form.name} onChange={handleChange} placeholder="Full name" className={inputCls} />
+                    <label htmlFor="contact-name" className="section-label text-[0.6rem] block mb-2">Your Name</label>
+                    <input id="contact-name" name="name" required autoComplete="name" value={form.name} onChange={handleChange} placeholder="Full name" className={inputCls} />
                   </div>
                   <div>
-                    <label className="section-label text-[0.6rem] block mb-2">Email</label>
-                    <input name="email" required type="email" value={form.email} onChange={handleChange} placeholder="your@email.com" className={inputCls} />
+                    <label htmlFor="contact-email" className="section-label text-[0.6rem] block mb-2">Email</label>
+                    <input id="contact-email" name="email" required type="email" autoComplete="email" value={form.email} onChange={handleChange} placeholder="your@email.com" className={inputCls} />
                   </div>
                 </div>
                 <div className="mb-4">
-                  <label className="section-label text-[0.6rem] block mb-2">Subject</label>
-                  <select name="subject" value={form.subject} onChange={handleChange} className={`${inputCls} appearance-none`}>
+                  <label htmlFor="contact-subject" className="section-label text-[0.6rem] block mb-2">Subject</label>
+                  <select id="contact-subject" name="subject" value={form.subject} onChange={handleChange} className={`${inputCls} appearance-none`}>
                     <option value="">Select a subject</option>
                     <option>Audience · Palace Visit</option>
                     <option>GUDECA / Development</option>
@@ -129,8 +134,8 @@ export default function ContactPage() {
                   </select>
                 </div>
                 <div className="mb-6">
-                  <label className="section-label text-[0.6rem] block mb-2">Message</label>
-                  <textarea name="message" required rows={5} value={form.message} onChange={handleChange}
+                  <label htmlFor="contact-message" className="section-label text-[0.6rem] block mb-2">Message</label>
+                  <textarea id="contact-message" name="message" required rows={5} value={form.message} onChange={handleChange}
                             placeholder="Your message to the palace..." className={`${inputCls} resize-none`} />
                 </div>
                 <button type="submit" disabled={sending}

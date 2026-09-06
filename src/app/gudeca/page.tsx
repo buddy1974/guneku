@@ -69,7 +69,8 @@ export default function GudecaPage() {
 
       {/* ── 6 INITIATIVES ── */}
       <Reveal>
-        <section className="mx-auto max-w-7xl px-6 pb-24">
+        <section className="mx-auto max-w-7xl px-6 pb-24" aria-labelledby="gudeca-initiatives">
+          <h2 id="gudeca-initiatives" className="sr-only">What GUDECA does</h2>
           <div className="grid gap-6 md:grid-cols-3">
             {[
               { i:GraduationCap, t:'Afor Scholarship',      d:'1,000,000 FCFA awarded annually to the kingdom\'s top scholar.', tag:'EDUCATION', href:'/sons-and-daughters/roland-teboh-forbang' },
@@ -140,7 +141,7 @@ export default function GudecaPage() {
         <section className="mx-auto max-w-7xl px-6 py-20">
           <div className="text-center mb-12">
             <div className="section-label mb-4">EIGHT CONSTITUTED CHAPTERS · FIVE COUNTRIES · THREE CONTINENTS</div>
-            <h3 className="font-cinzel text-5xl text-foreground">A Kingdom Without Borders</h3>
+            <h2 className="font-cinzel text-5xl text-foreground">A Kingdom Without Borders</h2>
             {/* Constituted chapters are not the same measure as meeting attendance.
                 Bonn 2026 drew members from nine countries, five of which have no
                 chapter of their own. Both numbers are true; they count different things. */}

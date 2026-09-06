@@ -1345,3 +1345,54 @@ broken links, now fixed; **zero leakage markers** across every public page - no
 
 108 pages matched "undefined", and none of them is a defect: it is `$undefined`, React's
 flight-payload sentinel, inside `<script>`. Zero occurrences in visible text on any page.
+
+## 2026-09-06 - Accessibility, and a nav item that promised a menu
+
+A static audit over the 207 prerendered pages, plus an adversarial pass against Production.
+
+**Six form fields had no label.** Four on `/contact` and two on `/indigenes`. The contact form
+*looked* labelled - the `<label>` elements were there - but none was bound to a field, so a
+screen reader announced four inputs whose only description was placeholder text. A placeholder
+is gone the moment somebody starts typing. Bound by `htmlFor`/`id`, with `autoComplete` added
+while there; the directory filters, which carry no visible labels by design, name themselves
+with `aria-label`.
+
+**The mobile nav's fifth item said "More" behind a hamburger and went to `/gudeca`.** Three
+stacked lines promise the rest of the site; a visitor got one page and no explanation. The
+destination was always reasonable - GUDECA is where the chapters, the EXCO, the youth wing and
+the directory are reached from - so the label now says GUDECA and the icon is a group of people
+rather than a menu. The nav also gained `aria-current="page"` (the active item was signalled by
+a red dot and a bolder label, which say "you are here" to people who can see them and to nobody
+else) and `aria-hidden` on the icons, which were being announced twice with their own labels.
+
+**Two `<h1>`s on `/kingdom/exhibitions`.** The page hero renders one and the migrated article
+body carried another. `ArticleBody` now demotes a stray `<h1>` to `<h2>`, which is what it
+always was semantically: a heading under the page's own. It rewrites the tag and nothing else,
+so a body styled by the legacy CSS looks exactly as it did.
+
+**Heading levels skipped a rank on 15 pages**, down to 12. Section headings on `/contact`,
+`/gudeca`, `/palace`, `/agro-cig` and `/guneccul` were `<h3>` under the page `<h1>` with nothing
+between; they are `<h2>` now, which is visually identical because the classes carry the look.
+Two card grids with no heading of their own - GUDECA's initiatives and the gallery index -
+gained a named-but-unshown `<h2>`, since the page hero already says what they are. The
+remaining twelve are deeper in long pages and are recorded rather than churned.
+
+**Two album titles were 151 and 160 characters** because the migrated record uses a full
+sentence where a name would go. The record is evidence and was not rewritten. `shortTitle()`
+cuts at a boundary the sentence already has and never adds a word, so the shortened form is
+always a prefix of what the record says; the whole of it stays on the page in the album's own
+record card. That also fixed a 160-character all-capitals hero on a phone.
+
+### The adversarial pass
+
+Fourteen protected mutations attempted signed out: **every one refused**, all with the same
+`{"error":"Sign in to continue."}` and no database, provider or stack detail in any body. Role
+escalation attempted through the request body three ways: refused. Seven protected pages
+signed out: all `307` to `/sign-in` with `redirect_url` preserved. Upload attempted as SVG,
+HTML and an executable: refused before content type is even reached. Held and staged media,
+the retired migration endpoint, the removed TV probe, `.env`, `package.json`: all 404.
+
+Prompt injection, a request for private correspondence, and a request to speak as the Fon were
+each refused - the last one in its own words: *"I can't do that — I'm a reading aid over the
+published Guneku record, not the Fon or the Palace."* The rate limiter then stopped the run at
+three questions, which is the protection working; the remainder were re-probed spaced out.

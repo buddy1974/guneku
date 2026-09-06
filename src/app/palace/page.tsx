@@ -22,11 +22,20 @@ const TIMELINE = [
   { date: '2021 – Present',   title: 'The Kingdom Grows',     desc: 'Democratic reforms, GUNECCUL, Agro CIG, solar lights, Mɨchi Əbeŋ — a kingdom in full renaissance.',                             color: 'oklch(0.700 0.115 78)'  },
 ]
 
+/* The fields this page reads from a Palace article. `era` is what splits the current
+   record from the legacy one, and it is the field most worth failing loudly on. */
+type PalaceArticleCard = {
+  id: string
+  slug: string
+  title: string
+  era?: string
+}
+
 export default function PalacePage() {
   const fon      = getFonProfile()
-  const articles = getAllPalaceArticles()
-  const current  = articles.filter((a: any) => a.era === 'current')
-  const legacy   = articles.filter((a: any) => a.era === 'legacy')
+  const articles = getAllPalaceArticles() as PalaceArticleCard[]
+  const current  = articles.filter(a => a.era === 'current')
+  const legacy   = articles.filter(a => a.era === 'legacy')
 
   return (
     <div className="min-h-screen bg-background">
@@ -82,7 +91,7 @@ export default function PalacePage() {
           <div className="mx-auto max-w-7xl px-6">
             <div className="text-center">
               <div className="section-label mb-4">PILLARS OF THE REIGN</div>
-              <h3 className="font-cinzel text-5xl text-foreground">Four Sacred Charges</h3>
+              <h2 className="font-cinzel text-5xl text-foreground">Four Sacred Charges</h2>
             </div>
             <div className="mt-16 grid gap-6 md:grid-cols-4">
               {[
@@ -152,7 +161,7 @@ export default function PalacePage() {
           <section className="mx-auto max-w-7xl px-6 py-20">
             <h3 className="font-cinzel text-3xl text-primary mb-8">THE REIGN OF FOMUKI IX</h3>
             <div className="grid gap-4 md:grid-cols-3">
-              {current.map((a: any) => (
+              {current.map(a => (
                 <Link key={a.id} href={`/palace/${a.slug}`} className="card-royal p-6 block no-underline group">
                   <div className="h-0.5 w-6 bg-gold-gradient mb-4" />
                   <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors leading-snug">{a.title}</h4>
@@ -173,10 +182,10 @@ export default function PalacePage() {
                 <div className="h-0.5 w-8 bg-royal" />
                 <div className="section-label">IN MEMORY</div>
               </div>
-              <h3 className="font-cinzel text-2xl text-foreground/40 mb-1">HRH FON FOMUKI PATRICK NJI</h3>
+              <h2 className="font-cinzel text-2xl text-foreground/40 mb-1">HRH FON FOMUKI PATRICK NJI</h2>
               <p className="text-muted-foreground/50 text-sm mb-6">1938 – 2015 · 50 Years on the Throne of Guneku</p>
               <div className="grid gap-3 md:grid-cols-3">
-                {legacy.map((a: any) => (
+                {legacy.map(a => (
                   <Link key={a.id} href={`/palace/${a.slug}`} className="bg-card/30 border border-border/20 p-4 rounded-xl block no-underline">
                     <h4 className="text-foreground/50 text-sm font-medium leading-snug">{a.title}</h4>
                     <span className="text-muted-foreground/30 text-xs mt-2 block">Read →</span>
