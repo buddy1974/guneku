@@ -255,6 +255,11 @@ currently sends from the `onboarding@resend.dev` fallback — fine for testing, 
 Fondom. A verified `guneku.org` sender needs **DNS records only the owner can create**
 (SPF/DKIM, and MX for inbound). Inbound correspondence for Phase 13 cannot begin before that.
 
+**Raised from a footnote to a blocker on 2026-09-06 (R-044).** It mattered less while every
+message the site sent went *inward* to `EMAIL_ADMIN`. Two paths now send outward to a
+villager — the Palace's reply, which degrades honestly and tells the Palace when it could not
+deliver, and Stay Connected notifications, which is why none are sent.
+
 ---
 
 ## 4 · Palace AI: the retrieval architecture
@@ -590,15 +595,24 @@ Neither is a blocker; both are a deliberate pass, not a `--force`.
 
 ## 13 · What each remaining phase is actually waiting on
 
-| Phase | Waiting on |
+**Reconciled against Production on 2026-09-06.** The table below was written when every phase
+was blocked on a credential. Most of them were unblocked the same way: by running the code
+where the credential already lives, through a temporary hardened endpoint that was removed
+afterwards (ADR-074).
+
+| Phase | State |
 |---|---|
-| 3 · Claims | `DATABASE_URL` + Clerk session. Pooled driver first. |
-| 4 · Subscriptions | `DATABASE_URL`. `EMAIL_FROM` for a credible sender. |
-| 5 · Project transparency + follow | `DATABASE_URL`. The verified-fields part is partly doable now. |
-| 6 · Guneku TV | Nothing. `YOUTUBE_API_KEY` is set in both environments; ingestion and cache are buildable and testable. **This is the next phase that needs no owner action.** |
-| 8 · Palace AI layer 2 | A readable `ANTHROPIC_API_KEY`. The retrieval half is buildable and testable now. |
-| 11 · Contributions | `DATABASE_URL` + Clerk. |
-| 12 · Archive intelligence | Anthropic key, and an owner decision on which held media is excluded. |
-| 13 · Correspondence | `DATABASE_URL`, Clerk, **and DNS** for inbound. |
-| 14 · Notifications | Phases 4 and 5 first. |
-| 15 · Preview isolation | Neon dashboard access. Owner only. |
+| 3 · Claims | **Done.** Migration 0002 applied, endpoint retired. |
+| 4 · Subscriptions / follows | **Done as preferences.** No migration needed; `follows` already had the shape. Delivery is Phase 14. |
+| 5 · Project transparency + follow | **Done.** One register, 28 records, no invented finance. |
+| 6 · Guneku TV | **Done 2026-09-06.** First live channel read: 108 uploads, all 46 titles verified, 62 queued for review (R-009, R-043). |
+| 8 · Palace AI layer 2 | **Done.** Synthesis answers from evidence with citations, verified in Production. |
+| 11 · Contributions | **Done.** Migration 0003 applied. |
+| 12 · Archive intelligence | **Done.** Description layer built; no face recognition anywhere; nothing approved by default. |
+| 13 · Correspondence | **Done, including delivery 2026-09-06.** Migration 0004 applied. Inbound mail still needs MX records — owner only. |
+| 14 · Notifications | **Blocked, and precisely.** Built to the preflight and stopped: no sender the Fondom owns (R-044, needs SPF/DKIM on guneku.org — owner only) and no dispatch ledger (R-045, needs a migration — owner decision). |
+| 15 · Preview isolation | **Owner only.** Neon dashboard access. |
+
+**The one credential never exercised is Resend**, and deliberately: exercising a mail key means
+sending real mail to a real person, and there is no test address that proves anything useful.
+Its first live send is Marcel's acceptance test. ADR-076.

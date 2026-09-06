@@ -26,20 +26,22 @@
 | R-004 | The relationship between Guneku Medical Center and the proposed Reference Healthcare Centre is unestablished, and the March 2026 Medical Doctor vacancy has not been re-checked since. | Bug | Medium | Certain | The facility record publishes at its supported status only; neither identity nor separation is asserted; the vacancy is not advertised. | Marcel | Open |
 | R-005 | The Traditional Council roster is five years old. | Debt | Low | Likely | Published only as "as recorded in 2021", with an explicit note that it is not a claim about the present. Supersede when the Palace confirms current holders. | Marcel | Open — mitigated |
 | R-006 | `_shortlist/fon-portrait-formal.jpg` in the legacy archive may show the late Fon Fomuki Patrick Nji rather than the reigning Fon. | Bug | High if used | — | Not used. The GUDECA-US 2023 image of known provenance was used instead (ADR-006). | Marcel | Open — mitigated |
-| R-007 | 14 `.mp4` files and roughly 180 photographs under `public/images/gallery/` are tracked, deployed and publicly retrievable at guessable paths. Nine of the videos are the Bonn 28 March 2026 footage held pending consent. | Privacy | High | Certain — live now | Not linked from any page and not linked by this pass. Leave, link or remove is Marcel's decision. Predates this changeset. | Marcel | Open |
-| R-008 | Mobile performance is unverified. Lighthouse is not installed locally and no run was performed. A large share of the audience is on a mid-range Android in Cameroon on a throttled connection. | Scaling | Medium | Certain | Responsive layout was checked at six widths. Run Lighthouse against the Vercel preview before release. | Marcel | Open |
+| R-007 | Uncatalogued files under `public/images/gallery/` were tracked, deployed and retrievable at guessable paths, including the Bonn material held pending consent. | Privacy | High | Certain — was live | **CLOSED 2026-09-06.** 17 held files to `archive-held/`, 162 unclassified to `archive-staging/`, 35 stray files removed from a published album folder. Every one verified 404. See the R-007 and R-041 sections below. | — | Closed |
+| R-008 | Mobile performance is unverified by Lighthouse. A large share of the audience is on a mid-range Android in Cameroon on a throttled connection. | Scaling | Medium | Certain | **Partly addressed 2026-09-06.** Layout checked at six widths; `/images/` now cached for a day rather than revalidated on every request; no accidental dynamic rendering; the 980 KB map chunk loads on `/explore` alone. A Lighthouse run against Production is still worth doing. | Marcel | Open — mitigated |
 | R-009 | 44 of the 46 video records carry no verified YouTube title. | Debt | Low | Certain | **CLOSED 2026-09-06.** All 46 verified against the live channel; see the R-009 section below. | — | Closed |
 | R-010 | `_shortlist/guneku-map.jpg` in the legacy archive is a Google Maps screenshot carrying the Google logo. Re-hosting it on the site is a third-party licensing question, not a content question. | Security / Legal | Medium | Certain if used | **Mitigated 2026-09-03, not resolved.** Not ingested, not traced. `/explore` now renders a licensing-safe map (MapLibre GL JS, BSD-3-Clause, over OpenStreetMap raster tiles with ODbL attribution) and no Google imagery is used anywhere. But it carries **one** marker, because one coordinate exists in the whole repository — see R-029. `/kingdom/map-of-guneku` is still a stub. A map of Guneku's quarters needs coordinates the archive does not have. | Marcel | Open — mitigated |
-| R-011 | `src/data/pages/gudeca-exco.json` contains Joomla sample data — four fictitious names that are not Guneku people. | Bug | Medium if rendered | Low | Unrouted, unsearched and verified absent from all rendered output. Delete once nothing references it. | — | Open — mitigated |
-| R-012 | `src/data/about/` is nine dead files duplicating records in `kingdom/` and `palace/`. No reader reads that directory. | Debt | Low | Certain | Harmless but misleading to a future editor. Remove in a housekeeping pass. | — | Open |
+| R-011 | `src/data/pages/gudeca-exco.json` contained Joomla sample data — four fictitious names that are not Guneku people. | Bug | Medium if rendered | Low | **CLOSED 2026-09-06.** Deleted. Nothing read it, which is what made it dangerous: an unread file with four invented people in it is one careless import from publishing them. In git history if ever needed; a test now fails if any invented name reappears anywhere in `src/data`. | — | Closed |
+| R-012 | `src/data/about/` was nine dead files duplicating records in `kingdom/` and `palace/`. | Debt | Low | Certain | **CLOSED 2026-09-06.** Deleted; nothing imported it. Two copies of a record is how the wrong one gets edited. In git history. | — | Closed |
 
 ---
 
 ## 1. Technical Debt
 
-- ESLint reports 49 `@typescript-eslint/no-explicit-any` errors across `src/`, the pre-existing
-  house idiom. Files added in this pass are clean. `npm run lint` is not part of the
-  `CLAUDE.md` verification rule and the build does not run it.
+- ESLint reports 52 `@typescript-eslint/no-explicit-any` errors and 6 warnings across `src/`,
+  the pre-existing house idiom. Every file touched in the 2026-09-06 mega build is clean of
+  errors, and the six removed on that day were in files being edited anyway — the count rose
+  from 49 because new pages were added, not because the idiom spread. `npm run lint` is not
+  part of the `CLAUDE.md` verification rule and the build does not run it.
 - `tsconfig.tsbuildinfo`, a build artifact, is tracked in git and churns on every build.
 - The `.jpg` + `-web.webp` + `-thumb.webp` variant pattern exists in one folder only
   (`public/images/education/`). Adopting or dropping it is an open performance decision (ADR-009).

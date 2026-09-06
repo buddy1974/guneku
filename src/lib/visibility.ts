@@ -30,13 +30,18 @@ import {
  *                              worse than no result
  *   a dated record with no publishedAt   not published; the content loaders do NOT filter
  *                              these themselves, which is the gap R-026 was about
- *   src/data/pages/gudeca-exco.json      Joomla sample data, four fictitious names (R-011)
- *   src/data/about/                      nine dead duplicate files (R-012)
  *   articles-index.json                  a legacy index that duplicates every update
  *
- * The last three are excluded by never being loaded: no function here reads them, and no
- * loader in `content.ts` exposes them. They are listed so that a future contributor who
- * finds those files knows they were considered and rejected, not overlooked.
+ * The last is excluded by never being loaded: no function here reads it, and no loader in
+ * `content.ts` exposes it. It is listed so that a future contributor who finds the file knows
+ * it was considered and rejected, not overlooked.
+ *
+ * Two more used to be on that list and are now deleted rather than excluded, on 2026-09-06.
+ * `src/data/pages/gudeca-exco.json` held Joomla sample data — four fictitious names that are
+ * not Guneku people (R-011) — and `src/data/about/` held nine dead duplicates of records that
+ * live in `kingdom/` and `palace/` (R-012). Nothing read either, which is exactly why they
+ * were dangerous: an unread file with four invented people in it is one careless import away
+ * from publishing them. Both remain in git history if anybody ever needs to look.
  *
  * Films are NOT here. They have their own predicate, `approvedFilms()` in `guneku-tv.ts`,
  * because a film carries a lifecycle (discovered / reviewed / approved / held) that no other

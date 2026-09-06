@@ -218,8 +218,9 @@ describe('GUDECA — the roster, and what stays private', () => {
   })
 
   it('carries none of the Joomla sample names', () => {
-    /* `src/data/pages/gudeca-exco.json` holds four fictitious people from a Joomla demo
-       install (R-011). None of them may appear in the real roster. */
+    /* `src/data/pages/gudeca-exco.json` held four fictitious people from a Joomla demo
+       install (R-011). It was deleted on 2026-09-06 — see the deletion test below — and this
+       stays because the names must not reappear by any other route either. */
     /* The names only. The record's own source note explains that a second migrated file
        holds Joomla sample data and is not published — and a check that read the whole
        document would fail on the sentence documenting the guarantee. */
@@ -421,5 +422,39 @@ describe('no page links at a page that does not exist', () => {
       expect(l.url).not.toMatch(/^\/\//)
       expect(l.url).not.toMatch(/vercel\.app|localhost/)
     }
+  })
+})
+
+describe('dead files that held invented people are gone, not merely unread', () => {
+  /* R-011 and R-012, closed 2026-09-06 by deletion.
+     `src/data/pages/gudeca-exco.json` held four fictitious names from a Joomla demo install,
+     and `src/data/about/` held nine dead duplicates. Nothing read either, which is precisely
+     what made them dangerous: an unread file containing four invented people is one careless
+     import away from publishing them, and the next person to find it has no way of knowing
+     the names are fake. Both remain in git history. */
+  it('has deleted the Joomla sample roster', () => {
+    expect(existsSync('src/data/pages/gudeca-exco.json')).toBe(false)
+  })
+
+  it('has deleted the duplicate about/ directory', () => {
+    expect(existsSync('src/data/about')).toBe(false)
+  })
+
+  it('finds no invented person anywhere in the data', () => {
+    const stack = ['src/data']
+    const offenders: string[] = []
+    while (stack.length) {
+      const dir = stack.pop()!
+      for (const e of readdirSync(dir, { withFileTypes: true })) {
+        const full = `${dir}/${e.name}`
+        if (e.isDirectory()) { stack.push(full); continue }
+        if (!e.name.endsWith('.json')) continue
+        const text = readFileSync(full, 'utf-8').toLowerCase()
+        for (const fake of ['john doe', 'jane doe', 'joe bloggs', 'lorem ipsum']) {
+          if (text.includes(fake)) offenders.push(`${full}: ${fake}`)
+        }
+      }
+    }
+    expect(offenders).toEqual([])
   })
 })
