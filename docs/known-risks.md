@@ -721,24 +721,57 @@ holds (`git ls-tree`) before concluding anything about what exists.
 **Closed** by `git mv` into `archive-staging/`, which resolved the case mismatch as a side
 effect: the index and the working tree now agree on one name.
 
-## R-041 - `mchibe-mta-event-guneku2023` serves 35 files its album does not list - Open
+## R-041 - `mchibe-mta-event-guneku2023` serves 35 files its album does not list - CLOSED 2026-09-06
 
 Found while reconciling the four staged directories; outside that scope, recorded rather than
 acted on.
 
-The album catalogues 39 photographs. The folder holds 74 files. The 35 extras are not
-additional photographs:
+The album catalogues 39 photographs. The folder held 74 files. **None of the 35 extras was an
+additional photograph**, which the full audit established and the first estimate had not:
 
-- **32 `.jpg` files** that share a stem with a catalogued `.jpeg` and are downscaled copies of
-  it - 600x337 against 1080x607, roughly a third of the bytes. Legacy Joomla renditions.
-- **3 further `.jpg`** with no catalogued twin.
-- **`.htaccess`**, containing `order deny,allow` / `deny from all`.
+- **32 `.jpg` files**, each sharing a stem with a catalogued `.jpeg` and each a downscale of it
+  to a 600-pixel maximum edge - 600x337 against 1080x607, 450x600 against 780x1040, and so on
+  in every case. Joomla renditions. Zero byte-identical to any of the 339 canonical images.
+- **3 legacy web-server files**: `.htaccess`, `web.config`, `index.html`.
 
-That last one is the interesting part. It is an Apache instruction from the retired Joomla
-host, and **Next.js does not read it**. A file the legacy site denied to everyone is served by
-this one, along with the folder it was meant to protect. It denies nothing; it is a static
-asset like any other.
+The first estimate said "3 further `.jpg` with no catalogued twin". That was wrong: the seven
+`.jpg` files without a `.jpeg` twin are themselves catalogued, and the three remaining files
+are not images at all.
 
-Nothing here is unseen material - the photographs are published, and these are smaller copies
-of them. It is duplication and a dead access-control file, not exposure. Clearing it is a
-housekeeping decision for the owner.
+The web-server files are the part worth keeping. They are Joomla's standard trio for making a
+folder unreachable - an Apache deny rule, its IIS equivalent, and a blank page to defeat
+directory listing - and **Next.js reads none of them**. Verified in production before removal:
+`.htaccess` returned `200 application/octet-stream` with its own deny rule as the body,
+`web.config` the same, and the directory URL returned the blank `index.html` as `200 text/html`.
+Two files whose whole content is *deny everyone* were being handed to anyone who asked.
+
+**Closed.** All 35 removed from the served directory, which now holds exactly its 39 catalogued
+photographs. The three web-server files are preserved as text in
+`docs/legacy-webserver-artifacts.md`, explicitly as history rather than configuration. The 32
+renditions were removed rather than staged: every photograph they are a copy of remains
+published at higher resolution, and their bytes remain in git history. See ADR-072.
+
+Two tests now hold it closed, and they are general rather than about this album: no file may be
+served from `public/images/gallery/` that the catalogue does not list, and no `.htaccess`,
+`web.config` or `index.html` may exist anywhere under `public/`.
+
+## R-042 - The archive holds better copies of 19 published photographs than the ones it serves - Open
+
+Nineteen files in `archive-staging/` carry the same source filename as a published photograph
+and are larger in every case. The catalogue's own `width`/`height` already describe the larger
+file, so `image-gallery.json` disagrees with what the site serves:
+
+| | catalogue says | file served | staged original |
+|---|---|---|---|
+| 18 born-house photographs | e.g. 720x960 | 450x600 | **720x960** |
+| 1 GUDECA-US photograph | 2048x2048 | 600x600 | **2048x2048** |
+
+Same source filename means the same photograph, so swapping them in asserts nothing new and
+would make the record true. The owner deferred it on 2026-09-06 as an **image-delivery
+decision, not an archive-classification one** - 109 KB becoming 1.6 MB on a page load matters
+to a mid-range Android on a throttled connection in Cameroon (see R-008), and the right answer
+is probably to serve the originals through a resizing pipeline rather than to serve them raw.
+
+Recorded as a future image-optimization opportunity. The originals are preserved and are not
+public; nothing is lost by leaving this open. Related: ADR-009, which declined to impose a
+three-variant image convention site-wide.

@@ -255,6 +255,45 @@ describe('held media is unreachable from the archive layer', () => {
     expect(JSON.stringify(GALLERY)).not.toContain('2jS-ael4Ccg')
   })
 
+  /* R-041, closed 2026-09-06. The catalogue-to-disk direction was already asserted below.
+     This is the direction that was missing, and the one that matters: nothing may be served
+     from the gallery that the catalogue does not list. mchibe-mta-event-guneku2023 held 39
+     catalogued photographs and 35 files nobody had listed - 32 downscaled renditions of those
+     same photographs, and three legacy web-server files. */
+  it('serves no gallery file the catalogue does not list', () => {
+    const listed = new Set(IMAGES.map(i => String(i.publicPath)))
+    const stray: string[] = []
+    const stack = ['public/images/gallery']
+    while (stack.length) {
+      const dir = stack.pop()!
+      for (const e of readdirSync(dir, { withFileTypes: true })) {
+        const full = `${dir}/${e.name}`
+        if (e.isDirectory()) { stack.push(full); continue }
+        if (!listed.has(full.replace(/^public/, ''))) stray.push(full)
+      }
+    }
+    expect(stray).toEqual([])
+  })
+
+  it('serves no web-server configuration file at all', () => {
+    /* .htaccess and web.config are access-control files from the retired Joomla host. Next
+       reads neither, so inside public/ they are not rules - they are downloadable text that
+       says "deny from all". index.html was the blank page meant to stop directory listing;
+       Next resolved the directory URL to it and served it. See
+       docs/legacy-webserver-artifacts.md, which keeps the text without keeping the files. */
+    const found: string[] = []
+    const stack = ['public']
+    while (stack.length) {
+      const dir = stack.pop()!
+      for (const e of readdirSync(dir, { withFileTypes: true })) {
+        const full = `${dir}/${e.name}`
+        if (e.isDirectory()) { stack.push(full); continue }
+        if (['.htaccess', 'web.config', 'index.html'].includes(e.name)) found.push(full)
+      }
+    }
+    expect(found).toEqual([])
+  })
+
   it('every photograph the archive lists is inside a published album folder', () => {
     const folders = new Set(ALBUMS.map((a: { id?: string }) => String(a.id)))
     for (const img of IMAGES) {

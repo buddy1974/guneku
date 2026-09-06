@@ -1110,3 +1110,63 @@ so. The repoint it records still stands.
 `mchibe-mta-event-guneku2023` serves 35 files its album does not list - 32 downscaled legacy
 copies of photographs already published, 3 more, and an Apache `.htaccess` containing
 `deny from all` that Next.js does not read and serves as a static file. R-041.
+
+## 2026-09-06 - R-041 closed; the gallery serves only what it catalogues
+
+The last archive task before leaving archive work. Deterministic throughout: SHA-256, filename
+identity, dimensions and the existing records. No model, no perceptual matching, no inference
+from image content.
+
+`public/images/gallery/mchibe-mta-event-guneku2023` held **74 files against a 39-photograph
+album**. The audit closed the gap completely, and corrected the estimate that opened R-041:
+
+| | Files | State |
+|---|---|---|
+| Catalogued photographs | 39 | unchanged, still served |
+| Downscaled renditions of those same photographs | 32 | removed from `public/` |
+| Legacy web-server files | 3 | removed; text preserved in docs |
+| Genuinely additional photographs | **0** | — |
+
+**No new photographs, so no new canonical images.** The archive stays at 339 images in 15
+albums. The first estimate had said "3 further `.jpg` with no catalogued twin"; the audit
+showed those seven `.jpg` files without a `.jpeg` twin are themselves catalogued, and the three
+remaining files are not images.
+
+**The 32 renditions.** Each shares a stem with a catalogued `.jpeg` and is a downscale of it to
+a 600-pixel maximum edge - 600x337 against 1080x607, 450x600 against 780x1040 - consistently,
+in every case. Not one was byte-identical to any of the 339 canonical images. Removed rather
+than staged, because the photograph each one copies remains published at higher resolution and
+the bytes remain in git history. ADR-072.
+
+A trap worth recording: seven of them are named `2.jpg` through `8.jpg`, and those exact
+filenames are also used by the **gudecaworldwide** album, for entirely different photographs.
+Checking by bare filename would have reported references that do not exist. Every check ran on
+the full path, and found none.
+
+**The three web-server files.** `.htaccess`, `web.config` and `index.html` - Joomla's standard
+trio for making a folder unreachable. Next.js reads none of them, so in production, verified
+before removal:
+
+- `.htaccess` -> `200 application/octet-stream`, its own `deny from all` as the response body
+- `web.config` -> `200`, the same rule in XML
+- the directory URL -> `200 text/html`, serving the blank page written to hide it
+
+Two files whose entire content is *deny everyone* were being handed to anyone who asked. Their
+text is preserved in `docs/legacy-webserver-artifacts.md` as history, in a document whose first
+line says nothing reads it. Not staged: preserving a deny rule as configuration would leave a
+later reader reasonably believing something is protected. ADR-073.
+
+**Two tests hold it closed, and neither is about this album.** No file may be served from
+`public/images/gallery/` that the catalogue does not list, and no `.htaccess`, `web.config` or
+`index.html` may exist anywhere under `public/`. The first passes today only because every one
+of the fifteen album folders is now exactly its catalogue.
+
+### Owner decisions recorded
+
+The four staged directories stay staged, in full: 58 `coronation`, 40 `enthronement`, 36
+born-house, 28 GUDECA/DMV. No albums created, no dates assigned, no succession terminology
+touched, and posting proximity is not treated as evidence of occasion. The 162 photographs wait
+for community and Palace identification.
+
+The nineteen higher-resolution originals also stay staged, deferred as an image-delivery
+question rather than an archive one, and recorded as R-042.

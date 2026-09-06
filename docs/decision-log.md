@@ -1376,3 +1376,46 @@ Three things were available and were refused as evidence:
 
 The corollary is that a correct reconciliation can produce almost nothing, and did. The gap is
 reported as a gap, and the decisions that would close it are the owner's.
+
+## ADR-072 - A derived rendition is not archive material; the photograph is
+
+Thirty-two `.jpg` files in `mchibe-mta-event-guneku2023` were removed from `public/` rather
+than moved to `archive-staging/`. Every one of them was a downscale of a catalogued `.jpeg` to
+a 600-pixel maximum edge - same stem, consistent ratio, roughly a third of the bytes. The
+photograph each one copies stays published, at higher resolution, in the same album.
+
+Staging them would have been the cautious-looking choice and the wrong one. `archive-staging/`
+holds material *awaiting classification*; these need none. They are not photographs the archive
+has failed to place, they are a retired CMS's thumbnails of photographs the archive already
+publishes. Filling the staging area with 32 worse copies of published images would blur the one
+thing that makes the location legible - that everything in it is an open question - and would
+imply 32 decisions are outstanding when none is.
+
+The rule this settles: **preserve the photograph, not every rendition of it.** Where the
+uncatalogued copy is *better* than the served one, that is the opposite case and it stays
+staged - see R-042, the nineteen higher-resolution originals held back from this phase.
+
+Nothing was destroyed either way. `git rm` keeps the bytes in history, and the removal is one
+`git checkout` from being undone if it is ever wrong.
+
+## ADR-073 - Access control is middleware; a config file inside `public/` is just a file
+
+`.htaccess`, `web.config` and `index.html` were removed from the served gallery and their text
+preserved in `docs/legacy-webserver-artifacts.md` as history, explicitly non-operative.
+
+They were Joomla's standard trio for making a folder unreachable: an Apache deny rule, its IIS
+equivalent, and a blank page to defeat directory listing. Next.js reads none of them. Inside
+`public/` they were static assets, so the two files whose entire content is *deny everyone*
+were downloadable by anyone, and the blank page written to hide the directory was what the
+directory URL returned - `200 text/html` on guneku.org.
+
+They were **not** moved to `archive-staging/`. Preserving executable or configuration semantics
+of a rule that does not apply is worse than preserving nothing: a later reader finds a deny
+rule in the repository and reasonably concludes something is protected. Preserving the *text*,
+in a document that says in its first line that nothing reads it, keeps the history and removes
+the false assurance.
+
+This is R-007's lesson stated once more, in its plainest form. Absence from a catalogue is not
+unreachability; a `held` flag is not a lock; and a file that describes access control is not
+access control. On this site, access control is `middleware.ts`, and a path that must not be
+public lives outside `public/`.
