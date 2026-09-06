@@ -122,7 +122,7 @@
       "type": "project",
       "coordinate": null,
       "reason": "The register places it at Ngong Quarter but gives no coordinate.",
-      "publicUrl": "/institutions/guneku-agro-cig",
+      "publicUrl": "/agro-cig",
       "description": "Community-owned agricultural enterprise at Ngong Quarter.",
       "quarter": "Ngong"
     },
@@ -141,7 +141,7 @@
       "type": "project",
       "coordinate": null,
       "reason": "No position recorded for any of the bridges.",
-      "publicUrl": "/institutions/guyodeca",
+      "publicUrl": "/gudeca/guyodeca",
       "description": "Bridge construction recorded in the development register.",
       "quarter": null
     },

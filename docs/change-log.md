@@ -1302,3 +1302,46 @@ R-044 also explains a real limitation of the Palace reply shipped earlier today:
 verified sender exists, an outbound reply may fail. It degrades as designed - the reply is
 persisted first, the failure is caught, and the Palace is told "recorded, but the email could
 not be sent".
+
+## 2026-09-06 - Two dead links, found by crawling production rather than by any test
+
+The explore map pointed at `/institutions/guneku-agro-cig` and `/institutions/guyodeca`. Both
+404. Both institutions carry their own `route` - `/agro-cig` and `/gudeca/guyodeca` - and
+`generateStaticParams` deliberately builds no `/institutions/<id>` page for a record that
+already has a home. So the map linked at pages the site had decided not to generate, and one
+of the two named an id that does not exist either (`guneku-agro-cig`; the record is
+`agro-cig`).
+
+Repointed at the real homes, and the shape of the mistake is now guarded: a link to
+`/institutions/<id>` must name an institution for which a page is actually generated, and a
+link to one that has its own home must use that home.
+
+### A data-invariant suite
+
+`src/lib/invariants.test.ts`, 36 assertions about facts rather than shapes. The distinction
+matters: a snapshot test breaks when the code improves; this one should only break when a
+*fact* moves, and then somebody has to say so out loud in a diff.
+
+It guards the things no other test would notice - a register that gains a twenty-eighth
+quarter, a Fomuki who becomes royal by surname, a Queen who acquires a seniority nobody
+recorded, the withdrawn 17 January 2016 returning, Amamuki Jonathan merging with Mbakwa
+Jonathan, Ma Rose becoming two people, a personal mobile appearing in the GUDECA roster, a
+Cameroonian city establishing diaspora, or a money field appearing on the project register.
+
+Two of its assertions were rewritten while being written, and both for the same reason. The
+Palace household today consists entirely of people called Fomuki, which is exactly the
+coincidence that makes a surname rule tempting - so the guarantee is about the code (the
+community module contains the word nowhere) rather than about today's data. And the GUDECA
+roster check reads the names only, because the record's own source note explains that a second
+migrated file holds Joomla sample data and is not published; a check that read the whole
+document would have failed on the sentence documenting the guarantee.
+
+### The production crawl that found the links
+
+109 sitemap paths, 217 distinct internal links, every one fetched. 108 of 109 pages 200; two
+broken links, now fixed; **zero leakage markers** across every public page - no
+`archive-staging`, no `archive-held`, no private film id, no `clerk_user_id`, no
+`internal_note`, no provider key prefix, no repository path, no preview URL.
+
+108 pages matched "undefined", and none of them is a defect: it is `$undefined`, React's
+flight-payload sentinel, inside `<script>`. Zero occurrences in visible text on any page.
