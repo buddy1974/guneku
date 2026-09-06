@@ -623,3 +623,37 @@ No second application, and the publishable key is working and must not be rotate
 
 Until then `/sign-in`, `/sign-up` and `/my-guneku` render the member-area notice, the protected
 API routes answer 401, and the public site is unaffected.
+
+
+## R-039 - Palace correspondence retention is an unresolved owner policy
+
+**Open. No automatic deletion exists, and none was built.**
+
+Before 2026-09-05, a message to the Palace lived in an inbox and nowhere else. It now also
+persists in `palace_correspondence`, indefinitely, including the sender's name, their email or
+telephone number, what they wrote, the Palace's reply and the Palace's internal note.
+
+That is a deliberate improvement - a letter can now be answered traceably rather than lost in a
+mailbox - and it creates a question nobody has answered: **how long should Guneku keep private
+correspondence?**
+
+Nothing has been decided, so nothing has been implemented. There is no retention cron, no purge
+job, no expiry column and no destructive migration. Every letter is intact.
+
+**Practical options, for the owner to choose between - not recommendations to act on:**
+
+1. **Keep everything indefinitely.** Simplest, and defensible for a village record. The cost is
+   that personal contact details accumulate forever, including for people who wrote once about
+   something small.
+2. **Close and keep, delete after a period.** For example: closed correspondence is retained
+   for a stated number of years, then removed. Needs a written policy first, and the deletion
+   itself would be a destructive operation requiring explicit owner authorisation.
+3. **Redact rather than delete.** Keep the fact of the correspondence and its outcome; remove
+   the sender's contact details after a period. Preserves the record of what the Palace was
+   asked while shedding what identifies the asker.
+4. **Delete on request.** A person writes to ask that their correspondence be removed, and it
+   is, by hand. No automation, no policy horizon.
+
+Whichever is chosen, two things follow: it should be stated somewhere a villager can read it,
+and any deletion is a destructive database operation needing Marcel's explicit authorisation at
+the time - not something to schedule and forget.

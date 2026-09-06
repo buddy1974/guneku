@@ -1208,3 +1208,56 @@ own words, inside the text they wrote.
 This is the same boundary Phase 4 drew around notifications, in a place where it would be far
 easier to cross: a system that can write to villagers on the Palace's behalf is one bad default
 away from doing it without a person.
+
+
+## ADR-063 - One source boundary, and it imports no database
+
+What the assistant may read is decided in `src/lib/ai-sources.ts` and nowhere else. The
+alternative - each retriever filtering as it goes - is how a private record eventually becomes
+visible: somebody adds a source, forgets a check, and nothing fails.
+
+The strongest property is not the predicate but the imports. That module reaches
+`visibility.ts`, the reviewed community JSON, the development register and the quarter
+registry. It does not import `src/lib/db/*`, and neither does the assistant. Palace
+correspondence, contributions, claims, member records, directory profiles and follows are
+therefore not filtered out - they are unreachable, and a test asserts it over the module's own
+source rather than over its behaviour.
+
+"Uncertain visibility is not visible" is implemented the same way: every source is derived from
+a surface that already decides publication, so the assistant can never see something the
+sitemap would not list.
+
+## ADR-064 - No vector store, and the reason is measured
+
+The public corpus is 0.84 MB across 132 JSON files. Keyword scoring over it answers the
+questions this assistant is for, in-process, with no index to build and nothing to keep in step
+with the records.
+
+An embedding store would need a migration, a rebuild step on every content change, a fifth
+temporary migration-endpoint cycle to apply, and a new failure mode where the index silently
+drifts from the records it claims to represent. None of that buys an answer the current
+retrieval cannot give.
+
+The threshold for revisiting is stated so it is not a matter of taste: an order of magnitude
+more corpus, or retrieval that demonstrably misses questions a person would expect it to
+answer. "It is an AI feature" is not a reason to add a database.
+
+## ADR-065 - The model runs last, and never as the source of truth
+
+Four layers, in order: the checked hand-written answers; retrieval over public sources;
+synthesis from that evidence; the refusal. The model only reaches step three, and only for a
+question the first two could not settle.
+
+Three consequences worth recording. Every canonical answer - the Fon, the quarters, Palace
+contact - is quoted verbatim from a record a person wrote, and runs with no API key at all, so
+the assistant's most-asked questions do not depend on a provider being up or paid for. The
+model is never asked what it knows; the system prompt tells it to ignore prior knowledge about
+Guneku entirely, because a plausible invention about somebody's Fondom is worse than a refusal.
+And when the model itself says the evidence is insufficient, that answer is passed through
+rather than retried or papered over - it is the correct outcome.
+
+Prompt injection is handled by separation rather than by filtering: instructions, evidence and
+question are distinct parts, the evidence is wrapped and described as quoted material that may
+contain anything, and a command inside a source is text to read rather than an instruction to
+follow. A public article containing "ignore previous instructions" is as inert as any other
+sentence in it.

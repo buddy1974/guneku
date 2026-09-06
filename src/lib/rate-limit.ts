@@ -23,6 +23,17 @@ const WINDOW_MS = 10 * 60 * 1000
 const PER_ROUTE = 5
 const PER_SENDER = 12
 
+/* A few routes cost more than delivering a form, and get their own ceiling.
+ *
+ * The assistant is the case that prompted this: a question can reach a paid model, so an
+ * abuser hammering it spends the Fondom's money rather than merely filling an inbox. It
+ * still counts against the same per-sender budget, so moving between the assistant and the
+ * contact form does not multiply anyone's allowance — the tighter number simply applies
+ * first. */
+const ROUTE_LIMIT: Record<string, number> = {
+  ask: 3,
+}
+
 /** Keyed "route|ip" for the route bucket and "*|ip" for the sender bucket. */
 const hits = new Map<string, number[]>()
 
@@ -54,7 +65,7 @@ export function rateLimited(route: string, ip: string) {
   const now = Date.now()
   /* Both are recorded on every call, so a request refused by the route bucket still
      counts against the sender's overall budget. */
-  const overRoute  = record(`${route}|${ip}`, now, PER_ROUTE)
+  const overRoute  = record(`${route}|${ip}`, now, ROUTE_LIMIT[route] ?? PER_ROUTE)
   const overSender = record(`*|${ip}`, now, PER_SENDER)
   return overRoute || overSender
 }

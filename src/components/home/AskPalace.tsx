@@ -5,10 +5,17 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { PalaceMessageModal } from './PalaceMessageModal'
 
+type Citation = { title: string; url: string; type: string; date?: string }
+
 type Answer = {
   answered: boolean
   answer: string
   question?: string
+  /* 'record' = a checked answer quoted verbatim; 'synthesis' = written from cited
+     evidence; 'none' = no verified source. The UI says which, because "the Palace wrote
+     this" and "this was assembled from published records" are different claims. */
+  mode?: 'record' | 'synthesis' | 'none'
+  citations?: Citation[]
   links: Array<{ href: string; label: string }>
   suggestions: string[]
 }
@@ -46,7 +53,7 @@ export function AskPalace() {
       })
       setRes(await r.json())
     } catch {
-      setRes({ answered: false, answer: "I couldn't reach the Guneku records just now.", links: [], suggestions: OPENERS })
+      setRes({ answered: false, answer: "I couldn't reach the Guneku records just now.", mode: 'none', citations: [], links: [], suggestions: OPENERS })
     } finally {
       setBusy(false)
     }
@@ -68,14 +75,16 @@ export function AskPalace() {
               </div>
             </div>
             <p className="inst-body mt-4 max-w-md">
-              Answers come from the records published on this site — the village record,
-              the Palace archive, the development register, the galleries and the news
-              archive. If there is no source for your question, it will say so and pass
-              it to the Palace.
+              Answers are drawn from published Guneku records — the village record, the
+              Palace archive, the development register, the registers of people and
+              quarters, and the news archive. Every answer shows the records it came from.
+              If there is no source for your question, it will say so and pass it to the
+              Palace.
             </p>
             <p className="inst-meta mt-3">
-              This is an information desk, not the Fon. Anything personal or sensitive
-              should go to the Palace directly.
+              This is a reading aid over the published record. It is not the Fon, it does
+              not speak for the Palace, and it will not guess. Anything personal or
+              sensitive should go to the Palace directly.
             </p>
           </div>
 
@@ -129,6 +138,29 @@ export function AskPalace() {
                           </li>
                         ))}
                       </ul>
+                    )}
+
+                    {/* Sources. Every answer that asserts something shows the Guneku pages
+                        it came from, so a reader can check it rather than trust it. */}
+                    {res.citations && res.citations.length > 0 && (
+                      <div className="mt-4 border-t border-[var(--rule)] pt-3">
+                        <p className="inst-tag">Sources</p>
+                        <ul className="mt-1.5 list-none space-y-1 p-0">
+                          {res.citations.map(c => (
+                            <li key={c.url}>
+                              <Link href={c.url} className="inst-link !text-[0.86rem]">
+                                {c.title}
+                              </Link>
+                              {c.date && <span className="inst-meta"> · {c.date}</span>}
+                            </li>
+                          ))}
+                        </ul>
+                        {res.mode === 'synthesis' && (
+                          <p className="inst-meta mt-2">
+                            Written from these records, not quoted from one of them.
+                          </p>
+                        )}
+                      </div>
                     )}
                     <p className="inst-meta mt-4">
                       Not what you needed?{' '}

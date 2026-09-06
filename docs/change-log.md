@@ -910,3 +910,42 @@ is the safeguard, and the last step is the one that would be tempting to skip.
   any source file.
 
 No fake identity and no fake correspondence was created in production.
+
+
+## 2026-09-06 - Cited Palace AI
+
+"Ask Guneku Palace" became a cited assistant. It was already deterministic retrieval with no
+model behind it; this pass added an explicit source boundary, an evidence model, citations,
+rate limiting, and - only for questions the checked answers do not cover - synthesis from
+retrieved public evidence.
+
+- **One source boundary** (`src/lib/ai-sources.ts`), not a filter in route code. A record is
+  AI-visible only if already published on a page a visitor can open without an account, and
+  every source is built from an existing public surface - `visibility.ts` for editorial
+  records, the reviewed community JSON, the development register. Nothing becomes public here
+  that was not already.
+- **Structural privacy.** The module imports no database module at all, so correspondence,
+  contributions, claims, member records, directory profiles and follows are unreachable - not
+  filtered, unreachable. Asserted by a test over the module's own source.
+- **Deterministic first.** The hand-written answers still answer, verbatim, with no model
+  call - the Fon, the quarters, Palace contact, the development register, the market cycle.
+  Every one still works with no API key configured at all.
+- **Synthesis only when needed**, from at most five capped evidence snippets, with the exact
+  refusal "I don't have a verified Guneku source for that yet." when there is nothing to
+  answer from. The model is never asked what it knows.
+- **Citations** show the Guneku pages an answer came from - record titles and site paths, no
+  filenames, no internal ids. A synthesised answer says so.
+- **Prompt injection** is handled by separation: instructions, evidence and question are
+  distinct, evidence is wrapped and labelled as quoted material, and the system prompt says a
+  command found inside a source is text to read rather than an instruction to follow.
+- **Rate limited** on its own bucket at 3 per ten minutes - genuinely tighter than the forms'
+  5, because a question can reach a paid model. Asserted by a test rather than claimed in a
+  comment.
+
+**No migration, and no vector store.** The public corpus is 0.84 MB across 132 files; keyword
+scoring answers these questions, and an embedding index would need a migration and a rebuild
+step to do the same job. If the corpus grows by an order of magnitude, that is the decision to
+revisit.
+
+Verified: `tsc` clean; **736 tests** passing, up from 681; build clean at 230 routes; eslint
+clean on every touched file.
