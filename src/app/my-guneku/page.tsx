@@ -337,9 +337,17 @@ export default async function MyGunekuPage({
                     content served by /palace/[slug] — a protected page there would collide
                     with an article route and pull Clerk onto every public Palace page. */}
                 {atLeast(user.role, 'palace-admin') && (
-                  <Link href="/review/correspondence" className="inst-btn inst-btn-quiet">
-                    Correspondence
-                  </Link>
+                  <>
+                    <Link href="/review/correspondence" className="inst-btn inst-btn-quiet">
+                      Correspondence
+                    </Link>
+                    {/* Counts only, and nothing sends from it. A route nobody can reach is a
+                        route nobody maintains, so the preflight is linked where the Palace
+                        already looks rather than left to be remembered. */}
+                    <Link href="/review/notify" className="inst-btn inst-btn-quiet">
+                      Who is following what
+                    </Link>
+                  </>
                 )}
               </div>
             </section>

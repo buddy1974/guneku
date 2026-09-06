@@ -856,3 +856,54 @@ only a person moves anything to `approved`.
 Publishing any of them means a person watching it and writing it into the canonical record or
 into `video-overrides.json` - the route every one of the 46 already took. Owner work, not
 engineering work.
+
+## R-044 - Outbound email has no sender the Fondom owns - Open, OWNER ACTION
+
+`EMAIL_FROM` is unset in Production, Preview and development, so every message leaves as the
+`send.ts` fallback `Guneku Fondom <onboarding@resend.dev>`. That is Resend's testing sender.
+It is restricted, it is the wrong name on a letter from a Fondom, and it cannot be relied on
+to deliver to an arbitrary recipient.
+
+Until 2026-09-06 that mattered less than it looks, because every message the site sent went
+**inward** - a contact form, a Palace enquiry, an offer of support, a directory submission, an
+admin alert - all to `EMAIL_ADMIN`. The exception was the welcome email to a new indigene,
+whose failures are logged and swallowed by design.
+
+It matters now, because two paths send **outward** to a villager:
+
+- **The Palace's reply** (built 2026-09-06). It degrades exactly as designed - the reply is
+  persisted first, a failed send is caught, the Palace is told "recorded, but the email could
+  not be sent", and nothing is lost. It is a real limitation, not a defect.
+- **Stay Connected notifications**, which is why none are sent. See R-045.
+
+**Owner action, and only the owner can do it.** SPF and DKIM records on `guneku.org`, created
+at the DNS provider, then the verified address set as `EMAIL_FROM` in Vercel. This is the same
+class of work as the Clerk DNS records of 2026-09-04, and `docs/programme-architecture.md` §3
+has been recording it as an owner action since it was written.
+
+Nothing about this blocks the release. Every inbound form works; the one outbound path that
+exists reports honestly when it cannot deliver.
+
+## R-045 - Notification delivery needs a dispatch record, and a dispatch record needs a migration - Open, non-blocking
+
+Stay Connected is complete as a *preference* system: a member follows and unfollows, the
+follows are private, and unfollowing is the unsubscribe with no second list to fall out of step
+with it. `/review/notify` shows the Palace who is waiting to hear about what, in counts, naming
+nobody.
+
+Nothing sends, and two things stand in the way.
+
+**A sender the Fondom owns** - R-044 above.
+
+**A record of what has already gone out.** Without one, pressing send twice writes to every
+follower twice, and a bounce or complaint that Resend reports afterwards cannot be honoured -
+which damages the domain's reputation for every future message, including the transactional
+ones the public forms depend on. That record is a table;
+`docs/programme-architecture.md` §3 specifies its shape. A table is a migration, and a
+migration is an owner decision.
+
+So the work stops exactly there, and deliberately: the rules, the audience resolution and the
+preflight are built and tested; there is no dispatch route, no mailer import anywhere in the
+notification path, and tests that fail if one appears. A send button shipped before those two
+things exist would either fail silently or send twice, and both are worse than a screen that
+says plainly what it would do and why it does not.

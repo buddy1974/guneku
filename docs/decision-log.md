@@ -1500,3 +1500,35 @@ was given" with the callback number when it does not. The button label changes w
 button that says *send* when it only records is the defect this slice existed to fix, and
 replacing it with one that says *send* when there is nobody to send to would be the same
 defect wearing the other face.
+
+## ADR-077 - Stay Connected stops at the preflight, and the preflight says why
+
+Notification delivery was built as far as it can honestly go and no further. The rules, the
+audience resolution and a Palace-facing preflight exist and are tested. There is no dispatch
+route, no mailer import anywhere in the notification path, and a test that fails if one
+appears.
+
+Two things are missing and neither is code that could be written here. There is no sender the
+Fondom owns - `EMAIL_FROM` is unset everywhere, so mail leaves as Resend's testing address,
+which cannot reliably deliver to an arbitrary recipient and would be the wrong name on a letter
+from the Palace even if it could (R-044). And there is no record of what has already gone out,
+so a second press would write to every follower twice and a reported bounce could not be
+honoured (R-045). The first needs DNS records only the owner can create; the second needs a
+table, and a table is a migration.
+
+**A send button shipped before those exist would either fail silently or send twice.** Both are
+worse than a screen that says plainly what it would do. So `/review/notify` shows the Palace how
+many people are waiting to hear about each topic and each quarter, how many of them gave an
+address, and the two things standing in the way - and sends nothing.
+
+Counts, never people. Nobody's address and nobody's name appears on that page. What somebody
+follows is private, and a screen listing *who* follows Palace announcements would turn a
+private preference into a roster.
+
+The reachability split is shown rather than hidden for the same reason. A clerk told "34 members
+follow Projects" who then reaches eleven of them has been misled by their own admin screen;
+told "34 follow this, 11 gave an address", they know exactly what they are looking at.
+
+One thing that needed no building at all: **unsubscribe**. Unfollowing deletes the row, so the
+member is not returned by the audience query, so nothing could be addressed to them. There is
+no suppression list to drift out of step with the follow list, because there is only one list.

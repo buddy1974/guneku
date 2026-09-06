@@ -1263,3 +1263,42 @@ Senders are told what is true, on the form and in My Guneku: the message is kept
 it can be answered, it is never published, it is not shared outside the Fondom, and nothing is
 deleted automatically. No timetable, because there is not one. Choosing a period is governance,
 and acting on one would be destructive; both are the owner's.
+
+## 2026-09-06 - Stay Connected, built to the boundary and stopped there
+
+Notification delivery was taken as far as it can honestly go. The rules (`src/lib/notify.ts`),
+the audience resolution (`src/lib/db/notifications.ts`) and a Palace preflight
+(`/review/notify`) exist and are tested. **Nothing sends**, there is no dispatch route, no
+mailer import anywhere in the notification path, and a test fails if one appears.
+
+Two things are missing, and neither is code:
+
+- **A sender the Fondom owns.** `EMAIL_FROM` is unset in every environment, so mail leaves as
+  Resend's testing address - restricted, unable to reliably reach an arbitrary recipient, and
+  the wrong name on a letter from a Palace even if it could. Needs SPF and DKIM on guneku.org,
+  which only the owner can create. R-044.
+- **A record of what has gone out.** Without one a second press writes to every follower twice,
+  and a bounce Resend reports afterwards cannot be honoured - which damages the domain for
+  every future message, including the transactional ones the public forms depend on. That is a
+  table, and a table is a migration. R-045.
+
+A send button shipped before those exist would either fail silently or send twice.
+
+**No migration was needed for what was built.** `follows` already stores ('topic', id) and
+('quarter', name), and `community_members.email` is the address the member gave Guneku and can
+see and change - so the audience is one join on `clerk_user_id`, and Clerk is never read for an
+address the member was not shown in this context.
+
+**The preflight shows counts, never people.** No address and no member name appears on it: what
+somebody follows is private, and a screen listing who follows Palace announcements would turn a
+preference into a roster. It does show the reachability split - "34 follow this, 11 gave an
+address" - because a clerk told only the first number and reaching only the second has been
+misled by their own screen.
+
+**Unsubscribe needed no building.** Unfollowing deletes the row, so the member is not returned
+by the audience query, so nothing could be addressed to them. One list, not two.
+
+R-044 also explains a real limitation of the Palace reply shipped earlier today: until a
+verified sender exists, an outbound reply may fail. It degrades as designed - the reply is
+persisted first, the failure is caught, and the Palace is told "recorded, but the email could
+not be sent".
