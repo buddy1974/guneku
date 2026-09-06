@@ -143,3 +143,64 @@ export const MAX = {
  *  Fondom unless the person writing it identifies themselves in their own words — this
  *  system never signs a letter with a name, and above all never signs one as the Fon. */
 export const RESPONSE_ATTRIBUTION = 'The Guneku Palace'
+
+/* ── Answering by email ──────────────────────────────────────────────────────────────────
+ *
+ * Until 2026-09-06 the Palace could write a reply and the sender never received it. The
+ * reply was persisted, the status became `responded`, and a villager who had written in
+ * without an account had no way to see it: My Guneku shows a letter only to the signed-in
+ * account that wrote it, and most people write in signed out.
+ *
+ * Delivery is now part of `respond`, and these functions are the whole of the rules — kept
+ * out here where they can be tested without a mailer, a database or a session.
+ *
+ * Consent is not inferred from the address alone. The public form requires the sender to
+ * confirm that the Palace may use their details to reply, and refuses an address that fails
+ * validation. An address in the record therefore means somebody gave it for this purpose.
+ * It is validated again here anyway, because by the time a letter is answered the record is
+ * old data, and because a reply is the one moment this system sends something outward. */
+
+/** The address a reply may be sent to, or null. Null is an ordinary outcome rather than a
+ *  failure: plenty of letters arrive with a callback number and no email at all. */
+export function replyRecipient(senderEmail: string | null | undefined): string | null {
+  if (typeof senderEmail !== 'string') return null
+  const address = senderEmail.trim()
+  if (!address || address.length > MAX.email) return null
+
+  /* Recipient injection. A mail API accepts an array or a comma-separated string, so an
+     address carrying a comma, a semicolon, angle brackets or whitespace could turn one
+     recipient into several — and the extra ones would receive a stranger's private letter
+     to their Fon. Rejected outright rather than split and cleaned up. */
+  if (/[,;<>\s"'\\]/.test(address)) return null
+
+  /* Header injection. Neither CR nor LF survives the check above; this states the intent
+     rather than leaving it as a consequence. */
+  if (/[\r\n]/.test(address)) return null
+
+  /* The same shape the public form accepts. Deliberately identical: an address good enough
+     to write in with is good enough to be answered at, and a stricter rule here would mean
+     silently declining to answer somebody the form had already accepted. */
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(address)) return null
+
+  return address
+}
+
+/** What happened when the Palace pressed send. Reported to the Palace, never to the sender,
+ *  and never allowed to undo the reply — the letter is answered either way. */
+export type ReplyDelivery = 'sent' | 'no-recipient' | 'failed'
+
+export const DELIVERY_NOTE: Record<ReplyDelivery, string> = {
+  'sent':
+    'The reply was recorded and emailed to the sender.',
+  'no-recipient':
+    'The reply was recorded. This letter carries no email address, so nothing was sent — if '
+    + 'a callback number was given, the Palace will need to telephone.',
+  'failed':
+    'The reply was recorded, but the email could not be sent. Nothing was lost: the reply is '
+    + 'saved, and it can be sent another way.',
+}
+
+/** A single line of somebody's own text, made safe to place in a mail subject. */
+export function subjectLine(text: string, limit = 120): string {
+  return text.replace(/[\r\n\t]+/g, ' ').replace(/\s{2,}/g, ' ').trim().slice(0, limit)
+}

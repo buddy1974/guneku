@@ -1,15 +1,33 @@
 import 'server-only'
 import { Resend } from 'resend'
+import { RESPONSE_ATTRIBUTION } from '@/lib/correspondence'
 import {
   welcomeEmailHtml,
   contactFormEmailHtml,
   newIndigeneAlertHtml,
 } from './templates'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+/* Constructed on first use, not on import. `new Resend(undefined)` throws, so building the
+   client at module scope made merely *importing* this file fail wherever the key is absent -
+   which is every test that touches a route that sends mail, and would be any prerender or
+   tooling pass that reached it. A mailer should fail when it is asked to send, with a message
+   about sending, and not when a module is loaded. */
+let client: Resend | null = null
+function mailer(): Resend {
+  if (!client) client = new Resend(process.env.RESEND_API_KEY)
+  return client
+}
+const resend = {
+  emails: {
+    send: (payload: Parameters<Resend['emails']['send']>[0]) => mailer().emails.send(payload),
+  },
+}
 
-const FROM  = process.env.EMAIL_FROM  || 'Guneku Fondom <onboarding@resend.dev>'
-const ADMIN = process.env.EMAIL_ADMIN || 'info@guneku.org'
+/* EMAIL_FROM is not set in this project, and the Resend onboarding sender is the working
+   fallback. Read on each send rather than at import, so a value present in the environment
+   is used whether or not it was there when the module first loaded. */
+const from  = () => process.env.EMAIL_FROM  || 'Guneku Fondom <onboarding@resend.dev>'
+const admin = () => process.env.EMAIL_ADMIN || 'info@guneku.org'
 
 export async function sendWelcomeEmail(params: {
   toEmail:   string
@@ -21,7 +39,7 @@ export async function sendWelcomeEmail(params: {
   const directoryUrl = 'https://guneku.org/indigenes'
 
   const { error } = await resend.emails.send({
-    from:    FROM,
+    from:    from(),
     to:      params.toEmail,
     subject: `Bongob ${params.name.split(' ')[0]}! Welcome to the Guneku Indigenes Directory`,
     html:    welcomeEmailHtml({
@@ -43,8 +61,8 @@ export async function sendContactEmail(params: {
   message:     string
 }) {
   const { error } = await resend.emails.send({
-    from:    FROM,
-    to:      ADMIN,
+    from:    from(),
+    to:      admin(),
     replyTo: params.senderEmail,
     subject: `[Guneku Contact] ${params.subject} — from ${params.senderName}`,
     html:    contactFormEmailHtml(params),
@@ -64,8 +82,8 @@ export async function sendNewIndigeneAlert(params: {
   profileUrl: string
 }) {
   const { error } = await resend.emails.send({
-    from:    FROM,
-    to:      ADMIN,
+    from:    from(),
+    to:      admin(),
     subject: `New Indigene: ${params.name} joined from ${params.location}`,
     html:    newIndigeneAlertHtml(params),
   })
@@ -81,7 +99,7 @@ export async function sendNewIndigeneAlert(params: {
 
    EMAIL_BCC is server-side only. Never rename it to NEXT_PUBLIC_*, and never log or
    surface its value. */
-const BCC = process.env.EMAIL_BCC?.trim() || undefined
+const bcc = () => process.env.EMAIL_BCC?.trim() || undefined
 
 export type PalaceMessage = {
   name: string
@@ -104,9 +122,9 @@ export async function sendPalaceMessage(p: PalaceMessage) {
   ]
 
   const { error } = await resend.emails.send({
-    from:    FROM,
-    to:      ADMIN,
-    ...(BCC ? { bcc: BCC } : {}),
+    from:    from(),
+    to:      admin(),
+    ...(bcc() ? { bcc: bcc() } : {}),
     ...(p.preferredContact === 'email' && p.email ? { replyTo: p.email } : {}),
     subject: `[Guneku Palace] ${p.topic} — from ${p.name}`,
     html:    enquiryHtml('Message to the Palace', rows, p.message),
@@ -141,9 +159,9 @@ export async function sendSupportInterest(p: SupportInterest) {
   ]
 
   const { error } = await resend.emails.send({
-    from:    FROM,
-    to:      ADMIN,
-    ...(BCC ? { bcc: BCC } : {}),
+    from:    from(),
+    to:      admin(),
+    ...(bcc() ? { bcc: bcc() } : {}),
     ...(p.email ? { replyTo: p.email } : {}),
     subject: `[Guneku Support] ${p.supportType} — ${p.project} — from ${p.name}`,
     html:    enquiryHtml('Offer of support', rows, p.message || '—'),
@@ -220,9 +238,9 @@ export async function sendDirectorySubmission(p: DirectorySubmission) {
   ]
 
   const { error } = await resend.emails.send({
-    from:    FROM,
-    to:      ADMIN,
-    ...(BCC ? { bcc: BCC } : {}),
+    from:    from(),
+    to:      admin(),
+    ...(bcc() ? { bcc: bcc() } : {}),
     ...(p.senderEmail ? { replyTo: p.senderEmail } : {}),
     subject: `[Guneku Directory] ${INTENT_SUBJECT[p.intent]} — ${p.personName}`,
     html:    enquiryHtml(INTENT_HEADING[p.intent], rows, p.message || '—'),
@@ -232,4 +250,67 @@ export async function sendDirectorySubmission(p: DirectorySubmission) {
     console.error('Directory submission failed:', error)
     throw new Error('Failed to send your request. Please try again.')
   }
+}
+
+/* ── The Palace's reply to a villager ───────────────────────────────────────
+   The only mail in this module that goes *outward* to a member of the public rather than
+   inward to the Fondom's own address, and it is treated differently for that reason.
+
+   No BCC. Every other message here may be silently copied to EMAIL_BCC because it is the
+   Fondom's own inbound correspondence. This one is a private letter to the person who wrote
+   in, and copying it elsewhere would hand somebody's family matter to a third address.
+
+   No internal note. The parameters carry the reply and the sender's own words back for
+   context, and there is deliberately nowhere to put `internal_note` or `handled_by` — the
+   same guarantee `SenderView` makes in the database layer, made again at the last exit.
+
+   No signature. A reply goes out as the Guneku Palace. Nothing here signs it with a name,
+   and above all nothing signs it as the Fon. */
+
+export type PalaceResponse = {
+  toEmail: string
+  senderName: string
+  subject: string
+  originalMessage: string
+  response: string
+  sentOn: string
+}
+
+export async function sendPalaceResponse(p: PalaceResponse) {
+  const { error } = await resend.emails.send({
+    from:    from(),
+    to:      p.toEmail,
+    replyTo: admin(),
+    subject: `Re: ${p.subject} — a reply from the Guneku Palace`,
+    html:    palaceResponseHtml(p),
+  })
+  /* Thrown, not swallowed. The caller has already persisted the reply, so a failure here
+     loses nothing — but the Palace must be told the letter did not go out, or it will
+     believe a villager has been answered when they have not. */
+  if (error) {
+    console.error('Palace response email failed:', error)
+    throw new Error('The reply was saved but could not be emailed.')
+  }
+}
+
+function palaceResponseHtml(p: PalaceResponse) {
+  return `<!doctype html><html><body style="margin:0;background:#f9f7f3;font-family:system-ui,-apple-system,sans-serif;color:#231f1c">
+<div style="max-width:640px;margin:0 auto;padding:28px 24px">
+  <p style="margin:0 0 4px;font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#0d3b24">Guneku Fondom</p>
+  <h1 style="margin:0 0 6px;font-size:20px;line-height:1.25">A reply from the Guneku Palace</h1>
+  <p style="margin:0 0 20px;font-size:14px;color:#6f6965">${esc(p.sentOn)}</p>
+
+  <p style="margin:0 0 14px;font-size:15px;line-height:1.6">Dear ${esc(p.senderName)},</p>
+  <div style="white-space:pre-wrap;font-size:15px;line-height:1.65;padding:16px;background:#fff;border:1px solid #e6e2da">${esc(p.response)}</div>
+  <p style="margin:18px 0 0;font-size:15px;line-height:1.6">${esc(RESPONSE_ATTRIBUTION)}</p>
+
+  <p style="margin:28px 0 6px;font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#0d3b24">What you wrote</p>
+  <p style="margin:0 0 8px;font-size:13px;color:#6f6965">${esc(p.subject)}</p>
+  <div style="white-space:pre-wrap;font-size:13px;line-height:1.6;padding:14px;background:#f2efe9;border:1px solid #e6e2da;color:#4a4541">${esc(p.originalMessage)}</div>
+
+  <p style="margin:22px 0 0;font-size:12px;color:#6f6965">
+    This reply is private correspondence between you and the Guneku Palace. It is not published
+    anywhere on guneku.org. To write again, use the message form at guneku.org.
+  </p>
+</div></body></html>`
 }

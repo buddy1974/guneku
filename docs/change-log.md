@@ -1205,3 +1205,61 @@ only a person moves anything to `approved`.
 R-024 closed with it. Clerk, Neon, Anthropic and YouTube have each now been exercised in
 Production. Resend is the deliberate exception - exercising it means sending real mail to a
 real person.
+
+## 2026-09-06 - The Palace's reply now reaches the person who wrote
+
+A Palace admin could write a reply, and the villager never received it. The reply was
+persisted, the status became "responded", and that was the whole of it - My Guneku shows a
+letter only to the signed-in account that wrote it, and most people write to the Palace signed
+out. For most senders, "answered" meant nothing arrived.
+
+`respond` now delivers. Persistence first, then the send, which is the safety property rather
+than an implementation detail: a provider outage costs the delivery and never the reply. The
+Palace is told which of three things happened - sent, no address on the letter, or the send
+failed - and all three say the reply is recorded, because it is.
+
+The outbound mail carries no BCC and no internal note. Every other message in the mailer may be
+copied to `EMAIL_BCC` because it is the Fondom's own inbound post; this one is a private letter
+to a villager, and copying it elsewhere would hand somebody's family matter to a third address.
+`sendPalaceResponse` has nowhere to put `internal_note` or `handled_by`.
+
+The recipient is validated again at the point of sending, and the rule is the same one the
+public form uses - an address good enough to write in with is good enough to be answered at.
+Anything carrying a comma, a semicolon, angle brackets, quotes, a backslash or whitespace is
+refused outright rather than split and cleaned up: a mail API takes a comma-separated string,
+and a second address smuggled into that field would receive a stranger's private letter to
+their Fon. CR and LF cannot survive that check, and are refused explicitly as well.
+
+Duplicate sends are prevented by the state machine, not a flag. `respond` is allowed only from
+`received` or `in-review`, and the UPDATE carries that condition, so a second press finds the
+letter already answered and gets a 409 before any mail is composed.
+
+**The UI says which kind of answer it is going to be, before the button is pressed.** "This
+will be emailed to …" when the letter carries an address; "No email address was given" with the
+callback number when it does not; and the button label changes with it. A button saying *send*
+when it only records is the defect this fixed, and one saying *send* when there is nobody to
+send to would be the same defect wearing the other face.
+
+**The mailer no longer throws on import.** `new Resend(undefined)` throws, so building the
+client at module scope meant that merely importing the mailer failed wherever the key is absent
+- which is every test touching a route that sends mail. The client, the sender address and the
+BCC are now read on first use. A mailer should fail when it is asked to send.
+
+One existing test asserted that neither correspondence route imports the mailer. That was the
+right guarantee while `respond` only persisted and the wrong one once it delivers, so it was
+replaced with six narrower ones: the submission route still sends nothing, the action route has
+exactly one call site, it composes no text, it puts no internal note in an email, no other
+action reaches it, and persistence precedes the send.
+
+### R-039 closed as engineering; it remains an owner policy
+
+The position, stated so nobody has to infer it: **correspondence is retained until an explicit
+Guneku retention policy is approved, and no automatic deletion is performed.** That is now
+enforced by three tests - nothing may delete from `palace_correspondence`, no scheduled job of
+any kind may appear, and the sender-facing text may never promise a period. "Deleted after 90
+days" would be a retention policy invented by a sentence.
+
+Senders are told what is true, on the form and in My Guneku: the message is kept privately so
+it can be answered, it is never published, it is not shared outside the Fondom, and nothing is
+deleted automatically. No timetable, because there is not one. Choosing a period is governance,
+and acting on one would be destructive; both are the owner's.

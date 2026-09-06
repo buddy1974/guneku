@@ -298,7 +298,9 @@ export default async function MyGunekuPage({
             <h2 id="mg-post" className="inst-h3">Palace correspondence</h2>
             <p className="inst-body mt-2 !text-[0.88rem]">
               Messages you have sent to the Palace from this account, and any reply. These are
-              private — they are never published on Guneku.org.
+              private — they are never published on Guneku.org, and they are not shared outside
+              the Fondom. The Palace keeps them so they can be answered and referred back to;
+              nothing is deleted automatically.
             </p>
             {correspondenceUnavailable ? (
               <p className="inst-meta mt-3">

@@ -642,7 +642,28 @@ API routes answer 401, and the public site is unaffected.
 
 ## R-039 - Palace correspondence retention is an unresolved owner policy
 
-**Open. No automatic deletion exists, and none was built.**
+**OWNER POLICY, not an engineering gap. Closed as engineering on 2026-09-06.**
+
+The policy as it stands, stated so that nobody has to infer it:
+
+> Correspondence is retained until an explicit Guneku retention policy is approved. No
+> automatic deletion is currently performed.
+
+That sentence is now enforced rather than merely written. Three tests fail if any code
+deletes from `palace_correspondence`, if any scheduled job of any kind appears, or if the
+sender-facing text ever promises a period - "deleted after 90 days" would be a retention
+policy invented by a sentence, and inventing one is exactly what this risk exists to prevent.
+
+The sender is told what is true, on the public form and in My Guneku: the Palace keeps the
+message privately so it can be answered and referred back to, it is never published on
+guneku.org, it is not shared outside the Fondom, and nothing is deleted automatically. No
+timetable is offered, because there is not one.
+
+**What remains is a decision, not a defect.** Choosing a retention period is governance, and
+acting on one would be a destructive operation needing explicit owner authorisation. Until
+then the position above is the position, and it is safe to leave indefinitely.
+
+**No automatic deletion exists, and none was built.**
 
 Before 2026-09-05, a message to the Palace lived in an inbox and nowhere else. It now also
 persists in `palace_correspondence`, indefinitely, including the sender's name, their email or

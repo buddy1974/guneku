@@ -1461,3 +1461,42 @@ The upload timestamp is stored and rendered nowhere. `publishedAt` is when a fil
 YouTube; it is not when an occasion happened. Thirty-six discovered uploads share a single
 upload day, which is exactly how a date like that becomes a false claim about a village's
 history. The `Film` type has nowhere to put it, deliberately.
+
+## ADR-076 - The Palace's reply is delivered, and Resend's first live send is Marcel's
+
+Until 2026-09-06 a Palace admin could write a reply, the reply was persisted, the status
+became `responded` - and the villager never received it. My Guneku shows a letter only to the
+signed-in account that wrote it, and most people write to the Palace signed out. For most
+senders "answered" meant that nothing arrived.
+
+Delivery is now part of `respond`, and the order is the safety property: `recordResponse`
+commits first, then the email is attempted. A provider outage costs the delivery and never the
+reply, and the Palace is told which of the three things happened - sent, no address on the
+letter, or the send failed. All three say the reply is recorded, because it is.
+
+Two things are deliberately absent from the outbound mail. **No BCC**: every other message in
+the mailer may be copied to `EMAIL_BCC` because it is the Fondom's own inbound correspondence,
+but this one is a private letter to a villager and copying it elsewhere would hand somebody's
+family matter to a third address. **No internal note**: the parameters carry the reply and the
+sender's own words, and there is nowhere to put `internal_note` or `handled_by` - the same
+guarantee `SenderView` makes in the database layer, made again at the last exit.
+
+Duplicate sends are prevented by the state machine rather than a flag. `respond` is allowed
+only from `received` or `in-review`, and the UPDATE carries that condition, so a second press
+finds the letter already `responded` and gets a 409 before any mail is composed.
+
+**Resend is the one credential not exercised, and that is the decision rather than an
+omission.** Exercising a mail key means sending real mail to a real person. There is no test
+address that proves anything useful - a send to a mailbox nobody reads demonstrates that the
+key works and not that a villager receives a legible letter - and a send to a real villager to
+satisfy a checklist is using somebody's inbox as a test fixture. So the path is built,
+unit-tested at every boundary that does not require the provider, and its first live send is
+item 24 of Marcel's acceptance test: he writes to the Palace as himself, answers himself, and
+reads what arrives.
+
+The UI says which kind of answer it is about to be, before the button is pressed rather than
+after: "This will be emailed to …" when the letter carries an address, and "No email address
+was given" with the callback number when it does not. The button label changes with it. A
+button that says *send* when it only records is the defect this slice existed to fix, and
+replacing it with one that says *send* when there is nobody to send to would be the same
+defect wearing the other face.

@@ -199,6 +199,16 @@ export function PalaceMessageModal({ open, onClose, prefillMessage, prefillTopic
                 </span>
               </label>
 
+              {/* Said because it is true, and said without a timetable because there is not
+                  one. The Palace has not set a retention policy, so promising a period here
+                  would invent one — and a village record that quietly deletes a villager's
+                  letter on a schedule nobody decided is worse than one that keeps it. */}
+              <p className="text-[0.8rem] leading-[1.55] text-[var(--ink-400)]">
+                Your message is kept privately by the Palace so that it can be answered and
+                referred back to. It is never published on Guneku.org, and it is not shared
+                outside the Fondom.
+              </p>
+
               {error && (
                 <p role="alert" className="text-[0.86rem] text-[var(--oxblood)]">{error}</p>
               )}

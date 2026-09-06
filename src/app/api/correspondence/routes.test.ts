@@ -264,17 +264,66 @@ describe('privacy', () => {
 })
 
 describe('nothing here sends automatically', () => {
-  it('neither route imports the mailer', async () => {
+  /* This suite used to assert that neither route imported the mailer at all. That was the
+     right guarantee while `respond` only persisted, and the wrong one once it delivers: a
+     reply the sender never receives is not an answer. The guarantee is now narrower and says
+     what actually matters — one action sends, and it sends because a person wrote the reply
+     and pressed the button. */
+  const strip = (s: string) =>
+    s.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/\/\/[^\n]*/g, ' ')
+  const read = async (rel: string) => {
     const { readFileSync } = await import('node:fs')
-    const strip = (s: string) =>
-      s.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/\/\/[^\n]*/g, ' ')
+    return strip(readFileSync(new URL(rel, import.meta.url), 'utf-8'))
+  }
 
-    const list = strip(readFileSync(new URL('./route.ts', import.meta.url), 'utf-8'))
-    const one  = strip(readFileSync(new URL('./[id]/route.ts', import.meta.url), 'utf-8'))
+  it('the submission route sends no mail of its own', async () => {
+    const list = await read('./route.ts')
+    expect(list).not.toContain('@/lib/email')
+    expect(list).not.toContain('resend')
+  })
 
-    for (const src of [list, one]) {
-      expect(src).not.toContain('@/lib/email')
-      expect(src).not.toContain('resend')
-    }
+  it('the action route sends one thing, and it is the Palace reply', async () => {
+    const one = await read('./[id]/route.ts')
+    expect(one).toContain("import { sendPalaceResponse } from '@/lib/email/send'")
+    /* Exactly one call site. */
+    expect(one.match(/sendPalaceResponse\(/g) || []).toHaveLength(1)
+    expect(one).toContain("if (action === 'respond')")
+    /* Nothing else in this file may reach the mailer. */
+    expect(one).not.toMatch(
+      /send(Welcome|Contact|PalaceMessage|SupportInterest|DirectorySubmission|NewIndigeneAlert)/)
+  })
+
+  it('composes no reply text and templates nothing', async () => {
+    const one = await read('./[id]/route.ts')
+    /* What is sent is what was saved, and what was saved is what a person typed. There is no
+       default, no template and no suggestion anywhere in the path. */
+    expect(one).toContain('response:        updated.response')
+    expect(one).not.toMatch(/Dear |Thank you for|On behalf of/)
+  })
+
+  it('never puts an internal note or a handler into an email', async () => {
+    const one = await read('./[id]/route.ts')
+    const call = one.slice(one.indexOf('sendPalaceResponse('), one.indexOf('delivery = ') + 200)
+    expect(call).not.toContain('internal_note')
+    expect(call).not.toContain('handled_by')
+  })
+
+  it('sends nothing for begin-review, note or close', async () => {
+    const one = await read('./[id]/route.ts')
+    const before = one.slice(0, one.indexOf('sendPalaceResponse('))
+    /* The nearest preceding action guard is `respond`; no other action reaches the send. */
+    expect(before.lastIndexOf("action === 'respond'"))
+      .toBeGreaterThan(before.lastIndexOf("action === 'close'"))
+    expect(before.lastIndexOf("action === 'respond'"))
+      .toBeGreaterThan(before.lastIndexOf("action === 'begin-review'"))
+  })
+
+  it('persists before it sends, so a provider outage cannot cost the reply', async () => {
+    const one = await read('./[id]/route.ts')
+    expect(one.indexOf('const updated = await apply('))
+      .toBeLessThan(one.indexOf('sendPalaceResponse('))
+    const tail = one.slice(one.indexOf('sendPalaceResponse('))
+    expect(tail).toContain('catch')
+    expect(tail).toContain("delivery = 'failed'")
   })
 })

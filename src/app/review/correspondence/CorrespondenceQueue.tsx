@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import {
   CATEGORY_LABEL, STATUS_LABEL, RESPONSE_ATTRIBUTION, MAX,
   type CorrespondenceCategory, type CorrespondenceStatus,
+  replyRecipient, DELIVERY_NOTE, type ReplyDelivery,
 } from '@/lib/correspondence'
 
 /* The Palace's working surface for correspondence.
@@ -57,6 +58,7 @@ export function CorrespondenceQueue({ letters }: { letters: PalaceLetter[] }) {
   const [error, setError]   = useState<string | null>(null)
   const [reply, setReply]   = useState<Record<string, string>>({})
   const [note, setNote]     = useState<Record<string, string>>({})
+  const [sent, setSent]     = useState<Record<string, ReplyDelivery>>({})
 
   async function act(id: string, action: string, payload: Record<string, unknown> = {}) {
     setError(null)
@@ -78,6 +80,10 @@ export function CorrespondenceQueue({ letters }: { letters: PalaceLetter[] }) {
         setError(data.error || 'That could not be saved. Please try again.')
         return
       }
+      /* What actually happened to the email, in the Palace's own words. Reported here and
+         never to the sender: a letter with no address is answered just as truly as one that
+         was posted, and the sender's view says only that the Palace has answered. */
+      if (data.delivery) setSent(p => ({ ...p, [id]: data.delivery as ReplyDelivery }))
       router.refresh()
     } catch {
       setError('That could not be saved. Please check your connection.')
@@ -187,6 +193,17 @@ export function CorrespondenceQueue({ letters }: { letters: PalaceLetter[] }) {
                   automatically, and no reply is signed with a name — if you wish to identify
                   yourself, say so in your own words.
                 </p>
+                {/* Said before the button is pressed, not after. Whether the sender can be
+                    emailed is a fact about their letter, and the Palace should know which
+                    kind of answer this is going to be while writing it. */}
+                <p className="inst-meta mt-1">
+                  {replyRecipient(l.sender.email)
+                    ? `This will be emailed to ${l.sender.email}.`
+                    : l.sender.phone
+                      ? `No email address was given. The reply will be recorded here, and `
+                        + `${l.sender.phone} is the callback number.`
+                      : 'No email address was given, so the reply will be recorded here only.'}
+                </p>
                 <textarea
                   rows={5} maxLength={MAX.response} className={FIELD}
                   placeholder="Write the Palace's reply."
@@ -200,7 +217,11 @@ export function CorrespondenceQueue({ letters }: { letters: PalaceLetter[] }) {
                     onClick={() => act(l.id, 'respond', { response: reply[l.id] })}
                     className="inst-btn inst-btn-primary disabled:opacity-40"
                   >
-                    {busy === l.id ? 'Saving…' : 'Record this reply'}
+                    {busy === l.id
+                      ? 'Sending…'
+                      : replyRecipient(l.sender.email)
+                        ? 'Send the Palace’s reply'
+                        : 'Record this reply'}
                   </button>
 
                   {l.status === 'received' && (
@@ -221,6 +242,20 @@ export function CorrespondenceQueue({ letters }: { letters: PalaceLetter[] }) {
                     Close
                   </button>
                 </div>
+
+                {/* What happened, said plainly — including when it did not work. A Palace
+                    clerk who believes a villager has been answered when the email bounced is
+                    worse off than one who is told. The reply is saved in every case. */}
+                {sent[l.id] && (
+                  <p
+                    className="inst-meta mt-3"
+                    style={sent[l.id] === 'failed'
+                      ? { color: 'oklch(0.480 0.150 25)' }
+                      : undefined}
+                  >
+                    {DELIVERY_NOTE[sent[l.id]]}
+                  </p>
+                )}
               </div>
             )}
           </article>
