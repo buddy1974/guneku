@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { TurnstileField } from '@/components/forms/TurnstileField'
+import { useTurnstile } from '@/components/forms/useTurnstile'
 import Link from 'next/link'
 import type { Chapter, SubmissionIntent } from '@/lib/community'
 
@@ -23,8 +24,7 @@ export function DirectoryForm({
   intent, cta, chapters, initialChapter, initialPerson, entrySlug, quarters,
 }: Props) {
   const [sending, setSending] = useState(false)
-  /* Empty until the challenge is solved, and cleared again whenever it expires. */
-  const [turnstileToken, setTurnstileToken] = useState('')
+  const human = useTurnstile('community-register')
   const [sent, setSent]       = useState(false)
   const [error, setError]     = useState<string | null>(null)
 
@@ -60,6 +60,10 @@ export function DirectoryForm({
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    /* Refuse before the network. An unsolved check would be refused by the server anyway;
+       telling the visitor now saves them a round trip and saves a rate-limit slot on a
+       request that was always going to fail. Nothing here touches what they typed. */
+    if (!human.ready()) return
     setError(null)
     setSending(true)
     const fd = new FormData(e.currentTarget)
@@ -68,7 +72,7 @@ export function DirectoryForm({
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({
-          turnstileToken,
+          turnstileToken: human.token,
           intent,
           entrySlug,
           personName:   fd.get('personName'),
@@ -83,7 +87,14 @@ export function DirectoryForm({
         }),
       })
       const data = await res.json()
-      if (!res.ok) throw new Error(data.error || 'Failed to send your request.')
+      if (!res.ok) {
+        /* The check specifically. A token is single-use, so the one just spent is gone:
+           `rejected` clears it and hands the visitor a fresh challenge instead of a button
+           that keeps failing for a reason they cannot see. */
+        if (human.rejected(data)) return
+        throw new Error(data.error || 'Failed to send your request.')
+      }
+      human.clear()
       setSent(true)
     } catch (err) {
       setError((err as Error).message)
@@ -204,7 +215,7 @@ export function DirectoryForm({
       <div>
         {/* Renders nothing until the Cloudflare keys exist, so the form is unchanged
             until the owner arms it. */}
-        <TurnstileField action="community-register" onToken={setTurnstileToken} />
+        <TurnstileField {...human.field} />
 
         <button type="submit" disabled={sending} className="inst-btn inst-btn-primary disabled:opacity-60">
           {sending ? 'Sending…' : cta}

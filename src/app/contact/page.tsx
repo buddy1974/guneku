@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { TurnstileField } from '@/components/forms/TurnstileField'
+import { useTurnstile } from '@/components/forms/useTurnstile'
 import Image from 'next/image'
 import Link  from 'next/link'
 import { Mail, MapPin, Phone, Send } from 'lucide-react'
@@ -17,8 +18,8 @@ import { PALACE_PHONE, PALACE_EMAIL } from '@/lib/palace-contact'
 export default function ContactPage() {
   const [sent, setSent]       = useState(false)
   const [sending, setSending] = useState(false)
-  /* Empty until the challenge is solved, and cleared again whenever it expires. */
-  const [turnstileToken, setTurnstileToken] = useState('')
+  const human = useTurnstile('contact')
+  const [error, setError] = useState<string | null>(null)
   const [form, setForm] = useState({ name:'', email:'', subject:'', message:'', website:'' })
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement>) {
@@ -28,18 +29,32 @@ export default function ContactPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!form.name || !form.email || !form.subject || !form.message) return
+    /* Refuse before the network. An unsolved check would be refused by the server anyway;
+       telling the visitor now saves them a round trip and saves a rate-limit slot on a
+       request that was always going to fail. Nothing here touches what they typed. */
+    if (!human.ready()) return
+    setError(null)
     setSending(true)
     try {
       const res  = await fetch('/api/contact', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ ...form, turnstileToken }),
+        body:    JSON.stringify({ ...form, turnstileToken: human.token }),
       })
       const data = await res.json()
-      if (!res.ok) throw new Error(data.error)
+      if (!res.ok) {
+        /* The check specifically. A token is single-use, so the one just spent is gone:
+           `rejected` clears it and hands the visitor a fresh challenge rather than a button
+           that keeps failing for a reason they cannot see. */
+        if (human.rejected(data)) return
+        throw new Error(data.error || 'That could not be sent. Please try again.')
+      }
+      human.clear()
       setSent(true)
-    } catch {
-      alert('Failed to send. Please try again.')
+    } catch (err) {
+      /* Shown in a role="alert" beside the button, not thrown into an alert() box that
+         discarded the server's own words and told a visitor nothing they could act on. */
+      setError((err as Error).message || 'That could not be sent. Please try again.')
     } finally {
       setSending(false)
     }
@@ -170,7 +185,17 @@ export default function ContactPage() {
                 </div>
                 {/* Renders nothing until the Cloudflare keys exist, so the form is unchanged
                     until the owner arms it. */}
-                <TurnstileField action="contact" onToken={setTurnstileToken} />
+                <TurnstileField {...human.field} />
+
+                {/* Everything else that can go wrong, said where the visitor is looking and
+                    announced when it appears. This page previously ended in
+                    `alert('Failed to send')`, which discarded the server's own words and
+                    told nobody anything they could act on. */}
+                {error && (
+                  <p role="alert" className="mt-3 text-[0.86rem] leading-[1.5] text-[var(--oxblood)]">
+                    {error}
+                  </p>
+                )}
 
                 <button type="submit" disabled={sending}
                         className="btn-royal inline-flex items-center gap-2 w-full justify-center"

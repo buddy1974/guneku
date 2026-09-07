@@ -1,22 +1,28 @@
 'use client'
 import { useEffect, useId, useRef, useState } from 'react'
+import type { TurnstileAction } from './useTurnstile'
 
-/* The Turnstile widget, on the four forms a stranger can post to without an account.
+/* The Turnstile widget and, just as importantly, what it says when the check has not passed.
  *
  * Renders nothing at all until the site key exists, so the forms look and behave exactly as
  * they do today until the owner arms it. That is deliberate: a widget with no secret behind
  * it verifies nothing and only looks like protection.
  *
- * ── Accessibility ────────────────────────────────────────────────────────────────────────
+ * ── Two regions, two urgencies ───────────────────────────────────────────────────────────
  *
- * Turnstile is normally invisible — most visitors solve nothing and see a small badge. When
- * it does need interaction it renders Cloudflare's own accessible challenge. What this
- * component adds is the part Cloudflare cannot: a labelled region, a status message that is
- * announced when the check fails or expires, and a form that says *why* it will not send
- * rather than a button that quietly does nothing.
+ * The ordinary state is a `role="status"` / polite region: most visitors solve nothing, see
+ * a small badge, and should not be interrupted to be told so.
  *
- * The token is held in component state and posted with the form. It is never logged, never
- * put in a URL, and never stored. */
+ * A failure is a `role="alert"` — assertive, announced the moment it appears, and visible
+ * beside the widget the visitor has to act on. Until 2026-09-07 there was only the polite
+ * region, and it kept saying "A quick check that you are a person" while the submission was
+ * being refused. Politeness is the wrong register for "this is why nothing happened".
+ *
+ * Both are bound to the widget with `aria-describedby`, so a screen-reader user who moves to
+ * the challenge hears its state rather than having to find the message.
+ *
+ * The token is held by the caller's hook, posted with the form, never logged, never put in a
+ * URL and never stored. */
 
 declare global {
   interface Window {
@@ -50,21 +56,26 @@ function loadTurnstile(): Promise<void> {
   return scriptPromise
 }
 
-export type TurnstileAction =
-  | 'palace-message' | 'contact' | 'support-interest' | 'community-register'
+export type { TurnstileAction }
 
 export function TurnstileField({
   action,
   onToken,
+  error,
+  resetKey = 0,
 }: {
   action: TurnstileAction
   /** Called with the token, or with '' whenever it expires, fails, or is reset. */
   onToken: (token: string) => void
+  /** The sentence to announce, from `useTurnstile`. Null when there is nothing wrong. */
+  error?: string | null
+  /** Bumped by the caller to hand the visitor a fresh challenge after a rejection. */
+  resetKey?: number
 }) {
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
   const holder = useRef<HTMLDivElement>(null)
   const widget = useRef<string | null>(null)
-  const [status, setStatus] = useState<'idle' | 'ready' | 'error'>('idle')
+  const [loadFailed, setLoadFailed] = useState(false)
   const id = useId()
 
   useEffect(() => {
@@ -78,36 +89,55 @@ export function TurnstileField({
           sitekey: siteKey,
           action,
           theme: 'light',
-          callback: (token: string) => { setStatus('ready'); onToken(token) },
-          /* Expiry and failure both clear the token, so a stale one is never posted. */
-          'expired-callback': () => { setStatus('idle'); onToken('') },
-          'error-callback': () => { setStatus('error'); onToken('') },
+          callback: (token: string) => onToken(token),
+          /* Expiry and failure both clear the token, so a stale one is never posted. The
+             caller turns an empty token into the same one sentence. */
+          'expired-callback': () => onToken(''),
+          'error-callback': () => onToken(''),
         })
       })
-      .catch(() => { if (!cancelled) setStatus('error') })
+      .catch(() => { if (!cancelled) setLoadFailed(true) })
 
     return () => {
       cancelled = true
       if (widget.current && window.turnstile) {
         try { window.turnstile.remove(widget.current) } catch { /* already gone */ }
       }
+      widget.current = null
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- render once; onToken is stable enough and re-rendering the widget would reset the challenge under the visitor
-  }, [siteKey, action])
+    /* `resetKey` is in the list on purpose: bumping it tears the widget down and renders a
+       fresh challenge, which is what a spent token needs. `onToken` is stable (useCallback
+       in the hook) and re-running for it would reset the challenge under the visitor. */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [siteKey, action, resetKey])
 
-  /* Not configured: no widget, no placeholder, no gap. */
+  /* Not configured: no widget, no placeholder, no gap, and no message about a check the
+     visitor is not being asked to pass. */
   if (!siteKey) return null
+
+  const failed = loadFailed
+    ? 'The check could not load. Please reload the page and try again — nothing has been sent.'
+    : error
 
   return (
     <div>
-      <div ref={holder} aria-describedby={`${id}-status`} />
-      <p id={`${id}-status`} role="status" aria-live="polite" className="inst-meta mt-2">
-        {status === 'error'
-          ? 'The check could not load. Please reload the page and try again — your message has not been sent.'
-          : status === 'ready'
-            ? 'Check complete.'
-            : 'A quick check that you are a person. Most visitors see nothing to do.'}
-      </p>
+      <div ref={holder} aria-describedby={`${id}-state`} />
+
+      {/* Assertive, because this is why nothing happened. */}
+      {failed ? (
+        <p
+          id={`${id}-state`}
+          role="alert"
+          className="mt-2 text-[0.86rem] leading-[1.5] text-[var(--oxblood)]"
+        >
+          {failed}
+        </p>
+      ) : (
+        <p id={`${id}-state`} role="status" aria-live="polite" className="inst-meta mt-2">
+          A quick check that you are a person. Most visitors see nothing to do.
+        </p>
+      )}
     </div>
   )
 }
+

@@ -63,8 +63,11 @@ export type TurnstileResult =
 
 /** What a visitor is told. Never the provider's error codes — those describe our
  *  configuration, not their problem, and one of them names the site key. */
-export const TURNSTILE_MESSAGE =
-  'Please complete the check below so the Palace knows you are a person, then send again.'
+export const TURNSTILE_MESSAGE = 'Please complete the human check before sending.'
+
+/** Sent alongside the message so the browser can recognise *this* refusal among other 400s
+ *  and re-arm the challenge, rather than matching on the sentence. */
+export const TURNSTILE_CODE = 'human-check'
 
 /**
  * Verify a token with Cloudflare. Fails closed on anything unexpected **once Turnstile is

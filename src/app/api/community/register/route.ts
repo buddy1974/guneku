@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { rateLimited, senderKey, RATE_LIMIT_MESSAGE } from '@/lib/rate-limit'
-import { verifyTurnstile, TURNSTILE_MESSAGE } from '@/lib/turnstile'
+import { verifyTurnstile, TURNSTILE_MESSAGE, TURNSTILE_CODE } from '@/lib/turnstile'
 import { sendDirectorySubmission } from '@/lib/email/send'
 import { getChapter, getFoundingName, isIntent, placeLabel } from '@/lib/community'
 
@@ -35,7 +35,9 @@ export async function POST(req: NextRequest) {
       senderKey(req),
     )
     if (!check.ok) {
-      return NextResponse.json({ error: TURNSTILE_MESSAGE }, { status: 400 })
+      return NextResponse.json(
+        { error: TURNSTILE_MESSAGE, code: TURNSTILE_CODE }, { status: 400 },
+      )
     }
 
     /* Bots fill in every field they are given. A human never sees this one. */

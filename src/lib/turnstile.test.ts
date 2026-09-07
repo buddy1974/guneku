@@ -193,7 +193,7 @@ describe('inert until armed, closed once armed', () => {
 
   it('tells the visitor something useful and nothing about our configuration', async () => {
     const { TURNSTILE_MESSAGE } = await import('./turnstile')
-    expect(TURNSTILE_MESSAGE).toMatch(/complete the check/i)
+    expect(TURNSTILE_MESSAGE).toMatch(/complete the human check/i)
     expect(TURNSTILE_MESSAGE).not.toMatch(/secret|sitekey|site key|error code|cloudflare/i)
   })
 })
