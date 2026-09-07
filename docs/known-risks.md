@@ -1009,6 +1009,16 @@ reaches.
 **Owner action: Clerk Dashboard → the Guneku production instance → Configure → Settings →
 Application name → "Guneku Fondom".**
 
+**One occurrence survives in the page, and it is the one that matters most.** Verified in
+Production after the fix: the visible title now reads "Sign in to Guneku Fondom", and a sweep
+of the whole document found exactly one remaining instance of the old string — the **`alt` text
+of the Clerk logo image**, which Clerk derives from the instance name and which no
+`localization` key covers.
+
+It is invisible on screen and read aloud by a screen reader. So the users who cannot see the
+corrected heading are precisely the ones still told they are signing in to "My Application".
+That moves the dashboard rename from cosmetic to worth doing.
+
 Noticed while confirming this: `display_config.home_url` is `https://guneku.org`, without the
 `www` the site canonicalises on, so Clerk's "back to site" link takes a redirect. Same
 dashboard, same visit, if it is worth the click.
