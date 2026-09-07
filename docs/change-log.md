@@ -1684,3 +1684,38 @@ unchanged.
 configuration, Clerk, Resend, Fondom terminology, correspondence, Ask Guneku, the authenticated
 member flows, the archive, SEO, and the database. Turnstile remains absent from every
 authenticated operation and from Ask Guneku.
+
+## 2026-09-07 - The MaxPromo audit route was retired, and Guneku kept pointing at it
+
+`https://maxpromo.digital/automation-audit` had been typed into three components and one data
+record. MaxPromo retired the route; every one of those links went on pointing at it.
+
+All four now go straight to `https://www.maxpromo.digital/en/contact` — **directly**, not by
+keeping the old URL and hoping MaxPromo redirects it, and not by adding a redirect inside
+Guneku. A village website carrying a hop for somebody else's retired marketing route is debt
+nobody would remember to remove.
+
+The wording moved with the link, because it named the thing that no longer exists: *"Free
+Audit →"* and *"Get a Free Audit →"* on `/contact` became "Contact MaxPromo →" and "Get in
+touch →"; *"Free Automation Audit →"* on the showcase became "Contact MaxPromo →", and the
+sentence above it no longer offers to book one. The data field was called `freeAudit`; it is
+`contactUrl`, because a field named after a retired route is the next person's trap.
+
+**The generator too.** `migration/scripts/build-marcel-profile.js` produces that record, so
+fixing the record and leaving the script would have restored the retired route the next time
+anybody ran it.
+
+**The credits were left alone.** The footer, the "built by" lines and the author metadata point
+at the company home page and still do — 417 of them across the site. They are attribution, not
+a call to action, and converting them would expand MaxPromo's presence on a village record
+rather than repair it. Both destinations are now constants in `src/lib/maxpromo.ts`, so the
+next retirement is one edit instead of four.
+
+**One thing deliberately not touched.** "Audit" is an ordinary word here: the MEFU-MECUDA joint
+meeting resolved on *a full financial audit* of MECUDA's accounts, and that is Guneku's own
+minutes. The regression test is scoped to files that mention MaxPromo for exactly that reason —
+a sweep that edited a village record to satisfy a link check would be the wrong repair.
+
+Eleven tests: no retired destination in code, data or the generator; three calls to action
+through the constant; no Guneku redirect; no audit wording on any MaxPromo surface; the MECUDA
+minutes intact; and every external MaxPromo link still `rel="noopener noreferrer"`.

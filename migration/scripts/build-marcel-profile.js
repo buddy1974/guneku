@@ -40,7 +40,7 @@ const profile = {
     "47 automations deployed",
     "99.9% uptime"
   ],
-  "freeAudit": "https://maxpromo.digital/automation-audit",
+  "contactUrl": "https://www.maxpromo.digital/en/contact",
   "gunekunSiteRole": "Architect, Developer, and Project Lead — Guneku Fondom Digital Platform 2026"
 };
 

@@ -1,17 +1,45 @@
 import { getAllNotables, getNotable } from '@/lib/content'
+import { MAXPROMO_CONTACT } from '@/lib/maxpromo'
+
+/* The fields this page reads from a notable's record. The record carries more than these;
+   naming the ones used is what lets a renamed `contactUrl` or `portrait` fail here rather
+   than render as a dead link or a missing picture. */
+type NotableView = {
+  name: string
+  slug: string
+  bio?: string | null
+  metaDescription?: string | null
+  portrait?: string | null
+  photo?: string | null
+  portraitAlt?: string | null
+  contactUrl?: string | null
+  id?: string
+  title?: string | null
+  origin?: string | null
+  location?: string | null
+  institution?: string | null
+  companyWebsite?: string | null
+  company_description?: string | null
+  initiative?: {
+    name?: string; description?: string; href?: string
+    type?: string; prize?: string; venue?: string
+  } | null
+  services?: string[]
+  stack?: string[]
+  results?: string[]
+}
 import { pageMetadata, excerptFrom } from '@/lib/seo'
 import type { Metadata } from 'next'
 import { PageHero } from '@/components/layout/PageHero'
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
-import Link from 'next/link'
 
 export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
   const { slug } = await params
-  const n = getNotable(slug) as Record<string, any> | null
+  const n = getNotable(slug) as NotableView | null
   if (!n) return {}
   const role = [n.title, n.institution, n.location].filter(x => typeof x === 'string' && x).join(' · ')
   return pageMetadata({
@@ -25,7 +53,7 @@ export async function generateMetadata(
 }
 
 export async function generateStaticParams() {
-  return getAllNotables().map((n: any) => ({ slug: n.slug }))
+  return getAllNotables().map((n: { slug: string }) => ({ slug: n.slug }))
 }
 
 export default async function NotablePage({
@@ -35,7 +63,7 @@ export default async function NotablePage({
   const notable = getNotable(slug)
   if (!notable) notFound()
 
-  const n = notable as any
+  const n = notable as NotableView
   const isMarcel = n.id === 'marcel-tabit-akwe'
 
   return (
@@ -135,10 +163,10 @@ export default async function NotablePage({
         <div style={{ display:'flex', flexDirection:'column', gap:'1.5rem' }}>
           {/* A portrait renders when the record carries one. This was previously an
               unconditional placeholder, so supplying a photograph changed nothing. */}
-          {(n as any).portrait || (n as any).photo ? (
+          {n.portrait || n.photo ? (
             <div style={{ position:'relative', aspectRatio:'3/4', overflow:'hidden' }}>
-              <Image src={((n as any).portrait || (n as any).photo) as string}
-                     alt={((n as any).portraitAlt as string) || n.name}
+              <Image src={(n.portrait || n.photo) as string}
+                     alt={n.portraitAlt || n.name}
                      fill unoptimized sizes="(max-width: 768px) 100vw, 320px"
                      style={{ objectFit:'cover' }} />
             </div>
@@ -155,7 +183,7 @@ export default async function NotablePage({
               { label:'Title',    value: n.title },
               ...(n.companyWebsite ? [{ label:'Website', value: n.companyWebsite }] : []),
               ...(n.institution   ? [{ label:'Institution', value: n.institution }] : []),
-            ].map((f: { label: string; value: string }) => (
+            ].map((f: { label: string; value?: string | null }) => (
               <div key={f.label} style={{
                 display:'flex', justifyContent:'space-between',
                 padding:'0.5rem 0',
@@ -317,9 +345,11 @@ export default async function NotablePage({
               <p style={{ color:'oklch(0.560 0.016 150)', fontFamily:'Inter, sans-serif',
                           fontSize:'0.95rem', lineHeight:1.7, margin:'0 0 2rem' }}>
                 This Guneku platform is a live demonstration of what MaxPromo Digital builds.
-                Book a free automation audit and find out what&apos;s possible for your community or business.
+                Get in touch to find out what&apos;s possible for your community or business.
               </p>
-              <a href={n.freeAudit || 'https://maxpromo.digital/automation-audit'}
+              {/* The record's own contact link, falling back to the canonical one. The
+                  field used to be `freeAudit` and pointed at a route MaxPromo has retired. */}
+              <a href={n.contactUrl || MAXPROMO_CONTACT}
                  target="_blank" rel="noopener noreferrer"
                  style={{
                    backgroundColor: 'oklch(0.320 0.060 158)', color: 'oklch(0.965 0.012 85)',
@@ -329,7 +359,7 @@ export default async function NotablePage({
                    textDecoration: 'none', display: 'inline-block',
                    marginRight: '1rem',
                  }}>
-                Free Automation Audit →
+                Contact MaxPromo →
               </a>
               <a href="https://maxpromo.digital"
                  target="_blank" rel="noopener noreferrer"

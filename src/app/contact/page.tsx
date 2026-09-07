@@ -14,6 +14,7 @@ import { Mail, MapPin, Phone, Send } from 'lucide-react'
    2026-09-07, invisible on the page and trivially harvestable. The field is gone; so is the
    import that would have carried the next one. */
 import { PALACE_PHONE, PALACE_EMAIL } from '@/lib/palace-contact'
+import { MAXPROMO_CONTACT } from '@/lib/maxpromo'
 
 export default function ContactPage() {
   const [sent, setSent]       = useState(false)
@@ -122,9 +123,11 @@ export default function ContactPage() {
                 MaxPromo Digital
               </a>
               <p className="text-xs text-muted-foreground mt-1">Essen, Germany · AI automation & web</p>
-              <a href="https://maxpromo.digital/automation-audit" target="_blank" rel="noopener noreferrer"
+              {/* The audit route was retired. Linked straight at the live contact page —
+                  not at the old URL in the hope that MaxPromo redirects it. */}
+              <a href={MAXPROMO_CONTACT} target="_blank" rel="noopener noreferrer"
                  className="mt-3 inline-flex text-xs text-primary tracking-widest hover:underline">
-                Free Audit →
+                Contact MaxPromo →
               </a>
             </div>
           </div>
@@ -222,8 +225,8 @@ export default function ContactPage() {
             Contact us to bring your community to the world.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
-            <a href="https://maxpromo.digital/automation-audit" target="_blank" rel="noopener noreferrer" className="btn-royal inline-flex">
-              Get a Free Audit →
+            <a href={MAXPROMO_CONTACT} target="_blank" rel="noopener noreferrer" className="btn-royal inline-flex">
+              Get in touch →
             </a>
             <a href="https://maxpromo.digital" target="_blank" rel="noopener noreferrer" className="btn-royal-outline inline-flex">
               maxpromo.digital
