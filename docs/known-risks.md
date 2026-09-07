@@ -1080,7 +1080,7 @@ fills in and a person cannot; `/api/contact` did not.
 Added, mirroring the other three, and answered with `success` rather than an error so a bot
 learns nothing about why nothing arrived.
 
-## R-052 - Cloudflare Turnstile is built and inert until the owner arms it - OWNER ACTION
+## R-052 - Cloudflare Turnstile is built and inert until the owner arms it - ARMED IN PRODUCTION 2026-09-07
 
 Turnstile is implemented on the four writes a stranger can make with no account: the message to
 the Palace, the contact form, an offer of support, and a name put forward for the directory.
@@ -1117,6 +1117,18 @@ solve a puzzle to ask their own Fondom a question.
 
 Nine tests hold the boundary, including that no authenticated route acquires a challenge and
 that the secret is read by exactly one `server-only` module.
+
+**Armed by the owner on 2026-09-07.** Both keys are set in Vercel **Production**, and the
+check is live: verified on `www.guneku.org/contact`, where the managed widget mounts, produces
+a token without the visitor doing anything on a normal load, and the server refuses a request
+that arrives without one.
+
+**One scope is still missing: Preview.** `NEXT_PUBLIC_TURNSTILE_SITE_KEY` and
+`TURNSTILE_SECRET_KEY` exist in Production only, so preview deployments run with the check
+unarmed. That is inert rather than broken — the honeypot and rate limit still apply, exactly as
+Production behaved before today — but it means a preview cannot exercise the path Production
+now takes. Adding both to Preview is a two-minute change in the same dashboard, and is the
+only outstanding part of this item.
 
 ## R-053 - The human check failed silently on /contact - CLOSED 2026-09-07
 
