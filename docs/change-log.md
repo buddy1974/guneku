@@ -1540,3 +1540,89 @@ counts the record now, and the invariant sweeps every page and component.
 **Not touched, deliberately:** Palace correspondence (F3 was an extension crash, not evidence
 of a defect), the Royal Family route (absence is not a defect), Ask Guneku (6/6 pass), and the
 black search band and emoji markers (an observation, not authority for a redesign).
+
+## 2026-09-07 - Guneku is a Fondom; a personal address stops being shipped; Turnstile, built and parked
+
+### Kingdom → Fondom
+
+The owner settled the terminology. Guneku is a **Fondom**, led by a Fon, and "Kingdom" was the
+migrated site's word rather than the institution's own.
+
+Forty files. The route, the navigation, the footer, headings, body copy, page titles, meta
+descriptions, OpenGraph, the search index, the AI source boundary, Ask Guneku's answers, the
+quarter link registry, the map's place links, the film records, the site tagline, the 404 page
+— and the internal identifiers underneath them, so `KingdomArticle` and `section: "kingdom"`
+do not sit under a page that says Fondom. `src/data/kingdom/` and `src/app/kingdom/` moved with
+`git mv`.
+
+**`/kingdom` is now `/fondom`**, and every old path still works: `/kingdom`, its eight
+articles, and both `/index.php` forms redirect permanently, so a search engine moves its
+ranking across rather than starting again. No catch-all sweeps unrelated retired routes into
+`/fondom` to dodge a 404 — a page that no longer exists should say so.
+
+**What did not change, and why it matters more than what did.** "Kingdom" stays exactly where
+it is somebody else's word:
+
+- the tributes from North West Fons — *"a smooth transition in the kingdom of Guneku"* and
+  *"admit you into his kingdom of everlasting glory"* — one about Guneku, one about heaven,
+  both written at a funeral by mourners, neither ours to edit;
+- the **United Kingdom**, which is a country;
+- YouTube's own title for an upload, which is provider metadata;
+- `kingdom-hills.jpg`, an asset filename where renaming would change a URL and no terminology.
+
+And one deliberate exception in the other direction: **"kingdom" is kept as a search keyword**,
+matched and never displayed. The section was called that for years and somebody who knew the
+old site will type it. A village record that cannot find itself under the word its own readers
+use has chosen purity over being useful.
+
+Twelve tests hold the line, including a sweep that fails if "Kingdom" reappears anywhere the
+site speaks in its own voice.
+
+### A personal address was being shipped to browsers (R-049)
+
+`site-config.json` carried `fonEmail` — the Fon's personal address on a free mail provider.
+Nothing rendered it. It was still downloadable by anyone who opened `/contact`.
+
+`/contact` is a client component and imported the whole record for one telephone number. **A
+JSON import in a client module ships every field of the file** — bundlers do not eliminate
+properties a component never reads. Verified in Production before the fix: the address sat in
+a public chunk, invisible on the page and one search away for a harvester.
+
+The field is gone from both records, the type is gone from `content.ts`, and the page imports
+two named constants instead of a record — so the next field somebody adds to the site config
+cannot ride along. A test asserts the constants equal what the record says, and another fails
+if any client module imports the site config again.
+
+### The institutional address, published once instead of two hundred times (R-050)
+
+`info@guneku.org` was a `mailto:` in the footer, on 206 of 207 pages. It is now on the page
+whose job is contact, **readable, selectable and clickable** — no character-shuffling, no
+base64, no image, each of which costs a screen-reader user real access and costs a scraper
+about a second.
+
+`mailto:` links **206 → 1**. The address in text **206 → 3**, each deliberate. The footer keeps
+the Palace telephone, which is what most of this audience uses, and links to `/contact`.
+
+Said plainly, because it should be: **this is spam reduction, not a security boundary.** A
+published address is public. The form remains the primary route precisely because it needs no
+address published at all.
+
+### Turnstile, built and parked (R-052)
+
+Implemented on the four writes a stranger can make with no account, with server-side
+verification, hostname and action validation, and fail-closed behaviour — including when
+Cloudflare cannot be reached, because a control that stops checking whenever a third party has
+a bad afternoon is not a control.
+
+**Inert until the owner creates the keys**, which only the Cloudflare account owner can do.
+Both keys are required before anything arms: a public key with no secret renders a widget that
+nothing verifies, which only looks like protection. Until then the forms behave exactly as they
+did.
+
+Deliberately absent from every authenticated route, from the indigenes registration journey
+(which happens after a Clerk sign-in, so identity is the control), and from Ask Guneku (whose
+3-per-10-minutes limiter is the control, and where there is no abuse evidence to justify making
+a villager solve a puzzle to ask their own Fondom a question).
+
+Found while writing its tests: **`/api/contact` was the one anonymous form with no honeypot**
+(R-051). The other three had one. Added, mirroring them.

@@ -9,15 +9,15 @@
    "value": "~15,000",
    "label": "People",
    "note": "The Fondom's current figure.",
-   "source": "src/data/kingdom/about-guneku.json"
+   "source": "src/data/fondom/about-guneku.json"
   },
   {
    "id": "quarters",
    "value": "27",
    "label": "Quarters",
-   "note": "The full list is published on the Kingdom page.",
+   "note": "The full list is published on the Fondom page.",
    "source": "src/lib/quarters.ts",
-   "href": "/kingdom"
+   "href": "/fondom"
   },
   {
    "id": "chapters",
@@ -56,7 +56,7 @@
   {
    "fact": "Number of Meta communities",
    "reason": "The village record says 31; the community blog sources say 29. Unresolved, so no number is displayed.",
-   "source": "src/data/kingdom/about-guneku.json editor's note"
+   "source": "src/data/fondom/about-guneku.json editor's note"
   },
   {
    "fact": "Village land area",
@@ -73,17 +73,17 @@
   {
    "fact": "Number of churches",
    "reason": "The same record says both \"there are as many churches in Guneku as there are quarters\" (which would be 27) and enumerates a survey totalling 19. Two figures in one paragraph; no single number is publishable. The enumerated survey is kept in the Things to Know card, where the wording can carry its context.",
-   "source": "src/data/kingdom/about-guneku.json"
+   "source": "src/data/fondom/about-guneku.json"
   },
   {
    "fact": "Number of schools",
    "reason": "The record's own editor note flags this as unresolved: one passage says \"4 primary schools, one secondary school\", another says two government secondary institutions and seven government primary schools. The Palace has not confirmed. A separate record also documents Presbyterian Primary School Guneku, which is not a government school, so no total is safe either.",
-   "source": "src/data/kingdom/about-guneku.json editor note"
+   "source": "src/data/fondom/about-guneku.json editor note"
   },
   {
    "fact": "Number of medical facilities",
    "reason": "The village record states three. The archive separately documents four named facilities — the Munam, Mbengeghang and Fringyeng Integrated Health Centres plus the Open Door Medical Clinic. Unreconciled, so no number is displayed.",
-   "source": "src/data/kingdom/about-guneku.json vs src/data/institutions/guneku-health-estate.json"
+   "source": "src/data/fondom/about-guneku.json vs src/data/institutions/guneku-health-estate.json"
   }
  ],
  "thingsToKnow": [
@@ -91,42 +91,42 @@
    "id": "market",
    "title": "Ngon, the market day",
    "body": "Guneku keeps an eight-day market cycle. The eighth day, Ngon, is the market day held in Guneku. The other days fall in the surrounding quarters — Tan in Ngamunghe, Mbon in Mbengeghang, Eje'e in Ngamunam, and Kwe in Fringyeng. Ngong, one of the twenty-seven quarters, has a market of its own: a 2016 GUDECA proposal suggested using the existing Ngong market as a daily market to ease the sale of farm produce.",
-   "source": "src/data/kingdom/about-guneku.json; src/data/updates/proposals-from-his-royal-highness-fon-fomuki-during-the-gudeca-agm-at-mutegene-2016.json",
-   "href": "/kingdom/about-guneku"
+   "source": "src/data/fondom/about-guneku.json; src/data/updates/proposals-from-his-royal-highness-fon-fomuki-during-the-gudeca-agm-at-mutegene-2016.json",
+   "href": "/fondom/about-guneku"
   },
   {
    "id": "river",
    "title": "The Batmuki, and the stream at Ngong",
    "body": "The River Batmuki runs through the village from upper Guneku and joins the Mezam. Young people from Guneku and neighbouring villages take sand from it. Separately, the stream at Ngong quarter overflowed in June 2026 and a village rescue team saved a child — an incident that raised a harder question about the village water supply.",
-   "source": "src/data/kingdom/about-guneku.json; src/data/updates/ngong-river-rescue-and-water-supply-2026.json",
+   "source": "src/data/fondom/about-guneku.json; src/data/updates/ngong-river-rescue-and-water-supply-2026.json",
    "href": "/updates/ngong-river-rescue-and-water-supply-2026"
   },
   {
    "id": "land",
    "title": "What the land grows",
    "body": "The cash crops include oil palm, raffia palm, coffee, maize and groundnuts, with plantains and cocoyam coming mainly from upper Guneku. Guneku has the highest grazing surface area in Meta; cattle are reared by the Mbororo, and by many natives too.",
-   "source": "src/data/kingdom/about-guneku.json",
-   "href": "/kingdom/about-guneku"
+   "source": "src/data/fondom/about-guneku.json",
+   "href": "/fondom/about-guneku"
   },
   {
    "id": "people",
    "title": "Two peoples, one village",
    "body": "The Bantu and the Mbororo live together in Guneku. The people speak MENEMO — a Meta dialect that some call “Meta”, which the village record notes is not correct. Musongong is the dance of the Guneku people.",
-   "source": "src/data/kingdom/about-guneku.json",
-   "href": "/kingdom/about-guneku"
+   "source": "src/data/fondom/about-guneku.json",
+   "href": "/fondom/about-guneku"
   },
   {
    "id": "crafts",
    "title": "Made by hand",
    "body": "Wood carving, bag and basket weaving and other domestic crafts are practised in Guneku.",
-   "source": "src/data/kingdom/about-guneku.json",
-   "href": "/kingdom/about-guneku"
+   "source": "src/data/fondom/about-guneku.json",
+   "href": "/fondom/about-guneku"
   },
   {
    "id": "palace",
    "title": "A palace surrounded by churches",
    "body": "The Presbyterian church stands right in the Palace, and the village record observes that the Palace of Guneku is surrounded by churches. The record puts it two ways in the same passage — that there are as many churches as there are quarters, and that a survey counted nineteen houses of worship: twelve Presbyterian, two Catholic, and one each of Full Gospel, Good Shepherd, Apostolic, Mount Zion and Kingship Ministry. Both are recorded here rather than one being chosen.",
-   "source": "src/data/kingdom/about-guneku.json",
+   "source": "src/data/fondom/about-guneku.json",
    "href": "/palace"
   }
  ],
@@ -135,7 +135,7 @@
    "id": "sites",
    "title": "Caves, mountains and waterfalls",
    "body": "The village record lists the Palace, caves, mountains and waterfalls among Guneku's touristic sites, alongside hills and valleys, rivers and springs. Because of the undulating landscape there are many caves, which in years past served as hiding places during the colonial wars.",
-   "source": "src/data/kingdom/about-guneku.json"
+   "source": "src/data/fondom/about-guneku.json"
   },
   {
    "id": "festivals",
@@ -148,19 +148,19 @@
    "id": "getting-there",
    "title": "Getting to Guneku",
    "body": "Guneku lies in Mbengwi Subdivision, Momo Division, in the North West Region of Cameroon, and is reachable by road from Mbengwi and from Bamenda. It shares boundaries with Mbemi, Nyen, Tugi, Zang-Tembeng, Oshie, Mundum and Bafut.",
-   "source": "src/data/kingdom/about-guneku.json"
+   "source": "src/data/fondom/about-guneku.json"
   },
   {
    "id": "climate",
    "title": "Two seasons",
    "body": "The climate is tropical with two main seasons, the rainy and the dry.",
-   "source": "src/data/kingdom/about-guneku.json"
+   "source": "src/data/fondom/about-guneku.json"
   }
  ],
  "discoverOmitted": [
   {
    "fact": "Named waterfalls, named caves, walking routes, scenic viewpoints, visitor facilities, opening hours",
-   "reason": "No source in this repository names an individual site or describes a visitor route. /kingdom/touristic-sites is an empty stub in every source, including the retired Joomla article. Nothing was written to fill it."
+   "reason": "No source in this repository names an individual site or describes a visitor route. /fondom/touristic-sites is an empty stub in every source, including the retired Joomla article. Nothing was written to fill it."
   }
  ],
  "location": {
@@ -174,14 +174,14 @@
   {
    "q": "Where is Guneku?",
    "a": "Guneku is in Mbengwi Subdivision, Momo Division, in the North West Region of Cameroon. It is reachable by road from Mbengwi and from Bamenda, and shares boundaries with Mbemi, Nyen, Tugi, Zang-Tembeng, Oshie, Mundum and Bafut.",
-   "href": "/kingdom/about-guneku",
+   "href": "/fondom/about-guneku",
    "hrefLabel": "About Guneku"
   },
   {
    "q": "How many quarters does Guneku have?",
-   "a": "Twenty-seven. They are listed in full on the Kingdom page.",
-   "href": "/kingdom",
-   "hrefLabel": "The Kingdom"
+   "a": "Twenty-seven. They are listed in full on the Fondom page.",
+   "href": "/fondom",
+   "hrefLabel": "The Fondom"
   },
   {
    "q": "Who is the reigning Fon?",

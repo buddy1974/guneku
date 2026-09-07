@@ -3,7 +3,7 @@ import facts from '@/data/home/village-facts.json'
 
 /* What the record actually supports about visiting and seeing Guneku. No individual
    waterfall, cave or walking route is named, because no source in this repository names
-   one — /kingdom/touristic-sites is empty in every source, including the retired Joomla
+   one — /fondom/touristic-sites is empty in every source, including the retired Joomla
    article. The gap is stated rather than filled with tourism prose. */
 export function DiscoverGuneku() {
   const cards = facts.discover
@@ -16,7 +16,7 @@ export function DiscoverGuneku() {
             <p className="inst-eyebrow">Discover</p>
             <h2 id="discover-heading" className="inst-h2 mt-1.5">Discover Guneku</h2>
           </div>
-          <Link href="/kingdom" className="inst-btn inst-btn-quiet">The Kingdom</Link>
+          <Link href="/fondom" className="inst-btn inst-btn-quiet">The Fondom</Link>
         </div>
 
         <div className="mt-6 grid items-start gap-x-10 gap-y-6 sm:grid-cols-2">

@@ -7,7 +7,7 @@ export const metadata = {
   ...pageMetadata({
     title: 'Search Guneku',
     description:
-      'Search the whole Guneku record at once — people and office holders, quarters and places, the Palace and the Kingdom, projects, institutions, news, photographs and films.',
+      'Search the whole Guneku record at once — people and office holders, quarters and places, the Palace and the Fondom, projects, institutions, news, photographs and films.',
     path: '/search',
   }),
   /* The page is indexable; a particular result set is not. */
@@ -30,7 +30,7 @@ export default async function SearchPage({
       <PageHero
         label="SEARCH"
         title="Search Guneku"
-        subtitle={`One search across the whole record — ${indexSize()} entries: people and office holders, quarters and places, the Palace and the Kingdom, projects, institutions, news, photographs and films.`}
+        subtitle={`One search across the whole record — ${indexSize()} entries: people and office holders, quarters and places, the Palace and the Fondom, projects, institutions, news, photographs and films.`}
       />
 
       <section className="inst-wrap inst-sec">
@@ -63,7 +63,7 @@ export default async function SearchPage({
               ))}
             </ul>
             <p className="inst-meta mt-5 max-w-2xl">
-              The Business Directory, the empty Kingdom stubs and any record without a
+              The Business Directory, the empty Fondom stubs and any record without a
               publication date are deliberately not searchable. Nothing held reaches this
               index.
             </p>

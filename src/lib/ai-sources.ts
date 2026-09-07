@@ -1,6 +1,6 @@
 import 'server-only'
 import {
-  publicUpdates, publicPalaceArticles, publicKingdomArticles, publicInstitutions,
+  publicUpdates, publicPalaceArticles, publicFondomArticles, publicInstitutions,
 } from './visibility'
 import { getAllNotables, getFonProfile } from './content'
 import { allProjects } from './projects'
@@ -38,7 +38,7 @@ import { GUNEKU_QUARTERS_27 } from './quarters'
  *
  * That is structural: `src/lib/db/*` is not imported and there is no database call anywhere
  * in the assistant's path. A test asserts it over the module's own source. The held Business
- * Directory and the six noindexed Kingdom stubs are excluded by `visibility.ts`, which is
+ * Directory and the six noindexed Fondom stubs are excluded by `visibility.ts`, which is
  * the same predicate the sitemap and the search index use — so the assistant can never see
  * something the sitemap would not list.
  *
@@ -49,7 +49,7 @@ import { GUNEKU_QUARTERS_27 } from './quarters'
  * email or address is, and none is carried in any source below. */
 
 export type SourceType =
-  | 'palace' | 'kingdom' | 'update' | 'institution' | 'person'
+  | 'palace' | 'fondom' | 'update' | 'institution' | 'person'
   | 'project' | 'quarter' | 'chapter' | 'contact'
 
 /** One piece of evidence the assistant may use, and may cite. */
@@ -105,12 +105,12 @@ function editorialSources(): Source[] {
     })
   }
 
-  for (const a of publicKingdomArticles()) {
+  for (const a of publicFondomArticles()) {
     const text = strip(a.body)
     if (text.length < 60) continue
     out.push({
-      id: `kingdom:${a.slug}`, type: 'kingdom', title: a.title,
-      url: `/kingdom/${a.slug}`, text: clip(text),
+      id: `fondom:${a.slug}`, type: 'fondom', title: a.title,
+      url: `/fondom/${a.slug}`, text: clip(text),
     })
   }
 
@@ -232,7 +232,7 @@ function canonicalSources(): Source[] {
     },
     {
       id: 'quarter:all', type: 'quarter', title: 'The twenty-seven quarters',
-      url: '/kingdom',
+      url: '/fondom',
       text: `Guneku has twenty-seven quarters: ${GUNEKU_QUARTERS_27.join(', ')}.`,
       keys: ['quarters', 'how many quarters', '27', 'twenty-seven'],
     },

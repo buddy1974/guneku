@@ -2,7 +2,7 @@ import 'server-only'
 
 import { getAllNotables, getImageGallery } from '@/lib/content'
 import {
-  publicUpdates, publicPalaceArticles, publicKingdomArticles,
+  publicUpdates, publicPalaceArticles, publicFondomArticles,
   publicInstitutions, institutionHref,
 } from '@/lib/visibility'
 import { allQuarters } from '@/lib/quarter-pages'
@@ -168,14 +168,18 @@ function build(): SearchEntry[] {
       weight: 3,
     })
   }
-  for (const a of publicKingdomArticles()) {
+  for (const a of publicFondomArticles()) {
     push({
-      id: `kingdom:${a.slug}`,
+      id: `fondom:${a.slug}`,
       title: a.title,
       group: 'Palace & history',
-      href: `/kingdom/${a.slug}`,
+      href: `/fondom/${a.slug}`,
       excerpt: clip(strip(a.body)),
-      keywords: ['kingdom', 'village', 'history'],
+      /* "kingdom" stays as a search keyword, and only as a keyword. The section was
+         called that for years and somebody who knew the old site will type it; a
+         village record that cannot find itself under the word its own readers use has
+         chosen purity over being useful. Keywords are matched, never displayed. */
+      keywords: ['fondom', 'kingdom', 'village', 'history'],
       weight: 3,
     })
   }

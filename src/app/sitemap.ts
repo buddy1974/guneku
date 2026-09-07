@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next'
 import { recordedQuarters } from '@/lib/quarter-pages'
 import { getAllNotables, getImageGallery } from '@/lib/content'
 import {
-  publicUpdates, publicPalaceArticles, publicKingdomArticles, sitemapInstitutions,
+  publicUpdates, publicPalaceArticles, publicFondomArticles, sitemapInstitutions,
 } from '@/lib/visibility'
 import { SITE_URL } from '@/lib/seo'
 
@@ -23,12 +23,12 @@ const at = (path: string, opts: Partial<Entry> = {}): Entry => ({
    shared predicate exists to remove.
 
    Held, private and transactional routes remain absent: /sign-in, /sign-up, /my-guneku,
-   /indigenes/profile, /indigenes/onboarding, the held Business Directory, the empty Kingdom
+   /indigenes/profile, /indigenes/onboarding, the held Business Directory, the empty Fondom
    stubs, and any institution whose content lives on another page. */
 export default function sitemap(): MetadataRoute.Sitemap {
   const statics: Entry[] = [
     at('/', { priority: 1.0, changeFrequency: 'weekly' }),
-    at('/kingdom', { priority: 0.9 }),
+    at('/fondom', { priority: 0.9 }),
     at('/palace', { priority: 0.9 }),
     at('/palace/fon-walters-profile', { priority: 0.8 }),
     at('/gudeca', { priority: 0.8 }),
@@ -65,8 +65,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     at(`/palace/${a.slug}`, { changeFrequency: 'yearly', priority: 0.7 }))
 
   /* Unsupported stubs are excluded until they carry content. */
-  const kingdom = publicKingdomArticles()
-    .map(a => at(`/kingdom/${a.slug}`, { changeFrequency: 'yearly', priority: 0.7 }))
+  const fondom = publicFondomArticles()
+    .map(a => at(`/fondom/${a.slug}`, { changeFrequency: 'yearly', priority: 0.7 }))
 
   const notables = getAllNotables().map(n =>
     at(`/sons-and-daughters/${n.slug}`, { changeFrequency: 'yearly' }))
@@ -87,6 +87,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const albums = (getImageGallery()?.albums || []).map(a =>
     at(`/gallery/images/${a.id}`, { changeFrequency: 'yearly', priority: 0.5 }))
 
-  return [...statics, ...updates, ...palace, ...kingdom, ...notables, ...institutions,
+  return [...statics, ...updates, ...palace, ...fondom, ...notables, ...institutions,
           ...quarters, ...albums]
 }

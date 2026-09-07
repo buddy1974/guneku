@@ -6,15 +6,15 @@ import path from 'path'
    is swept to the homepage. Retired routes with no modern equivalent (/shop, the legal
    pages) are deliberately absent — they are reported instead of invented. */
 const LEGACY_ROUTES: Array<[string, string]> = [
-  // The Kingdom — formerly /about/*
-  ['/about', '/kingdom'],
-  ['/about/about-guneku', '/kingdom/about-guneku'],
-  ['/about/religion', '/kingdom/religion'],
-  ['/about/touristic-sites', '/kingdom/touristic-sites'],
-  ['/about/the-guneku-cultural-heritage', '/kingdom/the-guneku-cultural-heritage'],
-  ['/about/history', '/kingdom/history'],
-  ['/about/map-of-guneku', '/kingdom/map-of-guneku'],
-  ['/about/gudeca-construction', '/kingdom/gudeca-construction'],
+  // The Fondom — formerly /about/*
+  ['/about', '/fondom'],
+  ['/about/about-guneku', '/fondom/about-guneku'],
+  ['/about/religion', '/fondom/religion'],
+  ['/about/touristic-sites', '/fondom/touristic-sites'],
+  ['/about/the-guneku-cultural-heritage', '/fondom/the-guneku-cultural-heritage'],
+  ['/about/history', '/fondom/history'],
+  ['/about/map-of-guneku', '/fondom/map-of-guneku'],
+  ['/about/gudeca-construction', '/fondom/gudeca-construction'],
 
   // The Palace — formerly /guneku-palace/*
   ['/guneku-palace', '/palace'],
@@ -35,8 +35,8 @@ const LEGACY_ROUTES: Array<[string, string]> = [
   ['/pages/indigenes', '/indigenes'],
   ['/pages/notables', '/notables'],
   ['/pages/tributes', '/palace/tributes'],
-  ['/pages/exhibitions', '/kingdom/exhibitions'],
-  ['/pages/about-template', '/kingdom/about-guneku'],
+  ['/pages/exhibitions', '/fondom/exhibitions'],
+  ['/pages/about-template', '/fondom/about-guneku'],
   ['/pages/video', '/watch'],
   ['/pages/home-page', '/'],
 
@@ -98,6 +98,25 @@ const nextConfig: NextConfig = {
       },
 
       ...legacy,
+
+      /* ── /kingdom is now /fondom ─────────────────────────────────────────────────────
+       *
+       * The Fondom's own word for itself. "Kingdom" was the migrated site's term and it was
+       * never the institution's: Guneku is a Fondom, led by a Fon, and the two words are not
+       * interchangeable in the North West.
+       *
+       * Every old path keeps working. `/kingdom` and each of its eight articles redirect
+       * permanently, so a search engine moves its ranking across rather than starting again,
+       * and a link somebody wrote down five years ago still opens the right page. The
+       * wildcard covers the articles in one rule; a bare `/kingdom` needs its own, because
+       * `:slug*` does not match an empty segment.
+       *
+       * Note what is NOT here: no catch-all sweeping unrelated retired routes to /fondom to
+       * avoid a 404. A page that no longer exists should say so. */
+      { source: '/kingdom',                 destination: '/fondom',       permanent: true },
+      { source: '/kingdom/:slug*',          destination: '/fondom/:slug*', permanent: true },
+      { source: '/index.php/kingdom',       destination: '/fondom',       permanent: true },
+      { source: '/index.php/kingdom/:slug*', destination: '/fondom/:slug*', permanent: true },
 
       /* The film library moved to /watch. One indexable library, not two competing ones:
          /gallery/videos was linked from the header, the gallery landing page, the sitemap and

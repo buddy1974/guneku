@@ -10,10 +10,10 @@ import { MemberNavLink } from './MemberNavLink'
 import type { NavItem } from '@/lib/content'
 
 /* Information architecture — every href below resolves to a real route with
-   real content. /kingdom/about-guneku, /palace/the-coronation and
+   real content. /fondom/about-guneku, /palace/the-coronation and
    /palace/tributes were recovered from the legacy site on 2026-09-01.
    /palace/notables has no article (it is a placeholder on the legacy site too)
-   and is reached through Our People instead. The kingdom stubs history,
+   and is reached through Our People instead. The Fondom stubs history,
    religion, touristic-sites, the-guneku-cultural-heritage and map-of-guneku
    are empty on the legacy site as well, so they are not promoted here; their
    subject matter is covered inside About Guneku. */
@@ -22,9 +22,9 @@ type Item = { href: string; label: string; exact?: boolean; children?: { href: s
 const NAV: Item[] = [
   { href: '/', label: 'Home', exact: true },
   {
-    href: '/kingdom', label: 'The Kingdom',
+    href: '/fondom', label: 'The Fondom',
     children: [
-      { href: '/kingdom/about-guneku', label: 'About Guneku' },
+      { href: '/fondom/about-guneku', label: 'About Guneku' },
     ],
   },
   {

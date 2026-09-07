@@ -19,7 +19,7 @@ const post = (body: unknown) => new NextRequest('https://www.guneku.org/api/ask'
 
 const ANSWER = {
   answered: true, answer: 'An answer.', mode: 'record',
-  citations: [{ title: 'About Guneku', url: '/kingdom/about-guneku', type: 'kingdom' }],
+  citations: [{ title: 'About Guneku', url: '/fondom/about-guneku', type: 'fondom' }],
   links: [], suggestions: [],
 }
 

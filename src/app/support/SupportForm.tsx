@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { TurnstileField } from '@/components/forms/TurnstileField'
 
 const SUPPORT_TYPES = [
   'Financial support', 'Materials', 'Professional expertise', 'Volunteer support', 'Partnership',
@@ -11,6 +12,8 @@ const FIELD = 'mt-1.5 w-full rounded-[3px] border border-[var(--rule)] bg-[var(-
 
 export function SupportForm({ projects, initialProject }: { projects: string[]; initialProject?: string }) {
   const [sending, setSending] = useState(false)
+  /* Empty until the challenge is solved, and cleared again whenever it expires. */
+  const [turnstileToken, setTurnstileToken] = useState('')
   const [sent, setSent] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -40,6 +43,7 @@ export function SupportForm({ projects, initialProject }: { projects: string[]; 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          turnstileToken,
           name: fd.get('name'),
           organisation: fd.get('organisation'),
           project: fd.get('project'),
@@ -128,6 +132,10 @@ export function SupportForm({ projects, initialProject }: { projects: string[]; 
       {error && <p role="alert" className="text-[0.86rem] text-[var(--oxblood)]">{error}</p>}
 
       <div className="pt-1">
+        {/* Renders nothing until the Cloudflare keys exist, so the form is unchanged
+            until the owner arms it. */}
+        <TurnstileField action="support-interest" onToken={setTurnstileToken} />
+
         <button type="submit" disabled={sending} className="inst-btn inst-btn-primary disabled:opacity-60">
           {sending ? 'Sending…' : 'Send to the Palace'}
         </button>

@@ -16,7 +16,7 @@
       "precision": "place-marker",
       "precisionNote": "A single point standing for the whole village, not its boundary and not its centre as surveyed. It is the coordinate carried in the legacy village record's own map link for Guneku, Cameroon.",
       "source": "src/data/pages/about-template.json — legacy map place link",
-      "publicUrl": "/kingdom/about-guneku",
+      "publicUrl": "/fondom/about-guneku",
       "description": "Guneku lies in Mbengwi Subdivision, Momo Division, in the North West Region of Cameroon, reachable by road from Mbengwi and from Bamenda. It shares boundaries with Mbemi, Nyen, Tugi, Zang-Tembeng, Oshie, Mundum and Bafut."
     },
 
@@ -94,7 +94,7 @@
       "type": "river",
       "coordinate": null,
       "reason": "A river is a line, not a point, and no course or trace is recorded. Drawing one from the description would be inventing geography.",
-      "publicUrl": "/kingdom/about-guneku",
+      "publicUrl": "/fondom/about-guneku",
       "description": "Runs through the village from upper Guneku and joins the Mezam River. Youths of Guneku and neighbouring villages take sand from it."
     },
     {
@@ -172,7 +172,7 @@
     },
     {
       "what": "Caves, waterfalls, mountains, hills and springs",
-      "why": "The village record mentions these in general terms — \"caves, mountains and waterfalls, alongside hills and valleys, rivers and springs\" — but names not one of them, and /kingdom/touristic-sites is an empty stub in every source."
+      "why": "The village record mentions these in general terms — \"caves, mountains and waterfalls, alongside hills and valleys, rivers and springs\" — but names not one of them, and /fondom/touristic-sites is an empty stub in every source."
     }
   ]
 }

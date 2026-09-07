@@ -1,20 +1,22 @@
 import Link               from 'next/link'
 import Image              from 'next/image'
 import { Landmark, Users, Mountain, Sparkles } from 'lucide-react'
-import { getAllKingdomArticles } from '@/lib/content'
+import { getAllFondomArticles } from '@/lib/content'
 import { GUNEKU_QUARTERS_27 } from '@/lib/quarters'
 import { Reveal }             from '@/components/ui/Reveal'
 
 export const metadata = {
-  alternates: { canonical: '/kingdom' },
-  title: 'The Kingdom — Guneku Fondom',
+  alternates: { canonical: '/fondom' },
+  /* Not "The Fondom — Guneku Fondom": the site name is appended by the template, and a
+     title that says the word twice reads like a bug. */
+  title: 'The Fondom of Guneku',
   description: 'Twenty-seven quarters in the hills of Mbengwi, Momo Division, North West Cameroon — the land, the people and the record of Guneku.',
 }
 
 const QUARTERS = GUNEKU_QUARTERS_27
 
-export default function KingdomPage() {
-  const articles = getAllKingdomArticles()
+export default function FondomPage() {
+  const articles = getAllFondomArticles()
 
   return (
     <div className="min-h-screen bg-background">
@@ -26,7 +28,7 @@ export default function KingdomPage() {
         <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col items-center justify-center px-6 text-center">
           <div className="text-[0.70rem] font-bold uppercase tracking-[0.08em]" style={{ color: 'oklch(0.975 0.010 85)' }}>EST. ANCIENT · LIVING TODAY</div>
           <h1 className="mt-3 font-[family-name:var(--font-display)] text-[clamp(2rem,5vw,3.4rem)] font-bold leading-[1.1]" style={{ color: 'oklch(0.975 0.010 85)' }}>
-            The Kingdom
+            The Fondom
           </h1>
           <p className="mt-4 max-w-2xl text-[0.98rem] leading-relaxed" style={{ color: 'oklch(0.975 0.010 85)' }}>
             Twenty-seven quarters in the hills of Mbengwi — one people, one Fondom,
@@ -83,7 +85,7 @@ export default function KingdomPage() {
             <div className="mb-2 text-[0.70rem] font-bold uppercase tracking-[0.08em]" style={{ color: 'oklch(0.975 0.010 85)' }}>MƗCHI ƏBEŊ</div>
             <h3 className="font-[family-name:var(--font-display)] text-[clamp(1.5rem,3vw,2.2rem)] font-bold" style={{ color: 'oklch(0.975 0.010 85)' }}>The Festival of Return</h3>
             <p className="mt-3 text-[0.96rem] leading-relaxed" style={{ color: 'oklch(0.975 0.010 85)' }}>
-              Once a year, the masquerades rise. Drums summon the diaspora home. The kingdom remembers
+              Once a year, the masquerades rise. Drums summon the diaspora home. The Fondom remembers
               itself in dance, in raffia, in the language of the ancestors.
             </p>
             <Link href="/gallery" className="mt-8 inline-flex items-center gap-2 border-b-2 border-primary pb-1 font-cinzel text-sm tracking-widest text-primary hover:gap-3 transition-all">
@@ -93,14 +95,14 @@ export default function KingdomPage() {
         </div>
       </section>
 
-      {/* ── KINGDOM ARTICLES ── */}
+      {/* ── FONDOM ARTICLES ── */}
       {articles.length > 0 && (
         <Reveal>
           <section className="mx-auto max-w-7xl px-6 py-20">
-            <h3 className="font-cinzel text-3xl text-foreground mb-8">ABOUT THE KINGDOM</h3>
+            <h3 className="font-cinzel text-3xl text-foreground mb-8">ABOUT THE FONDOM</h3>
             <div className="grid gap-4 md:grid-cols-3">
-              {articles.map((a: any) => (
-                <Link key={a.id} href={`/kingdom/${a.slug}`} className="card-royal p-6 block no-underline group">
+              {articles.map((a: { id: string; slug: string; title: string; body: string }) => (
+                <Link key={a.id} href={`/fondom/${a.slug}`} className="card-royal p-6 block no-underline group">
                   <div className="h-0.5 w-6 bg-royal mb-4" />
                   <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors">{a.title}</h4>
                   <p className="mt-2 text-muted-foreground text-sm line-clamp-2 leading-relaxed">

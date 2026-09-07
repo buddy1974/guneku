@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { rateLimited, senderKey, RATE_LIMIT_MESSAGE } from '@/lib/rate-limit'
+import { verifyTurnstile, TURNSTILE_MESSAGE } from '@/lib/turnstile'
 import { sendContactEmail } from '@/lib/email/send'
 
 export async function POST(req: NextRequest) {
@@ -9,6 +10,31 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json()
+
+    /* The honeypot the other three anonymous forms already had and this one did not.
+       A field no person can see and no person fills in; a script fills in everything.
+       Answered with success rather than an error, so a bot learns nothing about why
+       nothing arrived. */
+    if (typeof body.website === 'string' && body.website.trim() !== '') {
+      return NextResponse.json({ success: true })
+    }
+
+    /* The challenge, verified server-side. A layer over the honeypot and the rate limit,
+       never instead of them: it stops a cheap script and says nothing about whether the body
+       is well-formed or how often this sender has posted.
+
+       Inert until the owner arms it — with no Cloudflare keys set this returns ok and the
+       form behaves exactly as it did. Once armed it fails closed, including when Cloudflare
+       itself cannot be reached: a control that stops checking whenever a third party has a
+       bad afternoon is not a control. */
+    const check = await verifyTurnstile(
+      (body as { turnstileToken?: unknown })?.turnstileToken,
+      'contact',
+      senderKey(req),
+    )
+    if (!check.ok) {
+      return NextResponse.json({ error: TURNSTILE_MESSAGE }, { status: 400 })
+    }
     const { name, email, subject, message } = body
 
     if (!name || !email || !subject || !message) {

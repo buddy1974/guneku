@@ -8,7 +8,7 @@ interface Props {
  * Every page that uses this puts the article's title in a `PageHero`, which renders the
  * `<h1>`. Some of the migrated bodies carry an `<h1>` of their own — Joomla and WordPress
  * both allowed one inside the content — and the result was two first-level headings on the
- * same page. `/kingdom/exhibitions` had "EXHIBITIONS" in the hero and "The People Receive
+ * same page. `/fondom/exhibitions` had "EXHIBITIONS" in the hero and "The People Receive
  * The Returning Fon" in the body.
  *
  * That is not a styling problem. A screen-reader user navigating by heading level hears two

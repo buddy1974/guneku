@@ -1,6 +1,6 @@
 import {
-  getAllUpdates, getAllPalaceArticles, getAllKingdomArticles, getAllInstitutions,
-  type Update, type PalaceArticle, type KingdomArticle,
+  getAllUpdates, getAllPalaceArticles, getAllFondomArticles, getAllInstitutions,
+  type Update, type PalaceArticle, type FondomArticle,
 } from '@/lib/content'
 
 /* The one place that decides whether a record may be shown to the public.
@@ -26,7 +26,7 @@ import {
  * ── What is excluded, and by what evidence ────────────────────────────────────────────────
  *
  *   publicVisibility: 'hold'   the Business Directory, held pending separate owner approval
- *   noindex: true              the six empty Kingdom stubs — a result leading nowhere is
+ *   noindex: true              the six empty Fondom stubs — a result leading nowhere is
  *                              worse than no result
  *   a dated record with no publishedAt   not published; the content loaders do NOT filter
  *                              these themselves, which is the gap R-026 was about
@@ -39,7 +39,7 @@ import {
  * Two more used to be on that list and are now deleted rather than excluded, on 2026-09-06.
  * `src/data/pages/gudeca-exco.json` held Joomla sample data — four fictitious names that are
  * not Guneku people (R-011) — and `src/data/about/` held nine dead duplicates of records that
- * live in `kingdom/` and `palace/` (R-012). Nothing read either, which is exactly why they
+ * live in `Fondom/` and `palace/` (R-012). Nothing read either, which is exactly why they
  * were dangerous: an unread file with four invented people in it is one careless import away
  * from publishing them. Both remain in git history if anybody ever needs to look.
  *
@@ -102,12 +102,12 @@ export function publicPalaceArticles(): PalaceArticle[] {
   return getAllPalaceArticles().filter(isPublished)
 }
 
-/** Kingdom articles that are not empty stubs. These carry no publication date by design, so
+/** Fondom articles that are not empty stubs. These carry no publication date by design, so
  *  `noindex` is the only signal — and requiring a date here would empty the section. */
-export function publicKingdomArticles(): KingdomArticle[] {
-  /* `noindex` is set in the JSON but is not on the KingdomArticle interface, so the cast is
+export function publicFondomArticles(): FondomArticle[] {
+  /* `noindex` is set in the JSON but is not on the FondomArticle interface, so the cast is
      the honest way to read it rather than widening the published type for one flag. */
-  return getAllKingdomArticles().filter(a => isIndexable(a as unknown as Indexable))
+  return getAllFondomArticles().filter(a => isIndexable(a as unknown as Indexable))
 }
 
 /** Institutions that are not held. Includes the routed ones: they are real institutions
@@ -136,10 +136,10 @@ export function visibilityReport() {
       public: publicPalaceArticles().length,
       excludedUnpublished: getAllPalaceArticles().length - publicPalaceArticles().length,
     },
-    kingdom: {
-      total: getAllKingdomArticles().length,
-      public: publicKingdomArticles().length,
-      excludedNoindex: getAllKingdomArticles().length - publicKingdomArticles().length,
+    fondom: {
+      total: getAllFondomArticles().length,
+      public: publicFondomArticles().length,
+      excludedNoindex: getAllFondomArticles().length - publicFondomArticles().length,
     },
     institutions: {
       total: institutions.length,

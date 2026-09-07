@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { TurnstileField } from '@/components/forms/TurnstileField'
 import Link from 'next/link'
 import type { Chapter, SubmissionIntent } from '@/lib/community'
 
@@ -22,6 +23,8 @@ export function DirectoryForm({
   intent, cta, chapters, initialChapter, initialPerson, entrySlug, quarters,
 }: Props) {
   const [sending, setSending] = useState(false)
+  /* Empty until the challenge is solved, and cleared again whenever it expires. */
+  const [turnstileToken, setTurnstileToken] = useState('')
   const [sent, setSent]       = useState(false)
   const [error, setError]     = useState<string | null>(null)
 
@@ -65,6 +68,7 @@ export function DirectoryForm({
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({
+          turnstileToken,
           intent,
           entrySlug,
           personName:   fd.get('personName'),
@@ -198,6 +202,10 @@ export function DirectoryForm({
       )}
 
       <div>
+        {/* Renders nothing until the Cloudflare keys exist, so the form is unchanged
+            until the owner arms it. */}
+        <TurnstileField action="community-register" onToken={setTurnstileToken} />
+
         <button type="submit" disabled={sending} className="inst-btn inst-btn-primary disabled:opacity-60">
           {sending ? 'Sending…' : cta}
         </button>

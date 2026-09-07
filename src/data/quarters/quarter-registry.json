@@ -81,9 +81,9 @@
           "evidence": "The register records that the Fringyeng health centre \"was built but is not operating\"."
         },
         {
-          "href": "/kingdom/about-guneku",
+          "href": "/fondom/about-guneku",
           "label": "About Guneku",
-          "kind": "kingdom",
+          "kind": "fondom",
           "evidence": "Names \"Kwe\" as the market day falling in Fringyeng, within the eight-day cycle."
         }
       ]
@@ -114,9 +114,9 @@
           "evidence": "The register records the Munam Integrated Health Centre as operational, and that it took an additional GUDECA-funded nurse in 2020."
         },
         {
-          "href": "/kingdom/about-guneku",
+          "href": "/fondom/about-guneku",
           "label": "About Guneku",
-          "kind": "kingdom",
+          "kind": "fondom",
           "evidence": "Names \"Eje'e\" as the market day falling in Ngamunam or Munam."
         }
       ]
@@ -127,9 +127,9 @@
       "note": "The market day that falls in Ngamunghe is called Tan.",
       "links": [
         {
-          "href": "/kingdom/about-guneku",
+          "href": "/fondom/about-guneku",
           "label": "About Guneku",
-          "kind": "kingdom",
+          "kind": "fondom",
           "evidence": "Names \"Tan\" as the market day falling in Ngamunghe, within the eight-day cycle."
         }
       ]
@@ -146,9 +146,9 @@
           "evidence": "The register records that the Mbengeghang health centre \"operates without electricity\"."
         },
         {
-          "href": "/kingdom/about-guneku",
+          "href": "/fondom/about-guneku",
           "label": "About Guneku",
-          "kind": "kingdom",
+          "kind": "fondom",
           "evidence": "Names \"Mbon\" as the market day falling in Mbengeghang."
         }
       ]

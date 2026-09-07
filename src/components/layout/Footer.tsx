@@ -5,7 +5,7 @@ import videoGallery from '@/data/gallery/video-gallery.json'
 const config = getSiteConfig()
 
 const EXPLORE = [
-  { label: 'The Kingdom',  href: '/kingdom'   },
+  { label: 'The Fondom',  href: '/fondom'   },
   { label: 'The Palace',   href: '/palace'    },
   { label: 'Development',  href: '/projects'  },
   { label: 'Education',    href: '/education' },
@@ -39,13 +39,22 @@ export function Footer() {
               Mbengwi, Momo Division<br />
               North West Region, Cameroon
             </address>
+            {/* The telephone stays: it is the Palace number of record, it is what most of
+                this audience actually uses, and a phone number is not harvested the way an
+                address is. The email moved to /contact.
+
+                It was a `mailto:` in this footer, which put it on 206 of the site's 207
+                pages — one address, published two hundred times, which is a harvesting
+                surface rather than transparency. It is still published, still one click
+                away, on the page whose job is contact. Nothing is hidden; it is simply not
+                repeated on every page of a village record. */}
             <p className="mt-4 text-[0.86rem] leading-relaxed text-white/60">
-              <a href={`mailto:${config.contactEmail}`} className="inline-block py-1 text-white/80 no-underline hover:underline">
-                {config.contactEmail}
-              </a><br />
               <a href={`tel:${config.palacePhone?.replace(/\s/g, '')}`} className="inline-block py-1 text-white/80 no-underline hover:underline">
                 {config.palacePhone}
-              </a>
+              </a><br />
+              <Link href="/contact" className="inline-block py-1 text-white/80 no-underline hover:underline">
+                Write to the Palace
+              </Link>
             </p>
           </div>
 

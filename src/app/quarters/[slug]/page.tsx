@@ -36,7 +36,7 @@ const KIND_LABEL: Record<QuarterLink['kind'], string> = {
   institution: 'Institution',
   project:     'Development',
   update:      'Record',
-  kingdom:     'The Kingdom',
+  fondom:      'The Fondom',
   gallery:     'Archive',
 }
 
@@ -192,7 +192,7 @@ export default async function QuarterPage({ params }: { params: Promise<{ slug: 
               <p className="inst-eyebrow">Elsewhere</p>
               <ul className="mt-2.5 list-none space-y-2 p-0">
                 <li><Link href="/quarters" className="inst-link">All twenty-seven quarters →</Link></li>
-                <li><Link href="/kingdom/about-guneku" className="inst-link">About Guneku →</Link></li>
+                <li><Link href="/fondom/about-guneku" className="inst-link">About Guneku →</Link></li>
                 <li><Link href="/people/traditional-council" className="inst-link">The Traditional Council →</Link></li>
                 <li><Link href="/projects" className="inst-link">The development register →</Link></li>
               </ul>

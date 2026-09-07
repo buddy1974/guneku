@@ -1,9 +1,9 @@
 {
  "id": "exhibitions",
- "type": "KingdomArticle",
+ "type": "FondomArticle",
  "title": "Exhibitions",
  "slug": "exhibitions",
- "section": "kingdom",
+ "section": "fondom",
  "order": 99,
  "publishedAt": "2021-08-02T12:25:47.000Z",
  "metaDescription": null,

@@ -11,7 +11,7 @@ import { GUNEKU_QUARTERS_27 } from './quarters'
 export type QuarterLink = {
   href: string
   label: string
-  kind: 'person' | 'people' | 'institution' | 'project' | 'update' | 'kingdom' | 'gallery'
+  kind: 'person' | 'people' | 'institution' | 'project' | 'update' | 'fondom' | 'gallery'
   /** The sentence in the record that justifies the link. Rendered, not hidden: a reader can
    *  see why a record is attached to this quarter. */
   evidence: string

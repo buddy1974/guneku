@@ -10,12 +10,12 @@ export default function NotFound() {
           404
         </div>
         <div className="royal-divider max-w-xs mx-auto my-6" />
-        <div className="section-label mb-4">LOST IN THE KINGDOM</div>
+        <div className="section-label mb-4">LOST IN THE FONDOM</div>
         <h1 className="font-cinzel text-3xl text-foreground mb-4 tracking-wide">
           THIS PATH DOES NOT EXIST
         </h1>
         <p className="font-cormorant text-xl italic text-muted-foreground mb-8">
-          The page you seek has moved, been removed, or never existed in the Kingdom of Guneku.
+          The page you seek has moved, been removed, or never existed in the Fondom of Guneku.
         </p>
         <div className="flex gap-4 justify-center flex-wrap">
           <Link href="/"        className="btn-royal inline-flex">Return Home</Link>

@@ -17,7 +17,7 @@ export default function QuartersPage() {
   return (
     <main className="min-h-screen bg-[var(--paper)]">
       <PageHero
-        label="THE KINGDOM"
+        label="THE FONDOM"
         title="The twenty-seven quarters"
         subtitle={`Guneku is made up of twenty-seven quarters. ${recorded} of them have something recorded in the Fondom’s archive so far; the rest are named here and wait to be filled by the people who know them.`}
       />

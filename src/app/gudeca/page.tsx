@@ -57,7 +57,7 @@ export default function GudecaPage() {
           <h1 className="mt-2 font-[family-name:var(--font-display)] text-[clamp(1.85rem,3.4vw,2.7rem)] font-bold leading-[1.14] text-foreground">GUDECA</h1>
           <p className="mt-1 text-[1.02rem] font-semibold text-muted-foreground">Guneku Development &amp; Cultural Association</p>
           <p className="mx-auto mt-4 max-w-2xl text-[0.94rem] leading-relaxed text-muted-foreground">
-            Where the kingdom invests in itself. Where culture and progress are not enemies.
+            Where the Fondom invests in itself. Where culture and progress are not enemies.
             Where every Guneku son and daughter, no matter the continent, builds something at home.
           </p>
           <div className="mt-8 flex gap-4 justify-center flex-wrap">
@@ -73,10 +73,10 @@ export default function GudecaPage() {
           <h2 id="gudeca-initiatives" className="sr-only">What GUDECA does</h2>
           <div className="grid gap-6 md:grid-cols-3">
             {[
-              { i:GraduationCap, t:'Afor Scholarship',      d:'1,000,000 FCFA awarded annually to the kingdom\'s top scholar.', tag:'EDUCATION', href:'/sons-and-daughters/roland-teboh-forbang' },
-              { i:Building2,     t:'GUNECCUL',              d:'Community credit union with 4 branches across the kingdom.',      tag:'FINANCE',   href:'/guneccul' },
+              { i:GraduationCap, t:'Afor Scholarship',      d:'1,000,000 FCFA awarded annually to the Fondom\'s top scholar.', tag:'EDUCATION', href:'/sons-and-daughters/roland-teboh-forbang' },
+              { i:Building2,     t:'GUNECCUL',              d:'Community credit union with 4 branches across the Fondom.',      tag:'FINANCE',   href:'/guneccul' },
               { i:Sprout,        t:'Agro CIG',              d:'Launched April 2026 with 12.5M FCFA — agriculture for tomorrow.',  tag:'ENTERPRISE',href:'/agro-cig' },
-              { i:HandCoins,     t:'Diaspora Levy',         d:'Sons and daughters across 3 continents fund the kingdom monthly.', tag:'UNITY',     href:null },
+              { i:HandCoins,     t:'Diaspora Levy',         d:'Sons and daughters across 3 continents fund the Fondom monthly.', tag:'UNITY',     href:null },
               { i:HeartHandshake,t:'Health Outposts',       d:'Medical missions led by the Fon himself in remote quarters.',      tag:'HEALTH',    href:null },
               { i:Globe2,        t:'Cultural Festivals',    d:'Mɨchi Əbeŋ revived as the great annual return.',                  tag:'HERITAGE',  href:null },
             ].map((p, i) => (
@@ -141,7 +141,7 @@ export default function GudecaPage() {
         <section className="mx-auto max-w-7xl px-6 py-20">
           <div className="text-center mb-12">
             <div className="section-label mb-4">EIGHT CONSTITUTED CHAPTERS · FIVE COUNTRIES · THREE CONTINENTS</div>
-            <h2 className="font-cinzel text-5xl text-foreground">A Kingdom Without Borders</h2>
+            <h2 className="font-cinzel text-5xl text-foreground">A Fondom Without Borders</h2>
             {/* Constituted chapters are not the same measure as meeting attendance.
                 Bonn 2026 drew members from nine countries, five of which have no
                 chapter of their own. Both numbers are true; they count different things. */}

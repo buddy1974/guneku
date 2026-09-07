@@ -1,9 +1,9 @@
 {
  "id": "gudeca-construction",
- "type": "KingdomArticle",
+ "type": "FondomArticle",
  "title": "GUDECA Construction",
  "slug": "gudeca-construction",
- "section": "kingdom",
+ "section": "fondom",
  "order": 2,
  "publishedAt": "2023-05-18T11:45:27.000Z",
  "metaDescription": null,

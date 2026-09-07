@@ -1,5 +1,5 @@
 /* The 27 quarters of Guneku — settled source of fact.
-   One list, used by the Kingdom page and by the indigenes directory, so the
+   One list, used by the Fondom page and by the indigenes directory, so the
    public quarter filter can never again offer fewer quarters than the Fondom
    publishes. Do not add, rename or reorder without a Palace source. */
 export const GUNEKU_QUARTERS_27 = [

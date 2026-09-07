@@ -33,7 +33,6 @@ export interface SiteConfig {
   contactEmail: string;
   palacePhone: string;
   socialLinks: Record<string, string>;
-  fonEmail: string;
   copyright: { text: string; builtBy: string; builtByUrl: string };
   coordinates: { lat: number; lng: number };
   youtubeChannelId: string;
@@ -65,8 +64,8 @@ export interface ContentArticle {
   featuredImage: string | null;
 }
 
-export interface KingdomArticle extends ContentArticle {
-  type: 'KingdomArticle';
+export interface FondomArticle extends ContentArticle {
+  type: 'FondomArticle';
 }
 
 export interface PalaceArticle extends ContentArticle {
@@ -163,7 +162,6 @@ export interface FonProfile {
   residenceCity: string;
   residenceCountry: string;
   personalWebsite: string;
-  fonEmail: string;
   practiceWebsite: string;
   education: unknown[];
   career: unknown[];
@@ -184,12 +182,12 @@ export function getNavigation(): Navigation {
   return read<Navigation>('navigation.json');
 }
 
-export function getAllKingdomArticles(): KingdomArticle[] {
-  return readDir<KingdomArticle>('kingdom');
+export function getAllFondomArticles(): FondomArticle[] {
+  return readDir<FondomArticle>('fondom');
 }
 
-export function getKingdomArticle(slug: string): KingdomArticle | null {
-  return readBySlug<KingdomArticle>('kingdom', slug);
+export function getFondomArticle(slug: string): FondomArticle | null {
+  return readBySlug<FondomArticle>('fondom', slug);
 }
 
 export function getAllPalaceArticles(): PalaceArticle[] {

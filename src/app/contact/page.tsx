@@ -1,17 +1,25 @@
 'use client'
 
 import { useState } from 'react'
+import { TurnstileField } from '@/components/forms/TurnstileField'
 import Image from 'next/image'
 import Link  from 'next/link'
 import { Mail, MapPin, Phone, Send } from 'lucide-react'
-/* The Palace telephone comes from the one central record (site-config.json), which
-   was derived from the legacy Palace contact row. It is not re-typed here. */
-import siteConfig from '@/data/site-config.json'
+/* The Palace telephone and address of record. Imported as two named constants rather than
+   as the whole of site-config.json, and that is the point rather than tidiness: this is a
+   client component, so a whole-record import ships every field of that record to every
+   browser that opens this page. It did. `site-config.json` carried `fonEmail` — the Fon's
+   personal address — and it was downloadable from a public chunk on /contact until
+   2026-09-07, invisible on the page and trivially harvestable. The field is gone; so is the
+   import that would have carried the next one. */
+import { PALACE_PHONE, PALACE_EMAIL } from '@/lib/palace-contact'
 
 export default function ContactPage() {
   const [sent, setSent]       = useState(false)
   const [sending, setSending] = useState(false)
-  const [form, setForm] = useState({ name:'', email:'', subject:'', message:'' })
+  /* Empty until the challenge is solved, and cleared again whenever it expires. */
+  const [turnstileToken, setTurnstileToken] = useState('')
+  const [form, setForm] = useState({ name:'', email:'', subject:'', message:'', website:'' })
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement>) {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
@@ -25,7 +33,7 @@ export default function ContactPage() {
       const res  = await fetch('/api/contact', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify(form),
+        body:    JSON.stringify({ ...form, turnstileToken }),
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error)
@@ -60,10 +68,18 @@ export default function ContactPage() {
 
           {/* Contact cards */}
           <div className="space-y-4 md:col-span-2">
+            {/* The form above is the way to reach the Palace, and these are the details
+                behind it. Both are published deliberately: the telephone is the Palace
+                number of record and the address is the Fondom's own, never an officer's.
+
+                They live here and, apart from the telephone in the footer, nowhere else.
+                The email used to be a `mailto:` in the footer of all 207 pages, which is a
+                harvesting surface rather than transparency — one address published two
+                hundred times is not more contactable than one address published once. */}
             {[
-              { i: MapPin, t: 'The Palace',   d: 'Guneku Centre, Mbengwi\nMomo Division, NW Cameroon' },
-              { i: Mail,   t: 'Email',        d: 'info@guneku.org' },
-              { i: Phone,  t: 'Telephone',    d: siteConfig.palacePhone },
+              { i: MapPin, t: 'The Palace',   d: 'Guneku Centre, Mbengwi\nMomo Division, NW Cameroon', href: null },
+              { i: Mail,   t: 'Email',        d: PALACE_EMAIL, href: `mailto:${PALACE_EMAIL}` },
+              { i: Phone,  t: 'Telephone',    d: PALACE_PHONE, href: `tel:${PALACE_PHONE.replace(/\s/g, '')}` },
             ].map((c, i) => (
               <div key={i} className="flex gap-4 card-royal p-5">
                 <div className="rounded-[3px] bg-[var(--accent)] p-2.5 h-fit">
@@ -71,7 +87,14 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <div className="font-cinzel text-lg text-foreground">{c.t}</div>
-                  <div className="whitespace-pre-line text-sm text-muted-foreground mt-1">{c.d}</div>
+                  {/* Readable, selectable and clickable. No character-shuffling, no base64,
+                      no image: each of those costs a screen-reader user real access and
+                      costs a scraper about a second, which is the wrong trade. */}
+                  <div className="whitespace-pre-line text-sm text-muted-foreground mt-1">
+                    {c.href
+                      ? <a href={c.href} className="text-inherit no-underline hover:underline">{c.d}</a>
+                      : c.d}
+                  </div>
                 </div>
               </div>
             ))}
@@ -108,8 +131,15 @@ export default function ContactPage() {
                     fields whose only description was placeholder text — which disappears
                     the moment somebody starts typing. A visible label is not the same as
                     an associated one. */}
+                {/* Honeypot — visually and programmatically hidden from people, and
+                    the one anonymous form on this site that did not have one. */}
+                <div aria-hidden className="absolute left-[-9999px] h-0 w-0 overflow-hidden">
+                  <label>Website<input name="website" tabIndex={-1} autoComplete="off"
+                    value={form.website} onChange={handleChange} /></label>
+                </div>
+
                 <div className="section-label mb-2">A LETTER TO THE COURT</div>
-                <h2 className="font-cinzel text-3xl text-foreground mb-6">Address the Kingdom</h2>
+                <h2 className="font-cinzel text-3xl text-foreground mb-6">Address the Fondom</h2>
                 <div className="grid gap-4 sm:grid-cols-2 mb-4">
                   <div>
                     <label htmlFor="contact-name" className="section-label text-[0.6rem] block mb-2">Your Name</label>
@@ -138,6 +168,10 @@ export default function ContactPage() {
                   <textarea id="contact-message" name="message" required rows={5} value={form.message} onChange={handleChange}
                             placeholder="Your message to the palace..." className={`${inputCls} resize-none`} />
                 </div>
+                {/* Renders nothing until the Cloudflare keys exist, so the form is unchanged
+                    until the owner arms it. */}
+                <TurnstileField action="contact" onToken={setTurnstileToken} />
+
                 <button type="submit" disabled={sending}
                         className="btn-royal inline-flex items-center gap-2 w-full justify-center"
                         style={{ opacity: sending ? 0.6 : 1, cursor: sending ? 'not-allowed' : 'pointer' }}>

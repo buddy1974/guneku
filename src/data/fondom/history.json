@@ -1,9 +1,9 @@
 {
  "id": "history",
- "type": "KingdomArticle",
+ "type": "FondomArticle",
  "title": "History",
  "slug": "history",
- "section": "kingdom",
+ "section": "fondom",
  "order": 1,
  "publishedAt": "2023-05-18T11:44:12.000Z",
  "metaDescription": null,

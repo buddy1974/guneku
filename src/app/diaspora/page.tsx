@@ -42,7 +42,7 @@ export default function DiasporaPage() {
           </h1>
           <p className="mt-6 font-cormorant text-2xl italic text-foreground/90 animate-fade-up" style={{ animationDelay: '0.3s' }}>
             From the volcanic hills of Mbengwi to the skylines of Tokyo —<br className="hidden md:block" />
-            the kingdom travels with us.
+            the Fondom travels with us.
           </p>
         </div>
       </section>

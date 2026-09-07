@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { rateLimited, senderKey, RATE_LIMIT_MESSAGE } from '@/lib/rate-limit'
+import { verifyTurnstile, TURNSTILE_MESSAGE } from '@/lib/turnstile'
 import { sendSupportInterest } from '@/lib/email/send'
 
 const SUPPORT_TYPES = [
@@ -14,6 +15,23 @@ export async function POST(req: NextRequest) {
     }
 
     const b = await req.json()
+
+    /* The challenge, verified server-side. A layer over the honeypot and the rate limit,
+       never instead of them: it stops a cheap script and says nothing about whether the body
+       is well-formed or how often this sender has posted.
+
+       Inert until the owner arms it — with no Cloudflare keys set this returns ok and the
+       form behaves exactly as it did. Once armed it fails closed, including when Cloudflare
+       itself cannot be reached: a control that stops checking whenever a third party has a
+       bad afternoon is not a control. */
+    const check = await verifyTurnstile(
+      (b as { turnstileToken?: unknown })?.turnstileToken,
+      'support-interest',
+      senderKey(req),
+    )
+    if (!check.ok) {
+      return NextResponse.json({ error: TURNSTILE_MESSAGE }, { status: 400 })
+    }
     if (typeof b.website === 'string' && b.website.trim() !== '') {
       return NextResponse.json({ success: true })
     }

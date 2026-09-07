@@ -1022,3 +1022,98 @@ That moves the dashboard rename from cosmetic to worth doing.
 Noticed while confirming this: `display_config.home_url` is `https://guneku.org`, without the
 `www` the site canonicalises on, so Clerk's "back to site" link takes a redirect. Same
 dashboard, same visit, if it is worth the click.
+
+## R-049 - The Fon's personal email address was in a public JavaScript chunk - CLOSED 2026-09-07
+
+`site-config.json` carried `fonEmail`, a personal address on a free mail provider. Nothing
+rendered it. It was still downloadable by anyone.
+
+`/contact` is a client component, and it imported the whole of `site-config.json` for one
+telephone number. **A JSON import in a client module ships every field of the file**: bundlers
+do not eliminate the properties a component never reads, so the record became one object
+literal in the chunk. Verified in Production before the fix — the address was in
+`/_next/static/immutable/chunks/2vvt0jw69nbz6.js`, served to every visitor of `/contact`,
+invisible on the page and one search away for anyone harvesting.
+
+Three things were wrong and all three are fixed. The field is gone from `site-config.json` and
+from the Fon's profile record, where nothing read it either. The `fonEmail` type is gone from
+`content.ts`, so nothing invites it back. And the page now imports two named constants instead
+of a record, so the next field somebody adds to the site config cannot ride along.
+
+The literals live in `src/lib/palace-contact.ts` with a test asserting they equal what
+`site-config.json` says — one source of truth, enforced rather than hoped for, and nothing else
+from that record crosses into a browser.
+
+Three tests hold it: no personal address anywhere in `src/`, no `fonEmail` field or type, and
+no client module importing the site config.
+
+## R-050 - The institutional address was published on 206 of 207 pages - CLOSED 2026-09-07
+
+`info@guneku.org` was a `mailto:` in the footer, so it appeared on every page of the site. One
+address published two hundred times is not more contactable than one published once; it is a
+harvesting surface.
+
+It is now published on the page whose job is contact, where it is **readable, selectable and
+clickable** — a real `mailto:`, no character-shuffling, no base64, no image. Each of those
+tricks costs a screen-reader user real access and costs a scraper about a second, which is the
+wrong trade.
+
+The footer keeps the Palace telephone, which is what most of this audience actually uses and is
+not harvested the way an address is, and links to `/contact` for the rest. Nothing is hidden;
+it is simply not repeated on every page of a village record.
+
+Result: `mailto:` links **206 → 1**. The address in page text **206 → 3** (the contact page, the
+homepage FAQ answering "how do I reach the Palace", and a 2024 press release that quotes it as
+the press contact — all three deliberate).
+
+**Stated plainly, as the brief requires: this is spam reduction, not a security boundary.** A
+published address is public. Reducing how many pages carry it reduces automated collection and
+nothing else, and the contact form remains the primary route precisely because it is the one
+that does not require publishing an address at all.
+
+## R-051 - The contact form was the one anonymous write with no honeypot - CLOSED 2026-09-07
+
+Found by a test written for the Turnstile pass rather than by looking: the Palace message, the
+support offer and the directory submission each had a hidden `website` field that a script
+fills in and a person cannot; `/api/contact` did not.
+
+Added, mirroring the other three, and answered with `success` rather than an error so a bot
+learns nothing about why nothing arrived.
+
+## R-052 - Cloudflare Turnstile is built and inert until the owner arms it - OWNER ACTION
+
+Turnstile is implemented on the four writes a stranger can make with no account: the message to
+the Palace, the contact form, an offer of support, and a name put forward for the directory.
+Server-side verification, hostname and action validation, fail-closed once armed — including
+when Cloudflare itself cannot be reached, because a control that stops checking whenever a
+third party has a bad afternoon is not a control.
+
+**It is inert today, and deliberately.** The two keys can only be created by the Cloudflare
+account owner, and inventing values would be worse than none. With no keys set,
+`turnstileConfigured()` is false, the widget renders nothing, and the forms behave exactly as
+they did — honeypot and rate limit, unchanged. Both keys are required before anything arms: a
+public key with no secret would render a widget that nothing verifies, which only looks like
+protection.
+
+**Owner action.** In the Cloudflare dashboard: **Turnstile → Add widget**, hostnames
+`www.guneku.org` and `guneku.org`, widget mode **Managed**. That produces two values.
+
+| Variable | Kind | Where |
+|---|---|---|
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | **Public** — shipped to the browser by design | Vercel: Production **and** Preview |
+| `TURNSTILE_SECRET_KEY` | **Secret** — server only, never in a client bundle | Vercel: Production **and** Preview |
+
+Set both, redeploy, and the challenge is live. No code change, and no need to paste either
+value into a chat: they go straight into Vercel, exactly as the Clerk and Anthropic keys did.
+
+**Where it is deliberately absent**, because the brief is explicit and the reasoning is worth
+keeping. Not on any authenticated route: editing a profile, claiming an entry, following a
+topic, writing to the Palace as a member, reviewing a claim, answering a letter — each already
+knows who is asking and checks server-side what they may do. Not on the indigenes registration
+journey, which happens after a Clerk sign-in, so it is protected by identity rather than by a
+puzzle; a write action alone is not a reason. And not on Ask Guneku, whose 3-per-10-minutes
+limiter is the control and where there is no evidence of abuse to justify making a villager
+solve a puzzle to ask their own Fondom a question.
+
+Nine tests hold the boundary, including that no authenticated route acquires a challenge and
+that the secret is read by exactly one `server-only` module.

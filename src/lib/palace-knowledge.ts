@@ -1,7 +1,7 @@
 import 'server-only'
 import facts from '@/data/home/village-facts.json'
 import {
-  getAllUpdates, getAllPalaceArticles, getAllKingdomArticles,
+  getAllUpdates, getAllPalaceArticles, getAllFondomArticles,
   getAllInstitutions, getAllNotables, getFonProfile,
 } from '@/lib/content'
 import current from '@/data/current-notices.json'
@@ -81,14 +81,14 @@ function intentEntries(): Entry[] {
       keys: ['population', 'how many people', 'inhabitants', 'residents', 'how big'],
       question: 'How many people live in Guneku?',
       answer: "The Fondom's current figure is approximately 15,000. An older village account, written years earlier, recorded approximately 10,000 at the time of writing; that is a historical figure, not a competing estimate.",
-      href: '/kingdom/about-guneku', hrefLabel: 'About Guneku',
+      href: '/fondom/about-guneku', hrefLabel: 'About Guneku',
     },
     {
       id: 'quarters',
       keys: ['quarters', 'how many quarters', 'twenty seven', '27', 'villages within', 'wards'],
       question: 'How many quarters does Guneku have?',
-      answer: 'Twenty-seven. The full list is published on the Kingdom page, and the indigenes directory lets sons and daughters record which quarter they come from.',
-      href: '/kingdom', hrefLabel: 'The 27 quarters',
+      answer: 'Twenty-seven. The full list is published on the Fondom page, and the indigenes directory lets sons and daughters record which quarter they come from.',
+      href: '/fondom', hrefLabel: 'The 27 quarters',
     },
     {
       id: 'projects',
@@ -140,28 +140,28 @@ function intentEntries(): Entry[] {
       keys: ['where', 'location', 'directions', 'how to get there', 'map', 'mbengwi', 'momo', 'cameroon'],
       question: 'Where is Guneku?',
       answer: 'Guneku is in Mbengwi Subdivision, Momo Division, in the North West Region of Cameroon, reachable by road from Mbengwi and from Bamenda. It shares boundaries with Mbemi, Nyen, Tugi, Zang-Tembeng, Oshie, Mundum and Bafut. The Fondom has not published a map of the village.',
-      href: '/kingdom/about-guneku', hrefLabel: 'About Guneku',
+      href: '/fondom/about-guneku', hrefLabel: 'About Guneku',
     },
     {
       id: 'language',
       keys: ['language', 'dialect', 'menemo', 'speak', 'meta language'],
       question: 'What language is spoken in Guneku?',
       answer: 'The people of Guneku speak MENEMO, a Meta dialect. The village record notes that some Meta people call the dialect “Meta”, which it says is not correct.',
-      href: '/kingdom/about-guneku', hrefLabel: 'About Guneku',
+      href: '/fondom/about-guneku', hrefLabel: 'About Guneku',
     },
     {
       id: 'market',
       keys: ['market', 'ngon', 'market day', 'trade', 'buy', 'eight day week'],
       question: 'When is market day in Guneku?',
       answer: 'Guneku keeps an eight-day market cycle. The eighth day, Ngon, is the market day held in Guneku itself. The other days fall in the surrounding quarters — Tan in Ngamunghe, Mbon in Mbengeghang, Eje’e in Ngamunam, and Kwe in Fringyeng.',
-      href: '/kingdom/about-guneku', hrefLabel: 'About Guneku',
+      href: '/fondom/about-guneku', hrefLabel: 'About Guneku',
     },
     {
       id: 'farming',
       keys: ['farming', 'agriculture', 'crops', 'cattle', 'grazing', 'coffee', 'palm', 'maize', 'food'],
       question: 'What does Guneku farm?',
       answer: 'The cash crops include oil palm, raffia palm, coffee, maize and groundnuts, with plantains and cocoyam coming mainly from upper Guneku. Guneku has the highest grazing surface area in Meta; cattle are reared by the Mbororo, and by many natives too.',
-      href: '/kingdom/about-guneku', hrefLabel: 'About Guneku',
+      href: '/fondom/about-guneku', hrefLabel: 'About Guneku',
     },
     {
       id: 'health',
@@ -204,10 +204,10 @@ function recordEntries(): Entry[] {
       href: `/updates/${u.slug}`, hrefLabel: 'Read the record',
     })
   }
-  for (const a of [...getAllPalaceArticles(), ...getAllKingdomArticles()]) {
+  for (const a of [...getAllPalaceArticles(), ...getAllFondomArticles()]) {
     const text = strip(a.body)
     if (text.length < 60) continue
-    const section = (a as { section?: string }).section === 'palace' ? 'palace' : 'kingdom'
+    const section = (a as { section?: string }).section === 'palace' ? 'palace' : 'fondom'
     out.push({
       id: section + '-' + a.slug,
       keys: [a.title, ...a.title.toLowerCase().replace(/[^a-z\s]/g, '').split(/\s+/)],

@@ -45,7 +45,7 @@ const FACTS = [
 ]
 
 const EXPLORE = [
-  { label: 'The Kingdom', href: '/kingdom',   desc: 'Land, history and the 27 quarters' },
+  { label: 'The Fondom', href: '/fondom',   desc: 'Land, history and the 27 quarters' },
   { label: 'The Palace',  href: '/palace',    desc: 'The Fon, the throne and the royal record' },
   { label: 'Development', href: '/projects',  desc: 'Projects and institutions' },
   { label: 'Education',   href: '/education', desc: 'Scholarships and skills' },
@@ -81,7 +81,7 @@ export default function HomePage() {
               home and across the world.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-4">
-              <Link href="/kingdom/about-guneku" className="inst-btn inst-btn-primary">
+              <Link href="/fondom/about-guneku" className="inst-btn inst-btn-primary">
                 About Guneku <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="/palace/fon-walters-profile" className="inst-link">
@@ -296,7 +296,7 @@ export default function HomePage() {
               Its sons and daughters are organised on three continents through GUDECA, the
               Guneku Development and Cultural Association.
             </p>
-            <Link href="/kingdom/about-guneku" className="inst-btn inst-btn-quiet mt-5">
+            <Link href="/fondom/about-guneku" className="inst-btn inst-btn-quiet mt-5">
               Read the village record <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

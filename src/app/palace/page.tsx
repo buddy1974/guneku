@@ -7,7 +7,7 @@ import { Reveal }        from '@/components/ui/Reveal'
 export const metadata = {
   alternates: { canonical: '/palace' },
   title: 'The Palace — HRH Dr. Fomuki Walters Ticha IX',
-  description: 'Inside the palace of Guneku — home of the ninth Fon, physician, and visionary leader of his kingdom.',
+  description: 'Inside the palace of Guneku — home of the ninth Fon, physician, and visionary leader of his Fondom.',
 }
 
 /* The succession ran as distinct stages and is kept that way. There is no single
@@ -19,7 +19,7 @@ const TIMELINE = [
   { date: '27 February 2015', title: 'Transfiguration and Anointing', desc: 'Sons and daughters assemble at the palace. HRH Fomuki Walters Ticha is anointed in public by HRH Fon Fominyen of Nyen.',      color: 'oklch(0.560 0.016 150)' },
   { date: 'November 2015',    title: 'Launching Gala',        desc: 'Grand gala at the Mbengwi Council Hall, with the Meta villages invited personally by the new Fon.',                                  color: 'oklch(0.700 0.115 78)'  },
   { date: '30 December 2016', title: 'Presentation to Meta',  desc: 'The Fon presents himself to the people of Meta — the return address promised at the time of his predecessor’s passing.',  color: 'oklch(0.700 0.115 78)'  },
-  { date: '2021 – Present',   title: 'The Kingdom Grows',     desc: 'Democratic reforms, GUNECCUL, Agro CIG, solar lights, Mɨchi Əbeŋ — a kingdom in full renaissance.',                             color: 'oklch(0.700 0.115 78)'  },
+  { date: '2021 – Present',   title: 'The Fondom Grows',     desc: 'Democratic reforms, GUNECCUL, Agro CIG, solar lights, Mɨchi Əbeŋ — a Fondom in full renaissance.',                             color: 'oklch(0.700 0.115 78)'  },
 ]
 
 /* The fields this page reads from a Palace article. `era` is what splits the current
@@ -68,7 +68,7 @@ export default function PalacePage() {
                 {fon?.enthronementNarrative || 'Trained in medicine in Bavaria, Germany, HRH Dr. Fomuki Walters Ticha IX returned to Guneku not only as a healer of bodies but as the keeper of a five-hundred-year throne.'}
               </p>
               <p className="mt-6 text-base leading-relaxed text-muted-foreground">
-                {fon?.governanceStyle?.substring(0, 300) || 'Since his enthronement in 2015, the Fon has united the kingdom across three continents, founded GUDECA, blessed the launch of GUNECCUL credit unions, and revived the sacred Mɨchi Əbeŋ festival as a beacon of cultural renewal.'}
+                {fon?.governanceStyle?.substring(0, 300) || 'Since his enthronement in 2015, the Fon has united the Fondom across three continents, founded GUDECA, blessed the launch of GUNECCUL credit unions, and revived the sacred Mɨchi Əbeŋ festival as a beacon of cultural renewal.'}
               </p>
               <Link href="/palace/fon-walters-profile" className="mt-8 btn-royal inline-flex items-center gap-3">
                 FULL PROFILE <ArrowRight className="h-4 w-4" />

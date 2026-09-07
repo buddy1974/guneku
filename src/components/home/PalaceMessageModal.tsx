@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState, useCallback } from 'react'
+import { TurnstileField } from '@/components/forms/TurnstileField'
 import { X } from 'lucide-react'
 
 export const PALACE_TOPICS = [
@@ -24,6 +25,8 @@ type Props = {
    its props, or the request body names a second recipient. */
 export function PalaceMessageModal({ open, onClose, prefillMessage, prefillTopic }: Props) {
   const [sending, setSending] = useState(false)
+  /* Empty until the challenge is solved, and cleared again whenever it expires. */
+  const [turnstileToken, setTurnstileToken] = useState('')
   const [sent, setSent] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [preferred, setPreferred] = useState<'email' | 'phone'>('email')
@@ -72,6 +75,7 @@ export function PalaceMessageModal({ open, onClose, prefillMessage, prefillTopic
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          turnstileToken,
           name: fd.get('name'),
           topic: fd.get('topic'),
           message: fd.get('message'),
@@ -214,6 +218,10 @@ export function PalaceMessageModal({ open, onClose, prefillMessage, prefillTopic
               )}
 
               <div className="flex flex-wrap items-center gap-3 pt-1">
+                {/* Renders nothing until the Cloudflare keys exist, so the form is unchanged
+                    until the owner arms it. */}
+                <TurnstileField action="palace-message" onToken={setTurnstileToken} />
+
                 <button type="submit" disabled={sending} className="inst-btn inst-btn-primary disabled:opacity-60">
                   {sending ? 'Sending…' : 'Send message'}
                 </button>
