@@ -1626,3 +1626,61 @@ a villager solve a puzzle to ask their own Fondom a question).
 
 Found while writing its tests: **`/api/contact` was the one anonymous form with no honeypot**
 (R-051). The other three had one. Added, mirroring them.
+
+## 2026-09-07 - T-1: the human check refused submissions and told nobody
+
+Found by Claude in Chrome during acceptance. The check was rendered, genuinely enforced, and
+the server correctly answered `400`. The page showed **nothing**.
+
+The submit handler ended in `alert('Failed to send. Please try again.')`, which threw away the
+server's own message, and the only text beside the widget still read *"A quick check that you
+are a person"* — in an `aria-live="polite"` region that had not changed. No `role="alert"`, no
+error element, no association with the control that needed attention. A visitor could press
+send repeatedly and never learn why nothing happened.
+
+**The other three anonymous forms did surface the message**, each in its own way, and all four
+posted first and asked afterwards. Four forms, four behaviours, one of them silent. The
+behaviour now lives in one place and all four use it.
+
+**What changed.**
+
+- **Refuse before the network.** An unsolved check would be refused by the server anyway;
+  refusing in the browser tells the visitor immediately rather than after a round trip, and
+  spends no rate-limit slot on a request that was always going to fail.
+- **Two regions, two urgencies.** The calm state stays `role="status"` / polite — most
+  visitors solve nothing and should not be interrupted to be told so. A failure is
+  `role="alert"`, assertive, announced when it appears, and visible beside the widget. They
+  are branches of one conditional, so the calm text can no longer sit there while a
+  submission is being refused.
+- **One sentence, whatever went wrong.** Not solved, expired, refused by the server, or the
+  challenge failing to load: all of them end at *"Please complete the human check before
+  sending."* An instruction, not a description, and never a provider string — Cloudflare's
+  error codes describe our configuration rather than the visitor's problem, and one of them
+  names the site key.
+- **A fresh challenge after a refusal.** A token is single-use, so a refused submission has
+  spent it. The widget is re-rendered rather than leaving a button that keeps failing.
+- **Nothing touches what was typed.** The check holds three values — token, message, reset
+  key — and no form resets its fields on failure.
+
+**The logic is pure and the tests walk it.** `human-check.ts` is a reducer plus two decisions,
+with no React in it: a state machine that needs a browser to exercise is a state machine
+nobody exercises. Twenty-four tests cover the lifecycle a visitor actually moves through —
+blocked, solved, expired, refused, re-solved, sent — and the rendering contract across all
+four surfaces.
+
+**Verified in a real browser, on the failure path.** A local build was armed with Cloudflare's
+documented *always-blocks* testing pair, the contact form was filled in and submitted, and the
+result was observed rather than assumed: one visible `role="alert"` reading "Please complete
+the human check before sending.", the polite region gone, every field still holding what was
+typed, still on the form, and no provider terminology anywhere on the page. The server's
+refusal was confirmed separately as `400 {"error":"Please complete the human check before
+sending.","code":"human-check"}` — our sentence and a code, nothing of Cloudflare's.
+
+Those keys are Cloudflare's published testing pair, they were used on `localhost` only, and
+they are in no commit and no environment. Production remains unarmed; R-052's owner action is
+unchanged.
+
+**Unchanged, deliberately:** the honeypots, the rate limits, the keys and Cloudflare
+configuration, Clerk, Resend, Fondom terminology, correspondence, Ask Guneku, the authenticated
+member flows, the archive, SEO, and the database. Turnstile remains absent from every
+authenticated operation and from Ask Guneku.
