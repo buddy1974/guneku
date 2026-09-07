@@ -27,6 +27,10 @@ const ELIGIBLE = [
    revalidates hourly, so the window moves through the archive over time. */
 const SEED = Math.floor(Date.now() / 86_400_000)
 
+/* Counted, never typed. This heading said 338 for a day after the archive reached 339,
+   because a number written into prose has no link to the thing it describes. */
+const PHOTO_COUNT = gallery.albums.reduce((n, a) => n + a.images.length, 0)
+
 export function ArchiveStrip() {
   const seed = SEED
 
@@ -47,7 +51,7 @@ export function ArchiveStrip() {
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
             <p className="inst-eyebrow">From the Guneku archive</p>
-            <h2 id="archive-heading" className="inst-h2 mt-1.5">Fifteen albums, 338 photographs</h2>
+            <h2 id="archive-heading" className="inst-h2 mt-1.5">{gallery.albums.length} albums, {PHOTO_COUNT} photographs</h2>
           </div>
           <Link href="/gallery/images" className="inst-btn inst-btn-quiet">Open the gallery</Link>
         </div>

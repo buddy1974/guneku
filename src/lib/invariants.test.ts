@@ -490,6 +490,28 @@ describe('a published count matches the thing it counts', () => {
     }
   })
 
+  it('states a stale photograph count nowhere in the rendered site', () => {
+    /* The check above names two files, and the homepage archive strip was a third — it went
+       on saying "Fifteen albums, 338 photographs" for a day after the archive reached 339.
+       A list somebody has to remember to extend is not a guarantee, so this sweeps every
+       page and component instead. */
+    const offenders: string[] = []
+    const stack = ['src/app', 'src/components']
+    while (stack.length) {
+      const dir = stack.pop()!
+      for (const e of readdirSync(dir, { withFileTypes: true })) {
+        const full = `${dir}/${e.name}`
+        if (e.isDirectory()) { stack.push(full); continue }
+        if (!/\.tsx?$/.test(e.name) || /\.test\.tsx?$/.test(e.name)) continue
+        const text = readFileSync(full, 'utf-8')
+        for (const m of text.match(/\b\d{2,4} photographs?\b/g) ?? []) {
+          if (Number(m.match(/\d+/)![0]) !== photos) offenders.push(`${full}: ${m}`)
+        }
+      }
+    }
+    expect(offenders).toEqual([])
+  })
+
   it('states the album count the gallery actually holds', () => {
     expect(albums).toHaveLength(15)
   })

@@ -18,6 +18,36 @@ export function ClerkScope({ children }: { children: React.ReactNode }) {
       /* Signing out returns the reader to the village, not to a sign-in wall. In Clerk 7
          this belongs on the provider rather than on each UserButton. */
       afterSignOutUrl="/"
+      /* ── The Fondom's own name on the Fondom's own sign-in ──────────────────────────────
+       *
+       * Clerk's widgets interpolate the *application name* set on the instance, and this
+       * instance was never renamed after it was created: `clerk.guneku.org/v1/environment`
+       * returns `display_config.application_name: "My Application"`. So a villager signing
+       * in to their own village record was greeted with Clerk's factory default.
+       *
+       * These overrides are the supported way to set what the widgets say, and they are in
+       * the repository where they can be reviewed. They do not reach everything: the name
+       * on the instance also appears in the verification emails Clerk sends and on the
+       * OAuth consent screen, and no amount of code changes those. Renaming the application
+       * in the Clerk dashboard is the fix at the source, and it is Marcel's to make.
+       *
+       * Only the strings that carried the default are overridden. Clerk's own wording for
+       * everything else is left alone — this is a defect fix, not a rewrite of somebody
+       * else's copy. */
+      localization={{
+        signIn: {
+          start: {
+            title: 'Sign in to Guneku Fondom',
+            titleCombined: 'Sign in to Guneku Fondom',
+          },
+        },
+        signUp: {
+          start: {
+            title: 'Join Guneku Fondom',
+            titleCombined: 'Join Guneku Fondom',
+          },
+        },
+      }}
       appearance={{
         variables: {
           /* Clerk's own widgets, in Guneku's institutional palette rather than its default

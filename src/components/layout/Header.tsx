@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Link            from 'next/link'
 import Image           from 'next/image'
-import { usePathname } from 'next/navigation'
+import { useCurrentPath, isActivePath } from './useCurrentPath'
 import { Menu, X, Search, ChevronDown, ArrowRight } from 'lucide-react'
 import { cn }          from '@/lib/utils'
 import { MemberNavLink } from './MemberNavLink'
@@ -82,7 +82,9 @@ export function Header({ nav: _nav }: HeaderProps) {
   const [query,      setQuery]      = useState('')
   const [results,    setResults]    = useState<{ id: string; title: string; group: string; href: string }[]>([])
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const pathname   = usePathname()
+  /* Null until hydrated, so the server's nav and the browser's first nav are identical.
+     See useCurrentPath: this is what was throwing React #418 on every page load. */
+  const pathname   = useCurrentPath()
 
   /* Reset navigation state when the route changes.
      Adjusted during render (React's documented pattern) rather than in an
@@ -113,8 +115,7 @@ export function Header({ nav: _nav }: HeaderProps) {
     return () => clearTimeout(t)
   }, [query])
 
-  const isActive = (i: Item) =>
-    i.exact ? pathname === i.href : (i.href !== '/' && pathname.startsWith(i.href))
+  const isActive = (i: Item) => isActivePath(pathname, i.href, Boolean(i.exact))
 
   const hoverOpen = (label: string) => {
     if (closeTimer.current) clearTimeout(closeTimer.current)

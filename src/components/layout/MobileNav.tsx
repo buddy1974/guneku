@@ -1,7 +1,7 @@
 'use client'
 
 import Link            from 'next/link'
-import { usePathname } from 'next/navigation'
+import { useCurrentPath, isActivePath } from './useCurrentPath'
 
 const NAV_ITEMS = [
   {
@@ -73,7 +73,9 @@ const NAV_ITEMS = [
 ]
 
 export function MobileNav() {
-  const pathname = usePathname()
+  /* Null until hydrated. The active dot is an extra element in the tree, so rendering it
+     on a guess is precisely the hydration mismatch this fixed. */
+  const pathname = useCurrentPath()
 
   return (
     <nav
@@ -96,9 +98,7 @@ export function MobileNav() {
     >
       <div style={{ display: 'flex', alignItems: 'stretch', height: 'var(--bottom-nav-h)' }}>
         {NAV_ITEMS.map(item => {
-          const active = item.exact
-            ? pathname === item.href
-            : pathname.startsWith(item.href)
+          const active = isActivePath(pathname, item.href, item.exact)
 
           return (
             <Link key={item.href} href={item.href}

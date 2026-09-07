@@ -67,7 +67,7 @@ export default function IndigenesPage() {
           <p style={{ color:'oklch(0.470 0.018 150)', fontFamily:'Inter, sans-serif', fontSize:'1.05rem', lineHeight:1.7, maxWidth:'600px', margin:'0 auto 2rem' }}>
             {total > 0 ? (
               <><strong style={{ color:'oklch(0.320 0.060 158)' }}>{total}</strong> Guneku indigenes registered worldwide, and <strong style={{ color:'oklch(0.320 0.060 158)' }}>{FOUNDING_COUNT}</strong> founding names waiting to be claimed. From Bonn to New Jersey — one people, one village.</>
-            ) : <>The directory of Guneku indigenes worldwide — opening with <strong style={{ color:'oklch(0.320 0.060 158)' }}>{FOUNDING_COUNT}</strong> names from the Fondom&rsquo;s own records.</>}
+            ) : <>The directory of Guneku indigenes worldwide &mdash; opening with <strong style={{ color:'oklch(0.320 0.060 158)' }}>{FOUNDING_COUNT}</strong> names from the Fondom&rsquo;s own records, listed below and waiting to be claimed.</>}
           </p>
           <div style={{ display:'flex', gap:'1rem', justifyContent:'center', flexWrap:'wrap' }}>
             <Link href="/indigenes/onboarding" style={{ backgroundColor:'oklch(0.320 0.060 158)', color:'oklch(0.965 0.012 85)', fontFamily:'var(--font-sans)', fontWeight:700, padding:'0.9rem 2rem', fontSize:'0.8rem', letterSpacing:'0.12em', textTransform:'uppercase', textDecoration:'none', display:'inline-block' }}>
@@ -114,10 +114,39 @@ export default function IndigenesPage() {
             ))}
           </div>
         ) : profiles.length === 0 ? (
-          <div style={{ textAlign:'center', padding:'5rem' }}>
-            <div style={{ fontSize:'3rem', marginBottom:'1rem' }}>🌍</div>
-            <h3 style={{ fontFamily:'"Bebas Neue", sans-serif', fontSize:'2rem', color:'oklch(0.560 0.016 150)', letterSpacing:'0.05em', margin:'0 0 1rem' }}>{search || quarter ? 'NO RESULTS' : 'BE THE FIRST'}</h3>
-            <p style={{ color:'oklch(0.560 0.016 150)', fontFamily:'Inter, sans-serif' }}>{search || quarter ? 'Try different search terms' : 'Register and become the first Guneku indigene in the directory.'}</p>
+          /* Two different emptinesses, and saying the wrong one was a contradiction on the
+             page: this grid holds profiles people created themselves through My Guneku, and
+             it was announcing "BE THE FIRST — become the first Guneku indigene in the
+             directory" directly above the {FOUNDING_COUNT} founding names the Fondom's own
+             records already carry, which the same page renders further down.
+
+             Nobody would be the first. The directory has never been empty. What is empty is
+             the part a villager fills in for themselves — and that is worth saying
+             plainly, because it is an invitation rather than a void. */
+          <div style={{ textAlign:'center', padding:'5rem 1.5rem', maxWidth:'34rem', margin:'0 auto' }}>
+            <h3 style={{ fontFamily:'"Bebas Neue", sans-serif', fontSize:'2rem', color:'oklch(0.470 0.018 150)', letterSpacing:'0.05em', margin:'0 0 1rem' }}>
+              {search || quarter ? 'NO MATCHES' : 'NO PROFILES CREATED YET'}
+            </h3>
+            {search || quarter ? (
+              <p style={{ color:'oklch(0.470 0.018 150)', fontFamily:'Inter, sans-serif', lineHeight:1.7 }}>
+                No profile matches that search. The {FOUNDING_COUNT} founding names from the
+                Fondom&rsquo;s own records are listed below, and they are not filtered by this
+                search.
+              </p>
+            ) : (
+              <>
+                <p style={{ color:'oklch(0.470 0.018 150)', fontFamily:'Inter, sans-serif', lineHeight:1.7 }}>
+                  No one has yet created a profile through My Guneku. The {FOUNDING_COUNT}{' '}
+                  founding names below come from the Fondom&rsquo;s own records and are already
+                  part of this directory — they are entries the Palace holds, not accounts
+                  anybody has opened.
+                </p>
+                <p style={{ color:'oklch(0.470 0.018 150)', fontFamily:'Inter, sans-serif', lineHeight:1.7, marginTop:'0.9rem' }}>
+                  If you are a son or daughter of Guneku, you may create your own profile —
+                  or claim the entry the record already holds in your name.
+                </p>
+              </>
+            )}
           </div>
         ) : (
           <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(min(280px,100%), 1fr))', gap:'1.5rem' }}>

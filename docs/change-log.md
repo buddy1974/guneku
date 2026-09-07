@@ -1483,3 +1483,60 @@ Search Authority programme, which is post-acceptance growth work.
 
 The only remaining release action is Marcel's real-user acceptance test —
 `docs/acceptance-checklist.md`.
+
+## 2026-09-07 - Three acceptance defects, found by loading the real page
+
+Claude in Chrome began signed-out acceptance and found three things no test had.
+
+### React #418 on every homepage load (R-047)
+
+The navigation's active marker. An underline span in the header and a dot in the bottom bar,
+both rendered from `usePathname()` — and that hook resolves to the route in a local build but
+not in Vercel's ISR regeneration. The local build output carried the marker; Production's
+served HTML carried **none**. The server said nothing was active, the browser said Home was,
+and React discarded the subtree.
+
+Not a code path that differs — a *render environment*. Nothing that inspects the build artefact
+could have caught it.
+
+Fixed by making the first render identical by construction: `useCurrentPath()` returns `null`
+during the server and hydrating renders and the real path immediately after. The marker arrives
+one frame late and is right from then on. Not `suppressHydrationWarning`, which would leave
+React rebuilding the header on every load; and not "render it always, hide it with a class",
+which moves the divergence into an attribute. The active rule is now shared and pure, so the
+two navs cannot drift apart about what "active" means — they each had their own comparison, and
+both were wrong the same way.
+
+### "Sign in to My Application" (R-048)
+
+Clerk's factory default, never changed on the instance. Overridden in the repository through
+`localization` on `ClerkProvider` — supported configuration, not a reach into Clerk's markup.
+
+**It does not fix the source.** The name is also in the verification emails Clerk sends and on
+the OAuth consent screen, and no override reaches those. Renaming the application in the Clerk
+dashboard is Marcel's, and R-048 records the exact setting.
+
+### /indigenes contradicted itself
+
+The page said *"opening with 52 names from the Fondom's own records"* and, directly above those
+very names, *"BE THE FIRST — become the first Guneku indigene in the directory"*.
+
+Nobody would be first, and the directory has never been empty. What was empty is the part a
+villager fills in themselves. The two are now kept apart: the grid says **"No profiles created
+yet"**, explains that the founding names below are entries the Palace holds rather than
+accounts anybody opened, and invites a son or daughter of Guneku to create a profile or claim
+the entry already in their name. A fruitless search now says the founding list is not filtered
+by it, rather than reading as "Guneku has nobody".
+
+The founding names are untouched, still counted from the register, and still described as
+records rather than members.
+
+### Found while auditing, fixed with them
+
+The homepage archive strip still said **"Fifteen albums, 338 photographs"** — a fourth stale
+copy, missed because the invariant added the day before named two files instead of sweeping. It
+counts the record now, and the invariant sweeps every page and component.
+
+**Not touched, deliberately:** Palace correspondence (F3 was an extension crash, not evidence
+of a defect), the Royal Family route (absence is not a defect), Ask Guneku (6/6 pass), and the
+black search band and emoji markers (an observation, not authority for a redesign).
