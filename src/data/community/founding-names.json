@@ -354,13 +354,17 @@
   },
   {
    "slug": "fabian",
-   "display": "Fabian",
-   "aliases": [],
-   "role": "Member, GUDECA EU Chapter",
-   "chapter": "gudeca-europe",
-   "source": "gudeca-eu-bonn-2026-03-28",
-   "sourceLabel": "GUDECA EU minutes, 28 March 2026",
-   "note": "Delivered the digital empowerment presentation at the meeting of 28 March 2026. Only a first name is recorded."
+   "display": "Fabian Fomuki",
+   "aliases": [
+    "Fabian"
+   ],
+   "role": "Of the Palace family",
+   "chapter": null,
+   "source": "palace-family-2026-09-16",
+   "sourceLabel": "Palace family, confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed by the Fondom on 16 September 2026 as a member of the Fomuki Palace family, the Fondom having stated that there is one Fomuki family in Guneku and that it is the Palace family. Membership only: no office and no title of the Palace is recorded here, and no relationship to the reigning Fon beyond membership of the family. His name entered the register from the minutes of the GUDECA EU meeting of 28 March 2026, where he delivered the digital empowerment presentation and was recorded only as Fabian. The Fondom corrected that on 16 September 2026: he is not a member of the GUDECA EU Chapter, and presenting at a meeting was never membership — see the register’s own membership rule. He lives in the United States; a residence is not membership of any body, and none is recorded for him.",
+   "body": "palace-household",
+   "residence": "United States"
   },
   {
    "slug": "don-df-festoire",

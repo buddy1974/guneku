@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { readFileSync } from 'node:fs'
 import {
   allFoundingNames, allNotables, palaceQueens, royalFamilyOthers, membersOf,
-  toCardSafe, getFoundingName, ROYAL_FAMILY_BODY,
+  toCardSafe, getFoundingName, ROYAL_FAMILY_BODY, foundingNamesFor, diasporaByChapter,
 } from './community'
 import { claimEligibility, isClaimable } from './claims'
 import { search } from './search-index'
@@ -31,6 +31,11 @@ const POPULATION_SOURCES = [
   'community-record-2026-09',
   'owner-list-2026-09-16',
   'owner-confirmation-2026-09-16',
+  /* Added 2026-09-16 after the Palace-family confirmation. It was missing for several hours,
+     which meant the seven entries opened under it were outside every sweep below — the
+     publication contract, the town check, the contact check. Nothing was wrong in them; the
+     checks simply were not looking. A source that opens entries belongs on this list. */
+  'palace-family-2026-09-16',
 ]
 
 /** Two entries were opened from the 2021 quarter-elections coverage, which the register had
@@ -39,15 +44,21 @@ const POPULATION_SOURCES = [
  *  cited it before. */
 const ADDED_UNDER_EXISTING_SOURCE = ['timkoh-florence', 'wanjeh-augustine']
 
+/** Entries this pass CHANGED but did not open. `fabian` has been in the register since
+ *  3 September; on 16 September the Fondom corrected who he is, and his source moved with
+ *  the correction. He is not a new entry and must not be counted as one. */
+const ENRICHED_NOT_OPENED = ['fabian']
+
 const ADDED = NAMES.filter(n =>
-  POPULATION_SOURCES.includes(n.source) || ADDED_UNDER_EXISTING_SOURCE.includes(n.slug))
+  !ENRICHED_NOT_OPENED.includes(n.slug)
+  && (POPULATION_SOURCES.includes(n.source) || ADDED_UNDER_EXISTING_SOURCE.includes(n.slug)))
 
 describe('the register grew, and every entry is still one person', () => {
   it('opened the entries this pass declared', () => {
     /* 45 entries were opened across this pass and one was folded back into a man who was
        already in the register the same day, on the Fondom's confirmation — see R-059 and the
        Tibi test below. */
-    expect(ADDED).toHaveLength(51)
+    expect(ADDED).toHaveLength(58)
     expect(NAMES).toHaveLength(110)
     expect(NAMES.length).toBe(new Set(NAMES.map(n => n.slug)).size)
   })
@@ -306,13 +317,16 @@ describe('the names the Fondom confirmed on 16 September', () => {
 const PALACE_FAMILY = [
   'harriet-fomuki', 'fomuki-ijang', 'indah-fomuki', 'fomuki-tebi',
   'mandems-fomuki', 'eric-fomuki', 'humphrey-fomuki', 'albert-fomuki',
+  /* Added to the family on 16 September when the Fondom confirmed that the man the register
+     held as "Fabian" is Fabian Fomuki. An enrichment, not a ninth person. */
+  'fabian',
 ]
 
 describe('the Royal Family gained members, and nothing else', () => {
-  it('holds the seven the record already placed, plus the eight the Fondom confirmed', () => {
-    expect(membersOf(ROYAL_FAMILY_BODY)).toHaveLength(15)
+  it('holds the seven the record already placed, plus the nine the Fondom confirmed', () => {
+    expect(membersOf(ROYAL_FAMILY_BODY)).toHaveLength(16)
     expect(palaceQueens()).toHaveLength(3)
-    expect(royalFamilyOthers()).toHaveLength(12)
+    expect(royalFamilyOthers()).toHaveLength(13)
   })
 
   it('places every one of the eight, and only through `body`', () => {
@@ -365,6 +379,55 @@ describe('the Royal Family gained members, and nothing else', () => {
     for (const slug of ['ernest-tibi-ticha', 'tibi-divine', 'oswald-tebit', 'ma-clara-fongho']) {
       expect(householdSlugs, slug).not.toContain(slug)
     }
+  })
+
+  it('holds one Fabian, and he is Fabian Fomuki', () => {
+    /* R-061, resolved by the Fondom: the man the register held as a single name from the
+       GUDECA EU minutes is Fabian Fomuki. The thin entry was enriched, never duplicated. */
+    const f = getFoundingName('fabian')!
+    expect(f.display).toBe('Fabian Fomuki')
+    expect(f.aliases).toContain('Fabian')
+
+    for (const written of ['Fabian', 'Fabian Fomuki']) {
+      const v = classifyCandidate(written)
+      expect(v.classification, written).toBe('EXISTING')
+      expect(v.resolvesTo?.id, written).toBe('fabian')
+    }
+
+    /* Exactly one. No `fabian-fomuki` slug was ever created beside him. */
+    expect(getFoundingName('fabian-fomuki')).toBeNull()
+    expect(NAMES.filter(n =>
+      [n.display, ...(n.aliases ?? [])].some(s => /fabian/i.test(s)),
+    ).map(n => n.slug)).toEqual(['fabian'])
+  })
+
+  it('no longer counts Fabian Fomuki as GUDECA Europe, anywhere', () => {
+    /* The register's own membership rule: appearing in the minutes of a GUDECA meeting is not
+       membership, and he presented at that meeting as a guest. The Fondom corrected the
+       classification; this checks the correction reached every surface that reads it. */
+    const f = getFoundingName('fabian')!
+    expect(f.chapter).toBeNull()
+    expect(f.role).toBe('Of the Palace family')
+    expect(f.role).not.toMatch(/GUDECA/)
+
+    expect(foundingNamesFor('gudeca-europe').map(n => n.slug)).not.toContain('fabian')
+    expect(diasporaByChapter().flatMap(g => g.people.map(p => p.slug))).not.toContain('fabian')
+
+    /* Not his search entry either: he is indexed under the body he sits in. */
+    const hits = search('Fabian Fomuki').groups.find(g => g.group === 'People')?.results ?? []
+    const mine = hits.filter(r => r.title === 'Fabian Fomuki')
+    expect(mine).toHaveLength(1)
+    expect(JSON.stringify(mine[0])).not.toMatch(/gudeca/i)
+  })
+
+  it('records his country and not his town, and turns neither into a membership', () => {
+    const f = getFoundingName('fabian')!
+    expect(f.residence).toBe('United States')
+    expect(JSON.stringify(f).toLowerCase()).not.toContain('boston')
+    /* Living in the United States is not membership of GUDECA North America, or of anything
+       else. He carries no chapter at all. */
+    expect(f.chapter).toBeNull()
+    expect(f.role).not.toMatch(/North America/)
   })
 
   it('confers nothing on anyone else this pass opened', () => {
@@ -442,7 +505,8 @@ describe('nothing private came in with the names', () => {
     const TOWNS = ['yaound', 'douala', 'bamenda', 'buea', 'frankfurt', 'limbe', 'mutengene']
     for (const n of ADDED) {
       if (n.residence !== undefined && n.residence !== null) {
-        expect(['Cameroon', 'Germany'], n.slug).toContain(n.residence)
+        /* The whole country vocabulary this register uses. A town never appears here. */
+        expect(['Cameroon', 'Germany', 'United States'], n.slug).toContain(n.residence)
       }
       /* A town inside the NAME of a GUDECA branch is an affiliation, not an address, and the
          register has published branch names since it was written - "Member, GUDECA Yaounde

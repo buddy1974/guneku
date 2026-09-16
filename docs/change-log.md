@@ -2143,3 +2143,48 @@ succeeded · ESLint clean on every file touched.
 Five assertions in `register-population.test.ts` were rewritten rather than relaxed, each with
 the reason beside it. The block that said *the Royal Family gained nobody* now says what it
 gained, what it did not, and what the code still refuses to do.
+
+## 2026-09-16 - Fabian is Fabian Fomuki, and was never a GUDECA Europe member
+
+A surgical enrichment closing R-061, the last question left open by the population pass.
+
+- **`fabian` reused, not duplicated.** Display name **Fabian** — **Fabian Fomuki**; `Fabian`
+  kept as a spelling; **slug unchanged**, because a slug is what an approved profile claim
+  points at and an identifier is not a published fact to be corrected (ADR-087). A test
+  asserts exactly one Fabian exists and that both forms resolve to him.
+- **Placed in the Palace family** — `body: palace-household`, role **Of the Palace family**.
+  Membership only: no title, no office, no relationship to the reigning Fon, no Notable
+  standing. Royal Family **15 — 16**; Queens still **3**; Notables still **9**.
+- **GUDECA Europe corrected, not merely dropped.** He is gone from the chapter register, the
+  diaspora grouping, the search index and his own role. The entry records what the minutes
+  actually establish — that he *presented* at the meeting of 28 March 2026 — and cites the
+  register's own rule that appearing in GUDECA minutes is not membership (`meta.membership_rule`,
+  ADR-018, the rule that removed Fonjong on 3 September). GUDECA Europe **13 — 12** members.
+- **Source moved with the correction**, since its label rendered a GUDECA EU provenance on his
+  page. The minutes are preserved verbatim in the note, where they read as history rather than
+  as affiliation.
+- **Residence United States.** The Fondom supplied Boston; the register publishes a country
+  (ADR-082) and no town appears. Living in the United States is **not** membership of GUDECA
+  North America and none was inferred — a test checks it.
+
+**Register unchanged at 110.** An enrichment, not an addition. Static build still 290 pages.
+
+### A hole in the test sweeps, found by this change
+
+`palace-family-2026-09-16` was never added to `POPULATION_SOURCES`, so for several hours the
+seven entries opened under it sat outside every sweep in `register-population.test.ts` — the
+publication contract, the town check, the contact check. Nothing in them was wrong; the checks
+simply were not looking at them. The source is now on the list, and `fabian` is excluded by
+name as an entry this pass changed rather than opened.
+
+### Still open
+
+`agro-cig.json` describes "Mr. Fabian (GUDECA EU contact)". It was **not** changed, because
+nothing establishes that the Agro CIG's European contact is Fabian Fomuki rather than another
+Fabian, and asserting that across records is the inference this programme refuses to make on
+its own. **R-063.**
+
+### Verification
+
+`npx tsc --noEmit` clean · `npx vitest run` **1096 passed across 45 files** · `npm run build`
+succeeded · ESLint clean. Three tests were added for Fabian and two counts updated.

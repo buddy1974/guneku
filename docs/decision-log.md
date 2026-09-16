@@ -33,7 +33,7 @@ this log and are not backfilled here; they are recorded in the handover reports 
 | ADR-008 | 2026-09-02 | One canonical 27-quarter list | Accepted | — |
 | ADR-009 | 2026-09-02 | Do not impose a three-variant image convention site-wide | Accepted | — |
 
-_ADR-010 onward are recorded in full below and not repeated in this table; the table has listed the first nine since it was written. Latest: **ADR-086**, 2026-09-16._
+_ADR-010 onward are recorded in full below and not repeated in this table; the table has listed the first nine since it was written. Latest: **ADR-087**, 2026-09-16._
 
 ---
 
@@ -1813,3 +1813,43 @@ would place people the Fondom has not confirmed); a new household, dynasty or in
 record (ADR-040 already publishes this body as the Royal Family); leaving the eight unplaced
 and reporting the instruction back (the Fondom is the authority on who its family is, and it
 was explicit).
+
+---
+
+## ADR-087 - A thin entry is enriched in place, and a wrong classification is corrected rather than dropped
+
+**Context.** R-061. The register held a man recorded only as **Fabian** — one name, taken from
+the GUDECA EU minutes of 28 March 2026, classified as a member of that chapter. The Fondom
+confirmed on 16 September that he is **Fabian Fomuki**, of the Palace family, living in the
+United States, and **not** a member of GUDECA Europe.
+
+**Decision.** The existing entry was enriched. The slug `fabian` is unchanged, the display name
+became Fabian Fomuki, and `Fabian` is kept as a spelling so the shorter form still reaches him.
+No second entry was created and none can be: a test asserts exactly one Fabian.
+
+Keeping the slug matters more than it looks. A slug is what an approved profile claim points
+at (`profile_claims.person_slug`, ADR-047), and changing one would silently break the
+association if anybody had claimed him. A display name is a published fact and can be
+corrected; an identifier is a key and should not be.
+
+**The chapter was corrected, not merely deleted.** It would have been enough to set `chapter`
+to null and move on. The entry instead records what the minutes actually establish — that he
+*presented* at that meeting — and cites the register's own rule that appearing in the minutes
+of a GUDECA meeting is not membership, because guests, dignitaries and speakers attend
+(`meta.membership_rule`, ADR-018). That rule removed Fonjong on 3 September. This was a breach
+of it, and saying so is the difference between fixing a record and quietly rewriting one.
+
+**The source moved with the correction.** His `source` was the GUDECA EU minutes, whose label
+renders on his page as the Source row; leaving it would have gone on displaying a GUDECA EU
+provenance for a man the Fondom says is not GUDECA EU. It now cites the confirmation that
+establishes who he is, and the minutes are preserved in full in the note — where they read as
+history rather than as affiliation.
+
+This is narrower than it may look beside ADR-080, which refused to rewrite a published entry's
+source. That refusal was about relabelling provenance to make a new policy look retrospective.
+This is a correction of a classification the Fondom says was wrong, and the old provenance is
+kept verbatim rather than discarded.
+
+**Residence is a country and confers nothing.** The Fondom supplied Boston; the register
+publishes United States (ADR-082). Living in the United States is not membership of GUDECA
+North America, and a test checks that no such membership was inferred.

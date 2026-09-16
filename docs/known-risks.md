@@ -1320,7 +1320,7 @@ out in the change-log entry for this pass.
 is a change to `meta.publication_rule` and applies to the whole register, not to nine
 entries. It should be decided as such.
 
-## R-061 - "Fabian" and "Fabian Fomuki" may be one man
+## R-061 - "Fabian" and "Fabian Fomuki" - RESOLVED 2026-09-16
 
 The register has held an entry recorded only as **Fabian** since 2026-09-03 — one name,
 taken from the GUDECA EU minutes of 28 March 2026, with the chapter and nothing else. The
@@ -1336,9 +1336,49 @@ shape rather than this one name: a candidate that contains an existing identity 
 reported as ambiguous, in both directions. It previously only asked whether a candidate fitted
 INSIDE an existing entry.
 
-**Owner action:** confirm whether the Fabian in the GUDECA EU minutes is Fabian Fomuki. If he
-is, his entry gains the fuller name and the Palace family. If he is not, the second entry can
-be opened.
+**Resolved the same day.** The Fondom confirmed they are one man. The existing `fabian` entry
+was enriched rather than duplicated: the display name became **Fabian Fomuki**, `Fabian` is
+kept as a spelling, the slug is unchanged, and he joins the Palace family. He lives in the
+United States.
+
+**And the GUDECA Europe classification was corrected, not merely dropped.** He is no longer
+recorded as a member of that chapter on any surface — not the chapter register, not the
+diaspora grouping, not the search index, not his own entry. What the minutes actually
+establish is that he *presented* at the meeting of 28 March 2026, and the register has said
+since it was written that appearing in the minutes of a GUDECA meeting is not membership:
+guests, dignitaries and speakers attend (`meta.membership_rule`, ADR-018). The same rule
+removed Fonjong on 3 September. The original classification was a breach of it, and this is
+that rule being applied a second time rather than a new policy.
+
+His provenance is preserved in the entry's own note, which says where the name came from, what
+the minutes actually record him doing, and that the Fondom corrected it.
+
+**Residence is a country, not a membership.** The Fondom supplied Boston; the register
+publishes **United States**, per ADR-082, and no town appears. Living in the United States is
+NOT membership of GUDECA North America and none is recorded — a test checks it.
+
+The register count is unchanged at 110: this was an enrichment, not an addition.
+
+---
+
+## R-063 - One institution record still calls Fabian a GUDECA EU contact
+
+`src/data/institutions/agro-cig.json` carries `"presenterEU": "Mr. Fabian (GUDECA EU contact)"`,
+and `gudeca-eu.json` carries "Presented by Mr. Fabian at March 2026 meeting".
+
+The second is a statement about a presentation and is true, so it stands. The first describes
+him as a GUDECA EU *contact*, which is the classification the Fondom corrected on 16 September.
+
+**It was not changed**, for one reason: nothing in the repository establishes that the Agro
+CIG's European contact is Fabian Fomuki rather than another Fabian, and asserting that link
+across records is exactly the kind of inference this programme refuses to make on its own. The
+register entry was corrected because the Fondom named the man; the institution record names
+only "Mr. Fabian".
+
+**Owner action:** confirm whether the Agro CIG's EU contact is Fabian Fomuki. If he is, that
+one field should stop calling him a GUDECA EU contact. If he is not, it is correct as it
+stands and this can be closed.
+
 
 ---
 
