@@ -1274,3 +1274,38 @@ else's.
 **Owner action:** ask the Palace whether the zonal presidents, secretaries and treasurers of
 2021 sit on the Guneku Traditional Council.
 
+## R-059 - Three spellings around one Tibi, and the record does not say whether it is one man
+
+The register now holds **Ernest Tibi Ticha** (confirmed by the Fondom on 3 September 2026,
+GUDECA Yaounde) and **Tibi Enert** (confirmed on 16 September 2026). An earlier discovery
+spelling read **"Tibi Enerst Tibi"**.
+
+Enert, Enerst and Ernest are each within a letter or two of the next, and all three carry the
+family name Tibi — which this pass established is a common Guneku family name, since the
+Fondom confirmed six further Tibi entries at the same time. So the shared surname means
+nothing and the given name is the whole question.
+
+**Nothing was merged.** The two entries stand apart, each says so in its own note, and the
+discovery spelling was deliberately **not** made an alias on either — an alias would be
+deciding the question rather than recording it. The duplicate guard reports it on every run
+and a test fails if anybody quietly folds one into the other.
+
+**Owner action:** confirm whether Tibi Enert and Ernest Tibi Ticha are the same man. If they
+are, one entry becomes a spelling on the other in a single edit. If they are not, nothing
+needs doing.
+
+---
+
+## R-060 - Nine towns were supplied and are not published
+
+The Fondom supplied a town for nine people confirmed on 16 September 2026 — Yaounde,
+Douala, Bamenda, Buea and Frankfurt. Only the country was recorded, because the register's own
+publication rule forbids a town against a name (ADR-082).
+
+This is a decision rather than a defect, and it is recorded here so it is visible rather than
+silent: the Fondom supplied information that the site is not showing. The towns are written
+out in the change-log entry for this pass.
+
+**Owner action, only if wanted:** if the Fondom wishes a town published against a person, that
+is a change to `meta.publication_rule` and applies to the whole register, not to nine
+entries. It should be decided as such.

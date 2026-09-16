@@ -8,6 +8,7 @@ import { claimEligibility, isClaimable } from './claims'
 import { search } from './search-index'
 import { GUNEKU_QUARTERS_27 } from './quarters'
 import { allQuarters } from './quarter-pages'
+import { councilFor, councilCoverage } from './quarter-councils'
 import { classifyCandidate } from './identity-index'
 import namesDoc from '@/data/community/founding-names.json'
 
@@ -23,18 +24,28 @@ const NAMES = allFoundingNames()
 const RAW = readFileSync('src/data/community/founding-names.json', 'utf-8')
 
 /** The entries opened by this pass, found by the sources it declared rather than by a list
- *  typed here — so the checks cannot drift from what was actually written. */
+ *  of names typed here — so the checks cannot drift from what was actually written. */
 const POPULATION_SOURCES = [
   'zonal-installation-2021',
   'gudeca-branch-record',
   'community-record-2026-09',
   'owner-list-2026-09-16',
+  'owner-confirmation-2026-09-16',
 ]
-const ADDED = NAMES.filter(n => POPULATION_SOURCES.includes(n.source))
+
+/** Two entries were opened from the 2021 quarter-elections coverage, which the register had
+ *  already been citing since 2026-09-03. Naming them is the honest way to include them: the
+ *  alternative is a source id that says "this pass" and is not true of the eight entries that
+ *  cited it before. */
+const ADDED_UNDER_EXISTING_SOURCE = ['timkoh-florence', 'wanjeh-augustine']
+
+const ADDED = NAMES.filter(n =>
+  POPULATION_SOURCES.includes(n.source) || ADDED_UNDER_EXISTING_SOURCE.includes(n.slug))
 
 describe('the register grew, and every entry is still one person', () => {
   it('opened the entries this pass declared', () => {
-    expect(ADDED.length).toBeGreaterThanOrEqual(22)
+    expect(ADDED).toHaveLength(45)
+    expect(NAMES).toHaveLength(97)
     expect(NAMES.length).toBe(new Set(NAMES.map(n => n.slug)).size)
   })
 
@@ -118,6 +129,115 @@ describe('the collisions the Fondom named are still one person each', () => {
   })
 })
 
+describe('the names the Fondom confirmed on 16 September', () => {
+  const resolves = (written: string) => classifyCandidate(written).resolvesTo?.id
+
+  it('reuses the four who were already in the record', () => {
+    for (const [written, slug] of [
+      ['Dr. Joyce Akwe', 'joyce-akwe'],
+      ['William Akwe', 'william-akwe'],
+      ['Valentine Andom', 'valentine-andom'],
+      ['Humphrey Tabot', 'humphrey-tabot'],
+    ] as const) {
+      expect(resolves(written), written).toBe(slug)
+    }
+    /* And opened no second entry beside any of them. */
+    expect(NAMES.filter(n => /joyce/i.test(n.display))).toHaveLength(1)
+    expect(NAMES.filter(n => /^william akwe$/i.test(n.display))).toHaveLength(1)
+    expect(NAMES.filter(n => /valentine/i.test(n.display))).toHaveLength(1)
+    expect(NAMES.filter(n => /tabot humphrey|humphrey tabot/i.test(n.display))).toHaveLength(1)
+  })
+
+  it('keeps William Akwe as one man, with what the record already held', () => {
+    const w = getFoundingName('william-akwe')!
+    expect(w.role).toMatch(/Medical Delegate/)
+    expect(w.chapter).toBe('gudeca-yaounde')
+    expect(w.residence).toBe('Cameroon')
+  })
+
+  it('collapses every name order the Fondom supplied onto one person', () => {
+    for (const [a, b, slug] of [
+      ['Tabot Humphrey', 'Humphrey Tabot', 'humphrey-tabot'],
+      ['victor ndum', 'Ndum Victor', 'ndum-victor'],
+      ['Tabi Ignatius Chum', 'Ignatius Tabi Chum', 'ignatius-tabi-chum'],
+    ] as const) {
+      expect(resolves(a), a).toBe(slug)
+      expect(resolves(b), b).toBe(slug)
+    }
+  })
+
+  it('collapses a family name of birth onto the woman who carries it', () => {
+    /* The Fondom supplied both names. The name of birth is a spelling on her entry so that
+       older material reaches her, and it is the only family fact published about her. */
+    expect(resolves('Delphine Akwe')).toBe('delphine-mah-nforgwei')
+    expect(resolves('Loveline Akwe')).toBe('loveline-mufor')
+    expect(NAMES.filter(n => /delphine/i.test(n.display))).toHaveLength(1)
+    expect(NAMES.filter(n => /loveline/i.test(n.display))).toHaveLength(1)
+    for (const slug of ['delphine-mah-nforgwei', 'loveline-mufor']) {
+      expect(JSON.stringify(getFoundingName(slug)).toLowerCase(), slug)
+        .not.toMatch(/married|wife|husband|sister|mother of/)
+    }
+  })
+
+  it('holds the Tibi spelling the Fondom did not resolve, and merges nobody', () => {
+    /* Tibi Enert and Ernest Tibi Ticha stand apart until the Palace says otherwise, and the
+       discovery spelling is neither published nor made an alias — making it one would be
+       deciding the question rather than recording it. */
+    expect(getFoundingName('tibi-enert')).not.toBeNull()
+    expect(getFoundingName('ernest-tibi-ticha')).not.toBeNull()
+    expect(classifyCandidate('Tibi Enerst Tibi').classification).toBe('AMBIGUOUS')
+    for (const n of NAMES) {
+      expect(n.aliases ?? [], n.slug).not.toContain('Tibi Enerst Tibi')
+    }
+  })
+
+  it('opens the six other Tibi entries without inferring a family', () => {
+    for (const slug of ['tibi-divine', 'tibi-felix', 'tibi-gladys-fri',
+                        'tibi-vincent', 'tibi-nicoline', 'tibi-elvies']) {
+      const n = getFoundingName(slug)
+      expect(n, slug).not.toBeNull()
+      /* "a son or daughter of Guneku" is how the register says somebody is an indigene and
+         is not a relationship. What must not appear is a relationship to another person. */
+      const written = JSON.stringify(n).toLowerCase()
+        .replace(/son or daughter of guneku/g, 'an indigene')
+      expect(written, slug)
+        .not.toMatch(/brother|sister|son of|daughter of|father|mother|wife|husband|family of/)
+    }
+  })
+
+  it('records the two North America members without inventing a chapter or an office', () => {
+    for (const slug of ['samuel-ndum', 'ndum-wilfred-tembe']) {
+      const n = getFoundingName(slug)!
+      expect(n.role, slug).toBe('Member, GUDECA North America')
+      expect(n.chapter, slug).toBeNull()
+      expect(n.body, slug).toBeUndefined()
+      expect(n.notable, slug).toBeFalsy()
+    }
+    /* And North America is still not quietly the GUDECA US chapter. */
+    const usChapter = NAMES.filter(n => n.chapter === 'gudeca-us-dmv').map(n => n.slug)
+    expect(usChapter).not.toContain('samuel-ndum')
+    expect(usChapter).not.toContain('ndum-wilfred-tembe')
+
+    const branches = JSON.parse(
+      readFileSync('src/data/institutions/gudeca-branches.json', 'utf-8'),
+    ) as { branches: Array<{ name: string; memberRegisterSlugs?: string[] }> }
+    const na = branches.branches.find(b => b.name === 'GUDECA North America')!
+    expect(na.memberRegisterSlugs).toEqual(['samuel-ndum', 'ndum-wilfred-tembe'])
+  })
+
+  it('turns a residence into no membership, office, body or quarter', () => {
+    /* A Yaoundé residence is not GUDECA Yaoundé; Frankfurt is not GUDECA Europe. Everyone
+       this batch gave a residence carries no chapter and no body at all. */
+    const withResidence = NAMES.filter(n =>
+      n.source === 'owner-confirmation-2026-09-16' && n.residence)
+    expect(withResidence.length).toBeGreaterThan(0)
+    for (const n of withResidence) {
+      expect(n.chapter, n.slug).toBeNull()
+      expect(n.body, n.slug).toBeUndefined()
+    }
+  })
+})
+
 describe('the Royal Family gained nobody', () => {
   it('still holds the seven the record placed around the throne', () => {
     expect(membersOf(ROYAL_FAMILY_BODY)).toHaveLength(7)
@@ -184,12 +304,49 @@ describe('nothing private came in with the names', () => {
     }
   })
 
-  it('publishes nothing about a new entry but a name, a role and a source', () => {
+  it('publishes nothing about a new entry outside the register contract', () => {
+    /* `meta.publication_rule` settles this list: a name, what the person holds, where they
+       belong, and where it came from. `profession` and `residence` are on it because the
+       register already carries both against people the Fondom supplied them for, and
+       `CardSafe` already renders a profession as a fact about somebody.
+
+       What is NOT here is the point: no photograph, no employer, no town, no contact of any
+       kind, and no field for a family relationship. */
     const allowed = new Set([
-      'slug', 'display', 'aliases', 'role', 'body', 'chapter', 'source', 'sourceLabel', 'note',
+      'slug', 'display', 'aliases', 'role', 'body', 'chapter',
+      'source', 'sourceLabel', 'note', 'profession', 'residence',
     ])
     const extra = ADDED.flatMap(n => Object.keys(n).filter(k => !allowed.has(k)))
     expect([...new Set(extra)]).toEqual([])
+  })
+
+  it('records a country of residence and never a town', () => {
+    /* The Fondom supplied a town for nine people in the confirmation of 16 September -
+       Yaounde, Douala, Bamenda, Buea, Frankfurt. `residence` is a country field and the
+       publication rule forbids a town against a name, so the towns were not published.
+       This fails if one is ever written in. */
+    const TOWNS = ['yaound', 'douala', 'bamenda', 'buea', 'frankfurt', 'limbe', 'mutengene']
+    for (const n of ADDED) {
+      if (n.residence !== undefined && n.residence !== null) {
+        expect(['Cameroon', 'Germany'], n.slug).toContain(n.residence)
+      }
+      /* A town inside the NAME of a GUDECA branch is an affiliation, not an address, and the
+         register has published branch names since it was written - "Member, GUDECA Yaounde
+         Branch". Those are removed before the scan so that what is left is any town written
+         against a person as a place, which is the thing that must not be there. */
+      const written = JSON.stringify(n).toLowerCase().replace(/gudeca [a-z]+/g, 'gudeca')
+      for (const town of TOWNS) expect(written, `${n.slug} / ${town}`).not.toContain(town)
+    }
+  })
+
+  it('records an occupation only as the plain word the Fondom used', () => {
+    /* A profession is a fact about a person and never an office, never a reason for
+       standing, and never a business. Nobody's employer or company is published. */
+    for (const n of ADDED.filter(x => x.profession)) {
+      expect(n.profession, n.slug).toBe('Businessman')
+      expect(n.notable, n.slug).toBeFalsy()
+      expect(n.body, n.slug).toBeUndefined()
+    }
   })
 
   it('names the collection mechanism against nobody', () => {
@@ -303,10 +460,14 @@ describe('the geography was not touched', () => {
   })
 
   it('attaches a new entry to a quarter only where the record names one', () => {
-    /* A role that mentions Guneku must not put somebody on a quarter council. Only the
-       Nyang councillor the 2021 coverage names carries a quarter, and she carries it because
-       the record says so. */
-    const withQuarter = ADDED.filter(n => /quarter/i.test(n.role))
-    expect(withQuarter).toEqual([])
+    /* A role that merely mentions Guneku must not put somebody on a quarter council. Exactly
+       one entry this pass opened names a quarter, and she names it because the 2021 election
+       coverage says she was elected for it. */
+    const withQuarter = ADDED.filter(n => /quarter/i.test(n.role)).map(n => n.slug)
+    expect(withQuarter).toEqual(['timkoh-florence'])
+
+    const nyang = councilFor('Nyang')
+    expect(nyang.members.map(m => m.slug)).toEqual(['timkoh-florence'])
+    expect(councilCoverage()).toEqual({ recorded: 2, total: 27 })
   })
 })

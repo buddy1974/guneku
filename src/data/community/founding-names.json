@@ -29,7 +29,8 @@
    "community-record-2026-09": "The Guneku community record — the village and association group records reviewed in September 2026. The record itself is not published, and nothing from it is published against a person except that it names them.",
    "owner-list-2026-09-16": "Named by the Product Owner, as data controller, from the Guneku community record, 16 September 2026.",
    "gudeca-us-2023": "The GUDECA US chapter gathering of 2023, carried in the media archive.",
-   "owner-correction-2026-09-03": "Confirmed by the Fondom on 3 September 2026."
+   "owner-correction-2026-09-03": "Confirmed by the Fondom on 3 September 2026.",
+   "owner-confirmation-2026-09-16": "Confirmed as sons and daughters of Guneku by the Product Owner, as data controller, on 16 September 2026, with a residence, an occupation or an affiliation supplied alongside some of the names. Towns were supplied and are deliberately not published against a name: this file records a country, which is what the diaspora dimension reads."
   },
   "deceased_rule": "A person recorded as deceased is listed with respect and NEVER carries a claim action. `deceased: true` removes the claim button and the 'not me' link; the entry stands as a record, not an invitation.",
   "body_rule": "`body` is an office-holding body (see bodies.json); `chapter` is a place (see chapters.json). A person may have both, one, or neither. Thadeus Fon holds national office AND belongs to the Douala chapter.",
@@ -538,13 +539,15 @@
   {
    "slug": "humphrey-tabot",
    "display": "Humphrey Tabot",
-   "aliases": [],
+   "aliases": [
+    "Tabot Humphrey"
+   ],
    "role": "Member, GUDECA EU Chapter",
    "chapter": "gudeca-europe",
-   "residence": null,
+   "residence": "Germany",
    "source": "owner-correction-2026-09-03",
    "sourceLabel": "Confirmed by the Fondom, 3 September 2026",
-   "note": "Membership confirmed by the Fondom. No GUDECA office is recorded for this member, and none is inferred."
+   "note": "Membership confirmed by the Fondom. No GUDECA office is recorded for this member, and none is inferred. The Fondom confirmed on 16 September 2026 that he lives in Germany, and that the other order of his name is the same man."
   },
   {
    "slug": "fidelis-njoh",
@@ -889,6 +892,231 @@
    "source": "owner-list-2026-09-16",
    "sourceLabel": "Named by the Fondom, 16 September 2026",
    "note": "An ordinary entry in the register. No place in the Royal Family is recorded and none is implied: the family name is shared widely in Guneku and has never conferred standing here. A place around the throne is set in the record, by the Palace, or not at all."
+  },
+  {
+   "slug": "oswald-tebit",
+   "display": "Oswald Tebit",
+   "aliases": [],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed a son or daughter of Guneku by the Fondom. No office, body or chapter is recorded, and none is inferred."
+  },
+  {
+   "slug": "kenneth-tebit",
+   "display": "Kenneth Tebit",
+   "aliases": [],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed a son or daughter of Guneku by the Fondom. No office, body or chapter is recorded, and none is inferred."
+  },
+  {
+   "slug": "delphine-mah-nforgwei",
+   "display": "Delphine Mah Nforgwei",
+   "aliases": [
+    "Delphine Akwe"
+   ],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed a daughter of Guneku by the Fondom, which supplied her family name of birth, Akwe. It is carried as a spelling so that older material naming her that way reaches this entry and does not become a second one. No family relationship is published beyond the name itself. No office, body or chapter is recorded."
+  },
+  {
+   "slug": "loveline-mufor",
+   "display": "Loveline Mufor",
+   "aliases": [
+    "Loveline Akwe"
+   ],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed a daughter of Guneku by the Fondom, which supplied her family name of birth, Akwe. It is carried as a spelling so that older material naming her that way reaches this entry and does not become a second one. No family relationship is published beyond the name itself. No office, body or chapter is recorded."
+  },
+  {
+   "slug": "goddy-akwe",
+   "display": "Goddy Akwe",
+   "aliases": [],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed a son of Guneku by the Fondom, which records him as a businessman. The business itself is not named here and no business is attached to him. Based in Cameroon, so not of the diaspora. No office, body or chapter is recorded.",
+   "profession": "Businessman",
+   "residence": "Cameroon"
+  },
+  {
+   "slug": "emmanuel-bayere",
+   "display": "Emmanuel Bayere",
+   "aliases": [],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed a son of Guneku by the Fondom. Based in Cameroon, so not of the diaspora. No office, body or chapter is recorded, and none is inferred.",
+   "residence": "Cameroon"
+  },
+  {
+   "slug": "ma-clara-fongho",
+   "display": "Ma Clara Fongho",
+   "aliases": [],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Written as the Fondom writes her, courtesy form included. A separate person from Sam Fongoh, with whom she shares a family name and nothing else. Based in Cameroon, so not of the diaspora. No office, body or chapter is recorded.",
+   "residence": "Cameroon"
+  },
+  {
+   "slug": "ndum-victor",
+   "display": "Ndum Victor",
+   "aliases": [
+    "Victor Ndum"
+   ],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "The Fondom settled the order of this name and records him as a businessman. The other order is carried as a spelling rather than as a second man. The business itself is not named here and no business is attached to him. Based in Cameroon, so not of the diaspora.",
+   "profession": "Businessman",
+   "residence": "Cameroon"
+  },
+  {
+   "slug": "samuel-ndum",
+   "display": "Samuel Ndum",
+   "aliases": [],
+   "role": "Member, GUDECA North America",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Association with GUDECA North America confirmed by the Fondom. Membership, not office: no executive position is recorded and none is inferred. GUDECA North America is not recorded here as the same body as the GUDECA US chapter, because no source establishes that they are - see the branch record."
+  },
+  {
+   "slug": "ndum-wilfred-tembe",
+   "display": "Ndum Wilfred Tembe",
+   "aliases": [],
+   "role": "Member, GUDECA North America",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Association with GUDECA North America confirmed by the Fondom. Membership, not office: no executive position is recorded and none is inferred. GUDECA North America is not recorded here as the same body as the GUDECA US chapter, because no source establishes that they are - see the branch record."
+  },
+  {
+   "slug": "tibi-enert",
+   "display": "Tibi Enert",
+   "aliases": [],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Written as the Fondom wrote it. The register also holds Ernest Tibi Ticha, confirmed separately in September 2026, and an earlier discovery spelling read \"Tibi Enerst Tibi\". Whether those are this man is NOT established, so the two entries stand apart and neither has been folded into the other. If the Fondom confirms they are one man, this entry becomes a spelling on his. No office, body or chapter is recorded."
+  },
+  {
+   "slug": "tibi-divine",
+   "display": "Tibi Divine",
+   "aliases": [],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed a son or daughter of Guneku by the Fondom. No office, body or chapter is recorded, and none is inferred."
+  },
+  {
+   "slug": "tibi-felix",
+   "display": "Tibi Felix",
+   "aliases": [],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed a son or daughter of Guneku by the Fondom. No office, body or chapter is recorded, and none is inferred."
+  },
+  {
+   "slug": "tibi-gladys-fri",
+   "display": "Tibi Gladys Fri",
+   "aliases": [],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed a son or daughter of Guneku by the Fondom. No office, body or chapter is recorded, and none is inferred."
+  },
+  {
+   "slug": "tibi-vincent",
+   "display": "Tibi Vincent",
+   "aliases": [],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed a son or daughter of Guneku by the Fondom. No office, body or chapter is recorded, and none is inferred."
+  },
+  {
+   "slug": "tibi-nicoline",
+   "display": "Tibi Nicoline",
+   "aliases": [],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed a son or daughter of Guneku by the Fondom. No office, body or chapter is recorded, and none is inferred."
+  },
+  {
+   "slug": "tibi-elvies",
+   "display": "Tibi Elvies",
+   "aliases": [],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed a son or daughter of Guneku by the Fondom. No office, body or chapter is recorded, and none is inferred."
+  },
+  {
+   "slug": "injeh-nancy-abia",
+   "display": "Injeh Nancy Abia",
+   "aliases": [],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed a son or daughter of Guneku by the Fondom. No office, body or chapter is recorded, and none is inferred."
+  },
+  {
+   "slug": "oliver-ngu-tembeng",
+   "display": "Oliver Ngu Tembeng",
+   "aliases": [],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed a son of Guneku by the Fondom. A different person from Timothy Tembeng and from Dominic Tembeng, with whom this entry shares a family name and nothing else. No office, body or chapter is recorded."
+  },
+  {
+   "slug": "james-mbacham",
+   "display": "James Mbacham",
+   "aliases": [],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed a son or daughter of Guneku by the Fondom. No office, body or chapter is recorded, and none is inferred."
+  },
+  {
+   "slug": "ignatius-tabi-chum",
+   "display": "Ignatius Tabi Chum",
+   "aliases": [
+    "Tabi Ignatius Chum"
+   ],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "The Fondom settled the order of this name; the order an earlier record used is carried as a spelling rather than as a second man. Based in Cameroon, so not of the diaspora. No office, body or chapter is recorded.",
+   "residence": "Cameroon"
   }
  ]
 }

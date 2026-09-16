@@ -1930,3 +1930,109 @@ across 43, with no existing test weakened · `npm run build` succeeded, 256 stat
 ESLint clean on every file this pass touched.
 
 Two test files are new: `identity-index.test.ts` (23) and `register-population.test.ts` (35).
+
+## 2026-09-16 - The Fondom confirmed twenty-five more, and four of them were already here
+
+The owner addendum to the same population pass. Not a second build: the same reconciliation,
+the same guard, the same contract, continued. Decisions in ADR-082 to ADR-084; open questions
+in R-059 and R-060.
+
+### Final totals for the whole pass
+
+| | |
+|---|---|
+| Name strings considered | **88** (57 in the first batch, 31 in the addendum) |
+| Matched to an identity already in the record | **16 people** |
+| New identities published | **45** |
+| Held as ambiguous | **4** |
+| Held as insufficient | **9** |
+
+The register went from **52 entries to 97**. The static build went from 232 pages to **277**.
+
+### The addendum, person by person
+
+**Already in the record, reused, no second entry opened (4):**
+
+| Confirmed as | Reused |
+|---|---|
+| Dr. Joyce Akwe | `joyce-akwe` — the professional title was already the display name |
+| William Akwe, Medical Delegate, Yaounde | `william-akwe` — already carried "Medical Delegate, GUDECA Yaounde Branch", the Yaounde chapter and a Cameroon residence. Nothing needed changing |
+| Valentine Andom, Yaounde | `valentine-andom` — already carried the Yaounde chapter and a Cameroon residence |
+| Tabot Humphrey, Frankfurt | `humphrey-tabot` — gained the other name order as a spelling and a Germany residence |
+
+**Opened (21):** `oswald-tebit` · `kenneth-tebit` · `delphine-mah-nforgwei` · `loveline-mufor`
+· `goddy-akwe` · `emmanuel-bayere` · `ma-clara-fongho` · `ndum-victor` · `samuel-ndum` ·
+`ndum-wilfred-tembe` · `tibi-enert` · `tibi-divine` · `tibi-felix` · `tibi-gladys-fri` ·
+`tibi-vincent` · `tibi-nicoline` · `tibi-elvies` · `injeh-nancy-abia` · `oliver-ngu-tembeng` ·
+`james-mbacham` · `ignatius-tabi-chum`
+
+### The reconciliations the Fondom asked to see
+
+- **William Akwe** — one man. The entry already held everything confirmed.
+- **Ndum Victor / victor ndum** — one man, canonical **Ndum Victor**, the other order a
+  spelling on his entry. Both forms now resolve to `ndum-victor`.
+- **Ignatius Tabi Chum / Tabi Ignatius Chum** — one man, canonical **Ignatius Tabi Chum**, the
+  earlier order a spelling. Both resolve to `ignatius-tabi-chum`.
+- **Ma Clara Fongho** — a new entry, written as the Fondom writes her, courtesy form included.
+  A separate person from Sam Fongoh: they share a family name and nothing else, and the
+  Fongho/Fongoh spelling was not allowed to decide either way.
+- **Tibi Enert / Tibi Enerst Tibi** — **not resolved, and deliberately not merged.** The
+  register also holds Ernest Tibi Ticha. The two entries stand apart, the discovery spelling
+  was not made an alias on either, and R-059 carries the question.
+- **Delphine Mah Nforgwei née Akwe** — one woman. Akwe is a spelling on her entry so older
+  material reaches her. No marital or family statement is published (ADR-083).
+- **Loveline Mufor née Akwe** — the same, at `loveline-mufor`.
+
+### Residence, occupation and affiliation
+
+**Towns supplied and deliberately not published** (ADR-082, R-060). The Fondom gave Yaounde
+for Emmanuel Bayere and Ma Clara Fongho, Douala for Goddy Akwe, Bamenda for Ndum Victor, Buea
+for Ignatius Tabi Chum, and Frankfurt for Tabot Humphrey. `residence` is a country field and
+the register's publication rule forbids a town against a name, so **Cameroon** and **Germany**
+were recorded and no town was written anywhere. A test fails if one ever is. The towns are
+written out here so the Fondom can overrule the rule if it wants to.
+
+**A residence conferred nothing.** Every person given one carries `chapter: null` and no body.
+Yaounde residence is not GUDECA Yaounde; Frankfurt is not GUDECA Europe.
+
+**Occupation** — Goddy Akwe and Ndum Victor are recorded as **Businessman**, the plain word
+the Fondom used and a field the register already carries. No business name, no employer and no
+business relationship was created for either.
+
+**GUDECA North America** — Samuel Ndum and Ndum Wilfred Tembe carry
+`role: "Member, GUDECA North America"` and no chapter. No office was invented, no chapter was
+created, and neither man was placed in the GUDECA US chapter, because whether the two are one
+body is still unresolved (ADR-084). The branch record now names both by register slug.
+
+### A defect in the duplicate guard, found by this batch
+
+`collide()` compared token lists as written rather than as sets. One man's name came through
+as "Tibi Enerst **Tibi**", so the token `tibi` appeared twice and was counted as two separate
+agreements against every other Tibi in the batch — which held **six unrelated people** on the
+strength of one shared family name.
+
+Fixed: both sides are deduplicated before comparison, and a near-miss is counted only for a
+token that did not already match exactly, so one token can never reach two on its own. Two
+people must now agree on two **different** parts of a name.
+
+The bug shipped in `13f225e` and changed no data: no candidate in the first batch had a
+repeated token, so nothing was wrongly held or wrongly written. It is recorded because it was
+wrong in production, not because it did damage.
+
+### Standing, again, unchanged
+
+Notables **9**. Royal Family **7**, of whom **3** Queens. Traditional Council **8**. Not one of
+the 45 entries opened across this pass carries `notable`, `royalRole` or a `body`. Six new
+Tibi entries were opened and no family relationship was inferred among them, for the same
+reason six Fomuki entries confer nothing on each other.
+
+### Verification
+
+`npx tsc --noEmit` clean · `npx vitest run` **1087 passed across 45 files** · `npm run build`
+succeeded at **277 static pages** · ESLint clean on every file touched.
+
+Twelve tests were added for the addendum and two for the `collide()` fix. Two existing
+assertions in `register-population.test.ts` were rewritten rather than relaxed: the
+publication allow-list now names `profession` and `residence` and says why each is on it, and
+the quarter check now asserts that exactly one entry names a quarter and that it is the Nyang
+councillor, instead of asserting that none does.

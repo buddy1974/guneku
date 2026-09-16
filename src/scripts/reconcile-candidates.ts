@@ -81,6 +81,36 @@ const RECORD_NAMES: Array<{ source: string; priority: number; names: string[] }>
     priority: 4,
     names: ['Harriet Fomuki', 'Julius Agwetang', 'Fidelis Njoh'],
   },
+  {
+    /* Confirmed as Guneku indigenes by the Product Owner, as data controller, on
+       16 September 2026 - a second and stronger statement than the list above. Each of
+       these is somebody the Fondom says belongs in the register, several with a residence,
+       an occupation or an affiliation supplied alongside the name.
+
+       Written here exactly as the Fondom wrote them, name order and courtesy forms
+       included, so the classifier sees what was actually said rather than a tidied
+       version of it. Where the Fondom supplied two forms of one name - a maiden name, an
+       inverted order - both are listed, because the point is to see them collapse onto one
+       identity rather than to assume they will. */
+    source: 'Confirmed by the Fondom, 16 September 2026',
+    priority: 4,
+    names: [
+      'Oswald Tebit', 'Kenneth Tebit',
+      'Delphine Mah Nforgwei', 'Delphine Akwe',
+      'Dr. Joyce Akwe',
+      'Loveline Mufor', 'Loveline Akwe',
+      'William Akwe', 'Goddy Akwe',
+      'Emmanuel Bayere', 'Valentine Andom', 'Ma Clara Fongho',
+      'Ndum Victor', 'victor ndum',
+      'Samuel Ndum', 'Ndum Wilfred Tembe',
+      'Tabot Humphrey', 'Humphrey Tabot',
+      'Tibi Enert', 'Tibi Enerst Tibi',
+      'Tibi Divine', 'Tibi Felix', 'Tibi Gladys Fri', 'Tibi Vincent',
+      'Tibi Nicoline', 'Tibi Elvies',
+      'Injeh Nancy Abia', 'Oliver Ngu Tembeng', 'James Mbacham',
+      'Ignatius Tabi Chum', 'Tabi Ignatius Chum',
+    ],
+  },
 ]
 
 const ORDER: Classification[] = ['EXISTING', 'NEW_SAFE', 'AMBIGUOUS', 'INSUFFICIENT']

@@ -168,6 +168,36 @@ describe('candidates are checked against each other, not only against the record
     expect(verdicts[1].reason).toContain('Ndongo Emmanuel')
   })
 
+  it('does not read one repeated name part as two agreements', () => {
+    /* A source wrote one man as "Tibi Enerst Tibi", so his tokens held `tibi` twice. Counted
+       as written, that read as two agreements against every other Tibi and held six
+       unrelated people on the strength of one family name. Two people must agree on two
+       DIFFERENT parts of a name before the guard says anything at all. */
+    /* Written with names the register does not hold, because this is a test of the rule and
+       not of today's data — the real names it was found on are all in the register now, and
+       would resolve before the pool logic ever ran. */
+    const verdicts = classifyPool([
+      { name: 'Zando Kerost Zando', from: 'A group record', priority: 1 },
+      { name: 'Zando Weline', from: 'The Fondom', priority: 4 },
+      { name: 'Zando Purmay', from: 'The Fondom', priority: 4 },
+      { name: 'Zando Lintor', from: 'The Fondom', priority: 4 },
+    ])
+    expect(verdicts.slice(1).map(v => v.classification))
+      .toEqual(['NEW_SAFE', 'NEW_SAFE', 'NEW_SAFE'])
+  })
+
+  it('still catches a one-letter slip in a given name beside a shared family name', () => {
+    /* The genuine case the Fondom flagged, in the shape it had: a shared family name and two
+       given names one letter apart. Names the register does not hold, for the same reason as
+       above. */
+    const verdicts = classifyPool([
+      { name: 'Zando Kerost', from: 'The Fondom', priority: 4 },
+      { name: 'Zando Keroste Zando', from: 'A group record', priority: 6 },
+    ])
+    expect(verdicts[0].classification).toBe('NEW_SAFE')
+    expect(verdicts[1].classification).toBe('AMBIGUOUS')
+  })
+
   it('leaves two people who merely share a family name alone', () => {
     const verdicts = classifyPool([
       { name: 'Timothy Tembeng', from: 'A reviewed record', priority: 1 },

@@ -450,13 +450,29 @@ export type PoolEntry = {
 
 export type PoolVerdict = CandidateVerdict & { from: string }
 
-function collide(a: string[], b: string[]): boolean {
+function collide(rawA: string[], rawB: string[]): boolean {
+  /* Deduplicated first, and that is not tidiness.
+   *
+   * A source wrote one man's name as "Tibi Enerst Tibi", so his tokens were
+   * ['tibi','enerst','tibi']. Counting them as written made `shared` two long against every
+   * other Tibi in the batch - the same token twice, read as two agreements - and held six
+   * unrelated people on the strength of one family name. Two people must agree on two
+   * DIFFERENT parts of a name before the guard says anything. */
+  const a = [...new Set(rawA)]
+  const b = [...new Set(rawB)]
+
   if (sameSet(a, b)) return true
+
   const shared = a.filter(t => b.includes(t))
   if (shared.length >= 2) return true
+
+  /* Near-misses are counted only for tokens that did NOT already match exactly, so one token
+     cannot be both an agreement and a near-agreement and reach two on its own. */
   const near = a.filter(t =>
+    !b.includes(t) &&
     t.length >= NEAR_MATCH_MIN_LENGTH &&
     b.some(o => o.length >= NEAR_MATCH_MIN_LENGTH && editDistance(t, o) <= 1))
+
   return new Set([...shared, ...near]).size >= 2
 }
 

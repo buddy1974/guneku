@@ -33,7 +33,7 @@ this log and are not backfilled here; they are recorded in the handover reports 
 | ADR-008 | 2026-09-02 | One canonical 27-quarter list | Accepted | — |
 | ADR-009 | 2026-09-02 | Do not impose a three-variant image convention site-wide | Accepted | — |
 
-_ADR-010 onward are recorded in full below and not repeated in this table; the table has listed the first nine since it was written. Latest: **ADR-081**, 2026-09-16._
+_ADR-010 onward are recorded in full below and not repeated in this table; the table has listed the first nine since it was written. Latest: **ADR-084**, 2026-09-16._
 
 ---
 
@@ -1654,3 +1654,80 @@ asymmetry decides it.
 The same reasoning, with a different subject: a GUDECA chapter that keeps a register is a
 constituted body (ADR-015, ADR-017), and renaming one on the strength of how a branch was
 described in passing would move a register out from under the people on it.
+
+---
+
+## ADR-082 - A residence is a country, and a town is not published against a name
+
+**Context.** The Fondom's confirmation of 16 September 2026 supplied a town for nine people:
+Yaounde, Douala, Bamenda, Buea, Frankfurt. The register has a `residence` field, and every
+existing value in it is a country — Cameroon, Germany, United States.
+
+`meta.publication_rule` in founding-names.json has said since the register was written that a
+stub publishes a name, an office, a body, a chapter and a source, and that photographs,
+employers, **cities** and contact details are not to be added to the file.
+
+**Decision.** The country is recorded and the town is not. `residence` takes "Cameroon" or
+"Germany"; no town is written into any field of any entry, and a test fails if one appears.
+
+The towns are not lost — they are in the change-log entry for this pass, where the Fondom
+can read them back and overrule this if it wishes. What they are not is published beside
+somebody's name on a page anybody can read.
+
+The distinction that decides it: a country places a person in or out of the diaspora, which
+is a dimension the register already models and publishes. A town places a person somewhere a
+stranger could go and look for them, which is what the publication rule was written to
+prevent. The register gains nothing from the second that it does not already have from the
+first.
+
+**A residence confers nothing else.** Not GUDECA membership, not a chapter, not an office, not
+a body, not a quarter, not a business. A Yaounde residence is not GUDECA Yaounde and a
+Frankfurt residence is not GUDECA Europe. Nine people carry a residence from this pass and
+every one of them carries `chapter: null`.
+
+---
+
+## ADR-083 - A name of birth is a spelling, not a relationship
+
+**Context.** The Fondom confirmed Delphine Mah Nforgwei and Loveline Mufor, supplying for each
+the family name she was born with: Akwe. Older material in the archive may name either woman
+that way, and a register that could not reach her under it would eventually hold her twice.
+
+**Decision.** The name of birth goes in `aliases`, which is exactly what aliases are for —
+"reachable by the spellings the sources use". `Delphine Akwe` resolves to
+`delphine-mah-nforgwei`; `Loveline Akwe` resolves to `loveline-mufor`. Neither woman has a
+second entry and neither can acquire one.
+
+**And nothing more is published.** A name of birth is a fact about a name. It is not a
+statement that a woman is married, to whom, when, or that she is anybody's sister or daughter.
+`meta.relationship_rule` already holds that family relationships are published only from the
+Palace record or from the person themselves, and this does not weaken it: a test asserts that
+neither entry contains the words married, wife, husband, sister or mother of.
+
+**Rejected.** A `maidenName` field (a new published field, stating a marital history nobody
+asked to publish); two entries cross-linked (two entries is the duplicate this register
+exists to prevent).
+
+---
+
+## ADR-084 - GUDECA North America is recorded in words, not as a chapter
+
+**Context.** The Fondom associates Samuel Ndum and Ndum Wilfred Tembe with GUDECA North
+America. The chapter register holds `gudeca-us-dmv`, a constituted GUDECA US chapter seated
+across the DMV and New Jersey. Whether North America is that chapter under a wider name is
+unresolved (ADR-081, R-057).
+
+**Decision.** Both men carry `role: "Member, GUDECA North America"` and `chapter: null`, and
+the branch record in `gudeca-branches.json` names them by register slug. No chapter was
+created, no chapter was renamed, and neither man was put into `gudeca-us-dmv`.
+
+Putting them into the US chapter would have settled by default a question the Fondom has not
+settled, and would have added two people to a register they may not belong on. Creating a
+`gudeca-north-america` chapter would have asserted a constituted body on the strength of two
+memberships. The existing architecture already says this perfectly well in the words the
+register has always used for somebody with no office: **Member, X**. That is the absence of an
+office, not one.
+
+This is the general answer to "the model cannot hold this relationship": say it in the free
+text the register already publishes, link it from the institution record, and leave the
+structure alone until a source justifies changing it.
