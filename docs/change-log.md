@@ -1788,12 +1788,17 @@ the Product Owner in the brief.
 
 | | |
 |---|---|
-| Matched to an identity already in the record | **20 name strings -> 15 people** |
+| Matched to an identity already in the record | **20 name strings -> 12 people** |
 | Opened as new entries | **24** |
 | Held as ambiguous | **3** |
 | Held as insufficient | **9** |
 
 The register went from **52 entries to 76**. The static build went from 232 pages to 256.
+
+The twelve already in the record: Constantine Ndenge (written five ways), Fah Elvis
+Tayong (three), Ngwa Vitalis (two), the Fon (two), and one spelling each of Sam Fongoh,
+Ngati Bah G., Forbang Noel, Ephraim Toh, Don Df Festoire, Fodom Calvin, Fidelis Njoh and
+Armstrong Tinyih.
 
 **The collected inventory the brief describes - 126 leads - was not in the environment.** The
 WhatsApp export in the repository and its CSV twin are the same 60 messages and the same 31
