@@ -547,3 +547,233 @@
   .inst-row  { border-top: 1px solid var(--rule); }
   .inst-row:last-child { border-bottom: 1px solid var(--rule); }
 }
+
+/* ══════════════════════════════════════════════════════════
+   BUSINESS DIRECTORY — 2026-09-16
+   The one part of Guneku that has to sell something: the idea
+   that a son or daughter of the village built the thing you
+   are looking at.
+
+   It is a LAYER ON the institutional system, not a second
+   design. Same paper, same ink, same rule hairlines, same
+   ochre accent, same 3px radius. What it adds is image — a
+   cover, a logo sitting on the boundary between the two —
+   because a business without a picture of itself is a line in
+   a spreadsheet, and this is meant to be looked at.
+
+   No gradients as decoration. No glass. No glow. The only
+   gradient here is the placeholder wash, which stands in for
+   a photograph that does not exist and is generated from the
+   business's own slug so it is the same every time.
+   ══════════════════════════════════════════════════════════ */
+
+@layer components {
+
+  /* ── The grid ──
+     Editorial rather than uniform: wide enough that a cover
+     reads as a photograph, not a thumbnail. */
+  .biz-grid {
+    display: grid;
+    gap: clamp(1.1rem, 2.4vw, 1.75rem);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 40rem)  { .biz-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 64rem)  { .biz-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+  /* ── The card ── */
+  .biz-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+  }
+  .biz-card:hover,
+  .biz-card:focus-within {
+    border-color: var(--royal-green);
+    box-shadow: 0 10px 30px -18px oklch(0.235 0.012 55 / 0.45);
+    transform: translateY(-2px);
+  }
+
+  /* The whole card is the link target, but the anchor stays a real
+     anchor around the name so the keyboard and a screen reader get
+     one honest, announceable link rather than a clickable div. */
+  .biz-card-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .biz-card:focus-within {
+    outline: 2px solid var(--royal-green);
+    outline-offset: 2px;
+  }
+  .biz-card-link:focus-visible { outline: none; }
+
+  /* ── Cover ──
+     A fixed ratio so one tall photograph cannot break the row.
+     object-fit keeps faces and signage intact rather than squashing. */
+  .biz-cover {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--stone);
+  }
+  .biz-cover img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  .biz-card:hover .biz-cover img { transform: scale(1.035); }
+
+  /* ── Placeholder ──
+     Designed, not missing. A warm wash off the business's own hue
+     with the village's hairline grid over it, and the initials set
+     in the display face. It should read as a choice. */
+  .biz-placeholder {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background:
+      linear-gradient(135deg,
+        oklch(0.93 0.030 var(--biz-hue, 80)) 0%,
+        oklch(0.88 0.045 var(--biz-hue, 80)) 100%);
+  }
+  .biz-placeholder::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right,  oklch(0.235 0.012 55 / 0.055) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(0.235 0.012 55 / 0.055) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .biz-placeholder-mark {
+    position: relative;
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: oklch(0.32 0.040 var(--biz-hue, 80) / 0.72);
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    line-height: 1;
+  }
+
+  /* ── Logo ──
+     Sits on the boundary between cover and content. White plate so a
+     transparent PNG and a photographic logo both read cleanly. */
+  .biz-logo {
+    position: absolute;
+    left: 1rem;
+    bottom: -1.5rem;
+    width: 3.5rem; height: 3.5rem;
+    border-radius: 3px;
+    background: #fff;
+    border: 1px solid var(--rule);
+    box-shadow: 0 4px 14px -8px oklch(0.235 0.012 55 / 0.5);
+    display: grid; place-items: center;
+    overflow: hidden;
+    z-index: 1;
+  }
+  .biz-logo img { width: 100%; height: 100%; object-fit: contain; padding: 0.3rem; }
+  .biz-logo-mark {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--royal-green);
+  }
+
+  .biz-body { padding: 1rem; padding-top: 2rem; display: flex; flex-direction: column; flex: 1; }
+  .biz-body-flat { padding-top: 1rem; }
+
+  /* ── Chips ──
+     Restrained on purpose. Two at most on a card; the rest live on
+     the business's own page. A card covered in tags is a card nobody
+     reads. */
+  .biz-chip {
+    display: inline-flex; align-items: center;
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-600);
+    background: var(--paper-alt);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 0.2rem 0.55rem;
+    white-space: nowrap;
+  }
+  .biz-chip-accent { color: var(--royal-green); border-color: oklch(0.320 0.060 158 / 0.35); }
+
+  /* ── Detail hero ── */
+  .biz-hero-cover {
+    position: relative;
+    aspect-ratio: 21 / 9;
+    min-height: 11rem;
+    overflow: hidden;
+    background: var(--stone);
+    border-radius: 3px;
+  }
+  .biz-hero-cover img { width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 40rem) { .biz-hero-cover { aspect-ratio: 16 / 10; } }
+
+  .biz-hero-logo {
+    width: 5.5rem; height: 5.5rem;
+    border-radius: 3px;
+    background: #fff;
+    border: 1px solid var(--rule);
+    box-shadow: 0 6px 20px -10px oklch(0.235 0.012 55 / 0.5);
+    display: grid; place-items: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .biz-hero-logo img { width: 100%; height: 100%; object-fit: contain; padding: 0.45rem; }
+
+  /* ── Video ── */
+  .biz-video {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: oklch(0.235 0.012 55);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .biz-video iframe { width: 100%; height: 100%; border: 0; }
+
+  /* A poster and a button until somebody asks for the video. Twelve
+     embedded players on one page is a page nobody on a throttled
+     connection in Cameroon will wait for (R-008). */
+  .biz-video-poster { width: 100%; height: 100%; object-fit: cover; }
+  .biz-video-play {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    background: oklch(0.235 0.012 55 / 0.28);
+    border: 0; cursor: pointer;
+    transition: background 160ms ease;
+  }
+  .biz-video-play:hover { background: oklch(0.235 0.012 55 / 0.14); }
+  .biz-video-play:focus-visible { outline: 3px solid var(--ochre); outline-offset: -3px; }
+  .biz-video-play span {
+    display: grid; place-items: center;
+    width: 3.25rem; height: 3.25rem;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--royal-green);
+    box-shadow: 0 6px 20px -8px oklch(0.235 0.012 55 / 0.6);
+    font-size: 1.1rem;
+    padding-left: 0.2rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .biz-card, .biz-cover img { transition: none; }
+    .biz-card:hover { transform: none; }
+    .biz-card:hover .biz-cover img { transform: none; }
+  }
+}
+
+@layer components {
+  /* A generated cover is shorter than a photographic one. 21:9 of nothing is a lot of page
+     to give to an image that does not exist, and it pushed the business name below the fold
+     on a laptop. */
+  .biz-hero-cover-plain { aspect-ratio: 32 / 9; min-height: 8rem; }
+  @media (max-width: 40rem) { .biz-hero-cover-plain { aspect-ratio: 16 / 7; } }
+}

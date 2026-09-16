@@ -28,7 +28,11 @@ const EXT_FOR_TYPE: Record<string, string> = {
   'image/avif': 'avif',
 }
 
-const TYPES = new Set(['avatar', 'cover'])
+/* `business-logo` and `business-cover` added 2026-09-16. The same route, the same
+   session scoping and the same sniffed-content-type rule: a business image is an
+   image somebody signed in uploaded, which is exactly what this route already
+   handles, and a second upload endpoint would be a second place to get it wrong. */
+const TYPES = new Set(['avatar', 'cover', 'business-logo', 'business-cover'])
 
 export async function POST(req: NextRequest) {
   try {

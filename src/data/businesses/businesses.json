@@ -1,0 +1,290 @@
+{
+ "meta": {
+  "purpose": "The Guneku Business Directory — businesses, practices and ventures run by sons and daughters of Guneku, at home and abroad. Curated records live here, in git, changed by a person in a commit. What a verified Gunekuan registers about their own business lives in Neon and is theirs to edit; the directory renders both.",
+  "updated": "2026-09-16",
+  "publication_rule": "A business record publishes what belongs to the BUSINESS: its name, what it does, its public address, its own website and its own public business channels. It never publishes a person's private telephone, private email, home address or personal social account, and it never copies contact details out of somebody's Guneku profile. A business telephone or email appears only where the owner has elected to publish it.",
+  "address_rule": "A business may publish a street and a town, because that address is the business's own and is already public. The Indigenes register publishes a country against a person and never a town (ADR-082). Nothing here is ever read back as somebody's residence.",
+  "relationship_rule": "A person is attached to a business only where somebody established the relationship, and with the word the evidence supports — owner, founder, managing director, operator, physician. Where the Fondom has confirmed a business but the person is not in the Indigenes register, the relationship is HELD: the name is recorded, no slug is invented, and the page says the connection is not yet confirmed. A shared surname establishes nothing.",
+  "image_rule": "Logos and covers are published only where the business supplied them or they are the business's own material. Nothing is scraped to fill a card — a business with no image gets a designed placeholder, which is the honest state and is meant to look deliberate.",
+  "sources": {
+   "owner-confirmation-2026-09-16": "Confirmed by the Product Owner, as data controller, on 16 September 2026.",
+   "repository-record": "Already established in this repository's reviewed records.",
+   "legacy-business-directory": "The held business-directory record assembled 2026-09-01 from businesses that advertised themselves in the community during 2026."
+  },
+  "retired": [
+   {
+    "name": "Local pork supply, Guneku",
+    "retired": "2026-09-16",
+    "reason": "Carried in the held business-directory record as a service offer with no business name, no proprietor and no premises — a classified advertisement rather than a business. Retired rather than migrated. The community's own caution given in the same thread, that meat should be inspected by an authorised veterinarian before sale, is recorded here so it is not lost with it."
+   }
+  ]
+ },
+
+ "businesses": [
+  {
+   "slug": "maxpromo-digital",
+   "name": "MaxPromo Digital",
+   "tagline": "AI automation, intelligent workflows and web platforms, built from Essen.",
+   "description": "MaxPromo Digital builds AI agents, workflow automations and intelligent web platforms for businesses across Europe. It is the studio behind the Guneku Fondom's own digital platform — this website — which makes it the rare case of a Guneku business whose work the village can simply look at.",
+   "category": "technology-digital",
+   "tags": ["AI automation", "Web development", "Workflow automation", "Diaspora business"],
+   "status": "public",
+   "location": { "country": "Germany", "city": "Essen" },
+   "serviceAreas": ["Germany", "Europe"],
+   "services": [
+    "AI agentic workflows",
+    "Process and workflow automation",
+    "AI-powered web development",
+    "App development and automation",
+    "Document and data intelligence",
+    "Social media automation"
+   ],
+   "links": { "website": "https://maxpromo.digital" },
+   "people": [
+    {
+     "personSlug": "marcel-tabit-akwe",
+     "relationship": "owner",
+     "evidence": "Recorded in this repository's own profile of him as founder of MaxPromo Digital and architect of the Guneku platform."
+    }
+   ],
+   "sourceNote": "Assembled from the profile this site already publishes. No client, contract or result is claimed here that the record does not establish."
+  },
+
+  {
+   "slug": "midas-property-auctions",
+   "name": "Midas Property Auctions",
+   "aliases": ["Midas Property Group"],
+   "tagline": "Residential and commercial property auctions, London and the South East.",
+   "description": "A London property auction business handling residential and commercial lots, working across London, Essex and the wider United Kingdom. It runs auctions in the formats the modern market uses — in the room, online and timed.",
+   "category": "property-real-estate",
+   "tags": ["Property auctions", "Residential", "Commercial", "Diaspora business"],
+   "status": "public",
+   "location": { "country": "United Kingdom", "city": "London" },
+   "serviceAreas": ["London", "Essex", "United Kingdom"],
+   "services": [
+    "Residential property auctions",
+    "Commercial property auctions",
+    "Online and timed auction formats"
+   ],
+   "people": [
+    {
+     "personSlug": "sam-fongoh",
+     "relationship": "owner",
+     "evidence": "Confirmed by the Fondom on 16 September 2026. The legacy Sons and Daughters listing already recorded him as a property auction specialist in the United Kingdom."
+    }
+   ],
+   "sourceNote": "Midas Property Auctions and Midas Property Group appear as related public surfaces of the same operation, so one record is kept and the second name is carried as a spelling. No corporate structure, holding relationship or company registration is asserted, because none is established here. No website is published: none was established, and one has not been invented."
+  },
+
+  {
+   "slug": "fondom-studios",
+   "name": "Fondom Studios",
+   "aliases": ["Fondom Studio", "Fondom Studios (Guneku Branch)"],
+   "tagline": "Film, photography and design, telling Guneku's story from Guneku.",
+   "description": "A media and cultural production company founded by a son of Guneku, working to raise the image of the village and the wider Meta clan through media and affordable service at home. It is media partner to both MEFU and MECUDA, and is described as one of the first legally registered media companies in Momo Division.",
+   "category": "media-creative",
+   "tags": ["Film and video", "Photography", "Graphic design", "Printing", "Event coverage", "Home business"],
+   "status": "public",
+   "location": { "country": "Cameroon", "city": "Guneku" },
+   "serviceAreas": ["Guneku", "Momo Division", "Meta"],
+   "services": [
+    "Film and video production",
+    "Photography",
+    "Graphic design",
+    "Printing",
+    "Online marketing",
+    "Documentation and book writing",
+    "Photo repair and enlargement",
+    "Storytelling",
+    "Live event coverage"
+   ],
+   "links": { "facebook": "https://www.facebook.com/fondomstudio" },
+   "people": [
+    {
+     "heldName": "Tanwi Amerion",
+     "relationship": "owner",
+     "evidence": "Confirmed by the Fondom on 16 September 2026. He is not yet in the Indigenes register, so no register slug is recorded and none has been invented."
+    }
+   ],
+   "sourceNote": "The business itself is already established in this repository's institution record. Two locations are given by the sources: a street address at Tanwi Street, Windig Square, in Guneku, and a separate public listing describing the studio as being in Bamenda. The conflict is NOT resolved here — the Fondom's own record places the studio in Guneku, so Guneku is what this record carries, and the Bamenda listing is noted rather than chosen between. No website is published: none was established. The studio's own Facebook page is a public business channel and is published; no personal number was taken from any source."
+  },
+
+  {
+   "slug": "concept-care-solutions",
+   "name": "Concept Care Solutions",
+   "tagline": "Home care and healthcare recruitment across the South East of England.",
+   "description": "A United Kingdom home-care provider and healthcare recruitment business, delivering care in people's own homes and placing nursing and care staff. It has operated for more than twenty years and works across several English counties, with activity announced in Northern Ireland.",
+   "category": "health-care",
+   "tags": ["Home care", "Live-in care", "Healthcare recruitment", "Supported living", "Diaspora business"],
+   "status": "public",
+   "location": { "country": "United Kingdom", "city": "Watford" },
+   "serviceAreas": [
+    "Hertfordshire", "Northamptonshire", "Essex", "London", "Northern Ireland"
+   ],
+   "services": [
+    "Home care and domiciliary care",
+    "Live-in care",
+    "Supported living",
+    "Children's care",
+    "Respite care",
+    "Complex care",
+    "Overnight care",
+    "Companionship",
+    "Culturally attuned care",
+    "Healthcare recruitment",
+    "Permanent and temporary nursing support"
+   ],
+   "links": { "website": "https://conceptcaresolutions.com" },
+   "people": [
+    {
+     "heldName": "Edith Fongho",
+     "relationship": "managing-director",
+     "evidence": "Confirmed by the Fondom on 16 September 2026, which names her as the person the business belongs to. The public company record describes her as Managing Director, and that is the title recorded here rather than a form of ownership no source states. She is not yet in the Indigenes register, so no register slug is recorded and none has been invented."
+    }
+   ],
+   "sourceNote": "No regulator rating, inspection outcome or accreditation is published here: none was verified against an authoritative source, and a care business is the last place to repeat one that was not. No review or testimonial is carried. Services and areas are as the business's own public material describes them."
+  },
+
+  {
+   "slug": "urologie-neuwied",
+   "name": "Urologie Neuwied",
+   "tagline": "Urological practice in Neuwied, Rhineland-Palatinate.",
+   "description": "A urological practice in Neuwied, Germany. His Royal Highness Dr. Fomuki Walters Ticha IX, Fon of Guneku, practises here as a urologist — the Fondom's own record of him carries the practice as his current work.",
+   "category": "medical-practice",
+   "tags": ["Urology", "Medical practice", "Diaspora business"],
+   "status": "public",
+   "location": { "country": "Germany", "city": "Neuwied" },
+   "serviceAreas": ["Neuwied", "Rhineland-Palatinate"],
+   "services": ["Urology"],
+   "links": { "website": "https://www.waltersfomuki.de" },
+   "people": [
+    {
+     "personSlug": "fon-walters-profile",
+     "relationship": "physician",
+     "evidence": "This repository's own profile of the reigning Fon records his current work as \"Urologist — Private Practice\" at a Praxis für Urologie in Germany, with this website."
+    }
+   ],
+   "sourceNote": "He is recorded as a physician of the practice, which is what the record establishes. No ownership, partnership or shareholding is asserted: nothing held here states one, and a medical practice's ownership is not something to infer. The Fon has one identity on this site, his own Palace profile, and this business links to it rather than creating a second."
+  },
+
+  {
+   "slug": "arcpoint-labs",
+   "name": "ARCpoint Labs",
+   "tagline": "Diagnostic testing and health screening in south-west Virginia.",
+   "description": "A diagnostic laboratory business serving south-west Virginia, providing health screening, employer testing and court-admissible testing from several locations.",
+   "category": "laboratory-diagnostics",
+   "tags": ["Diagnostics", "Health screening", "Drug and alcohol testing", "DNA testing", "Diaspora business"],
+   "status": "public",
+   "location": { "country": "United States", "city": "Christiansburg, Virginia" },
+   "otherLocations": [
+    { "country": "United States", "city": "Lynchburg, Virginia" },
+    { "country": "United States", "city": "Salem, Virginia" }
+   ],
+   "serviceAreas": ["Virginia"],
+   "services": [
+    "Diagnostic testing",
+    "Health screening",
+    "Drug and alcohol testing",
+    "Court-admissible DNA and paternity testing",
+    "Employer screening"
+   ],
+   "people": [
+    {
+     "heldName": "Denis M. Tebit",
+     "relationship": "associated",
+     "evidence": "Confirmed by the Fondom on 16 September 2026 as a Guneku connection to this business. He is not yet in the Indigenes register, so no register slug is recorded and none has been invented, and the precise relationship he holds is not stated because no source establishes it."
+    }
+   ],
+   "sourceNote": "Three Virginia locations are recorded as locations of one business rather than as three businesses, which is what the evidence supports. ARCpoint Labs is a national brand: nothing here says or implies that the brand itself is owned by anybody connected to Guneku, and no national or franchisor channel is published as this business's own. No website or social account is published: none was established for the local operation."
+  },
+
+  {
+   "slug": "any-lab-test-now-lynchburg",
+   "name": "Any Lab Test Now — Lynchburg",
+   "tagline": "Walk-in laboratory testing in Lynchburg, Virginia.",
+   "description": "A walk-in laboratory testing business in Lynchburg, Virginia, offering direct-access testing without a physician's referral.",
+   "category": "laboratory-diagnostics",
+   "tags": ["Diagnostics", "Walk-in testing", "Diaspora business"],
+   "status": "public",
+   "location": { "country": "United States", "city": "Lynchburg, Virginia" },
+   "serviceAreas": ["Virginia"],
+   "services": ["Laboratory testing"],
+   "people": [
+    {
+     "heldName": "Denis M. Tebit",
+     "relationship": "associated",
+     "evidence": "Confirmed by the Fondom on 16 September 2026 as a Guneku connection to this business. He is not yet in the Indigenes register, so no register slug is recorded and none has been invented."
+    }
+   ],
+   "sourceNote": "A separate brand from ARCpoint Labs and kept as a separate record; nothing establishes that the two local operations share an operating entity, so no such relationship is asserted. No website is published: the address supplied in discovery was malformed and a corrected one was not established. Inventing a plausible one is exactly the failure this record exists to avoid."
+  },
+
+  {
+   "slug": "vitalis-fish-breeding-centre",
+   "name": "Vitalis Integrated Fish Reproduction and Breeding Centre",
+   "tagline": "We bake, we dry, we smoke, we sell fresh.",
+   "description": "A catfish reproduction and breeding centre at Wumfi-Ku in Guneku, selling fish fresh, smoked and dried, and hosting level-three students on internship in catfish reproduction. A poultry house is operated at the same place.",
+   "category": "agriculture-aquaculture",
+   "tags": ["Aquaculture", "Catfish", "Poultry", "Internships", "Home business"],
+   "status": "public",
+   "location": { "country": "Cameroon", "city": "Wumfi-Ku, Guneku" },
+   "serviceAreas": ["Guneku"],
+   "services": [
+    "Catfish reproduction and breeding",
+    "Fresh, smoked and dried fish",
+    "Internships in catfish reproduction for level-three students",
+    "Poultry"
+   ],
+   "people": [
+    {
+     "heldName": "Ngwa Vitalis",
+     "relationship": "operator",
+     "evidence": "The held business-directory record names Ngwa Vitalis as the operator. The Indigenes register holds a councillor of the same name, and NOTHING establishes that they are the same man — the forensic review of this repository flagged it and no confirmation has been given since. The relationship is therefore recorded by name only and is not linked to the register."
+    }
+   ],
+   "sourceNote": "Migrated from the held business-directory record of 2026-09-01. The business is published; the person link is not, and a same-name match has never been treated as an identity here."
+  },
+
+  {
+   "slug": "magic-gate-enterprise",
+   "name": "Magic Gate Enterprise",
+   "tagline": "Household, office and industrial equipment.",
+   "description": "A Douala equipment business supplying household, office and industrial equipment.",
+   "category": "retail-commerce",
+   "tags": ["Equipment and supplies", "Household", "Office", "Industrial"],
+   "status": "held",
+   "holdReason": "No Guneku connection is established. The directory publishes businesses run by sons and daughters of Guneku, and nothing on this record names one: no owner, operator or associated person has been confirmed. It is kept in full so that one confirmation publishes it, and it is NOT attached to any indigene on the strength of a name appearing near it in a note.",
+   "location": {
+    "country": "Cameroon",
+    "city": "Douala",
+    "address": "Opposite Total Ndobo, Bonaberi N3"
+   },
+   "serviceAreas": ["Douala"],
+   "services": ["Household equipment", "Office equipment", "Industrial equipment"],
+   "links": { "facebook": "https://www.facebook.com/magicgate237" },
+   "sourceNote": "Public business page and public business address only. No follower count is recorded: it is a number that changes weekly and would be stale before anybody read it."
+  },
+
+  {
+   "slug": "vicky-and-sons",
+   "name": "Vicky and Son's",
+   "tagline": "Building your dreams into reality.",
+   "description": "A Guneku village business combining construction and building services, electronics, building materials and a cafeteria.",
+   "category": "construction-trades",
+   "tags": ["Construction", "Electronics", "Building materials", "Cafeteria", "Home business"],
+   "status": "held",
+   "holdReason": "No proprietor is named in any record held here, so no Guneku connection is established for it. Migrated in full from the held business-directory record rather than discarded; one confirmation of who runs it publishes it.",
+   "location": { "country": "Cameroon", "city": "Guneku" },
+   "serviceAreas": ["Guneku"],
+   "services": [
+    "House construction, building plans and design",
+    "Renovation",
+    "Plumbing and electrical installation",
+    "Building materials",
+    "Electronics — phones, chargers, televisions, cables, solar panels",
+    "Cafeteria"
+   ],
+   "sourceNote": "Migrated from the held business-directory record of 2026-09-01, which carried no contact details for it and still carries none."
+  }
+ ]
+}

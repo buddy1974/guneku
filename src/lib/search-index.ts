@@ -8,6 +8,7 @@ import {
 import { allQuarters } from '@/lib/quarter-pages'
 import { allLocations } from '@/lib/explore'
 import { allBodies, membersOf, allFoundingNames, isDiaspora } from '@/lib/community'
+import { publicCuratedBusinesses, CATEGORY_LABEL, locationLabel } from '@/lib/businesses'
 import current from '@/data/current-notices.json'
 import { projectSlug } from './projects'
 import { approvedFilms } from '@/lib/guneku-tv'
@@ -35,7 +36,7 @@ import villageFacts from '@/data/home/village-facts.json'
 
 export type SearchGroup =
   | 'People' | 'Places' | 'Palace & history' | 'Projects'
-  | 'Institutions' | 'News & records' | 'Photos' | 'Films' | 'Questions'
+  | 'Institutions' | 'Businesses' | 'News & records' | 'Photos' | 'Films' | 'Questions'
 
 export type SearchEntry = {
   id: string
@@ -52,7 +53,7 @@ export type SearchEntry = {
 
 export const GROUP_ORDER: SearchGroup[] = [
   'People', 'Places', 'Palace & history', 'Projects',
-  'Institutions', 'News & records', 'Photos', 'Films', 'Questions',
+  'Institutions', 'Businesses', 'News & records', 'Photos', 'Films', 'Questions',
 ]
 
 const strip = (html: string | null | undefined) =>
@@ -114,6 +115,32 @@ function build(): SearchEntry[] {
       weight: 2,
     })
   }
+  /* ── Businesses ──
+     Only the ones the Fondom has published. A held business is absent here for the same
+     reason it is absent from the directory and the sitemap, and the businesses people
+     register about themselves live in the database, which this index — built once, at module
+     load, with no await anywhere — cannot read. They are reachable through /businesses,
+     which is indexed above. */
+  for (const b of publicCuratedBusinesses()) {
+    const place = locationLabel(b.location)
+    push({
+      id: `business:${b.slug}`,
+      title: b.name,
+      group: 'Businesses',
+      href: `/businesses/${b.slug}`,
+      excerpt: clip(b.tagline || [CATEGORY_LABEL[b.category], place].filter(Boolean).join(' · ')),
+      keywords: [
+        ...(b.aliases ?? []),
+        CATEGORY_LABEL[b.category],
+        ...(b.tags ?? []),
+        ...(b.services ?? []).slice(0, 6),
+        place ?? '',
+        'business',
+      ].filter(Boolean) as string[],
+      weight: 2,
+    })
+  }
+
   for (const p of getAllNotables()) {
     const rec = p as unknown as { name?: string; title?: string; origin?: string; bio?: string }
     push({
@@ -285,6 +312,9 @@ function build(): SearchEntry[] {
     ['/people', 'The bodies of Guneku', 'People',
       'The Traditional Council, GUDECA’s executives, the Michi Əbeŋ committee and the Royal Family.',
       ['people', 'office', 'officers', 'holders', 'council', 'bodies']],
+    ['/businesses', 'The Guneku Business Directory', 'Businesses',
+      'Businesses, practices and ventures run by sons and daughters of Guneku, at home and abroad.',
+      ['business', 'businesses', 'directory', 'company', 'shop', 'services', 'enterprise']],
     ['/indigenes', 'The indigenes register', 'People',
       'Guneku sons and daughters worldwide, searchable by name and by quarter.',
       ['indigenes', 'directory', 'register', 'members']],

@@ -2247,3 +2247,99 @@ confirmation) remain open and each names the one thing that would close it.
 
 No further discovery or reconciliation pass is to be started. The next build is the Business
 Directory.
+
+## 2026-09-16 - The Guneku Business Directory
+
+A complete section: a public directory at `/businesses`, a page for each business, and an
+owner-managed half for verified Gunekuans. Decisions in ADR-088 to ADR-092; open questions in
+R-064 to R-067.
+
+### Architecture
+
+Two stores behind one page, copying the arrangement `/indigenes` has used since Phase 2. The
+businesses the Fondom has recorded live in `src/data/businesses/businesses.json` and render
+statically; what a verified Gunekuan registers about their own business lives in Neon and is
+theirs to edit. `publicBusinessesForDisplay()` merges them.
+
+Every read of the database half is wrapped, so the directory renders with or without one
+(ADR-088). That is not a nicety: **migration 0005 is written and not applied**, because
+`vercel env pull` returns every secret as an empty string in this project (R-031, re-confirmed
+today). The public directory therefore works now, and registration works the moment the table
+exists, with no further code. **R-064.**
+
+### Who may register
+
+`requireVerifiedGunekuan()` — an approved profile claim associating the Clerk account with a
+named son or daughter of Guneku. A Clerk account alone is not enough and neither is a member
+profile. Enforced in every route before anything else runs; the page-level check exists to be
+kind, not to be the control. `person_slug` is read from the approved claim and never from a
+request, so a business cannot be registered in somebody else's name (ADR-089).
+
+### What was seeded, and what was held
+
+| Business | State | Guneku person | Relationship |
+|---|---|---|---|
+| MaxPromo Digital | public | `marcel-tabit-akwe` | Owner |
+| Midas Property Auctions | public | `sam-fongoh` | Owner |
+| Urologie Neuwied | public | `fon-walters-profile` | **Physician**, not owner |
+| Fondom Studios | public | Tanwi Amerion — **held** | Owner |
+| Concept Care Solutions | public | Edith Fongho — **held** | Managing Director |
+| ARCpoint Labs | public | Denis M. Tebit — **held** | Associated |
+| Any Lab Test Now — Lynchburg | public | Denis M. Tebit — **held** | Associated |
+| Vitalis Fish Breeding Centre | public | Ngwa Vitalis — **held** | Operator |
+| Magic Gate Enterprise | **held** | none | — |
+| Vicky and Son's | **held** | none | — |
+
+Four people the Fondom named are not in the frozen register, so their links are held by name
+with no slug invented (R-065). Two businesses have no Guneku connection at all and are held
+with the reason in the record (R-066) — in particular **Magic Gate was not attached to Goddy
+Akwe** because his name appeared near it in a note.
+
+Midas Property Auctions and Midas Property Group are recorded as one business with the second
+name as a spelling; no corporate structure is asserted. ARCpoint's three Virginia locations are
+locations of one business, not three businesses, and nothing implies the national brand is
+owned from Guneku. The malformed Any Lab Test Now address was not published. The legacy "local
+pork supply" entry was retired as a classified advertisement rather than a business, with the
+community's own veterinary caution preserved in the retirement note.
+
+### Design
+
+A `biz-*` layer on the existing institutional system — same paper, ink, hairlines, ochre and
+3px radius. What it adds is image: a cover, a logo plate on the boundary between cover and
+content, a three-column editorial grid falling to one on a phone.
+
+**The no-image state was designed first**, because it is the ordinary one: eight of the nine
+published businesses have no imagery. A generated placeholder gives each a wash in a hue
+derived from its own slug, the village hairline grid over it, and its initials in the display
+face. Deterministic, so a card is the same colour on every render and rarely the same as its
+neighbour. Nothing was scraped to fill a card.
+
+Three visual defects were found by looking at the pages and fixed: the logo plate repeated the
+initials the placeholder was already showing; the detail hero painted its cover over the
+business name; and nesting two aspect-ratio boxes put the placeholder mark at the foot of the
+hero instead of its middle.
+
+### Video
+
+Stored as an eleven-character id and nothing else, enforced by the application and again by a
+schema CHECK. No URL, no embed code, no markup reaches a page. Embeds are lazy, built by our
+own code from the id, and go to youtube-nocookie.com (ADR-092).
+
+### Privacy
+
+A business publishes its own address, town and street included; a person still gets a country
+and never a town (ADR-091), and a test checks that none of the towns this directory publishes
+has reached the register. Contact details appear only where the owner elected to publish them,
+and turning that off removes the value — a database constraint makes it so. Nothing is copied
+from a member profile.
+
+### Verification
+
+`npx tsc --noEmit` clean · `npx vitest run` **1167 passed across 47 files**, up from 1097 across
+45 · `npm run build` succeeded at **300 static pages** · ESLint clean on every touched file.
+
+Sixty-one tests were added: 40 on the record, the filters, the slugs, the YouTube parser and
+the link guard; 21 straight at the route handlers for authorisation. Two existing checks caught
+real problems during the build — the MaxPromo audit sweep flagged an unrelated use of the word
+in a seed note, and ESLint found that the sitemap built its business entries and never returned
+them.

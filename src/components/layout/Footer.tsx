@@ -10,6 +10,7 @@ const EXPLORE = [
   { label: 'Development',  href: '/projects'  },
   { label: 'Education',    href: '/education' },
   { label: 'Our People',   href: '/indigenes' },
+  { label: 'Businesses',   href: '/businesses' },
   { label: 'Diaspora',     href: '/diaspora'  },
   { label: 'News',         href: '/updates'   },
   { label: 'Media',        href: '/gallery'   },

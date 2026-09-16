@@ -5,6 +5,7 @@ import {
   publicUpdates, publicPalaceArticles, publicFondomArticles, sitemapInstitutions,
 } from '@/lib/visibility'
 import { SITE_URL } from '@/lib/seo'
+import { publicCuratedBusinesses } from '@/lib/businesses'
 
 type Entry = MetadataRoute.Sitemap[number]
 
@@ -46,6 +47,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     at('/notables'),
     at('/sons-and-daughters'),
     at('/indigenes'),
+    at('/businesses', { priority: 0.8, changeFrequency: 'weekly' }),
     at('/updates', { priority: 0.9, changeFrequency: 'weekly' }),
     at('/gallery'),
     at('/gallery/images'),
@@ -88,9 +90,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const quarters = recordedQuarters().map(q =>
     at(`/quarters/${q.slug}`, { changeFrequency: 'monthly', priority: 0.6 }))
 
+  /* Only the curated businesses the Fondom has published. A held one is absent, and a
+     registered one is absent too: it lives in the database, is rendered on demand, and a
+     sitemap built at build time cannot know whether it was approved since. The directory
+     page itself is listed and links to every one of them. Nothing under
+     /my-guneku/businesses appears here — those are somebody's own drafts. */
+  const businesses = publicCuratedBusinesses().map(b =>
+    at(`/businesses/${b.slug}`, { changeFrequency: 'monthly', priority: 0.7 }))
+
   const albums = (getImageGallery()?.albums || []).map(a =>
     at(`/gallery/images/${a.id}`, { changeFrequency: 'yearly', priority: 0.5 }))
 
   return [...statics, ...updates, ...palace, ...fondom, ...notables, ...institutions,
-          ...quarters, ...albums]
+          ...quarters, ...businesses, ...albums]
 }

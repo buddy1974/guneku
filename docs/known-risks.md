@@ -1415,3 +1415,66 @@ the whole thing is reversible by removing `body` from eight entries.
 **Owner action, if wanted:** a dated Palace record naming the family would put these eight on
 the same footing as the rest of the household. Until then the confirmation is the source, and
 it says so.
+
+## R-064 - Migration 0005 is written and NOT applied, so business registration is not yet open
+
+The Business Directory's public half is live and complete. Its user-generated half is written,
+tested and committed, and the table it needs does not exist in production.
+
+Applying a migration needs a `DATABASE_URL`. `vercel env pull` returns every secret in this
+project as an empty string — re-confirmed during this build, R-031 unchanged — and the hardened
+`/api/admin/migrate` endpoint was deleted after `0004` by design. There is no path from this
+environment to the production database.
+
+**What a reader sees:** nothing wrong. The directory renders the curated businesses, filters
+and searches them, and never mentions a database. **What a verified Gunekuan sees:** a page
+saying registration opens shortly, rather than a form that would fail.
+
+**Owner action.** Apply `0005_businesses.sql` by the mechanism the earlier migrations used:
+restore `src/app/api/admin/migrate/`, set `MIGRATE_TOKEN` in Vercel, deploy, call it, verify,
+delete it, redeploy. Or run `npm run db:migrate` anywhere a real `DATABASE_URL` exists. The
+moment the table is there, registration works with no further change — nothing is waiting on
+code.
+
+---
+
+## R-065 - Four businesses name an owner the Indigenes register does not hold
+
+Tanwi Amerion (Fondom Studios), Edith Fongho (Concept Care Solutions) and Denis M. Tebit
+(ARCpoint Labs, Any Lab Test Now) were confirmed by the Fondom as the people behind those
+businesses. None of them is in the Indigenes register, which is frozen at 110.
+
+Each business is published; each person link is **held** — the name recorded, no slug invented,
+and the page saying the connection is not yet matched to the register. Creating an entry to
+make a link resolve would have reopened the frozen programme by the side door.
+
+**Owner action:** confirm these three as indigenes, and the links resolve in one edit each.
+Until then the directory is accurate about what it does and does not know.
+
+---
+
+## R-066 - Two businesses are held because no Guneku connection is established
+
+**Magic Gate Enterprise** (Douala, household and office equipment) and **Vicky and Son's**
+(Guneku village, construction and electronics) are recorded in full and are NOT published.
+Neither names an owner, operator or associated person, and a directory of businesses run by
+sons and daughters of Guneku cannot publish a business with no Guneku in it.
+
+Nobody was attached to either on the strength of a name appearing nearby — in particular Magic
+Gate was NOT attached to Goddy Akwe, whose profession the register records as businessman and
+whose name appeared near it in a note. That is the surname inference this repository refuses
+everywhere else.
+
+**Owner action:** name who runs either one and it publishes.
+
+---
+
+## R-067 - Fondom Studios is placed in Guneku, and one public listing says Bamenda
+
+The studio's own material gives a street address at Tanwi Street, Windig Square, in Guneku. A
+separate public listing describes it as being in Bamenda.
+
+The Fondom's own record places it in Guneku, so Guneku is what the business record carries, and
+the conflict is written into the record's source note rather than chosen between silently.
+
+**Owner action:** confirm which is the trading address. If it is Bamenda, one field changes.

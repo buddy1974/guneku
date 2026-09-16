@@ -29,6 +29,10 @@ const isProtected = createRouteMatcher([
   '/review(.*)',
   '/api/me(.*)',
   '/api/claims(.*)',
+  /* Registering and managing a business. The matcher only makes a session available here;
+     who may actually create one is decided by `requireVerifiedGunekuan()` inside the handler,
+     server-side, and a Clerk account alone is not enough. */
+  '/api/businesses(.*)',
   '/api/follows(.*)',
   '/api/correspondence(.*)',
   '/api/contributions(.*)',
@@ -77,6 +81,7 @@ export const config = {
     '/sign-up/:path*',
     '/api/me/:path*',
     '/api/claims/:path*',
+    '/api/businesses/:path*',
     '/api/follows/:path*',
     '/api/correspondence/:path*',
     /* Matched but deliberately NOT in `isProtected`. The Palace contact form must keep

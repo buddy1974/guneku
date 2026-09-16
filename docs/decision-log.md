@@ -33,7 +33,7 @@ this log and are not backfilled here; they are recorded in the handover reports 
 | ADR-008 | 2026-09-02 | One canonical 27-quarter list | Accepted | — |
 | ADR-009 | 2026-09-02 | Do not impose a three-variant image convention site-wide | Accepted | — |
 
-_ADR-010 onward are recorded in full below and not repeated in this table; the table has listed the first nine since it was written. Latest: **ADR-087**, 2026-09-16._
+_ADR-010 onward are recorded in full below and not repeated in this table; the table has listed the first nine since it was written. Latest: **ADR-092**, 2026-09-16._
 
 ---
 
@@ -1853,3 +1853,135 @@ kept verbatim rather than discarded.
 **Residence is a country and confers nothing.** The Fondom supplied Boston; the register
 publishes United States (ADR-082). Living in the United States is not membership of GUDECA
 North America, and a test checks that no such membership was inferred.
+
+---
+
+## ADR-088 - The Business Directory is two stores behind one page, because the register already is
+
+**Context.** A business directory has two kinds of record in it. The Fondom has recorded some
+businesses itself — MaxPromo, Fondom Studios, Midas — and those are reviewed content, changed by
+a person in a commit. The rest will be entered by their owners, who must be able to change
+them without asking anybody, or the directory is stale a month after launch.
+
+**Decision.** Curated businesses live in `src/data/businesses/businesses.json`. Registered ones
+live in Neon. `publicBusinessesForDisplay()` merges them and a reader sees one directory.
+
+This is not a new arrangement: it is the one `/indigenes` has used since Phase 2, where the
+reviewed register in `founding-names.json` renders beside the profiles members create for
+themselves in the database. Copying it was cheaper than inventing a second answer and leaves
+one pattern to learn rather than two.
+
+**And it is why the directory works today.** Applying a migration needs a `DATABASE_URL`, and
+`vercel env pull` returns every secret as an empty string in this project (R-031, unchanged
+and re-confirmed in this build). So migration `0005` is written, tested and committed, and has
+NOT been applied. Every read of the registered half is wrapped: a database that cannot answer
+produces an empty list, the curated half renders, and the page says nothing about it — exactly
+what `/indigenes` does when its own endpoint answers 503.
+
+A directory that 500s because a table is missing would take the whole section down for the
+sake of the half of it that is empty anyway.
+
+**Rejected.** Everything in JSON (an owner cannot edit their own business without a commit,
+which is the feature); everything in Neon (the eight curated businesses would be invisible
+until a migration nobody in this environment can run); waiting for the migration before
+building any of it (the public directory has no dependency on it).
+
+---
+
+## ADR-089 - Registering a business needs a verified Gunekuan, and the check is the claim workflow
+
+**Context.** The directory says, on every card, that these are the businesses of sons and
+daughters of Guneku. That sentence is the product. Anybody can open a Clerk account on this
+site — that is what lets a visitor write to the Palace or follow a project — and an account
+establishes that somebody exists and can receive email. It establishes nothing about Guneku.
+
+**Decision.** `requireVerifiedGunekuan()` asks one question: has a person at the Palace
+reviewed this account and associated it with a named son or daughter of Guneku? That is
+precisely what an APPROVED PROFILE CLAIM is (ADR-047), so the check reads the answer the claim
+workflow already produces. No second identity model, no new role, no new review queue.
+
+**Server-side, and only server-side.** The page hides the form from somebody who may not use
+it; that is courtesy. Every route calls the same function first, and a hand-made POST from a
+signed-in stranger fails on the same line a browser would. Twenty-one tests go straight at the
+handlers because the interesting caller is the one who never loads the page.
+
+**`person_slug` is never read from a request.** It comes back from that check, out of the
+approved claim. A member cannot register a business in somebody else's name however the
+request is shaped, because they never get to say whose name it is — the same guarantee, by the
+same mechanism, that stops a claim being filed for somebody else.
+
+**A refusal says one sentence.** "Business registration is available to verified Gunekuans."
+Not whether a claim exists, not whether one is pending, not whether one was rejected. A
+refusal is not a place to describe the state of somebody's identity review.
+
+---
+
+## ADR-090 - A business record holds no biography, and a held owner is published as held
+
+**Context.** Nine businesses were seeded. Three have an owner the register holds. Four have an
+owner the Fondom named who is NOT in the register — Tanwi Amerion, Edith Fongho, Denis M.
+Tebit. One names an operator whose register namesake was never confirmed to be him. One names
+nobody at all.
+
+**Decision.** A business points at a person by slug and stops. No name, standing or history is
+copied into it; `resolveBusinessPeople()` reads the register at render time, so a corrected
+entry corrects every business that points at it and there is never a second copy to drift.
+
+Where the person is not in the register, the relationship is **held**: the name is recorded as
+text, `personSlug` is absent, no slug is invented, and the page says plainly that the
+connection is not yet matched to the register. The Indigenes programme is frozen at 110 and a
+business build does not get to reopen it by the side door — which is exactly what creating
+`tanwi-amerion` to make a link resolve would have been.
+
+**And a business is published even when its owner is held**, because the business is
+established even when the person is not. The two exceptions are the two records where nothing
+establishes a Guneku connection at all: Magic Gate Enterprise and Vicky and Son's are HELD,
+with the reason written into the record, because a directory of Guneku businesses cannot
+publish a business that has no Guneku in it. One confirmation publishes either.
+
+**Not everybody is an owner.** The reigning Fon is recorded as a **physician** of Urologie
+Neuwied, not its proprietor: the repository's own record of him says "Urologist — Private
+Practice" and says nothing about who owns the practice. Edith Fongho is **Managing Director**,
+which is what the public company record says, rather than a form of ownership no source
+states. A test fails if every relationship in the directory becomes "owner".
+
+---
+
+## ADR-091 - A business address is public; a person's town is not
+
+**Context.** ADR-082 settled that the Indigenes register publishes a country against a person
+and never a town, because a town places somebody somewhere a stranger could go and look for
+them. A business directory that obeyed the same rule would be useless: a shop that cannot say
+which road it is on is not listed, it is hinted at.
+
+**Decision.** The two are different records and get different rules. Magic Gate Enterprise
+publishes "Opposite Total Ndobo, Bonaberi N3, Douala" because that address is the business's
+own, is already on its own public page, and is the thing a customer needs. No business address
+is ever written back into a person's record, and a test checks that none of the towns this
+directory publishes has appeared in the register.
+
+**Contact is a decision, not a default.** A business telephone or email appears only where the
+owner ticked a box, and turning the box off removes the value rather than hiding it — a
+database constraint enforces that, so a withdrawn number cannot sit in a column waiting for
+some later query to find it. Nothing is ever copied from somebody's member profile into their
+business.
+
+---
+
+## ADR-092 - A video is stored as an eleven-character id, never as anything a browser could run
+
+**Context.** Business owners will paste YouTube links, and a link is the one field where a
+directory hands a reader's browser something a stranger wrote.
+
+**Decision.** Whatever is pasted is parsed, the video id is extracted, and ONLY the id is
+stored — enforced by the application and again by a `CHECK (video_id ~ '^[A-Za-z0-9_-]{11}$')`
+in the schema. No URL is kept, no embed code is accepted, and no markup reaches the page: the
+embed is built by our own code from the id, so the only thing a contributor controls is which
+video plays.
+
+The four forms people actually paste are accepted — `watch?v=`, `youtu.be`, `shorts`,
+`embed` — and a bare id is refused, because a bare id is indistinguishable from a typo.
+
+Embeds are lazy and go to `youtube-nocookie.com`. Twelve players mounted on one page is a page
+nobody on a throttled connection in Cameroon will wait for (R-008), and a village directory has
+no reason to set an advertising cookie on somebody who only scrolled past a video.
