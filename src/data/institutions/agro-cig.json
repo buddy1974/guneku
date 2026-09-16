@@ -58,8 +58,7 @@
  ],
  "contact": {
   "phone": "673320716",
-  "chickHotline": "670 94 95 03",
-  "presenterEU": "Mr. Fabian (GUDECA EU contact)"
+  "chickHotline": "670 94 95 03"
  },
  "registration": {
   "registeredName": "GUNEKU AGRO COMMON INITIATIVE GROUP",
@@ -220,5 +219,11 @@
    }
   ]
  },
- "milestonesNote": "These are campaign announcements on the dates they were made — what the CIG asked its members to aim at. None of them is a balance, a total raised or an achieved figure, and no financial position of the CIG is published here."
+ "milestonesNote": "These are campaign announcements on the dates they were made — what the CIG asked its members to aim at. None of them is a balance, a total raised or an achieved figure, and no financial position of the CIG is published here.",
+ "presentation": {
+  "event": "GUDECA EU meeting, Bonn, 28 March 2026",
+  "presenter": "Fabian Fomuki",
+  "presenterRegisterSlug": "fabian",
+  "note": "He presented the CIG to that meeting. Presenting at a GUDECA meeting is not membership of the chapter — the register has said so since it was written — and none is recorded for him. He is in the register as a member of the Palace family, with no chapter. Recorded here as a presentation, which is what the record establishes."
+ }
 }

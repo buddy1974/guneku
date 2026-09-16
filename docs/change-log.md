@@ -2188,3 +2188,62 @@ its own. **R-063.**
 
 `npx tsc --noEmit` clean · `npx vitest run` **1096 passed across 45 files** · `npm run build`
 succeeded · ESLint clean. Three tests were added for Fabian and two counts updated.
+
+## 2026-09-16 - The last stale Fabian classification, and the register is frozen
+
+R-063 closed. The Fondom confirmed that the "Mr. Fabian" the Agro CIG record names is the
+Fabian Fomuki resolved under R-061, so the three records outside the register that name him
+were reconciled. **This is the final entry of the Indigenes population programme.**
+
+### What changed
+
+- **`agro-cig.json`** — `contact.presenterEU`, which read *"Mr. Fabian (GUDECA EU
+  contact)"*, was **removed rather than reworded**. He is not a contact of that chapter, and
+  a contact block is the wrong place to record what he did. A `presentation` block now names
+  **Fabian Fomuki**, his register slug `fabian`, the meeting, and the rule that presenting
+  at a GUDECA meeting is not membership.
+- **`gudeca-eu.json`** — the Agro CIG project note keeps the true statement that he
+  presented at the March 2026 meeting, now under his canonical name, with his register slug
+  and an explicit sentence that he is **not a member of this chapter**. That clarification
+  earns its place: in a file about the EU chapter, a bare name in its project list reads as
+  a member. His name is **not** in that record’s `leadership` array and never was.
+- **`/gudeca`** — the Agro CIG tile now reads "Presented by Fabian Fomuki at the March
+  2026 meeting". It says what he did and nothing about where he belongs.
+
+### What did not change
+
+His register entry: **Fabian Fomuki**, slug **`fabian`**, residence **United States**, Palace
+family membership, no title and no office. Register **110**, Royal Family **16**, Queens **3**,
+Notables **9**, GUDECA Europe **12**. Static build still 290 pages.
+
+Historical prose stating that he attended or presented at that meeting was preserved
+everywhere it appears, because it is true. Only the classification was wrong.
+
+### The guarantee, now swept
+
+A test reads all four files that name him and checks every sentence containing his name: it
+may put him beside GUDECA only to say he presented, or to say he is not a member. It may
+never describe him as a member or a contact of the chapter. That is the whole of R-063 held
+in place rather than remembered.
+
+### Verification
+
+`npx tsc --noEmit` clean · `npx vitest run` **1097 passed across 45 files** · `npm run build`
+succeeded at 290 static pages · ESLint clean on both touched files.
+
+---
+
+## Indigenes population programme — FROZEN 2026-09-16
+
+The register closed this programme at **110 entries**, from 52 at the start of the day.
+
+Every open question the pass raised is either resolved or written down: **R-059** (Tibi
+Enert), **R-061** (Fabian) and **R-063** (the Agro CIG reference) are RESOLVED. **R-054**
+(the candidate inventory that was never in the environment), **R-055** (Gongho Onias),
+**R-056** (three names the record cannot place), **R-057** (Bonaberi/Douala and North
+America), **R-058** (the 2021 zonal leaders and the Traditional Council), **R-060** (towns
+supplied and not published) and **R-062** (eight people placed in the Royal Family on one
+confirmation) remain open and each names the one thing that would close it.
+
+No further discovery or reconciliation pass is to be started. The next build is the Business
+Directory.

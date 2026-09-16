@@ -52,7 +52,8 @@
   {
    "name": "Agro CIG",
    "status": "active",
-   "note": "Presented by Mr. Fabian at March 2026 meeting"
+   "note": "Presented by Fabian Fomuki at the March 2026 meeting. He presented as a guest of the chapter and is not a member of it; the register places him in the Palace family and records no chapter for him.",
+   "presenterRegisterSlug": "fabian"
   }
  ],
  "proposedProjects": [

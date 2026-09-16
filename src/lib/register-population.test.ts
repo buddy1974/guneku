@@ -420,6 +420,49 @@ describe('the Royal Family gained members, and nothing else', () => {
     expect(JSON.stringify(mine[0])).not.toMatch(/gudeca/i)
   })
 
+  it('is not called a GUDECA Europe member or contact by any record on the site', () => {
+    /* R-063. Three records outside the register named him, and one of them classified him:
+       the Agro CIG record listed "Mr. Fabian (GUDECA EU contact)" in its contact block. The
+       Fondom confirmed on 16 September that this is the same man and that the description is
+       wrong, so it was removed. What survives is what actually happened — he presented. */
+    const files = [
+      'src/data/institutions/agro-cig.json',
+      'src/data/institutions/gudeca-eu.json',
+      'src/app/gudeca/page.tsx',
+      'src/data/community/founding-names.json',
+    ]
+    for (const f of files) {
+      const text = readFileSync(f, 'utf-8')
+      for (const m of text.match(/[^"]{0,90}Fabian[^"]{0,90}/g) ?? []) {
+        /* A sentence may name him beside GUDECA only to say he presented, or to say he is
+           NOT a member. It may never describe him as a member or a contact of the chapter. */
+        expect(m, `${f}: ${m}`).not.toMatch(/GUDECA EU contact|GUDECA Europe contact/i)
+        expect(m, `${f}: ${m}`).not.toMatch(/Fabian[^.]{0,40}member of (the )?GUDECA(?! EU Chapter, and)/i)
+      }
+    }
+
+    /* The stale field is gone rather than reworded. */
+    const agro = JSON.parse(
+      readFileSync('src/data/institutions/agro-cig.json', 'utf-8'),
+    ) as { contact: Record<string, unknown>; presentation?: { presenterRegisterSlug?: string } }
+    expect(agro.contact.presenterEU).toBeUndefined()
+    expect(agro.presentation?.presenterRegisterSlug).toBe('fabian')
+
+    /* And the chapter's own record still says he presented, which is true, and says plainly
+       that he is not a member, which is the correction. */
+    const eu = JSON.parse(
+      readFileSync('src/data/institutions/gudeca-eu.json', 'utf-8'),
+    ) as {
+      leadership: Array<{ name: string }>
+      activeProjects: Array<{ note?: string; presenterRegisterSlug?: string }>
+    }
+    expect(eu.leadership.map(l => l.name).join(' ')).not.toMatch(/Fabian/i)
+    const presented = eu.activeProjects.find(p => /Fabian/.test(p.note ?? ''))!
+    expect(presented.presenterRegisterSlug).toBe('fabian')
+    expect(presented.note).toMatch(/presented/i)
+    expect(presented.note).toMatch(/not a member/i)
+  })
+
   it('records his country and not his town, and turns neither into a membership', () => {
     const f = getFoundingName('fabian')!
     expect(f.residence).toBe('United States')

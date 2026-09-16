@@ -1361,7 +1361,7 @@ The register count is unchanged at 110: this was an enrichment, not an addition.
 
 ---
 
-## R-063 - One institution record still calls Fabian a GUDECA EU contact
+## R-063 - One institution record called Fabian a GUDECA EU contact - RESOLVED 2026-09-16
 
 `src/data/institutions/agro-cig.json` carries `"presenterEU": "Mr. Fabian (GUDECA EU contact)"`,
 and `gudeca-eu.json` carries "Presented by Mr. Fabian at March 2026 meeting".
@@ -1375,9 +1375,20 @@ across records is exactly the kind of inference this programme refuses to make o
 register entry was corrected because the Fondom named the man; the institution record names
 only "Mr. Fabian".
 
-**Owner action:** confirm whether the Agro CIG's EU contact is Fabian Fomuki. If he is, that
-one field should stop calling him a GUDECA EU contact. If he is not, it is correct as it
-stands and this can be closed.
+**Resolved the same day.** The Fondom confirmed it is the same man. The stale field was
+**removed rather than reworded**: `agro-cig.json` no longer carries a `presenterEU` entry
+in its contact block, because he is not a contact of that chapter and a contact block is
+the wrong place to record what he did.
+
+What survives is what the record actually establishes. The Agro CIG record now carries a
+`presentation` block naming **Fabian Fomuki**, his register slug `fabian`, the meeting he
+presented to, and the sentence that presenting at a GUDECA meeting is not membership. The
+chapter's own record says the same in its own words and carries the slug too, and the
+/gudeca page names him canonically. His register entry is unchanged.
+
+A test now sweeps all four files that name him: a sentence may put his name beside GUDECA
+only to say he presented, or to say he is not a member. It may never call him a member or
+a contact of the chapter.
 
 
 ---

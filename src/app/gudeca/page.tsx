@@ -114,7 +114,10 @@ export default function GudecaPage() {
             <div className="grid gap-4 md:grid-cols-3">
               {[
                 { icon:'☀️', t:'Solar Phase II',       s:'ONGOING', sc:'oklch(0.700 0.115 78)', d:'€800 raised. Members encouraged to increase contributions.' },
-                { icon:'🌾', t:'Agro CIG',             s:'ACTIVE',  sc:'oklch(0.55 0.18 145)',d:'Presented by Mr. Fabian. 2,000 FCFA/share. Members encouraged to subscribe.' },
+                /* Named canonically since the Fondom resolved him on 2026-09-16. He presented
+                 to this chapter's meeting as a guest and is not a member of it — the tile
+                 says what he did, and nothing about where he belongs. */
+              { icon:'🌾', t:'Agro CIG',             s:'ACTIVE',  sc:'oklch(0.55 0.18 145)',d:'Presented by Fabian Fomuki at the March 2026 meeting. 2,000 FCFA/share.' },
                 { icon:'🏥', t:'Medical Centre',       s:'PROPOSED',sc:'oklch(0.560 0.016 150)', d:'Plans to establish a reference healthcare centre in Guneku.' },
                 { icon:'🧼', t:'Soap Production',      s:'PROPOSED',sc:'oklch(0.560 0.016 150)', d:'Income-generating soap production for Guneku community.' },
                 { icon:'📡', t:'Satellite Internet',   s:'PROPOSED',sc:'oklch(0.560 0.016 150)', d:'Install satellite internet at Guneku Palace. Proposed by Ni Sam.' },
