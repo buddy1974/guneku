@@ -11,7 +11,8 @@
     "db:status": "tsx src/lib/db/migrate.ts status",
     "test": "vitest run",
     "test:watch": "vitest",
-    "archive:describe": "tsx src/scripts/describe-archive.ts"
+    "archive:describe": "tsx src/scripts/describe-archive.ts",
+    "reconcile:candidates": "tsx src/scripts/reconcile-candidates.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.87.0",

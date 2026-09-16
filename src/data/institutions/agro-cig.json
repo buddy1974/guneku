@@ -124,7 +124,8 @@
   "displayDate": "Monday, 31 August 2026",
   "time": "2:00 p.m.",
   "venue": "Guneku Agro CIG main site",
-  "attendees": "Executive and all staff"
+  "attendees": "The Executive, the Home-based CIG Exco, the Manager and the site staff.",
+  "note": "Convened by the Delegate on 28 August 2026 for the executive and all staff at the main site. No attendance list is recorded."
  },
  "paymentRoute": "Payments and share purchases run through GUNECCUL, the community credit union.",
  "membershipPricing": {
@@ -161,5 +162,63 @@
   "paymentRoute": "Payments and share purchases run through GUNECCUL, the Guneku community credit union, account number 200637.",
   "confirmation": "Fah Elvis Tayong, CIG Delegate, to confirm which line is current."
  },
- "route": "/agro-cig"
+ "route": "/agro-cig",
+ "governance": {
+  "note": "How the CIG is run, as its own communiques and notices establish it. Offices are listed because the record names the offices; where the record does not name the holder, none is supplied.",
+  "offices": [
+   {
+    "office": "Delegate",
+    "holder": "Fah Elvis Tayong",
+    "note": "Signs the CIG communiques and convenes its meetings. The same man the Palace record names as Ngam-Fon and the GUDECA roster names as National Publicity Secretary — one man in three roles, not three men."
+   },
+   {
+    "office": "Vice Delegate",
+    "note": "Recorded in the launch programme of 5 April 2026, which gives the closing remarks to the Vice Delegate. The holder is not named in the record."
+   },
+   {
+    "office": "Secretary General",
+    "note": "Presented the benefits of the CIG to the Meta community at the launch. The holder is not named in the record."
+   },
+   {
+    "office": "Manager",
+    "note": "Runs the main site and its staff. The holder is not named in the record."
+   }
+  ],
+  "bodies": [
+   {
+    "name": "Management Board",
+    "note": "Issues the registration and share communiques, and is named as their author from the communique of 2 May 2026 onward."
+   },
+   {
+    "name": "Executive body",
+    "note": "Named as the body that extended the 5,000 FCFA registration fee in April 2026."
+   },
+   {
+    "name": "Home-based CIG Exco",
+    "note": "The executive at home in Guneku, convened with the staff at the main site. No roster is recorded and none is invented."
+   }
+  ],
+  "rosterNote": "No membership list, share register or staff list is published here. The CIG holds those; this record holds what the CIG itself announced publicly."
+ },
+ "commercialActivity": {
+  "note": "Trading the CIG has announced publicly. Each line is an announcement on its date, not a statement of the enterprise’s present position.",
+  "recorded": [
+   {
+    "date": "2026-04-13",
+    "displayDate": "13 April 2026",
+    "activity": "First poultry sale announced — the three-week-old chickens sold."
+   },
+   {
+    "date": "2026-05-26",
+    "displayDate": "26 May 2026",
+    "activity": "Share upgrading opened to 15 June 2026, with registration continuing for new members."
+   },
+   {
+    "date": "2026-08-31",
+    "displayDate": "31 August 2026",
+    "activity": "Executive and staff meeting held at the main site."
+   }
+  ]
+ },
+ "milestonesNote": "These are campaign announcements on the dates they were made — what the CIG asked its members to aim at. None of them is a balance, a total raised or an achieved figure, and no financial position of the CIG is published here."
 }

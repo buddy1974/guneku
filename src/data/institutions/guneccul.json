@@ -27,6 +27,19 @@
    "location": "Bamenda",
    "launched": "2025-01",
    "status": "operational"
+  },
+  {
+   "name": "Mutengene Branch",
+   "location": "Tiko Road, Mutengene",
+   "status": "operational",
+   "sourceNote": "Recorded from the community record, September 2026. No launch date is established for this branch."
+  },
+  {
+   "name": "Bonaberi Branch",
+   "location": "Bonaberi, Douala",
+   "status": "operational",
+   "sourceNote": "Recorded from the community record, September 2026.",
+   "relationshipNote": "Bonaberi is in Douala, and this record already carries a Douala branch launched on 17 September 2022. Whether these are one branch described twice or two branches in the same city is not established by any source held here, so they are listed separately and neither is altered. GUNECCUL to confirm."
   }
  ],
  "products": [
@@ -43,5 +56,6 @@
  "communityRole": "Community-owned cooperative credit union giving Guneku indigenes at home and abroad access to savings, loans and solidarity fund shares, under the patronage of the Fon.",
  "sourceType": "Guneku first-party / project owner supplied",
  "sourceNote": "Branch list held here; patronage and founder-sponsor role recovered 2026-09-01 from src/data/palace/fon-walters-profile.json.",
- "route": "/guneccul"
+ "route": "/guneccul",
+ "branchNote": "Branches as the record holds them. A branch is listed where a source names it; no branch is listed on the strength of a city being mentioned, and no manager, officer or member of staff is named."
 }

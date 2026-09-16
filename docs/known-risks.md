@@ -1187,3 +1187,90 @@ unchanged.
 configuration, Clerk, Resend, Fondom terminology, correspondence, Ask Guneku, the authenticated
 member flows, the archive, SEO, and the database. Turnstile remains absent from every
 authenticated operation and from Ask Guneku.
+
+## R-054 - The collected candidate inventory was not in the environment, so most of it could not be reconciled
+
+The population brief of 2026-09-16 describes a discovery pool of **126 usable leads** - 75 full
+names and 51 held for review. That artefact is not in this repository and was not in the working
+environment: `content/source/guneku-whatsapp-export.json` and its CSV twin are the same 60
+messages and the same 31 author names, and nothing else in the tree or beside it carries a
+candidate list.
+
+**Nothing was invented to close the gap.** The pass reconciled the 57 names it could actually
+read - 31 author names from the community record, 22 people named inside records this site
+already publishes, and 4 named by the Product Owner in the brief - and stopped there.
+
+So the register grew by 24 rather than by something nearer 75, and roughly seventy collected
+names have never been checked against it. They are not lost; they were never here.
+
+**Owner action:** supply the candidate inventory as a file - names only, no numbers, no
+handles, no message text. `npm run reconcile:candidates` will then classify it against the
+register in one pass, and only the NEW_SAFE rows need a human decision.
+
+---
+
+## R-055 - Gongho Onias and Timkoh Onies Fongho may be one man
+
+The Guneku Water Management Committee of 2021 names **Gongho Onias**. The community record of
+2026 carries **Timkoh Onies Fongho**. Onias and Onies are one letter apart; Gongho and Fongho
+are one letter apart. Either the 2021 report transcribed a name loosely, or these are two
+people who happen to look alike on paper.
+
+Handled by source priority: the reviewed record on this site is stronger than a group record,
+so `gongho-onias` is in the register and Timkoh Onies Fongho is held. The duplicate guard
+reports it every time it runs, so it cannot be forgotten.
+
+**Owner action:** confirm whether these are one man. If they are, the held name becomes an
+alias on the existing entry. If they are not, the second entry can be opened.
+
+---
+
+## R-056 - Three names the record cannot place, and the Palace must
+
+Held out of the register by the duplicate guard, each for a stated reason:
+
+- **Jonathan Mbakwa.** The register holds Mbakwa Jonathan, Amamuki Jonathan and Mbakwa
+  Bernard. The name is flanked on the given name and on the family name at once. Guessing
+  would either put a GUDECA national officer on the Traditional Council or the reverse.
+- **Roland Forbang.** Sits inside Prof. Dr. Roland Teboh Forbang, and the register also holds
+  Forbang Noel. A short form of one man, or a second man.
+- **Julius Agwetang.** Its only provenance is a casing example in the brief, and the register
+  now holds John Agwetang from the 2021 installation record. Same family name, different given
+  name - which in this register has always meant two people.
+
+None is a defect. Each is a question the record genuinely does not answer, and all three are
+one line of confirmation away from being resolved.
+
+---
+
+## R-057 - Two pairs that may be one body each: Bonaberi/Douala and North America/GUDECA US
+
+GUNECCUL's Bonaberi branch and its Douala branch may be the same branch under two names;
+Bonaberi is a quarter of Douala. GUDECA "North America" in the branch record and the GUDECA US
+chapter in the register may likewise be one body.
+
+Neither pair was merged (ADR-081) and each carries the question in its own record, visible on
+the page rather than filed here alone.
+
+**Owner action:** GUNECCUL to confirm the branch question; the Fondom to confirm the chapter
+question. Either answer is one edit.
+
+---
+
+## R-058 - The register now names nineteen people whose place on the Traditional Council is unresolved
+
+The 2021 installation record says the zonal council leaders became members of the Guneku
+Traditional Council. The council's own roster, published here as the record of 2021, names five
+men and none of them.
+
+Nineteen entries were therefore opened without a body and without Notable standing (ADR-079).
+The council roster still reads eight and the Notables still read nine.
+
+This is a discrepancy between two Fondom sources, not a defect in the data as it stands. It
+matters because Notable standing follows council membership, so resolving it one way confers
+traditional standing on nineteen people at once - which is a Palace decision and nobody
+else's.
+
+**Owner action:** ask the Palace whether the zonal presidents, secretaries and treasurers of
+2021 sit on the Guneku Traditional Council.
+

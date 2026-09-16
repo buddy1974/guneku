@@ -66,6 +66,12 @@ function namesQuarter(role: string, quarter: string): boolean {
    exists to avoid. */
 function isCouncilRole(role: string): boolean {
   return /quarter\s+head|quarter\s+traditional\s+council|head\s+of\s+\w+\s+quarter/i.test(role)
+    /* Added 2026-09-16 with the Nyang councillor the 2021 election coverage names. The three
+       patterns above describe a quarter's own council; this one describes the seat a quarter
+       holds on the village council, which is the same office read from the other end. It is
+       still a statement about quarter governance and still requires the word "quarter" beside
+       the name, so a role that merely mentions a place is no more admitted than before. */
+    || /councillor\s+for\s+[\w-]+\s+quarter/i.test(role)
 }
 
 function toMember(n: FoundingName): CouncilMember {

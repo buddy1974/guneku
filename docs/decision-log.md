@@ -33,6 +33,8 @@ this log and are not backfilled here; they are recorded in the handover reports 
 | ADR-008 | 2026-09-02 | One canonical 27-quarter list | Accepted | — |
 | ADR-009 | 2026-09-02 | Do not impose a three-variant image convention site-wide | Accepted | — |
 
+_ADR-010 onward are recorded in full below and not repeated in this table; the table has listed the first nine since it was written. Latest: **ADR-081**, 2026-09-16._
+
 ---
 
 ## ADR-001 — Publish the evidenced succession stages; withdraw "17 January 2016"
@@ -1532,3 +1534,123 @@ told "34 follow this, 11 gave an address", they know exactly what they are looki
 One thing that needed no building at all: **unsubscribe**. Unfollowing deletes the row, so the
 member is not returned by the audience query, so nothing could be addressed to them. There is
 no suppression list to drift out of step with the follow list, because there is only one list.
+
+---
+
+## ADR-078 - One human, one identity, and the duplicate check is code
+
+**Context.** The register grew from eleven names to fifty-two by hand, and every addition was
+checked against the existing entries by a person remembering them. The population pass of
+2026-09-16 opened twenty-four entries in one edit. At that size the check stops being a
+memory and starts being a guess, and the failure it guards against is the worst one this
+repository can make: the same son of Guneku published twice under two spellings, each holding
+half his life, neither claimable until the Palace decides which of them is him.
+
+**Decision.** `src/lib/identity-index.ts` holds the check. Give it a name as a source wrote
+it and it returns EXISTING, NEW_SAFE, AMBIGUOUS or INSUFFICIENT against every identity the
+repository holds — the register, its aliases, and the Fon's own profile. Only NEW_SAFE was
+written into `founding-names.json`, and only by a person reading the output first.
+
+The rules that matter, each one shaped by a real name in this register:
+
+- A name written exactly as the record writes it is that person. "Sam Fongoh" is Sam Fongoh
+  however many other entries contain Sam or Fongoh.
+- A name with the parts in the other order needs one part nobody else answers to. "Rebecca"
+  belongs to one woman and "IX" to one Fon; that settles them. **"Jonathan" and "Mbakwa" each
+  belong to two men, which is exactly why "Jonathan Mbakwa" cannot be placed by anybody but
+  the Palace** — and it was not placed.
+- A shorter name inside a longer one is never decisive. "Roland Forbang" sits inside "Prof.
+  Dr. Roland Teboh Forbang", and the register also holds Forbang Noel.
+- Candidates are checked against each other as well as against the record, because two names
+  written in the same pass can be one man.
+- A courtesy title and one given name is a way of addressing somebody, not a way of
+  identifying them. Pa Andrew, Aunty Pat, Tan Prince, Mola Ekema: held, every one.
+
+**It confers nothing.** The module matches name strings and stops. It has no field for
+Notable standing, royal standing, a body or a chapter, and a test asserts that the words
+`royalRole`, `notable` and `palace-household` appear nowhere in it. The surname Fomuki was
+never allowed to mean anything and still is not.
+
+**Rejected.** Fuzzy matching everything and reviewing the output (a rule nobody can predict
+is a rule nobody can check); merging on a shared surname (the register holds two Forbangs,
+two Mbakwas, two Tembengs, two Agwetangs and six Fomukis, and every one of those pairs is two
+people); a person table in Neon (ADR-047 — the record is the record, and the database cannot
+reach it).
+
+---
+
+## ADR-079 - A zonal president is recorded as a person, not promoted into a body
+
+**Context.** The news record of the installation of 30 July 2021 names twelve zonal council
+leaders and eight members of the Guneku Water Management Committee, and says that the zonal
+leaders "automatically became members of the Guneku Traditional Council". The Traditional
+Council's own record, published on this site as the roster of 2021, names five men and none
+of the twelve.
+
+Two Fondom sources, and they do not agree about who sits on the governing body of the village.
+
+**Decision.** The people are recorded; the membership is not asserted. Each of the nineteen
+carries the office the record gives them — President of Zone 2, Member of the Water Management
+Committee — and `body` is left unset. None is placed in `traditional-council` and none carries
+`notable`.
+
+That last part is the load-bearing half. `bodies.json` states that every member of the
+Traditional Council is a Guneku Notable, so adding a man to the body would have conferred
+traditional standing on nineteen people on the strength of one sentence in a news report. The
+register has said since 2026-09-03 (ADR-038) that standing is set explicitly and never derived,
+and a roster is exactly where that rule is most tempting to break.
+
+The Traditional Council roster therefore still reads eight, the Notables still read nine, and
+the discrepancy is recorded rather than resolved. If the Palace confirms that the zonal
+leaders sit on the council, nineteen entries gain a body in one edit and the standing that
+goes with it. Until then the register says what each source says and no more.
+
+---
+
+## ADR-080 - The community record is named as a source; what it is, is not published
+
+**Context.** Names for this pass came partly from the village and association group records
+the Fondom keeps. The register already carried a `whatsapp:gudeca-eu` source label against two
+entries from 2026-09-03, published on the Product Owner's direction and tracked as R-019 — a
+label which tells a reader that somebody's name was taken from a private group chat.
+
+**Decision.** New entries carry `community-record-2026-09`, rendered as "The Guneku community
+record, 2026". The source declaration says the records were reviewed in September 2026 and
+that nothing from them is published against a person except that they name them.
+
+The distinction is not cosmetic. A source label is published on a card beside somebody's name,
+and it should tell a reader how much weight the entry carries — not which application the
+Fondom's officers use to talk to one another, which is nobody's business and is one detail
+closer to the conversation itself. The provenance that matters for review is in git, in this
+log, and in `src/scripts/reconcile-candidates.ts`, which reads the export and prints what it
+decided.
+
+The existing `whatsapp:gudeca-eu` label is left exactly as it stands. Rewriting the source of
+a published entry to make a new policy look retrospective would be a worse fault than the
+label.
+
+---
+
+## ADR-081 - Two branches with one city between them are not merged
+
+**Context.** The community record establishes GUNECCUL branches at Mutengene and at Bonaberi.
+Bonaberi is a quarter of Douala, and `guneccul.json` already carried a Douala branch launched
+on 17 September 2022. Separately, the branch record names a "GUDECA North America" while the
+chapter register keeps a "GUDECA US" seated across the DMV and New Jersey.
+
+Both look like one thing written twice. Neither is established as one thing by any source held
+here.
+
+**Decision.** Neither pair is merged and neither is renamed. Bonaberi is recorded beside Douala
+with the question written into the record itself; North America keeps its own entry with the
+same note. Mutengene is added outright, because nothing else claims to be it.
+
+Merging would be the cheaper-looking mistake. If Bonaberi and Douala are two branches, a merge
+deletes one from the record of a credit union that people put money into, and the villagers who
+bank at the other one find the Fondom does not know it exists. If they are one, the cost of
+saying so twice is a line of prose and an obvious question for GUNECCUL to answer. The
+asymmetry decides it.
+
+The same reasoning, with a different subject: a GUDECA chapter that keeps a register is a
+constituted body (ADR-015, ADR-017), and renaming one on the strength of how a branch was
+described in passing would move a register out from under the people on it.

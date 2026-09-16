@@ -112,6 +112,58 @@ export default function AgroCIGPage() {
               </p>
             </div>
 
+            {/* How the CIG is run. Offices, because the CIG's own communiques name the
+                offices; the Delegate is the one holder the record names, and no other seat
+                is filled with a name to make the list look complete. */}
+            <h2 className="font-cinzel text-2xl text-foreground mb-4">HOW IT IS RUN</h2>
+            <div className="card-royal p-5 mb-8">
+              <p className="text-muted-foreground text-sm leading-relaxed">{cig.governance.note}</p>
+              <div className="mt-4 space-y-3">
+                {cig.governance.offices.map(o => (
+                  <div key={o.office} className="border-t border-border/30 pt-3">
+                    <div className="flex flex-wrap items-baseline justify-between gap-2">
+                      <span className="font-cinzel text-foreground text-sm">{o.office}</span>
+                      <span className="text-foreground text-sm font-medium">
+                        {'holder' in o && o.holder ? o.holder : 'Not named in the record'}
+                      </span>
+                    </div>
+                    <p className="text-muted-foreground text-xs mt-1 leading-relaxed">{o.note}</p>
+                  </div>
+                ))}
+                {cig.governance.bodies.map(b => (
+                  <div key={b.name} className="border-t border-border/30 pt-3">
+                    <span className="font-cinzel text-foreground text-sm">{b.name}</span>
+                    <p className="text-muted-foreground text-xs mt-1 leading-relaxed">{b.note}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-muted-foreground text-xs mt-4 border-t border-border/30 pt-3">
+                {cig.governance.rosterNote}
+              </p>
+            </div>
+
+            {/* What the CIG announced it did, on the dates it announced it. Never a balance
+                and never a present position — see the note the record carries. */}
+            <h2 className="font-cinzel text-2xl text-foreground mb-4">WHAT HAS BEEN ANNOUNCED</h2>
+            <div className="card-royal p-5 mb-8">
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                {cig.commercialActivity.note}
+              </p>
+              <div className="mt-4 space-y-3">
+                {cig.commercialActivity.recorded.map(r => (
+                  <div key={r.date} className="border-t border-border/30 pt-3">
+                    <div className="text-muted-foreground text-xs tracking-widest">
+                      {r.displayDate}
+                    </div>
+                    <p className="text-foreground text-sm mt-1 leading-relaxed">{r.activity}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-muted-foreground text-xs mt-4 border-t border-border/30 pt-3">
+                {cig.milestonesNote}
+              </p>
+            </div>
+
             {/* Livestock */}
             <h2 className="font-cinzel text-2xl text-foreground mb-4">LIVESTOCK</h2>
             {LIVESTOCK.map(p => (

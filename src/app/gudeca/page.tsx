@@ -3,6 +3,10 @@ import { GraduationCap, Building2, Sprout, HandCoins, Globe2, HeartHandshake, Ar
 import { Reveal } from '@/components/ui/Reveal'
 import { allChapters, constitutedChapters, foundingCount } from '@/lib/community'
 import type { Chapter } from '@/lib/community'
+import guneccul from '@/data/institutions/guneccul.json'
+
+/* Counted, not typed. This tile said "4 branches" while the record held six. */
+const GUNECCUL_BRANCHES = guneccul.branches.length
 
 export const metadata = {
   alternates: { canonical: '/gudeca' },
@@ -74,7 +78,7 @@ export default function GudecaPage() {
           <div className="grid gap-6 md:grid-cols-3">
             {[
               { i:GraduationCap, t:'Afor Scholarship',      d:'1,000,000 FCFA awarded annually to the Fondom\'s top scholar.', tag:'EDUCATION', href:'/sons-and-daughters/roland-teboh-forbang' },
-              { i:Building2,     t:'GUNECCUL',              d:'Community credit union with 4 branches across the Fondom.',      tag:'FINANCE',   href:'/guneccul' },
+              { i:Building2,     t:'GUNECCUL',              d:`Community credit union with ${GUNECCUL_BRANCHES} branches across the Fondom.`, tag:'FINANCE',   href:'/guneccul' },
               { i:Sprout,        t:'Agro CIG',              d:'Launched April 2026 with 12.5M FCFA — agriculture for tomorrow.',  tag:'ENTERPRISE',href:'/agro-cig' },
               { i:HandCoins,     t:'Diaspora Levy',         d:'Sons and daughters across 3 continents fund the Fondom monthly.', tag:'UNITY',     href:null },
               { i:HeartHandshake,t:'Health Outposts',       d:'Medical missions led by the Fon himself in remote quarters.',      tag:'HEALTH',    href:null },

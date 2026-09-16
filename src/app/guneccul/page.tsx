@@ -1,8 +1,42 @@
 import { PageHero } from '@/components/layout/PageHero'
+import guneccul from '@/data/institutions/guneccul.json'
+
+/* The branch list is read from the record rather than typed into this page.
+ *
+ * It used to be four branches written out here, and the description below said "four
+ * branches" in words. When the record gained Mutengene and Bonaberi on 2026-09-16 this page
+ * would have gone on publishing four of six, and the sentence would have gone on being
+ * wrong — in a way nobody would notice until a villager in Mutengene came looking for their
+ * own branch and concluded the Fondom did not know it existed. A count typed into prose goes
+ * stale; this one is counted. */
+type Branch = {
+  name: string
+  location: string
+  status: string
+  launched?: string
+}
+
+const BRANCHES = guneccul.branches as Branch[]
+
+/** "September 17, 2022" from "2022-09-17", "January 2025" from "2025-01". A branch whose
+ *  launch the record does not hold shows no date at all, rather than a month somebody
+ *  reasoned their way to. */
+function established(launched?: string): string {
+  if (!launched) return ''
+  const [year, month, day] = launched.split('-')
+  if (!month) return year
+  const name = new Date(Date.UTC(Number(year), Number(month) - 1, 1))
+    .toLocaleString('en-GB', { month: 'long', timeZone: 'UTC' })
+  return day ? `${name} ${Number(day)}, ${year}` : `${name} ${year}`
+}
 
 export const metadata = {
   alternates: { canonical: '/guneccul' },
-  description: "GUNECCUL, the Guneku Cooperative Credit Union Limited — savings, loans and solidarity shares for Guneku indigenes, across four branches.", title: 'GUNECCUL — Community Credit Union' }
+  description:
+    'GUNECCUL, the Guneku Cooperative Credit Union Limited — savings, loans and solidarity '
+    + `shares for Guneku indigenes, across ${BRANCHES.length} branches.`,
+  title: 'GUNECCUL — Community Credit Union',
+}
 
 export default function GuneccullPage() {
   return (
@@ -61,12 +95,7 @@ export default function GuneccullPage() {
                          color:'oklch(0.245 0.022 150)', letterSpacing:'0.05em', margin:'0 0 1.5rem' }}>
               BRANCHES
             </h2>
-            {[
-              { name:'Head Office',    location:'Guneku Village',      status:'Operational', date:'' },
-              { name:'Home Branch',    location:"Guneku Fon's Palace",  status:'Operational', date:'April 15, 2023' },
-              { name:'Douala Branch',  location:'Douala, Cameroon',    status:'Operational', date:'September 17, 2022' },
-              { name:'Bamenda Branch', location:'Bamenda, Cameroon',   status:'Operational', date:'January 2025' },
-            ].map(b => (
+            {BRANCHES.map(b => (
               <div key={b.name} style={{
                 padding:'1.25rem', backgroundColor:'oklch(0.985 0.008 85)',
                 borderLeft:'3px solid oklch(0.320 0.060 158)',
@@ -88,7 +117,7 @@ export default function GuneccullPage() {
                 </div>
                 <div style={{ color:'oklch(0.560 0.016 150)',
                               fontFamily:'Inter, sans-serif', fontSize:'0.8rem' }}>
-                  {b.location}{b.date ? ` · Est. ${b.date}` : ''}
+                  {b.location}{established(b.launched) ? ` · Est. ${established(b.launched)}` : ''}
                 </div>
               </div>
             ))}

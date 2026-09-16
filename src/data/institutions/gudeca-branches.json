@@ -13,7 +13,8 @@
   },
   {
    "name": "GUDECA North America",
-   "activity": "Active; offered support to village initiatives in July 2026."
+   "activity": "Active; offered support to village initiatives in July 2026.",
+   "relationshipNote": "The register here keeps a GUDECA US chapter, seated across the DMV and New Jersey. Whether \"North America\" is that chapter under a wider name, or a separate body, is not established by any source held here. The two are therefore kept apart and neither is renamed. The Fondom to confirm."
   },
   {
    "name": "GUDECA Bamenda",
@@ -30,7 +31,8 @@
   {
    "name": "GUDECA Limbe",
    "lead": "Ba Miki Tayong, Vice President",
-   "activity": "Active."
+   "activity": "Active.",
+   "leadRegisterSlug": "ba-miki-tayong"
   },
   {
    "name": "GUDECA West",
@@ -38,6 +40,7 @@
   }
  ],
  "note": "No executive lists or membership figures are recorded here; none is established in the sources.",
- "sourceNote": "Branch activity recorded 2026-09-01 from the community record.",
- "route": "/gudeca"
+ "sourceNote": "Branch activity recorded 2026-09-01 from the community record, and reviewed again 2026-09-16. No executive lists or membership figures are recorded here; none is established in the sources.",
+ "route": "/gudeca",
+ "homeBranchNote": "The community record establishes that GUDECA keeps a Home Branch executive at Guneku alongside the National executive. No roster of that executive is held here, so none is published: the structure is recorded, the seats are not filled by guesswork."
 }

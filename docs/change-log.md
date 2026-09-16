@@ -1773,3 +1773,155 @@ resolves to a page that exists.
 The canonical URLs for the OAuth configuration are now `https://www.guneku.org/privacy` and
 `https://www.guneku.org/terms`. Neither Clerk nor Google configuration was touched from the
 codebase.
+
+## 2026-09-16 - The Indigenes register grew by half, and nobody was published twice
+
+The Fondom's collected people and institution material brought into the existing content
+architecture. One pass, one commit, no migration, no new person model. Decisions in ADR-078 to
+ADR-081; open questions in R-054 to R-058.
+
+### What was reconciled
+
+**57 names considered**, from three places: 31 author names on the community record in
+`content/source/`, 22 people named inside records this site already publishes, and 4 named by
+the Product Owner in the brief.
+
+| | |
+|---|---|
+| Matched to an identity already in the record | **20 name strings -> 15 people** |
+| Opened as new entries | **24** |
+| Held as ambiguous | **3** |
+| Held as insufficient | **9** |
+
+The register went from **52 entries to 76**. The static build went from 232 pages to 256.
+
+**The collected inventory the brief describes - 126 leads - was not in the environment.** The
+WhatsApp export in the repository and its CSV twin are the same 60 messages and the same 31
+names. Nothing was invented to make up the difference; the shortfall is R-054 and it is closed
+by supplying the file.
+
+### Nobody was published twice
+
+`src/lib/identity-index.ts` is new: a deterministic duplicate guard that classifies a name
+against every identity the repository holds - the register, its aliases, and the Fon's own
+profile - as EXISTING, NEW_SAFE, AMBIGUOUS or INSUFFICIENT. Only NEW_SAFE was written, and
+only after a person read the output. `npm run reconcile:candidates` prints it.
+
+Every collision the Fondom named was reused rather than recreated:
+
+- **Fah Elvis Tayong** - one man, three roles. GUDECA National Publicity Secretary, Ngam-Fon
+  of the Palace, Delegate of the Agro CIG. Unchanged.
+- **Sam Fongho** -> `sam-fongoh`, where it has been an alias since ADR-021.
+- **Ngwa Vitalis**, **Rebecca Fomuki** - existing entries, untouched.
+- **Walters Formuki**, **HRH Dr. Fomuki Ticha IX**, **Fomuki Walters** -> the Fon's own
+  profile. **No register entry was opened for the reigning Fon**, and a test now fails if one
+  ever is.
+- **Jonathan Mbakwa** - held. The register holds Mbakwa Jonathan, Amamuki Jonathan and Mbakwa
+  Bernard, so the name is flanked on both parts and cannot be placed by anybody but the Palace.
+
+One alias was added to an entry that already existed: `ngati-bah-g` gains "Bah Ngati", the
+inversion the community record uses. No other existing entry was altered in any way.
+
+### The 24 entries opened
+
+Nineteen come from records this site already publishes and five from the community record and
+the Fondom.
+
+- **Zonal traditional councils, installed at the Palace 30 July 2021 (11).** Fomujang David
+  and Lydia Munyam (Zone 1) · Timothy Tembeng, Muki Martin, Evelyn Ngum (Zone 2) · Geh
+  Humphrey, John Ndakwe, Julia Forkwen (Zone 3) · John Agwetang, Anya Beltus, Eni Julia
+  (Zone 4).
+- **Guneku Water Management Committee, installed the same day (7).** Sam Ndimasong, Fon
+  Joseph, Choo Samuel, Tah Rene, Gah Daniel, Gongho Onias, Tasi Elvis. The eighth member the
+  record names, Fondom Calvin, was already in the register as `fodom-calvin`.
+- **Quarter elections coverage, 2021 (2).** Timkoh Florence, elected for Nyang; Wanjeh
+  Augustine, recorded as an inhabitant of Ngong.
+- **GUDECA branch record (1).** Ba Miki Tayong, Vice President of the Limbe branch.
+- **The community record and the Fondom (3).** Bah Sanje Jonas, Dominic Tembeng, Harriet
+  Fomuki.
+
+Every one of them publishes a name, a role, a source label and nothing else. No photograph, no
+city, no employer, no contact detail, no family relationship. Each carries the claim action and
+the one-click removal route, and none is marked deceased.
+
+### What the pass deliberately did not do
+
+- **Conferred no standing.** The Notables still number nine and the Royal Family still numbers
+  seven. Not one of the 24 carries `notable`, `royalRole` or a `body`.
+- **Harriet Fomuki is an ordinary entry.** Six people in the register are called Fomuki and
+  five of them are around the throne. The sixth is not, because a family name has never
+  conferred standing here and did not start today.
+- **Did not promote the zonal leaders onto the Traditional Council.** The installation report
+  says they became council members; the council's own roster of 2021 does not name them. Two
+  Fondom sources disagree, so the people are recorded and the membership is not asserted
+  (ADR-079, R-058). The roster still reads eight.
+- **Held four names that a courtesy title and one given name cannot identify** - Bah Andrew,
+  Mola Ekema, Mr Faraday, Tan Prince - and five strings that name an organisation or a channel
+  rather than a person.
+
+### Institutional records enriched
+
+- **`agro-cig.json`** - `governance` (Delegate, Vice Delegate, Secretary General, Manager;
+  Management Board, Executive body, Home-based CIG Exco), `commercialActivity` (the first
+  poultry sale of 13 April 2026, the share upgrade to 15 June, the staff meeting of 31 August)
+  and `milestonesNote`. **Offices, not names**: the record names one holder, the Delegate, who
+  was already in the register, and no seat was filled to make a list look complete. The
+  milestones note says plainly that "Operation 20 million" and "Operation 5 million plus" are
+  campaign announcements on their dates and not balances, totals raised or achieved figures.
+  The page gained two sections that read them.
+- **`guneccul.json`** - Mutengene (Tiko Road) and Bonaberi (Douala) recorded. Bonaberi is
+  **not** merged into the existing Douala branch and the question is written into the record
+  (ADR-081, R-057).
+- **`gudeca-branches.json`** - dated activity for Buea and Bamenda; the Limbe entry now points
+  at its officer's register slug; the Home Branch executive is recorded as a structure with no
+  roster invented for it; GUDECA North America keeps its own entry beside the GUDECA US
+  chapter with the relationship stated as unresolved.
+
+### Three published counts that had gone stale
+
+`/guneccul` listed four branches in a hand-typed array and said "four branches" in its own
+description; `/gudeca` said "4 branches"; `current-notices.json` said "across four branches".
+The record held six. All three now count the record instead of asserting a number - the
+GUNECCUL page reads `guneccul.branches` and derives its own dates, and the notice no longer
+carries a figure at all.
+
+### Source declarations
+
+Four new: `zonal-installation-2021`, `gudeca-branch-record`, `community-record-2026-09`,
+`owner-list-2026-09-16`. Two that were in use with no declaration are now declared -
+`gudeca-us-2023` and `owner-correction-2026-09-03` - and no entry's rendered label changed, so
+no page reads differently.
+
+New entries are labelled "The Guneku community record, 2026". The collection mechanism is not
+published against anybody (ADR-080); the existing `whatsapp:gudeca-eu` label from 2026-09-03 is
+left exactly as it stands.
+
+### Geography: unchanged, and checked
+
+The canonical 27-quarter list was not touched. **Njindom was not added as a quarter or a
+locality** - it is a separate village with its own Fon, its own parish and its own development
+association, and a test now fails if its name enters the register, the quarter list, the
+quarter pages or the mapped locations. Njinebai, Nyeh, Toh and Tuengyie were likewise not
+added, though other records call them quarters; that is R-028 and it needs a Palace source, not
+this pass.
+
+One quarter council gained a member: Nyang, from the councillor the 2021 coverage names.
+`isCouncilRole` was widened by one pattern to admit "councillor for X quarter", which is the
+same office read from the other end and still requires the word "quarter" beside the name.
+Council coverage went from 1 of 27 to 2 of 27.
+
+### Privacy
+
+Not one telephone number, email address, handle, photograph, social link, birthday or family
+claim entered `src/`. The register is swept for all of them by test, and the entries this pass
+opened are swept again for any mention of where they were read. `community_members` defaults,
+`indigene_profiles` defaults, the claim workflow, the removal route and Clerk are untouched.
+No claim row, no member row and no account was created.
+
+### Verification
+
+`npx tsc --noEmit` clean · `npx vitest run` **1075 passed across 45 files**, up from 1017
+across 43, with no existing test weakened · `npm run build` succeeded, 256 static pages ·
+ESLint clean on every file this pass touched.
+
+Two test files are new: `identity-index.test.ts` (23) and `register-population.test.ts` (35).

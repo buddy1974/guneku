@@ -1,7 +1,7 @@
 {
  "meta": {
   "purpose": "The first names in the Indigenes Directory. A directory that opens empty converts badly; a directory that already carries your name converts well. These are seed stubs only — name, role, chapter and the source the name came from. Nothing else is published: no photograph, no location, no contact, no biography. Each one carries a Claim action and a Remove action.",
-  "updated": "2026-09-03",
+  "updated": "2026-09-16",
   "authorised_by": "Product Owner, 2026-09-03 — publish all founding names now.",
   "publication_rule": "A seed stub may show ONLY: display name, role/office, body, chapter, source label, and — where the person already has a published profile on this site — a link to it. Any further field must come from the person themselves after they claim. Do not add photographs, employers, cities or contact details to this file.",
   "objection_route": "Every stub links to /indigenes/submit?intent=remove — a one-click request to have the name taken down, honoured without question. This is what makes publishing a name the person did not personally submit defensible; do not remove it.",
@@ -23,7 +23,13 @@
    "michi-ebeng-2023": "The Mɨchi Əbeŋ Festival organising committee, recorded for the 2023 edition.",
    "palace-household": "The Palace household and its titles, each entry dated to the source that establishes it.",
    "legacy-sons-daughters": "The legacy 'Sons & Daughters of Guneku Worldwide' listing from the migrated village website.",
-   "fon-biography": "The biography of the late HRH Fon Fomuki Patrick Nji."
+   "fon-biography": "The biography of the late HRH Fon Fomuki Patrick Nji.",
+   "zonal-installation-2021": "The zonal traditional councils and the Guneku Water Management Committee, elected and installed at the Palace on 30 July 2021, as carried in the news archive.",
+   "gudeca-branch-record": "The GUDECA branch record held on this site, and the officers it names.",
+   "community-record-2026-09": "The Guneku community record — the village and association group records reviewed in September 2026. The record itself is not published, and nothing from it is published against a person except that it names them.",
+   "owner-list-2026-09-16": "Named by the Product Owner, as data controller, from the Guneku community record, 16 September 2026.",
+   "gudeca-us-2023": "The GUDECA US chapter gathering of 2023, carried in the media archive.",
+   "owner-correction-2026-09-03": "Confirmed by the Fondom on 3 September 2026."
   },
   "deceased_rule": "A person recorded as deceased is listed with respect and NEVER carries a claim action. `deceased: true` removes the claim button and the 'not me' link; the entry stands as a record, not an invitation.",
   "body_rule": "`body` is an office-holding body (see bodies.json); `chapter` is a place (see chapters.json). A person may have both, one, or neither. Thadeus Fon holds national office AND belongs to the Douala chapter.",
@@ -174,7 +180,9 @@
   {
    "slug": "ngati-bah-g",
    "display": "Ngati Bah G.",
-   "aliases": [],
+   "aliases": [
+    "Bah Ngati"
+   ],
    "role": "3rd National Vice President, GUDECA",
    "body": "gudeca-national",
    "chapter": null,
@@ -634,6 +642,253 @@
    "source": "owner-correction-2026-09-03",
    "sourceLabel": "Confirmed by the Fondom, 3 September 2026",
    "note": "Wife of the reigning Fon and a Queen of the Guneku Palace, confirmed by the Fondom. Her professional record is as the Fondom supplied it and is not expanded from other sources."
+  },
+  {
+   "slug": "fomujang-david",
+   "display": "Fomujang David",
+   "aliases": [],
+   "role": "President, Zone 1 Traditional Council — as recorded 2021",
+   "chapter": "guneku-village",
+   "source": "zonal-installation-2021",
+   "sourceLabel": "Zonal councils installed at the Palace, 30 July 2021",
+   "note": "Elected by the councillors of Zone 1 and installed at the Palace on 30 July 2021. The record says the zonal council leaders thereby became members of the Guneku Traditional Council; that is not asserted here, because the council’s own roster of 2021 does not name them. No Notable standing is recorded or implied."
+  },
+  {
+   "slug": "lydia-munyam",
+   "display": "Lydia Munyam",
+   "aliases": [],
+   "role": "Treasurer, Zone 1 Traditional Council — as recorded 2021",
+   "chapter": "guneku-village",
+   "source": "zonal-installation-2021",
+   "sourceLabel": "Zonal councils installed at the Palace, 30 July 2021",
+   "note": "Elected by the councillors of Zone 1 and installed at the Palace on 30 July 2021. The record says the zonal council leaders thereby became members of the Guneku Traditional Council; that is not asserted here, because the council’s own roster of 2021 does not name them. No Notable standing is recorded or implied."
+  },
+  {
+   "slug": "timothy-tembeng",
+   "display": "Timothy Tembeng",
+   "aliases": [],
+   "role": "President, Zone 2 Traditional Council — as recorded 2021",
+   "chapter": "guneku-village",
+   "source": "zonal-installation-2021",
+   "sourceLabel": "Zonal councils installed at the Palace, 30 July 2021",
+   "note": "Elected by the councillors of Zone 2 and installed at the Palace on 30 July 2021. The record says the zonal council leaders thereby became members of the Guneku Traditional Council; that is not asserted here, because the council’s own roster of 2021 does not name them. No Notable standing is recorded or implied."
+  },
+  {
+   "slug": "muki-martin",
+   "display": "Muki Martin",
+   "aliases": [],
+   "role": "Secretary, Zone 2 Traditional Council — as recorded 2021",
+   "chapter": "guneku-village",
+   "source": "zonal-installation-2021",
+   "sourceLabel": "Zonal councils installed at the Palace, 30 July 2021",
+   "note": "Elected by the councillors of Zone 2 and installed at the Palace on 30 July 2021. The record says the zonal council leaders thereby became members of the Guneku Traditional Council; that is not asserted here, because the council’s own roster of 2021 does not name them. No Notable standing is recorded or implied."
+  },
+  {
+   "slug": "evelyn-ngum",
+   "display": "Evelyn Ngum",
+   "aliases": [],
+   "role": "Treasurer, Zone 2 Traditional Council — as recorded 2021",
+   "chapter": "guneku-village",
+   "source": "zonal-installation-2021",
+   "sourceLabel": "Zonal councils installed at the Palace, 30 July 2021",
+   "note": "Elected by the councillors of Zone 2 and installed at the Palace on 30 July 2021. The record says the zonal council leaders thereby became members of the Guneku Traditional Council; that is not asserted here, because the council’s own roster of 2021 does not name them. No Notable standing is recorded or implied."
+  },
+  {
+   "slug": "geh-humphrey",
+   "display": "Geh Humphrey",
+   "aliases": [],
+   "role": "President, Zone 3 Traditional Council — as recorded 2021",
+   "chapter": "guneku-village",
+   "source": "zonal-installation-2021",
+   "sourceLabel": "Zonal councils installed at the Palace, 30 July 2021",
+   "note": "Elected by the councillors of Zone 3 and installed at the Palace on 30 July 2021. The record says the zonal council leaders thereby became members of the Guneku Traditional Council; that is not asserted here, because the council’s own roster of 2021 does not name them. No Notable standing is recorded or implied."
+  },
+  {
+   "slug": "john-ndakwe",
+   "display": "John Ndakwe",
+   "aliases": [],
+   "role": "Secretary, Zone 3 Traditional Council — as recorded 2021",
+   "chapter": "guneku-village",
+   "source": "zonal-installation-2021",
+   "sourceLabel": "Zonal councils installed at the Palace, 30 July 2021",
+   "note": "Elected by the councillors of Zone 3 and installed at the Palace on 30 July 2021. The record says the zonal council leaders thereby became members of the Guneku Traditional Council; that is not asserted here, because the council’s own roster of 2021 does not name them. No Notable standing is recorded or implied."
+  },
+  {
+   "slug": "julia-forkwen",
+   "display": "Julia Forkwen",
+   "aliases": [],
+   "role": "Treasurer, Zone 3 Traditional Council — as recorded 2021",
+   "chapter": "guneku-village",
+   "source": "zonal-installation-2021",
+   "sourceLabel": "Zonal councils installed at the Palace, 30 July 2021",
+   "note": "Elected by the councillors of Zone 3 and installed at the Palace on 30 July 2021. The record says the zonal council leaders thereby became members of the Guneku Traditional Council; that is not asserted here, because the council’s own roster of 2021 does not name them. No Notable standing is recorded or implied."
+  },
+  {
+   "slug": "john-agwetang",
+   "display": "John Agwetang",
+   "aliases": [],
+   "role": "President, Zone 4 Traditional Council — as recorded 2021",
+   "chapter": "guneku-village",
+   "source": "zonal-installation-2021",
+   "sourceLabel": "Zonal councils installed at the Palace, 30 July 2021",
+   "note": "Elected by the councillors of Zone 4 and installed at the Palace on 30 July 2021. The record says the zonal council leaders thereby became members of the Guneku Traditional Council; that is not asserted here, because the council’s own roster of 2021 does not name them. No Notable standing is recorded or implied."
+  },
+  {
+   "slug": "anya-beltus",
+   "display": "Anya Beltus",
+   "aliases": [],
+   "role": "Secretary, Zone 4 Traditional Council — as recorded 2021",
+   "chapter": "guneku-village",
+   "source": "zonal-installation-2021",
+   "sourceLabel": "Zonal councils installed at the Palace, 30 July 2021",
+   "note": "Elected by the councillors of Zone 4 and installed at the Palace on 30 July 2021. The record says the zonal council leaders thereby became members of the Guneku Traditional Council; that is not asserted here, because the council’s own roster of 2021 does not name them. No Notable standing is recorded or implied."
+  },
+  {
+   "slug": "eni-julia",
+   "display": "Eni Julia",
+   "aliases": [],
+   "role": "Treasurer, Zone 4 Traditional Council — as recorded 2021",
+   "chapter": "guneku-village",
+   "source": "zonal-installation-2021",
+   "sourceLabel": "Zonal councils installed at the Palace, 30 July 2021",
+   "note": "Elected by the councillors of Zone 4 and installed at the Palace on 30 July 2021. The record says the zonal council leaders thereby became members of the Guneku Traditional Council; that is not asserted here, because the council’s own roster of 2021 does not name them. No Notable standing is recorded or implied."
+  },
+  {
+   "slug": "sam-ndimasong",
+   "display": "Sam Ndimasong",
+   "aliases": [],
+   "role": "Member, Guneku Water Management Committee — as recorded 2021",
+   "chapter": "guneku-village",
+   "source": "zonal-installation-2021",
+   "sourceLabel": "Zonal councils installed at the Palace, 30 July 2021",
+   "note": "Installed with the committee at the Palace on 30 July 2021. No office beyond the committee is recorded, and none is inferred."
+  },
+  {
+   "slug": "fon-joseph",
+   "display": "Fon Joseph",
+   "aliases": [],
+   "role": "Member, Guneku Water Management Committee — as recorded 2021",
+   "chapter": "guneku-village",
+   "source": "zonal-installation-2021",
+   "sourceLabel": "Zonal councils installed at the Palace, 30 July 2021",
+   "note": "Installed with the committee at the Palace on 30 July 2021. No office beyond the committee is recorded, and none is inferred."
+  },
+  {
+   "slug": "choo-samuel",
+   "display": "Choo Samuel",
+   "aliases": [],
+   "role": "Member, Guneku Water Management Committee — as recorded 2021",
+   "chapter": "guneku-village",
+   "source": "zonal-installation-2021",
+   "sourceLabel": "Zonal councils installed at the Palace, 30 July 2021",
+   "note": "Installed with the committee at the Palace on 30 July 2021. No office beyond the committee is recorded, and none is inferred."
+  },
+  {
+   "slug": "tah-rene",
+   "display": "Tah Rene",
+   "aliases": [],
+   "role": "Member, Guneku Water Management Committee — as recorded 2021",
+   "chapter": "guneku-village",
+   "source": "zonal-installation-2021",
+   "sourceLabel": "Zonal councils installed at the Palace, 30 July 2021",
+   "note": "Installed with the committee at the Palace on 30 July 2021. No office beyond the committee is recorded, and none is inferred."
+  },
+  {
+   "slug": "gah-daniel",
+   "display": "Gah Daniel",
+   "aliases": [],
+   "role": "Member, Guneku Water Management Committee — as recorded 2021",
+   "chapter": "guneku-village",
+   "source": "zonal-installation-2021",
+   "sourceLabel": "Zonal councils installed at the Palace, 30 July 2021",
+   "note": "Installed with the committee at the Palace on 30 July 2021. No office beyond the committee is recorded, and none is inferred."
+  },
+  {
+   "slug": "gongho-onias",
+   "display": "Gongho Onias",
+   "aliases": [],
+   "role": "Member, Guneku Water Management Committee — as recorded 2021",
+   "chapter": "guneku-village",
+   "source": "zonal-installation-2021",
+   "sourceLabel": "Zonal councils installed at the Palace, 30 July 2021",
+   "note": "Installed with the committee at the Palace on 30 July 2021. No office beyond the committee is recorded, and none is inferred."
+  },
+  {
+   "slug": "tasi-elvis",
+   "display": "Tasi Elvis",
+   "aliases": [],
+   "role": "Member, Guneku Water Management Committee — as recorded 2021",
+   "chapter": "guneku-village",
+   "source": "zonal-installation-2021",
+   "sourceLabel": "Zonal councils installed at the Palace, 30 July 2021",
+   "note": "Installed with the committee at the Palace on 30 July 2021. No office beyond the committee is recorded, and none is inferred."
+  },
+  {
+   "slug": "timkoh-florence",
+   "display": "Timkoh Florence",
+   "aliases": [
+    "Madam Timkoh Florence",
+    "Madam Florence"
+   ],
+   "role": "Councillor for Nyang quarter on the Guneku Traditional Council — as recorded 2021",
+   "chapter": "guneku-village",
+   "source": "quarter-elections-2021",
+   "sourceLabel": "Quarter elections coverage, 2021",
+   "note": "Elected in the Nyang quarter election of July 2021. The coverage records that most councillors elected that month were men."
+  },
+  {
+   "slug": "wanjeh-augustine",
+   "display": "Wanjeh Augustine",
+   "aliases": [
+    "Pa Wanjeh Augustine"
+   ],
+   "role": "Named in the Fondom record",
+   "chapter": "guneku-village",
+   "source": "quarter-elections-2021",
+   "sourceLabel": "Quarter elections coverage, 2021",
+   "note": "Recorded as an inhabitant of Ngong quarter, speaking at the 2021 quarter elections. No office is recorded, and none is inferred."
+  },
+  {
+   "slug": "ba-miki-tayong",
+   "display": "Ba Miki Tayong",
+   "aliases": [],
+   "role": "Vice President, GUDECA Limbe Branch",
+   "chapter": null,
+   "source": "gudeca-branch-record",
+   "sourceLabel": "GUDECA branch record",
+   "note": "Named in the GUDECA branch record. GUDECA Limbe is not among the chapters that keep a register here, so no chapter is recorded against this entry."
+  },
+  {
+   "slug": "bah-sanje-jonas",
+   "display": "Bah Sanje Jonas",
+   "aliases": [
+    "Bah. Sanje. Jonas"
+   ],
+   "role": "Named in the Guneku community record",
+   "chapter": null,
+   "source": "community-record-2026-09",
+   "sourceLabel": "The Guneku community record, 2026",
+   "note": "No office, chapter or place is recorded, and none is inferred."
+  },
+  {
+   "slug": "dominic-tembeng",
+   "display": "Dominic Tembeng",
+   "aliases": [],
+   "role": "Named in the Guneku community record",
+   "chapter": null,
+   "source": "community-record-2026-09",
+   "sourceLabel": "The Guneku community record, 2026",
+   "note": "No office, chapter or place is recorded, and none is inferred. A different person from Timothy Tembeng, with whom this entry shares a family name and nothing else."
+  },
+  {
+   "slug": "harriet-fomuki",
+   "display": "Harriet Fomuki",
+   "aliases": [],
+   "role": "Named in the Guneku community record",
+   "chapter": null,
+   "source": "owner-list-2026-09-16",
+   "sourceLabel": "Named by the Fondom, 16 September 2026",
+   "note": "An ordinary entry in the register. No place in the Royal Family is recorded and none is implied: the family name is shared widely in Guneku and has never conferred standing here. A place around the throne is set in the record, by the Palace, or not at all."
   }
  ]
 }
