@@ -15,6 +15,14 @@ const EXPLORE = [
   { label: 'Media',        href: '/gallery'   },
 ]
 
+/* Reachable from every page, and named plainly. Google's OAuth verification asks for a
+   privacy policy and terms URL, but that is not why these exist: a site that keeps a member
+   register and a Palace inbox owes its community a page saying what it does with both. */
+const LEGAL = [
+  { label: 'Privacy Policy',    href: '/privacy' },
+  { label: 'Terms of Service',  href: '/terms'   },
+]
+
 /* Public channel only — a YouTube Studio or admin URL must never be published. */
 const SOCIAL = [
   { label: 'YouTube',   href: videoGallery.channelUrl },
@@ -89,8 +97,25 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-2 border-t border-white/12 pt-5 text-[0.78rem] text-white/55 md:flex-row md:items-center md:justify-between">
+        <div className="mt-10 flex flex-col gap-3 border-t border-white/12 pt-5 text-[0.78rem] text-white/55 md:flex-row md:items-center md:justify-between">
           <p className="m-0">© {new Date().getFullYear()} Guneku Fondom. All rights reserved.</p>
+
+          {/* The legal pages live here rather than in Explore. They are not part of the
+              record a villager comes to read, and putting them in the village navigation
+              would give them a prominence they have not earned — but they must be reachable
+              from every page, which the footer is. */}
+          <nav aria-label="Legal" className="m-0">
+            <ul className="m-0 flex list-none flex-wrap items-center gap-x-4 gap-y-1 p-0">
+              {LEGAL.map(l => (
+                <li key={l.href}>
+                  <Link href={l.href} className="text-white/60 no-underline hover:text-white hover:underline">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
           <p className="m-0">
             Website by{' '}
             <a href="https://maxpromo.digital" target="_blank" rel="noopener noreferrer"

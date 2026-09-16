@@ -52,6 +52,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     /* /gallery/videos redirects to /watch, so only one film library is indexable. */
     at('/watch', { priority: 0.8, changeFrequency: 'monthly' }),
     at('/contact'),
+    /* Public and indexable, like every other page a visitor can simply open, but low
+       priority and rarely changed: they are reference, not record. */
+    at('/privacy', { priority: 0.3, changeFrequency: 'yearly' }),
+    at('/terms',   { priority: 0.3, changeFrequency: 'yearly' }),
   ]
 
   const updates = publicUpdates().map(u =>
