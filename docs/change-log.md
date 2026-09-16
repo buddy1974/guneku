@@ -2036,3 +2036,34 @@ assertions in `register-population.test.ts` were rewritten rather than relaxed: 
 publication allow-list now names `profession` and `residence` and says why each is on it, and
 the quarter check now asserts that exactly one entry names a quarter and that it is the Nyang
 councillor, instead of asserting that none does.
+
+## 2026-09-16 - One man stopped being two: R-059 resolved
+
+A surgical reconciliation, not a new pass. The Fondom confirmed that **Tibi Enert and Ernest
+Tibi Ticha are the same man**, canonically **Ernest Tibi Ticha**, and the entry opened that
+morning was folded into the one the register has held since 3 September.
+
+- **`tibi-enert` removed.** `ernest-tibi-ticha` now carries `Tibi Enert` and the earlier
+  discovery spelling `Tibi Enerst Tibi` as aliases. All three forms resolve to one person and
+  he is counted once.
+- **Everything the canonical entry held was preserved** — Member, GUDECA Yaounde Branch; the
+  Yaounde chapter; a Cameroon residence; its own source and date. Nothing was restated in the
+  newer entry's words.
+- **Nothing crossed from another Tibi.** The folded entry carried no office, chapter, body,
+  residence or standing of its own, so only the spelling moved. The six other Tibi entries are
+  untouched and still six separate people.
+- **`/indigenes/founding/tibi-enert` redirects permanently** to the canonical page (ADR-041,
+  ADR-085). It was live for about an hour and a reader who followed a link to the name they
+  knew him by should reach the man, not a 404.
+- **The fold is in `meta.removed`**, beside the one name the register has taken down before,
+  and says plainly that it was not the removal of a person.
+
+**Register: 97 — 96.** Static build 277 — 276 pages. Notables still 9, Royal Family still 7
+with 3 Queens, Traditional Council still 8. No other entry changed in any way.
+
+Five tests replaced the two that asserted the unresolved state: the three spellings resolve to
+one slug, the canonical entry kept its own fields, the six other Tibi entries are unchanged,
+the redirect exists, and the fold is recorded rather than lost.
+
+`npx tsc --noEmit` clean · `npx vitest run` **1090 passed across 45 files** · `npm run build`
+succeeded · ESLint clean on every file touched.

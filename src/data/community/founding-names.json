@@ -11,6 +11,11 @@
     "name": "Fonjong",
     "removed": "2026-09-03",
     "reason": "Named in the Bonn minutes delivering a goodwill message, and titled by the Fons of Meta — but he attended the event and is not a GUDECA member. Confirmed by the Product Owner. Do not re-add from the minutes. NOTE: he is still present in institutions/gudeca-eu.json `leadership`; that file has not been changed without a decision."
+   },
+   {
+    "name": "Tibi Enert",
+    "removed": "2026-09-16",
+    "reason": "Not a removal of a person: an entry opened on 16 September 2026 and folded into Ernest Tibi Ticha the same day, on the Fondom confirming they are one man. The spelling is kept as an alias on that entry and /indigenes/founding/tibi-enert redirects to it. R-059."
    }
   ],
   "sources": {
@@ -619,13 +624,16 @@
   {
    "slug": "ernest-tibi-ticha",
    "display": "Ernest Tibi Ticha",
-   "aliases": [],
+   "aliases": [
+    "Tibi Enert",
+    "Tibi Enerst Tibi"
+   ],
    "role": "Member, GUDECA Yaoundé Branch",
    "chapter": "gudeca-yaounde",
    "residence": "Cameroon",
    "source": "owner-correction-2026-09-03",
    "sourceLabel": "Confirmed by the Fondom, 3 September 2026",
-   "note": "Confirmed by the Fondom. Based in Cameroon, so not of the diaspora. No GUDECA office is recorded for this member, and none is inferred."
+   "note": "Confirmed by the Fondom. Based in Cameroon, so not of the diaspora. No GUDECA office is recorded for this member, and none is inferred. The Fondom confirmed on 16 September 2026 that the entry opened as Tibi Enert is this same man; it was folded into this one and both spellings are carried here. Nothing belonging to any other Tibi in the register was moved."
   },
   {
    "slug": "esther-hammer-fomuki",
@@ -1004,16 +1012,6 @@
    "source": "owner-confirmation-2026-09-16",
    "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
    "note": "Association with GUDECA North America confirmed by the Fondom. Membership, not office: no executive position is recorded and none is inferred. GUDECA North America is not recorded here as the same body as the GUDECA US chapter, because no source establishes that they are - see the branch record."
-  },
-  {
-   "slug": "tibi-enert",
-   "display": "Tibi Enert",
-   "aliases": [],
-   "role": "Named in the Fondom record",
-   "chapter": null,
-   "source": "owner-confirmation-2026-09-16",
-   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
-   "note": "Written as the Fondom wrote it. The register also holds Ernest Tibi Ticha, confirmed separately in September 2026, and an earlier discovery spelling read \"Tibi Enerst Tibi\". Whether those are this man is NOT established, so the two entries stand apart and neither has been folded into the other. If the Fondom confirms they are one man, this entry becomes a spelling on his. No office, body or chapter is recorded."
   },
   {
    "slug": "tibi-divine",

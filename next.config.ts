@@ -131,6 +131,20 @@ const nextConfig: NextConfig = {
       { source: '/gallery/videos',            destination: '/watch', permanent: true },
       { source: '/index.php/gallery/videos',  destination: '/watch', permanent: true },
 
+      /* One man who was briefly two entries. `tibi-enert` was opened on 16 September 2026
+         from the Fondom's confirmation, and the Fondom confirmed the same day that he is
+         Ernest Tibi Ticha, already in the register. The entry was folded into his and the
+         spelling kept as an alias.
+         The page was live, so it redirects rather than 404s: a reader who followed a link to
+         the name they knew him by should arrive at the man, not at a message saying he does
+         not exist. This is the ADR-041 case — the subject did not go away, only the address
+         it was published at. R-059. */
+      {
+        source: '/indigenes/founding/tibi-enert',
+        destination: '/indigenes/founding/ernest-tibi-ticha',
+        permanent: true,
+      },
+
       /* Joomla SEF article URLs carried a numeric id prefix, e.g.
          /updates/23-minutes-of-meeting. The slug that follows is the alias the
          migration kept, so the prefix can simply be dropped. */

@@ -1274,7 +1274,7 @@ else's.
 **Owner action:** ask the Palace whether the zonal presidents, secretaries and treasurers of
 2021 sit on the Guneku Traditional Council.
 
-## R-059 - Three spellings around one Tibi, and the record does not say whether it is one man
+## R-059 - Three spellings around one Tibi - RESOLVED 2026-09-16
 
 The register now holds **Ernest Tibi Ticha** (confirmed by the Fondom on 3 September 2026,
 GUDECA Yaounde) and **Tibi Enert** (confirmed on 16 September 2026). An earlier discovery
@@ -1290,9 +1290,19 @@ discovery spelling was deliberately **not** made an alias on either — an alias
 deciding the question rather than recording it. The duplicate guard reports it on every run
 and a test fails if anybody quietly folds one into the other.
 
-**Owner action:** confirm whether Tibi Enert and Ernest Tibi Ticha are the same man. If they
-are, one entry becomes a spelling on the other in a single edit. If they are not, nothing
-needs doing.
+**Resolved the same day.** The Fondom confirmed that Tibi Enert and Ernest Tibi Ticha are one
+man, canonically **Ernest Tibi Ticha**. The entry opened as `tibi-enert` was folded into
+`ernest-tibi-ticha`; both `Tibi Enert` and the earlier discovery spelling `Tibi Enerst Tibi`
+are carried there as aliases, so all three forms now resolve to one person. Everything the
+canonical entry already held — the GUDECA Yaounde membership, the Cameroon residence, its own
+source — was preserved, and nothing belonging to any of the six other Tibi entries was moved.
+`/indigenes/founding/tibi-enert` redirects permanently to the canonical page. The register
+went from 97 entries to 96.
+
+**What this says about the guard.** It refused to merge these two on its own and was right to:
+one letter between two given names is not evidence, and the six further Tibi entries confirmed
+in the same breath proved the family name settles nothing. It narrowed the question to one
+sentence and a person answered it. That is the arrangement working, not failing.
 
 ---
 

@@ -44,8 +44,11 @@ const ADDED = NAMES.filter(n =>
 
 describe('the register grew, and every entry is still one person', () => {
   it('opened the entries this pass declared', () => {
-    expect(ADDED).toHaveLength(45)
-    expect(NAMES).toHaveLength(97)
+    /* 45 entries were opened across this pass and one was folded back into a man who was
+       already in the register the same day, on the Fondom's confirmation — see R-059 and the
+       Tibi test below. */
+    expect(ADDED).toHaveLength(44)
+    expect(NAMES).toHaveLength(96)
     expect(NAMES.length).toBe(new Set(NAMES.map(n => n.slug)).size)
   })
 
@@ -179,16 +182,66 @@ describe('the names the Fondom confirmed on 16 September', () => {
     }
   })
 
-  it('holds the Tibi spelling the Fondom did not resolve, and merges nobody', () => {
-    /* Tibi Enert and Ernest Tibi Ticha stand apart until the Palace says otherwise, and the
-       discovery spelling is neither published nor made an alias — making it one would be
-       deciding the question rather than recording it. */
-    expect(getFoundingName('tibi-enert')).not.toBeNull()
-    expect(getFoundingName('ernest-tibi-ticha')).not.toBeNull()
-    expect(classifyCandidate('Tibi Enerst Tibi').classification).toBe('AMBIGUOUS')
-    for (const n of NAMES) {
-      expect(n.aliases ?? [], n.slug).not.toContain('Tibi Enerst Tibi')
+  it('holds Ernest Tibi Ticha as one man under all three spellings', () => {
+    /* R-059, resolved by the Fondom on 16 September 2026: Tibi Enert is Ernest Tibi Ticha.
+       The entry opened that morning was folded into his the same day and both spellings are
+       carried on it. The guard was right to refuse the merge on its own — it is right to
+       record it now that a person has decided. */
+    expect(getFoundingName('tibi-enert')).toBeNull()
+
+    const canonical = getFoundingName('ernest-tibi-ticha')!
+    expect(canonical.aliases).toContain('Tibi Enert')
+    expect(canonical.aliases).toContain('Tibi Enerst Tibi')
+
+    for (const written of ['Ernest Tibi Ticha', 'Tibi Enert', 'Tibi Enerst Tibi']) {
+      const v = classifyCandidate(written)
+      expect(v.classification, written).toBe('EXISTING')
+      expect(v.resolvesTo?.id, written).toBe('ernest-tibi-ticha')
     }
+
+    /* One man, counted once. */
+    expect(NAMES.filter(n =>
+      [n.display, ...(n.aliases ?? [])].some(s => /enert|enerst|ernest/i.test(s)),
+    ).map(n => n.slug)).toEqual(['ernest-tibi-ticha'])
+  })
+
+  it('kept everything the canonical entry already held, and took nothing from another Tibi', () => {
+    const c = getFoundingName('ernest-tibi-ticha')!
+    expect(c.role).toBe('Member, GUDECA Yaoundé Branch')
+    expect(c.chapter).toBe('gudeca-yaounde')
+    expect(c.residence).toBe('Cameroon')
+    expect(c.source).toBe('owner-correction-2026-09-03')
+    expect(c.notable).toBeFalsy()
+    expect(c.body).toBeUndefined()
+
+    /* The other six Tibi entries are untouched and still six separate people. */
+    const others = ['tibi-divine', 'tibi-felix', 'tibi-gladys-fri',
+                    'tibi-vincent', 'tibi-nicoline', 'tibi-elvies']
+    for (const slug of others) {
+      const n = getFoundingName(slug)
+      expect(n, slug).not.toBeNull()
+      expect(n!.aliases, slug).toEqual([])
+      expect(n!.chapter, slug).toBeNull()
+    }
+    expect(new Set(others).size).toBe(6)
+  })
+
+  it('leaves a way back from the address the folded entry was published at', () => {
+    /* The page was live before the Fondom resolved it, so the old path redirects rather than
+       404s. A reader who followed a link to the name they knew him by must arrive at the man
+       (ADR-041). */
+    const config = readFileSync('next.config.ts', 'utf-8')
+    expect(config).toContain("source: '/indigenes/founding/tibi-enert'")
+    expect(config).toContain("destination: '/indigenes/founding/ernest-tibi-ticha'")
+  })
+
+  it('records the fold in the register rather than losing it', () => {
+    const removed = namesDoc.meta.removed as Array<{ name: string; reason: string }>
+    const entry = removed.find(r => r.name === 'Tibi Enert')
+    expect(entry).toBeDefined()
+    expect(entry!.reason).toMatch(/one man/i)
+    /* And the earlier removal is still on the record. */
+    expect(removed.length).toBeGreaterThan(1)
   })
 
   it('opens the six other Tibi entries without inferring a family', () => {

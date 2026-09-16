@@ -33,7 +33,7 @@ this log and are not backfilled here; they are recorded in the handover reports 
 | ADR-008 | 2026-09-02 | One canonical 27-quarter list | Accepted | — |
 | ADR-009 | 2026-09-02 | Do not impose a three-variant image convention site-wide | Accepted | — |
 
-_ADR-010 onward are recorded in full below and not repeated in this table; the table has listed the first nine since it was written. Latest: **ADR-084**, 2026-09-16._
+_ADR-010 onward are recorded in full below and not repeated in this table; the table has listed the first nine since it was written. Latest: **ADR-085**, 2026-09-16._
 
 ---
 
@@ -1731,3 +1731,36 @@ office, not one.
 This is the general answer to "the model cannot hold this relationship": say it in the free
 text the register already publishes, link it from the institution record, and leave the
 structure alone until a source justifies changing it.
+
+---
+
+## ADR-085 - A merge is a decision a person makes, and the entry that goes keeps a way back
+
+**Context.** R-059. The register briefly held two entries for one man: `ernest-tibi-ticha`,
+confirmed on 3 September 2026, and `tibi-enert`, opened on 16 September from a separate
+confirmation. The duplicate guard refused to join them — Enert and Ernest are one letter
+apart and share a family name that six further confirmations proved is common in Guneku — and
+reported the question instead. The Fondom answered it the same day: one man, canonically
+**Ernest Tibi Ticha**.
+
+**Decision.** `tibi-enert` was folded into `ernest-tibi-ticha` and removed. Three things had to
+be true of the fold, and each is now checked by a test:
+
+1. **The canonical entry keeps everything it already had.** Its GUDECA Yaounde membership, its
+   Cameroon residence, its own source label and date. A merge must never quietly restate a
+   verified entry in the words of a newer one.
+2. **Nothing crosses that belonged to somebody else.** `tibi-enert` carried no office,
+   chapter, body, residence or standing of its own, so only the spelling moved. The six other
+   Tibi entries were not touched and are still six separate people.
+3. **The address that was published keeps working.** The page was live before the answer came,
+   so `/indigenes/founding/tibi-enert` redirects permanently rather than 404ing — the ADR-041
+   case, where the subject has not gone away, only the address he was published at.
+
+The fold is recorded in `meta.removed` alongside the one name the register has taken down
+before, and it says plainly that this was not a removal of a person.
+
+**What this establishes for the next one.** The guard decides nothing about identity. It
+refuses, narrows and reports; a person resolves. When the person resolves in favour of a
+merge, the merge is a surgical edit with a redirect and a note, not a rewrite — and the
+register's own count changes by exactly one, which is how anybody reading afterwards can see
+that one man stopped being two.
