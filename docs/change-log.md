@@ -2343,3 +2343,52 @@ the link guard; 21 straight at the route handlers for authorisation. Two existin
 real problems during the build — the MaxPromo audit sweep flagged an unrelated use of the word
 in a seed note, and ESLint found that the sitemap built its business entries and never returned
 them.
+
+## 2026-09-16 - Migration 0005 applied; the migration endpoint removed again
+
+`businesses`, `business_videos` and `business_images` exist in production. The registered
+half of the Business Directory is open. **R-064 closed.**
+
+Fifth use of the endpoint, fifth removal. The lifecycle — restore, apply, verify, delete — is
+the safeguard, and the last step is the one that would be tempting to skip.
+
+- **Applied:** `0005_businesses.sql`. `0000` through `0004` were already recorded and were
+  not re-run. The ledger now holds six rows.
+- **Proved rather than asserted:** a second call applied **nothing** (`"applied": []`).
+- **Created:** `businesses` with 31 columns, five CHECK constraints and a unique slug;
+  `business_videos` with its eleven-character `video_id` pattern CHECK, its unique pair and
+  a cascade FK; `business_images` with a cascade FK. All eight declared indexes.
+- **All ten tables verified healthy** through the catalogue rather than by assertion, and
+  the six that existed before are untouched at the row counts they had.
+- **Removed:** `src/app/api/admin/migrate/` in full, and `MIGRATE_TOKEN` from Vercel
+  Production. No reference to either remains in any source file except the existing
+  `ai-sources` test that asserts the assistant can never see such a name.
+
+### The workflow was accepted, not just the table
+
+0005 is the first migration whose value is a workflow rather than a schema, so the endpoint
+carried one extra action for this operation: a fixed sequence run against the real database
+through the same query functions the API uses, under two synthetic owner ids, deleting what
+it made. It read nothing from the request.
+
+Nineteen checks, nineteen passes. A new business starts `pending` and is absent from the
+public directory. `person_slug` came from the caller even though the body carried a real
+person’s slug on purpose. The owner could read, edit and archive; the second identity could
+do none of it and was told nothing about the record’s existence. Both CHECK constraints
+fired when tried directly. An unsafe `javascript:` website was dropped before storage and a
+YouTube link was reduced to an id. The record was hard-deleted and `leftBehind` was 0.
+
+**No Clerk account was created and no identity claim was approved in production to make
+this possible.** That was the alternative and it would have left something far worse behind
+than a temporary endpoint: a person who does not exist, verified as a son or daughter of
+Guneku.
+
+### Nothing else moved
+
+`/businesses` still 200 with the eight curated businesses; both held businesses still 404;
+the sitemap still carries eight and no held one; every unauthenticated call to
+`/api/businesses` still answers 401. The acceptance record never appeared on any public
+surface.
+
+`npx tsc --noEmit` clean · `npx vitest run` **1167 passed across 47 files** · `npm run build`
+succeeded at 300 static pages · ESLint clean on every file this operation touched.

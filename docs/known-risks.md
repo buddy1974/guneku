@@ -1416,7 +1416,7 @@ the whole thing is reversible by removing `body` from eight entries.
 the same footing as the rest of the household. Until then the confirmation is the source, and
 it says so.
 
-## R-064 - Migration 0005 is written and NOT applied, so business registration is not yet open
+## R-064 - Migration 0005 applied - RESOLVED 2026-09-16
 
 The Business Directory's public half is live and complete. Its user-generated half is written,
 tested and committed, and the table it needs does not exist in production.
@@ -1430,11 +1430,37 @@ environment to the production database.
 and searches them, and never mentions a database. **What a verified Gunekuan sees:** a page
 saying registration opens shortly, rather than a form that would fail.
 
-**Owner action.** Apply `0005_businesses.sql` by the mechanism the earlier migrations used:
-restore `src/app/api/admin/migrate/`, set `MIGRATE_TOKEN` in Vercel, deploy, call it, verify,
-delete it, redeploy. Or run `npm run db:migrate` anywhere a real `DATABASE_URL` exists. The
-moment the table is there, registration works with no further change — nothing is waiting on
-code.
+**Applied 2026-09-16, by the mechanism the four migrations before it used.** The hardened
+`/api/admin/migrate` endpoint was restored from `384daab` with its controls intact, a
+`MIGRATE_TOKEN` was generated and set in Vercel Production, the endpoint was called once,
+and both the endpoint and the token were removed the same day. The credential never left
+the runtime that already held it and never appeared in a commit, a log or a chat.
+
+**Evidence, from the catalogue rather than from the handler:**
+
+- `applied: ["0005_businesses.sql"]`; the ledger now holds six rows, 0000 to 0005.
+- A second call applied **nothing** (`applied: []`), which is the idempotency claim
+  demonstrated rather than asserted.
+- `businesses` exists with **31 columns** and all five CHECK constraints — category,
+  status, relationship, `businesses_contact_requires_consent` and
+  `businesses_public_needs_content` — plus the unique slug. `business_videos` carries its
+  `video_id` pattern CHECK, its unique `(business_id, video_id)` and its cascade FK.
+  `business_images` carries its cascade FK. All eight declared indexes are present.
+- The six tables that existed beforehand are **intact and untouched**: `indigene_profiles`,
+  `community_members`, `follows`, `profile_claims`, `contributions`,
+  `palace_correspondence`, each still answering and each at the row count it had.
+
+**The workflow was accepted against the real production database**, not merely the table.
+Nineteen checks ran and all nineteen passed: a new business starts `pending` and stays out
+of the public directory; `person_slug` is taken from the caller and not from a body that
+deliberately carried a real person’s slug; the owner can read, edit and archive it; another
+identity can do none of those and is told nothing about its existence; both schema CHECK
+constraints actually fire; an unsafe `javascript:` link is dropped before storage; a video
+is reduced to an eleven-character id; and the temporary record was hard-deleted afterwards,
+leaving nothing behind (`leftBehind: 0`).
+
+The endpoint is gone again and `/api/admin/migrate` answers 404 in production.
+`MIGRATE_TOKEN` has been removed from Vercel. **Business registration is open.**
 
 ---
 
