@@ -35,11 +35,13 @@
    "owner-list-2026-09-16": "Named by the Product Owner, as data controller, from the Guneku community record, 16 September 2026.",
    "gudeca-us-2023": "The GUDECA US chapter gathering of 2023, carried in the media archive.",
    "owner-correction-2026-09-03": "Confirmed by the Fondom on 3 September 2026.",
-   "owner-confirmation-2026-09-16": "Confirmed as sons and daughters of Guneku by the Product Owner, as data controller, on 16 September 2026, with a residence, an occupation or an affiliation supplied alongside some of the names. Towns were supplied and are deliberately not published against a name: this file records a country, which is what the diaspora dimension reads."
+   "owner-confirmation-2026-09-16": "Confirmed as sons and daughters of Guneku by the Product Owner, as data controller, on 16 September 2026, with a residence, an occupation or an affiliation supplied alongside some of the names. Towns were supplied and are deliberately not published against a name: this file records a country, which is what the diaspora dimension reads.",
+   "palace-family-2026-09-16": "Confirmed by the Product Owner, as data controller, on 16 September 2026, which stated that there is one Fomuki family in Guneku and that it is the Palace family. It establishes membership of that family and nothing further: an office or a title of the Palace is established separately or not at all."
   },
   "deceased_rule": "A person recorded as deceased is listed with respect and NEVER carries a claim action. `deceased: true` removes the claim button and the 'not me' link; the entry stands as a record, not an invitation.",
   "body_rule": "`body` is an office-holding body (see bodies.json); `chapter` is a place (see chapters.json). A person may have both, one, or neither. Thadeus Fon holds national office AND belongs to the Douala chapter.",
-  "relationship_rule": "Family relationships stated privately by a member of the community are NOT published here. If a relationship belongs on the site, it comes from the Palace record or from the person themselves."
+  "relationship_rule": "Family relationships stated privately by a member of the community are NOT published here. If a relationship belongs on the site, it comes from the Palace record or from the person themselves.",
+  "palace_family_rule": "The Fondom confirmed on 16 September 2026 that there is one Fomuki family in Guneku and that it is the Palace family. That is a fact about Guneku recorded in this file, and it is NOT a rule any code may apply: nothing derives a place around the throne from a name, and `body` remains the only thing that places anybody there. A new Fomuki still needs the Fondom to confirm the person before an entry is opened, and membership of the family never carries an office, a title, Notable standing or a stated relationship to the reigning Fon — each of those is established on its own or not at all."
  },
  "names": [
   {
@@ -895,11 +897,12 @@
    "slug": "harriet-fomuki",
    "display": "Harriet Fomuki",
    "aliases": [],
-   "role": "Named in the Guneku community record",
+   "role": "Of the Palace family",
    "chapter": null,
    "source": "owner-list-2026-09-16",
    "sourceLabel": "Named by the Fondom, 16 September 2026",
-   "note": "An ordinary entry in the register. No place in the Royal Family is recorded and none is implied: the family name is shared widely in Guneku and has never conferred standing here. A place around the throne is set in the record, by the Palace, or not at all."
+   "note": "Named by the Fondom on 16 September 2026, and confirmed by it the same day as a member of the Fomuki Palace family, the Fondom having stated that there is one Fomuki family in Guneku and that it is the Palace family. Membership only: no office and no title of the Palace is recorded here, and no relationship to the reigning Fon beyond membership of the family.",
+   "body": "palace-household"
   },
   {
    "slug": "oswald-tebit",
@@ -1115,6 +1118,153 @@
    "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
    "note": "The Fondom settled the order of this name; the order an earlier record used is carried as a spelling rather than as a second man. Based in Cameroon, so not of the diaspora. No office, body or chapter is recorded.",
    "residence": "Cameroon"
+  },
+  {
+   "slug": "fomuki-ijang",
+   "display": "Fomuki Ijang",
+   "aliases": [],
+   "role": "Of the Palace family",
+   "body": "palace-household",
+   "chapter": null,
+   "source": "palace-family-2026-09-16",
+   "sourceLabel": "Palace family, confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed by the Fondom on 16 September 2026 as a member of the Fomuki Palace family, the Fondom having stated that there is one Fomuki family in Guneku and that it is the Palace family. Membership only: no office and no title of the Palace is recorded here. Prince, Queen, Ngam-Fon and a seat on the Guneku Traditional Council are each established separately, and none of them is established for this entry. No relationship to the reigning Fon is recorded beyond membership of the family."
+  },
+  {
+   "slug": "indah-fomuki",
+   "display": "Indah Fomuki",
+   "aliases": [],
+   "role": "Of the Palace family",
+   "body": "palace-household",
+   "chapter": null,
+   "source": "palace-family-2026-09-16",
+   "sourceLabel": "Palace family, confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed by the Fondom on 16 September 2026 as a member of the Fomuki Palace family, the Fondom having stated that there is one Fomuki family in Guneku and that it is the Palace family. Membership only: no office and no title of the Palace is recorded here. Prince, Queen, Ngam-Fon and a seat on the Guneku Traditional Council are each established separately, and none of them is established for this entry. No relationship to the reigning Fon is recorded beyond membership of the family."
+  },
+  {
+   "slug": "fomuki-tebi",
+   "display": "Fomuki Tebi",
+   "aliases": [],
+   "role": "Of the Palace family",
+   "body": "palace-household",
+   "chapter": null,
+   "source": "palace-family-2026-09-16",
+   "sourceLabel": "Palace family, confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed by the Fondom on 16 September 2026 as a member of the Fomuki Palace family, the Fondom having stated that there is one Fomuki family in Guneku and that it is the Palace family. Membership only: no office and no title of the Palace is recorded here. Prince, Queen, Ngam-Fon and a seat on the Guneku Traditional Council are each established separately, and none of them is established for this entry. No relationship to the reigning Fon is recorded beyond membership of the family. The register separately holds seven people whose family name is written Tibi and two written Tebit. Those are different families and different people; this entry is not connected to any of them."
+  },
+  {
+   "slug": "mandems-fomuki",
+   "display": "Mandems Fomuki",
+   "aliases": [],
+   "role": "Of the Palace family",
+   "body": "palace-household",
+   "chapter": null,
+   "source": "palace-family-2026-09-16",
+   "sourceLabel": "Palace family, confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed by the Fondom on 16 September 2026 as a member of the Fomuki Palace family, the Fondom having stated that there is one Fomuki family in Guneku and that it is the Palace family. Membership only: no office and no title of the Palace is recorded here. Prince, Queen, Ngam-Fon and a seat on the Guneku Traditional Council are each established separately, and none of them is established for this entry. No relationship to the reigning Fon is recorded beyond membership of the family."
+  },
+  {
+   "slug": "eric-fomuki",
+   "display": "Eric Fomuki",
+   "aliases": [],
+   "role": "Of the Palace family",
+   "body": "palace-household",
+   "chapter": null,
+   "source": "palace-family-2026-09-16",
+   "sourceLabel": "Palace family, confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed by the Fondom on 16 September 2026 as a member of the Fomuki Palace family, the Fondom having stated that there is one Fomuki family in Guneku and that it is the Palace family. Membership only: no office and no title of the Palace is recorded here. Prince, Queen, Ngam-Fon and a seat on the Guneku Traditional Council are each established separately, and none of them is established for this entry. No relationship to the reigning Fon is recorded beyond membership of the family."
+  },
+  {
+   "slug": "humphrey-fomuki",
+   "display": "Humphrey Fomuki",
+   "aliases": [],
+   "role": "Of the Palace family",
+   "body": "palace-household",
+   "chapter": null,
+   "source": "palace-family-2026-09-16",
+   "sourceLabel": "Palace family, confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed by the Fondom on 16 September 2026 as a member of the Fomuki Palace family, the Fondom having stated that there is one Fomuki family in Guneku and that it is the Palace family. Membership only: no office and no title of the Palace is recorded here. Prince, Queen, Ngam-Fon and a seat on the Guneku Traditional Council are each established separately, and none of them is established for this entry. No relationship to the reigning Fon is recorded beyond membership of the family."
+  },
+  {
+   "slug": "albert-fomuki",
+   "display": "Albert Fomuki",
+   "aliases": [],
+   "role": "Of the Palace family",
+   "body": "palace-household",
+   "chapter": null,
+   "source": "palace-family-2026-09-16",
+   "sourceLabel": "Palace family, confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed by the Fondom on 16 September 2026 as a member of the Fomuki Palace family, the Fondom having stated that there is one Fomuki family in Guneku and that it is the Palace family. Membership only: no office and no title of the Palace is recorded here. Prince, Queen, Ngam-Fon and a seat on the Guneku Traditional Council are each established separately, and none of them is established for this entry. No relationship to the reigning Fon is recorded beyond membership of the family."
+  },
+  {
+   "slug": "boston-prince",
+   "display": "Boston Prince",
+   "aliases": [],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed a son of Guneku by the Fondom. No office, body or chapter is recorded, and none is inferred. Prince is recorded here as part of a name, and is not a title of the Palace."
+  },
+  {
+   "slug": "andom-stanley",
+   "display": "Andom Stanley",
+   "aliases": [],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed a son or daughter of Guneku by the Fondom. No office, body or chapter is recorded, and none is inferred."
+  },
+  {
+   "slug": "humphrey-andom",
+   "display": "Humphrey Andom",
+   "aliases": [],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed a son or daughter of Guneku by the Fondom. No office, body or chapter is recorded, and none is inferred."
+  },
+  {
+   "slug": "beltha-andom",
+   "display": "Beltha Andom",
+   "aliases": [],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed a son or daughter of Guneku by the Fondom. No office, body or chapter is recorded, and none is inferred."
+  },
+  {
+   "slug": "andom-racheal",
+   "display": "Andom Racheal",
+   "aliases": [],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed a son or daughter of Guneku by the Fondom. No office, body or chapter is recorded, and none is inferred."
+  },
+  {
+   "slug": "evelyn-andom",
+   "display": "Evelyn Andom",
+   "aliases": [],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed a daughter of Guneku by the Fondom. A different person from Evelyn Ngum and from Valentine Andom, with each of whom this entry shares one name and nothing else. No office, body or chapter is recorded."
+  },
+  {
+   "slug": "alfred-tinga-andom",
+   "display": "Alfred Tinga Andom",
+   "aliases": [],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-16",
+   "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
+   "note": "Confirmed a son or daughter of Guneku by the Fondom. No office, body or chapter is recorded, and none is inferred."
   }
  ]
 }

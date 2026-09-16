@@ -33,7 +33,7 @@ this log and are not backfilled here; they are recorded in the handover reports 
 | ADR-008 | 2026-09-02 | One canonical 27-quarter list | Accepted | — |
 | ADR-009 | 2026-09-02 | Do not impose a three-variant image convention site-wide | Accepted | — |
 
-_ADR-010 onward are recorded in full below and not repeated in this table; the table has listed the first nine since it was written. Latest: **ADR-085**, 2026-09-16._
+_ADR-010 onward are recorded in full below and not repeated in this table; the table has listed the first nine since it was written. Latest: **ADR-086**, 2026-09-16._
 
 ---
 
@@ -1764,3 +1764,52 @@ refuses, narrows and reports; a person resolves. When the person resolves in fav
 merge, the merge is a surgical edit with a redirect and a note, not a rewrite — and the
 register's own count changes by exactly one, which is how anybody reading afterwards can see
 that one man stopped being two.
+
+---
+
+## ADR-086 - There is one Fomuki family in Guneku, and it is recorded as data, never as a rule
+
+**Context.** Every brief in this programme said the same thing, in capitals: the surname
+Fomuki never establishes royalty. `invariants.test.ts` has asserted since 2026-09-03 that
+`src/lib/community.ts` does not contain the word, precisely because everyone around the
+throne happens to be called Fomuki and that coincidence makes a surname rule tempting and
+wrong. Harriet Fomuki was published on the morning of 16 September with a note saying no place
+in the Royal Family was recorded and none implied.
+
+That afternoon the Product Owner, as data controller, stated a fact about Guneku: **there is
+one Fomuki family in the village and it is the Palace family**, and confirmed eight people as
+members of it.
+
+**Decision.** The membership is recorded. Eight entries carry `body: 'palace-household'` and
+the role `Of the Palace family` — the wording Fomuki William Tabot has carried since the
+household record was written. Harriet Fomuki's entry was reused and her note replaced rather
+than added to, because leaving the old sentence beside the new one would publish a
+contradiction about a living person.
+
+**This is not the reversal it looks like.** The rule that was written in capitals is a rule
+about CODE: nothing may derive standing from a name. That rule is untouched and is now
+asserted harder than before — `community.ts` still does not contain the word, `body` is
+still the only thing that places anybody around the throne, every member still carries a
+source, and a test checks that the Fomukis the Fondom has NOT placed (Ernest Tibi Ticha, the
+Tibi entries, the Tebits) are still not placed.
+
+What changed is the DATA, on the authority of the only person who can change it. The earlier
+briefs said so themselves: a Palace relationship requires existing Palace evidence **or
+Marcel's explicit confirmation**. This is that confirmation, and the route was in the
+instruction from the start.
+
+**Membership is the whole of it.** Not an office, not a title, not Notable standing, not a
+stated relationship to the reigning Fon. Prince, Queen, Ngam-Fon and a seat on the Traditional
+Council are each established separately; none is established by this. The Queens are still the
+three the record names, the Notables are still nine, and a test refuses any of those words
+appearing in a new entry.
+
+**The rule is written into `meta.palace_family_rule`**, beside the register's other rules, so
+the next person to add a Fomuki reads before they add: the Fondom still confirms the person
+first, and a name still confers nothing on its own.
+
+**Rejected.** A derived rule matching the surname (the exact thing every brief forbade, and it
+would place people the Fondom has not confirmed); a new household, dynasty or institution
+record (ADR-040 already publishes this body as the Royal Family); leaving the eight unplaced
+and reporting the instruction back (the Fondom is the authority on who its family is, and it
+was explicit).

@@ -2067,3 +2067,79 @@ the redirect exists, and the fold is recorded rather than lost.
 
 `npx tsc --noEmit` clean · `npx vitest run` **1090 passed across 45 files** · `npm run build`
 succeeded · ESLint clean on every file touched.
+
+## 2026-09-16 - The Fomuki family is the Palace family, and fourteen more indigenes
+
+Same reconciliation batch, continued. The Fondom stated a fact about Guneku that the register
+had until then refused to assume, and confirmed seventeen more names. Decisions in ADR-086;
+open questions in R-061 and R-062.
+
+### Totals
+
+| | |
+|---|---|
+| Register | **96 — 110** |
+| Static build | 276 — 290 pages |
+| Royal Family | **7 — 15** (Queens still **3**) |
+| Notables | **9**, unchanged |
+| Traditional Council | **8**, unchanged |
+
+### The Fomuki family
+
+The Fondom confirmed that there is one Fomuki family in Guneku and that it is the Palace
+family. Eight entries now carry `body: palace-household` and the role **Of the Palace
+family** — the wording the household record has used for Fomuki William Tabot since it was
+written:
+
+`harriet-fomuki` (reused, her note replaced) · `fomuki-ijang` · `indah-fomuki` ·
+`fomuki-tebi` · `mandems-fomuki` · `eric-fomuki` · `humphrey-fomuki` · `albert-fomuki`
+
+**Membership and nothing else.** No office, no title, no Notable standing, no stated
+relationship to the reigning Fon. Prince, Queen, Ngam-Fon and a seat on the Traditional
+Council are each established separately and none is established here; a test refuses those
+words in a new entry. The Queens are still the three the record names.
+
+**The code rule is untouched and now asserted harder.** `src/lib/community.ts` still does not
+contain the word Fomuki. `body` is still the only thing that places anybody around the
+throne. Every member still carries a source. A new test checks that the Fomukis the Fondom has
+NOT placed — Ernest Tibi Ticha, the six Tibi entries, the two Tebits — are still not placed.
+The Fondom recorded a membership; it did not teach the code a surname. The rule is written
+into `meta.palace_family_rule` so the next person to add a Fomuki reads it first.
+
+### The rest of the batch
+
+**Opened (7 more):** `boston-prince` — where Prince is part of a name and not a title of the
+Palace — and six Andoms: `andom-stanley` `humphrey-andom` `beltha-andom` `andom-racheal`
+`evelyn-andom` `alfred-tinga-andom`. Each was confirmed individually and **nobody was merged
+with Valentine Andom**, who was already in the register; a family name has never joined two
+people here.
+
+**Reused (2):** `harriet-fomuki` and `fidelis-njoh`. Fidelis Njoh needed nothing — he was
+reconciled as an existing identity in the first pass of this build and his entry already
+carries what the Fondom confirmed.
+
+**Held (1): Fabian Fomuki.** The register has held an entry recorded only as **Fabian** since
+3 September, from the GUDECA EU minutes. A one-name entry cannot be told apart from a longer
+name containing it, and creating the second would risk publishing one man twice — once in
+the Palace family and once in a European chapter. R-061.
+
+### A gap in the duplicate guard, found by that name
+
+The guard asked whether a candidate fitted **inside** an existing entry. It never asked the
+reverse, so "Fabian Fomuki" swallowing the whole of "Fabian" read as a single shared word and
+came back safe.
+
+A `contains` tier was added: a candidate holding an existing identity in full is now reported
+as ambiguous. The case is sharpest for a one-token entry, which any fuller name containing it
+will now reach — which is correct, because no rule can separate those two and pretending
+otherwise is how the same man is entered twice. All 73 identity and population tests passed
+unchanged after the fix, so no existing resolution moved.
+
+### Verification
+
+`npx tsc --noEmit` clean · `npx vitest run` **1093 passed across 45 files** · `npm run build`
+succeeded · ESLint clean on every file touched.
+
+Five assertions in `register-population.test.ts` were rewritten rather than relaxed, each with
+the reason beside it. The block that said *the Royal Family gained nobody* now says what it
+gained, what it did not, and what the code still refuses to do.

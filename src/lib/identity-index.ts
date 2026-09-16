@@ -211,7 +211,7 @@ export function identityIndex(): Identity[] {
  *           because a village contains more than one Forbang.
  *   TOUCH   one shared token, or one token a single character away from another. A shared
  *           surname. Reported so a human can see it; never a match on its own. */
-export type MatchTier = 'exact' | 'subset' | 'touch'
+export type MatchTier = 'exact' | 'subset' | 'contains' | 'touch'
 
 export type IdentityMatch = {
   identity: Identity
@@ -278,8 +278,31 @@ function matchesFor(tokens: string[]): IdentityMatch[] {
       }
 
       const shared = tokens.filter(t => other.includes(t))
+
       if (shared.length >= 2 && shared.length === tokens.length) {
         if (best?.tier !== 'exact') best = { identity, tier: 'subset', on: shared }
+        continue
+      }
+
+      /* The reverse of a subset, and it needed its own case.
+       *
+       * The register holds a man recorded only as "Fabian" — one name, from a set of meeting
+       * minutes. The Fondom then confirmed a "Fabian Fomuki". The subset rule above asks
+       * whether the CANDIDATE fits inside an identity and could not see it, because here the
+       * identity fits inside the candidate. A thin entry swallowed by a fuller name is the
+       * same question in the other direction and deserves the same answer: a person decides.
+       *
+       * It is especially sharp for a one-token entry, which any fuller name containing that
+       * name will now reach. That is correct. A register entry that is a single given name
+       * cannot be told apart from a longer name containing it by any rule, and pretending
+       * otherwise is how the same man ends up entered twice. */
+      const identityInside = other.length >= 1
+        && other.length < tokens.length
+        && other.every(t => tokens.includes(t))
+      if (identityInside) {
+        if (best?.tier !== 'exact' && best?.tier !== 'subset') {
+          best = { identity, tier: 'contains', on: [...other] }
+        }
         continue
       }
 
@@ -400,6 +423,19 @@ export function classifyCandidate(candidate: string): CandidateVerdict {
       reason:
         `Every part of this name is inside ${subset.identity.display}, but it is shorter — ` +
         'the same man written briefly, or a different one who shares a name.',
+    }
+  }
+
+  const contains = matches.find(m => m.tier === 'contains')
+  if (contains) {
+    return {
+      candidate,
+      classification: 'AMBIGUOUS',
+      matches,
+      reason:
+        `The register already holds ${contains.identity.display}, and this name contains it ` +
+        'in full — the same person written more fully, or a different one. The record does ' +
+        'not say which.',
     }
   }
 

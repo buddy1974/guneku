@@ -47,8 +47,8 @@ describe('the register grew, and every entry is still one person', () => {
     /* 45 entries were opened across this pass and one was folded back into a man who was
        already in the register the same day, on the Fondom's confirmation — see R-059 and the
        Tibi test below. */
-    expect(ADDED).toHaveLength(44)
-    expect(NAMES).toHaveLength(96)
+    expect(ADDED).toHaveLength(51)
+    expect(NAMES).toHaveLength(110)
     expect(NAMES.length).toBe(new Set(NAMES.map(n => n.slug)).size)
   })
 
@@ -291,23 +291,84 @@ describe('the names the Fondom confirmed on 16 September', () => {
   })
 })
 
-describe('the Royal Family gained nobody', () => {
-  it('still holds the seven the record placed around the throne', () => {
-    expect(membersOf(ROYAL_FAMILY_BODY)).toHaveLength(7)
+/* ── The Palace family ────────────────────────────────────────────────────────────────────
+ *
+ * These assertions were written on 16 September to say that the Royal Family gained nobody,
+ * because until that afternoon nothing established that it should. The Fondom then stated a
+ * fact about Guneku: there is one Fomuki family and it is the Palace family. Eight entries
+ * were placed around the throne on that statement (ADR-086).
+ *
+ * The business rule did change, and these tests changed with it. What did NOT change, and is
+ * asserted harder than before, is the guarantee underneath: nothing DERIVES a place around
+ * the throne from a name. `body` is still the only thing that puts anybody there, it is still
+ * written by hand from a confirmation, and `src/lib/community.ts` still does not contain the
+ * word. The Fondom recorded a membership; it did not teach the code a surname. */
+const PALACE_FAMILY = [
+  'harriet-fomuki', 'fomuki-ijang', 'indah-fomuki', 'fomuki-tebi',
+  'mandems-fomuki', 'eric-fomuki', 'humphrey-fomuki', 'albert-fomuki',
+]
+
+describe('the Royal Family gained members, and nothing else', () => {
+  it('holds the seven the record already placed, plus the eight the Fondom confirmed', () => {
+    expect(membersOf(ROYAL_FAMILY_BODY)).toHaveLength(15)
     expect(palaceQueens()).toHaveLength(3)
-    expect(royalFamilyOthers()).toHaveLength(4)
+    expect(royalFamilyOthers()).toHaveLength(12)
   })
 
-  it('did not make a new Fomuki royal', () => {
-    const harriet = getFoundingName('harriet-fomuki')
-    expect(harriet).not.toBeNull()
-    expect(harriet!.body).toBeUndefined()
-    expect(harriet!.royalRole ?? null).toBeNull()
-    expect(harriet!.notable).toBeFalsy()
+  it('places every one of the eight, and only through `body`', () => {
+    for (const slug of PALACE_FAMILY) {
+      const n = getFoundingName(slug)
+      expect(n, slug).not.toBeNull()
+      expect(n!.body, slug).toBe(ROYAL_FAMILY_BODY)
+      expect(n!.role, slug).toBe('Of the Palace family')
+    }
   })
 
-  it('confers royalty on nobody this pass opened', () => {
-    for (const n of ADDED) {
+  it('gives none of them an office, a title or Notable standing', () => {
+    /* The distinction the Fondom drew, and the whole of what this change may mean.
+       Membership is confirmed; Prince, Queen, Ngam-Fon and a seat on the Traditional Council
+       are each established separately, and none of them is established here. */
+    for (const slug of PALACE_FAMILY) {
+      const n = getFoundingName(slug)!
+      expect(n.royalRole ?? null, slug).toBeNull()
+      expect(n.notable, slug).toBeFalsy()
+      expect(n.notableNote, slug).toBeUndefined()
+      const written = JSON.stringify(n).toLowerCase()
+      for (const title of ['prince', 'princess', 'queen', 'ngam-fon', 'chief', 'heir']) {
+        expect(written, `${slug} / ${title}`).not.toContain(`"${title}`)
+      }
+    }
+    /* Still three Queens, and still the three the record named. */
+    expect(palaceQueens().map(q => q.slug).sort())
+      .toEqual(['esther-hammer-fomuki', 'fomuki-carine', 'fomuki-rebecca'])
+  })
+
+  it('states no relationship to the reigning Fon', () => {
+    for (const slug of PALACE_FAMILY) {
+      const written = JSON.stringify(getFoundingName(slug)).toLowerCase()
+      expect(written, slug).not.toMatch(/son of the fon|daughter of the fon|brother|sister|wife of|child of/)
+    }
+  })
+
+  it('still decides a place around the throne from the record and never from a name', () => {
+    /* The guarantee the Fondom's statement does NOT touch. Every member of the household is
+       there because `body` says so, every one carries a source, and the module that reads
+       them has never heard of the name. */
+    const source = readFileSync('src/lib/community.ts', 'utf-8')
+    expect(source.toLowerCase()).not.toContain('fomuki')
+    for (const n of membersOf(ROYAL_FAMILY_BODY)) {
+      expect(String(n.source ?? '').trim().length, n.slug).toBeGreaterThan(0)
+    }
+    /* And a Fomuki the Fondom has not placed is still not placed. Ernest Tibi Ticha, the
+       Tibi entries and the Tebits are untouched, and so is every other family name. */
+    const householdSlugs = membersOf(ROYAL_FAMILY_BODY).map(n => n.slug)
+    for (const slug of ['ernest-tibi-ticha', 'tibi-divine', 'oswald-tebit', 'ma-clara-fongho']) {
+      expect(householdSlugs, slug).not.toContain(slug)
+    }
+  })
+
+  it('confers nothing on anyone else this pass opened', () => {
+    for (const n of ADDED.filter(x => !PALACE_FAMILY.includes(x.slug))) {
       expect(n.royalRole ?? null, n.slug).toBeNull()
       expect(n.body, n.slug).toBeUndefined()
     }
@@ -467,7 +528,12 @@ describe('the new entries behave like every other entry', () => {
       const people = search(n.display).groups.find(g => g.group === 'People')?.results ?? []
       const exact = people.filter(r => r.title === n.display)
       expect(exact.length, n.display).toBe(1)
-      expect(exact[0].href, n.display).toContain(n.slug)
+      /* Somebody who sits in a body is sent to that body's roster, which is how the search
+         index has treated every councillor since it was written; everybody else is sent to
+         their own entry. Either way one search returns one person, which is the guarantee
+         that matters. */
+      const expected = n.body ? `/people/${n.body}` : n.slug
+      expect(exact[0].href, n.display).toContain(expected)
     }
   })
 

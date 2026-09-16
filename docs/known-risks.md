@@ -1319,3 +1319,48 @@ out in the change-log entry for this pass.
 **Owner action, only if wanted:** if the Fondom wishes a town published against a person, that
 is a change to `meta.publication_rule` and applies to the whole register, not to nine
 entries. It should be decided as such.
+
+## R-061 - "Fabian" and "Fabian Fomuki" may be one man
+
+The register has held an entry recorded only as **Fabian** since 2026-09-03 — one name,
+taken from the GUDECA EU minutes of 28 March 2026, with the chapter and nothing else. The
+Fondom has now confirmed a **Fabian Fomuki** as a member of the Palace family.
+
+A one-name entry cannot be told apart from a longer name containing it by any rule. If they
+are one man, creating the second entry would publish him twice and place one of him in the
+Palace family and the other in a European chapter. If they are two, holding costs one line of
+confirmation.
+
+**Fabian Fomuki was therefore NOT created**, and the duplicate guard was extended to catch the
+shape rather than this one name: a candidate that contains an existing identity in full is now
+reported as ambiguous, in both directions. It previously only asked whether a candidate fitted
+INSIDE an existing entry.
+
+**Owner action:** confirm whether the Fabian in the GUDECA EU minutes is Fabian Fomuki. If he
+is, his entry gains the fuller name and the Palace family. If he is not, the second entry can
+be opened.
+
+---
+
+## R-062 - Eight people are publicly placed in the Royal Family on one confirmation
+
+The Fondom stated on 16 September 2026 that there is one Fomuki family in Guneku and that it
+is the Palace family, and eight entries now appear on `/people/palace-household` — the page
+the site publishes as **The Royal Family of Guneku** — on the strength of that single
+statement (ADR-086).
+
+This is the Fondom's own record of its own family and it is the Fondom's to state. It is
+recorded here rather than left silent because of what it is: a public statement about where
+eight living people stand in relation to the throne, published on one confirmation, with no
+second source behind it and no dated document of the kind the rest of that body carries. Every
+other entry in the household names the record that establishes it — a biography, a
+conferment, a dated household record. These name a confirmation.
+
+**Mitigations already in place:** membership only, with no office, title or Notable standing
+(a test refuses the words); no stated relationship to the reigning Fon; every entry carries a
+source and a date; each keeps the one-click removal route the register gives every stub; and
+the whole thing is reversible by removing `body` from eight entries.
+
+**Owner action, if wanted:** a dated Palace record naming the family would put these eight on
+the same footing as the rest of the household. Until then the confirmation is the source, and
+it says so.

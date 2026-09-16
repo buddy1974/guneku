@@ -111,6 +111,24 @@ const RECORD_NAMES: Array<{ source: string; priority: number; names: string[] }>
       'Ignatius Tabi Chum', 'Tabi Ignatius Chum',
     ],
   },
+  {
+    /* A second confirmation on 16 September 2026, carrying a statement about Guneku rather
+       than only a list of names: the Fondom confirmed that there is one Fomuki family in
+       Guneku and that it is the Palace family. That settles membership for the names below
+       and nothing else - an office or a title still has to be established separately.
+
+       The Andoms and Boston Prince are in the same batch and carry no such statement. */
+    source: 'Confirmed by the Fondom, 16 September 2026 (second)',
+    priority: 4,
+    names: [
+      'Fabian Fomuki', 'Fomuki Ijang', 'Indah Fomuki', 'Fomuki Tebi',
+      'Mandems Fomuki', 'Eric Fomuki', 'Humphrey Fomuki', 'Albert Fomuki',
+      'Harriet Fomuki',
+      'Boston Prince', 'Fidelis Njoh',
+      'Andom Stanley', 'Humphrey Andom', 'Beltha Andom',
+      'Andom Racheal', 'Evelyn Andom', 'Alfred Tinga Andom',
+    ],
+  },
 ]
 
 const ORDER: Classification[] = ['EXISTING', 'NEW_SAFE', 'AMBIGUOUS', 'INSUFFICIENT']
