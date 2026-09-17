@@ -24,6 +24,12 @@ const NAV: Item[] = [
     href: '/fondom', label: 'The Fondom',
     children: [
       { href: '/fondom/about-guneku', label: 'About Guneku' },
+      /* Both of these were reachable from nowhere a visitor could find. /quarters was
+         linked only from /notables and /search, and /explore — the map — from nothing at
+         all, though both sit in the sitemap at 0.8. They are the Fondom's own geography,
+         so they belong here. */
+      { href: '/quarters', label: 'The 27 quarters' },
+      { href: '/explore',  label: 'Map of Guneku'   },
     ],
   },
   {
@@ -45,6 +51,11 @@ const NAV: Item[] = [
       { href: '/people',                       label: 'Who holds office'     },
       { href: '/people/traditional-council',   label: 'Traditional Council'  },
       { href: '/notables',                     label: 'Notables'             },
+      /* Its individual profiles were linked from /notables and from articles; the index
+         itself was linked from nowhere. "Notable" here means a place in Guneku's
+         traditional governance, which is a different thing from a distinguished son or
+         daughter, so the two lists are both wanted and both need a way in. */
+      { href: '/sons-and-daughters',           label: 'Sons & Daughters'     },
       { href: '/gudeca/guyodeca',              label: 'GUYODECA — Youth'     },
       { href: '/gudeca/gudeca-exco',           label: 'GUDECA Executive'     },
     ],
@@ -52,11 +63,14 @@ const NAV: Item[] = [
   {
     href: '/projects', label: 'Development',
     children: [
-      { href: '/projects',  label: 'All Projects'     },
-      { href: '/education', label: 'Education & Scholarships' },
-      { href: '/agro-cig',  label: 'Guneku Agro CIG'  },
-      { href: '/guneccul',  label: 'GUNECCUL Credit Union' },
-      { href: '/gudeca',    label: 'GUDECA'           },
+      { href: '/projects',     label: 'All Projects'     },
+      /* Linked only from /projects before this. The register of bodies and organisations
+         is not a sub-page of the project list; it is its own thing. */
+      { href: '/institutions', label: 'Institutions'     },
+      { href: '/education',    label: 'Education & Scholarships' },
+      { href: '/agro-cig',     label: 'Guneku Agro CIG'  },
+      { href: '/guneccul',     label: 'GUNECCUL Credit Union' },
+      { href: '/gudeca',       label: 'GUDECA'           },
     ],
   },
   /* Businesses is top-level and has no dropdown, deliberately on both counts.

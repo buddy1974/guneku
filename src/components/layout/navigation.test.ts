@@ -135,6 +135,38 @@ describe('the accepted menu', () => {
     }
   })
 
+  it('leaves no principal page reachable from nowhere', () => {
+    /* The Business Directory was built, accepted and unreachable: not in the header, not in
+       the footer, not on the homepage. Fixing that one and looking again turned up three
+       more of exactly the same shape — /explore, the map, linked from nothing at all, and
+       /quarters and /institutions linked from one interior page each. All three sit in the
+       sitemap at priority 0.8, which is the site declaring them important to a search engine
+       while offering a reader no way in.
+
+       So: every page the sitemap lists as a principal destination must be reachable from the
+       header, the footer, or the index at the foot of the homepage. Interior and generated
+       pages are not in scope here — the production link crawl covers those. */
+    const sitemap = readFileSync('src/app/sitemap.ts', 'utf-8')
+    const statics = [...sitemap.matchAll(/\bat\('(\/[a-z0-9/-]*)'/g)].map(m => m[1])
+
+    const inNav = new Set(NAV.flatMap(i => [i.href, ...(i.children ?? []).map(c => c.href)]))
+    const footer = readFileSync('src/components/layout/Footer.tsx', 'utf-8')
+    const homepage = readFileSync('src/app/page.tsx', 'utf-8')
+
+    /* Reached by any of: a menu entry, a footer link, the homepage index, or — for /search
+       alone — the header's search box, which builds its destination as `/search?q=…`. */
+    const linksTo = (source: string, route: string) =>
+      source.includes(`'${route}'`) || source.includes(`"${route}"`) || source.includes(`${route}?`)
+
+    const orphans = statics.filter(route => {
+      if (route === '/') return false
+      if (inNav.has(route)) return false
+      if (linksTo(footer, route) || linksTo(homepage, route)) return false
+      return !linksTo(HEADER, route)
+    })
+    expect(orphans).toEqual([])
+  })
+
   it('lights the right tab, including on a page below it', () => {
     /* The convention is prefix matching, with Home exact so it does not light everywhere. */
     expect(isActivePath('/businesses', '/businesses', false)).toBe(true)

@@ -522,9 +522,21 @@
   .inst-btn-primary:hover { background: var(--burgundy-ink); }
   .inst-btn-quiet    { border: 1px solid var(--rule); color: var(--ink-900); background: transparent; }
   .inst-btn-quiet:hover { border-color: var(--burgundy-i); color: var(--burgundy-i); }
+  /* The standing call-to-action link: "View project →", "News archive →", "Read the
+     record →". At 0.83rem it draws a box about 20px tall, and WCAG 2.5.8 asks 24 for
+     anything that is not a link sitting inside a sentence. Most of these are not in
+     sentences — they stand alone at the foot of a card or beside a heading — and on a phone
+     they were small enough to miss.
+
+     Padding expands the hit area; the matching negative margin gives the space straight
+     back, so nothing on any page moves. Measured before and after: same section heights,
+     same rhythm, target 20px → 29px. Where the link IS inline in prose, vertical padding
+     never affected the line box anyway, so those sentences are untouched and simply became
+     easier to hit. */
   .inst-link {
     font-family: var(--font-sans); font-size: 0.83rem; font-weight: 600;
     color: var(--burgundy-i); text-decoration: none;
+    padding-block: 0.3rem; margin-block: -0.3rem;
   }
   .inst-link:hover { text-decoration: underline; text-underline-offset: 3px; }
 

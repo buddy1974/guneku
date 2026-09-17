@@ -45,15 +45,28 @@ const FACTS = [
   { figure: '2016', label: 'Coronation' },
 ]
 
+/* The index at the foot of the page: everywhere a reader can go, in one place.
+ *
+ * It had drifted from the navigation in both directions. It omitted Businesses, which is
+ * now a tab of its own, so the page's own index contradicted its own header. And three
+ * destinations were missing that were reachable from almost nowhere else: the map, the
+ * quarters and the institutions register — each in the sitemap at 0.8, each linked from at
+ * most one interior page, and the map from nothing at all.
+ *
+ * Each description is the page's own word for itself rather than a fresh claim about it. */
 const EXPLORE = [
-  { label: 'The Fondom', href: '/fondom',   desc: 'Land, history and the 27 quarters' },
-  { label: 'The Palace',  href: '/palace',    desc: 'The Fon, the throne and the royal record' },
-  { label: 'Development', href: '/projects',  desc: 'Projects and institutions' },
-  { label: 'Education',   href: '/education', desc: 'Scholarships and skills' },
-  { label: 'Our People',  href: '/indigenes', desc: 'Indigenes, notables and youth' },
-  { label: 'Diaspora',    href: '/diaspora',  desc: 'Guneku beyond Cameroon' },
-  { label: 'News',        href: '/updates',   desc: 'The village square archive' },
-  { label: 'Media',       href: '/gallery',   desc: 'Photographs and video' },
+  { label: 'The Fondom',    href: '/fondom',       desc: 'Land, history and the 27 quarters' },
+  { label: 'The Palace',    href: '/palace',       desc: 'The Fon, the throne and the royal record' },
+  { label: 'Our People',    href: '/indigenes',    desc: 'Indigenes, notables and youth' },
+  { label: 'The quarters',  href: '/quarters',     desc: 'All twenty-seven of them' },
+  { label: 'Development',   href: '/projects',     desc: 'The project register' },
+  { label: 'Institutions',  href: '/institutions', desc: 'The bodies of Guneku' },
+  { label: 'Businesses',    href: '/businesses',   desc: 'Owned, led or operated by Gunekuans' },
+  { label: 'Education',     href: '/education',    desc: 'Scholarships and skills' },
+  { label: 'Diaspora',      href: '/diaspora',     desc: 'Guneku beyond Cameroon' },
+  { label: 'The map',       href: '/explore',      desc: 'The places of Guneku' },
+  { label: 'News',          href: '/updates',      desc: 'The village square archive' },
+  { label: 'Media',         href: '/gallery',      desc: 'Photographs and video' },
 ]
 
 export default function HomePage() {
@@ -371,7 +384,10 @@ export default function HomePage() {
       {/* ── 14 · Explore Guneku ── */}
       <section className="inst-alt border-b border-[var(--rule)]">
         <div className="inst-wrap inst-sec">
-          <h2 className="inst-h2">Explore Guneku</h2>
+          {/* Not "Explore Guneku": that is the title of a real page, /explore, which this
+              grid now links to. Two things with one name, one of which is a heading and the
+              other a destination, is how a reader ends up somewhere they did not choose. */}
+          <h2 className="inst-h2">Find your way around Guneku</h2>
           <ul className="mt-4 grid list-none gap-x-8 gap-y-0 p-0 sm:grid-cols-2 lg:grid-cols-3">
             {EXPLORE.map(e => (
               <li key={e.href} className="inst-row">
