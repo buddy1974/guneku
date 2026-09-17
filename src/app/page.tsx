@@ -7,6 +7,7 @@ import { AtAGlance }      from '@/components/home/AtAGlance'
 import { CurrentProjects } from '@/components/home/CurrentProjects'
 import { SupportBand }    from '@/components/home/SupportBand'
 import { CommunityEconomy } from '@/components/home/CommunityEconomy'
+import { GunekuansInBusiness } from '@/components/home/GunekuansInBusiness'
 import { ThingsToKnow }   from '@/components/home/ThingsToKnow'
 import { DiscoverGuneku } from '@/components/home/DiscoverGuneku'
 import { GunekuToday }    from '@/components/home/GunekuToday'
@@ -117,6 +118,19 @@ export default function HomePage() {
 
       {/* ── 4 · Support the work ── */}
       <SupportBand />
+
+      {/* ── 4b · Gunekuans in business ──
+       *
+       * Placed here on the strength of what the page measures: it is 10,776px long, and the
+       * Community economy section it sits nearest in subject — GUNECCUL — is halfway down
+       * it. Anything below that is not discoverable by an ordinary visitor, which is how a
+       * finished directory came to be invisible in the first place.
+       *
+       * The beat before this one asks the reader to support the village's work. Asking, in
+       * the same breath, that they support the people doing work of their own is the same
+       * thought pointed at the community rather than at the Palace — so it follows the
+       * support band rather than interrupting the news that comes after it. */}
+      <GunekuansInBusiness />
 
       {/* ── 5 · Notices & the scholarship feature ── */}
       <section className="inst-alt border-b border-[var(--rule)]">

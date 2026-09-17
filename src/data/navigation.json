@@ -75,10 +75,6 @@
    "href": "/projects",
    "children": [
     {
-     "label": "Business Directory",
-     "href": "/businesses"
-    },
-    {
      "label": "Agro CIG",
      "href": "/agro-cig"
     },
@@ -95,6 +91,10 @@
      "href": "/projects"
     }
    ]
+  },
+  {
+   "label": "Businesses",
+   "href": "/businesses"
   },
   {
    "label": "Village Square",

@@ -60,6 +60,17 @@ const NAV: Item[] = [
       { href: '/gudeca',    label: 'GUDECA'           },
     ],
   },
+  /* Businesses is top-level and has no dropdown, deliberately on both counts.
+
+     It was not in this navigation at all, and the homepage carried no link to it either, so
+     a directory that is built and accepted was reachable only by searching for it. Putting
+     it under Development would have repeated that mistake more quietly: what the village
+     builds and what its people run on their own account are different things, and the
+     second is what a visitor is being invited to go and support.
+
+     No children, because there is one destination. `isActivePath` matches on prefix, so a
+     business's own page lights this tab the same way an article lights The Palace. */
+  { href: '/businesses', label: 'Businesses' },
   {
     href: '/gallery', label: 'Media',
     children: [
