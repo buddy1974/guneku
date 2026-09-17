@@ -538,6 +538,21 @@
     color: var(--burgundy-i); text-decoration: none;
     padding-block: 0.3rem; margin-block: -0.3rem;
   }
+
+  /* The same trick for the other two small links a reader actually taps, found by measuring
+     /indigenes: 113 register cards, each carrying a name at 22px and "Not me / take it down"
+     at 18px, for 226 undersized targets on one page. Unlike a business card, a register card
+     has no full-card overlay, so the name really is the only target.
+
+     Scoped to links rather than applied to the type classes themselves: `.inst-meta` is a
+     typography class worn mostly by captions and source lines, and giving paragraphs a link's
+     hit area would be a fix in the wrong place. Buttons are left alone too — they carry their
+     own padding and a background, so adding more would change how they look rather than only
+     how big they are. */
+  a.inst-meta,
+  .inst-h3 > a {
+    padding-block: 0.3rem; margin-block: -0.3rem;
+  }
   .inst-link:hover { text-decoration: underline; text-underline-offset: 3px; }
 
   /* ── Status pills — factual, never decorative ── */

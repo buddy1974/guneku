@@ -124,9 +124,13 @@ export default function IndigenesPage() {
              the part a villager fills in for themselves — and that is worth saying
              plainly, because it is an invitation rather than a void. */
           <div style={{ textAlign:'center', padding:'5rem 1.5rem', maxWidth:'34rem', margin:'0 auto' }}>
-            <h3 style={{ fontFamily:'"Bebas Neue", sans-serif', fontSize:'2rem', color:'oklch(0.470 0.018 150)', letterSpacing:'0.05em', margin:'0 0 1rem' }}>
+            {/* h2, not h3. This sits directly under the page's h1 and beside "The founding
+                names", which is an h2 — so a screen reader was being told this was a
+                subsection of a section that does not exist. The size comes from the inline
+                style rather than the tag, so nothing about it looks different. */}
+            <h2 style={{ fontFamily:'"Bebas Neue", sans-serif', fontSize:'2rem', color:'oklch(0.470 0.018 150)', letterSpacing:'0.05em', margin:'0 0 1rem' }}>
               {search || quarter ? 'NO MATCHES' : 'NO PROFILES CREATED YET'}
-            </h3>
+            </h2>
             {search || quarter ? (
               <p style={{ color:'oklch(0.470 0.018 150)', fontFamily:'Inter, sans-serif', lineHeight:1.7 }}>
                 No profile matches that search. The {FOUNDING_COUNT} founding names from the

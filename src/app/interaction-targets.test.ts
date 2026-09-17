@@ -72,6 +72,36 @@ describe('the standing call-to-action link is big enough to hit', () => {
   })
 })
 
+describe('the small links on a register card are big enough too', () => {
+  /* The rule is written across two lines in the stylesheet, so it is found by its first
+     selector rather than by reproducing the whitespace. */
+  const small = (() => {
+    const at = CSS.indexOf('a.inst-meta,')
+    if (at < 0) throw new Error('no rule for a.inst-meta')
+    return CSS.slice(at, CSS.indexOf('}', at))
+  })()
+
+  it('covers both of them', () => {
+    expect(small).toContain('a.inst-meta')
+    expect(small).toContain('.inst-h3 > a')
+  })
+
+  it('expands them the same way, and returns the space the same way', () => {
+    /* Measured on /indigenes: 113 cards, each with a name at 22px and "Not me / take it
+       down" at 18px. Unlike a business card there is no full-card overlay, so the name is
+       genuinely the only target. With all three rules off the page had 338 links under
+       24px; with them on it has 0, and the page height is identical to the pixel. */
+    expect(small).toMatch(/padding-block:\s*0\.3rem/)
+    expect(small).toMatch(/margin-block:\s*-0\.3rem/)
+  })
+
+  it('leaves the buttons alone', () => {
+    /* A button carries its own padding and a background, so growing it would change how it
+       looks rather than only how big it is. */
+    expect(rule('.inst-btn')).not.toMatch(/margin-block:\s*-/)
+  })
+})
+
 describe('a business card is tappable across its whole face', () => {
   it('overlays the card with the title link', () => {
     /* The card title measures 22px, which would fail the rule above — but the link carries a
