@@ -111,7 +111,16 @@ export default function FonProfilePage() {
                                  color:'oklch(0.320 0.060 158)', fontSize:'0.65rem',
                                  fontFamily:'var(--font-sans)',
                                  letterSpacing:'0.1em', textTransform:'uppercase',
-                                 padding:'0.2rem 0.5rem', flexShrink:0 }}>
+                                 /* The badge refused to shrink, so on a 320px screen the
+                                    longest role here — "Patron and Founder-sponsor" — held
+                                    its full 191px beside the name and pushed the row, and
+                                    the page with it, 6px past the edge. Letting it give way
+                                    costs nothing at any width where it already fitted:
+                                    measured identical at 390px and on the desktop, where
+                                    there is room and it does not shrink. Where there is not,
+                                    it takes a second line inside its own badge and stays
+                                    where the design puts it, beside the name. */
+                                 padding:'0.2rem 0.5rem' }}>
                     {item.role}
                   </span>
                 </div>
