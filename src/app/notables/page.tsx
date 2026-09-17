@@ -75,9 +75,14 @@ export default function NotablesPage() {
             from what a son or daughter of Guneku has achieved abroad.
           </p>
           <p className="inst-body mt-3">
+            {/* This sentence named the sons and daughters and then pointed at the diaspora,
+                which is a third thing again — where people are, not what they do. The page it
+                describes is /sons-and-daughters, and because nothing else on the site linked
+                to that index it could be reached only through a dropdown menu no crawler
+                opens. One wrong href, one orphaned page. */}
             Sons and daughters of Guneku whose work the Fondom records have{' '}
-            <Link href="/diaspora" className="inst-link">their own place</Link> on this site.
-            That is a different thing, and the two are deliberately not mixed.
+            <Link href="/sons-and-daughters" className="inst-link">their own place</Link> on
+            this site. That is a different thing, and the two are deliberately not mixed.
           </p>
         </div>
       </section>

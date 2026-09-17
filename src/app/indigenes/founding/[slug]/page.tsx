@@ -8,6 +8,7 @@ import {
 } from '@/lib/community'
 import { FoundingNameCard } from '@/components/community/FoundingNames'
 import { pageMetadata } from '@/lib/seo'
+import { isPersonIndexable, personDescription } from '@/lib/seo-policy'
 import { businessesForPerson } from '@/lib/business-directory'
 import { RELATIONSHIP_LABEL } from '@/lib/businesses'
 
@@ -22,13 +23,20 @@ export async function generateMetadata(
   const n = getFoundingName(slug)
   if (!n) return {}
   const body = n.body ? getBody(n.body) : null
-  return pageMetadata({
+
+  const meta = pageMetadata({
     title: n.display,
-    description: n.deceased
-      ? `${n.display} — ${n.role}. A record in the Guneku Fondom archive.`
-      : `${n.display} — ${n.role}${body ? `, ${body.name}` : ''}. An unclaimed entry in the Guneku register, open to be claimed by its owner.`,
+    description: personDescription(n, body?.name),
     path: `/indigenes/founding/${slug}`,
   })
+
+  /* Public either way; offered to a search engine only when the entry carries at least two
+     facts beyond the name. `follow` matters: these pages link out to bodies, chapters and
+     businesses that are worth indexing, and the register would lose its shape without that
+     path. The rule and the reasoning live in src/lib/seo-policy.ts. */
+  return isPersonIndexable(n)
+    ? meta
+    : { ...meta, robots: { index: false, follow: true } }
 }
 
 /* An entry in the register.

@@ -135,34 +135,46 @@ describe('the accepted menu', () => {
     }
   })
 
-  it('leaves no principal page reachable from nowhere', () => {
-    /* The Business Directory was built, accepted and unreachable: not in the header, not in
-       the footer, not on the homepage. Fixing that one and looking again turned up three
-       more of exactly the same shape — /explore, the map, linked from nothing at all, and
-       /quarters and /institutions linked from one interior page each. All three sit in the
-       sitemap at priority 0.8, which is the site declaring them important to a search engine
-       while offering a reader no way in.
+  it('leaves no principal page reachable only through a submenu', () => {
+    /* The stricter half of the test above, and the one that caught /sons-and-daughters.
+       A dropdown child is a real way in for a person, and no way in at all for a crawler:
+       the submenu is rendered only while `openMenu` matches, so the markup that leaves the
+       server carries the nine top-level tabs and nothing beneath them. A page whose only
+       inbound link is a submenu entry is, to anything that does not run React, an orphan —
+       which is exactly what a production crawl found: one sitemap URL, /sons-and-daughters,
+       that nothing on the site linked to.
 
-       So: every page the sitemap lists as a principal destination must be reachable from the
-       header, the footer, or the index at the foot of the homepage. Interior and generated
-       pages are not in scope here — the production link crawl covers those. */
+       So the destinations in the menu must also be reachable from text a server renders:
+       the footer, the homepage, or the body of some other page. That is where a link
+       belongs anyway — the menu tells a reader where things are, the prose tells them why
+       they would go. */
     const sitemap = readFileSync('src/app/sitemap.ts', 'utf-8')
     const statics = [...sitemap.matchAll(/\bat\('(\/[a-z0-9/-]*)'/g)].map(m => m[1])
 
-    const inNav = new Set(NAV.flatMap(i => [i.href, ...(i.children ?? []).map(c => c.href)]))
-    const footer = readFileSync('src/components/layout/Footer.tsx', 'utf-8')
-    const homepage = readFileSync('src/app/page.tsx', 'utf-8')
+    /* Everything the server puts into the markup: every page, and every component a page
+       renders. Header.tsx is excluded on purpose — its submenus are the thing being checked,
+       not evidence that anything is reachable. */
+    const sources: Array<{ file: string; text: string }> = []
+    const collect = (dir: string) => {
+      for (const e of readdirSync(dir, { withFileTypes: true })) {
+        const child = `${dir}/${e.name}`
+        if (e.isDirectory()) { if (e.name !== 'api') collect(child) }
+        else if (e.name.endsWith('.tsx') && child !== 'src/components/layout/Header.tsx') {
+          sources.push({ file: child, text: readFileSync(child, 'utf-8') })
+        }
+      }
+    }
+    collect('src/app')
+    collect('src/components')
 
-    /* Reached by any of: a menu entry, a footer link, the homepage index, or — for /search
-       alone — the header's search box, which builds its destination as `/search?q=…`. */
-    const linksTo = (source: string, route: string) =>
-      source.includes(`'${route}'`) || source.includes(`"${route}"`) || source.includes(`${route}?`)
-
+    const topLevel = new Set(NAV.map(i => i.href))
     const orphans = statics.filter(route => {
-      if (route === '/') return false
-      if (inNav.has(route)) return false
-      if (linksTo(footer, route) || linksTo(homepage, route)) return false
-      return !linksTo(HEADER, route)
+      if (route === '/' || topLevel.has(route)) return false
+      /* A page naming its own path in `pageMetadata({ path })` is not an inbound link — so
+         the route's own source file does not count as a source for it. */
+      const own = `src/app${route}/page.tsx`
+      const quoted = new RegExp(`['"\`]${route}['"\`?]`)
+      return !sources.some(s => s.file !== own && quoted.test(s.text))
     })
     expect(orphans).toEqual([])
   })

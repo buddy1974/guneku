@@ -6,6 +6,8 @@ import {
 } from '@/lib/visibility'
 import { SITE_URL } from '@/lib/seo'
 import { publicCuratedBusinesses } from '@/lib/businesses'
+import { allChapters, allBodies } from '@/lib/community'
+import { indexablePersonSlugs } from '@/lib/seo-policy'
 
 type Entry = MetadataRoute.Sitemap[number]
 
@@ -25,7 +27,12 @@ const at = (path: string, opts: Partial<Entry> = {}): Entry => ({
 
    Held, private and transactional routes remain absent: /sign-in, /sign-up, /my-guneku,
    /indigenes/profile, /indigenes/onboarding, the held Business Directory, the empty Fondom
-   stubs, and any institution whose content lives on another page. */
+   stubs, and any institution whose content lives on another page.
+
+   This file is built from the indexability policy, not from "every route that returns 200".
+   The two differ in both directions: a page can be public and deliberately unlisted (a thin
+   quarter, a sparse register entry), and a page can be listed without being reachable from
+   any menu. `src/app/sitemap.test.ts` holds both halves of that in place. */
 export default function sitemap(): MetadataRoute.Sitemap {
   const statics: Entry[] = [
     at('/', { priority: 1.0, changeFrequency: 'weekly' }),
@@ -47,6 +54,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     at('/notables'),
     at('/sons-and-daughters'),
     at('/indigenes'),
+    at('/people', { priority: 0.8 }),
+    /* How the Fondom is supported. Public, indexable, and until now reachable only from
+       the footer — which is how it came to be the one public page with no sitemap entry. */
+    at('/support', { priority: 0.5 }),
     at('/businesses', { priority: 0.8, changeFrequency: 'weekly' }),
     at('/updates', { priority: 0.9, changeFrequency: 'weekly' }),
     at('/gallery'),
@@ -101,6 +112,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const albums = (getImageGallery()?.albums || []).map(a =>
     at(`/gallery/images/${a.id}`, { changeFrequency: 'yearly', priority: 0.5 }))
 
+  /* The seventeen chapters and the five governing bodies. Each is a real, named organisation
+     with a roster of its own, and every one of them was missing here — not by policy but by
+     omission: the sitemap was written before these routes existed and was never revisited. */
+  const chapters = allChapters().map(c =>
+    at(`/gudeca/chapters/${c.id}`, { changeFrequency: 'monthly', priority: 0.6 }))
+
+  const bodies = allBodies().map(b =>
+    at(`/people/${b.id}`, { changeFrequency: 'monthly', priority: 0.7 }))
+
+  /* The register, filtered by the indexability policy rather than listed wholesale: an entry
+     is offered here only when it carries at least two facts beyond the name. The rest stay
+     public, linked and crawlable, and carry `noindex, follow` on the page itself. The rule,
+     and the reasoning behind the number, live in src/lib/seo-policy.ts. */
+  const people = indexablePersonSlugs().map(slug =>
+    at(`/indigenes/founding/${slug}`, { changeFrequency: 'yearly', priority: 0.4 }))
+
   return [...statics, ...updates, ...palace, ...fondom, ...notables, ...institutions,
-          ...quarters, ...businesses, ...albums]
+          ...quarters, ...businesses, ...albums, ...chapters, ...bodies, ...people]
 }
