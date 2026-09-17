@@ -203,6 +203,21 @@ describe('the accepted menu', () => {
     expect(HEADER).toContain("removeEventListener('keydown'")
   })
 
+  it('gives the drawer a readable measure on a tablet', () => {
+    /* This drawer carries the whole menu from 768px to 1279px — every iPad, portrait and
+       landscape — because the desktop bar only appears at 1280. Measured at 1022px each row
+       was 990px wide, which put a section's name at the far left of the glass and the
+       chevron that opens it almost a thousand pixels away.
+
+       Constrained to 40rem and centred: phones below that are untouched (measured 397px
+       rows at 390), tablets get a 640px column (measured 608px rows at 768, 1024 and
+       1180). */
+    expect(HEADER).toMatch(/aria-label="Mobile"/)
+    const nav = HEADER.slice(HEADER.indexOf('aria-label="Mobile"') - 200, HEADER.indexOf('aria-label="Mobile"') + 40)
+    expect(nav).toContain('mx-auto')
+    expect(nav).toContain('max-w-[40rem]')
+  })
+
   it('lights the right tab, including on a page below it', () => {
     /* The convention is prefix matching, with Home exact so it does not light everywhere. */
     expect(isActivePath('/businesses', '/businesses', false)).toBe(true)

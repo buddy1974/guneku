@@ -119,6 +119,9 @@ export default function GudecaExcoPage() {
             color: 'oklch(0.320 0.060 158)', fontFamily: 'var(--font-sans)',
             fontSize: '0.8rem', letterSpacing: '0.1em',
             textTransform: 'uppercase', textDecoration: 'none',
+            /* A standing "back" action, not a link inside a sentence, so it answers to the
+               24px in WCAG 2.5.8. At 0.8rem it drew a 19px box. */
+            display: 'inline-block', paddingBlock: '0.35rem',
           }}>
             ← Back to GUDECA
           </Link>

@@ -102,6 +102,76 @@ describe('the small links on a register card are big enough too', () => {
   })
 })
 
+describe('the footer is a navigation surface, not a legal afterthought', () => {
+  const FOOTER = readFileSync('src/components/layout/Footer.tsx', 'utf-8')
+
+  it('gives its link lists a real hit area', () => {
+    /* Measured at 390px across 27 routes: sixteen standing links per page drew a 20px box —
+       the Explore column, the social column and the legal bar, on every page of the site.
+       They are navigation, not links inside a sentence, so WCAG 2.5.8 asks 24.
+
+       Real space here rather than padding cancelled by a negative margin: these sit six
+       pixels apart in a list, and hit areas that overlapped their neighbours would trade a
+       small target for a wrong one. */
+    /* Every link inside one of the footer's lists. The postal address wears the same colour
+       class and is not a link; the builder credit is a link but lives in a sentence, and
+       both are excluded on purpose — see the assertion below. */
+    const creditAt = FOOTER.indexOf('Website by')
+    const links = [...FOOTER.matchAll(/className="[^"]*text-white\/(?:60|70)[^"]*"/g)]
+      .filter(m => {
+        /* The postal address wears the same colour and is not a link. */
+        const tagStart = FOOTER.lastIndexOf('<', m.index!)
+        const tag = FOOTER.slice(tagStart, m.index!)
+        if (!/^<(Link|a)\b/.test(tag) && !FOOTER.slice(tagStart, m.index! + 400).includes('href=')) return false
+        if (!/^<(Link|a)\b/.test(tag)) return false
+        /* The builder credit is a link, but it lives in a sentence — excluded on purpose,
+           and asserted separately below. */
+        return m.index! < creditAt || m.index! > creditAt + 320
+      })
+      .map(m => m[0])
+
+    expect(links.length, 'footer links found').toBeGreaterThanOrEqual(3)
+    for (const cls of links) expect(cls, cls.slice(0, 60)).toMatch(/py-1/)
+  })
+
+  it('leaves the one link that really is inside a sentence alone', () => {
+    /* "Website by MaxPromo Digital" is prose, and WCAG 2.5.8 exempts a target whose size is
+       constrained by the line it sits in. The audit flagged it only because the sentence is
+       short enough to look like a label; padding it would put a gap in the middle of a line
+       for no benefit. Asserted so the next sweep does not "fix" it. */
+    const credit = FOOTER.slice(FOOTER.indexOf('Website by'), FOOTER.indexOf('Website by') + 320)
+    expect(credit).toContain('maxpromo.digital')
+    expect(credit).not.toMatch(/py-1/)
+  })
+
+  it('keeps a one-letter brand name tappable', () => {
+    /* "X" is narrower than its own target. A list of brand names will always have a short
+       one in it, so the floor belongs on the class rather than on the word. */
+    expect(FOOTER).toMatch(/min-w-7/)
+  })
+})
+
+describe('a standing back-link is not a link in a sentence', () => {
+  /* Four article and gallery surfaces carry "← Back to …" set at 0.8rem, which drew a 19px
+     box. They are inline-block with vertical padding now, which is what lets the padding
+     count at all. */
+  const PAGES = [
+    'src/app/fondom/[slug]/page.tsx',
+    'src/app/gallery/images/[album]/page.tsx',
+    'src/app/gudeca/gudeca-exco/page.tsx',
+    'src/app/gudeca/guyodeca/page.tsx',
+  ]
+
+  for (const page of PAGES) {
+    it(`gives it room in ${page.replace('src/app/', '')}`, () => {
+      const src = readFileSync(page, 'utf-8')
+      expect(src).toMatch(/←\s*Back/)
+      expect(src).toMatch(/display:\s*'inline-block'/)
+      expect(src).toMatch(/paddingBlock:\s*'0\.35rem'/)
+    })
+  }
+})
+
 describe('a business card is tappable across its whole face', () => {
   it('overlays the card with the title link', () => {
     /* The card title measures 22px, which would fail the rule above — but the link carries a

@@ -363,7 +363,13 @@ export function Header() {
         )}
         style={{ paddingBottom: 'calc(var(--bottom-nav-total) + 2rem)' }}
       >
-        <nav className="px-4 py-4" aria-label="Mobile">
+        {/* Constrained above phone widths. This drawer carries the whole menu from 768px to
+            1279px — every iPad, portrait and landscape — and at 1022px each row was 990px
+            wide, which put a section's name at the far left of the screen and the chevron
+            that opens it almost a thousand pixels away. A tablet is not a long phone: the
+            list needs a readable measure, not the full width of the glass. Phones are
+            untouched below 40rem. */}
+        <nav className="mx-auto w-full max-w-[40rem] px-4 py-4" aria-label="Mobile">
           {NAV.map(item => {
             const isOpen = expanded === item.label
             return (

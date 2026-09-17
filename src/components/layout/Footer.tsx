@@ -72,7 +72,15 @@ export function Footer() {
             <ul className="mt-3 list-none space-y-1.5 p-0">
               {EXPLORE.map(l => (
                 <li key={l.href}>
-                  <Link href={l.href} className="text-[0.86rem] text-white/70 no-underline hover:text-white hover:underline">
+                  {/* inline-block + py-1 gives these a 28px hit area instead of 20. They are
+                      standing navigation links, not links inside a sentence, so WCAG 2.5.8
+                      asks for 24 — and they are the same two lines of markup the telephone
+                      and contact links a few lines above were already written with.
+                      
+                      Real space rather than padding cancelled by a negative margin: these sit
+                      6px apart in a list, and hit areas that overlapped their neighbours would
+                      trade a small target for a wrong one. */}
+                  <Link href={l.href} className="inline-block py-1 text-[0.86rem] text-white/70 no-underline hover:text-white hover:underline">
                     {l.label}
                   </Link>
                 </li>
@@ -86,7 +94,7 @@ export function Footer() {
               {SOCIAL.map(s => (
                 <li key={s.label}>
                   <a href={s.href} target="_blank" rel="noopener noreferrer"
-                     className="text-[0.86rem] text-white/70 no-underline hover:text-white hover:underline">
+                     className="inline-block min-w-7 py-1 text-[0.86rem] text-white/70 no-underline hover:text-white hover:underline">
                     {s.label}
                   </a>
                 </li>
@@ -109,7 +117,7 @@ export function Footer() {
             <ul className="m-0 flex list-none flex-wrap items-center gap-x-4 gap-y-1 p-0">
               {LEGAL.map(l => (
                 <li key={l.href}>
-                  <Link href={l.href} className="text-white/60 no-underline hover:text-white hover:underline">
+                  <Link href={l.href} className="inline-block py-1 text-white/60 no-underline hover:text-white hover:underline">
                     {l.label}
                   </Link>
                 </li>
