@@ -4,14 +4,19 @@ import { Landmark, Users, Mountain, Sparkles } from 'lucide-react'
 import { getAllFondomArticles } from '@/lib/content'
 import { GUNEKU_QUARTERS_27 } from '@/lib/quarters'
 import { Reveal }             from '@/components/ui/Reveal'
+import { pageMetadata } from '@/lib/seo'
+import { PageGraph } from '@/components/seo/PageGraph'
+import { PLACE_ID } from '@/lib/schema'
 
-export const metadata = {
-  alternates: { canonical: '/fondom' },
-  /* Not "The Fondom — Guneku Fondom": the site name is appended by the template, and a
-     title that says the word twice reads like a bug. */
+/* Not "The Fondom — Guneku Fondom": the site name is appended by the template, and a
+   title that says the word twice reads like a bug. */
+export const metadata = pageMetadata({
   title: 'The Fondom of Guneku',
-  description: 'Twenty-seven quarters in the hills of Mbengwi, Momo Division, North West Cameroon — the land, the people and the record of Guneku.',
-}
+  description:
+    'Twenty-seven quarters in the hills of Mbengwi, Momo Division, North West Cameroon '
+    + '— the land, the people and the record of Guneku.',
+  path: '/fondom',
+})
 
 const QUARTERS = GUNEKU_QUARTERS_27
 
@@ -20,6 +25,14 @@ export default function FondomPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* The record of the village itself — the page the Place node belongs to. */}
+      <PageGraph
+        path="/fondom"
+        name="The Fondom of Guneku"
+        description="Twenty-seven quarters in the hills of Mbengwi, Momo Division, North West Cameroon."
+        about={PLACE_ID}
+        primaryEntity={PLACE_ID}
+      />
 
       {/* ── HERO ── */}
       <section className="relative h-[58vh] min-h-[380px] overflow-hidden">

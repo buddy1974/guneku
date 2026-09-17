@@ -19,6 +19,8 @@ import { UpdateCardMedia } from '@/components/ui/UpdateCardMedia'
 import { allBodies, memberCount, recordedLabel, GOVERNING_BODY, getBody } from '@/lib/community'
 import current            from '@/data/current-notices.json'
 import type { Metadata } from 'next'
+import { PageGraph } from '@/components/seo/PageGraph'
+import { PLACE_ID } from '@/lib/schema'
 
 /* The governing body, on the front page.
    A visitor should be able to see who runs the village without hunting for it, and
@@ -78,6 +80,14 @@ export default function HomePage() {
 
   return (
     <div className="inst">
+      {/* The homepage is about the village, not about the Fondom that publishes it and
+          not about the website. Three entities, and the root layout declares all three;
+          this says which one the page in front of the reader is for. */}
+      <PageGraph
+        path="/"
+        name="Guneku Fondom"
+        about={PLACE_ID}
+      />
 
       {/* ── 1 · Hero ── */}
       <section className="border-b border-[var(--rule)]">

@@ -5,6 +5,7 @@ import { PageHero } from '@/components/layout/PageHero'
 import { FoundingNames } from '@/components/community/FoundingNames'
 import { allChapters, getChapter, foundingCount, placeLabel, parentChapter } from '@/lib/community'
 import { pageMetadata } from '@/lib/seo'
+import { PageGraph } from '@/components/seo/PageGraph'
 
 export async function generateStaticParams() {
   return allChapters().map(c => ({ id: c.id }))
@@ -44,6 +45,19 @@ export default async function ChapterPage({
 
   return (
     <main className="min-h-screen bg-[var(--paper)]">
+      {/* A chapter is an organisation where the record says so and a place where it says
+          that instead. `chapter.kind` already draws that line and the page follows it,
+          rather than declaring an association nobody constituted. */}
+      <PageGraph
+        path={`/gudeca/chapters/${id}`}
+        name={chapter.kind === 'chapter' ? chapter.org : `${chapter.country} — ${chapter.org}`}
+        description={`Guneku sons and daughters in ${placeLabel(chapter)}.`}
+        trail={[
+          { name: 'GUDECA', path: '/gudeca' },
+          { name: 'Diaspora', path: '/diaspora' },
+        ]}
+      />
+
       <PageHero
         label={
           chapter.kind === 'location'

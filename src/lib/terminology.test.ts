@@ -116,7 +116,8 @@ describe('the route is /fondom', () => {
   })
 
   it('canonicalises the section on /fondom', () => {
-    expect(READ('src/app/fondom/page.tsx')).toContain("canonical: '/fondom'")
+    /* Through pageMetadata now, which builds the canonical from the path it is given. */
+    expect(READ('src/app/fondom/page.tsx')).toContain("path: '/fondom'")
     expect(READ('src/app/fondom/[slug]/page.tsx')).toContain('`/fondom/${slug}`')
   })
 })

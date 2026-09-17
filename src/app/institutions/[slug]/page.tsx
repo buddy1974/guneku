@@ -1,5 +1,6 @@
 import { getAllInstitutions, getInstitution } from '@/lib/content'
 import { pageMetadata, excerptFrom } from '@/lib/seo'
+import { PageGraph } from '@/components/seo/PageGraph'
 import type { Metadata } from 'next'
 import { PageHero } from '@/components/layout/PageHero'
 import { Reveal }   from '@/components/ui/Reveal'
@@ -115,6 +116,16 @@ export default async function InstitutionPage({
 
   return (
     <main className="min-h-screen bg-background">
+      {/* The page and its trail. The institution itself gets no Organization node here:
+          several of these are recorded at the stage their sources establish and no
+          further, and a node would state as settled what the register calls proposed. */}
+      <PageGraph
+        path={`/institutions/${slug}`}
+        name={String(inst.name)}
+        description={excerptFrom(typeof inst.description === 'string' ? inst.description : null)}
+        trail={[{ name: 'Institutions', path: '/institutions' }]}
+      />
+
       <PageHero
         label={String(inst.category || 'INSTITUTION').toUpperCase()}
         title={String(inst.name).toUpperCase()}

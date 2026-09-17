@@ -263,7 +263,9 @@ describe('every page that declares a graph declares the same URL twice', () => {
         if (e.name !== 'page.tsx') continue
         const src = readFileSync(p, 'utf-8')
         if (!src.includes('<PageGraph')) continue
+        /* Most pages give pageMetadata a `path`; a couple declare the canonical directly. */
         const canonical = src.match(/path: ?(`[^`]+`|'[^']+')/)?.[1]
+          ?? src.match(/canonical: ?(`[^`]+`|'[^']+')/)?.[1]
         const declared = src.match(/<PageGraph[\s\S]*?path=\{?(`[^`]+`|"[^"]+"|'[^']+')/)?.[1]
         if (!canonical || !declared) { offenders.push(`${p}: could not read both`); continue }
         if (canonical.replace(/['"`]/g, '') !== declared.replace(/['"`]/g, '')) {

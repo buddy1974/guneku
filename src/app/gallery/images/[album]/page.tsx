@@ -1,5 +1,6 @@
 import { getImageGallery, albumCoverSrc } from '@/lib/content'
 import { pageMetadata, shortTitle } from '@/lib/seo'
+import { PageGraph } from '@/components/seo/PageGraph'
 import type { Metadata } from 'next'
 import { PageHero } from '@/components/layout/PageHero'
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
@@ -64,6 +65,16 @@ export default async function AlbumPage({
 
   return (
     <main style={{ backgroundColor:'oklch(0.965 0.012 85)', minHeight:'100vh' }}>
+      {/* The page and the trail; the album's own ImageGallery node follows. */}
+      <PageGraph
+        path={`/gallery/images/${albumId}`}
+        name={shortTitle(String(album.title))}
+        trail={[
+          { name: 'Gallery', path: '/gallery' },
+          { name: 'Image Gallery', path: '/gallery/images' },
+        ]}
+        image={albumCoverSrc(album)}
+      />
       <JsonLd data={{
         '@context': 'https://schema.org',
         '@type': 'ImageGallery',

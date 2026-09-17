@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { PageHero } from '@/components/layout/PageHero'
 import { pageMetadata } from '@/lib/seo'
+import { PageGraph } from '@/components/seo/PageGraph'
+import { PLACE_ID } from '@/lib/schema'
 import { allQuarters, getQuarter, type QuarterLink } from '@/lib/quarter-pages'
 import { councilFor } from '@/lib/quarter-councils'
 
@@ -9,19 +11,23 @@ export function generateStaticParams() {
   return allQuarters().map(q => ({ slug: q.slug }))
 }
 
+/* Said once, because the page and its metadata must not describe the quarter differently.
+   A quarter with nothing recorded says so, in the same words in both places. */
+function described(q: NonNullable<ReturnType<typeof getQuarter>>): string {
+  return q.links.length > 0
+    ? `What the Guneku Fondom’s records establish about ${q.name} quarter: ${q.links.map(l => l.label).slice(0, 3).join(', ')}.`
+    : `${q.name} is one of the twenty-seven quarters of Guneku. The Fondom’s archive holds no record about it yet.`
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const q = getQuarter(slug)
   if (!q) return {}
 
-  const described = q.links.length > 0
-    ? `What the Guneku Fondom’s records establish about ${q.name} quarter: ${q.links.map(l => l.label).slice(0, 3).join(', ')}.`
-    : `${q.name} is one of the twenty-seven quarters of Guneku. The Fondom’s archive holds no record about it yet.`
-
   return {
     ...pageMetadata({
       title: `${q.name} — a quarter of Guneku`,
-      description: described,
+      description: described(q),
       path: `/quarters/${q.slug}`,
     }),
     /* A page with nothing recorded is offered to a reader who arrives, but not to a search
@@ -50,6 +56,17 @@ export default async function QuarterPage({ params }: { params: Promise<{ slug: 
 
   return (
     <main className="min-h-screen bg-[var(--paper)]">
+      {/* A quarter is part of the village, so the page is about Guneku rather than about
+          a place of its own: the record holds no boundary and no coordinates for a
+          quarter, and a Place node with a name and nothing else says less than nothing. */}
+      <PageGraph
+        path={`/quarters/${q.slug}`}
+        name={`${q.name} — a quarter of Guneku`}
+        description={described(q)}
+        about={PLACE_ID}
+        trail={[{ name: 'The 27 quarters', path: '/quarters' }]}
+      />
+
       <PageHero
         label="A QUARTER OF GUNEKU"
         title={q.name}
