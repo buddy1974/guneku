@@ -167,6 +167,42 @@ describe('the accepted menu', () => {
     expect(orphans).toEqual([])
   })
 
+  it('opens its submenus without a mouse', () => {
+    /* The submenus opened on `mouseenter` and on nothing else. The desktop bar shows from
+       1280px and an iPad Pro in landscape is 1366px, so a touch visitor on a large tablet
+       met a menu that could not be opened at all — tapping the parent simply navigated away
+       — and a keyboard visitor was in the same position, with an `aria-expanded` on a link
+       describing a state they had no way to change.
+
+       Now: the link still goes to the section, a real button beside it opens the list, and
+       hover is an enhancement for pointers that actually hover. */
+    expect(HEADER).toMatch(/<button\s+type="button"/)
+    expect(HEADER).toMatch(/aria-expanded=\{openMenu === item\.label\}/)
+    expect(HEADER).toMatch(/aria-controls=\{`nav-/)
+    expect(HEADER).toMatch(/onClick=\{\(\) => setOpenMenu\(/)
+    /* aria-expanded must not be left on the link, which cannot toggle anything. */
+    expect(HEADER).not.toMatch(/aria-expanded=\{item\.children \? openMenu/)
+  })
+
+  it('treats hover as an enhancement rather than the mechanism', () => {
+    expect(HEADER).toContain('useCanHover')
+    expect(HEADER).toMatch(/onMouseEnter=\{\(\) => canHover &&/)
+    expect(HEADER).toMatch(/onMouseLeave=\{\(\) => canHover &&/)
+    const hook = readFileSync('src/components/layout/useCurrentPath.ts', 'utf-8')
+    expect(hook).toContain('(hover: hover) and (pointer: fine)')
+    /* Server and hydrating render must agree, and "no hover" is the safe first answer
+       because it is the one that renders the button. */
+    expect(hook).toContain('useSyncExternalStore')
+  })
+
+  it('can be dismissed the two ways anything dismissible is dismissed', () => {
+    expect(HEADER).toMatch(/e\.key === 'Escape'/)
+    expect(HEADER).toContain("addEventListener('pointerdown'")
+    /* Bound only while a menu is open, and removed with it. */
+    expect(HEADER).toContain("removeEventListener('pointerdown'")
+    expect(HEADER).toContain("removeEventListener('keydown'")
+  })
+
   it('lights the right tab, including on a page below it', () => {
     /* The convention is prefix matching, with Home exact so it does not light everywhere. */
     expect(isActivePath('/businesses', '/businesses', false)).toBe(true)

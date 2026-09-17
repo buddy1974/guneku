@@ -56,6 +56,40 @@ export function useCurrentPath(): string | null {
   return useSyncExternalStore(subscribe, hydrated, notYet) ? pathname : null
 }
 
+/* ── Can this visitor hover? ────────────────────────────────────────────────────────────
+ *
+ * The header's submenus opened on `mouseenter` and on nothing else. That is fine for a
+ * mouse and useless for everyone else: the desktop bar shows from 1280px, and an iPad Pro
+ * in landscape is 1366px, so a touch visitor on a large tablet met a menu that could not be
+ * opened at all — tapping the parent simply navigated away. A keyboard visitor was in the
+ * same position, with the added insult of an `aria-expanded` describing a state they had no
+ * way to change.
+ *
+ * So hover becomes an enhancement for pointers that actually hover, and a real disclosure
+ * button carries the behaviour for everybody. This reports whether hover is genuine, which
+ * also stops a tap on a touch screen from firing the synthesised `mouseenter` that Chrome
+ * sends and immediately fighting the click.
+ *
+ * Read through `useSyncExternalStore` for the same reason `useCurrentPath` is: the server
+ * and the hydrating render must agree, so both see `false` and the real answer arrives one
+ * tick later. Assuming "no hover" first is the safe way round — it renders the button. */
+const QUERY = '(hover: hover) and (pointer: fine)'
+
+const subscribeHover = (cb: () => void) => {
+  if (typeof window === 'undefined' || !window.matchMedia) return () => {}
+  const mq = window.matchMedia(QUERY)
+  mq.addEventListener('change', cb)
+  return () => mq.removeEventListener('change', cb)
+}
+const hoverSnapshot = () =>
+  typeof window !== 'undefined' && !!window.matchMedia && window.matchMedia(QUERY).matches
+const noHoverOnServer = () => false
+
+/** Whether this visitor has a pointer that can hover. `false` until hydrated. */
+export function useCanHover(): boolean {
+  return useSyncExternalStore(subscribeHover, hoverSnapshot, noHoverOnServer)
+}
+
 /** Whether `href` is the active route, given a possibly-absent path.
  *
  *  Exported and pure so the rule can be tested without a browser, and shared so the desktop

@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Link            from 'next/link'
 import Image           from 'next/image'
-import { useCurrentPath, isActivePath } from './useCurrentPath'
+import { useCurrentPath, isActivePath, useCanHover } from './useCurrentPath'
 import { Menu, X, Search, ChevronDown, ArrowRight } from 'lucide-react'
 import { cn }          from '@/lib/utils'
 import { MemberNavLink } from './MemberNavLink'
@@ -104,6 +104,8 @@ export function Header() {
   const [query,      setQuery]      = useState('')
   const [results,    setResults]    = useState<{ id: string; title: string; group: string; href: string }[]>([])
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  /* The desktop bar, so a press outside it can close an open submenu. */
+  const navRef = useRef<HTMLElement | null>(null)
   /* Null until hydrated, so the server's nav and the browser's first nav are identical.
      See useCurrentPath: this is what was throwing React #418 on every page load. */
   const pathname   = useCurrentPath()
@@ -136,6 +138,28 @@ export function Header() {
     }, 300)
     return () => clearTimeout(t)
   }, [query])
+
+  /* Hover is an enhancement for pointers that hover. Everything a submenu does is reachable
+     without one — see the disclosure button below. */
+  const canHover = useCanHover()
+
+  /* A menu opened by tap or by keyboard has no `mouseleave` to close it, so it needs the two
+     ways anything dismissible closes: Escape, and a press somewhere else. Both are bound only
+     while a menu is actually open. */
+  useEffect(() => {
+    if (!openMenu) return
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpenMenu(null) }
+    const onDown = (e: PointerEvent) => {
+      const nav = navRef.current
+      if (nav && e.target instanceof Node && !nav.contains(e.target)) setOpenMenu(null)
+    }
+    document.addEventListener('keydown', onKey)
+    document.addEventListener('pointerdown', onDown)
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.removeEventListener('pointerdown', onDown)
+    }
+  }, [openMenu])
 
   const isActive = (i: Item) => isActivePath(pathname, i.href, Boolean(i.exact))
 
@@ -172,33 +196,65 @@ export function Header() {
         </Link>
 
         {/* ── Desktop navigation ── */}
-        <nav className="ml-auto hidden items-center xl:flex" aria-label="Primary">
+        <nav ref={navRef} className="ml-auto hidden items-center xl:flex" aria-label="Primary">
           {NAV.map(item => (
             <div
               key={item.href}
-              className="relative"
-              onMouseEnter={() => item.children && hoverOpen(item.label)}
-              onMouseLeave={hoverClose}
+              className="relative flex items-center"
+              onMouseEnter={() => canHover && item.children && hoverOpen(item.label)}
+              onMouseLeave={() => canHover && hoverClose()}
             >
               <Link
                 href={item.href}
-                aria-expanded={item.children ? openMenu === item.label : undefined}
                 className={cn(
-                  'flex items-center gap-1 whitespace-nowrap px-2.5 py-2 text-[0.83rem] font-semibold no-underline transition-colors',
+                  'flex items-center whitespace-nowrap px-2.5 py-2 text-[0.83rem] font-semibold no-underline transition-colors',
+                  item.children && 'pr-1',
                   isActive(item) ? 'text-[var(--burgundy-i)]' : 'text-[var(--ink-900)] hover:text-[var(--burgundy-i)]'
                 )}
               >
                 {item.label}
-                {item.children && <ChevronDown className="h-3 w-3 opacity-50" aria-hidden />}
               </Link>
+
+              {/* A real button, beside the link rather than inside it.
+
+                  The link still goes to the section — "The Fondom" should open The Fondom —
+                  and this opens the list of what is under it. One control cannot honestly do
+                  both: a link that swallowed the tap would never show the submenu, and a
+                  button that navigated would lie to a screen reader about what it is.
+                  `aria-expanded` now sits on the thing that actually toggles. */}
+              {item.children && (
+                <button
+                  type="button"
+                  aria-expanded={openMenu === item.label}
+                  aria-controls={`nav-${item.label.replace(/\W+/g, '-').toLowerCase()}`}
+                  aria-label={`${item.label} — show section links`}
+                  onClick={() => setOpenMenu(openMenu === item.label ? null : item.label)}
+                  /* 44px tall, which the 68px header row gives away for nothing, and 32
+                     wide. Not wider: measured at 1280px — the narrowest width this bar
+                     renders at — the brand has 16px of slack before the nav and the search
+                     and sign-in controls 32px after, so five buttons growing by 8px each
+                     would eat the lot. Height is the axis that was free. */
+                  className={cn(
+                    'flex h-11 w-8 items-center justify-center rounded-sm transition-colors',
+                    isActive(item) ? 'text-[var(--burgundy-i)]' : 'text-[var(--ink-900)] hover:text-[var(--burgundy-i)]'
+                  )}
+                >
+                  <ChevronDown
+                    className={cn('h-3 w-3 opacity-60 transition-transform',
+                      openMenu === item.label && 'rotate-180')}
+                    aria-hidden
+                  />
+                </button>
+              )}
 
               {isActive(item) && <span className="absolute inset-x-2.5 -bottom-px h-0.5 bg-[var(--burgundy-i)]" />}
 
               {item.children && openMenu === item.label && (
                 <div
+                  id={`nav-${item.label.replace(/\W+/g, '-').toLowerCase()}`}
                   className="absolute left-0 top-full min-w-60 border border-[var(--rule)] bg-white py-2 shadow-lg"
-                  onMouseEnter={() => hoverOpen(item.label)}
-                  onMouseLeave={hoverClose}
+                  onMouseEnter={() => canHover && hoverOpen(item.label)}
+                  onMouseLeave={() => canHover && hoverClose()}
                 >
                   {item.children.map(c => (
                     <Link
