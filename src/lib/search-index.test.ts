@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { search, indexSize, indexBreakdown, GROUP_ORDER, type SearchEntry } from './search-index'
 import { approvedFilms, allFilms } from './guneku-tv'
+import { curatedBusinesses, getCuratedBusiness } from './businesses'
 import { readFileSync } from 'node:fs'
 
 /* Search is the one surface that reads everything the site publishes and puts it in front of
@@ -118,9 +119,53 @@ describe('nothing unpublished is findable', () => {
   })
 
   it('carries no held business record', () => {
-    /* The Business Directory is held pending consent from the four businesses listed
-       (ADR-005). Held means not findable, not merely not linked. */
+    /* Held means not findable, not merely not linked. The directory itself is published
+       now, but the rule it was written under still governs each record inside it: only a
+       business the Fondom has published is in this index. */
     expect(haystack).not.toContain('business-directory')
+
+    for (const b of curatedBusinesses()) {
+      expect(entries.some(e => e.id === `business:${b.slug}`), b.slug)
+        .toBe(b.status === 'public')
+    }
+  })
+
+  it('makes nothing of the one still-held business findable', () => {
+    /* Vicky and Son's is held because nobody has said who runs it. Its name is absent, and
+       so are the words written about it — a held record findable by its own tagline is
+       still findable. Publishing it is one confirmation away, and this should fail when
+       that happens rather than let it slip out quietly.
+
+       Its tags are deliberately not probed: "Construction" and "Electronics" are the shared
+       vocabulary of the whole directory, and matching on them would fail on the categories
+       of published businesses rather than on anything of this one. */
+    const held = getCuratedBusiness('vicky-and-sons')!
+    expect(held.status).toBe('held')
+    for (const probe of ['vicky', held.tagline!, held.description!])
+      expect(haystack.toLowerCase(), probe).not.toContain(probe.toLowerCase())
+  })
+
+  it('puts no contact detail of an unpublished business in reach', () => {
+    /* Only curated records reach this index; the ones people register about themselves live
+       in the database, which the index is built too early to read, so the consent flag those
+       carry never arrives here. What does arrive is every curated record, and a held one
+       must bring nothing of itself — least of all a way to ring it. */
+    for (const b of curatedBusinesses()) {
+      if (b.status === 'public') continue
+      for (const v of [b.contact?.phone, b.contact?.email].filter(Boolean) as string[])
+        expect(haystack, `${b.slug} ${v}`).not.toContain(v)
+    }
+  })
+
+  it('keeps every person this index names reachable at a real path', () => {
+    /* Somebody already indexed as a member of a body keeps that entry rather than gaining a
+       second one, so the claim here is reachability and not which id carries them. */
+    for (const slug of ['edith-fongho', 'denis-m-tebit', 'tanwi-amerion',
+                        'goddy-akwe', 'ngwa-vitalis']) {
+      const e = entries.find(x => x.id.endsWith(`:${slug}`))
+      expect(e, slug).toBeDefined()
+      expect(e!.href.startsWith('/'), slug).toBe(true)
+    }
   })
 })
 
