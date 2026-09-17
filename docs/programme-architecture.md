@@ -609,8 +609,8 @@ afterwards (ADR-074).
 | 8 · Palace AI layer 2 | **Done.** Synthesis answers from evidence with citations, verified in Production. |
 | 11 · Contributions | **Done.** Migration 0003 applied. |
 | 12 · Archive intelligence | **Done.** Description layer built; no face recognition anywhere; nothing approved by default. |
-| 13 · Correspondence | **Done, including delivery 2026-09-06.** Migration 0004 applied. Inbound mail still needs MX records — owner only. |
-| 14 · Notifications | **Blocked, and precisely.** Built to the preflight and stopped: no sender the Fondom owns (R-044, needs SPF/DKIM on guneku.org — owner only) and no dispatch ledger (R-045, needs a migration — owner decision). |
+| 13 · Correspondence | **Done, including delivery 2026-09-06.** Migration 0004 applied. **Corrected 2026-09-17:** this said inbound mail still needed MX records. It does not — guneku.org carries mx1/mx2.hostinger.com. |
+| 14 · Notifications | **Less blocked than this said.** Built to the preflight and stopped. **Corrected 2026-09-17 against public DNS:** the SPF, DKIM, DMARC and return-path records Resend needs are all published on send.guneku.org, so R-044 is DNS-complete; what is left there is whether EMAIL_FROM in Vercel names an address at that domain, which cannot be read from this environment. The dispatch ledger (R-045) is still an owner decision. |
 | 15 · Preview isolation | **Owner only.** Neon dashboard access. |
 
 **The one credential never exercised is Resend**, and deliberately: exercising a mail key means

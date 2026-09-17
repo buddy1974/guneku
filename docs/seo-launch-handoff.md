@@ -9,7 +9,7 @@
 | Document tier | 2 — operational handoff |
 | Owner (DRI) | Marcel / Maxpromo Digital |
 | Written | 2026-09-17 |
-| Product baseline | `9c54bbc` on `main` — the last commit that changes rendered output |
+| Product baseline | the head of `main` after the final visual/content pass of 2026-09-17 |
 | Production | https://www.guneku.org |
 | Status | Ready to begin, after final touches |
 
@@ -69,6 +69,21 @@ search, and now from the business pages. They are simply not *submitted*.
 
 **This is a decision worth Marcel making consciously, not a setting to flip.** See section C.
 
+### Things the visual pass changed under this document's feet
+
+Four principal pages were reachable from nowhere a reader could find, and are now in the
+menu: `/explore`, `/quarters`, `/institutions` and `/sons-and-daughters`. All four were
+already in the sitemap at 0.8 — the site was telling a search engine they mattered while
+offering no way in. Internal linking is therefore materially better than when section B was
+written, and the internal-linking item on the checklist is largely satisfied.
+
+The homepage index grew from eight destinations to twelve and its heading changed from
+"Explore Guneku" — which was the literal page title of `/explore` — to "Find your way around
+Guneku".
+
+Developer language was removed from five published pages. Nothing else in this document is
+affected.
+
 ### Canonicals
 
 Every page carries an absolute `rel="canonical"` on the `www` host. Spot-checked on
@@ -124,9 +139,23 @@ Ordered roughly as it should be executed.
 - [ ] Confirm no `?` parameter variants are reachable as duplicate content.
 
 ### 2 · Metadata review
-- [ ] **Descriptions over ~160 characters are truncated in results.** Measured today:
-      `/projects` 227, `/education` 201, `/quarters` 195, `/watch` 180, `/explore` 180,
-      `/` 170. Shorten so the first sentence carries the meaning.
+- [ ] **Descriptions over ~160 characters are truncated in results.** Re-measured on
+      2026-09-17, unchanged since, and left alone deliberately — rewriting them is wording
+      work and wording is Marcel's:
+
+      | Route | Length |
+      |---|---|
+      | `/projects` | 227 |
+      | `/education` | 201 |
+      | `/quarters` | 195 |
+      | `/watch` | 180 |
+      | `/explore` | 180 |
+      | `/` | 170 |
+      | `/institutions` | 163 |
+
+      Comfortably inside the limit and needing nothing: `/businesses` 145, `/fondom` 130,
+      `/indigenes` 116, `/palace` 99, `/diaspora` 99. Shorten the seven above so the first
+      sentence carries the meaning on its own.
 - [ ] Check every title is distinct. The `| Guneku Fondom` suffix is consistent; confirm the
       leading part never repeats across two pages.
 - [ ] Check the 113 register entries' descriptions read sensibly at scale — they are

@@ -45,32 +45,34 @@ only you can supply.
 
 ## 1 · Must review before SEO
 
-### 1.1 The human check scrolls sideways a little on a small phone
+### 1.1 The human check — looked at again, and it is fine
 
 Cloudflare renders the Turnstile widget at a fixed 300px. No card on this site has 300px
 spare once its own padding is off, so on a narrow phone it did not fit — and it used to push
 the **entire page** sideways: 79px at 320px, 39px at 360px, 9px at 390px, on `/contact`,
 `/support` and `/indigenes/submit`.
 
-That is fixed: the page no longer moves at any width. What remains is that on a phone
-narrower than about 414px the widget itself can be scrolled a little way inside its own box
-— 103px at 320px, 33px at 390px.
+That was fixed, and this pass went back and measured the live widget rather than the
+placeholder standing in for it. Cloudflare renders the check in managed mode, and it fills
+whatever width it is given — 580×72 on a desktop viewport, nothing to scroll. What sits
+inside at a fixed 300px is its own furniture: "Verify you are human" at the left, the
+Cloudflare logo and Privacy/Help links at the right. Forced down to phone widths on the live
+page, the label stays on screen and it is the branding that scrolls.
 
-**Your judgment:** live with it, or switch the widget to Cloudflare's `compact` size
-(150×140) which fits everywhere but looks different. One line in
-`src/components/forms/TurnstileField.tsx`. Not changed unilaterally because it alters how
-the check looks on every form.
+**Nothing for you to decide here.** The part a visitor reads and acts on is the part that
+stays visible, and the page itself never moves at any width. R-068 is closed.
 
-### 1.2 Small tap targets
+### 1.2 Small tap targets — fixed
 
 Measured across twelve principal pages at 390px. Several call-to-action links render about
 20px tall — "View project →", "Support this project →", "Watch video", "All news →", "Read
 the record →". WCAG 2.2 AA asks for 24×24 for anything that is not an inline link inside a
 sentence; these sit between the two definitions.
 
-Nothing was restyled, because adding vertical padding to call-to-action links across the site
-is a visual decision, not a defect fix. **Worth a look on your own phone** — if they feel
-fiddly to tap, say so and it is a small change.
+**Fixed 2026-09-17.** Padding expands the hit area and an equal negative margin returns the
+space, so the targets grew and nothing moved: A/B-tested on one build, page height identical
+to the pixel, no section shifted, and links under 24px went from 36 to 0. Worth a glance on
+your own phone to confirm it feels right, but there is nothing outstanding.
 
 ### 1.3 The wording on thin register entries
 
@@ -128,11 +130,11 @@ needs a fact or an action only you or the Palace can supply.
 
 | Ref | What is needed | What it unblocks |
 |---|---|---|
-| **R-044** | SPF and DKIM records on `guneku.org`, and a sender the Fondom owns. `EMAIL_FROM` is unset, so mail currently leaves as Resend's testing sender. | **Phase 14, Notifications.** Built to the preflight and stopped there. |
+| **R-044** | **The DNS is already done** — checked against public DNS on 17 September: Resend's DKIM key, SPF and return-path MX are all published on `send.guneku.org`, and DMARC is set. All that may remain is confirming `EMAIL_FROM` in Vercel names an address there rather than falling back to Resend's testing sender. One setting, not a DNS job. | **Phase 14, Notifications.** |
 | **R-045** | A decision on whether notification dispatch gets its own table. | The rest of Phase 14. |
-| **Phase 13 inbound** | MX records on `guneku.org`. | Inbound Palace correspondence. Outbound already works. |
+| ~~**Phase 13 inbound**~~ | **Nothing needed.** `guneku.org` already carries `mx1`/`mx2.hostinger.com`, so inbound mail is configured. The register was stale. | — |
 | **Phase 15** | Neon dashboard access. | Preview-database isolation. |
-| **R-048** | Rename the Clerk application from "My Application". Mitigated in code; the dashboard value is yours. | Sign-in wording. |
+| ~~**R-048**~~ | **Verified fixed in production.** The live sign-in says Guneku, and "My Application" appears nowhere on it. Nothing further is needed unless you want the dashboard value tidied for its own sake. | — |
 
 ### Facts the record cannot settle
 

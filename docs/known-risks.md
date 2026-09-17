@@ -869,7 +869,7 @@ Publishing any of them means a person watching it and writing it into the canoni
 into `video-overrides.json` - the route every one of the 46 already took. Owner work, not
 engineering work.
 
-## R-044 - Outbound email has no sender the Fondom owns - Open, OWNER ACTION
+## R-044 - Outbound email has no sender the Fondom owns - DNS DONE, one setting left
 
 `EMAIL_FROM` is unset in Production, Preview and development, so every message leaves as the
 `send.ts` fallback `Guneku Fondom <onboarding@resend.dev>`. That is Resend's testing sender.
@@ -888,10 +888,27 @@ It matters now, because two paths send **outward** to a villager:
   not be sent", and nothing is lost. It is a real limitation, not a defect.
 - **Stay Connected notifications**, which is why none are sent. See R-045.
 
-**Owner action, and only the owner can do it.** SPF and DKIM records on `guneku.org`, created
-at the DNS provider, then the verified address set as `EMAIL_FROM` in Vercel. This is the same
-class of work as the Clerk DNS records of 2026-09-04, and `docs/programme-architecture.md` §3
-has been recording it as an owner action since it was written.
+**Re-measured against public DNS on 2026-09-17, and this entry was wrong.** The records it
+asks for are published. Queried through 8.8.8.8:
+
+| Record | Value |
+|---|---|
+| `resend._domainkey.guneku.org` TXT | a valid DKIM public key |
+| `send.guneku.org` TXT | `v=spf1 include:amazonses.com ~all` |
+| `send.guneku.org` MX | `feedback-smtp.eu-west-1.amazonses.com` |
+| `_dmarc.guneku.org` TXT | `v=DMARC1; p=none` |
+| `guneku.org` MX | `mx1.hostinger.com`, `mx2.hostinger.com` |
+| `guneku.org` TXT | `v=spf1 include:_spf.mail.hostinger.com ~all` |
+
+That is Resend's own arrangement: the sending domain is the `send.` subdomain, signed with
+DKIM, with SES as the return path, and the apex left to Hostinger for ordinary mail. So the
+DNS half of this risk is **done**, and has been for longer than the register knew.
+
+**What is actually left is one setting.** `src/lib/email/send.ts` falls back to
+`Guneku Fondom <onboarding@resend.dev>` when `EMAIL_FROM` is unset, and its comment says it
+is unset. Whether that is still true is a Vercel environment value, which cannot be read from
+here (R-031) and was not guessed at. **Owner action: confirm `EMAIL_FROM` in Vercel names an
+address at `send.guneku.org`, or set it.** No DNS work remains.
 
 Nothing about this blocks the release. Every inbound form works; the one outbound path that
 exists reports honestly when it cannot deliver.
@@ -1002,7 +1019,7 @@ wrong the same way.
 `src/components/ui/PageTransition.tsx` carries the same `usePathname()` pattern and was left
 alone: nothing imports it, and it would need review before use in any case.
 
-## R-048 - Clerk greeted villagers as "My Application" - Mitigated in code 2026-09-07, OWNER ACTION open
+## R-048 - Clerk greeted villagers as "My Application" - VERIFIED GONE in production 2026-09-17
 
 The sign-in widget said **"Sign in to My Application"**. The Clerk instance's application name
 was never changed from Clerk's factory default: `clerk.guneku.org/v1/environment` returns
@@ -1090,7 +1107,7 @@ fills in and a person cannot; `/api/contact` did not.
 Added, mirroring the other three, and answered with `success` rather than an error so a bot
 learns nothing about why nothing arrived.
 
-## R-052 - Cloudflare Turnstile is built and inert until the owner arms it - ARMED IN PRODUCTION 2026-09-07
+## R-052 - Cloudflare Turnstile is built and inert until the owner arms it - ARMED, AND VERIFIED WORKING 2026-09-17
 
 Turnstile is implemented on the four writes a stranger can make with no account: the message to
 the Palace, the contact form, an offer of support, and a name put forward for the directory.
@@ -1543,7 +1560,7 @@ reconciliation resolved has been attached to it.
 
 ---
 
-## R-068 - The human check is 300px wide and a small phone is not - Open, mitigated
+## R-068 - The human check is 300px wide and a small phone is not - CLOSED 2026-09-17
 
 Cloudflare renders the Turnstile widget at a fixed 300px. No card on this site has 300px to
 spare once its own padding is taken off, so below roughly 414px it does not fit.
@@ -1563,12 +1580,18 @@ Note that `overflow-x: auto` alone did nothing — measured, 79px before and aft
 automatic minimum size of zero that scroll containers get applies to flex and grid items, not
 to a block in normal flow. Containment is what was required.
 
-**What remains:** on a phone narrower than about 414px the widget can be scrolled a little
-way inside its own box — 103px at 320px, 33px at 390px. The page does not move.
+**What remains, measured on the live widget 2026-09-17: not materially harmful.** Cloudflare
+renders the check in managed mode. On a real render it fills whatever width containment gives
+it — measured 580×72 on a desktop viewport, local scroll zero — and what sits inside at a
+fixed 300px is its own furniture, with "Verify you are human" at the left and the Cloudflare
+logo and Privacy/Help links at the right. Forcing the box down to phone widths on the live
+page: at 201px the label stays visible and 99px of Cloudflare's branding scrolls; the page
+itself never moves at any width.
 
-**Owner decision, not a defect:** Cloudflare offers a `compact` widget (150×140) that fits
-everywhere. It looks different on every form, so it was not changed unilaterally. One line if
-wanted.
+So the part a visitor has to read and act on is the part that stays on screen. **No change
+made.** Cloudflare's `compact` widget (150×140) would fit whole, but it is taller, it looks
+different on all four forms, and there is no defect behind it — it remains available if the
+Fondom ever wants it.
 
 ## R-067 - Fondom Studios is placed in Guneku, and one public listing says Bamenda
 
