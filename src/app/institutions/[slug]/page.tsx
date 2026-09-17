@@ -18,11 +18,11 @@ export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
   const { slug } = await params
-  const i = getInstitution(slug) as Record<string, any> | null
+  const i = getInstitution(slug) as Record<string, unknown> | null
   if (!i || i.route || i.publicVisibility === 'hold') return {}
   return pageMetadata({
     title: String(i.name),
-    description: excerptFrom(i.description),
+    description: excerptFrom(typeof i.description === 'string' ? i.description : null),
     path: `/institutions/${slug}`,
     imageAlt: String(i.name),
   })
@@ -202,7 +202,7 @@ export default async function InstitutionPage({
           )}
 
           <div className="mt-10">
-            <Link href="/institutions" className="text-primary text-xs tracking-widest no-underline hover:underline">
+            <Link href="/institutions" className="text-primary text-xs tracking-widest no-underline hover:underline inline-block py-1.5 -my-1.5">
               ← All institutions
             </Link>
           </div>

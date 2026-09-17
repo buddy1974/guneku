@@ -87,14 +87,19 @@ function ProjectCard({ p }: { p: Project }) {
         </div>
       </dl>
 
+      {/* Two standing actions per card, and this page carries 28 cards — 55 links that each
+          drew a 16px box at 390px, the largest single concentration of undersized targets on
+          the site. inline-block is what lets the padding count at all; the negative margin
+          hands the space back, so the card's own rhythm is unchanged. */}
       <div className="mt-auto pt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
         {p.recordHref && (
-          <Link href={p.recordHref} className="text-primary text-xs tracking-widest no-underline hover:underline">
+          <Link href={p.recordHref}
+                className="text-primary text-xs tracking-widest no-underline hover:underline inline-block py-1.5 -my-1.5">
             The record →
           </Link>
         )}
         <Link href={contributeHref(p)}
-              className="text-[var(--ink-400)] text-xs tracking-widest no-underline hover:text-primary">
+              className="text-[var(--ink-400)] text-xs tracking-widest no-underline hover:text-primary inline-block py-1.5 -my-1.5">
           Provide an update
         </Link>
       </div>
@@ -133,7 +138,7 @@ export default function ProjectsPage() {
           <nav aria-label="Register sections" className="mt-5 flex flex-wrap gap-x-4 gap-y-2">
             {groups.map(g => (
               <a key={g.name} href={`#${g.name.toLowerCase().replace(/\s+/g, '-')}`}
-                 className="text-primary text-xs tracking-widest no-underline hover:underline">
+                 className="text-primary text-xs tracking-widest no-underline hover:underline inline-block py-1.5 -my-1.5">
                 {g.name} · {g.items.length}
               </a>
             ))}
@@ -149,7 +154,7 @@ export default function ProjectsPage() {
             ))}
           </p>
 
-          <Link href="/institutions" className="text-primary text-xs tracking-widest mt-4 inline-block no-underline hover:underline">
+          <Link href="/institutions" className="text-primary text-xs tracking-widest mt-4 inline-block no-underline hover:underline py-1">
             The institutions of Guneku →
           </Link>
         </section>

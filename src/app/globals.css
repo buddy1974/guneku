@@ -155,6 +155,16 @@
   }
 
   input, select, textarea { font-size: 16px !important; }
+
+  /* Checkboxes and radios render at the browser default, which measured 13x13 on /support.
+     Every one of them is wrapped in its own `<label>`, so the thing a finger actually hits is
+     the whole label and the control was never unreachable — but 13px is a small mark to read
+     on a phone, and the accent keeps them in the Fondom's colour rather than the browser's
+     blue. Size only; nothing about the form's behaviour changes. */
+  input[type='checkbox'], input[type='radio'] {
+    width: 1.05rem; height: 1.05rem;
+    accent-color: var(--royal-green);
+  }
   *:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 }
 
@@ -550,8 +560,12 @@
      own padding and a background, so adding more would change how they look rather than only
      how big they are. */
   a.inst-meta,
+  a.inst-h3,
   .inst-h3 > a {
     padding-block: 0.3rem; margin-block: -0.3rem;
+    /* A place on the map can be called "Fun", and a two-letter name makes a 21px target out
+       of a link that is otherwise fine. The floor belongs on the rule, not on the name. */
+    display: inline-block; min-width: 1.6rem;
   }
   .inst-link:hover { text-decoration: underline; text-underline-offset: 3px; }
 

@@ -108,7 +108,7 @@ export default function ContactPage() {
                       costs a scraper about a second, which is the wrong trade. */}
                   <div className="whitespace-pre-line text-sm text-muted-foreground mt-1">
                     {c.href
-                      ? <a href={c.href} className="text-inherit no-underline hover:underline">{c.d}</a>
+                      ? <a href={c.href} className="text-inherit no-underline hover:underline inline-block py-1.5 -my-1.5">{c.d}</a>
                       : c.d}
                   </div>
                 </div>
