@@ -1464,7 +1464,7 @@ The endpoint is gone again and `/api/admin/migrate` answers 404 in production.
 
 ---
 
-## R-065 - Four businesses name an owner the Indigenes register does not hold
+## R-065 - Four businesses named an owner the register did not hold - RESOLVED 2026-09-17
 
 Tanwi Amerion (Fondom Studios), Edith Fongho (Concept Care Solutions) and Denis M. Tebit
 (ARCpoint Labs, Any Lab Test Now) were confirmed by the Fondom as the people behind those
@@ -1474,12 +1474,31 @@ Each business is published; each person link is **held** — the name recorded, 
 and the page saying the connection is not yet matched to the register. Creating an entry to
 make a link resolve would have reopened the frozen programme by the side door.
 
-**Owner action:** confirm these three as indigenes, and the links resolve in one edit each.
-Until then the directory is accurate about what it does and does not know.
+**Resolved 2026-09-17.** The Fondom confirmed all three as sons and daughters of Guneku and
+they were added to the register: `edith-fongho`, `denis-m-tebit`, `tanwi-amerion`. The four
+businesses now link to them by slug and none carries a held name.
+
+| Business | Person | Relationship |
+|---|---|---|
+| Fondom Studios | `tanwi-amerion` | Owner |
+| Concept Care Solutions | `edith-fongho` | Managing Director |
+| ARCpoint Labs | `denis-m-tebit` | Associated |
+| Any Lab Test Now — Lynchburg | `denis-m-tebit` | Associated |
+
+**The order is the point.** The identity was created first, on the Fondom’s confirmation,
+and the link followed it. At no stage was a slug manufactured to make a link resolve — which
+is exactly what holding them for a day prevented, and why they were held rather than guessed
+at. Both Denis businesses point at the same person and remain two separate businesses; the
+conservative `associated` relationship is kept, because the confirmation settled who he is
+and not what office he holds, and nothing implies he owns the national ARCpoint brand.
+
+None of the three carries a body, chapter, quarter, residence, profession, GUDECA membership
+or Palace relationship. A test asserts it, and asserts that the academic suffix the Fondom
+supplied for Denis stays out of his name.
 
 ---
 
-## R-066 - Two businesses are held because no Guneku connection is established
+## R-066 - Two businesses held for want of a Guneku connection - HALF RESOLVED 2026-09-17
 
 **Magic Gate Enterprise** (Douala, household and office equipment) and **Vicky and Son's**
 (Guneku village, construction and electronics) are recorded in full and are NOT published.
@@ -1491,7 +1510,26 @@ Gate was NOT attached to Goddy Akwe, whose profession the register records as bu
 whose name appeared near it in a note. That is the surname inference this repository refuses
 everywhere else.
 
-**Owner action:** name who runs either one and it publishes.
+**Magic Gate Enterprise — RESOLVED 2026-09-17.** The Fondom confirmed it is **Goddy Akwe’s**.
+The business is linked to `goddy-akwe`, the hold reason is gone and it is published. The
+relationship is recorded as Owner on the plain reading of "the person behind the business",
+and the evidence line says explicitly that no corporate office, shareholding or registration
+is asserted beyond that.
+
+Worth recording plainly: this is the same connection the build refused to infer a day
+earlier, when Goddy’s name merely appeared near the business in a note. Refusing then and
+accepting now is not inconsistency — it is the difference between an inference and a
+confirmation, which is the whole rule.
+
+His business address did NOT become his residence. His register entry still reads Cameroon
+and carries no town, and a test checks that no part of the Bonaberi address reached it.
+
+**Vicky and Son’s — STILL HELD.** The Fondom has confirmed that its owner remains unknown.
+It is recorded in full, published nowhere, attached to nobody, and no proprietor has been
+manufactured out of the trading name. A test asserts that none of the people this
+reconciliation resolved has been attached to it.
+
+**Owner action:** name who runs Vicky and Son’s and it publishes.
 
 ---
 

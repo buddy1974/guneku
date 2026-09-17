@@ -2392,3 +2392,81 @@ surface.
 
 `npx tsc --noEmit` clean · `npx vitest run` **1167 passed across 47 files** · `npm run build`
 succeeded at 300 static pages · ESLint clean on every file this operation touched.
+
+## 2026-09-17 - The Fondom said who stands behind each business
+
+A surgical identity reconciliation on the Business Directory. Every held person link but
+one is now resolved, and the register grew by the three people the Fondom named to make
+that possible. **R-065 closed. R-066 half closed.** No new architectural decision was
+needed, so no ADR was written.
+
+### Register: 110 — 113
+
+Reconciled against the register before anything was created. **Goddy Akwe** and **Ngwa
+Vitalis** already existed and were reused. **Edith Fongho**, **Denis M. Tebit** and **Tanwi
+Amerion** were genuinely new and were added under `owner-confirmation-2026-09-17`.
+
+The duplicate guard placed each of the three as NEW_SAFE with its reasoning: Edith shares
+one name part with Sam Fongoh and Ma Clara Fongho; Denis shares one with Oswald Tebit,
+Kenneth Tebit and a near spelling of Fomuki Tebi; Tanwi shares one with Festus Tanwi. A
+single shared family name has never joined two people here and did not start.
+
+None of the three carries a body, chapter, quarter, residence, profession, GUDECA membership
+or Palace relationship. The qualifications the Fondom supplied for Denis — PhD, MSc — are in
+his note and not in his name: this register carries an honorific where a source uses one and
+everything else in a field of its own.
+
+**The freeze was not breached.** It stopped uncontrolled discovery; it never stopped the
+Fondom naming somebody it knows. These three were added because the Fondom named them, not
+because a link needed them to exist.
+
+### Businesses: 8 public — 9
+
+| Business | Was | Now | Person | Relationship |
+|---|---|---|---|---|
+| Magic Gate Enterprise | held, no connection | **public** | `goddy-akwe` | Owner |
+| Vitalis Fish Breeding Centre | public, person held | public | `ngwa-vitalis` | Operator |
+| Concept Care Solutions | public, person held | public | `edith-fongho` | Managing Director |
+| ARCpoint Labs | public, person held | public | `denis-m-tebit` | Associated |
+| Any Lab Test Now — Lynchburg | public, person held | public | `denis-m-tebit` | Associated |
+| Fondom Studios | public, person held | public | `tanwi-amerion` | Owner |
+| Vicky and Son’s | held, no connection | **held** | none | — |
+
+Relationships were kept as the evidence supports them rather than levelled to Owner: Ngwa
+Vitalis stays **Operator**, Edith Fongho stays **Managing Director**, and both Denis
+businesses stay **Associated**, because the confirmations settled who these people are and
+not what offices they hold. The Fon is still a **Physician** of Urologie Neuwied.
+
+Nothing else changed. **Vicky and Son’s** was not attached to anybody and no proprietor was
+manufactured from the trading name.
+
+### The link now reads both ways
+
+A business page has named its person since the directory was built. A register entry now
+names the businesses that point at it — a name, a link and the relationship, and nothing
+else, because what a business does belongs on the business’s own page and a second copy is
+the copy that drifts.
+
+It only became worth rendering once the held links resolved; before today most entries would
+have had nothing to show. The database read behind it is memoised for the life of the
+process, because without that a build with no database attempts one connection per register
+page and writes a hundred and thirteen identical lines saying so. It now writes eight, one
+per build worker.
+
+### What was NOT resolved
+
+**The Fondom Studios location conflict stands.** Its own material gives a street address in
+Guneku and a separate public listing says Bamenda. Confirming who owns a business says
+nothing about where it trades, so the record still carries Guneku and still records the
+conflict. **R-067 is untouched.**
+
+### Verification
+
+`npx tsc --noEmit` clean · `npx vitest run` **1173 passed across 47 files**, up from 1167 ·
+`npm run build` succeeded at **304 static pages** · ESLint clean on every touched file.
+
+Seven assertions were rewritten rather than relaxed. Each had asserted the held state the
+Fondom has now resolved, and each was replaced by one asserting the resolved state — plus a
+new one keeping the original rule alive: every `personSlug` in the directory must resolve to
+a real identity, and a business may carry a name without a slug only where no slug is
+claimed at all.

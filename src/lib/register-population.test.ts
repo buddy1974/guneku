@@ -36,6 +36,9 @@ const POPULATION_SOURCES = [
      publication contract, the town check, the contact check. Nothing was wrong in them; the
      checks simply were not looking. A source that opens entries belongs on this list. */
   'palace-family-2026-09-16',
+  /* Three people the Fondom added on 17 September so the businesses it had confirmed could
+     be linked to them. On this list so every sweep below covers them too. */
+  'owner-confirmation-2026-09-17',
 ]
 
 /** Two entries were opened from the 2021 quarter-elections coverage, which the register had
@@ -58,8 +61,8 @@ describe('the register grew, and every entry is still one person', () => {
     /* 45 entries were opened across this pass and one was folded back into a man who was
        already in the register the same day, on the Fondom's confirmation — see R-059 and the
        Tibi test below. */
-    expect(ADDED).toHaveLength(58)
-    expect(NAMES).toHaveLength(110)
+    expect(ADDED).toHaveLength(61)
+    expect(NAMES).toHaveLength(113)
     expect(NAMES.length).toBe(new Set(NAMES.map(n => n.slug)).size)
   })
 
@@ -604,7 +607,7 @@ describe('every source an entry names is declared', () => {
   })
 
   it('records when the register was last changed', () => {
-    expect(namesDoc.meta.updated).toBe('2026-09-16')
+    expect(namesDoc.meta.updated).toBe('2026-09-17')
   })
 
   it('keeps the record of the name that was taken down', () => {

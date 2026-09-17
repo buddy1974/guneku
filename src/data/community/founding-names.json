@@ -1,7 +1,7 @@
 {
  "meta": {
   "purpose": "The first names in the Indigenes Directory. A directory that opens empty converts badly; a directory that already carries your name converts well. These are seed stubs only — name, role, chapter and the source the name came from. Nothing else is published: no photograph, no location, no contact, no biography. Each one carries a Claim action and a Remove action.",
-  "updated": "2026-09-16",
+  "updated": "2026-09-17",
   "authorised_by": "Product Owner, 2026-09-03 — publish all founding names now.",
   "publication_rule": "A seed stub may show ONLY: display name, role/office, body, chapter, source label, and — where the person already has a published profile on this site — a link to it. Any further field must come from the person themselves after they claim. Do not add photographs, employers, cities or contact details to this file.",
   "objection_route": "Every stub links to /indigenes/submit?intent=remove — a one-click request to have the name taken down, honoured without question. This is what makes publishing a name the person did not personally submit defensible; do not remove it.",
@@ -36,7 +36,8 @@
    "gudeca-us-2023": "The GUDECA US chapter gathering of 2023, carried in the media archive.",
    "owner-correction-2026-09-03": "Confirmed by the Fondom on 3 September 2026.",
    "owner-confirmation-2026-09-16": "Confirmed as sons and daughters of Guneku by the Product Owner, as data controller, on 16 September 2026, with a residence, an occupation or an affiliation supplied alongside some of the names. Towns were supplied and are deliberately not published against a name: this file records a country, which is what the diaspora dimension reads.",
-   "palace-family-2026-09-16": "Confirmed by the Product Owner, as data controller, on 16 September 2026, which stated that there is one Fomuki family in Guneku and that it is the Palace family. It establishes membership of that family and nothing further: an office or a title of the Palace is established separately or not at all."
+   "palace-family-2026-09-16": "Confirmed by the Product Owner, as data controller, on 16 September 2026, which stated that there is one Fomuki family in Guneku and that it is the Palace family. It establishes membership of that family and nothing further: an office or a title of the Palace is established separately or not at all.",
+   "owner-confirmation-2026-09-17": "Confirmed as sons and daughters of Guneku by the Product Owner, as data controller, on 17 September 2026, each named as the person behind a business in the Guneku Business Directory. The business relationship is recorded on the business, never here."
   },
   "deceased_rule": "A person recorded as deceased is listed with respect and NEVER carries a claim action. `deceased: true` removes the claim button and the 'not me' link; the entry stands as a record, not an invitation.",
   "body_rule": "`body` is an office-holding body (see bodies.json); `chapter` is a place (see chapters.json). A person may have both, one, or neither. Thadeus Fon holds national office AND belongs to the Douala chapter.",
@@ -1269,6 +1270,38 @@
    "source": "owner-confirmation-2026-09-16",
    "sourceLabel": "Confirmed by the Fondom, 16 September 2026",
    "note": "Confirmed a son or daughter of Guneku by the Fondom. No office, body or chapter is recorded, and none is inferred."
+  },
+  {
+   "slug": "edith-fongho",
+   "display": "Edith Fongho",
+   "aliases": [],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-17",
+   "sourceLabel": "Confirmed by the Fondom, 17 September 2026",
+   "note": "Confirmed a daughter of Guneku by the Fondom, which also confirmed her as the person behind Concept Care Solutions; that relationship is recorded on the business, not here. A different person from Sam Fongoh and from Ma Clara Fongho, with whom she shares a family name and nothing else. No office, body, chapter or place is recorded, and none is inferred."
+  },
+  {
+   "slug": "denis-m-tebit",
+   "display": "Denis M. Tebit",
+   "aliases": [
+    "Denis Tebit"
+   ],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-17",
+   "sourceLabel": "Confirmed by the Fondom, 17 September 2026",
+   "note": "Confirmed a son of Guneku by the Fondom, which also confirmed him as the Guneku connection to ARCpoint Labs and to Any Lab Test Now in Virginia; those relationships are recorded on the businesses, not here. The Fondom’s record of him carries the qualifications PhD and MSc, which are kept out of the name because this register has never put a suffix in one. A different person from Oswald Tebit, from Kenneth Tebit and from Fomuki Tebi, with each of whom he shares a family name or a near spelling of one and nothing else. No office, body, chapter or place is recorded, and none is inferred."
+  },
+  {
+   "slug": "tanwi-amerion",
+   "display": "Tanwi Amerion",
+   "aliases": [],
+   "role": "Named in the Fondom record",
+   "chapter": null,
+   "source": "owner-confirmation-2026-09-17",
+   "sourceLabel": "Confirmed by the Fondom, 17 September 2026",
+   "note": "Confirmed a son of Guneku by the Fondom, which also confirmed him as the owner of Fondom Studios; that relationship is recorded on the business, not here. A different person from Festus Tanwi, the GUDECA EU officer, with whom he shares a name and nothing else. No office, body, chapter or place is recorded, and none is inferred."
   }
  ]
 }

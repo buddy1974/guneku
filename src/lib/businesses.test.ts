@@ -9,8 +9,8 @@ import {
   BUSINESS_CATEGORIES, CATEGORY_LABEL, isBusinessCategory, isBusinessRelationship,
   type Business,
 } from './businesses'
-import { getFoundingName } from './community'
-import { classifyCandidate } from './identity-index'
+import { getFoundingName, allFoundingNames } from './community'
+import { identityIndex } from './identity-index'
 import { search } from './search-index'
 
 /* The Business Directory: what it publishes, whom it attaches it to, and the two things a
@@ -20,6 +20,12 @@ import { search } from './search-index'
 const ALL = curatedBusinesses()
 const PUBLIC = publicCuratedBusinesses()
 const RAW = readFileSync('src/data/businesses/businesses.json', 'utf-8')
+
+/** Register slugs whose name or aliases contain a probe, for "exactly one X" assertions. */
+const NAMES_WITH = (probe: string): string[] =>
+  allFoundingNames()
+    .filter(n => new RegExp(probe, 'i').test([n.display, ...(n.aliases ?? [])].join(' ')))
+    .map(n => n.slug)
 
 describe('the record is coherent', () => {
   it('gives every business a unique slug and a real category', () => {
@@ -85,45 +91,103 @@ describe('a person is attached only where somebody established it', () => {
     }
   })
 
-  it('invents no slug for a person the register does not hold', () => {
-    /* Tanwi Amerion, Edith Fongho and Denis M. Tebit were confirmed by the Fondom as the
-       people behind three of these businesses and are NOT in the Indigenes register. The
-       business is published; the person link is held, by name, with no slug. The Indigenes
-       programme is frozen and a business build does not get to reopen it. */
-    for (const [slug, name] of [
-      ['fondom-studios', 'Tanwi Amerion'],
-      ['concept-care-solutions', 'Edith Fongho'],
-      ['arcpoint-labs', 'Denis M. Tebit'],
-      ['any-lab-test-now-lynchburg', 'Denis M. Tebit'],
+  it('resolves every one of the businesses the Fondom has confirmed', () => {
+    /* These four were HELD until 2026-09-17: the Fondom had named the people behind them and
+       none of those people was in the register, so the name was recorded and no slug was
+       invented. The Fondom then added them to the register, and the links resolved. That
+       order is the point — the identity came first and the link followed it, rather than a
+       link being made to work by manufacturing an identity. */
+    for (const [slug, personSlug, relationship] of [
+      ['fondom-studios', 'tanwi-amerion', 'owner'],
+      ['concept-care-solutions', 'edith-fongho', 'managing-director'],
+      ['arcpoint-labs', 'denis-m-tebit', 'associated'],
+      ['any-lab-test-now-lynchburg', 'denis-m-tebit', 'associated'],
     ] as const) {
       const b = getCuratedBusiness(slug)!
-      const p = b.people![0]
-      expect(p.personSlug, slug).toBeUndefined()
-      expect(p.heldName, slug).toBe(name)
-      expect(resolveBusinessPeople(b)[0].held, slug).toBe(true)
-      expect(classifyCandidate(name).resolvesTo, name).toBeUndefined()
-      expect(getFoundingName(businessSlug(name))).toBeNull()
+      expect(b.people![0].personSlug, slug).toBe(personSlug)
+      expect(b.people![0].relationship, slug).toBe(relationship)
+      expect(b.people![0].heldName, slug).toBeUndefined()
+
+      const resolved = resolveBusinessPeople(b)[0]
+      expect(resolved.held, slug).toBe(false)
+      expect(resolved.href, slug).toBe(`/indigenes/founding/${personSlug}`)
+      expect(getFoundingName(personSlug), personSlug).not.toBeNull()
     }
   })
 
-  it('does not link the fish centre to the councillor of the same name', () => {
-    /* The register holds a Ngwa Vitalis. Nothing establishes that he is the man who runs the
-       breeding centre, and a same-name match has never been an identity here. */
-    const b = getCuratedBusiness('vitalis-fish-breeding-centre')!
-    expect(b.people![0].personSlug).toBeUndefined()
-    expect(b.people![0].heldName).toBe('Ngwa Vitalis')
-    expect(resolveBusinessPeople(b)[0].held).toBe(true)
-    /* And the man himself is untouched in the register. */
-    expect(getFoundingName('ngwa-vitalis')).not.toBeNull()
+  it('gives the two Denis businesses one person and keeps them two businesses', () => {
+    const arc = getCuratedBusiness('arcpoint-labs')!
+    const anylab = getCuratedBusiness('any-lab-test-now-lynchburg')!
+    expect(arc.people![0].personSlug).toBe(anylab.people![0].personSlug)
+    expect(arc.slug).not.toBe(anylab.slug)
+    expect(arc.name).not.toBe(anylab.name)
+    /* And nothing says or implies he owns the national brand. */
+    expect(arc.people![0].relationship).toBe('associated')
+    expect(arc.sourceNote).toMatch(/national brand/i)
+    expect(JSON.stringify(arc)).not.toMatch(/"relationship":\s*"owner"/)
   })
 
-  it('gives Magic Gate no owner at all, and holds it for that reason', () => {
+  it('still refuses to invent a slug for anybody the Fondom has not confirmed', () => {
+    /* The rule the four above were held under has not been relaxed; it was satisfied. Every
+       personSlug in the directory resolves to a real identity, and a business may only carry
+       a heldName where no slug is claimed at all. */
+    for (const b of ALL) {
+      for (const person of b.people ?? []) {
+        if (person.personSlug) {
+          const known = getFoundingName(person.personSlug)
+            || identityIndex().some(i => i.id === person.personSlug)
+          expect(Boolean(known), `${b.slug} -> ${person.personSlug}`).toBe(true)
+          expect(person.heldName, b.slug).toBeUndefined()
+        }
+      }
+    }
+  })
+
+  it('links the fish centre to the councillor, now that the Fondom has said they are one man', () => {
+    /* Held from the forensic review until 2026-09-17 on the rule that a same-name match is
+       not an identity. The Fondom confirmed it; the rule was never that the link was wrong,
+       only that nothing established it. */
+    const b = getCuratedBusiness('vitalis-fish-breeding-centre')!
+    expect(b.people![0].personSlug).toBe('ngwa-vitalis')
+    expect(b.people![0].heldName).toBeUndefined()
+    /* Operator, not owner: the confirmation settled who he is, not what he holds. */
+    expect(b.people![0].relationship).toBe('operator')
+    expect(resolveBusinessPeople(b)[0].held).toBe(false)
+
+    /* And there is still exactly one Ngwa Vitalis. */
+    expect(NAMES_WITH('vitalis')).toEqual(['ngwa-vitalis'])
+  })
+
+  it('resolves Magic Gate to Goddy Akwe and publishes it', () => {
+    /* Held until 2026-09-17 for one reason only — no Guneku connection was established — and
+       explicitly NOT attached to Goddy on the strength of his name appearing near it in a
+       note. The Fondom then said it is his, which is a confirmation and not an inference. */
     const b = getCuratedBusiness('magic-gate-enterprise')!
-    expect(b.people ?? []).toEqual([])
+    expect(b.status).toBe('public')
+    expect(b.holdReason).toBeUndefined()
+    expect(b.people![0].personSlug).toBe('goddy-akwe')
+    expect(resolveBusinessPeople(b)[0].held).toBe(false)
+
+    /* Exactly one Goddy Akwe, and his register entry is untouched by any of this. */
+    expect(NAMES_WITH('goddy')).toEqual(['goddy-akwe'])
+    const goddy = getFoundingName('goddy-akwe')!
+    expect(goddy.residence).toBe('Cameroon')
+    /* The business address did NOT become his residence. */
+    expect(JSON.stringify(goddy)).not.toMatch(/bonaberi|ndobo|douala/i)
+  })
+
+  it("leaves Vicky and Son's held, with nobody invented for it", () => {
+    const b = getCuratedBusiness('vicky-and-sons')!
     expect(b.status).toBe('held')
-    expect(b.holdReason).toMatch(/no Guneku connection/i)
-    /* Nobody was attached to it because their name appeared near it in a note. */
-    expect(JSON.stringify(b)).not.toMatch(/goddy|ndum|akwe/i)
+    expect(b.people ?? []).toEqual([])
+    expect(b.holdReason).toMatch(/no proprietor is named/i)
+    /* Not assigned to any of the people this reconciliation resolved, and no proprietor
+       manufactured out of the trading name. */
+    const written = JSON.stringify(b).toLowerCase()
+    for (const name of ['goddy', 'ngwa', 'vitalis', 'tanwi', 'edith', 'denis', 'akwe']) {
+      expect(written, name).not.toContain(name)
+    }
+    expect(getFoundingName('vicky')).toBeNull()
   })
 
   it('does not make the Fon the owner of the practice he works in', () => {
@@ -132,12 +196,69 @@ describe('a person is attached only where somebody established it', () => {
     expect(JSON.stringify(b)).not.toMatch(/"relationship":\s*"owner"/)
   })
 
-  it('opened no new indigene record for anybody in this build', () => {
-    /* The Indigenes programme is frozen at 110. A business build must not move it. */
+  it('holds the register at the count the Fondom has authorised, and no more', () => {
+    /* 110 after the population programme froze, plus the three the Fondom explicitly added on
+       2026-09-17 so their businesses could be linked. The freeze stopped discovery; it never
+       stopped the Fondom naming somebody it knows. */
     const namesDoc = JSON.parse(
       readFileSync('src/data/community/founding-names.json', 'utf-8'),
-    ) as { names: unknown[] }
-    expect(namesDoc.names).toHaveLength(110)
+    ) as { names: Array<{ slug: string; source: string }> }
+    expect(namesDoc.names).toHaveLength(113)
+
+    const added = namesDoc.names.filter(n => n.source === 'owner-confirmation-2026-09-17')
+    expect(added.map(n => n.slug).sort())
+      .toEqual(['denis-m-tebit', 'edith-fongho', 'tanwi-amerion'])
+  })
+
+  it('gives each newly added person exactly one entry', () => {
+    for (const [probe, slug] of [
+      ['edith', 'edith-fongho'],
+      ['denis', 'denis-m-tebit'],
+      ['amerion', 'tanwi-amerion'],
+    ] as const) {
+      expect(NAMES_WITH(probe)).toEqual([slug])
+    }
+  })
+
+  it('invents no standing, family or membership for the newly added people', () => {
+    for (const slug of ['edith-fongho', 'denis-m-tebit', 'tanwi-amerion']) {
+      const n = getFoundingName(slug)!
+      expect(n.body, slug).toBeUndefined()
+      expect(n.chapter, slug).toBeNull()
+      expect(n.royalRole ?? null, slug).toBeNull()
+      expect(n.notable, slug).toBeFalsy()
+      expect(n.residence, slug).toBeUndefined()
+      expect(n.profession, slug).toBeUndefined()
+      /* The structured fields above are the real guarantee: standing in this register comes
+         from body, chapter, royalRole and notable, and all four are empty for these three.
+
+         The text sweep is narrower than a word list, because a note may legitimately NAME
+         another body in order to say somebody is NOT part of it - Tanwi Amerion's note
+         distinguishes him from Festus Tanwi, the GUDECA EU officer, which is exactly the
+         kind of sentence that keeps two people apart. What must not appear is a CLAIM. */
+      const written = JSON.stringify(n).toLowerCase()
+        /* "a son or daughter of Guneku" is how this register says somebody is an indigene.
+           It is the phrase every one of these notes opens with and it is not a relationship
+           to a person. */
+        .replace(/a son of guneku|a daughter of guneku|son or daughter of guneku/g, 'an indigene')
+
+      for (const claim of [
+        /member of/, /belongs to/, /chapter of/, /quarter of/,
+        /son of /, /daughter of /, /brother|sister|wife of|husband of/,
+        /of the palace family/, /queen|prince|ngam-fon|notable/,
+      ]) {
+        expect(written, `${n.slug} / ${claim}`).not.toMatch(claim)
+      }
+    }
+  })
+
+  it('keeps an academic suffix out of a name', () => {
+    /* The Fondom supplied "Denis M. Tebit, PhD, MSc". This register has never carried a
+       suffix in a display name; the qualifications are recorded in the note instead. */
+    const denis = getFoundingName('denis-m-tebit')!
+    expect(denis.display).toBe('Denis M. Tebit')
+    expect(denis.display).not.toMatch(/PhD|MSc/)
+    expect(denis.note).toMatch(/PhD/)
   })
 })
 
@@ -200,7 +321,7 @@ describe('nothing private is published', () => {
 describe('only approved businesses reach the public', () => {
   it('keeps held businesses out of the public list', () => {
     expect(PUBLIC.every(b => b.status === 'public')).toBe(true)
-    expect(PUBLIC.map(b => b.slug)).not.toContain('magic-gate-enterprise')
+    expect(PUBLIC.map(b => b.slug)).toContain('magic-gate-enterprise')
     expect(PUBLIC.map(b => b.slug)).not.toContain('vicky-and-sons')
     expect(ALL.length).toBeGreaterThan(PUBLIC.length)
   })

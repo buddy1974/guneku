@@ -43,7 +43,7 @@ async function registered(): Promise<Business[]> {
 
 /** Every business a stranger may see, curated first. */
 export async function publicBusinessesForDisplay(): Promise<Business[]> {
-  return mergeBusinesses(publicCuratedBusinesses(), await registered())
+  return mergeBusinesses(publicCuratedBusinesses(), await registeredMemo())
 }
 
 /** One public business by slug, from whichever half holds it. Curated wins a collision: it
@@ -66,4 +66,28 @@ export async function publicBusinessForDisplay(slug: string): Promise<Business |
  *  so a registered business sharing one would be unreachable behind it. */
 export function reservedBusinessSlugs(): string[] {
   return publicCuratedBusinesses().map(b => b.slug)
+}
+
+/* ── The other direction ──────────────────────────────────────────────────────────────────
+ *
+ * A business page names the son or daughter of Guneku behind it. Until the Fondom resolved
+ * the last held relationships on 2026-09-17 the reverse was not worth rendering, because most
+ * links were held and a register entry would have had nothing to show. Now that every
+ * published business resolves to somebody, a person's own entry can say what they run.
+ *
+ * The register pages are statically generated — a hundred and thirteen of them — so the
+ * database read is memoised for the life of the process. Without that, a build with no
+ * database attempts one connection per page and writes a hundred and thirteen identical lines
+ * saying so. */
+let registeredOnce: Promise<Business[]> | null = null
+
+function registeredMemo(): Promise<Business[]> {
+  registeredOnce ??= registered()
+  return registeredOnce
+}
+
+/** Every published business this person is recorded against, curated and registered. */
+export async function businessesForPerson(personSlug: string): Promise<Business[]> {
+  const all = mergeBusinesses(publicCuratedBusinesses(), await registeredMemo())
+  return all.filter(b => (b.people ?? []).some(p => p.personSlug === personSlug))
 }

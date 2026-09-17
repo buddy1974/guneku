@@ -8,6 +8,8 @@ import {
 } from '@/lib/community'
 import { FoundingNameCard } from '@/components/community/FoundingNames'
 import { pageMetadata } from '@/lib/seo'
+import { businessesForPerson } from '@/lib/business-directory'
+import { RELATIONSHIP_LABEL } from '@/lib/businesses'
 
 export async function generateStaticParams() {
   return allFoundingNames().map(n => ({ slug: n.slug }))
@@ -48,6 +50,10 @@ export default async function FoundingNamePage({
 
   const chapter = n.chapter ? getChapter(n.chapter) : null
   const body    = n.body    ? getBody(n.body)       : null
+
+  /* What the directory records this person as running, if anything. Read here rather than
+     copied into the register: the business is the business's own record. */
+  const businesses = await businessesForPerson(n.slug)
 
   /* Peers come from the body where there is one — a councillor's neighbours are the
      other councillors, not everyone who happens to live in the same place. */
@@ -162,6 +168,38 @@ export default async function FoundingNamePage({
               <Link href={`/gudeca/chapters/${chapter.id}`} className="inst-link mt-2 inline-block">
                 {chapter.flag} {chapter.org} — {chapter.place} →
               </Link>
+            </div>
+          )}
+
+          {/* What they run, where the directory records it. The business page has named the
+              person since the directory was built; this is the same fact read from the other
+              end, and it only became worth rendering when the Fondom resolved the last held
+              relationships — before that most entries would have had nothing to show.
+
+              A name and a link, and no more: what the business does belongs on the business's
+              own page, and copying it here would be the second copy that drifts. */}
+          {businesses.length > 0 && (
+            <div className="mt-5 border-t border-[var(--rule)] pt-4">
+              <p className="inst-tag">
+                {businesses.length === 1 ? 'Business' : 'Businesses'}
+              </p>
+              <ul className="mt-2 list-none space-y-2.5 p-0">
+                {businesses.map(b => {
+                  const link = (b.people ?? []).find(p => p.personSlug === n.slug)
+                  return (
+                    <li key={b.slug}>
+                      <Link href={`/businesses/${b.slug}`} className="inst-link inline-block">
+                        {b.name} →
+                      </Link>
+                      {link && (
+                        <p className="inst-meta mt-0.5">
+                          {RELATIONSHIP_LABEL[link.relationship]}
+                        </p>
+                      )}
+                    </li>
+                  )
+                })}
+              </ul>
             </div>
           )}
         </aside>
