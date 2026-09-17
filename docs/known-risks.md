@@ -21,7 +21,7 @@
 | ID | Risk | Type | Severity | Likelihood | Mitigation | Owner | Status |
 |----|------|------|----------|-----------|------------|-------|--------|
 | R-001 | `/guneccul` publishes `wa.me/237675994599`. Those digits match the personal mobile recorded against the National Publicity Secretary in `src/data/pages/gudeca-exco2.json` — the number this pass deliberately withholds is already public elsewhere on the site. | Privacy | High | Certain — live now | Not changed in this pass; predates it. Confirm with the holder whether the number may stand as a public GUNECCUL contact, or replace it with an institutional line. | Marcel | Open |
-| R-002 | The `docs/` governance set required by `CLAUDE.md` is incomplete. `repository-map.md`, `data-ownership.md` and `production-readiness.md` are absent; `product-brief.md`, `architecture.md`, `workflow-map.md`, `release-checklist.md` and `security-checklist.md` exist at 0 bytes. | Debt | Medium | Certain | Only the three records the memory rule requires were opened (this file, `decision-log.md`, `change-log.md`). The rest need a deliberate documentation decision, not invented content. | Marcel | Open |
+| R-002 | The `docs/` governance set required by `CLAUDE.md` is incomplete. **Re-measured 2026-09-17:** `repository-map.md`, `data-ownership.md` and `production-readiness.md` are still absent; `product-brief.md`, `workflow-map.md`, `release-checklist.md` and `security-checklist.md` are still 0 bytes. `architecture.md` has since been written (8.2KB), as have `programme-architecture.md` (34KB), `acceptance-checklist.md`, `security-checklist.md`'s subject matter inside this file, and now `seo-launch-handoff.md` and `final-touches-handoff.md`. | Debt | Medium | Certain | Unchanged and deliberate: the remaining files need a documentation decision from the owner about what they should assert, not content invented to fill them. A 0-byte file is worse than an absent one — it looks answered. Either write them or delete the empty placeholders. | Marcel | Open |
 | R-003 | The Agro CIG certificate number is an OCR read that has never been checked against the original. | Bug | Medium | Certain | Held: `certificateNumber` is `null` and the certificate image is unpublished. Verify digit by digit before publishing either. | Marcel | Open — mitigated |
 | R-004 | The relationship between Guneku Medical Center and the proposed Reference Healthcare Centre is unestablished, and the March 2026 Medical Doctor vacancy has not been re-checked since. | Bug | Medium | Certain | The facility record publishes at its supported status only; neither identity nor separation is asserted; the vacancy is not advertised. | Marcel | Open |
 | R-005 | The Traditional Council roster is five years old. | Debt | Low | Likely | Published only as "as recorded in 2021", with an explicit note that it is not a claim about the present. Supersede when the Palace confirms current holders. | Marcel | Open — mitigated |
@@ -170,16 +170,26 @@ correct — inventing a location for an officer would be worse — but it means 
 counts on `/diaspora` and `/gudeca` understate the register. Resolved when the officers
 claim their entries and say where they are.
 
-## R-020 — The indigenes routes still return internal error text
+## R-020 — The indigenes routes returned internal error text — CLOSED, and the register was stale
 
-`/api/indigenes/all` and `/api/indigenes/profile` (three places) return
+`/api/indigenes/all` and `/api/indigenes/profile` (three places) returned
 `(err as Error).message` straight to the client. The four form routes were corrected on
 2026-09-03 (ADR-023); these were left because they are database-backed rather than form
-routes and were outside that change's scope. They are the more sensitive of the two sets:
+routes and were outside that change's scope. They were the more sensitive of the two sets:
 an error thrown by the Neon driver can carry connection or schema detail, and these routes
 are reachable without authentication.
 
-Not executed: give them the same treatment — log server-side, return one fixed message.
+**Closed. Found already fixed on 2026-09-17**, during a security sweep that read the routes
+rather than trusting this entry. `/api/indigenes/all` returns `dbErrorResponse(...)`;
+`/api/indigenes/profile` routes every catch through one `fail()` helper that maps
+`AuthError` to its own status, a unique violation to 409 with the way out, `DbConfigError`
+and `42P01` to 503, and everything else to a fixed "Something went wrong" 500. The caught
+message is not returned anywhere in either file.
+
+Worth recording why this sat open: the fix shipped with the work that needed it and nobody
+came back to the register. An entry that says a live route leaks driver detail, when it has
+not for some time, costs the next reader real time — and would cost more if it made a true
+entry beside it look equally doubtful. Verified against the current source, not from memory.
 
 ## R-021 — The rate limiter depends on guneku.org not being proxied
 
@@ -1532,6 +1542,33 @@ reconciliation resolved has been attached to it.
 **Owner action:** name who runs Vicky and Son’s and it publishes.
 
 ---
+
+## R-068 - The human check is 300px wide and a small phone is not - Open, mitigated
+
+Cloudflare renders the Turnstile widget at a fixed 300px. No card on this site has 300px to
+spare once its own padding is taken off, so below roughly 414px it does not fit.
+
+Until 2026-09-17 it did not merely not fit — it pushed the **whole page** sideways, because a
+fixed width inside a normal-flow block propagates outwards as a floor every ancestor has to
+honour. Measured on production: 79px of horizontal page scroll at 320px, 39px at 360px, 9px
+at 390px, on `/contact`, `/support` and `/indigenes/submit`.
+
+**Mitigated in `src/components/forms/TurnstileField.tsx`** with `contain: inline-size` plus
+`overflow-x: auto` on the holder. Containment makes the holder's width independent of its
+contents, so the widget stops speaking for the page; `overflow-x` keeps what does not fit
+inside that box. Verified on production: zero page overflow at 320, 360 and 390px on all
+three pages, and nothing changed at any width where the widget already fitted.
+
+Note that `overflow-x: auto` alone did nothing — measured, 79px before and after. The
+automatic minimum size of zero that scroll containers get applies to flex and grid items, not
+to a block in normal flow. Containment is what was required.
+
+**What remains:** on a phone narrower than about 414px the widget can be scrolled a little
+way inside its own box — 103px at 320px, 33px at 390px. The page does not move.
+
+**Owner decision, not a defect:** Cloudflare offers a `compact` widget (150×140) that fits
+everywhere. It looks different on every form, so it was not changed unilaterally. One line if
+wanted.
 
 ## R-067 - Fondom Studios is placed in Guneku, and one public listing says Bamenda
 
