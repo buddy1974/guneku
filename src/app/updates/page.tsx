@@ -4,12 +4,15 @@ import { getAllUpdates } from '@/lib/content'
 import type { Update }   from '@/lib/content'
 import { PageHero }      from '@/components/layout/PageHero'
 import { UpdateCardMedia } from '@/components/ui/UpdateCardMedia'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata = {
-  alternates: { canonical: '/updates' },
-  title:       'Village Square — News from Guneku Fondom',
-  description: 'The Guneku news archive — announcements, events and community records from the Fondom, kept in order by year.',
-}
+export const metadata = pageMetadata({
+  title: 'Village Square — News from Guneku',
+  description:
+    'The Guneku news archive — announcements, events and community records from the '
+    + 'Fondom, kept in order by year.',
+  path: '/updates',
+})
 
 const fmt = (d: string | null) =>
   d ? new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Undated'

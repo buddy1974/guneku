@@ -3,12 +3,15 @@ import Image          from 'next/image'
 import { Crown, Heart, Stethoscope, Scroll, ArrowRight } from 'lucide-react'
 import { getFonProfile, getAllPalaceArticles } from '@/lib/content'
 import { Reveal }        from '@/components/ui/Reveal'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata = {
-  alternates: { canonical: '/palace' },
-  title: 'The Palace — HRH Dr. Fomuki Walters Ticha IX',
-  description: 'Inside the palace of Guneku — home of the ninth Fon, physician, and visionary leader of his Fondom.',
-}
+export const metadata = pageMetadata({
+  title: 'The Palace of Guneku',
+  description:
+    'Inside the palace of Guneku — home of the ninth Fon, HRH Dr. Fomuki Walters Ticha '
+    + 'IX, physician and leader of his Fondom.',
+  path: '/palace',
+})
 
 /* The succession ran as distinct stages and is kept that way. There is no single
    coronation date: the one this site used to carry, 17 January 2016, matches no

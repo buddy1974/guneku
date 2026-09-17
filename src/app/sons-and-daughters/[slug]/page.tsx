@@ -18,6 +18,7 @@ type NotableView = {
   origin?: string | null
   location?: string | null
   institution?: string | null
+  company?: string | null
   companyWebsite?: string | null
   company_description?: string | null
   initiative?: {
@@ -29,6 +30,9 @@ type NotableView = {
   results?: string[]
 }
 import { pageMetadata, excerptFrom } from '@/lib/seo'
+import { PageGraph } from '@/components/seo/PageGraph'
+import { abs, profileNode } from '@/lib/schema'
+import { publicCuratedBusinesses } from '@/lib/businesses'
 import type { Metadata } from 'next'
 import { PageHero } from '@/components/layout/PageHero'
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
@@ -68,6 +72,29 @@ export default async function NotablePage({
 
   return (
     <main style={{ backgroundColor:'oklch(0.965 0.012 85)', minHeight:'100vh' }}>
+      {/* The profile as an entity, with the email address and telephone number the record
+          also holds left out — see profileNode. */}
+      <PageGraph
+        path={`/sons-and-daughters/${slug}`}
+        name={n.name}
+        description={excerptFrom(n.bio || n.title)}
+        primaryEntity={`${abs(`/sons-and-daughters/${slug}`)}#person`}
+        trail={[{ name: 'Sons & Daughters', path: '/sons-and-daughters' }]}
+        image={n.portrait ?? n.photo ?? null}
+        nodes={[profileNode({
+          slug,
+          name: n.name,
+          jobTitle: n.title ?? undefined,
+          description: excerptFrom(n.bio || n.title),
+          image: n.portrait ?? n.photo ?? null,
+          location: n.location ?? undefined,
+          company: n.company ?? n.institution ?? undefined,
+          companyUrl: n.companyWebsite ?? undefined,
+          businessSlugs: publicCuratedBusinesses()
+            .filter(b => (b.people ?? []).some(x => x.personSlug === n.id))
+            .map(b => b.slug),
+        })]}
+      />
       <PageHero
         label="NOTABLE GUNEKU SON"
         title={n.name.toUpperCase()}

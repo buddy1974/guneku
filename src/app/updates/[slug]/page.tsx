@@ -6,6 +6,7 @@ import { ArticleBody } from '@/components/layout/ArticleBody'
 import { EditorialLead } from '@/components/layout/EditorialLead'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { SITE_URL, SITE_NAME } from '@/lib/seo'
+import { PageGraph } from '@/components/seo/PageGraph'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 
@@ -39,11 +40,23 @@ export default async function UpdatePage({
 
   return (
     <main style={{ backgroundColor:'oklch(0.965 0.012 85)', minHeight:'100vh' }}>
+      {/* The page and the trail to it. The article itself is the node below, which this
+          points at by id rather than describing a second time. */}
+      <PageGraph
+        path={`/updates/${slug}`}
+        name={String(update.title)}
+        description={(update as any).excerpt ?? undefined}
+        primaryEntity={`${SITE_URL}/updates/${slug}#article`}
+        trail={[{ name: 'Village Square', path: '/updates' }]}
+        image={(update as any).leadImage ?? null}
+        datePublished={(update as any).publishedAt ?? null}
+      />
       {/* NewsArticle from the record's own fields. No author or byline is invented,
           and no date is asserted that the record does not carry. */}
       <JsonLd data={{
         '@context': 'https://schema.org',
         '@type': 'NewsArticle',
+        '@id': `${SITE_URL}/updates/${slug}#article`,
         headline: update.title,
         mainEntityOfPage: `${SITE_URL}/updates/${slug}`,
         ...(update.publishedAt ? { datePublished: update.publishedAt } : {}),

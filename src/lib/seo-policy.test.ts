@@ -76,7 +76,7 @@ describe('a register entry describes itself', () => {
   })
 
   it('names a deceased entry as a record, and offers nothing else', () => {
-    for (const { n, d } of described.filter(x => x.n.deceased)) {
+    for (const { d } of described.filter(x => x.n.deceased)) {
       expect(d).toContain('archive')
       expect(d).not.toContain('register')
     }

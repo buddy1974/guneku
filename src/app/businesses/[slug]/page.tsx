@@ -4,6 +4,8 @@ import type { Metadata } from 'next'
 import { BusinessCover, BusinessLogo, BusinessCard } from '@/components/business/BusinessCard'
 import { BusinessVideos } from '@/components/business/BusinessVideos'
 import { pageMetadata } from '@/lib/seo'
+import { PageGraph } from '@/components/seo/PageGraph'
+import { businessId, businessNode } from '@/lib/schema'
 import { publicBusinessForDisplay, publicBusinessesForDisplay } from '@/lib/business-directory'
 import {
   CATEGORY_LABEL, locationLabel, displayUrl, resolveBusinessPeople, relatedBusinesses,
@@ -66,8 +68,28 @@ export default async function BusinessPage({
   ] as Array<[string, string | undefined]>)
     .filter((x): x is [string, string] => Boolean(x[1]))
 
+  /* Only people the directory has reconciled to the register. A held name is a name the
+     Fondom recorded and has not yet matched to anybody, and a graph is the last place to
+     turn that into an identity. */
+  const memberSlugs = (business.people ?? [])
+    .map(p => p.personSlug)
+    .filter((s): s is string => Boolean(s))
+
   return (
     <main className="min-h-screen bg-[var(--paper)]">
+      {/* No rating, no review, no price, no opening hours: this directory holds none of
+          those, and a schema slot is not a reason to produce one. What goes in is what the
+          page below shows. */}
+      <PageGraph
+        path={`/businesses/${slug}`}
+        name={business.name}
+        description={business.tagline ?? business.description}
+        primaryEntity={businessId(business.slug)}
+        trail={[{ name: 'Businesses', path: '/businesses' }]}
+        image={business.cover ?? business.logo ?? null}
+        nodes={[businessNode(business, memberSlugs)]}
+      />
+
       {/* ── Hero ── */}
       <section className="inst-wrap pt-8 md:pt-10">
         <nav aria-label="Breadcrumb" className="inst-meta">

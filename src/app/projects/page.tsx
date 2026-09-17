@@ -6,12 +6,15 @@ import {
   REGISTER_STATEMENT, registerReviewedOn, contributeHref, NOT_RECORDED,
   type Project, type ProjectClass,
 } from '@/lib/projects'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata = {
-  alternates: { canonical: '/projects' },
-  description: "The full Guneku development register — projects, institutions, programmes, proposals, historical records and open issues, each shown at the stage its sources establish, with what the register does not yet record stated plainly.",
+export const metadata = pageMetadata({
   title: 'Projects — Guneku Development',
-}
+  description:
+    'The full Guneku development register — projects, institutions, programmes, '
+    + 'proposals and open issues, each shown at the stage its sources establish.',
+  path: '/projects',
+})
 
 /* The development register.
  *

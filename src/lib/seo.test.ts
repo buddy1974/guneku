@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest'
+import { readFileSync } from 'node:fs'
 import { SITE_URL, SITE_NAME, excerptFrom, shortTitle, pageMetadata } from './seo'
 import robots from '@/app/robots'
 import sitemap from '@/app/sitemap'
@@ -89,6 +90,62 @@ describe('the sitemap publishes what is public and nothing else', () => {
                      '/images/gallery/coronation/', '/images/gallery/enthronement/']) {
       expect(all).not.toContain(s)
     }
+  })
+})
+
+describe('a title and a description are given the room they actually have', () => {
+  /* A production crawl found fifty titles over sixty characters and forty-six descriptions
+     over a hundred and sixty. Almost every long title is an archive headline, and those are
+     evidence — so they are fitted here rather than rewritten there. */
+  const HEADLINE = 'GUNEKU VILLAGE COUNCIL HOLDING IN THE FON’S PALACE GUNEKU 23RD APRIL '
+    + '2016 IN THE HEARING OF THE THEFT THAT OCCURRED IN THE PALACE ON THE 14TH APRIL 2016'
+
+  it('keeps the brand on a title that still fits with it', () => {
+    const m = pageMetadata({ title: 'The Palace of Guneku', path: '/palace' })
+    /* A plain string lets the layout append " | Guneku Fondom". */
+    expect(typeof m.title).toBe('string')
+    expect(String(m.title).length + ' | Guneku Fondom'.length).toBeLessThanOrEqual(60)
+  })
+
+  it('drops the brand rather than the headline when both will not fit', () => {
+    const m = pageMetadata({ title: HEADLINE, path: '/updates/x' })
+    const absolute = (m.title as { absolute: string }).absolute
+    expect(absolute.length).toBeLessThanOrEqual(60)
+    /* Never a word the record does not say: the shown title is a prefix of the real one. */
+    expect(HEADLINE.startsWith(absolute.replace(/…$/, ''))).toBe(true)
+  })
+
+  it('gives a social card more room than a search result, and not unlimited room', () => {
+    const m = pageMetadata({ title: HEADLINE, path: '/updates/x' })
+    const og = String(m.openGraph?.title)
+    expect(og.length).toBeGreaterThan(60)
+    expect(og.length).toBeLessThanOrEqual(89)
+  })
+
+  it('ends a long description on a sentence rather than in the middle of a word', () => {
+    const long = 'The full Guneku development register — projects, institutions, programmes, '
+      + 'proposals, historical records and open issues. Each is shown at the stage its '
+      + 'sources establish, with what the register does not yet record stated plainly.'
+    const m = pageMetadata({ title: 'X', path: '/projects', description: long })
+    expect(String(m.description).length).toBeLessThanOrEqual(158)
+    expect(String(m.description)).not.toMatch(/\s$/)
+    expect(m.openGraph?.description).toBe(m.description)
+    expect(m.twitter?.description).toBe(m.description)
+  })
+
+  it('leaves a description that already fits exactly as it is', () => {
+    const fine = 'Mission, vision, and projects of GUDECA — uniting Guneku indigenes.'
+    expect(pageMetadata({ title: 'X', path: '/gudeca', description: fine }).description)
+      .toBe(fine)
+  })
+
+  it('holds the site default inside the same budget', () => {
+    /* Inherited by the homepage and by anything that sets no description of its own, so no
+       page-level helper ever sees it. */
+    const layout = readFileSync('src/app/layout.tsx', 'utf-8')
+    const d = layout.match(/^ {2}description: '([^']+)',$/m)?.[1]
+    expect(d, 'root description not found').toBeTruthy()
+    expect(d!.length).toBeLessThanOrEqual(158)
   })
 })
 

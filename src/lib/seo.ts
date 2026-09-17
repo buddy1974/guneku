@@ -55,16 +55,44 @@ type PageMetaInput = {
   publishedTime?: string | null
 }
 
+/* ── How much room a title and a description actually have ──────────────────────────────
+ *
+ * A production crawl found fifty titles over sixty characters and forty-six descriptions
+ * over a hundred and sixty. Almost all of the long titles are archive headlines — "GUNEKU
+ * VILLAGE COUNCIL HOLDING IN THE FON'S PALACE GUNEKU 23RD APRIL 2016 IN THE HEARING OF THE
+ * THEFT…", 168 characters — and those are evidence, not copy, so they are not rewritten. They
+ * are fitted.
+ *
+ * The layout's title template spends sixteen characters on " | Guneku Fondom". A title that
+ * still fits inside the remaining forty-four keeps the brand; one that does not takes the
+ * whole sixty for itself and drops it, because on a page whose own name is already too long
+ * the brand is the least useful thing in the line. `shortTitle` cuts at a boundary the text
+ * already has and never adds a word, so what is shown is always a prefix of the record.
+ *
+ * Descriptions go through `excerptFrom`, which ends on a sentence. Doing it here rather than
+ * at each call site is the point: the long ones were long because the page wrote its own
+ * metadata object and nothing was watching. */
+const TITLE_BUDGET = 60
+const SUFFIX_LENGTH = ` | ${SITE_NAME}`.length
+/* A social card has more room than a search result, and less than an archive headline. */
+const SOCIAL_TITLE_BUDGET = 88
+
 /** Builds a page's metadata with a correct self-referencing canonical and social card. */
 export function pageMetadata({
   title, description, path, image, imageAlt, type = 'website', publishedTime,
 }: PageMetaInput): Metadata {
   const url = path === '/' ? SITE_URL : `${SITE_URL}${path}`
   const img = image || OG_FALLBACK
-  const desc = description && description.length > 0 ? description : undefined
+  const desc = description && description.length > 0
+    ? excerptFrom(description, 158)
+    : undefined
+
+  const fitsWithBrand = title.length <= TITLE_BUDGET - SUFFIX_LENGTH
+  const metaTitle = fitsWithBrand ? title : { absolute: shortTitle(title, TITLE_BUDGET) }
+  const socialTitle = shortTitle(title, SOCIAL_TITLE_BUDGET)
 
   return {
-    title,
+    title: metaTitle,
     description: desc,
     alternates: { canonical: path },
     openGraph: {
@@ -72,14 +100,14 @@ export function pageMetadata({
       locale: 'en_GB',
       url,
       siteName: SITE_NAME,
-      title,
+      title: socialTitle,
       description: desc,
-      images: [{ url: img, alt: imageAlt || title }],
+      images: [{ url: img, alt: imageAlt || socialTitle }],
       ...(publishedTime ? { publishedTime } : {}),
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: socialTitle,
       description: desc,
       images: [img],
     },

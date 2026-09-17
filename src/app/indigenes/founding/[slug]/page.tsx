@@ -9,6 +9,8 @@ import {
 import { FoundingNameCard } from '@/components/community/FoundingNames'
 import { pageMetadata } from '@/lib/seo'
 import { isPersonIndexable, personDescription } from '@/lib/seo-policy'
+import { PageGraph } from '@/components/seo/PageGraph'
+import { personId, personNode } from '@/lib/schema'
 import { businessesForPerson } from '@/lib/business-directory'
 import { RELATIONSHIP_LABEL } from '@/lib/businesses'
 
@@ -71,6 +73,23 @@ export default async function FoundingNamePage({
 
   return (
     <main className="min-h-screen bg-[var(--paper)]">
+      {/* The entry, as a machine reads it. It says exactly what the card above says and not
+          one field more: a name, the office, a profession where the record holds one, a
+          country of residence where it holds one, the body, and the businesses the directory
+          connects — connected, not owned, because the record distinguishes the two and
+          schema.org does not. */}
+      <PageGraph
+        path={`/indigenes/founding/${slug}`}
+        name={n.display}
+        description={personDescription(n, body?.name)}
+        primaryEntity={personId(n.slug)}
+        trail={[
+          { name: 'Our People', path: '/indigenes' },
+          ...(body ? [{ name: body.name, path: `/people/${body.id}` }] : []),
+        ]}
+        nodes={[personNode(n, businesses.map(b => b.slug))]}
+      />
+
       <PageHero
         label={
           n.deceased

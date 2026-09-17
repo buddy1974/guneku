@@ -2,10 +2,15 @@ import Link  from 'next/link'
 import Image from 'next/image'
 import { getImageGallery, albumCoverSrc } from '@/lib/content'
 import { Reveal }          from '@/components/ui/Reveal'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata = {
-  alternates: { canonical: '/gallery' },
-  description: "The Guneku Fondom visual archive — fifteen event albums of 339 photographs, and the video record of the Fondom's own YouTube channel.", title: 'Gallery — Faces of Guneku' }
+export const metadata = pageMetadata({
+  title: 'Gallery — Faces of Guneku',
+  description:
+    'The Guneku Fondom visual archive — fifteen event albums of 339 photographs, and '
+    + "the video record of the Fondom's own YouTube channel.",
+  path: '/gallery',
+})
 
 const SHOWCASE_IMAGES = [
   /* Subtitles carry only what a source supports. The '17 January 2016 coronation'

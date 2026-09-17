@@ -3,18 +3,17 @@ import Image from 'next/image'
 import { ArrowRight, Calendar, Clock, MapPin, Phone, GraduationCap, Stethoscope,
          Building2, Landmark, Scroll, HeartHandshake, CheckCircle2 } from 'lucide-react'
 import programme from '@/data/institutions/education-scholarship-day-2026.json'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata = {
-  alternates: { canonical: '/education' },
-  title:       'Guneku Education & Scholarship Day 2026',
-  description: 'Guneku Education & Scholarship Day 2026 — a Back-to-School initiative targeting 50 scholarships. Information Day 29 August 2026, Selection Examination 19 September 2026, at the Guneku Fon’s Palace.',
-  openGraph: {
-    title:       'Guneku Education & Scholarship Day 2026',
-    description: 'Opening Doors. Creating Opportunities. Building Brighter Futures. 50 scholarships for deserving students.',
-    url:         'https://www.guneku.org/education',
-    images: [{ url: 'https://www.guneku.org/images/education/og-scholarship-2026.jpg', width: 1200, height: 630, alt: programme.name }],
-  },
-}
+export const metadata = pageMetadata({
+  title: 'Guneku Education & Scholarship Day 2026',
+  description:
+    'A Back-to-School initiative targeting 50 scholarships. Information Day 29 August '
+    + '2026, Selection Examination 19 September 2026, at the Guneku Fon\u2019s Palace.',
+  path: '/education',
+  image: '/images/education/og-scholarship-2026.jpg',
+  imageAlt: programme.name,
+})
 
 const PATHWAY_ICONS = [Building2, Stethoscope, Landmark, GraduationCap, Scroll, HeartHandshake]
 

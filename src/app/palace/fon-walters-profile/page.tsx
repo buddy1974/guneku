@@ -3,12 +3,15 @@ import { PageHero } from '@/components/layout/PageHero'
 import Image from 'next/image'
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
 import Link from 'next/link'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata = {
-  alternates: { canonical: '/palace/fon-walters-profile' },
+export const metadata = pageMetadata({
   title: 'HRH Dr. Fomuki Walters Ticha IX — Fon of Guneku',
-  description: 'Official profile of HRH Dr. Fomuki Walters Ticha IX, Fon of Guneku Fondom and urologist based in Germany.',
-}
+  description:
+    'Official profile of HRH Dr. Fomuki Walters Ticha IX, Fon of Guneku Fondom and '
+    + 'urologist based in Germany.',
+  path: '/palace/fon-walters-profile',
+})
 
 /* "2015-02-27" -> "27 February 2015". The record keeps the date in ISO; the page is the only
    place that has an opinion about how it reads. Anything that is not a plain ISO date is

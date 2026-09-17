@@ -3,10 +3,15 @@ import { PageHero } from '@/components/layout/PageHero'
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
 import Image from 'next/image'
 import Link from 'next/link'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata = {
-  alternates: { canonical: '/gallery/images' },
-  description: "Fifteen event albums and 339 photographs from the Guneku Fondom archive — the Palace, the Traditional Council, the road work, the festivals and the diaspora chapters.", title: 'Image Gallery' }
+export const metadata = pageMetadata({
+  title: 'Image Gallery',
+  description:
+    'Fifteen event albums and 339 photographs from the Guneku Fondom archive — the '
+    + 'Palace, the Traditional Council, the road work, the festivals and the chapters.',
+  path: '/gallery/images',
+})
 
 export default function ImageGalleryPage() {
   const gallery = getImageGallery()

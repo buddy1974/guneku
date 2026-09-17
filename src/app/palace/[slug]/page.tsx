@@ -1,5 +1,7 @@
 import { getAllPalaceArticles, getPalaceArticle } from '@/lib/content'
 import { pageMetadata, excerptFrom } from '@/lib/seo'
+import { PageGraph } from '@/components/seo/PageGraph'
+import { abs, articleNode } from '@/lib/schema'
 import type { Metadata } from 'next'
 import { PageHero } from '@/components/layout/PageHero'
 import { ArticleBody } from '@/components/layout/ArticleBody'
@@ -38,6 +40,25 @@ export default async function PalaceArticlePage({
 
   return (
     <main style={{ backgroundColor:'oklch(0.965 0.012 85)', minHeight:'100vh' }}>
+      {/* No byline is invented. Most of this archive was migrated from the legacy site
+          without one, and putting the Fondom's name to somebody else's writing would be a
+          worse answer than leaving `author` out. */}
+      <PageGraph
+        path={`/palace/${slug}`}
+        name={String(article.title)}
+        description={excerptFrom((article as any).metaDescription || article.body)}
+        primaryEntity={`${abs(`/palace/${slug}`)}#article`}
+        trail={[{ name: 'The Palace', path: '/palace' }]}
+        image={(article as any).leadImage ?? null}
+        datePublished={(article as any).publishedAt ?? null}
+        nodes={[articleNode({
+          path: `/palace/${slug}`,
+          headline: String(article.title),
+          description: excerptFrom((article as any).metaDescription || article.body),
+          image: (article as any).leadImage ?? null,
+          datePublished: (article as any).publishedAt ?? null,
+        })]}
+      />
       <PageHero
         label={(article as any).era === 'legacy' ? 'ROYAL LEGACY' : 'THE PALACE'}
         title={article.title.toUpperCase()}

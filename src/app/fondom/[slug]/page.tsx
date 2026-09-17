@@ -1,5 +1,7 @@
 import { getAllFondomArticles, getFondomArticle } from '@/lib/content'
 import { pageMetadata, excerptFrom } from '@/lib/seo'
+import { PageGraph } from '@/components/seo/PageGraph'
+import { abs, articleNode } from '@/lib/schema'
 import type { Metadata } from 'next'
 import { PageHero } from '@/components/layout/PageHero'
 import { ArticleBody } from '@/components/layout/ArticleBody'
@@ -54,6 +56,25 @@ export default async function FondomArticlePage({
 
   return (
     <main style={{ backgroundColor:'oklch(0.965 0.012 85)', minHeight:'100vh' }}>
+      {/* A stub the archive does not yet support is `noindex` in its metadata; it still
+          carries a page node, because being asked not to list a page is not a reason to
+          describe it wrongly to whatever else reads it. */}
+      <PageGraph
+        path={`/fondom/${slug}`}
+        name={String(article.title)}
+        description={excerptFrom((article as FondomArticleView).metaDescription || article.body)}
+        primaryEntity={`${abs(`/fondom/${slug}`)}#article`}
+        trail={[{ name: 'The Fondom', path: '/fondom' }]}
+        image={(article as FondomArticleView).leadImage ?? null}
+        datePublished={(article as FondomArticleView).publishedAt ?? null}
+        nodes={[articleNode({
+          path: `/fondom/${slug}`,
+          headline: String(article.title),
+          description: excerptFrom((article as FondomArticleView).metaDescription || article.body),
+          image: (article as FondomArticleView).leadImage ?? null,
+          datePublished: (article as FondomArticleView).publishedAt ?? null,
+        })]}
+      />
       <PageHero label="THE FONDOM" title={article.title.toUpperCase()} />
       <section style={{ maxWidth:'900px', margin:'0 auto', padding:'4rem 1.5rem' }}>
         <EditorialLead

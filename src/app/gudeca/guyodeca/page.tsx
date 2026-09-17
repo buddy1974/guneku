@@ -1,9 +1,14 @@
 import { PageHero } from '@/components/layout/PageHero'
 import Link from 'next/link'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata = {
-  alternates: { canonical: '/gudeca/guyodeca' },
-  description: "GUYODECA, the youth wing of GUDECA — bridge construction, football and community giving by the young people of Guneku.", title: 'GUYODECA — Youth Wing' }
+export const metadata = pageMetadata({
+  title: 'GUYODECA — Youth Wing',
+  description:
+    'GUYODECA, the youth wing of GUDECA — bridge construction, football and community '
+    + 'giving by the young people of Guneku.',
+  path: '/gudeca/guyodeca',
+})
 
 export default function GuyodecaPage() {
   return (

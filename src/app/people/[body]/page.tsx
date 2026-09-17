@@ -6,6 +6,8 @@ import { FoundingNames } from '@/components/community/FoundingNames'
 import { allBodies, getBody, getChapter, membersOf, memberCount, recordedLabel, palaceQueens } from '@/lib/community'
 import Image from 'next/image'
 import { pageMetadata } from '@/lib/seo'
+import { PageGraph } from '@/components/seo/PageGraph'
+import { bodyId, bodyNode } from '@/lib/schema'
 
 export async function generateStaticParams() {
   return allBodies().map(b => ({ body: b.id }))
@@ -49,6 +51,18 @@ export default async function BodyPage({
 
   return (
     <main className="min-h-screen bg-[var(--paper)]">
+      {/* The body as an organisation of the Fondom. Its members are not listed here: each
+          one already declares `memberOf` from their own entry, and a roster described from
+          both ends is a roster that will eventually disagree with itself. */}
+      <PageGraph
+        path={`/people/${body}`}
+        name={b.name}
+        description={b.standfirst}
+        primaryEntity={bodyId(b.id)}
+        trail={[{ name: 'Who holds office', path: '/people' }]}
+        nodes={[bodyNode(b.id, b.name, b.standfirst)]}
+      />
+
       <PageHero
         label={
           b.kind === 'governing'  ? 'THE GOVERNING BODY OF GUNEKU'

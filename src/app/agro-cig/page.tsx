@@ -1,12 +1,15 @@
 import { PageHero }       from '@/components/layout/PageHero'
 import { Reveal }         from '@/components/ui/Reveal'
 import cig               from '@/data/institutions/agro-cig.json'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata = {
-  alternates: { canonical: '/agro-cig' },
-  title:       'Agro CIG — Guneku Agricultural Initiative 2026',
-  description: 'Guneku Agro CIG — registered 12 March 2026, launched 5 April at Ngong Quarter. 12.5M FCFA raised in Phase 1, 500 chicks, turkeys from Nigeria.',
-}
+export const metadata = pageMetadata({
+  title: 'Agro CIG — Guneku Agricultural Initiative 2026',
+  description:
+    'Guneku Agro CIG — registered 12 March 2026, launched 5 April at Ngong Quarter. '
+    + '12.5M FCFA raised in Phase 1, 500 chicks, turkeys from Nigeria.',
+  path: '/agro-cig',
+})
 
 const LIVESTOCK = [
   { icon:'🐔', name:'Poultry',   status:'ACTIVE',  desc:'500 chicks — 300 thriving + 200 arriving. Core product.' },

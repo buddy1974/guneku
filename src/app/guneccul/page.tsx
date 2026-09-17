@@ -1,5 +1,8 @@
 import { PageHero } from '@/components/layout/PageHero'
 import guneccul from '@/data/institutions/guneccul.json'
+import { pageMetadata } from '@/lib/seo'
+import { PageGraph } from '@/components/seo/PageGraph'
+import { GUNECCUL_ID, guneccullNode } from '@/lib/schema'
 
 /* The branch list is read from the record rather than typed into this page.
  *
@@ -30,17 +33,31 @@ function established(launched?: string): string {
   return day ? `${name} ${Number(day)}, ${year}` : `${name} ${year}`
 }
 
-export const metadata = {
-  alternates: { canonical: '/guneccul' },
+/* Through pageMetadata like every other page. Hand-written, this one had a canonical and a
+   description and no social card at all, so a link to the Fondom's credit union shared into
+   a WhatsApp group — which is how most of this audience shares anything — arrived bare. */
+export const metadata = pageMetadata({
+  title: 'GUNECCUL — Community Credit Union',
   description:
     'GUNECCUL, the Guneku Cooperative Credit Union Limited — savings, loans and solidarity '
     + `shares for Guneku indigenes, across ${BRANCHES.length} branches.`,
-  title: 'GUNECCUL — Community Credit Union',
-}
+  path: '/guneccul',
+})
 
 export default function GuneccullPage() {
   return (
     <main style={{ backgroundColor: 'oklch(0.965 0.012 85)', minHeight: '100vh' }}>
+      {/* A credit union is where an invented fact would do real harm, so the node carries
+          the name, what the record says it does, and the branches it records. No rate, no
+          registration number, no opening hour, no telephone. */}
+      <PageGraph
+        path="/guneccul"
+        name="GUNECCUL — Community Credit Union"
+        description={guneccul.description}
+        primaryEntity={GUNECCUL_ID}
+        trail={[{ name: 'Development', path: '/projects' }]}
+        nodes={[guneccullNode()]}
+      />
       <PageHero
         label="COMMUNITY FINANCE"
         title="GUNECCUL"

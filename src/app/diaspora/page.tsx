@@ -3,12 +3,15 @@ import { ArrowRight } from 'lucide-react'
 import { diasporaNames, diasporaByChapter } from '@/lib/community'
 import { Reveal } from '@/components/ui/Reveal'
 import { chaptersByScope, foundingCount } from '@/lib/community'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata = {
-  alternates: { canonical: '/diaspora' },
+export const metadata = pageMetadata({
   title: 'Diaspora — Guneku Across Three Continents',
-  description: 'Guneku sons and daughters across the world — GUDECA chapters in Cameroon, Europe and North America.',
-}
+  description:
+    'Guneku sons and daughters across the world — GUDECA chapters in Cameroon, Europe '
+    + 'and North America.',
+  path: '/diaspora',
+})
 
 /* The places Guneku people are organised come from one register,
    `src/data/community/chapters.json`, shared with /gudeca and the chapter pages.

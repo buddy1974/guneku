@@ -4,15 +4,18 @@ import { Reveal } from '@/components/ui/Reveal'
 import { allChapters, constitutedChapters, foundingCount } from '@/lib/community'
 import type { Chapter } from '@/lib/community'
 import guneccul from '@/data/institutions/guneccul.json'
+import { pageMetadata } from '@/lib/seo'
 
 /* Counted, not typed. This tile said "4 branches" while the record held six. */
 const GUNECCUL_BRANCHES = guneccul.branches.length
 
-export const metadata = {
-  alternates: { canonical: '/gudeca' },
-  title: 'GUDECA — Guneku Cultural & Development Association',
-  description: 'Mission, vision, and projects of GUDECA — uniting Guneku indigenes across three continents.',
-}
+export const metadata = pageMetadata({
+  title: 'GUDECA — Cultural & Development Association',
+  description:
+    'Mission, vision, and projects of GUDECA — uniting Guneku indigenes across three '
+    + 'continents.',
+  path: '/gudeca',
+})
 
 /* One register for every chapter and every place, shared with /diaspora and the
    chapter pages: `src/data/community/chapters.json`.

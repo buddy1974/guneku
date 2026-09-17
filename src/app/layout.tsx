@@ -7,7 +7,7 @@ import { Footer }         from '@/components/layout/Footer'
 import { MobileNav }      from '@/components/layout/MobileNav'
 import { ToastContainer } from '@/components/ui/Toast'
 import { JsonLd } from '@/components/seo/JsonLd'
-import { SITE_URL, SITE_NAME } from '@/lib/seo'
+import { graph, organizationNode, websiteNode, gunekuPlaceNode } from '@/lib/schema'
 import './globals.css'
 
 /* Previously loaded with a <link> to fonts.googleapis.com, which Lighthouse measured
@@ -32,7 +32,9 @@ export const metadata: Metadata = {
     default:  'Guneku Fondom | Official Community Website',
     template: '%s | Guneku Fondom',
   },
-  description: 'The official website of Guneku Fondom — Mbengwi, Momo Division, North West Cameroon. Twenty-seven quarters, one Fondom, and a community organised across three continents.',
+  /* 158 characters. The site default is inherited by the homepage and by anything that
+     does not set its own, so it is the one description no page-level helper can trim. */
+  description: 'The official website of Guneku Fondom — Mbengwi, Momo Division, North West Cameroon. Twenty-seven quarters, one Fondom, a community across three continents.',
   /* No canonical here. In the App Router `alternates.canonical` is inherited by every
      child route, so a value set on the root layout made all ~110 pages canonicalise to
      the homepage. Each route now declares its own self-referencing canonical. */
@@ -68,32 +70,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`scroll-smooth ${sourceSerif.variable} ${sourceSans.variable}`}>
       <body style={{ backgroundColor: 'oklch(0.965 0.012 85)', color: 'oklch(0.245 0.022 150)', overflowX: 'hidden' }}>
-        <JsonLd data={{
-          '@context': 'https://schema.org',
-          '@graph': [
-            {
-              '@type': 'Organization',
-              '@id': `${SITE_URL}#organization`,
-              name: SITE_NAME,
-              url: SITE_URL,
-              logo: `${SITE_URL}/brand/logo-512.png`,
-              address: {
-                '@type': 'PostalAddress',
-                addressLocality: 'Mbengwi',
-                addressRegion: 'North West Region',
-                addressCountry: 'CM',
-              },
-            },
-            {
-              '@type': 'WebSite',
-              '@id': `${SITE_URL}#website`,
-              url: SITE_URL,
-              name: SITE_NAME,
-              publisher: { '@id': `${SITE_URL}#organization` },
-              inLanguage: 'en-GB',
-            },
-          ],
-        }} />
+        {/* The three nodes the whole graph hangs from, declared once here and referred to
+            by `@id` from every page after this: the institution, the site, and Guneku the
+            place. They are three things, not one — a Fondom is not a village and neither is
+            a website — and the pages that follow attach themselves to whichever they mean.
+            Everything in them comes from src/lib/schema.ts, which explains what may go in. */}
+        <JsonLd data={graph(organizationNode(), websiteNode(), gunekuPlaceNode())} />
         <Header />
         <main>{children}</main>
         <Footer />

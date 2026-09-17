@@ -2,17 +2,21 @@ import { getAllInstitutions } from '@/lib/content'
 import { PageHero } from '@/components/layout/PageHero'
 import { Reveal }   from '@/components/ui/Reveal'
 import Link         from 'next/link'
+import { pageMetadata } from '@/lib/seo'
 
 /* Institution records carry an index signature, so extra fields arrive as `unknown`.
    This narrows one to a non-empty string, or to undefined. */
 const str = (v: unknown): string | undefined =>
   typeof v === 'string' && v.length > 0 ? v : undefined
 
-export const metadata = {
-  alternates: { canonical: '/institutions' },
+export const metadata = pageMetadata({
   title: 'Institutions — Guneku',
-  description: 'The standing bodies of Guneku — cooperative, credit union, library, media, education and community organisations, each recorded at the stage its sources establish.',
-}
+  description:
+    'The standing bodies of Guneku — cooperative, credit union, library, media, '
+    + 'education and community organisations, each recorded at the stage its sources '
+    + 'establish.',
+  path: '/institutions',
+})
 
 /* These records already existed in the repository. getAllInstitutions() had been
    written and never called, so twelve institution records sat unread. This index
