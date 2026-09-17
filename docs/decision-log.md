@@ -1985,3 +1985,127 @@ The four forms people actually paste are accepted — `watch?v=`, `youtu.be`, `s
 Embeds are lazy and go to `youtube-nocookie.com`. Twelve players mounted on one page is a page
 nobody on a throttled connection in Cameroon will wait for (R-008), and a village directory has
 no reason to set an advertising cookie on somebody who only scrolled past a video.
+
+---
+
+## ADR-093 - The register is public in full and submitted in part, and the line is two facts
+
+**Context.** The indigenes register holds 113 sons and daughters of Guneku. Every entry is
+public, linked from its body's roster and from the directory, and claimable — that is what the
+register is for: a person should be able to find their own name and say "this is me". Offering
+all 113 to a search engine is a different act. Most entries carry one fact beyond the name, and
+a hundred near-identical pages each holding one fact is the textbook thin page. It is also not
+how the Fondom's people are best represented in a search result.
+
+The two obvious answers are both wrong. Submitting everything invites a quality judgment on the
+whole site from its weakest hundred pages. Deleting or hiding the sparse ones destroys the
+register's purpose — and writing biographies nobody confirmed so the pages look substantial is
+not on offer at all.
+
+**Decision.** An entry is offered for indexing when it carries **at least two facts beyond the
+name**, each already published on the page and each traceable to a record: a body, a chapter, a
+profession, a country of residence, a royal role, notable standing, an existing profile
+elsewhere on this site, a note of forty characters or more, recorded aliases, a business in the
+directory, or an in-memoriam record. 81 entries clear it; 32 do not.
+
+**The 32 change in no other way.** They stay public, linked, crawlable and claimable, and they
+carry `noindex, follow`. `follow` is the deliberate half: these pages link outward to bodies,
+chapters and businesses that *are* worth indexing, and cutting that path would cost the
+directory its shape for nothing.
+
+**Two was chosen by looking.** One signal is satisfied by bare membership of a body, which most
+of the register has, so a threshold of one is no threshold. Three excludes people who plainly
+have a public story — a chapter and a profession, say. Two is the point at which a page says
+something a stranger could not have guessed from the name.
+
+**The sitemap is built from this policy, not from the route list.** `indexablePersonSlugs()` is
+what the sitemap reads. A `noindex` page is never listed, and an indexable one is never
+omitted; both directions have tests.
+
+**Nothing here changes what is published.** It changes only what is submitted. If the Palace
+would rather all 113 were offered, that is one constant in `src/lib/seo-policy.ts` and it is
+the Palace's decision to make.
+
+---
+
+## ADR-094 - The entity graph says what the records hold, and its absences are the design
+
+**Context.** The site emitted two structured-data nodes — an Organization and a WebSite — so
+every one of its three hundred pages looked, to a machine, like an untitled document belonging
+to somebody. Structured data is also the easiest place on a website to lie without noticing:
+every vocabulary has slots, a rich-result tester will ask for more of them, and filling one in
+is a single line of code with no visible consequence.
+
+**Decision.** `src/lib/schema.ts` holds the whole graph, and it obeys one rule: **every value
+comes from a record this site already publishes on a page a reader can open.** Where a record
+is silent the property is absent, not empty — `prune()` strips `null`, empty strings and empty
+arrays, because an empty value is a claim that the thing *has* no value, which is not the same
+as not knowing.
+
+**The village, the institution and the website are three entities.** `#guneku` is a `Place`
+with the coordinates, quarter count and administrative chain the Fondom's own `gunekuSOF`
+record carries; `#organization` is the Fondom; `#website` is this site. Merging them is the
+most common way a community site's structured data goes wrong, and each page attaches itself to
+whichever it actually means. Njindom, a separate village, appears nowhere.
+
+**Ownership is never asserted.** The business directory distinguishes an owner from someone
+merely associated with a business and records the evidence for each. schema.org has no property
+that draws that line. So the graph records that two entities are connected — `affiliation`,
+`member` — and leaves the nature of the connection to the page, which states it in words.
+
+**The absences are enumerated and tested.** No rating, review, price, opening hour, founding
+date or employee count on any business. No street address for Fondom Studios, whose sources
+disagree — the node carries the Fondom's own town and nothing more, and "Bamenda" is nowhere in
+the graph. Nothing at all for the held business. For GUNECCUL: no rate, no registration number,
+no LEI, no product offer, no hours, and no telephone, because the page offers a chat link and
+`telephone` would assert a number somebody can ring. For a register entry: no photograph, no
+birth date, no town, no contact detail. For a published profile: not the email address and
+telephone number the record holds, because those were given so the Fondom could make contact.
+For a migrated article: no invented byline and no date on an undated record. And no FAQ schema
+anywhere, because there is no invented question-and-answer text to mark up.
+
+**The Organization node carries the Palace telephone and not the Palace email.** The telephone
+is already in the footer of every page. The institutional address is published once, on
+`/contact`, and the root layout renders on all 304.
+
+---
+
+## ADR-095 - A title that will not fit beside the brand drops the brand
+
+**Context.** A production crawl found fifty titles over sixty characters and forty-six
+descriptions over a hundred and sixty. Almost every long title is an archive headline — one
+runs to 168 characters — and those are evidence of what the record says, not copy to be
+improved. The title template spends sixteen of the sixty characters on " | Guneku Fondom".
+
+**Decision.** `pageMetadata` fits rather than rewrites. A title that still fits inside the
+remaining forty-four keeps the brand. One that does not takes the whole sixty for itself and
+drops the suffix, because on a page whose own name is already too long the brand is the least
+useful thing in the line. `shortTitle` cuts at a boundary the text already has and never adds a
+word, so what is shown is always a prefix of what the record says. A social card gets
+eighty-eight characters, which is more than a search result and less than an archive headline.
+
+Descriptions go through `excerptFrom`, which ends on a sentence. Doing both inside the helper
+rather than at each call site is the point: the long ones were long because those pages wrote
+their own metadata object and nothing was watching. Thirteen such pages, GUNECCUL among them,
+now go through the helper and have an Open Graph card for the first time.
+
+---
+
+## ADR-096 - IndexNow is something a person does, never something a deploy does
+
+**Context.** IndexNow announces changed URLs to Bing, Yandex, Seznam and Naver. The obvious
+implementation is a build hook that submits the sitemap after every deploy. That would announce
+three hundred pages every time a stylesheet changes — a claim that three hundred pages changed,
+which is false, and which the protocol's own guidance treats as grounds for ignoring the host.
+
+**Decision.** The module exposes no call that submits the whole site, the script has no flag
+meaning "all of it", and a cap of twenty-five URLs means the site cannot fit through. It is run
+by a person, after a deploy, when there is something to say. When a rebuild really has changed
+everything, the sitemap is the thing that says so.
+
+The key lives in `INDEXNOW_KEY` and nowhere in the repository. With no key configured every
+path declines: the verification file is a 404 rather than a placeholder, because a file holding
+a key nobody owns is a verification that fails quietly later. Nothing fakes ownership.
+
+**Nothing has been submitted.** `INDEXNOW_KEY` is not set on the project, and setting it is a
+decision for the Palace rather than a step in this build.

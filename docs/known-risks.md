@@ -27,7 +27,7 @@
 | R-005 | The Traditional Council roster is five years old. | Debt | Low | Likely | Published only as "as recorded in 2021", with an explicit note that it is not a claim about the present. Supersede when the Palace confirms current holders. | Marcel | Open — mitigated |
 | R-006 | `_shortlist/fon-portrait-formal.jpg` in the legacy archive may show the late Fon Fomuki Patrick Nji rather than the reigning Fon. | Bug | High if used | — | Not used. The GUDECA-US 2023 image of known provenance was used instead (ADR-006). | Marcel | Open — mitigated |
 | R-007 | Uncatalogued files under `public/images/gallery/` were tracked, deployed and retrievable at guessable paths, including the Bonn material held pending consent. | Privacy | High | Certain — was live | **CLOSED 2026-09-06.** 17 held files to `archive-held/`, 162 unclassified to `archive-staging/`, 35 stray files removed from a published album folder. Every one verified 404. See the R-007 and R-041 sections below. | — | Closed |
-| R-008 | Mobile performance is unverified by Lighthouse. A large share of the audience is on a mid-range Android in Cameroon on a throttled connection. | Scaling | Medium | Certain | **Partly addressed 2026-09-06.** Layout checked at six widths; `/images/` now cached for a day rather than revalidated on every request; no accidental dynamic rendering; the 980 KB map chunk loads on `/explore` alone. A Lighthouse run against Production is still worth doing. | Marcel | Open — mitigated |
+| R-008 | Mobile performance is unverified by Lighthouse. A large share of the audience is on a mid-range Android in Cameroon on a throttled connection. | Scaling | Medium | Certain | **Partly addressed 2026-09-06.** Layout checked at six widths; `/images/` now cached for a day rather than revalidated on every request; no accidental dynamic rendering; the 980 KB map chunk loads on `/explore` alone. A Lighthouse run against Production is still worth doing, and after the SEO build of 2026-09-17 it is the single largest unknown left before submission — a first crawl on a slow device is the impression that is expensive to correct. | Marcel | Open — mitigated |
 | R-009 | 44 of the 46 video records carry no verified YouTube title. | Debt | Low | Certain | **CLOSED 2026-09-06.** All 46 verified against the live channel; see the R-009 section below. | — | Closed |
 | R-010 | `_shortlist/guneku-map.jpg` in the legacy archive is a Google Maps screenshot carrying the Google logo. Re-hosting it on the site is a third-party licensing question, not a content question. | Security / Legal | Medium | Certain if used | **Mitigated 2026-09-03, not resolved.** Not ingested, not traced. `/explore` now renders a licensing-safe map (MapLibre GL JS, BSD-3-Clause, over OpenStreetMap raster tiles with ODbL attribution) and no Google imagery is used anywhere. But it carries **one** marker, because one coordinate exists in the whole repository — see R-029. `/kingdom/map-of-guneku` is still a stub. A map of Guneku's quarters needs coordinates the archive does not have. | Marcel | Open — mitigated |
 | R-011 | `src/data/pages/gudeca-exco.json` contained Joomla sample data — four fictitious names that are not Guneku people. | Bug | Medium if rendered | Low | **CLOSED 2026-09-06.** Deleted. Nothing read it, which is what made it dangerous: an unread file with four invented people in it is one careless import from publishing them. In git history if ever needed; a test now fails if any invented name reappears anywhere in `src/data`. | — | Closed |
@@ -1602,3 +1602,41 @@ The Fondom's own record places it in Guneku, so Guneku is what the business reco
 the conflict is written into the record's source note rather than chosen between silently.
 
 **Owner action:** confirm which is the trading address. If it is Bamenda, one field changes.
+
+## R-069 - 81 of 113 is an engineering answer to a question the Palace owns
+
+The indigenes register holds 113 sons and daughters. ADR-093 offers 81 of them to search
+engines and marks 32 `noindex, follow`, on the rule that an entry needs two facts beyond the
+name before it is worth listing. That rule was written by reading the data and looking at what
+a thin page costs a site, and it is defensible on those grounds — but it is a judgment about
+how the Fondom's people should appear in a search result, and that is not an engineering
+judgment.
+
+The thirty-two are not hidden. They are public, linked, crawlable and claimable, exactly as
+before, and a person looking for their own name finds it. What they lose is the chance of
+turning up in a stranger's search for that name.
+
+There is a reading in which that is the wrong trade: the register exists so people recognise
+themselves in it, and somebody searching their own name on Google is precisely the person it
+was built for. The counter-reading — the one the threshold takes — is that a page reading only
+"X is named in the Fondom record" does that person no favour in a result list, and a hundred of
+them together invite a judgment on the whole site.
+
+**Owner action:** confirm the threshold, or set it to 1 and submit all 113. It is one constant,
+`PERSON_INDEX_THRESHOLD` in `src/lib/seo-policy.ts`, and the sitemap and every page's robots
+tag follow from it. Decision C1 in `seo-launch-handoff.md` is the same question.
+
+## R-070 - IndexNow is built and unarmed, and an unset key is silent
+
+`INDEXNOW_KEY` is not set on the Vercel project. With no key, `/indexnow-key.txt` is a 404 and
+every submission path declines — which is the correct behaviour and is deliberate, because a
+placeholder key file is a verification that fails quietly months later.
+
+The risk is the shape of that silence. Somebody may set the key, see the file serve, and assume
+announcements are now automatic. They are not, and they should not be: ADR-096 is explicit that
+submission is something a person runs, after a deploy, when there is something to say. Nothing
+in the build pipeline calls it.
+
+**Owner action:** if and when IndexNow is wanted, generate a key, set it in Vercel Production,
+confirm `https://www.guneku.org/indexnow-key.txt` serves exactly that key, and submit only
+newly published URLs — never the archive. `npm run indexnow -- /updates/some-new-post`.

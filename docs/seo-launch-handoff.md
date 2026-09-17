@@ -1,8 +1,26 @@
 # SEO launch handoff — `guneku`
 
-> Prepared for the pass that happens **after** Marcel's final touches. Nothing in this
-> document has been executed. No sitemap has been submitted, no Search Console property
-> touched, no page rewritten for search.
+> **Superseded in part, 2026-09-17.** The SEO / entity / discovery build carried out
+> B 1–5, 7, 8, 9 and the first bullet of 12. What was found and what was done is in
+> `docs/seo-2026-build-report.md`, with the entity graph in `docs/seo-entity-map.md` and the
+> page-to-question mapping in `docs/seo-query-architecture.md`. The measurements in section A
+> below are the **baseline** — they describe the site before that build, and they are kept
+> because a report is worth little without the state it started from.
+>
+> **Still open, and not touched by that build:**
+>
+> * **B 6 (images)** — alt text is present everywhere and was re-checked on all 752 images in
+>   the built output; filenames and R-042's oversized originals were not settled.
+> * **B 10 (Core Web Vitals)** — no Lighthouse run against production has been done. R-008
+>   is still the largest unknown on this list, and it needs a real device or a lab run, not a
+>   source reading.
+> * **B 11 (content)** — waits on Marcel's wording, by his own instruction.
+> * **B 12 second bullet** — a Google Business Profile is an owner decision.
+> * **B 13, 14, 15** — Search Console, Bing, post-submission monitoring. **Nothing has been
+>   submitted:** no property created, no sitemap submitted, no indexing requested, no IndexNow
+>   ping sent.
+> * **Section C** — C1 is answered by ADR-093 and needs Marcel's confirmation. C2 and C3
+>   remain his.
 
 | Field | Value |
 |-------|-------|
@@ -11,7 +29,8 @@
 | Written | 2026-09-17 |
 | Product baseline | the head of `main` after the final visual/content pass of 2026-09-17 |
 | Production | https://www.guneku.org |
-| Status | Ready to begin, after final touches |
+| Status | B 1–5, 7–9 done 2026-09-17 · 6, 10–15 and C still open · **nothing submitted** |
+| Superseded by | `docs/seo-2026-build-report.md` |
 
 The order matters and was Marcel's instruction: **look at the finished product first, make the
 visual and wording judgments, and only then tell Google and Bing this is the version to

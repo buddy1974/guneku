@@ -2601,3 +2601,112 @@ It is written up as decision C1 in `seo-launch-handoff.md`.
 
 `docs/seo-launch-handoff.md` and `docs/final-touches-handoff.md` opened. R-020 closed after
 being found already fixed in code and stale in the register. R-002 re-measured. R-068 opened.
+
+---
+
+## 2026-09-17 - Telling a machine what this site is, and stopping short of telling a search engine
+
+The first SEO pass of the project, and the one that was deliberately excluded from every
+previous run. It ends where it was told to end: **nothing has been submitted to any search
+engine.** The full account is `docs/seo-2026-build-report.md`; this is what changed in the
+repository.
+
+### What a crawl of production found before anything moved
+
+290 pages, following every internal link and every sitemap URL. Fifty titles over sixty
+characters. Forty-six descriptions over a hundred and sixty. A hundred and thirty-seven
+indexable pages absent from the sitemap. Two structured-data node types on the whole site, no
+page node and no breadcrumb anywhere. And one page reachable from nothing at all.
+
+### The register is public in full and submitted in part
+
+The 113 indigenes entries are all public and all claimable, which is the point of them, and
+offering all 113 to a search engine is a different act — a hundred near-identical pages holding
+one fact each. `src/lib/seo-policy.ts` draws the line at two facts beyond the name. Eighty-one
+clear it. The other thirty-two are unchanged in every respect except that they now say
+`noindex, follow`: still public, still linked, still claimable, and still a path to the bodies
+and businesses they point at.
+
+Their descriptions had all been the same sentence with a name swapped in, several past 220
+characters. They are built from what each entry holds now, and all 113 differ.
+
+### The sitemap was built from habit
+
+121 URLs became 226. The seventeen chapters, the five governing bodies, `/people` and
+`/support` had routes and no entry — not by policy, but because nobody went back. The file
+reads the indexability policy now rather than a list of routes, and tests hold both directions:
+nothing `noindex` is listed, nothing indexable is omitted.
+
+### One wrong href, one orphaned page
+
+`/notables` described the sons and daughters in a sentence and linked the words "their own
+place" to `/diaspora`. Nothing else on the site linked to `/sons-and-daughters`, so its only
+way in was a header dropdown — which is a way in for a person and nothing at all for a crawler,
+because the submenu renders only while it is open. The orphan test had passed it for exactly
+that reason: it counted a menu entry as reachability. It now looks for a link in what the
+server actually sends, and it was verified by putting the wrong href back and watching it fail.
+
+### The entity graph, and the part of it that is absent
+
+`src/lib/schema.ts`. Guneku the place, from the Fondom's own recorded coordinates and quarter
+count; a page node and a trail on every page more than one level deep; a Person for each
+register entry; the businesses; the bodies; GUNECCUL; the articles. They share `@id`s, so a
+person's page and the business that names them point at each other instead of each describing
+the other from one side.
+
+The absences are the design, and each has a test: no ratings, reviews, prices, opening hours,
+founding dates or employee counts; no street address for Fondom Studios, whose sources
+disagree; nothing for the held business; for the credit union no rate, registration number,
+LEI, product offer, hours or telephone; for a person no photograph, birth date, town or contact
+detail; for a published profile not the email and telephone the record holds, because those
+were given so the Fondom could make contact. Ownership is never asserted — the directory
+separates an owner from an associate, schema.org has no property that draws that line, so the
+graph records the connection and leaves its nature to the page.
+
+### Titles that are evidence
+
+Nearly every over-long title is an archive headline, one of them 168 characters. They are
+fitted, not rewritten: a title that no longer fits beside " | Guneku Fondom" takes the whole
+sixty for itself and drops the brand, and the shown form is always a prefix of the record.
+Thirteen pages that wrote their own metadata object — GUNECCUL among them — now go through
+`pageMetadata` and have a social card for the first time.
+
+### IndexNow, built so it cannot be pointed at the archive
+
+No call submits the whole site, no flag means "all of it", and a cap of twenty-five URLs means
+the site will not fit through. The key is read from `INDEXNOW_KEY` and is nowhere in the
+repository; with no key the verification file is a 404 rather than a placeholder. Nothing has
+been submitted, and `INDEXNOW_KEY` is not set.
+
+### Two defects found along the way
+
+`/palace/the-return-of-fon-fomuki-of-guneku` opened with `<p><img alt="" src=""></p>` — the
+Joomla migration kept the element and lost the picture, and `src=""` resolves to the page
+itself. `ArticleBody` drops a sourceless image now, as narrowly as it already demotes a stray
+`<h1>`, and both rules have tests for the first time. And `/quarters/[slug]` computed its
+description in `generateMetadata` only, where the page could have drifted from its own snippet;
+it is one function.
+
+### Not done, and deliberately
+
+No sitemap submitted, no indexing requested, no IndexNow ping, no Search Console or Bing
+property, no crawl triggered. **No Core Web Vitals measurement either** — R-008 is still open
+and a Lighthouse run against production has still never been done, which makes it the largest
+remaining unknown and the thing that should happen before submission rather than after. No biography, date, office, relationship, address, coordinate,
+qualification, ownership, review, rating, price, telephone, social account, founding date or
+credit-union fact invented. No FAQ text written to obtain schema. No held record exposed. The
+Fondom Studios conflict left unresolved. Njindom still a separate village. The frozen
+responsive and touch work untouched.
+
+### Verification
+
+`npx tsc --noEmit` clean · `npx vitest run` **1301 passed across 56 files**, up from 1239 across
+52 · `npm run build` succeeded at **304 static pages** · production crawl of 291 URLs: 0 titles
+over 60, 0 descriptions over 160, 0 orphans, 0 indexable pages missing from the sitemap, 0
+`noindex` pages in it, 598 `ld+json` blocks with 0 parse failures · git tree clean.
+
+### Documents
+
+`docs/seo-2026-build-report.md`, `docs/seo-entity-map.md` and `docs/seo-query-architecture.md`
+opened. ADR-093 to ADR-096 recorded. `docs/seo-launch-handoff.md` updated to say which of its
+sections this build closed and which still wait on Marcel.
