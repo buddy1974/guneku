@@ -153,6 +153,22 @@ export interface Institution {
   [key: string]: unknown;
 }
 
+export interface FonEducation {
+  degree: string;
+  institution: string;
+  country?: string | null;
+  year?: string | number | null;
+  notes?: string | null;
+}
+
+/** A body he belongs to, or a body he is patron of. Same shape, two lists. */
+export interface FonAffiliation {
+  name: string;
+  /** Present on `initiatives`, absent on `professionalMemberships`. */
+  role?: string;
+  description?: string;
+}
+
 export interface FonProfile {
   id: string;
   type: 'FonProfile';
@@ -163,12 +179,23 @@ export interface FonProfile {
   residenceCountry: string;
   personalWebsite: string;
   practiceWebsite: string;
-  education: unknown[];
+  education: FonEducation[];
   career: unknown[];
-  professionalMemberships: unknown[];
-  initiatives: unknown[];
+  professionalMemberships: FonAffiliation[];
+  initiatives: FonAffiliation[];
   enthronementNarrative: string;
   governanceStyle: string;
+  /* Read by /palace/fon-walters-profile. They were reached through the index signature
+     below, which types them `unknown`, so the page cast itself to `any` ten times to render
+     them — and one of those casts read `enthronementDateDisplay`, a field this record has
+     never held. Naming them here is what makes that kind of mistake a build error. */
+  quote?: string;
+  /** ISO, e.g. "2015-02-27". */
+  enthronementDate?: string | null;
+  predecessorName?: string;
+  heroImage?: string | null;
+  heroImageAlt?: string | null;
+  heroImageCredit?: string | null;
   [key: string]: unknown;
 }
 

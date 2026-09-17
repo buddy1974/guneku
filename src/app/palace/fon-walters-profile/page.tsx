@@ -10,6 +10,17 @@ export const metadata = {
   description: 'Official profile of HRH Dr. Fomuki Walters Ticha IX, Fon of Guneku Fondom and urologist based in Germany.',
 }
 
+/* "2015-02-27" -> "27 February 2015". The record keeps the date in ISO; the page is the only
+   place that has an opinion about how it reads. Anything that is not a plain ISO date is
+   handed back untouched rather than guessed at. */
+function longDate(iso: unknown): string | null {
+  if (typeof iso !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(iso)) return null
+  const [y, m, d] = iso.split('-').map(Number)
+  const months = ['January', 'February', 'March', 'April', 'May', 'June',
+                  'July', 'August', 'September', 'October', 'November', 'December']
+  return `${d} ${months[m - 1]} ${y}`
+}
+
 export default function FonProfilePage() {
   const fon = getFonProfile()
 
@@ -37,7 +48,7 @@ export default function FonProfilePage() {
             <p style={{ fontFamily:'Playfair Display, serif', fontStyle:'italic',
                         fontSize:'1.3rem', color:'oklch(0.320 0.060 158)', lineHeight:1.6,
                         margin:'0 0 0.5rem' }}>
-              &ldquo;{(fon as any)?.quote || 'We carry Guneku in our hearts wherever we are in the world.'}&rdquo;
+              &ldquo;{fon?.quote || 'We carry Guneku in our hearts wherever we are in the world.'}&rdquo;
             </p>
           </blockquote>
 
@@ -63,7 +74,7 @@ export default function FonProfilePage() {
           </h3>
           <div style={{ display:'flex', flexDirection:'column', gap:'0.75rem',
                         marginBottom:'3rem' }}>
-            {(fon?.education || []).map((e: any, i: number) => (
+            {(fon?.education || []).map((e, i) => (
               <div key={i} style={{
                 display:'flex', gap:'1rem', alignItems:'flex-start',
                 padding:'0.75rem 1rem',
@@ -73,7 +84,7 @@ export default function FonProfilePage() {
                 <div style={{ flex:1 }}>
                   <div style={{ color:'oklch(0.245 0.022 150)', fontFamily:'var(--font-sans)',
                                 fontWeight:600, fontSize:'0.9rem' }}>
-                    {e.degree || e.qualification}
+                    {e.degree}
                   </div>
                   <div style={{ color:'oklch(0.560 0.016 150)',
                                 fontFamily:'Inter, sans-serif', fontSize:'0.8rem',
@@ -95,7 +106,7 @@ export default function FonProfilePage() {
           <div style={{ display:'grid',
                         gridTemplateColumns:'repeat(auto-fill, minmax(min(280px,100%), 1fr))',
                         gap:'1rem', marginBottom:'3rem' }}>
-            {(fon?.initiatives || []).map((item: any, i: number) => (
+            {(fon?.initiatives || []).map((item, i) => (
               <div key={i} style={{
                 backgroundColor:'oklch(0.985 0.008 85)',
                 border:'1px solid oklch(0.878 0.010 90)',
@@ -136,11 +147,11 @@ export default function FonProfilePage() {
 
         {/* Sidebar */}
         <div style={{ display:'flex', flexDirection:'column', gap:'2rem' }}>
-          {/* Renders the Fon's portrait as soon as one is held. heroImage is null today. */}
-          {(fon as any)?.heroImage ? (
+          {/* The Fon's portrait, and the placeholder for as long as no record holds one. */}
+          {fon?.heroImage ? (
             <div style={{ position:'relative', aspectRatio:'3/4', overflow:'hidden' }}>
-              <Image src={(fon as any).heroImage as string}
-                     alt={((fon as any).heroImageAlt as string) || fon?.title || 'The Fon of Guneku'}
+              <Image src={fon.heroImage}
+                     alt={fon.heroImageAlt || fon?.title || 'The Fon of Guneku'}
                      fill unoptimized sizes="(max-width: 768px) 100vw, 320px"
                      style={{ objectFit:'cover' }} />
             </div>
@@ -160,10 +171,10 @@ export default function FonProfilePage() {
             {[
               /* The succession ran as distinct stages. There is no single coronation
                  date on the record: the value formerly shown here has no source. */
-              { label:'Anointed', value: (fon as any)?.enthronementDateDisplay || '27 February 2015' },
+              { label:'Anointed', value: longDate(fon?.enthronementDate) || '27 February 2015' },
               { label:'Presented to Meta', value: '30 December 2016' },
               { label:'Title', value: fon?.fonNumber ? `Fomuki ${fon.fonNumber}` : 'Fomuki IX' },
-              { label:'Predecessor', value: (fon as any)?.predecessorName || 'HRH Fomuki Patrick Nji' },
+              { label:'Predecessor', value: fon?.predecessorName || 'HRH Fomuki Patrick Nji' },
               { label:'Website', value: 'waltersfomuki.de' },
             ].map(f => (
               <div key={f.label} style={{
@@ -193,14 +204,14 @@ export default function FonProfilePage() {
                          margin:'0 0 1rem' }}>
               MEMBERSHIPS
             </h4>
-            {((fon as any)?.professionalMemberships || []).map((m: any, i: number) => (
+            {(fon?.professionalMemberships || []).map((m, i) => (
               <div key={i} style={{
                 padding:'0.4rem 0',
                 borderBottom:'1px solid oklch(0.878 0.010 90)',
                 color:'oklch(0.470 0.018 150)',
                 fontFamily:'Inter, sans-serif', fontSize:'0.8rem',
               }}>
-                {m.name || m}
+                {m.name}
               </div>
             ))}
           </div>
