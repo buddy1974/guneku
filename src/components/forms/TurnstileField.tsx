@@ -121,7 +121,27 @@ export function TurnstileField({
 
   return (
     <div>
-      <div ref={holder} aria-describedby={`${id}-state`} />
+      {/* Cloudflare renders a widget of a fixed 300px here, and a fixed width propagates
+          outwards as a floor every ancestor has to honour. On /contact that made the single
+          mobile column 366px wide inside 333px of room, and the whole page scrolled
+          sideways: 9px on a 390px phone, 39px at 360px, 79px at 320px. /indigenes/submit
+          did the same. No card on this site has 300px to spare once its own padding is off,
+          so no amount of padding tuning fixes it at every width.
+
+          `contain: inline-size` is what settles it, and it has to be containment rather than
+          `overflow` alone: this is a block in normal flow, where a scroll container's
+          automatic minimum size of zero does not apply, and `overflow-x: auto` on its own
+          changed nothing. Containment makes the width independent of the contents, so the
+          widget stops speaking for the page; `overflow-x` then keeps the part that does not
+          fit inside this box rather than spilling over the card.
+
+          Nothing changes at any width where the widget already fitted. Below that the
+          visitor scrolls a small box a little way instead of the whole page. */}
+      <div
+        ref={holder}
+        aria-describedby={`${id}-state`}
+        className="overflow-x-auto [contain:inline-size]"
+      />
 
       {/* Assertive, because this is why nothing happened. */}
       {failed ? (
