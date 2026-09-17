@@ -17,6 +17,10 @@ export default function robots(): MetadataRoute.Robots {
         '/api/', '/sign-in', '/sign-up',
         '/indigenes/profile', '/indigenes/onboarding', '/indigenes/submit',
         '/my-guneku', '/review',
+        /* The search page itself stays open and is in the sitemap; its results are not a
+           page of the record and there is no end to them. `/search?` matches only a query,
+           so a reader and a crawler both still reach `/search`. */
+        '/search?',
       ],
     }],
     sitemap: `${SITE_URL}/sitemap.xml`,
