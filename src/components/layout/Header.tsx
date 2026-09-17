@@ -7,7 +7,6 @@ import { useCurrentPath, isActivePath } from './useCurrentPath'
 import { Menu, X, Search, ChevronDown, ArrowRight } from 'lucide-react'
 import { cn }          from '@/lib/utils'
 import { MemberNavLink } from './MemberNavLink'
-import type { NavItem } from '@/lib/content'
 
 /* Information architecture — every href below resolves to a real route with
    real content. /fondom/about-guneku, /palace/the-coronation and
@@ -83,9 +82,7 @@ const NAV: Item[] = [
   { href: '/contact',  label: 'Contact'  },
 ]
 
-interface HeaderProps { nav?: { mainNav: NavItem[] } }
-
-export function Header({ nav: _nav }: HeaderProps) {
+export function Header() {
   const [open,       setOpen]       = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [openMenu,   setOpenMenu]   = useState<string | null>(null)

@@ -39,16 +39,6 @@ export interface SiteConfig {
   aiAssistantNote: string;
 }
 
-export interface NavItem {
-  label: string;
-  href: string;
-  children?: NavItem[];
-}
-
-export interface Navigation {
-  mainNav: NavItem[];
-}
-
 export interface ContentArticle {
   id: string;
   type: string;
@@ -203,10 +193,6 @@ export interface FonProfile {
 
 export function getSiteConfig(): SiteConfig {
   return read<SiteConfig>('site-config.json');
-}
-
-export function getNavigation(): Navigation {
-  return read<Navigation>('navigation.json');
 }
 
 export function getAllFondomArticles(): FondomArticle[] {

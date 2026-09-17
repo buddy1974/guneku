@@ -6,7 +6,6 @@ import { Header }         from '@/components/layout/Header'
 import { Footer }         from '@/components/layout/Footer'
 import { MobileNav }      from '@/components/layout/MobileNav'
 import { ToastContainer } from '@/components/ui/Toast'
-import { getNavigation }  from '@/lib/content'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { SITE_URL, SITE_NAME } from '@/lib/seo'
 import './globals.css'
@@ -65,7 +64,6 @@ export const viewport: Viewport = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const nav = getNavigation()
 
   return (
     <html lang="en" className={`scroll-smooth ${sourceSerif.variable} ${sourceSans.variable}`}>
@@ -96,7 +94,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             },
           ],
         }} />
-        <Header nav={nav} />
+        <Header />
         <main>{children}</main>
         <Footer />
         <MobileNav />

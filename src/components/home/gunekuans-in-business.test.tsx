@@ -200,29 +200,13 @@ describe('the owner invitation uses the door that already exists', () => {
 })
 
 describe('the navigation carries Businesses as a destination of its own', () => {
-  const nav = JSON.parse(readFileSync('src/data/navigation.json', 'utf-8')) as {
-    mainNav: Array<{ label: string; href: string; children?: Array<{ href: string }> }>
-  }
-
   it('is a top-level entry in the header', () => {
-    /* The header renders one NAV constant for the desktop bar and the mobile drawer alike,
-       so a single entry serves both. */
-    expect(HEADER).toMatch(/\{\s*href:\s*'\/businesses',\s*label:\s*'Businesses'\s*\}/)
+    /* The header renders one NAV for the desktop bar and the mobile drawer alike, so a
+       single entry serves both. The canonical menu itself is guarded in navigation.test.ts. */
+    expect(HEADER).toContain("{ href: '/businesses', label: 'Businesses' }")
   })
 
   it('names it exactly once, so there is one canonical destination', () => {
-    const occurrences = HEADER.split("'/businesses'").length - 1
-    expect(occurrences).toBe(1)
-
-    const top = nav.mainNav.filter(i => i.href === '/businesses')
-    expect(top).toHaveLength(1)
-    const nested = nav.mainNav.flatMap(i => i.children ?? []).filter(c => c.href === '/businesses')
-    expect(nested).toEqual([])
-  })
-
-  it('does not invent a second business landing route', () => {
-    const all = [...nav.mainNav, ...nav.mainNav.flatMap(i => i.children ?? [])]
-    const businessish = all.map(i => i.href).filter(h => /business/i.test(h))
-    expect([...new Set(businessish)]).toEqual(['/businesses'])
+    expect(HEADER.split("'/businesses'").length - 1).toBe(1)
   })
 })

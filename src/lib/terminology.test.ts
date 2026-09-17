@@ -123,12 +123,26 @@ describe('the route is /fondom', () => {
 
 describe('every surface uses the current word', () => {
   it('navigates to the Fondom', () => {
+    /* `src/data/navigation.json` was a third entry here until the duplicate navigation was
+       removed: it was a second definition of the menu that nothing rendered. The bottom bar
+       in MobileNav is checked separately — it carries five destinations and the Fondom is
+       not among them, so asserting the word here would fail on a surface that never claimed
+       to say it. */
     for (const f of ['src/components/layout/Header.tsx',
-                     'src/components/layout/Footer.tsx',
-                     'src/data/navigation.json']) {
+                     'src/components/layout/Footer.tsx']) {
       const t = READ(f)
       expect(t).toContain('The Fondom')
       expect(t).toContain('/fondom')
+    }
+  })
+
+  it('says nothing of a Kingdom on any navigation surface', () => {
+    /* Every surface that names destinations, including the bottom bar, which the assertion
+       above cannot cover. The word is the point here, not the route. */
+    for (const f of ['src/components/layout/Header.tsx',
+                     'src/components/layout/Footer.tsx',
+                     'src/components/layout/MobileNav.tsx']) {
+      expect(READ(f), f).not.toMatch(/kingdom/i)
     }
   })
 
