@@ -237,7 +237,9 @@ function recordEntries(): Entry[] {
       keys: [n.name, ...n.name.toLowerCase().split(/\s+/)],
       question: n.name,
       answer: firstSentences(bio),
-      href: `/notables/${n.slug}`, hrefLabel: 'Full profile',
+      /* Their pages live under /sons-and-daughters; /notables/<slug> is a legacy redirect
+         kept for old inbound links, and a citation should hand out the real address. */
+      href: `/sons-and-daughters/${n.slug}`, hrefLabel: 'Full profile',
     })
   }
   return out

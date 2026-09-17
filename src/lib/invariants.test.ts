@@ -423,6 +423,106 @@ describe('no page links at a page that does not exist', () => {
       expect(l.url).not.toMatch(/vercel\.app|localhost/)
     }
   })
+
+  it('makes that true of every data file, not only the map', () => {
+    /* The guard above swept `explore/locations.json`, because that is where the first two
+       dead links were found. A third reached production in a file it did not look at:
+       `quarters/quarter-registry.json` sent Ngong to /institutions/guneku-agro-cig, which
+       is dead twice over — the CIG has its own home at /agro-cig, and its id is `agro-cig`
+       rather than `guneku-agro-cig`. Found by crawling production again.
+
+       Guarding one file against a mistake that can occur in any of them is what let the
+       same mistake reach production twice. This sweeps them all. */
+    const routed = new Set(
+      records.filter(r => typeof r.route !== 'string' && r.publicVisibility !== 'hold')
+        .map(r => String(r.id)))
+    const homes = new Map(
+      records.filter(r => typeof r.route === 'string').map(r => [String(r.id), String(r.route)]))
+
+    const dead: string[] = []
+    const walkDir = (dir: string) => {
+      for (const entry of readdirSync(dir, { withFileTypes: true })) {
+        const p = `${dir}/${entry.name}`
+        if (entry.isDirectory()) { walkDir(p); continue }
+        if (!entry.name.endsWith('.json')) continue
+        const text = readFileSync(p, 'utf-8')
+        for (const m of text.matchAll(/"(\/institutions\/[a-z0-9-]+)"/g)) {
+          const id = m[1].replace('/institutions/', '')
+          if (routed.has(id)) continue
+          dead.push(`${p} -> ${m[1]}${homes.has(id) ? ` (its home is ${homes.get(id)})` : ''}`)
+        }
+      }
+    }
+    walkDir('src/data')
+    expect(dead).toEqual([])
+  })
+})
+
+describe('no page links at an address the site immediately redirects away from', () => {
+  /* A redirect is for links written down elsewhere — an old bookmark, a search result, a
+     printed flyer. It is not for our own navigation. Three of ours pointed at one: the
+     header and the home page sent every reader to /gallery/videos, which has redirected to
+     /watch since the film library moved, and Palace AI cited /notables/<slug>, which has
+     redirected to /sons-and-daughters/<slug> since the profiles moved.
+
+     They worked, so nothing caught them. They also cost a round trip each, on a site whose
+     audience is largely on a throttled mobile connection (R-008), and the one in Palace AI
+     was handing out a stale address as a citation. */
+  const config = readFileSync('next.config.ts', 'utf-8')
+
+  const sources = (() => {
+    const out: string[] = []
+    for (const m of config.matchAll(/\[\s*'(\/[^']+)'\s*,\s*'(\/[^']+)'\s*\]/g)) out.push(m[1])
+    const redirects = config.slice(config.indexOf('async redirects()'))
+    for (const m of redirects.matchAll(/source:\s*'(\/[^']*)'/g)) out.push(m[1])
+    /* The preview-host rule matches every path and is conditional on a `has` host that
+       production never sends, so it is not an address anything can link "at". */
+    return [...new Set(out)].filter(s => s !== '/:path*')
+  })()
+
+  const matchers = sources.map(s => ({
+    source: s,
+    re: new RegExp('^' + s
+      .replace(/[.+^${}()|[\]\\]/g, '\\$&')
+      .replace(/:(\w+)\(([^)]*)\)/g, (_m, _n, rx) => `(?:${rx.replace(/\\\\/g, '\\')})`)
+      .replace(/:(\w+)\*/g, '.*')
+      .replace(/:(\w+)/g, '[^/]+') + '$'),
+  }))
+
+  it('found the redirect table', () => {
+    expect(sources.length).toBeGreaterThan(10)
+    expect(sources).toContain('/gallery/videos')
+    expect(sources).toContain('/notables/:slug')
+  })
+
+  it('links at none of them from our own data or code', () => {
+    const offenders: string[] = []
+    const walk = (dir: string) => {
+      for (const entry of readdirSync(dir, { withFileTypes: true })) {
+        const p = `${dir}/${entry.name}`
+        if (entry.isDirectory()) { walk(p); continue }
+        if (!/\.(json|ts|tsx)$/.test(entry.name)) continue
+        if (/\.test\.(ts|tsx)$/.test(entry.name)) continue
+        const text = readFileSync(p, 'utf-8')
+        /* Quoted internal paths and hrefs written into stored HTML. A template literal with
+           a slug in it is normalised to a single segment so `/notables/${slug}` is seen. */
+        const candidates = new Set<string>()
+        for (const m of text.matchAll(/["'`](\/[A-Za-z0-9\-_/.]*(?:\$\{[^}]+\})?[A-Za-z0-9\-_/.]*)["'`]/g)) {
+          candidates.add(m[1].replace(/\$\{[^}]+\}/g, 'x'))
+        }
+        for (const m of text.matchAll(/href=\\?"(\/[^"\\]+)/g)) candidates.add(m[1])
+        for (const c of candidates) {
+          const hit = matchers.find(x => x.re.test(c))
+          if (hit) offenders.push(`${p}: ${c}  (redirects, source ${hit.source})`)
+        }
+      }
+    }
+    walk('src/data')
+    walk('src/lib')
+    walk('src/app')
+    walk('src/components')
+    expect(offenders).toEqual([])
+  })
 })
 
 describe('dead files that held invented people are gone, not merely unread', () => {

@@ -49,7 +49,7 @@
    "label": "Films",
    "note": "From the Fondom's own channel, attached to the records they document.",
    "source": "src/data/gallery/video-gallery.json",
-   "href": "/gallery/videos"
+   "href": "/watch"
   }
  ],
  "glanceOmitted": [
