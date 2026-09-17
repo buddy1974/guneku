@@ -8,7 +8,7 @@
   "image_rule": "Logos and covers are published only where the business supplied them or they are the business's own material. Nothing is scraped to fill a card — a business with no image gets a designed placeholder, which is the honest state and is meant to look deliberate.",
   "sources": {
    "owner-confirmation-2026-09-16": "Confirmed by the Product Owner, as data controller, on 16 September 2026.",
-   "repository-record": "Already established in this repository's reviewed records.",
+   "repository-record": "Already established in the Fondom's reviewed records.",
    "legacy-business-directory": "The held business-directory record assembled 2026-09-01 from businesses that advertised themselves in the community during 2026.",
    "owner-confirmation-2026-09-17": "Confirmed by the Product Owner, as data controller, on 17 September 2026, resolving which son or daughter of Guneku stands behind each of these businesses."
   },
@@ -57,7 +57,7 @@
     {
      "personSlug": "marcel-tabit-akwe",
      "relationship": "owner",
-     "evidence": "Recorded in this repository's own profile of him as founder of MaxPromo Digital and architect of the Guneku platform."
+     "evidence": "Recorded in the Fondom's own profile of him as founder of MaxPromo Digital and architect of the Guneku platform."
     }
    ],
    "sourceNote": "Assembled from the profile this site already publishes. No client, contract or result is claimed here that the record does not establish."
@@ -150,7 +150,7 @@
      "evidence": "Confirmed by the Fondom on 16 September 2026, and reconciled to his register entry on 17 September."
     }
    ],
-   "sourceNote": "The business itself is already established in this repository's institution record. Two locations are given by the sources: a street address at Tanwi Street, Windig Square, in Guneku, and a separate public listing describing the studio as being in Bamenda. The conflict is NOT resolved here — the Fondom's own record places the studio in Guneku, so Guneku is what this record carries, and the Bamenda listing is noted rather than chosen between. No website is published: none was established. The studio's own Facebook page is a public business channel and is published; no personal number was taken from any source."
+   "sourceNote": "The business itself is already established in the Fondom's institution record. Two locations are given by the sources: a street address at Tanwi Street, Windig Square, in Guneku, and a separate public listing describing the studio as being in Bamenda. The conflict is NOT resolved here — the Fondom's own record places the studio in Guneku, so Guneku is what this record carries, and the Bamenda listing is noted rather than chosen between. No website is published: none was established. The studio's own Facebook page is a public business channel and is published; no personal number was taken from any source."
   },
   {
    "slug": "concept-care-solutions",
@@ -232,7 +232,7 @@
     {
      "personSlug": "fon-walters-profile",
      "relationship": "physician",
-     "evidence": "This repository's own profile of the reigning Fon records his current work as \"Urologist — Private Practice\" at a Praxis für Urologie in Germany, with this website."
+     "evidence": "The Fondom's own profile of the reigning Fon records his current work as \"Urologist — Private Practice\" at a Praxis für Urologie in Germany, with this website."
     }
    ],
    "sourceNote": "He is recorded as a physician of the practice, which is what the record establishes. No ownership, partnership or shareholding is asserted: nothing held here states one, and a medical practice's ownership is not something to infer. The Fon has one identity on this site, his own Palace profile, and this business links to it rather than creating a second."

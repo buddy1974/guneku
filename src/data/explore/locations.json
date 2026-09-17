@@ -3,7 +3,7 @@
     "purpose": "The places of Guneku, in one structure, so a map can be drawn from the record rather than from memory. Each entry carries where its position came from and how precise that is — or says plainly that no position is recorded.",
     "updated": "2026-09-03",
     "coordinateRule": "A coordinate is published only where a source gives one. Nothing here is estimated, interpolated from a neighbouring place, or read off a picture of a map. A place with no recorded position appears in the list with `coordinate: null` and is NOT drawn on the map: an approximate pin on a village map is not a smaller truth than a missing one, it is a different and false claim about where something is.",
-    "state": "One coordinate exists in this repository. It is the village itself, and even that is a place-marker from a legacy map link rather than a survey. Every other place below — the Palace, the three health centres, the markets, the river, the schools, the projects — has no recorded position at all.",
+    "state": "One coordinate exists in the Fondom's records. It is the village itself, and even that is a place-marker from a legacy map link rather than a survey. Every other place below — the Palace, the three health centres, the markets, the river, the schools, the projects — has no recorded position at all.",
     "attribution": "Map tiles and base geography: © OpenStreetMap contributors, ODbL. Rendered with MapLibre GL JS. No Google Maps imagery is used, re-hosted or traced (R-010)."
   },
 
@@ -25,7 +25,7 @@
       "name": "The Guneku Palace",
       "type": "palace",
       "coordinate": null,
-      "reason": "No source in this repository gives the Palace a coordinate.",
+      "reason": "No source in the Fondom's records gives the Palace a coordinate.",
       "publicUrl": "/palace",
       "description": "The seat of HRH Fon Fomuki Walters Ticha IX and of the Guneku Traditional Council."
     },
