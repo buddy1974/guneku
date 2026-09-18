@@ -25,7 +25,7 @@ export function EditorialLead({ src, alt, caption, category }: Props) {
     return (
       <figure className="m-0 mb-10">
         <div className="relative aspect-[16/9] w-full overflow-hidden border border-[var(--rule)] bg-[var(--stone)]">
-          <Image src={src} alt={alt || ''} fill unoptimized priority
+          <Image src={src} alt={alt || ''} fill priority
                  sizes="(max-width: 900px) 100vw, 900px" className="object-cover" />
         </div>
         {caption && (

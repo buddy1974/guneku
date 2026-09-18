@@ -155,7 +155,7 @@ export default function FonProfilePage() {
             <div style={{ position:'relative', aspectRatio:'3/4', overflow:'hidden' }}>
               <Image src={fon.heroImage}
                      alt={fon.heroImageAlt || fon?.title || 'The Fon of Guneku'}
-                     fill unoptimized sizes="(max-width: 768px) 100vw, 320px"
+                     fill sizes="(max-width: 768px) 100vw, 320px"
                      style={{ objectFit:'cover' }} />
             </div>
           ) : (

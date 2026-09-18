@@ -45,7 +45,8 @@ export default function GalleryPage() {
             {SHOWCASE_IMAGES.map((it, i) => (
               <figure key={i} className={`group relative overflow-hidden rounded-[3px] border border-border ${it.span}`}>
                 <Image src={it.src} alt={it.title} fill loading="lazy"
-                       className="object-cover" unoptimized />
+                       sizes="(max-width: 768px) 50vw, 25vw"
+                       className="object-cover" />
                 <div className="absolute inset-0" style={{ background: 'oklch(0.215 0.045 158 / 0.55)' }} />
                 <figcaption className="absolute bottom-0 left-0 right-0 p-5">
                   <div className="text-[0.62rem] font-bold uppercase tracking-[0.07em] mb-1" style={{ color: 'oklch(0.975 0.010 85)' }}>{it.year}</div>
@@ -76,7 +77,7 @@ export default function GalleryPage() {
                       className="group card-royal overflow-hidden block no-underline">
                   <div className="relative h-48 bg-card/50 pattern-royal overflow-hidden">
                     {albumCoverSrc(album) ? (
-                      <Image src={albumCoverSrc(album)!} alt={album.title} fill unoptimized
+                      <Image src={albumCoverSrc(album)!} alt={album.title} fill
                              loading="lazy" sizes="(max-width: 768px) 100vw, 33vw"
                              className="object-cover" />
                     ) : (

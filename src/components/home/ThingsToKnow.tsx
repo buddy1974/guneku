@@ -49,7 +49,7 @@ export function ThingsToKnow() {
               <article key={c.id} className="inst-card flex h-full flex-col overflow-hidden">
                 {pic && (
                   <div className="relative aspect-[16/10] w-full bg-[var(--stone)]">
-                    <Image src={pic.src} alt={pic.alt} fill unoptimized loading="lazy"
+                    <Image src={pic.src} alt={pic.alt} fill loading="lazy"
                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                            className="object-cover" />
                   </div>

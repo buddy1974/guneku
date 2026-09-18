@@ -36,7 +36,7 @@ export default function FondomPage() {
 
       {/* ── HERO ── */}
       <section className="relative h-[58vh] min-h-[380px] overflow-hidden">
-        <Image src="/images/site/kingdom-hills.jpg" alt="The Guneku palace compound and the surrounding Momo hills" fill className="object-cover" priority unoptimized />
+        <Image src="/images/site/kingdom-hills.jpg" alt="The Guneku palace compound and the surrounding Momo hills" fill sizes="100vw" className="object-cover" priority />
         <div className="absolute inset-0" style={{ background: 'oklch(0.215 0.045 158 / 0.58)' }} />
         <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col items-center justify-center px-6 text-center">
           <div className="text-[0.70rem] font-bold uppercase tracking-[0.08em]" style={{ color: 'oklch(0.975 0.010 85)' }}>EST. ANCIENT · LIVING TODAY</div>
@@ -91,7 +91,7 @@ export default function FondomPage() {
 
       {/* ── FESTIVAL SECTION ── */}
       <section className="relative h-[46vh] min-h-[320px] overflow-hidden">
-        <Image src="/images/site/michi-ebeng.jpg" alt="Mɨchi Ɗbeŋ festival in Guneku, 2023" fill loading="lazy" className="absolute object-cover" unoptimized />
+        <Image src="/images/site/michi-ebeng.jpg" alt="Mɨchi Ɗbeŋ festival in Guneku, 2023" fill sizes="100vw" loading="lazy" className="absolute object-cover" />
         <div className="absolute inset-0" style={{ background: 'oklch(0.215 0.045 158 / 0.55)' }} />
         <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-6">
           <div className="max-w-xl">

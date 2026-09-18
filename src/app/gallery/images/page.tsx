@@ -49,7 +49,7 @@ export default function ImageGalleryPage() {
               <div style={{ position:'relative' }}>
                 {albumCoverSrc(album) ? (
                   <div style={{ position:'relative', aspectRatio:'16/9', overflow:'hidden' }}>
-                    <Image src={albumCoverSrc(album)!} alt={album.title} fill unoptimized
+                    <Image src={albumCoverSrc(album)!} alt={album.title} fill
                            loading="lazy" sizes="(max-width: 768px) 100vw, 33vw"
                            style={{ objectFit:'cover' }} />
                   </div>

@@ -194,7 +194,7 @@ export default async function NotablePage({
             <div style={{ position:'relative', aspectRatio:'3/4', overflow:'hidden' }}>
               <Image src={(n.portrait || n.photo) as string}
                      alt={n.portraitAlt || n.name}
-                     fill unoptimized sizes="(max-width: 768px) 100vw, 320px"
+                     fill sizes="(max-width: 768px) 100vw, 320px"
                      style={{ objectFit:'cover' }} />
             </div>
           ) : (

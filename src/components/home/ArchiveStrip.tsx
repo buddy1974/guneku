@@ -68,7 +68,7 @@ export function ArchiveStrip() {
                         x => typeof x === 'string' && x.trim() && !x.trim().startsWith('{')
                       ) || `${album.title} — photograph from the Guneku Fondom archive`
                     }
-                    fill unoptimized loading="lazy"
+                    fill loading="lazy"
                     sizes="(max-width: 768px) 50vw, 20vw"
                     className="object-cover"
                   />

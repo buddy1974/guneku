@@ -116,7 +116,7 @@ export default async function BodyPage({
                 {q.photo && (
                   <div className="relative aspect-[4/5] w-full bg-[var(--stone)]">
                     <Image src={q.photo} alt={`${q.display}, a Queen of the Guneku Palace.`}
-                           fill unoptimized sizes="(max-width: 640px) 100vw, 33vw"
+                           fill sizes="(max-width: 640px) 100vw, 33vw"
                            className="object-cover" />
                   </div>
                 )}

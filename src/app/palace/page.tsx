@@ -45,7 +45,7 @@ export default function PalacePage() {
 
       {/* ── HERO WITH PARTICLES ── */}
       <section className="relative min-h-screen overflow-hidden" style={{ minHeight: 'clamp(360px, 58vh, 560px)' }}>
-        <Image src="/images/site/palace-grounds.jpg" alt="The Guneku palace grounds" fill className="object-cover" priority unoptimized />
+        <Image src="/images/site/palace-grounds.jpg" alt="The Guneku palace grounds" fill sizes="100vw" className="object-cover" priority />
         <div className="absolute inset-0" style={{ background: 'oklch(0.215 0.045 158 / 0.58)' }} />
 
         <div className="relative z-10 mx-auto flex h-full max-w-7xl items-end px-6 pb-12" style={{ minHeight: 'clamp(360px, 58vh, 560px)' }}>
@@ -78,7 +78,7 @@ export default function PalacePage() {
               </Link>
             </div>
             <div className="relative">
-              <Image src="/images/site/fon-coronation-2016.jpg" alt="HRH Fon Fomuki Walters Ticha IX in ceremonial robe, coronation 2016" width={600} height={700} loading="lazy" className="w-full rounded-2xl shadow-royal object-cover" unoptimized />
+              <Image src="/images/site/fon-coronation-2016.jpg" alt="HRH Fon Fomuki Walters Ticha IX in ceremonial robe, coronation 2016" width={600} height={700} sizes="(max-width: 768px) 100vw, 600px" loading="lazy" className="w-full rounded-2xl shadow-royal object-cover" />
               <div className="absolute -bottom-6 -right-6 hidden md:block bg-gold-gradient px-8 py-4 rounded-xl text-gold-foreground shadow-royal">
                 <div className="font-cinzel text-3xl">FOMUKI IX</div>
                 <div className="text-xs tracking-widest">NINTH OF HIS NAME</div>
@@ -143,7 +143,7 @@ export default function PalacePage() {
 
       {/* ── PALACE QUOTE ── */}
       <section className="relative h-[48vh] min-h-[320px] overflow-hidden">
-        <Image src="/images/site/coronation-crowd.jpg" alt="The gathering at the Guneku Palace during the public presentation of HRH Fomuki Walters Ticha IX to Meta in December 2016" fill loading="lazy" className="absolute object-cover" unoptimized />
+        <Image src="/images/site/coronation-crowd.jpg" alt="The gathering at the Guneku Palace during the public presentation of HRH Fomuki Walters Ticha IX to Meta in December 2016" fill sizes="100vw" loading="lazy" className="absolute object-cover" />
         <div className="absolute inset-0" style={{ background: 'oklch(0.215 0.045 158 / 0.55)' }} />
         <div className="relative z-10 mx-auto flex h-full max-w-4xl items-center justify-center px-6 text-center">
           <div>

@@ -33,7 +33,6 @@ export function UpdateCardMedia({
         alt={img.alt}
         title={img.isFallback ? img.provenance : undefined}
         fill
-        unoptimized
         sizes={sizes}
         priority={priority}
         className="object-cover"

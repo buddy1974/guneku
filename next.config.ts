@@ -48,8 +48,33 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: path.resolve(__dirname),
   },
+  /* ── Images ───────────────────────────────────────────────────────────────────────────
+   *
+   * `unoptimized: true` sat here from the initial commit, uncommented, and it was never a
+   * decision — it was the switch that turns every `<Image>` back into a plain `<img>`
+   * serving the original file. The cost was measured on 2026-09-18, against production:
+   * `/palace` shipped its 1600x1200 hero at 342 KB to a 412 px phone, LCP 4.9 s. The same
+   * photograph at the 640 px that phone can actually show, in WebP, is 51 KB. AVIF is 42.
+   *
+   * Re-encoding the JPEGs was tried first and measured at 3 % — they are already compressed
+   * about as well as JPEG compresses. The waste was never the encoder. It was sending a
+   * desktop-sized photograph to a phone, fifteen times the pixels it can draw, over the
+   * throttled connection most of this audience is on (R-008).
+   *
+   * The two lists below are deliberately short. Every distinct (image, width) pair is one
+   * transformation to generate, cache and pay for, and the defaults offer eight widths up to
+   * 3840 px when nothing in this repository is wider than 1600. Four widths cover every
+   * layout the site has, and a thirty-one-day cache means a photograph is transformed once
+   * a month at most rather than once a deploy.
+   *
+   * Remote thumbnails — YouTube's `i.ytimg.com` — keep `unoptimized` at their call sites.
+   * They are already small, already on a CDN, and proxying them through ours would add a
+   * hop and a bill to make them no better. */
   images: {
-    unoptimized: true,
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 828, 1080, 1600],
+    imageSizes: [96, 256, 384],
+    minimumCacheTTL: 60 * 60 * 24 * 31,
   },
   /* ── Caching for the archive ─────────────────────────────────────────────────────────
    *

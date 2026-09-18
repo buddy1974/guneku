@@ -68,7 +68,7 @@ export function CurrentProjects() {
               <article key={p.name} className="inst-card flex h-full flex-col overflow-hidden">
                 {img && (
                   <div className="relative aspect-[16/10] w-full bg-[var(--stone)]">
-                    <Image src={img.src} alt={img.alt} fill unoptimized loading="lazy"
+                    <Image src={img.src} alt={img.alt} fill loading="lazy"
                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                            className="object-cover" />
                   </div>

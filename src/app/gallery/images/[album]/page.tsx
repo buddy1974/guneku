@@ -114,7 +114,7 @@ export default async function AlbumPage({
                          || publicDescription(img)?.text
                          || `${album.title} — photograph from the Guneku Fondom archive`
                        }
-                       fill unoptimized loading="lazy"
+                       fill loading="lazy"
                        sizes="(max-width: 768px) 50vw, 240px"
                        style={{ objectFit:'cover' }} />
               ) : (
