@@ -3,38 +3,45 @@ import { publicCuratedBusinesses } from './businesses'
 
 /* Who gets offered to a search engine, and why.
  *
- * ── The problem this decides ─────────────────────────────────────────────────────────────
+ * ── The decision, and the decision that replaced it ──────────────────────────────────────
  *
- * The register holds 113 sons and daughters of Guneku. Every one of them is public, linked
- * and claimable, and that is the point of the register — a person should be able to find
- * their own name and say "this is me". But offering all 113 to a search engine is a
- * different act, and a page that says only "X is named in the Fondom record" is the classic
- * thin page: a hundred near-identical templates, each carrying one fact, is not what an
- * index is for and is not how the Fondom's people are best represented.
+ * From 2026-09-17 this file held a richness threshold: an entry was offered for indexing
+ * only if it carried two facts beyond the name, which excluded 32 of the 113. The reasoning
+ * was about thin pages, and it was sound reasoning about search results and wrong about what
+ * this register is for.
  *
- * The opposite mistake would be to delete or hide them, or — far worse — to write
- * biographies nobody confirmed so the pages would look substantial. Neither is on offer.
+ * Marcel settled it on 2026-09-18, and the argument is the better one. The register exists
+ * so that a son or daughter of Guneku can recognise their own presence in the Fondom record.
+ * The person most likely to search a Guneku name is the person who owns it, or their family.
+ * A confirmed record excluded from search because the Palace has not yet been told very much
+ * about that person is the register failing precisely the reader it was built for — and it
+ * fails them silently, because nobody can tell from the page that it is being withheld.
  *
- * ── The threshold ────────────────────────────────────────────────────────────────────────
+ * So: every legitimate public register record is eligible. Thinness is not a bar, and
+ * PERSON_INDEX_THRESHOLD is 0 to say so in the one place the number is read.
  *
- * An entry is offered for indexing when it carries at least TWO facts beyond the person's
- * name, each one already published on the page and each one traceable to a record. Below
- * that it stays exactly where it is — public, crawlable, linked from the directory and from
- * its body's roster — but marked `noindex, follow`: a search engine may walk through it to
- * everything it links to, and is asked not to list the page itself.
+ * ── What eligibility still means ─────────────────────────────────────────────────────────
  *
- * `follow` rather than `noindex, nofollow` is deliberate. These pages link outward to
- * bodies, chapters and businesses that ARE worth indexing, and cutting that path would cost
- * the directory its shape for no gain.
+ * "Legitimate and public" is not a formality, and it is not weakened here. It means the slug
+ * resolves to a reviewed record in `founding-names.json`, which is the whole gate: a name
+ * the Fondom has recorded but not confirmed, an ambiguous identity, a held relationship, a
+ * private detail — none of those ever enter that file. They are held in the business
+ * directory as `heldName`, or in Neon behind a claim, or nowhere. The register is the list
+ * of people the Palace has confirmed are sons and daughters of Guneku, and being in it is
+ * the confirmation. A slug that does not resolve is not indexable, and there is nothing
+ * else to test because there is nothing else in the file.
  *
- * Two was chosen by looking rather than by taste: one signal is satisfied by bare membership
- * of a body, which most of the register has, and three would exclude people who plainly have
- * a public story — a chapter and a profession, say. Two is the point at which the page says
- * something a stranger could not have guessed from the name alone.
+ * ── What this does NOT authorise ─────────────────────────────────────────────────────────
+ *
+ * Nothing about what a page says changes. No biography is written, no occupation inferred,
+ * no location guessed, no text padded to reach a word count, no structured-data field
+ * invented to make a node look fuller. A name-only record stays a name-only record and says
+ * so on its face. `personSignals` survives — not as a gate now, but because knowing how much
+ * the Fondom holds about each person is worth being able to report.
  *
  * Nothing here changes what is published. It changes only what is submitted. */
 
-/** A fact the page already shows, beyond the name. */
+/** A fact the page already shows, beyond the name. Reported, no longer a gate. */
 export type PersonSignal =
   | 'body' | 'chapter' | 'profession' | 'residence' | 'royalRole'
   | 'notable' | 'profileUrl' | 'note' | 'aliases' | 'business' | 'deceased'
@@ -71,13 +78,29 @@ export function personSignals(n: FoundingName): PersonSignal[] {
   return s
 }
 
-/** Facts beyond the name that a register entry must carry to be offered for indexing. */
-export const PERSON_INDEX_THRESHOLD = 2
+/** Facts a register entry must carry beyond its name to be offered for indexing.
+ *
+ *  **Zero, since 2026-09-18.** It is kept, rather than deleted with the rule it enforced,
+ *  because the number is read by the sitemap tests and quoted in the build report, and a
+ *  silent constant is easier to reinstate by accident than an explicit zero. Raising it
+ *  above zero re-excludes people and is a decision for the Palace, not a tuning knob. */
+export const PERSON_INDEX_THRESHOLD = 0
+
+/** Why a register page is not offered for indexing, or null when it is. */
+export type PersonIndexBar = 'not-a-record' | 'too-thin'
+
+export function personIndexBar(slugOrName: string | FoundingName): PersonIndexBar | null {
+  const n = typeof slugOrName === 'string' ? getFoundingName(slugOrName) : slugOrName
+  /* The reviewed register is the eligibility gate, and it is the only one. A held,
+     ambiguous or unconfirmed name is not in it; a private detail is not in it; a slug that
+     resolves to nothing is not a page. */
+  if (!n) return 'not-a-record'
+  if (personSignals(n).length < PERSON_INDEX_THRESHOLD) return 'too-thin'
+  return null
+}
 
 export function isPersonIndexable(slugOrName: string | FoundingName): boolean {
-  const n = typeof slugOrName === 'string' ? getFoundingName(slugOrName) : slugOrName
-  if (!n) return false
-  return personSignals(n).length >= PERSON_INDEX_THRESHOLD
+  return personIndexBar(slugOrName) === null
 }
 
 /** Every register slug offered for indexing, sorted. Used by the sitemap. */
@@ -93,8 +116,17 @@ export function indexablePersonSlugs(): string[] {
  * to "why this result", so it is built from what this entry actually holds, longest fact
  * first, and it stops when it runs out of facts rather than padding to a length.
  *
+ * Now that every record is offered for indexing, the thinnest entries are the ones a snippet
+ * has to work hardest for — so the builder uses every fact the page already shows, including
+ * the chapter, which it did not before. That is context, not content: the chapter is printed
+ * in the entry's own table and in its hero. Where a record holds nothing but a name and an
+ * office, the snippet says that and stops. A concise true sentence is the right answer for a
+ * concise true record, and padding it would be the one thing this policy forbids.
+ *
  * Nothing is asserted that the page does not already show. */
-export function personDescription(n: FoundingName, bodyName?: string | null): string {
+export function personDescription(
+  n: FoundingName, bodyName?: string | null, chapterLabel?: string | null,
+): string {
   if (n.deceased) {
     return `${n.display} — ${n.role}. A record kept in the Guneku Fondom archive.`
   }
@@ -103,6 +135,14 @@ export function personDescription(n: FoundingName, bodyName?: string | null): st
   if (bodyName) facts.push(bodyName)
   if (n.profession) facts.push(n.profession)
   if (n.residence) facts.push(n.residence)
+  /* The chapter, written the way the cards write it — `placeLabel`, so the Europe chapter
+     reads "GUDECA Europe" rather than "Meetings rotate across Europe", which is a true
+     sentence about the chapter and a poor answer to "where is this person". Skipped when the
+     residence has already said the same country. */
+  if (chapterLabel && chapterLabel !== n.residence
+      && !(n.residence && chapterLabel.endsWith(`, ${n.residence}`))) {
+    facts.push(chapterLabel)
+  }
   if (n.notable) facts.push('a Notable of Guneku')
 
   const lead = `${n.display} — ${n.role}`
@@ -116,13 +156,22 @@ export function personDescription(n: FoundingName, bodyName?: string | null): st
 /** The counts, for the record and for the tests that hold this policy in place. */
 export function personIndexabilitySummary(): {
   total: number; indexable: number; noindex: number; threshold: number
+  /** How many are withheld for each reason. Thinness must stay at zero. */
+  bars: Record<PersonIndexBar, number>
 } {
   const all = allFoundingNames()
-  const indexable = all.filter(isPersonIndexable).length
+  const bars: Record<PersonIndexBar, number> = { 'not-a-record': 0, 'too-thin': 0 }
+  let indexable = 0
+  for (const n of all) {
+    const bar = personIndexBar(n)
+    if (bar) bars[bar]++
+    else indexable++
+  }
   return {
     total: all.length,
     indexable,
     noindex: all.length - indexable,
     threshold: PERSON_INDEX_THRESHOLD,
+    bars,
   }
 }

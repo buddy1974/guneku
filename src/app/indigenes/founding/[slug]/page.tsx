@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 import { PageHero } from '@/components/layout/PageHero'
 import {
   allFoundingNames, getFoundingName, getChapter, getBody,
-  foundingNamesFor, membersOf, toCardSafe, recordedLabel,
+  foundingNamesFor, membersOf, toCardSafe, recordedLabel, placeLabel,
 } from '@/lib/community'
 import { FoundingNameCard } from '@/components/community/FoundingNames'
 import { pageMetadata } from '@/lib/seo'
@@ -25,17 +25,20 @@ export async function generateMetadata(
   const n = getFoundingName(slug)
   if (!n) return {}
   const body = n.body ? getBody(n.body) : null
+  const chapter = n.chapter ? getChapter(n.chapter) : null
 
   const meta = pageMetadata({
     title: n.display,
-    description: personDescription(n, body?.name),
+    description: personDescription(n, body?.name, chapter ? placeLabel(chapter) : null),
     path: `/indigenes/founding/${slug}`,
   })
 
-  /* Public either way; offered to a search engine only when the entry carries at least two
-     facts beyond the name. `follow` matters: these pages link out to bodies, chapters and
-     businesses that are worth indexing, and the register would lose its shape without that
-     path. The rule and the reasoning live in src/lib/seo-policy.ts. */
+  /* Every confirmed public record in the register is offered for indexing — the register
+     exists so a son or daughter of Guneku can find their own name, and the person most
+     likely to search it is the one who owns it. The branch is kept rather than deleted: it
+     is what would withhold a record the register itself stopped vouching for, and `follow`
+     is what keeps the path onward to bodies, chapters and businesses. The rule and the
+     reasoning live in src/lib/seo-policy.ts. */
   return isPersonIndexable(n)
     ? meta
     : { ...meta, robots: { index: false, follow: true } }
@@ -81,7 +84,7 @@ export default async function FoundingNamePage({
       <PageGraph
         path={`/indigenes/founding/${slug}`}
         name={n.display}
-        description={personDescription(n, body?.name)}
+        description={personDescription(n, body?.name, chapter ? placeLabel(chapter) : null)}
         primaryEntity={personId(n.slug)}
         trail={[
           { name: 'Our People', path: '/indigenes' },
