@@ -5,6 +5,7 @@
 | Document tier | 1 — launch record |
 | Owner (DRI) | Marcel / Maxpromo Digital |
 | Launched | 2026-09-18 |
+| Bing attempt 2 | 2026-09-18, same day — see §3 |
 | Certified SHA | `0b7a72b` |
 | Production deployment | `guneku-46v4qxyvz` (`dpl` promoted after `INDEXNOW_KEY` was set) |
 | Canonical domain | `https://www.guneku.org` |
@@ -88,28 +89,91 @@ for hundreds of pages does not make them arrive faster and is not what the featu
 
 ## 3. Bing Webmaster Tools
 
-**BLOCKED — human action required.**
+**BLOCKED — one human click required.** Attempted 2026-09-18, second attempt.
 
-`bing.com` is not in the browser automation's allowed-domain list, so Bing Webmaster Tools
-could not be reached from this session. This is an access limit, not a site problem.
+`bing.com` was outside the browser automation's allowed domains on the first launch attempt.
+That was lifted, and Bing Webmaster Tools was driven as far as it can be driven without a
+person.
 
-**What Marcel needs to do** — about five minutes:
+### What was established
 
-1. Go to `https://www.bing.com/webmasters` and sign in.
-2. Choose **Import from Google Search Console**. The GSC property now exists and is
-   verified, so the import carries the verification and the sitemap across in one step.
-3. If the import is not offered, add the site manually as `https://www.guneku.org`, verify
-   by the XML-file or meta-tag method Bing provides, then submit
-   `https://www.guneku.org/sitemap.xml`.
+| Check | Result |
+|---|---|
+| Bing Webmaster Tools session | authenticated, Marcel's Microsoft account |
+| Existing Guneku property | **none** — a search for "guneku" in the site list returns nothing |
+| Add-site methods offered | *Import from Google Search Console*, or add manually |
+| Method chosen | **Import from Google Search Console**, as instructed |
+| Sites already in the account | several unrelated properties, **none touched** |
 
-**Bing is not waiting on this to discover the site.** IndexNow (§4) is Microsoft's own
-protocol and notifies Bing directly; 24 URLs have already been accepted. The Webmaster Tools
-property is for reporting, coverage data and manual controls — worth having, not a
-prerequisite for being crawled.
+Bing's own description of the import: no site verification required, sitemaps imported
+instantly, View-Only access to Search Console used to periodically revalidate verification
+and update sitemaps. That is why it is the right method and why no manual verification file
+was created.
 
-Bing's old anonymous sitemap-ping endpoint was retired in 2023 in favour of IndexNow, so
-there is no unauthenticated route that would have avoided this step.
+### Where it stopped, and why
 
+The import hands off to Google's OAuth flow. The account chooser accepted
+`djstranger2000@gmail.com` — the same account that owns the verified
+`sc-domain:guneku.org` property — and the flow reached the final consent screen:
+
+> **Sign in with Google** · You're signing back in to bing.com · djstranger2000@gmail.com ·
+> *Cancel* | **Continue**
+
+Requested scopes, read from the OAuth request itself:
+
+```
+https://www.googleapis.com/auth/webmasters.readonly
+https://www.googleapis.com/auth/userinfo.email
+```
+
+Read-only, and exactly what the import needs. **The Continue button does not respond to
+programmatic input.** Clicks by element reference, keyboard Return and Space were all tried
+and the page did not advance.
+
+That is not a fault to work around. A consent screen is hardened against synthetic clicks on
+purpose: the whole point of it is that a person, not a program, grants a third party standing
+access to their account. So the attempt stopped there rather than looking for a way past it.
+
+### What Marcel needs to do — one click
+
+The flow is already open in the browser at the consent screen.
+
+1. Click **Continue**.
+2. Bing returns to the import page and lists the Google properties. Tick **only**
+   `guneku.org` — the other sites in that Google account are not Guneku's.
+3. Confirm. Verification and the sitemap come across with it.
+
+If the consent screen has expired by the time it is clicked, it will show an error; restart
+from Bing Webmaster Tools → site selector → **Add a site** → **Import**, and the flow resumes
+from the same place.
+
+### The alternative, if the import is ever unwanted
+
+Bing's manual route needs a verification artifact: `BingSiteAuth.xml` in `public/`, or a meta
+tag in the layout, or a DNS CNAME. All three were deliberately **not** done. The first two
+put a permanent verification file in a repository that would then carry two mechanisms for
+one job, and cost a production deploy; the third means touching Cloudflare DNS, which is out
+of bounds. None of that is worth avoiding a single click on a path that is better anyway —
+the import keeps verification and sitemaps in sync afterwards, and a static file does not.
+
+### Bing is not waiting on any of this to find the site
+
+IndexNow is Microsoft's own protocol. Guneku's key is live and verified at
+`https://www.guneku.org/indexnow-key.txt`, and 24 principal URLs were accepted with HTTP 202
+on the first launch pass. Bing has been told the site exists and what its main pages are.
+
+The Webmaster Tools property adds reporting, coverage data, URL inspection and manual
+controls. It is worth having. It is not a prerequisite for being crawled, and Bing retired
+its anonymous sitemap-ping endpoint in 2023 in favour of IndexNow, so there is no
+unauthenticated route that would have avoided the consent step.
+
+### Not done, because the property does not exist yet
+
+Sections 2–8 of the Bing brief — verifying the imported property, checking the sitemap's
+status in Bing, reading Bing's IndexNow dashboard, URL Inspection on the six representative
+pages, and the crawl/security/canonical problem sweep — all require the property. They are
+the first things to do after the click, and nothing about them was guessed at or reported as
+though it had been observed.
 ---
 
 ## 4. IndexNow
@@ -197,8 +261,8 @@ self-referencing canonicals. `robots.txt` and `sitemap.xml` unchanged.
 | Google property | **VERIFIED** (Domain, auto-verified via DNS provider) |
 | Google sitemap | **SUBMITTED** — Success, 258 pages |
 | Google priority requests | **7 COMPLETE** |
-| Bing property | **BLOCKED** — human action |
-| Bing sitemap | **BLOCKED** — follows the property |
+| Bing property | **BLOCKED** — one human click, at Google's OAuth consent screen (§3) |
+| Bing sitemap | **BLOCKED** — comes across with the import |
 | IndexNow | **ARMED** — key configured and serving |
 | IndexNow launch submission | **COMPLETE** — 24 URLs, HTTP 202 |
 
@@ -206,7 +270,9 @@ self-referencing canonicals. `robots.txt` and `sitemap.xml` unchanged.
 
 ## 7. Still required from a person
 
-1. **Bing Webmaster Tools** — §3. Five minutes, and the GSC import does most of it.
+1. **Bing Webmaster Tools** — §3. **One click** on the Google consent screen already open in
+   the browser, then tick `guneku.org` on the import list. Everything either side of that
+   click is done.
 
 That is the only one. Everything else on the pre-launch list was either done here or is an
 improvement rather than a blocker: R-042's archive dimensions, the font weight question, and

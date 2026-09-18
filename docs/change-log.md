@@ -2881,3 +2881,44 @@ URL can sit between any two of them for weeks. What was done is recorded; what G
 Bing make of it is theirs to decide, and `docs/search-engine-launch.md` §8 says what to watch
 and when rather than inviting anyone to read an empty Performance report in week one as a
 failure.
+
+---
+
+## 2026-09-18 - Bing: driven to the one door a program is not supposed to open
+
+A second attempt at Bing Webmaster Tools, this time with browser access to `bing.com`
+granted. It got everything except a click.
+
+Established: the Bing account is authenticated; **no Guneku property exists there yet**; the
+add-site dialog offers *Import from Google Search Console* or a manual add. The import was
+chosen, as instructed — no site verification needed, sitemaps imported instantly, and
+read-only access used afterwards to revalidate verification and keep sitemaps in sync. None
+of the unrelated properties already in that account was touched.
+
+The import hands off to Google. The account chooser accepted `djstranger2000@gmail.com` —
+the account that owns the verified `sc-domain:guneku.org` — and the flow reached the final
+consent screen requesting `webmasters.readonly` and `userinfo.email`. Read-only, exactly
+what the import needs.
+
+**The Continue button does not respond to programmatic input.** Element-reference clicks,
+Return and Space were all tried; the page did not move. That is not a defect to work around.
+A consent screen is hardened against synthetic clicks precisely so that a person, not a
+program, grants a third party standing access to their account — so the attempt stopped
+there instead of looking for a way past it.
+
+The manual alternative was deliberately not taken. `BingSiteAuth.xml` in `public/` or a meta
+tag in the layout would each leave a permanent verification artifact in a repository that
+would then carry two mechanisms for one job, and cost a production deploy; a DNS CNAME means
+touching Cloudflare, which is out of bounds. None of that is worth avoiding one click on a
+path that is better anyway.
+
+Nothing was changed in the product, and nothing about Bing's state was reported as observed
+when it had not been: verifying the property, its sitemap status, Bing's IndexNow dashboard,
+URL Inspection on the six representative pages and the crawl/security sweep all need the
+property to exist, and are listed as the first things to do after the click.
+
+Bing is not waiting on any of it to find the site. IndexNow is Microsoft's own protocol, the
+key is live and verified, and 24 principal URLs were accepted with HTTP 202 earlier the same
+day.
+
+Documentation only. No source, no configuration, no `INDEXNOW_KEY`, no DNS.
