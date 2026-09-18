@@ -2806,3 +2806,78 @@ this pass overtook.
 No search engine contacted. No property, no sitemap submission, no indexing request, no
 IndexNow ping. No page redesigned, no completed SEO architecture reopened, no file in
 `public/` modified.
+
+---
+
+## 2026-09-18 - Guneku is presented to the search engines
+
+The switch from SEO-ready to submitted. Full record in `docs/search-engine-launch.md`; this
+is the short account.
+
+### Google
+
+A **Domain** property, `sc-domain:guneku.org` — the strongest type, covering every subdomain
+and both protocols as one property rather than four. Google **auto-verified** it through the
+domain's existing DNS provider, so the TXT record that had been written up as a human action
+was never needed and **nothing in DNS was touched**: Resend DKIM, SPF, MX, Clerk and Vercel
+records are exactly as they were.
+
+`https://www.guneku.org/sitemap.xml` submitted and read the same day: **Success, 258 pages**,
+which is the certified count exactly.
+
+Seven priority URLs requested by hand through URL Inspection — the homepage and the six
+principal hubs — each returning "added to a priority crawl queue". Seven and no more: the
+sitemap is how the other 251 get found, and asking Google by hand for hundreds of pages does
+not make them arrive sooner.
+
+A second sitemap is listed in the property, `http://www.guneku.org/sitemap.xml` from June
+2023 with 72 pages. That is the legacy Joomla site, inherited with the domain's history. It
+was left alone — it costs nothing, the `http://` host 308s to the canonical one, and it is
+useful evidence of what Google knew about this domain before the rebuild.
+
+### Bing — blocked, and not blocking
+
+`bing.com` is outside the browser automation's allowed domains, so Webmaster Tools could not
+be reached. It is the one human action left: sign in and choose *Import from Google Search
+Console*, which now carries the verification and the sitemap across in a step.
+
+Bing is not waiting on it to find the site. IndexNow is Microsoft's own protocol and has
+already had 24 URLs accepted. The Webmaster Tools property is for reporting and manual
+controls, not a prerequisite for being crawled — and Bing retired its anonymous sitemap ping
+in 2023, so there was no unauthenticated route that would have avoided the step.
+
+### IndexNow — armed
+
+A 64-character key from `crypto.randomBytes(32)`, stored encrypted as `INDEXNOW_KEY` in
+Vercel Production and **nowhere in the repository, git, documentation or terminal output**.
+`/indexnow-key.txt` serves it; verified by comparing SHA-256 digests rather than values.
+Setting it needed a production redeploy of the same certified source, because the key-file
+route reads its environment at request time inside a function.
+
+**24 URLs submitted, HTTP 202.** The principal canonical hubs, each checked first against the
+production crawl for 200, `index, follow` and sitemap membership. Not the 113 register
+entries and not the 40 news articles — they are in the sitemap, which is the right instrument
+for an archive. IndexNow says *this changed*, and announcing three hundred unchanged pages is
+a false claim (ADR-096). The 25-URL cap made that a limit the code enforces rather than one
+somebody has to remember.
+
+Worth recording: the first attempt was **refused by the implementation's own host guard**.
+Git Bash on Windows rewrote the leading-slash arguments into local filesystem paths, and
+`submitUrls` declined all 24 because they were not on `https://www.guneku.org`. Absolute URLs
+went through. The guard did exactly what it was written to do.
+
+### Nothing on the site changed
+
+Every gate re-run after submission: 282 HTML pages, 258 sitemap URLs, **113 of 113 indigenes**
+still 200 / `index, follow` / self-canonical / in the sitemap, zero broken links, zero
+canonical errors, zero `noindex` or held or private URLs in the sitemap, zero orphans, 598
+JSON-LD blocks parsing, no duplicate titles or descriptions. `robots.txt` and `sitemap.xml`
+byte-identical to before.
+
+### What is not being claimed
+
+That anything is indexed. Submission, discovery, crawling and indexing are four states and a
+URL can sit between any two of them for weeks. What was done is recorded; what Google and
+Bing make of it is theirs to decide, and `docs/search-engine-launch.md` §8 says what to watch
+and when rather than inviting anyone to read an empty Performance report in week one as a
+failure.

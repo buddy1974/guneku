@@ -18,9 +18,15 @@
 >   desktop 99–100. R-008 closed. See `docs/seo-final-certification.md` §1.
 > * **B 11 (content)** — waits on Marcel's wording, by his own instruction.
 > * **B 12 second bullet** — a Google Business Profile is an owner decision.
-> * **B 13, 14, 15** — Search Console, Bing, post-submission monitoring. **Nothing has been
->   submitted:** no property created, no sitemap submitted, no indexing requested, no IndexNow
->   ping sent.
+> * **B 13 (Search Console)** — **done 2026-09-18.** Domain property `sc-domain:guneku.org`,
+>   auto-verified through the DNS provider with no record created; sitemap submitted and read,
+>   Success, 258 pages; seven priority URLs requested.
+> * **B 14 (Bing)** — **BLOCKED, human action.** `bing.com` is outside this session's browser
+>   permissions. Sign in and use *Import from Google Search Console*. IndexNow already
+>   reaches Bing, so discovery is not waiting on it.
+> * **B 15 (monitoring)** — baseline recorded in `docs/search-engine-launch.md` §8.
+> * **IndexNow** — **ARMED.** Key in Vercel Production, key file serving and verified by
+>   digest, 24 principal hubs submitted, HTTP 202.
 > * **Section C** — C1 was answered by ADR-093 and put to Marcel. **He answered it on
 >   2026-09-18 and reversed it: all 113 register entries are offered, not 81 (ADR-097).** C2
 >   and C3 remain his.
@@ -32,8 +38,8 @@
 | Written | 2026-09-17 |
 | Product baseline | the head of `main` after the final visual/content pass of 2026-09-17 |
 | Production | https://www.guneku.org |
-| Status | B 1–10 and 12 done · 11 and 13–15 open · C open · **nothing submitted** |
-| Superseded by | `docs/seo-2026-build-report.md`, then `docs/seo-final-certification.md` |
+| Status | **LAUNCHED 2026-09-18** · Google + IndexNow live · Bing awaits Marcel · B 11 and C open |
+| Superseded by | `docs/seo-2026-build-report.md` → `docs/seo-final-certification.md` → `docs/search-engine-launch.md` |
 
 The order matters and was Marcel's instruction: **look at the finished product first, make the
 visual and wording judgments, and only then tell Google and Bing this is the version to
