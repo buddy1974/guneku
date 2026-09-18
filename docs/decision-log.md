@@ -1990,6 +1990,11 @@ no reason to set an advertising cookie on somebody who only scrolled past a vide
 
 ## ADR-093 - The register is public in full and submitted in part, and the line is two facts
 
+> **Superseded by ADR-097 on 2026-09-18, one day later.** Marcel reversed the threshold:
+> all 113 records are now offered. The reasoning below is kept because it is the argument
+> that was answered, and because the counter-argument — that the register exists so a
+> person can find their own name — only makes sense against it.
+
 **Context.** The indigenes register holds 113 sons and daughters of Guneku. Every entry is
 public, linked from its body's roster and from the directory, and claimable — that is what the
 register is for: a person should be able to find their own name and say "this is me". Offering
@@ -2109,3 +2114,81 @@ a key nobody owns is a verification that fails quietly later. Nothing fakes owne
 
 **Nothing has been submitted.** `INDEXNOW_KEY` is not set on the project, and setting it is a
 decision for the Palace rather than a step in this build.
+
+---
+
+## ADR-097 - Every confirmed son and daughter is offered to search — supersedes ADR-093
+
+**Context.** ADR-093, written the day before, withheld 32 of the 113 register entries from
+search because they carried fewer than two facts beyond a name. The reasoning was about thin
+pages and it was correct about thin pages. It was wrong about what this register is.
+
+**Decision (Marcel, 2026-09-18).** All 113 legitimate public records are eligible.
+`PERSON_INDEX_THRESHOLD` is 0.
+
+**Why the earlier reasoning failed.** The register exists so that a son or daughter of Guneku
+can recognise their own presence in the Fondom record. The person most likely to type a Guneku
+name into a search engine is the person who owns it, or their family. Withholding a confirmed
+record because the Palace has not yet been told very much about that person is the register
+failing exactly the reader it was built for — and failing them silently, since nothing on the
+page says it is being withheld. A thin-page penalty is a cost to the site. Being unfindable by
+your own name is a cost to a person.
+
+**Eligibility is not weakened, only decoupled from richness.** The reviewed register is the
+gate and remains the only one: a name the Fondom has recorded but not confirmed, an ambiguous
+identity, a held relationship, a private detail — none of those are in
+`founding-names.json`. They are held in the business directory as `heldName`, or in Neon
+behind a claim, or nowhere. `personIndexBar()` now returns *which* bar applies, so the build
+report can state that thinness accounts for none of them rather than asserting it.
+
+**The constant stays at zero rather than being deleted with the rule.** An explicit zero is
+harder to reinstate by accident than a silent absence, and raising it re-excludes named people,
+which is the Palace's decision and not a tuning knob.
+
+**This authorises nothing about content.** No biography, no inferred occupation, no guessed
+location, no padding to reach a word count, no structured-data field invented to make a node
+look fuller. A sparse entry's description is short, and a test reconstructs every word of it
+from recorded fields, so a sentence added to fill space fails. The one thing added is the
+chapter, which the entry's own table and hero already print — written with `placeLabel`, so
+the Europe chapter reads "GUDECA Europe" rather than "Meetings rotate across Europe", which is
+a true sentence about a chapter and a poor answer to where a person is.
+
+`personSignals` survives as reporting rather than as a gate. Deleting it would leave the next
+person who proposes a quality filter with no measurement to argue with.
+
+---
+
+## ADR-098 - The image optimizer is on, and the size lists are short on purpose
+
+**Context.** `images: { unoptimized: true }` had been in `next.config.ts` since the initial
+commit, uncommented. It is the switch that turns every `<Image>` back into a plain `<img>`
+serving the original file, and nothing in the repository or the history argues for it. It was
+a default nobody revisited.
+
+**Measured before anything was changed**, against production, on 2026-09-18: `/palace` shipped
+its 1600×1200 hero at 342 KB to a 412 px phone. Mobile LCP 4.9 s, 463 KB of images on one
+page. `/fondom` 4.2 s, `/gallery/images` 4.7 s.
+
+Re-encoding the JPEGs was tried **first**, before touching delivery, and measured at 3 %: they
+are already compressed about as well as JPEG compresses, and no file in the repository is
+wider than 1600 px. The waste was never the encoder and never the source dimensions. It was
+sending fifteen times the pixels a phone can draw, over the throttled connection most of this
+audience is on (R-008). The same photograph at 640 px in WebP is 51 KB; in AVIF, 42.
+
+**Decision.** The switch is removed and the config explains why. AVIF then WebP.
+`deviceSizes` is four widths — 640, 828, 1080, 1600 — and `imageSizes` three, against defaults
+of eight up to 3840 px for a repository whose largest image is 1600. Every distinct
+(image, width) pair is one transformation to generate, cache and pay for, so a short list is a
+bounded bill as well as a faster site. `minimumCacheTTL` is 31 days: a photograph is
+transformed about once a month rather than once a deploy.
+
+**Eight call sites keep `unoptimized`, on purpose.** The brand logos are 5–9 KB PNGs with
+nothing to win. The YouTube thumbnails are remote and already on a CDN; proxying them through
+ours would add a hop and a bill to make them no better.
+
+**Nothing in `public/` changed.** No photograph was resized, re-cropped, re-encoded or
+replaced. This is a delivery change, and the archive is untouched.
+
+**Result**, same routes, same tool, after deployment: `/palace` 81 → 90 and LCP 4.9 s → 3.4 s;
+`/fondom` 86 → 91 and 4.2 s → 3.4 s; `/gallery/images` 82 → 88 and 4.7 s → 3.7 s; `/contact`
+94 → 99. No route now exceeds 4 s on throttled mobile, and desktop is 99–100 throughout.

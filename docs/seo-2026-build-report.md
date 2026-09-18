@@ -10,7 +10,14 @@
 | Production | https://www.guneku.org |
 | Deployment verified | `guneku-7eeu5dkbj` · Ready · 2026-09-17 |
 | **Submission status** | **NOT SUBMITTED — awaiting Marcel's approval** |
+| Superseded in part | `docs/seo-final-certification.md`, 2026-09-18 |
 
+> **Two things below were overtaken the next day.** The indexability policy in §2 was
+> reversed by Marcel on 2026-09-18 — all 113 register entries are now offered, not 81; see
+> ADR-097. And the Core Web Vitals measurement this report listed as outstanding has been
+> done. Both are in `docs/seo-final-certification.md`. Everything else here stands, and the
+> numbers are kept as the state the certification pass started from.
+>
 > **Nothing has been submitted to any search engine.** No sitemap was submitted in Search
 > Console, no indexing was requested, no URL was sent to IndexNow, no Bing sitemap was
 > submitted, and no broad crawl was triggered. The build stops here by instruction. §9 is

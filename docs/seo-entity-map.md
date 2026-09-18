@@ -4,7 +4,7 @@
 |-------|-------|
 | Document tier | 2 — operational reference |
 | Owner (DRI) | Marcel / Maxpromo Digital |
-| Written | 2026-09-17 |
+| Written | 2026-09-17 · §5 rewritten 2026-09-18 (ADR-097) |
 | Implemented by | `src/lib/schema.ts`, `src/components/seo/PageGraph.tsx` |
 | Held in place by | `src/lib/schema.test.ts` (24 tests) |
 
@@ -74,7 +74,7 @@ drifts.
 | Route | Primary entity | Notes |
 |---|---|---|
 | `/` , `/fondom` | `#guneku` | The village; the Fondom is the publisher, not the subject |
-| `/indigenes/founding/[slug]` | `Person` | 113 entries; 81 indexable — see §5 |
+| `/indigenes/founding/[slug]` | `Person` | 113 entries, all 113 indexable — see §5 |
 | `/sons-and-daughters/[slug]` | `Person` | Published profiles, given for publication |
 | `/people/[body]` | `Organization` | The five governing bodies |
 | `/businesses/[slug]` | `LocalBusiness` / `Organization` | 9 public; 1 held, absent |
@@ -132,23 +132,45 @@ so there is nothing to mark up.
 
 ---
 
-## 5. Indexability, and why 81 of 113
+## 5. Indexability — all 113
 
-`src/lib/seo-policy.ts`.
+`src/lib/seo-policy.ts` · ADR-097, superseding ADR-093.
 
-The register holds 113 sons and daughters. Every one is public, linked and claimable — that
-is what the register is *for*: a person should be able to find their own name and say "this
-is me". Offering all 113 to a search engine is a different act. A hundred near-identical
-pages each carrying one fact is the classic thin page, and it is not how the Fondom's people
-are best represented.
+The register holds 113 sons and daughters. **Every one is offered for indexing.**
 
-**An entry is offered for indexing when it carries at least two facts beyond the name**,
-each already published on the page and each traceable to a record. Signals: a body, a
-chapter, a profession, a residence, a royal role, notable standing, an existing profile on
-this site, a substantive note (≥40 characters), recorded aliases, a business in the
-directory, or an in-memoriam record.
+For one day — 2026-09-17 — a threshold withheld 32 of them for carrying fewer than two facts
+beyond a name. Marcel reversed it on the 18th, and the argument that won is the one worth
+recording here: the register exists so that a son or daughter of Guneku can recognise their
+own presence in the Fondom record, and the person most likely to search a Guneku name is the
+person who owns it. Withholding a confirmed record because the Palace has not yet been told
+much about that person fails exactly the reader the register was built for, and fails them
+silently. A thin-page penalty is a cost to the site. Being unfindable by your own name is a
+cost to a person.
 
-| Signals | Entries |
+`PERSON_INDEX_THRESHOLD` is 0. It is kept rather than deleted: an explicit zero is harder to
+reinstate by accident than a silent absence.
+
+### Eligibility, which was never the thing that changed
+
+`personIndexBar()` returns why a page is withheld, or null. There are two possible answers
+and only one of them can currently occur:
+
+| Bar | Meaning | Count |
+|---|---|---|
+| `not-a-record` | the slug resolves to nothing in the reviewed register | 0 of 113 |
+| `too-thin` | below the threshold — **retired** | 0 of 113 |
+
+The reviewed register is the gate and is the only one. A name the Fondom has recorded but not
+confirmed, an ambiguous identity, a held relationship, a private detail: none of those are in
+`founding-names.json`. They live in the business directory as `heldName`, or in Neon behind a
+claim, or nowhere. Being in the register *is* the confirmation.
+
+### What is still counted, and why
+
+`personSignals` survives as reporting rather than as a gate — if it were deleted, the next
+person to propose a quality filter would have no measurement to argue with.
+
+| Signals beyond the name | Entries |
 |---|---|
 | 1 | 32 |
 | 2 | 44 |
@@ -158,16 +180,13 @@ directory, or an in-memoriam record.
 | 6 | 1 |
 | 7 | 1 |
 
-**81 indexable, 32 `noindex, follow`.**
+### What this does not authorise
 
-Two was chosen by looking, not by taste. One signal is satisfied by bare membership of a
-body, which most of the register has. Three would exclude people who plainly have a public
-story — a chapter and a profession, say. Two is the point at which the page says something
-a stranger could not have guessed from the name alone.
-
-`follow` rather than `nofollow` is deliberate: these pages link outward to bodies, chapters
-and businesses that *are* worth indexing, and cutting that path would cost the directory its
-shape for nothing.
+Nothing about what a page says. No biography, no inferred occupation, no guessed location, no
+padding to reach a word count, no structured-data field invented to make a node look fuller.
+A sparse entry's description is short, and a test reconstructs every word of it from recorded
+fields — so a sentence added to fill space fails. The one thing added on 2026-09-18 is the
+chapter, which the entry's own table and hero already print.
 
 **Nothing here changes what is published.** It changes only what is submitted.
 

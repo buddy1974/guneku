@@ -9,18 +9,21 @@
 >
 > **Still open, and not touched by that build:**
 >
-> * **B 6 (images)** — alt text is present everywhere and was re-checked on all 752 images in
->   the built output; filenames and R-042's oversized originals were not settled.
-> * **B 10 (Core Web Vitals)** — no Lighthouse run against production has been done. R-008
->   is still the largest unknown on this list, and it needs a real device or a lab run, not a
->   source reading.
+> * **B 6 (images)** — **done 2026-09-18.** Alt text present on all 752 images; the image
+>   optimizer was found switched off and turned on (ADR-098); R-042 re-measured at 304 of 339
+>   records, not 19, and written up. Filenames were not renamed and the staged originals were
+>   not swapped in — both remain owner decisions, now with numbers attached.
+> * **B 10 (Core Web Vitals)** — **done 2026-09-18.** Lighthouse 12.8.2 against production,
+>   15 routes, throttled mobile and desktop. Mobile 84–99, LCP 1.6–3.9 s, CLS ≤0.003;
+>   desktop 99–100. R-008 closed. See `docs/seo-final-certification.md` §1.
 > * **B 11 (content)** — waits on Marcel's wording, by his own instruction.
 > * **B 12 second bullet** — a Google Business Profile is an owner decision.
 > * **B 13, 14, 15** — Search Console, Bing, post-submission monitoring. **Nothing has been
 >   submitted:** no property created, no sitemap submitted, no indexing requested, no IndexNow
 >   ping sent.
-> * **Section C** — C1 is answered by ADR-093 and needs Marcel's confirmation. C2 and C3
->   remain his.
+> * **Section C** — C1 was answered by ADR-093 and put to Marcel. **He answered it on
+>   2026-09-18 and reversed it: all 113 register entries are offered, not 81 (ADR-097).** C2
+>   and C3 remain his.
 
 | Field | Value |
 |-------|-------|
@@ -29,8 +32,8 @@
 | Written | 2026-09-17 |
 | Product baseline | the head of `main` after the final visual/content pass of 2026-09-17 |
 | Production | https://www.guneku.org |
-| Status | B 1–5, 7–9 done 2026-09-17 · 6, 10–15 and C still open · **nothing submitted** |
-| Superseded by | `docs/seo-2026-build-report.md` |
+| Status | B 1–10 and 12 done · 11 and 13–15 open · C open · **nothing submitted** |
+| Superseded by | `docs/seo-2026-build-report.md`, then `docs/seo-final-certification.md` |
 
 The order matters and was Marcel's instruction: **look at the finished product first, make the
 visual and wording judgments, and only then tell Google and Bing this is the version to

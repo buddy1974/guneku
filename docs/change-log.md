@@ -2710,3 +2710,99 @@ over 60, 0 descriptions over 160, 0 orphans, 0 indexable pages missing from the 
 `docs/seo-2026-build-report.md`, `docs/seo-entity-map.md` and `docs/seo-query-architecture.md`
 opened. ADR-093 to ADR-096 recorded. `docs/seo-launch-handoff.md` updated to say which of its
 sections this build closed and which still wait on Marcel.
+
+---
+
+## 2026-09-18 - Certification: the measurement that had never been taken, and a decision reversed
+
+Two gaps closed before search-engine launch. **Still nothing submitted to anybody.** The full
+account is `docs/seo-final-certification.md`.
+
+### The performance measurement, finally taken
+
+R-008 had been open since the start of the project: mobile performance unverified, on an
+audience largely using a mid-range Android on a throttled connection in Cameroon. Fifteen
+routes, Lighthouse 12.8.2, throttled mobile and desktop, against production.
+
+It found one material defect. `images: { unoptimized: true }` had sat in `next.config.ts`
+since the initial commit, uncommented — the switch that turns every `<Image>` back into a
+plain `<img>` serving the original file. `/palace` was shipping a 1600×1200 hero at 342 KB to
+a 412 px phone, LCP 4.9 s.
+
+Re-encoding the JPEGs was tried **first**, before touching delivery, and came back at 3 %.
+They are already compressed about as well as JPEG compresses and nothing in the repository is
+wider than 1600 px, so the waste was never the encoder or the source dimensions — it was
+sending fifteen times the pixels a phone can draw. That is the sort of thing an assumption
+gets wrong and a measurement gets right, and it is why the measurement came first.
+
+The optimizer is on now, with four device widths instead of eight and a thirty-one-day cache,
+because every distinct (image, width) pair is a transformation to generate, cache and pay
+for. Eight call sites keep `unoptimized` deliberately: the brand logos, which are 5–9 KB, and
+the YouTube thumbnails, which are remote and already on a CDN. **No file in `public/`
+changed.** No photograph was resized, re-cropped, re-encoded or replaced.
+
+`/palace` 81 → 90 and 4.95 s → 3.44 s. `/fondom` 86 → 91. `/gallery/images` 82 → 88.
+`/contact` 94 → 99. Four routes were over 4 s LCP; none is now. Desktop is 99–100 throughout.
+
+What was left alone, on purpose: fonts are now the largest asset class at 216 KB, and dropping
+a face would save ~54 KB at the cost of synthesised italics on a design that has been accepted
+and frozen — an owner's call, not a performance fix. MapLibre's 291–326 ms of blocking time on
+`/explore` is one route, already lazy-loaded. The rest is framework chunks and single-digit
+score points not worth risking the design for.
+
+### The indexability decision, reversed
+
+Yesterday's threshold withheld 32 of the 113 register entries for carrying fewer than two
+facts beyond a name. Marcel reversed it, and his argument is the better one: the register
+exists so a son or daughter of Guneku can recognise their own presence in the Fondom record,
+and the person most likely to search a Guneku name is the person who owns it. A confirmed
+record kept out of search because the Palace has not yet been told much about that person
+fails exactly the reader it was built for — silently, because nothing on the page says so.
+
+All 113 are offered. `PERSON_INDEX_THRESHOLD` is 0 and stays in the file rather than being
+deleted with the rule, because an explicit zero is harder to reinstate by accident. Eligibility
+was decoupled from richness, not weakened: the reviewed register is still the only gate, and
+`personIndexBar()` now names which bar applies so the report can show that thinness accounts
+for none.
+
+Nothing was invented to justify it. A sparse entry's description is short and a test
+reconstructs every word of it from recorded fields, so padding fails the suite. The one
+addition is the chapter, which the entry's own table already prints.
+
+Sitemap 226 → 258.
+
+### R-042, measured properly
+
+The register said nineteen photographs. It is **304 of 339** — every catalogue record compared
+against the file on disk. All of them are the same photograph at a smaller size; the 38 that
+looked like aspect changes are integer rounding. Nothing in the application reads those
+fields.
+
+And the economics changed underneath it: the 2026-09-06 deferral turned on 109 KB becoming
+1.6 MB on a page load, and since the optimizer went on, wire bytes are set by the width the
+browser asks for, not the source file. Swapping in the staged originals is now close to free.
+Measured and written up; not done, because rewriting 304 archive records is an
+archive-content decision and not a performance fix.
+
+### Verification
+
+`npx tsc --noEmit` clean · `npx vitest run` **1302 passed across 56 files** · `npm run build`
+succeeded at **304 static pages** · ESLint clean on touched files · production crawl of 291
+URLs with every gate at zero: no broken links, no canonical errors, no sitemap non-200, no
+`noindex` or held or private URL in the sitemap, no indexable page missing from it, no
+accidental `noindex`, no malformed JSON-LD across 598 blocks, no duplicate titles or
+descriptions, no orphans · **113 of 113 indigenes verified 200, indexable, self-canonical and
+in the sitemap** · git tree clean.
+
+### Documents
+
+`docs/seo-final-certification.md` opened. ADR-097 (supersedes ADR-093) and ADR-098 recorded.
+R-069 resolved, R-008 closed, R-042 re-measured with an addendum. The entity map's
+indexability section rewritten; the build report and the launch handoff annotated with what
+this pass overtook.
+
+### Not done, and deliberately
+
+No search engine contacted. No property, no sitemap submission, no indexing request, no
+IndexNow ping. No page redesigned, no completed SEO architecture reopened, no file in
+`public/` modified.

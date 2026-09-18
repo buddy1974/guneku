@@ -47,7 +47,7 @@ answer and what the other is instead — that distinction is the entire point of
 | Traditional governance, the Notables | `/notables` | **Not** distinguished sons and daughters — see below |
 | Who holds office, all bodies | `/people` | |
 | One governing body and its roster | `/people/[body]` | |
-| A named son or daughter, thin record | `/indigenes/founding/[slug]` | 81 of 113 offered — see the entity map |
+| A named son or daughter, thin record | `/indigenes/founding/[slug]` | all 113 offered — ADR-097 |
 | A named son or daughter, full profile | `/sons-and-daughters/[slug]` | |
 | Distinguished sons and daughters, as a list | `/sons-and-daughters` | |
 | The diaspora, as a whole | `/diaspora` | |

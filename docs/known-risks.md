@@ -27,7 +27,7 @@
 | R-005 | The Traditional Council roster is five years old. | Debt | Low | Likely | Published only as "as recorded in 2021", with an explicit note that it is not a claim about the present. Supersede when the Palace confirms current holders. | Marcel | Open — mitigated |
 | R-006 | `_shortlist/fon-portrait-formal.jpg` in the legacy archive may show the late Fon Fomuki Patrick Nji rather than the reigning Fon. | Bug | High if used | — | Not used. The GUDECA-US 2023 image of known provenance was used instead (ADR-006). | Marcel | Open — mitigated |
 | R-007 | Uncatalogued files under `public/images/gallery/` were tracked, deployed and retrievable at guessable paths, including the Bonn material held pending consent. | Privacy | High | Certain — was live | **CLOSED 2026-09-06.** 17 held files to `archive-held/`, 162 unclassified to `archive-staging/`, 35 stray files removed from a published album folder. Every one verified 404. See the R-007 and R-041 sections below. | — | Closed |
-| R-008 | Mobile performance is unverified by Lighthouse. A large share of the audience is on a mid-range Android in Cameroon on a throttled connection. | Scaling | Medium | Certain | **Partly addressed 2026-09-06.** Layout checked at six widths; `/images/` now cached for a day rather than revalidated on every request; no accidental dynamic rendering; the 980 KB map chunk loads on `/explore` alone. A Lighthouse run against Production is still worth doing, and after the SEO build of 2026-09-17 it is the single largest unknown left before submission — a first crawl on a slow device is the impression that is expensive to correct. | Marcel | Open — mitigated |
+| R-008 | Mobile performance is unverified by Lighthouse. A large share of the audience is on a mid-range Android in Cameroon on a throttled connection. | Scaling | Medium | Certain | **Partly addressed 2026-09-06.** Layout checked at six widths; `/images/` now cached for a day rather than revalidated on every request; no accidental dynamic rendering; the 980 KB map chunk loads on `/explore` alone. **Measured 2026-09-18** — Lighthouse 12.8.2 against production, 15 routes, throttled mobile and desktop. Mobile 84–99 (median 91), LCP 1.6–3.9 s, CLS ≤0.003, TBT ≤326 ms; desktop 99–100. One material defect found and fixed: the image optimizer was switched off (ADR-098). No route now exceeds 4 s on throttled mobile. | Marcel | **Closed — measured** |
 | R-009 | 44 of the 46 video records carry no verified YouTube title. | Debt | Low | Certain | **CLOSED 2026-09-06.** All 46 verified against the live channel; see the R-009 section below. | — | Closed |
 | R-010 | `_shortlist/guneku-map.jpg` in the legacy archive is a Google Maps screenshot carrying the Google logo. Re-hosting it on the site is a third-party licensing question, not a content question. | Security / Legal | Medium | Certain if used | **Mitigated 2026-09-03, not resolved.** Not ingested, not traced. `/explore` now renders a licensing-safe map (MapLibre GL JS, BSD-3-Clause, over OpenStreetMap raster tiles with ODbL attribution) and no Google imagery is used anywhere. But it carries **one** marker, because one coordinate exists in the whole repository — see R-029. `/kingdom/map-of-guneku` is still a stub. A map of Guneku's quarters needs coordinates the archive does not have. | Marcel | Open — mitigated |
 | R-011 | `src/data/pages/gudeca-exco.json` contained Joomla sample data — four fictitious names that are not Guneku people. | Bug | Medium if rendered | Low | **CLOSED 2026-09-06.** Deleted. Nothing read it, which is what made it dangerous: an unread file with four invented people in it is one careless import from publishing them. In git history if ever needed; a test now fails if any invented name reappears anywhere in `src/data`. | — | Closed |
@@ -1603,7 +1603,12 @@ the conflict is written into the record's source note rather than chosen between
 
 **Owner action:** confirm which is the trading address. If it is Bamenda, one field changes.
 
-## R-069 - 81 of 113 is an engineering answer to a question the Palace owns
+## R-069 - 81 of 113 is an engineering answer to a question the Palace owns - RESOLVED 2026-09-18
+
+**Resolved the day after it was opened.** Marcel answered the question: all 113 legitimate
+public records are offered for indexing. `PERSON_INDEX_THRESHOLD` is 0, the sitemap carries
+all 113, and no register page is `noindex`. See ADR-097, which supersedes ADR-093. The
+original entry is kept below because the reasoning on both sides is the useful part.
 
 The indigenes register holds 113 sons and daughters. ADR-093 offers 81 of them to search
 engines and marks 32 `noindex, follow`, on the rule that an entry needs two facts beyond the
@@ -1640,3 +1645,52 @@ in the build pipeline calls it.
 **Owner action:** if and when IndexNow is wanted, generate a key, set it in Vercel Production,
 confirm `https://www.guneku.org/indexnow-key.txt` serves exactly that key, and submit only
 newly published URLs — never the archive. `npm run indexnow -- /updates/some-new-post`.
+
+---
+
+## R-042 addendum, 2026-09-18 - measured properly, and the economics have changed
+
+The entry above says nineteen photographs. **It is 304 of 339.** Every image record in
+`image-gallery.json` was compared against the file on disk with `sharp`:
+
+| | |
+|---|---|
+| catalogue records | 339 |
+| files missing | 0 |
+| `width`/`height` disagree with the file served | **304** |
+| of those, a genuinely different aspect ratio | **0** |
+
+The 38 that looked like aspect changes are integer rounding on a downscale — 1440×808 recorded
+against a 600×337 file, 1.782 against 1.780. Every mismatch is the same photograph at a
+smaller size. Nothing is cropped, nothing is a different picture.
+
+**Nothing in the application reads those fields.** No component, no loader, no layout. They
+are provenance, not geometry, so the disagreement costs no reader anything today — but a
+catalogue that describes files it does not serve is exactly the kind of quiet untruth this
+archive is otherwise careful about.
+
+### What changed about the decision
+
+The deferral in 2026-09-06 turned on delivery: 109 KB becoming 1.6 MB on a page load, on a
+mid-range Android in Cameroon. **That objection is now void.** Since ADR-098 the bytes on the
+wire are set by the width the browser asks for, not by the size of the source file. Swapping
+in the staged originals would make the record true and the photographs sharper on a retina
+screen, and would change what a phone downloads by nothing at all. The cost is repository
+size and transform input, not bandwidth.
+
+### Why this pass did not do it
+
+Two reasons, both about scope rather than merit. Rewriting 304 archive records is an
+archive-content change inside a performance-certification pass, and it would land as a
+several-thousand-line diff in a catalogue nobody would re-read. And there are two separable
+decisions here — *correct the recorded dimensions* and *swap in the larger originals* — which
+should not be taken in one commit by whoever happens to be holding the file.
+
+**Owner action, now that the numbers exist.** Either:
+
+1. **Correct the catalogue** so all 304 records describe the file served. Mechanical,
+   measurable, reversible, no bytes change. Or
+2. **Swap in the 19 staged originals** and regenerate the dimensions from the new files. Now
+   affordable, and it makes both the record and the picture better.
+
+Doing (2) makes (1) unnecessary for those nineteen and still leaves 285 to correct.
