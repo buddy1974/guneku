@@ -3090,3 +3090,83 @@ WebPage; FAQPage) and no microdata.
 
 No production code, metadata, structured data, robots, sitemap, canonicals, content, DNS or
 IndexNow key touched. No indexing requested. No key regenerated. Documentation only.
+
+---
+
+## 2026-09-20 (third pass) - Observation baseline: a ledger, a script, and a rule about stale data
+
+Search-engine launch is closed, so this opens the phase after it. `docs/search-observation.md`
+is a standing ledger rather than a project: dated snapshots, a watchlist, a query taxonomy,
+and explicit rules for when to act.
+
+### The rule the whole document exists to enforce
+
+A search engine's report describes what it saw when it last looked. Production describes
+what is true now. When they disagree, production wins and the engine catches up.
+
+This is not abstract. Both Bing findings during closure were stale — a canonical flag from a
+2 September crawl and a meta-description error graded against a 9 September copy — and both
+would have provoked a pointless code change if taken at face value. Day 0 produced a third:
+Google's page-indexing report says 24 indexed and 9 not indexed, and is **dated 30 June
+2026**. It describes the legacy Joomla site. Its four non-indexed reasons — redirects,
+duplicates without a canonical — are precisely the faults this project fixed in September.
+
+So the rules are written as three buckets. OBSERVE covers unindexed new pages, empty
+reports, engines disagreeing, and any finding contradicted by live production. INVESTIGATE
+covers a URL leaving the sitemap, repeated crawl failure, an unintended noindex, a wrong
+*live* canonical, a 5xx, a structured-data regression, and any legitimate register entry
+losing its indexability. REMEDIATE requires a defect reproducible against production today.
+
+### npm run observe
+
+`src/scripts/observe.ts` reads robots.txt, the sitemap, the 22 priority pages and all 113
+register entries straight from the live host, and answers four questions per page: 200?
+`index, follow`? self-canonical? still in the sitemap? It exits non-zero if anything fails.
+
+It touches no search engine, holds no credential and submits nothing — every URL it reads is
+public and ours. The existing test suite checks the source; this checks what the source
+actually produced, which is the only place a stale CDN copy or a platform redirect is
+visible at all.
+
+First run, clean: **22/22 priority pages, 113/113 register entries, 113/113 in the sitemap,
+258 sitemap URLs, no problems.**
+
+### Day 0, recorded
+
+Google: sitemap Success, 258 discovered, read 19 September. Performance for 18 Jun – 17 Sep
+shows 5 clicks, 114 impressions, 4.4 % CTR, average position 4.9 — almost entirely the old
+site, with legacy Joomla paths leading the page list. Core Web Vitals has no field data. No
+manual actions, no security issues. The one genuinely new signal: **Breadcrumbs 17 valid, 0
+invalid**, so Google is reading the `BreadcrumbList` nodes added on 17 September.
+
+Bing: sitemap Success with 258 discovered, four of seven priority URLs indexed, no Site
+Explorer or Search Performance data yet, IndexNow reporting not populated, no crawl or
+security issues.
+
+Every empty report is recorded as **no data yet**, never as zero. The distinction matters:
+one means the pipeline has not produced a number, the other that it produced nought.
+
+### The three archive-fallback images, recommended not fixed
+
+Inspected `UpdateCardMedia` and `cardImageFor`. The gap is narrower than the closure report
+implied, and worth correcting: the "Archive photo" badge is real text and is **not**
+aria-hidden, so screen-reader users do get it — the same terse qualifier sighted readers
+get. What nobody reliably receives is the full sentence, which lives in `title`: a tooltip
+needs a mouse, and screen readers generally skip `title` on an image with empty `alt`.
+
+Recommended treatment: extend the badge with an `sr-only` span carrying the existing
+`provenance` string. Not `alt` — `alt` describes what an image shows, and putting "this
+image does not show the event described" there makes the disclaimer read as content and
+un-marks a decorative image as meaningful.
+
+**Not implemented**, because it is not consequence-free: a screen-reader user would hear a
+150-character sentence on every fallback card, and `/updates` can carry dozens. Three on the
+homepage is fine; forty is a paragraph repeated at the reader it is meant to help. There is
+a real argument that "Archive photo" is already enough and the `title` is dead weight. That
+is a judgement about how the Fondom speaks, so it is Marcel's.
+
+### Not done
+
+No SEO work, no metadata, no content, no canonicals, no keyword strategy, no indexing
+requests, no IndexNow changes, no DNS, no Clerk, no Resend, no archive, no business or
+Indigene data, no Wikipedia. One new read-only script and one new document.

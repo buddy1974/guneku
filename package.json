@@ -13,7 +13,8 @@
     "test:watch": "vitest",
     "archive:describe": "tsx src/scripts/describe-archive.ts",
     "reconcile:candidates": "tsx src/scripts/reconcile-candidates.ts",
-    "indexnow": "tsx src/scripts/indexnow.ts"
+    "indexnow": "tsx src/scripts/indexnow.ts",
+    "observe": "tsx src/scripts/observe.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.87.0",
