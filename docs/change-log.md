@@ -3170,3 +3170,74 @@ is a judgement about how the Fondom speaks, so it is Marcel's.
 No SEO work, no metadata, no content, no canonicals, no keyword strategy, no indexing
 requests, no IndexNow changes, no DNS, no Clerk, no Resend, no archive, no business or
 Indigene data, no Wikipedia. One new read-only script and one new document.
+
+---
+
+## 2026-09-20 (fourth pass) - Community launch preparation: an audit, and nothing changed
+
+The switch from telling search engines the site exists to telling Gunekuans. Audit and
+preparation only — **no production code was touched** — recorded in
+`docs/community-launch.md`.
+
+### Walked as a stranger
+
+Production was walked as somebody who has just been sent the link. No blockers. All 22
+priority pages resolve, the homepage says what Guneku is in its first paragraph, and every
+top-level destination works.
+
+**Ask Guneku Palace is better than expected** and should be part of how the site is
+introduced. Asked who the reigning Fon is, it answered from the record — the succession,
+the previous Fon's passing, the anointing on 27 February 2015 — listed its sources, and
+offered to send the question to the Palace if the answer was not enough.
+
+One thing worth knowing before a link goes into a WhatsApp group: `/indigenes` opens with
+the heading **"NO PROFILES CREATED YET"**. The paragraph beneath explains it correctly and
+the 113 names follow under "The founding names", each with *This is me — claim it*. But
+people scan rather than read, and the first large heading on the page that matters most for
+participation currently begins with the word "NO". Recorded as an observation with two
+options; neither taken, because both change visible copy and that is the Fondom's call. The
+launch drafts point people at the names instead.
+
+### Participation, without touching anything
+
+Every journey a Gunekuan is likely to attempt was verified without submitting a single
+claim, creating a person or a business, or altering any data. Register entries carry both
+*This is me* and *Not me, or take it down*; business eligibility is stated plainly on the
+directory page; the sign-in page says outright that no account is needed to read anything.
+
+### Sharing, safety, mobile
+
+All seven hub URLs carry complete Open Graph and Twitter cards; the share image is 1200×630
+and returns 200. Nothing was rewritten, because nothing was broken. One observation: all
+seven share the same image, so different sections look identical when pasted into a group.
+
+A public-surface sweep of 28 pages found no personal address, no key, no token, no held
+business, no staged archive material and no stack trace; all eight member and moderation
+routes redirect to sign-in. The three existing privacy suites pass, 82 tests. The sweep
+script was deleted rather than kept — `contact-exposure.test.ts` is the permanent guard.
+
+Mobile smoke at 360 px and 390 px: **0 px horizontal overflow on every page tested**, no
+broken images, navigation reachable. The only elements past the viewport are inside the
+homepage's deliberate horizontal statistics scroller.
+
+### Feedback routes, and the gap
+
+Six real routes exist, and the best of them is the one on every register entry: *"Not me, or
+take it down"* — no reason required, no argument made.
+
+The gap: there is no first-class "this fact is wrong" route for a business, institution or
+article. `/contact` carries it under the *Website* subject and works, but a reader who spots
+a wrong date has to go and find the form. Reported, **not built** — whether every record
+type gets a correction link is a product decision, not something to bolt on in launch week.
+
+### A message pack, unpublished
+
+Six drafts: community WhatsApp, Facebook, a short Status, a direct message, a business-owner
+invitation and a diaspora introduction. Guneku speaking to Gunekuans — no hype, no jargon,
+and nothing claiming the site is finished, because it is not. They point at the register
+first, since it is the only page where a visitor can find *themselves*.
+
+### Not done
+
+No redesign, no new feature, no metadata rewrite, no SEO, no archive, no Indigene or business
+data, no DNS, Clerk, Resend, IndexNow or Wikipedia. Two documents and no code.
