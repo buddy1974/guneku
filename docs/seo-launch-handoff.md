@@ -21,11 +21,13 @@
 > * **B 13 (Search Console)** — **done 2026-09-18.** Domain property `sc-domain:guneku.org`,
 >   auto-verified through the DNS provider with no record created; sitemap submitted and read,
 >   Success, 258 pages; seven priority URLs requested.
-> * **B 14 (Bing)** — **BLOCKED, one human click.** Attempted again 2026-09-18 with browser
->   access granted: the account is authenticated, no Guneku property exists yet, *Import from
->   Google Search Console* was chosen and driven to Google's OAuth consent screen, where the
->   Continue button does not accept programmatic input — by design. One click finishes it.
->   IndexNow already reaches Bing, so discovery is not waiting on it.
+> * **B 14 (Bing)** — **BLOCKED, two human clicks.** Attempted 2026-09-18 and again
+>   2026-09-20: the Bing account is authenticated, no Guneku property exists, *Import from
+>   Google Search Console* is the chosen method, and the flow cannot be completed by
+>   automation — on the 18th Google's consent button refused programmatic input, on the 20th
+>   the account chooser did too. By design, and not a fault to route around. Pick the
+>   account, click Continue, tick `guneku.org`. IndexNow already reaches Bing, so discovery
+>   is not waiting on it.
 > * **B 15 (monitoring)** — baseline recorded in `docs/search-engine-launch.md` §8.
 > * **IndexNow** — **ARMED.** Key in Vercel Production, key file serving and verified by
 >   digest, 24 principal hubs submitted, HTTP 202.

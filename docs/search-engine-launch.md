@@ -6,6 +6,7 @@
 | Owner (DRI) | Marcel / Maxpromo Digital |
 | Launched | 2026-09-18 |
 | Bing attempt 2 | 2026-09-18, same day — see §3 |
+| Bing attempt 3 | 2026-09-20 — same wall, one step earlier; see §3 |
 | Certified SHA | `0b7a72b` |
 | Production deployment | `guneku-46v4qxyvz` (`dpl` promoted after `INDEXNOW_KEY` was set) |
 | Canonical domain | `https://www.guneku.org` |
@@ -134,18 +135,35 @@ That is not a fault to work around. A consent screen is hardened against synthet
 purpose: the whole point of it is that a person, not a program, grants a third party standing
 access to their account. So the attempt stopped there rather than looking for a way past it.
 
-### What Marcel needs to do — one click
+### Retried 2026-09-20, and what that established
 
-The flow is already open in the browser at the consent screen.
+Checked again two days later. **Still no Guneku property in Bing** — the consent had not been
+given in the meantime — so the import was driven a second time from the beginning. Same
+route, same outcome, with one thing learned:
 
-1. Click **Continue**.
-2. Bing returns to the import page and lists the Google properties. Tick **only**
+This time the flow stalled one step **earlier**, at Google's *Choose an account* screen. On
+18 September the account tile accepted a programmatic click and only the final Continue
+refused; on 20 September neither did. Whatever Google changed in between, the conclusion is
+the same and firmer than before: **no part of this OAuth flow is traversable by automation,
+and it is not meant to be.**
+
+Nothing else about the Bing side changed. The account is still authenticated, the property
+still does not exist, and the import is still the right method.
+
+### What Marcel needs to do — two clicks
+
+The flow is open in the browser at Google's *Choose an account* screen.
+
+1. Click **Marcel Akwe · djstranger2000@gmail.com**.
+2. Click **Continue** on the consent screen that follows. The scopes are
+   `webmasters.readonly` and `userinfo.email` — read-only, which is all the import needs.
+3. Bing returns to the import page and lists the Google properties. Tick **only**
    `guneku.org` — the other sites in that Google account are not Guneku's.
-3. Confirm. Verification and the sitemap come across with it.
+4. Confirm. Verification and the sitemap come across with it.
 
-If the consent screen has expired by the time it is clicked, it will show an error; restart
-from Bing Webmaster Tools → site selector → **Add a site** → **Import**, and the flow resumes
-from the same place.
+If the screen has expired by the time it is clicked it will show an error; restart from Bing
+Webmaster Tools → site selector → **Add a site** → **Import**, and it resumes from the same
+place.
 
 ### The alternative, if the import is ever unwanted
 
@@ -261,7 +279,7 @@ self-referencing canonicals. `robots.txt` and `sitemap.xml` unchanged.
 | Google property | **VERIFIED** (Domain, auto-verified via DNS provider) |
 | Google sitemap | **SUBMITTED** — Success, 258 pages |
 | Google priority requests | **7 COMPLETE** |
-| Bing property | **BLOCKED** — one human click, at Google's OAuth consent screen (§3) |
+| Bing property | **BLOCKED** — two human clicks, in Google's OAuth flow (§3) |
 | Bing sitemap | **BLOCKED** — comes across with the import |
 | IndexNow | **ARMED** — key configured and serving |
 | IndexNow launch submission | **COMPLETE** — 24 URLs, HTTP 202 |
@@ -270,9 +288,9 @@ self-referencing canonicals. `robots.txt` and `sitemap.xml` unchanged.
 
 ## 7. Still required from a person
 
-1. **Bing Webmaster Tools** — §3. **One click** on the Google consent screen already open in
-   the browser, then tick `guneku.org` on the import list. Everything either side of that
-   click is done.
+1. **Bing Webmaster Tools** — §3. **Two clicks** in the Google OAuth flow already open in the
+   browser — pick the account, then Continue — and tick `guneku.org` on the import list that
+   follows. Everything either side of those clicks is done.
 
 That is the only one. Everything else on the pre-launch list was either done here or is an
 improvement rather than a blocker: R-042's archive dimensions, the font weight question, and

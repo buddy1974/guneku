@@ -2922,3 +2922,32 @@ key is live and verified, and 24 principal URLs were accepted with HTTP 202 earl
 day.
 
 Documentation only. No source, no configuration, no `INDEXNOW_KEY`, no DNS.
+
+---
+
+## 2026-09-20 - Bing, attempted a third time: the same wall, one step earlier
+
+Checked Bing Webmaster Tools again. **Still no Guneku property** — the Google consent left
+open on the 18th had not been given — so the import was driven a second time from the
+beginning.
+
+Same route, same outcome, one thing learned. On 18 September Google's account tile accepted
+a programmatic click and only the final Continue refused. On 20 September neither did: the
+flow now stalls at *Choose an account*. Whatever changed in between, the conclusion is
+firmer than before — no part of this OAuth flow is traversable by automation, and it is not
+meant to be.
+
+Stopped there, as instructed. The browser is parked on the account chooser: pick the
+account, click Continue, tick `guneku.org` on the import list. Two clicks.
+
+Nothing else moved. The Bing account is still authenticated, no unrelated property was
+touched, no manual verification artifact was created, no key was generated or exposed, no
+URL was submitted, and no production code was changed. Everything downstream of the import
+— property verification, sitemap status, Bing's IndexNow report, URL Inspection on the seven
+representative pages, the crawl and security sweep — still requires the property to exist
+and is still recorded as not observed rather than assumed clean.
+
+Google and IndexNow are unaffected and remain active.
+
+Documentation only: the dated attempt, the corrected click count, and the handover
+instruction. No SEO documentation was rewritten.
