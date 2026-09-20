@@ -3241,3 +3241,73 @@ first, since it is the only page where a visitor can find *themselves*.
 
 No redesign, no new feature, no metadata rewrite, no SEO, no archive, no Indigene or business
 data, no DNS, Clerk, Resend, IndexNow or Wikipedia. Two documents and no code.
+
+---
+
+## 2026-09-20 (fifth pass) - Controlled community release: prepared, nothing sent
+
+The step from "ready" to putting Guneku in front of real Gunekuans, small enough that
+anything wrong can still be fixed quietly. `docs/community-release.md`. **Nothing sent,
+nothing published, no production change.**
+
+### The operating model was traced, not assumed
+
+Every intake path read out of the code. Identity claims go to Neon and a `reviewer` queue.
+Register submissions — claim, add, take-down — go to **email only**: nothing is written to
+the database and nothing is published, a person decides. Business registration is gated
+server-side by `requireVerifiedGunekuan()`, the same approved claim that connects an account
+to a name. Ask Guneku escalations create a correspondence record for `palace-admin`. Support
+offers and contact messages are email. Turnstile is armed in Production and every public
+intake carries a rate limit and a honeypot.
+
+One thing the repository cannot answer and which must be settled before a single link is
+sent: **who actually holds `reviewer` and `palace-admin` in Clerk.** Marked OWNER TO
+CONFIRM rather than guessed. A claim nobody can approve is worse than no claim at all.
+
+Response targets are proposed, not asserted — the product promises no times. The one that
+is not negotiable is the removal request: the page says a name comes down, no reason
+required, so slowness there is a broken promise rather than a delay.
+
+### A cohort designed, with nobody named
+
+12–18 people across nine perspectives, including two deliberately uncomfortable ones: at
+least two who will say something unwelcome, because a cohort of friends produces a launch
+that fails later in public; and at least one person whose register entry is **thin** — a
+name, an office, nothing else — because their reaction to seeing themselves described that
+sparsely is worth more than any other single piece of feedback. Marcel chooses the people.
+
+### The exercise is deliberately unhelpful
+
+No checklist, no script, no walkthrough. Testers get a link and a sentence. Step in only
+when somebody is about to give up, and write down where they stuck *before* helping — that
+is the finding. Three places are flagged to watch and explicitly not to warn testers about,
+the first being the "NO PROFILES CREATED YET" heading on the page that matters most.
+
+### Feedback that cannot inflate itself
+
+A sheet in the repository, no new production system. Five severities, and two rules that
+keep them honest: a preference is not a defect, and one report is a data point while the
+same thing from three of fifteen is a pattern.
+
+### One message, sent one at a time
+
+Adapted from draft D. Personal, short, asks people to look around normally, points at the
+register and at Ask Guneku, and tells them they do not need to be polite. Notes say to send
+individually rather than to a group — a broadcast gets silence or applause, and neither is
+useful — and to say plainly that the site is not finished, because that invites better
+feedback.
+
+### Stop conditions and widening criteria
+
+Eight stop conditions, led by a claim connecting an account to the wrong person and by a
+removal that is not honoured. Nine widening criteria, and the two that matter are not
+counts of visitors: one claim filed, reviewed and resolved end to end, and two people who
+appear in the register realising unprompted that the entry is theirs. Everything else can
+be true of a site nobody participates in. Widening is explicitly not a function of days
+passing.
+
+### Not done
+
+Nothing sent, nobody contacted, no names invented, no production change, no SEO, metadata,
+schema, sitemap, robots, IndexNow, DNS, Clerk, Resend, Wikipedia, archive, business,
+Indigene or Palace facts touched. One document.
