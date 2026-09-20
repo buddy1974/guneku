@@ -227,6 +227,164 @@ key would invalidate the working one. No key was created, none exposed, `INDEXNO
 unchanged, and no URL resubmitted. Bing's reporting is pending, which is not a failure.
 ---
 
+## 3a. Bing baseline and homepage forensics, 2026-09-20
+
+A second pass over the live property, recording what Bing actually reports rather than what
+was inferred, and investigating the two homepage findings without changing anything.
+
+> **One disclosure.** Earlier the same day, before the instruction to establish a pristine
+> baseline, this project requested indexing for `/palace`, `/indigenes` and `/guneccul` —
+> the three of the seven that were not indexed. Their state below is therefore *after* that
+> nudge, not untouched. No indexing was requested in this pass, and the other four were
+> never touched.
+
+### Property
+
+| Field | Bing shows |
+|---|---|
+| Property | `https://guneku.org/` |
+| Import | from Google Search Console |
+| Verification | inherited from `sc-domain:guneku.org` — no file, meta tag or DNS record |
+
+### Sitemap
+
+| Field | Bing shows |
+|---|---|
+| Sitemap | `https://www.guneku.org/sitemap.xml` |
+| Known sitemaps | 1 |
+| Status | **Success** |
+| Errors / warnings | 0 / 0 |
+| Total URLs discovered | **258** |
+| Last submit / last crawl | 20 Sept 2026 / 20 Sept 2026 |
+
+### Reporting surfaces, all still empty
+
+| Surface | Bing shows |
+|---|---|
+| Site Explorer → Indexed URLs | *No data available* |
+| Search Performance | *Data for the selected range is not available* |
+| IndexNow | the onboarding page — no submission history, no statistics |
+| Top Recommendations | none on this property |
+| Security & Privacy | only *Copyright Removal Notices*; no malware, no manual action |
+| Site Scan | *No scans initiated* — optional, deliberately not run |
+
+Empty is the expected reading for a property a few hours old. It is not evidence of a
+problem and should not be read as one.
+
+### URL Inspection — the seven, as Bing has them now
+
+| URL | Discovered | Crawled | Indexed | Canonical per Bing | SEO/GEO | Other |
+|---|---|---|---|---|---|---|
+| `/` | yes | yes | **Indexed successfully** | — | 2 issues | 2 markup types |
+| `/fondom` | yes | yes | **Indexed successfully** | — | none | 1 markup type |
+| `/palace` | 02 Sept 2026 | **not yet** | no | n/a | n/a | indexing requested earlier today |
+| `/indigenes` | 02 Sept 2026 | 02 Sept 10:19 | no | `https://www.guneku.org/` | n/a | alternate-of-canonical |
+| `/businesses` | yes | yes | **Indexed successfully** | — | none | 1 markup type |
+| `/institutions` | yes | yes | **Indexed successfully** | — | none | 1 markup type |
+| `/guneccul` | 02 Sept 2026 | 02 Sept 10:19 | no | `https://www.guneku.org/` | n/a | alternate-of-canonical |
+
+Where Bing reports crawl detail it is clean: **Crawl allowed Yes · Page Fetch Successful ·
+Indexing allowed Yes.** Bing performs SEO/GEO and markup analysis only on indexed URLs, which
+is why three rows are `n/a` rather than clean.
+
+---
+
+### The homepage findings, investigated
+
+**Everything below is reported, not remediated.** No production code was changed.
+
+#### The single most important fact
+
+Bing's *Analyze SEO/GEO issues* panel shows the cached response it evaluated, headers and
+all:
+
+```
+Date: Wed, 09 Sep 2026 08:28:19 GMT
+Age: 2155
+x-vercel-cache: HIT
+x-nextjs-prerender: 1
+```
+
+**Bing is grading a copy of the homepage from 9 September 2026** — eight days before the SEO
+build began on the 17th and nine before it finished. Both findings describe that page, not
+the one on the site now.
+
+#### Finding 1 — "Meta Description too long or too short", 1 instance, Error
+
+**Bing is right about the page it looked at, and the fault is already gone.**
+
+| | Description | Length |
+|---|---|---|
+| 9 Sept (commit `416b5bb`, what Bing cached) | "The official website of Guneku Fondom — Mbengwi, Momo Division, North West Cameroon. Twenty-seven quarters, one Fondom, **and** a community **organised** across three continents." | **170** |
+| Today (live) | "The official website of Guneku Fondom — Mbengwi, Momo Division, North West Cameroon. Twenty-seven quarters, one Fondom, a community across three continents." | **156** |
+
+170 characters is over Bing's limit and over Google's. It was shortened to 156 on 18
+September as part of ADR-095, before this property existed. The description on the site today
+is inside both budgets.
+
+**Recommendation: no action.** The finding clears itself when Bing re-crawls. If it survives
+a re-crawl, that is a new fact and worth reopening — Bing's preferred band is narrower than
+Google's, and 156 satisfies Google.
+
+#### Finding 2 — "Alt attribute for images is missing", 8 instances, Notice
+
+**Bing's count is exactly right and describes the page as it is today. Nothing is missing.**
+
+The live homepage carries **22 `<img>` elements**: **0 with no `alt` attribute**, **8 with
+`alt=""`**, 14 with descriptive text. Bing counts an empty `alt` as a missing one. The eight:
+
+| # | Image | What it is | Assessment |
+|---|---|---|---|
+| 1–4 | `i.ytimg.com/vi/…/hqdefault.jpg` ×4 | YouTube poster frames on the video strip | **Decorative, correct.** Each sits beside the film's visible title; describing the thumbnail would duplicate it |
+| 5 | `/brand/logo-96.png` | the brand mark, second occurrence | **Decorative, correct.** The same logo appears earlier in the header with `alt="Guneku Fondom"`; naming it twice is noise |
+| 6 | `…/developmentprojects/1477334…jpg` | archive fallback on a card | **Deliberate — and the one worth reviewing** |
+| 7 | `/images/updates/meta-ppl.webp` | archive fallback on a card | same |
+| 8 | `…/guneku-royal-community-library/307029915…jpg` | archive fallback on a card | same |
+
+Five of the eight are textbook decorative markup and should stay as they are.
+
+**The three archive fallbacks deserve a decision.** Each carries a `title` reading, in full:
+
+> *"Archive photograph of Guneku village and its people. The Fondom archive holds no
+> photograph of this record; this image does not show the event described."*
+
+The empty `alt` is deliberate and the reasoning is sound: the photograph does **not** depict
+the record it illustrates, the card shows a visible "Archive photo" badge, and putting a
+description in `alt` would assert that the picture shows the event — the exact false claim
+this archive has spent several passes refusing to make.
+
+The gap is who hears the disclaimer. A sighted reader sees the badge; a screen-reader user
+gets `alt=""`, which means "skip this, it carries no meaning", and `title` is not reliably
+announced. So the one reader who most needs to be told the image is not evidence is the one
+who is not told.
+
+That is an accessibility question rather than an SEO one, and it is a content decision.
+Sketched, not chosen: the disclaimer could move from `title` into `alt`; or the visible
+"Archive photo" badge could carry the qualification in text near the image. **Deferred for
+Marcel and ChatGPT.**
+
+#### Finding 3 — "2 Markup types found", informational
+
+The two are **JSON-LD** and **OpenGraph** — markup *formats*, not schema types, and both are
+expected. For the record, the live homepage carries three JSON-LD blocks and no microdata:
+
+| Block | Types |
+|---|---|
+| 1 | `Organization`, `WebSite`, `Place` |
+| 2 | `WebPage` |
+| 3 | `FAQPage` |
+
+Five schema.org types, zero `itemtype` attributes. Nothing to fix.
+
+### Summary for the remediation decision
+
+| Finding | Real today? | Action |
+|---|---|---|
+| Meta description length | **No** — fixed 18 Sept, Bing graded a 9 Sept copy | none; re-crawl clears it |
+| 8 missing alt | Count correct, **defect no** — all 8 intentional, 0 attributes absent | none for 5; **3 archive fallbacks open for review** |
+| 2 markup types | Informational | none |
+---
+
 ## 4. IndexNow
 
 | Field | Value |
@@ -314,7 +472,8 @@ self-referencing canonicals. `robots.txt` and `sitemap.xml` unchanged.
 | Google priority requests | **7 COMPLETE** |
 | Bing property | **VERIFIED** — `https://guneku.org/`, imported from Search Console |
 | Bing sitemap | **SUBMITTED** — Success, 258 URLs discovered |
-| Bing indexing requests | **3 COMPLETE** — the three priority URLs not yet indexed |
+| Bing indexing requests | **3** — `/palace`, `/indigenes`, `/guneccul`; none since |
+| Bing homepage findings | 2, both investigated — **remediation deferred for review** (§3a) |
 | IndexNow | **ARMED** — key configured and serving |
 | IndexNow launch submission | **COMPLETE** — 24 URLs, HTTP 202 |
 
@@ -322,7 +481,12 @@ self-referencing canonicals. `robots.txt` and `sitemap.xml` unchanged.
 
 ## 7. Still required from a person
 
-**Nothing.** Bing was the last item and it was completed on 2026-09-20.
+**Nothing blocking.** Bing was the last launch item and it was completed on 2026-09-20.
+
+One decision is **open but not urgent**: the three archive-fallback images on the homepage
+carry their "this image does not show the event described" disclaimer in a `title`, which a
+screen reader does not reliably announce. §3a sets out the evidence. It is an accessibility
+question, not an SEO one, and nothing about search discovery waits on it.
 
 Three things remain open in `docs/seo-final-certification.md` §6 — R-042's archive
 dimensions, whether to drop a typeface to save 54 KB, and a Google Business Profile — but

@@ -3029,3 +3029,64 @@ resubmitted.
 No production code, metadata, structured data, robots, sitemap architecture, canonicals,
 content, Indigenes, businesses, archive, DNS, Cloudflare, Vercel, Clerk, Resend or Wikipedia
 was touched. Documentation only.
+
+---
+
+## 2026-09-20 (second pass) - The Bing baseline, and what its two homepage findings actually are
+
+A return to the live property to record what Bing reports rather than what could be inferred
+from it, and to investigate the two homepage findings without touching them.
+
+**Disclosed, because it matters for reading the baseline:** earlier the same day this project
+requested indexing for the three of seven URLs that were not indexed. Their state is
+therefore *after* that nudge. Nothing was requested in this pass.
+
+### What Bing has
+
+Property `https://guneku.org/`, imported, verified by inheritance. Sitemap
+`https://www.guneku.org/sitemap.xml` — **Success, 258 URLs discovered, 0 errors, 0
+warnings**. Four of the seven agreed URLs indexed; `/palace` discovered but not yet crawled;
+`/indigenes` and `/guneccul` held as alternates of a canonical page. Crawl allowed, fetch
+successful and indexing allowed everywhere Bing reports them.
+
+Site Explorer, Search Performance and the IndexNow report are all empty, and Site Scan has
+never been run. For a property a few hours old that is the expected reading, not a fault.
+
+### The finding that decided both findings
+
+Bing's *Analyze SEO/GEO issues* panel exposes the cached response it graded, headers
+included: **`Date: Wed, 09 Sep 2026 08:28:19 GMT`**. Bing is marking a copy of the homepage
+from 9 September — eight days before the SEO build started.
+
+**Meta description.** On 9 September the homepage description was the root default at **170
+characters**, genuinely over both Bing's and Google's limits. It was shortened to **156** on
+18 September under ADR-095. Bing is right about the page it saw and the fault is already
+gone. No action; a re-crawl clears it.
+
+**Eight missing alt attributes.** Bing's count is exactly right and current. The live
+homepage has 22 `<img>` elements: **zero without an `alt` attribute** and **eight with
+`alt=""`**, which Bing counts as missing. Five are textbook decorative — four YouTube poster
+frames beside their visible titles, and a second occurrence of the brand logo that is named
+in the header. Those should stay.
+
+The other three are archive fallback photographs, and they raise a real question. Their
+`alt` is empty deliberately: the photograph does not depict the record it illustrates, and
+saying otherwise in `alt` would be the false claim this archive has repeatedly refused to
+make. The disclaimer — "this image does not show the event described" — lives in a `title`,
+and a visible "Archive photo" badge carries it for sighted readers. But `title` is not
+reliably announced, so a screen-reader user gets `alt=""`, meaning "nothing here worth
+describing". The one reader who most needs telling that the image is not evidence is the one
+not told.
+
+That is an accessibility decision about content, not an SEO defect, and it was **deferred**
+rather than fixed. Options are sketched in `docs/search-engine-launch.md` §3a; none was
+chosen.
+
+**Two markup types** turned out to be JSON-LD and OpenGraph — formats, not schema types.
+Informational. The homepage carries three JSON-LD blocks (Organization, WebSite, Place;
+WebPage; FAQPage) and no microdata.
+
+### Not done
+
+No production code, metadata, structured data, robots, sitemap, canonicals, content, DNS or
+IndexNow key touched. No indexing requested. No key regenerated. Documentation only.
