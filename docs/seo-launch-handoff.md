@@ -21,13 +21,11 @@
 > * **B 13 (Search Console)** — **done 2026-09-18.** Domain property `sc-domain:guneku.org`,
 >   auto-verified through the DNS provider with no record created; sitemap submitted and read,
 >   Success, 258 pages; seven priority URLs requested.
-> * **B 14 (Bing)** — **BLOCKED, two human clicks.** Attempted 2026-09-18 and again
->   2026-09-20: the Bing account is authenticated, no Guneku property exists, *Import from
->   Google Search Console* is the chosen method, and the flow cannot be completed by
->   automation — on the 18th Google's consent button refused programmatic input, on the 20th
->   the account chooser did too. By design, and not a fault to route around. Pick the
->   account, click Continue, tick `guneku.org`. IndexNow already reaches Bing, so discovery
->   is not waiting on it.
+> * **B 14 (Bing)** — **done 2026-09-20.** Property `https://guneku.org/` imported from
+>   Search Console; canonical sitemap submitted by hand because the import did not carry it,
+>   Status Success with 258 URLs discovered, 0 errors, 0 warnings; four of seven inspected
+>   URLs already indexed and the other three requested. No security issues, no crawl errors,
+>   no blockers. See `docs/search-engine-launch.md` §3.
 > * **B 15 (monitoring)** — baseline recorded in `docs/search-engine-launch.md` §8.
 > * **IndexNow** — **ARMED.** Key in Vercel Production, key file serving and verified by
 >   digest, 24 principal hubs submitted, HTTP 202.
@@ -42,7 +40,7 @@
 | Written | 2026-09-17 |
 | Product baseline | the head of `main` after the final visual/content pass of 2026-09-17 |
 | Production | https://www.guneku.org |
-| Status | **LAUNCHED 2026-09-18** · Google + IndexNow live · Bing awaits Marcel · B 11 and C open |
+| Status | **LAUNCHED** · Google, Bing and IndexNow all live as of 2026-09-20 · B 11 and C open |
 | Superseded by | `docs/seo-2026-build-report.md` → `docs/seo-final-certification.md` → `docs/search-engine-launch.md` |
 
 The order matters and was Marcel's instruction: **look at the finished product first, make the

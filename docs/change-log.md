@@ -2951,3 +2951,81 @@ Google and IndexNow are unaffected and remain active.
 
 Documentation only: the dated attempt, the corrected click count, and the handover
 instruction. No SEO documentation was rewritten.
+
+---
+
+## 2026-09-20 - Bing closed: the last search engine is live
+
+Marcel gave the Google consent that two automated attempts could not, and everything after
+it was finished in one pass. Guneku is now present in Google, Bing and IndexNow.
+
+### The property
+
+Imported from Search Console, so it inherited the verification from `sc-domain:guneku.org`
+— no file, no meta tag, no DNS record, and no second manual workflow. Bing registers it
+against the apex, `https://guneku.org/`, because that is how the Google Domain property is
+named; it accepted `www` sitemaps and `www` URL inspections under it without complaint, and
+the apex 308s to the canonical host anyway. No duplicate site was created and no unrelated
+property was touched.
+
+### The sitemap the import did not bring
+
+Bing advertises that the import carries sitemaps across. It did not — the Sitemaps page was
+empty — so the canonical sitemap was submitted by hand. The historical `http://` one was
+not. **Success, 258 URLs discovered, 0 errors, 0 warnings**, fetched and parsed the same
+day. 258 is the certified count exactly.
+
+### Four of seven already indexed
+
+`/`, `/fondom`, `/businesses` and `/institutions` are *Indexed successfully · URL can appear
+on Bing*. `/palace` is discovered but not yet crawled. `/indigenes` and `/guneccul` are held
+as alternates of a canonical page. Three indexing requests were used, one each; the daily
+quota is 100 and 97 remained.
+
+### The canonical flag that looked alarming and was not
+
+Bing says `/indigenes` and `/guneccul` are alternate versions whose canonical is the
+homepage. Both were last crawled **2 September 2026 at 10:19** — sixteen days before the
+canonical work shipped — and the fault Bing describes is precisely the one this project
+already found and fixed: `alternates.canonical` on the root layout is inherited by every
+child route, so every page canonicalised to the homepage.
+
+Checked against live production rather than assumed: all seven URLs return a
+self-referencing canonical and `index, follow`. **No code was changed and none needed to
+be.** Bing is holding a photograph of a site that no longer exists; the indexing requests
+ask it to take a new one. This is the second time in this launch that a search engine's
+stale snapshot looked like a live defect, and the second time the answer was to check
+production rather than to edit it.
+
+### Two advisories, reconciled rather than obeyed
+
+Bing flags the homepage meta description as "too long or too short". It is 156 characters —
+inside the 158 this project certified against and inside Google's ~160. Two vendors, two
+opinions; the site keeps the budget it was certified on.
+
+Bing also reports 8 images with a missing `alt` attribute. The built output was audited on
+18 September: 752 images, **zero** without the attribute. 59 carry `alt=""` — the repeated
+brand logo beside the site name, and decorative photographs described in adjacent text.
+That is the correct treatment for ornament; Bing counts an empty `alt` as a missing one. A
+counting difference, not a gap.
+
+### Clean everywhere else
+
+No security issues — Security & Privacy holds only Copyright Removal Notices. No crawl
+errors. No Top Recommendations on the property. Crawl allowed, page fetch successful and
+indexing allowed on every URL that reported them. Site Scan was left un-run: an optional
+on-demand audit, not something to set going on a whim.
+
+### IndexNow untouched
+
+Bing shows the onboarding page for this property with no submission history — expected,
+since the 24-URL submission went through the open API two days before the property existed.
+*Get Started* leads to key generation and was deliberately not clicked: a second key would
+invalidate the working one. No key created, none exposed, `INDEXNOW_KEY` unchanged, nothing
+resubmitted.
+
+### Not done
+
+No production code, metadata, structured data, robots, sitemap architecture, canonicals,
+content, Indigenes, businesses, archive, DNS, Cloudflare, Vercel, Clerk, Resend or Wikipedia
+was touched. Documentation only.
