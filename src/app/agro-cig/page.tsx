@@ -1,3 +1,4 @@
+import Link               from 'next/link'
 import { PageHero }       from '@/components/layout/PageHero'
 import { Reveal }         from '@/components/ui/Reveal'
 import cig               from '@/data/institutions/agro-cig.json'
@@ -7,16 +8,20 @@ export const metadata = pageMetadata({
   title: 'Agro CIG — Guneku Agricultural Initiative 2026',
   description:
     'Guneku Agro CIG — registered 12 March 2026, launched 5 April at Ngong Quarter. '
-    + '12.5M FCFA raised in Phase 1, 500 chicks, turkeys from Nigeria.',
+    + 'Chickens, chicks, ducks, pigs and manure on offer; layers expected around December 2026.',
   path: '/agro-cig',
 })
 
-const LIVESTOCK = [
-  { icon:'🐔', name:'Poultry',   status:'ACTIVE',  desc:'500 chicks — 300 thriving + 200 arriving. Core product.' },
-  { icon:'🦃', name:'Turkeys',   status:'ACTIVE',  desc:'Successfully imported from Nigeria. Now at the farm.' },
-  { icon:'🐷', name:'Pigs',      status:'PLANNED', desc:'Multi-animal farming strategy — next phase.' },
-  { icon:'🦩', name:'Ostriches', status:'PLANNED', desc:'Planned for expansion, attraction, and tourism value.' },
-]
+/* What the farm has, read from the record and dated by it. The labels say what the source
+   establishes: something the CIG advertised on a date, something it expects, something an
+   older record counted, or something only planned. None of them is a stock count. */
+const ICONS: Record<string, string> = {
+  Chickens: '🐔', 'Young chicks': '🐣', Layers: '🥚', Ducks: '🦆',
+  Pigs: '🐖', Manure: '🌱', Turkeys: '🦃', Ostriches: '🦩',
+}
+const STATUS_LABEL: Record<string, string> = {
+  advertised: 'ADVERTISED', expected: 'EXPECTED', recorded: 'RECORDED', planned: 'PLANNED',
+}
 
 const PROGRESS = [
   { icon:'✅', item:'Land bulldozed and prepared' },
@@ -64,7 +69,7 @@ export default function AgroCIGPage() {
           <div className="grid md:grid-cols-3 gap-px bg-border/30 rounded-2xl overflow-hidden mb-12">
             {[
               { val:'12.5M', suf:'FCFA', label:'Raised in Phase 1' },
-              { val:'500',   suf:'',     label:'Chicks at the farm' },
+              { val:'500',   suf:'',     label:'Chicks recorded, April 2026' },
               { val:'Apr 5', suf:'2026', label:'Launch date' },
             ].map(s => (
               <div key={s.label} className="bg-card p-8 text-center">
@@ -169,25 +174,30 @@ export default function AgroCIGPage() {
 
             {/* Livestock */}
             <h2 className="font-cinzel text-2xl text-foreground mb-4">LIVESTOCK</h2>
-            {LIVESTOCK.map(p => (
-              <div key={p.name} className="flex gap-3 items-start card-royal p-4 mb-2"
-                   style={{ borderLeftWidth:'3px', borderLeftColor: p.status === 'ACTIVE' ? 'oklch(0.700 0.115 78)' : 'oklch(0.560 0.016 150)' }}>
-                <span className="text-xl shrink-0">{p.icon}</span>
-                <div className="flex-1">
-                  <div className="flex justify-between items-center">
-                    <span className="font-cinzel text-foreground">{p.name}</span>
-                    <span className="text-[10px] tracking-widest font-cinzel"
-                          style={{ color: p.status === 'ACTIVE' ? 'oklch(0.700 0.115 78)' : 'oklch(0.72 0.04 70)' }}>
-                      {p.status}
-                    </span>
+            <p className="text-muted-foreground text-xs mb-3 leading-relaxed">{cig.livestockNote}</p>
+            {cig.livestock.map(p => {
+              const live = p.status === 'advertised' || p.status === 'expected'
+              return (
+                <div key={p.animal} className="flex gap-3 items-start card-royal p-4 mb-2"
+                     style={{ borderLeftWidth:'3px', borderLeftColor: live ? 'oklch(0.700 0.115 78)' : 'oklch(0.560 0.016 150)' }}>
+                  <span className="text-xl shrink-0" aria-hidden="true">{ICONS[p.animal] ?? '•'}</span>
+                  <div className="flex-1">
+                    <div className="flex flex-wrap justify-between items-center gap-2">
+                      <span className="font-cinzel text-foreground">{p.animal}</span>
+                      <span className="text-[10px] tracking-widest font-cinzel"
+                            style={{ color: live ? 'oklch(0.620 0.130 62)' : 'oklch(0.52 0.03 70)' }}>
+                        {STATUS_LABEL[p.status] ?? p.status.toUpperCase()} · {p.asOf.toUpperCase()}
+                      </span>
+                    </div>
+                    <p className="text-muted-foreground text-xs mt-1">{p.note}</p>
                   </div>
-                  <p className="text-muted-foreground text-xs mt-1">{p.desc}</p>
                 </div>
-              </div>
-            ))}
+              )
+            })}
 
             {/* Farm progress */}
-            <h2 className="font-cinzel text-2xl text-foreground mt-8 mb-4">FARM DEVELOPMENT</h2>
+            <h2 className="font-cinzel text-2xl text-foreground mt-8 mb-1">FARM DEVELOPMENT</h2>
+            <p className="text-muted-foreground text-xs mb-3">As recorded in April 2026. No later progress report is in the record.</p>
             {PROGRESS.map(f => (
               <div key={f.item} className="flex gap-3 items-center py-2 border-b border-border/20">
                 <span className="shrink-0">{f.icon}</span>
@@ -196,13 +206,42 @@ export default function AgroCIGPage() {
             ))}
           </div>
 
-          {/* Placeholder image */}
-          <div className="card-royal overflow-hidden aspect-[4/3] flex items-center justify-center pattern-royal">
-            <div className="text-center">
-              <div className="text-5xl mb-2">🌾</div>
-              <div className="section-label">AGRO CIG LAUNCH — APRIL 5, 2026</div>
+          {/* The latest from the farm: what the CIG itself put out most recently, with the
+              order line it published and a link to the video it was published in. No
+              photograph is shown because none has been supplied to the archive. */}
+          <aside className="md:sticky md:top-28 self-start space-y-4">
+            <div className="card-royal p-6 border-l-4" style={{ borderLeftColor: 'oklch(0.700 0.115 78)' }}>
+              <div className="section-label">LATEST FROM THE FARM · 16 OCTOBER 2026</div>
+              <p className="text-foreground text-sm mt-3 leading-relaxed">
+                Chickens for occasions, young chicks, ducks, pigs and manure, shown by the CIG&rsquo;s
+                manager, a professional veterinarian. Layers are expected to start laying around
+                December 2026.
+              </p>
+              <div className="mt-5 border-t border-border/30 pt-4">
+                <div className="text-muted-foreground text-xs tracking-widest">ENQUIRIES AND ORDERS</div>
+                <a href={`tel:${cig.orders.tel}`}
+                   className="mt-1 inline-block font-cinzel text-2xl text-foreground no-underline hover:underline">
+                  {cig.orders.display}
+                </a>
+                <p className="text-muted-foreground text-xs mt-1 leading-relaxed">{cig.orders.source}</p>
+              </div>
+              <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+                <Link href="/updates/guneku-agro-cig-offerings-october-2026" className="text-primary no-underline hover:underline py-1">
+                  Read the update →
+                </Link>
+                {cig.videos.map(v => (
+                  <a key={v.url} href={v.url} target="_blank" rel="noopener noreferrer"
+                     className="text-primary no-underline hover:underline py-1">
+                    Watch on Facebook ({v.publisher}) ↗
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
+            <div className="card-royal p-5 text-center pattern-royal">
+              <div className="text-4xl mb-1" aria-hidden="true">🌾</div>
+              <div className="section-label">LAUNCHED 5 APRIL 2026 · NGONG QUARTER</div>
+            </div>
+          </aside>
         </div>
       </section>
     </main>

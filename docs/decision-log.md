@@ -2244,3 +2244,26 @@ proposed.
 
 **Consequences.** Adding an announcement is one JSON file. The festival's `/events/` path has
 no index page; nothing links to `/events` alone.
+
+## ADR-101 - Reporting crime in the village: victims protected, suspects untried
+
+**Context.** The October 2026 Palace investigation is the first crime record on the site,
+and it concerns an alleged attack on children. The community sources are legitimate news,
+but their pictures show the suspects' faces and their captions carry detail that could
+identify the family.
+
+**Decision.**
+
+1. A crime record names nobody — neither victim nor suspect — and shows no photograph of
+   either. It links the original source rather than reproducing it.
+2. Victim detail is kept to what the reader needs to understand the event. Anything that
+   would point to one household in a village (a disability, a house, a relationship) is left
+   out even when a source published it.
+3. Allegations are written as allegations. Admissions reported at a traditional hearing are
+   described as such and never as findings. Every record says what the legal position is
+   and that no court outcome is reported, until one is — and is then updated.
+4. The traditional process is recorded with respect as the community's own institution,
+   alongside — not instead of — the state's.
+
+**Consequences.** The records are less vivid than their sources, deliberately. A later court
+outcome is a new dated paragraph in the same record, not a new record.

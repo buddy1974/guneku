@@ -30,23 +30,52 @@
  },
  "livestock": [
   {
-   "animal": "Poultry",
-   "status": "active",
-   "count": "500 chicks"
+   "animal": "Chickens",
+   "status": "advertised",
+   "asOf": "16 October 2026",
+   "note": "Offered for occasions in the CIG's video of 16 October 2026. The April 2026 record counted 500 chicks — 300 at the farm and 200 arriving."
   },
   {
-   "animal": "Turkeys",
-   "status": "active",
-   "note": "Imported from Nigeria"
+   "animal": "Young chicks",
+   "status": "advertised",
+   "asOf": "16 October 2026",
+   "note": "Offered to buyers who want to raise their own."
+  },
+  {
+   "animal": "Layers",
+   "status": "expected",
+   "asOf": "16 October 2026",
+   "note": "Expected to start laying eggs around December 2026, according to the manager."
+  },
+  {
+   "animal": "Ducks",
+   "status": "advertised",
+   "asOf": "16 October 2026",
+   "note": "Known locally as duck fowl. First recorded in the October 2026 video."
   },
   {
    "animal": "Pigs",
-   "status": "planned"
+   "status": "advertised",
+   "asOf": "16 October 2026",
+   "note": "Listed as planned in April 2026; shown and offered in the October 2026 video."
+  },
+  {
+   "animal": "Manure",
+   "status": "advertised",
+   "asOf": "16 October 2026",
+   "note": "Offered at an affordable price to local farmers."
+  },
+  {
+   "animal": "Turkeys",
+   "status": "recorded",
+   "asOf": "April 2026",
+   "note": "Imported from Nigeria, as the April 2026 record states. Not mentioned in the October 2026 video."
   },
   {
    "animal": "Ostriches",
    "status": "planned",
-   "note": "Expansion and attraction"
+   "asOf": "April 2026",
+   "note": "Planned for expansion and as an attraction. No later record."
   }
  ],
  "infrastructure": [
@@ -180,7 +209,7 @@
    },
    {
     "office": "Manager",
-    "note": "Runs the main site and its staff. The holder is not named in the record."
+    "note": "Runs the main site and its staff. Described in the Fondom Studios video of 16 October 2026 as a professional veterinarian. The holder is not named in the record."
    }
   ],
   "bodies": [
@@ -216,6 +245,12 @@
     "date": "2026-08-31",
     "displayDate": "31 August 2026",
     "activity": "Executive and staff meeting held at the main site."
+   },
+   {
+    "date": "2026-10-16",
+    "displayDate": "16 October 2026",
+    "activity": "The manager showed the farm in a Fondom Studios video and advertised chickens for occasions, young chicks, ducks, pigs and manure; layers expected to start laying around December 2026.",
+    "href": "/updates/guneku-agro-cig-offerings-october-2026"
    }
   ]
  },
@@ -225,5 +260,21 @@
   "presenter": "Fabian Fomuki",
   "presenterRegisterSlug": "fabian",
   "note": "He presented the CIG to that meeting. Presenting at a GUDECA meeting is not membership of the chapter — the register has said so since it was written — and none is recorded for him. He is in the register as a member of the Palace family, with no chapter. Recorded here as a presentation, which is what the record establishes."
- }
+ },
+ "livestockNote": "Each line carries the date of the record it comes from. 'Advertised' means the CIG offered it publicly on that date; it is not an independent count of the stock on the farm, and availability on a given day is for the CIG to confirm.",
+ "orders": {
+  "display": "673 536 278",
+  "tel": "+237673536278",
+  "source": "Published by the CIG for enquiries and orders in the Fondom Studios video of 16 October 2026.",
+  "date": "2026-10-16"
+ },
+ "videos": [
+  {
+   "platform": "Facebook",
+   "publisher": "Fondom Studios",
+   "date": "2026-10-16",
+   "title": "Inside the Guneku Agro CIG",
+   "url": "https://www.facebook.com/reel/1469922745022240/"
+  }
+ ]
 }

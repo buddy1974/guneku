@@ -1718,3 +1718,24 @@ filling it in. Owner: the Palace and the planning committee.
 - **Names.** The terms-of-reference names are published as corrected. The flashback speaker
   appears as "Mr Morise", "Moris Forkam" and "Tagyen Maurice Fokop" across the record, so the
   planning update does not name him for that role.
+
+## R-072 - October 2026 intelligence merge: what is still open
+
+Open, 2026-10-17.
+
+- **The intelligence report itself was not available.** `guneku-intel-refresh-2026-10-17.md`
+  is not on this machine. Its "other findings" — Mbengwi Council school infrastructure, new
+  community enterprises, further media coverage, project updates, stale institutional
+  content — were not reviewed and nothing was added for them. Supply the file to finish.
+- **Palace case outcome.** No charge, trial or verdict reported to 17 October. The
+  documentary's video content (as opposed to its caption) was not transcribed; what items
+  were recovered is not specified on the site.
+- **Documentary publication date.** Facebook does not show it on the reel; the record is
+  dated by the questioning (2 October).
+- **Fun Quarter date** — 5 or 6 October; **Quarter Head identity** — "Nji Calvin" (report) vs
+  "Fodom Calvin" (register). Confirm with the Palace.
+- **School name** — MEDPHISATG / Medphisatag / Medvisac. Confirm the official form.
+- **Fondom Studios contacts** — publicly advertised numbers and email held until the owner
+  elects to publish them in the directory.
+- **Agro CIG** — the October offerings are as advertised, not counted; turkeys and ostriches
+  have no record after April.

@@ -2,17 +2,57 @@
  "id": "current-notices",
  "type": "CurrentNotices",
  "sourceNote": "Every entry is drawn from a verified record already in this repository. Statuses are the statuses the sources establish — a proposal is labelled proposed. Reviewed 2026-09-01; review again when any source record changes. Each entry also carries a class from the fixed vocabulary in classVocabulary; this is the single register the home page and /projects both read, so the two views can no longer diverge. The Guneku Business Directory is held from the register and from public surfacing pending a deliberate consent review; its source record is retained at src/data/institutions/business-directory.json.",
- "reviewedOn": "2026-09-02",
+ "reviewedOn": "2026-10-17",
  "notices": [
+  {
+   "date": "2026-10-16",
+   "displayDate": "16 October 2026",
+   "category": "Development",
+   "status": "active",
+   "title": "Guneku Agro CIG: chickens, chicks, ducks, pigs and manure on offer",
+   "description": "Shown by the CIG's manager, a veterinarian, in a Fondom Studios video. Layers expected around December 2026.",
+   "href": "/updates/guneku-agro-cig-offerings-october-2026",
+   "source": "updates/guneku-agro-cig-offerings-october-2026.json"
+  },
+  {
+   "date": "2026-10-08",
+   "displayDate": "Early October 2026",
+   "category": "Community",
+   "status": "historical",
+   "title": "Fun Quarter performs traditional rites to protect the land",
+   "description": "The Quarter Head led the men of Fun in rites against rising insecurity across Meta.",
+   "href": "/updates/fun-quarter-protection-rites-october-2026",
+   "source": "updates/fun-quarter-protection-rites-october-2026.json"
+  },
+  {
+   "date": "2026-10-02",
+   "displayDate": "2 October 2026",
+   "category": "Palace",
+   "status": "historical",
+   "title": "Palace questions suspects after an attack on a family",
+   "description": "The community turned to the Palace; the case was passed to the gendarmerie. No court outcome reported yet.",
+   "href": "/updates/palace-investigation-attack-on-family-october-2026",
+   "source": "updates/palace-investigation-attack-on-family-october-2026.json"
+  },
   {
    "date": "2026-09-19",
    "displayDate": "19 September 2026",
    "category": "Education",
-   "status": "upcoming",
-   "title": "Scholarship Selection Examination",
-   "description": "The selection examination for Guneku Education & Scholarship Day 2026. 9:00 a.m. at the Guneku Fon's Palace, for registered candidates.",
+   "status": "historical",
+   "title": "Scholarship Selection Examination — 19 September 2026",
+   "description": "Scheduled for 19 September 2026 at the Guneku Fon's Palace. No result has been published in the sources reviewed up to 17 October 2026.",
    "href": "/education",
    "source": "institutions/education-scholarship-day-2026.json"
+  },
+  {
+   "date": "2026-09-12",
+   "displayDate": "12 September 2026",
+   "category": "Education",
+   "status": "historical",
+   "title": "Medical school rewards its four best HND students",
+   "description": "50,000 FCFA each after their HND results; three graduates speak about their training.",
+   "href": "/updates/medical-school-hnd-graduates-rewarded-2026",
+   "source": "updates/medical-school-hnd-graduates-rewarded-2026.json"
   },
   {
    "date": "2026-08-29",
@@ -97,16 +137,6 @@
  ],
  "upcomingEvents": [
   {
-   "date": "2026-09-19",
-   "day": "19",
-   "month": "Sep",
-   "year": "2026",
-   "title": "Scholarship Selection Examination",
-   "detail": "9:00 a.m. · Guneku Fon's Palace · registered candidates only",
-   "href": "/education",
-   "source": "institutions/education-scholarship-day-2026.json"
-  },
-  {
    "date": "2027-07-24",
    "day": "24",
    "month": "Jul",
@@ -124,8 +154,8 @@
    "status": "Active",
    "statusClass": "st-active",
    "body": "Guneku Agro Common Initiative Group",
-   "lastUpdate": "5 April 2026",
-   "description": "Community-owned agricultural enterprise at Ngong Quarter. Registered 12 March 2026. Phase 1 raised 12.5M FCFA; poultry and turkeys under way. Current share price is not published pending confirmation by the Delegate.",
+   "lastUpdate": "16 October 2026",
+   "description": "Community-owned agricultural enterprise at Ngong Quarter. Registered 12 March 2026. In October 2026 the CIG advertised chickens, young chicks, ducks, pigs and manure, with layers expected around December. Current share price is not published pending confirmation by the Delegate.",
    "href": "/agro-cig"
   },
   {

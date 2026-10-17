@@ -220,7 +220,7 @@ export default function HomePage() {
               />
             </Link>
             <div className="p-5">
-            <p className="inst-tag">Education · Current programme</p>
+            <p className="inst-tag">Education · 2026 programme</p>
             <h3 className="inst-h2 mt-1.5">{programme.name}</h3>
             <p className="inst-body mt-2">
               A Back-to-School initiative targeting{' '}
@@ -228,11 +228,17 @@ export default function HomePage() {
               &mdash; full and partial &mdash; for deserving students.
             </p>
 
+            {/* Both dates have passed. A past examination is not left showing as the next
+                thing, and no result is implied: none has been published. */}
             <dl className="mt-4 border-t border-[var(--rule)] pt-3 text-[0.86rem]">
-              <dt className="inst-tag">Next</dt>
-              <dd className="m-0 mt-1 text-[var(--ink-900)]">Scholarship Selection Examination</dd>
-              <dd className="inst-meta m-0 mt-0.5">
-                Saturday, 19 September 2026 · 9:00 a.m.<br />Guneku Fon&rsquo;s Palace
+              <dt className="inst-tag">Selection examination</dt>
+              <dd className="m-0 mt-1 text-[var(--ink-900)]">Scheduled for 19 September 2026</dd>
+              <dd className="inst-meta m-0 mt-0.5">No result has been published yet.</dd>
+              <dt className="inst-tag mt-3">Achievement</dt>
+              <dd className="m-0 mt-1">
+                <Link href="/updates/medical-school-hnd-graduates-rewarded-2026" className="inst-link">
+                  Four best HND students rewarded →
+                </Link>
               </dd>
             </dl>
 

@@ -3475,3 +3475,64 @@ No Kem photograph exists in the archive, so the Kem section uses the approved fi
 - 4 pages × 7 widths (320–1440): no overflow, no broken image, no clipped CTA, countdown
   digits fit, one `h1`. 25 internal links on the festival page answer 200.
 - Rendered JSON-LD, canonical, Open Graph and title checked in the served HTML.
+
+## 2026-10-17 — October 2026 community-intelligence merge (excluding Michi Ebeng)
+
+The brief named `guneku-intel-refresh-2026-10-17.md` as its source. That file was not found
+anywhere on this machine, so every item below was verified directly against the public
+source it cites (read in a browser session, 17 October 2026). The report's remaining items
+(section 7 of the brief) could not be reviewed and are listed in R-072. No Michi Ebeng file,
+route, component or date was touched. ADR-101.
+
+### Added — four Village Square records
+
+| Record | Source | Dated |
+|---|---|---|
+| `/updates/palace-investigation-attack-on-family-october-2026` | Fondom Studios documentary (Facebook reel 2303868100018359); Mbengwi Info Newsline post, 2 Oct 2026 16:55 | 2 October 2026 |
+| `/updates/fun-quarter-protection-rites-october-2026` | Mbengwi Info Newsline post, 8 Oct 2026 07:24 | 8 October 2026 (rites: 5 or 6 October) |
+| `/updates/guneku-agro-cig-offerings-october-2026` | Fondom Studios video (reel 1469922745022240) | 16 October 2026 |
+| `/updates/medical-school-hnd-graduates-rewarded-2026` | Fondom Studios feature (reel 1816967966141646) | 12 September 2026 |
+
+Each is an ordinary update: in the sitemap, the Village Square, search, with canonical,
+Open Graph and NewsArticle JSON-LD from the existing template. Each links its original source.
+
+- **Palace investigation.** Allegations reported as allegations; no person named; no image
+  (the circulating pictures show the suspects); the victims' details limited to what the
+  record needs — the source's mention of the mother's disability is left out because in a
+  village it identifies the house. States that admissions at the Palace are not a court
+  judgment, and that no charge, trial or verdict has been reported up to 17 October.
+- **Fun Quarter.** The source says "Monday 6th October 2026"; 6 October was a Tuesday, so the
+  record says "the first week of October" and explains. The Quarter Head is named as the
+  report names him (Mr Nji Calvin) and not linked to the register's "Fodom Calvin, quarter
+  head of Fun" — possibly the same man, not established. "PC Fun" quoted, not expanded.
+  Linked from `/quarters/fun`; the quarter's existing links are unchanged.
+
+### Changed
+
+- **`/agro-cig`** — livestock now read from the record, each line dated and labelled
+  advertised / expected / recorded / planned: chickens, young chicks, ducks, pigs (planned in
+  April, offered in October), manure (advertised 16 Oct); layers expected around December
+  2026; turkeys and ostriches as the April record left them. The manager is described as a
+  professional veterinarian and still not named. New "Latest from the farm" panel with the
+  order line the CIG published (673 536 278) and the source video. The "500 chicks" figure is
+  relabelled as an April 2026 count. Registration, governance, pricing history untouched.
+- **`/education`, homepage, FAQ, notices** — the 19 September examination is no longer
+  "next": its card says the date has passed and no result is published; a "Where things
+  stand" note; the registration call-to-action now reads as contact information. New
+  "Achievements" section: four best HND students awarded 50,000 FCFA each; three graduates,
+  Dr. Billy Wembe (Guneku Medical Center) and the director Prof. Dr. Tah Thierry in the feature.
+  `medphisatg.json` records "Medvisac" as a third form of the school's name without choosing.
+  `current-notices.json`: four new notices, the exam notice made historical, the past exam
+  removed from upcoming events, the Agro CIG register line updated.
+- **`/businesses/fondom-studios`** — the same record, updated: "a division of FONDOM SARL",
+  the Guneku Branch name, the full service list (documentaries, ceremonies, funerals,
+  weddings, interviews, music videos, live streaming, 4K, USB recordings). The advertised
+  telephone numbers and email are NOT published — the directory's rule is owner election, and
+  none is recorded. Location conflict (Guneku vs Bamenda) unchanged. Existing assets kept.
+
+### Verified
+
+- `tsc` clean; 59 test files / 1,347 tests pass (14 new in `src/lib/intel-merge-2026-10.test.ts`);
+  build passes; lint clean on every changed file.
+- 9 pages × 7 widths (320–1440): no overflow, no broken image. 66 internal links answer 200.
+- The four records are in the sitemap and the Village Square, with canonical, OG and JSON-LD.

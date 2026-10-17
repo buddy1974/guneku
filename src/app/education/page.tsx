@@ -8,8 +8,8 @@ import { pageMetadata } from '@/lib/seo'
 export const metadata = pageMetadata({
   title: 'Guneku Education & Scholarship Day 2026',
   description:
-    'A Back-to-School initiative targeting 50 scholarships. Information Day 29 August '
-    + '2026, Selection Examination 19 September 2026, at the Guneku Fon\u2019s Palace.',
+    'A Back-to-School initiative targeting 50 scholarships, with an Information Day on 29 August '
+    + 'and a Selection Examination on 19 September 2026 at the Guneku Fon\u2019s Palace.',
   path: '/education',
   image: '/images/education/og-scholarship-2026.jpg',
   imageAlt: programme.name,
@@ -21,7 +21,8 @@ const PATHWAY_ICONS = [Building2, Stethoscope, Landmark, GraduationCap, Scroll, 
    into the institutional system the homepage uses. Every date, figure, pathway, contact
    and link is unchanged; only surface, type scale and accent colour move. */
 export default function EducationPage() {
-  const { name, tagline, badge, summary, video, dates, target, openToAll, pathways, contact, appeal, quote } = programme
+  const { name, tagline, badge, summary, video, dates, target, openToAll, pathways, contact, appeal, quote,
+          statusNote, outcome, achievements } = programme
 
   return (
     <main className="min-h-screen bg-[var(--paper)]">
@@ -36,15 +37,45 @@ export default function EducationPage() {
 
           <div className="mt-8 flex flex-wrap gap-3">
             <a href={`tel:${contact.tel}`} className="inst-btn inst-btn-primary">
-              <Phone className="h-4 w-4" /> Register — {contact.display}
+              <Phone className="h-4 w-4" /> {contact.organisation} — {contact.display}
             </a>
             <a href="#dates" className="inst-btn inst-btn-quiet">
               The two dates <ArrowRight className="h-4 w-4" />
             </a>
           </div>
+
+          {/* Where the programme stands. Both dates have passed; what the sources have not
+              yet said — the examination's result — is said plainly rather than filled in. */}
+          <p className="inst-body mt-8 border-l-2 border-[var(--ochre)] pl-4 !text-[0.92rem]" role="note">
+            <strong className="text-[var(--ink-900)]">Where things stand.</strong> {statusNote}
+          </p>
         </div>
       </section>
 
+      {/* ── Achievements ──
+           Reported results only, each with its source. No examination result is shown,
+           because none has been published. */}
+      {achievements.length > 0 && (
+        <section id="achievements" className="scroll-mt-24 border-b border-[var(--rule)] bg-[var(--paper-alt)]">
+          <div className="shell py-12 md:py-14">
+            <p className="inst-eyebrow">Achievements</p>
+            {achievements.map(a => (
+              <article key={a.title} className="mt-3">
+                <h2 className="inst-h2">{a.title}</h2>
+                <p className="inst-meta mt-1">{a.displayDate}</p>
+                <p className="inst-body mt-3 max-w-3xl">{a.summary}</p>
+                <p className="inst-meta mt-2">{a.nameNote}</p>
+                <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
+                  <Link href={a.href} className="inst-link">Read the report →</Link>
+                  <a href={a.source.url} target="_blank" rel="noopener noreferrer" className="inst-link">
+                    Watch the {a.source.publisher} feature on Facebook ↗
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* ── Approved campaign flyer ──
            Published as supplied and approved by the PM on 2026-09-01. The
@@ -117,7 +148,7 @@ export default function EducationPage() {
       {/* ── The two dates ── */}
       <section id="dates" className="scroll-mt-24 border-b border-[var(--rule)]">
         <div className="shell py-12 md:py-16">
-          <p className="inst-eyebrow">Two important dates — please take note</p>
+          <p className="inst-eyebrow">The two dates</p>
           <div className="mt-7 grid gap-6 lg:grid-cols-2">
             {dates.map(d => (
               <article key={d.order} className="border border-[var(--rule)] p-6 md:p-8">
@@ -125,7 +156,10 @@ export default function EducationPage() {
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--royal-green)] font-semibold text-[oklch(0.98_0.006_85)]">
                     {d.order}
                   </span>
-                  <h3 className="inst-h3">{d.name}</h3>
+                  <div>
+                    <h3 className="inst-h3">{d.name}</h3>
+                    <p className="inst-tag mt-1 !text-[var(--ink-600)]">{d.statusLabel}</p>
+                  </div>
                 </div>
 
                 <dl className="mt-5 space-y-2">
@@ -227,13 +261,13 @@ export default function EducationPage() {
       {/* ── Registration ── */}
       <section>
         <div className="shell py-14 text-center md:py-20">
-          <p className="inst-eyebrow">For registration &amp; more information</p>
+          <p className="inst-eyebrow">For more information</p>
           <h2 className="inst-h2 mx-auto mt-3 max-w-2xl">
             Contact the {contact.organisation}
           </h2>
           <p className="inst-body mx-auto mt-3">{contact.method}</p>
           <p className="inst-tag mx-auto mt-4 inline-block border border-[var(--brass)]/45 px-3 py-1.5 text-[var(--ochre)]">
-            Next: Scholarship Selection Examination &middot; Saturday, 19 September 2026
+            {outcome.note}
           </p>
 
           <p className="mt-5 font-[family-name:var(--font-display)] text-[2.6rem] font-semibold leading-none text-[var(--ochre)]">

@@ -13,14 +13,23 @@
    "context": "Visited Guneku MEDPHISATG regarding the HRH scholarships for 2026/2027."
   }
  ],
- "spellingConflict": "The source material spells this both MEDPHISATG and Medphisatag. The correct spelling is not established and has not been chosen here.",
+ "spellingConflict": "The source material spells this both MEDPHISATG and Medphisatag, and a Fondom Studios feature of 12 September 2026 calls the school Medvisac. The correct form is not established and has not been chosen here.",
  "relatedRoutes": [
   "/education"
  ],
  "relatedUpdates": [
-  "mefu-mecuda-joint-meeting-guneku-palace"
+  "mefu-mecuda-joint-meeting-guneku-palace",
+  "medical-school-hnd-graduates-rewarded-2026"
  ],
  "sourceNote": "Recorded 2026-09-01. No accreditation, programme list or qualification is recorded, because none is established in the sources.",
  "route": "/education",
- "routeNote": "Covered on /education, where the St Thierry visit is already published. No standalone presentation is generated for it."
+ "routeNote": "Covered on /education, where the St Thierry visit is already published. No standalone presentation is generated for it.",
+ "achievements": [
+  {
+   "date": "2026-09-12",
+   "displayDate": "Reported 12 September 2026",
+   "summary": "Four best-performing students awarded 50,000 FCFA each following their HND results; three HND graduates interviewed. Director: Prof. Dr. Tah Thierry, as named in the feature.",
+   "href": "/updates/medical-school-hnd-graduates-rewarded-2026"
+  }
+ ]
 }

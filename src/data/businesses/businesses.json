@@ -106,17 +106,21 @@
    "name": "Fondom Studios",
    "aliases": [
     "Fondom Studio",
-    "Fondom Studios (Guneku Branch)"
+    "Fondom Studios (Guneku Branch)",
+    "Fondom Studios Guneku Branch",
+    "FONDOM SARL"
    ],
-   "tagline": "Film, photography and design, telling Guneku's story from Guneku.",
-   "description": "A media and cultural production company founded by a son of Guneku, working to raise the image of the village and the wider Meta clan through media and affordable service at home. It is media partner to both MEFU and MECUDA, and is described as one of the first legally registered media companies in Momo Division.",
+   "tagline": "Documentaries, events and video up to 4K — telling Guneku's story from Guneku.",
+   "description": "A media and cultural production company founded by a son of Guneku, working to raise the image of the village and the wider Meta clan through media and affordable service at home. It describes itself as a division of FONDOM SARL, and its recent work is published under the name of its Guneku Branch. It is media partner to both MEFU and MECUDA, and is described as one of the first legally registered media companies in Momo Division. In 2026 its documentaries and features have covered the Palace, the village's education programme and the Guneku Agro CIG.",
    "category": "media-creative",
    "tags": [
+    "Documentaries",
     "Film and video",
     "Photography",
+    "Event coverage",
+    "Live streaming",
     "Graphic design",
     "Printing",
-    "Event coverage",
     "Home business"
    ],
    "status": "public",
@@ -131,6 +135,15 @@
    ],
    "services": [
     "Film and video production",
+    "Cultural documentaries",
+    "Traditional ceremonies",
+    "Funeral and memorial coverage",
+    "Wedding coverage",
+    "Interviews",
+    "Music videos",
+    "Live streaming",
+    "Video production up to 4K",
+    "Event recordings supplied on USB",
     "Photography",
     "Graphic design",
     "Printing",
@@ -150,7 +163,7 @@
      "evidence": "Confirmed by the Fondom on 16 September 2026, and reconciled to his register entry on 17 September."
     }
    ],
-   "sourceNote": "The business itself is already established in the Fondom's institution record. Two locations are given by the sources: a street address at Tanwi Street, Windig Square, in Guneku, and a separate public listing describing the studio as being in Bamenda. The conflict is NOT resolved here — the Fondom's own record places the studio in Guneku, so Guneku is what this record carries, and the Bamenda listing is noted rather than chosen between. No website is published: none was established. The studio's own Facebook page is a public business channel and is published; no personal number was taken from any source."
+   "sourceNote": "The business itself is already established in the Fondom's institution record. Two locations are given by the sources: a street address at Tanwi Street, Windig Square, in Guneku, and a separate public listing describing the studio as being in Bamenda. The conflict is NOT resolved here — the Fondom's own record places the studio in Guneku, so Guneku is what this record carries, and the Bamenda listing is noted rather than chosen between. No website is published: none was established. The studio's own Facebook page is a public business channel and is published; no personal number was taken from any source. Updated 17 October 2026 from the studio's own recent publications: the FONDOM SARL affiliation, the Guneku Branch name and the service list. The studio advertises telephone numbers and an email address in those publications; they are not published here, because a business's telephone and email appear only where the owner has elected to publish them, and that election has not been recorded."
   },
   {
    "slug": "concept-care-solutions",
