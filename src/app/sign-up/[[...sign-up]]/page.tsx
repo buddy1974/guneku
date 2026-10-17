@@ -7,7 +7,7 @@ import { pageMetadata } from '@/lib/seo'
 export const metadata = {
   ...pageMetadata({
     title: 'Create a My Guneku account',
-    description: 'Create an account to claim your entry in the indigenes register, follow Guneku projects and contribute to the village record.',
+    description: 'Create an account to claim your entry in the indigenes register, follow Guneku projects and share what you know about our village.',
     path: '/sign-up',
   }),
   robots: { index: false, follow: false },
@@ -26,8 +26,8 @@ export default function SignUpPage() {
           <p className="inst-eyebrow">Guneku Fondom</p>
           <h1 className="inst-h1 mt-2 !text-[2.1rem]">Join My Guneku</h1>
           <p className="inst-body mx-auto mt-3 max-w-[23rem]">
-            An account lets you claim your own entry, follow the work under way, and put
-            something forward for the record. What you claim is still reviewed by the Palace.
+            An account lets you claim your own entry, follow the work under way, and share
+            what you know about our village. The Palace reviews every claim.
           </p>
         </div>
 

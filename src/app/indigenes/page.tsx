@@ -67,7 +67,7 @@ export default function IndigenesPage() {
           <p style={{ color:'oklch(0.470 0.018 150)', fontFamily:'Inter, sans-serif', fontSize:'1.05rem', lineHeight:1.7, maxWidth:'600px', margin:'0 auto 2rem' }}>
             {total > 0 ? (
               <><strong style={{ color:'oklch(0.320 0.060 158)' }}>{total}</strong> Guneku indigenes registered worldwide, and <strong style={{ color:'oklch(0.320 0.060 158)' }}>{FOUNDING_COUNT}</strong> founding names waiting to be claimed. From Bonn to New Jersey — one people, one village.</>
-            ) : <>The directory of Guneku indigenes worldwide &mdash; opening with <strong style={{ color:'oklch(0.320 0.060 158)' }}>{FOUNDING_COUNT}</strong> names from the Fondom&rsquo;s own records, listed below and waiting to be claimed.</>}
+            ) : <>The directory of Guneku indigenes worldwide &mdash; opening with <strong style={{ color:'oklch(0.320 0.060 158)' }}>{FOUNDING_COUNT}</strong> names held by the Palace, listed below and waiting to be claimed.</>}
           </p>
           <div style={{ display:'flex', gap:'1rem', justifyContent:'center', flexWrap:'wrap' }}>
             <Link href="/indigenes/onboarding" style={{ backgroundColor:'oklch(0.320 0.060 158)', color:'oklch(0.965 0.012 85)', fontFamily:'var(--font-sans)', fontWeight:700, padding:'0.9rem 2rem', fontSize:'0.8rem', letterSpacing:'0.12em', textTransform:'uppercase', textDecoration:'none', display:'inline-block' }}>
@@ -147,7 +147,7 @@ export default function IndigenesPage() {
                 </p>
                 <p style={{ color:'oklch(0.470 0.018 150)', fontFamily:'Inter, sans-serif', lineHeight:1.7, marginTop:'0.9rem' }}>
                   If you are a son or daughter of Guneku, you may create your own profile —
-                  or claim the entry the record already holds in your name.
+                  or claim the entry the Palace already holds in your name.
                 </p>
               </>
             )}

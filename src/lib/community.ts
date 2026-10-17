@@ -66,6 +66,9 @@ export interface Body {
   /** The year the roster describes, or 'undated'. Always shown. */
   asRecorded: string
   sourceNote: string
+  /** What a reader is told about the roster, in the community's voice. `sourceNote` is the
+   *  editors' provenance and is shown only where a body has no public note of its own. */
+  publicNote?: string
   chapter?: string
   route?: string
   routeLabel?: string

@@ -47,9 +47,9 @@ const CLASS_NOTE: Record<ProjectClass, string> = {
   'PROJECT':             'Work under way in the village, with a body carrying it.',
   'PROGRAMME':           'Something that runs repeatedly rather than finishing.',
   'INSTITUTION':         'A standing body or facility, not a project with an end date.',
-  'PROPOSED INITIATIVE': 'Proposed and recorded as proposed. Not begun.',
-  'HISTORICAL RECORD':   'Completed, delivered or ended. Kept as part of the record.',
-  'OPEN ISSUE':          'A problem the community has raised and the sources leave unresolved.',
+  'PROPOSED INITIATIVE': 'Proposed, and not yet begun.',
+  'HISTORICAL RECORD':   'Completed, delivered or ended. Kept as part of our history.',
+  'OPEN ISSUE':          'A problem the community has raised that is still unresolved.',
 }
 
 function ProjectCard({ p }: { p: Project }) {
@@ -85,7 +85,7 @@ function ProjectCard({ p }: { p: Project }) {
           {/* Not "last updated": the register's value is provenance — how the entry is
               evidenced — and often names an event rather than a date. Labelling it as an
               update date would invent a project timeline out of a citation. */}
-          <dt className="text-[var(--ink-400)] shrink-0 w-[7.5rem]">As recorded</dt>
+          <dt className="text-[var(--ink-400)] shrink-0 w-[7.5rem]">Last news</dt>
           <dd className="m-0 text-muted-foreground">{p.asRecorded}</dd>
         </div>
       </dl>
@@ -98,7 +98,7 @@ function ProjectCard({ p }: { p: Project }) {
         {p.recordHref && (
           <Link href={p.recordHref}
                 className="text-primary text-xs tracking-widest no-underline hover:underline inline-block py-1.5 -my-1.5">
-            The record →
+            Read more →
           </Link>
         )}
         <Link href={contributeHref(p)}
@@ -170,11 +170,10 @@ export default function ProjectsPage() {
       <Reveal>
         <section className="max-w-7xl mx-auto px-6 pt-10">
           <div className="card-royal p-6 max-w-3xl">
-            <h2 className="section-label">What this register does not record</h2>
+            <h2 className="section-label">Help us complete this page</h2>
             <p className="mt-3 text-muted-foreground text-sm leading-relaxed">
-              The register establishes what each entry is, who carries it, and the record it
-              rests on. It does not hold the following for any entry, and nothing here is
-              estimated to fill the gap.
+              Each entry shows what the project is and who carries it. We do not yet publish
+              the following, and we would rather leave a gap than guess:
             </p>
             <dl className="mt-4 grid gap-3">
               {NOT_RECORDED.map(n => (
@@ -194,7 +193,7 @@ export default function ProjectsPage() {
                     className="text-primary no-underline hover:underline">
                 tell the Palace
               </Link>
-              . Nothing is published until a person has reviewed it.
+              . The Palace reviews every contribution before it appears.
             </p>
           </div>
         </section>

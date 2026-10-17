@@ -211,11 +211,9 @@ export default async function BusinessPage({
             </div>
           )}
 
-          {business.sourceNote && (
-            <p className="inst-meta mt-9 border-t border-[var(--rule)] pt-4">
-              {business.sourceNote}
-            </p>
-          )}
+          {/* `sourceNote` is the editors' provenance note — where the record came from and
+              what it deliberately does not claim. It stays in the data for whoever maintains
+              the directory and is not shown to readers (as with the projects register). */}
         </div>
 
         <aside className="grid gap-5">
@@ -233,7 +231,6 @@ export default async function BusinessPage({
                       ) : p.display}
                     </p>
                     <p className="inst-meta mt-0.5">{p.relationshipLabel}</p>
-                    <p className="inst-body mt-1.5 !text-[0.84rem]">{p.evidence}</p>
                     {p.held && (
                       <p className="inst-meta mt-1.5 border-l-2 border-[var(--ochre)] pl-2.5">
                         Not yet matched to an entry in the Indigenes register.

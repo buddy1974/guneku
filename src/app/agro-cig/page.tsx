@@ -20,7 +20,7 @@ const ICONS: Record<string, string> = {
   Pigs: '🐖', Manure: '🌱', Turkeys: '🦃', Ostriches: '🦩',
 }
 const STATUS_LABEL: Record<string, string> = {
-  advertised: 'ADVERTISED', expected: 'EXPECTED', recorded: 'RECORDED', planned: 'PLANNED',
+  advertised: 'ON OFFER', expected: 'EXPECTED', recorded: 'REPORTED', planned: 'PLANNED',
 }
 
 const PROGRESS = [
@@ -41,7 +41,7 @@ export default function AgroCIGPage() {
 
         {/* Membership pricing — the full documented record, in the order issued */}
         <div className="card-royal border-l-4 p-5 mb-8" style={{ borderLeftColor: 'oklch(0.700 0.115 78)' }}>
-          <div className="font-cinzel text-foreground tracking-wide mb-1">MEMBERSHIP &amp; SHARES — THE RECORD</div>
+          <div className="font-cinzel text-foreground tracking-wide mb-1">MEMBERSHIP &amp; SHARES</div>
           <p className="text-muted-foreground text-sm">{cig.membershipPricing.note}</p>
           <div className="mt-4 space-y-3">
             {cig.membershipPricing.timeline.map(t => (
@@ -132,7 +132,7 @@ export default function AgroCIGPage() {
                     <div className="flex flex-wrap items-baseline justify-between gap-2">
                       <span className="font-cinzel text-foreground text-sm">{o.office}</span>
                       <span className="text-foreground text-sm font-medium">
-                        {'holder' in o && o.holder ? o.holder : 'Not named in the record'}
+                        {'holder' in o && o.holder ? o.holder : 'To be announced'}
                       </span>
                     </div>
                     <p className="text-muted-foreground text-xs mt-1 leading-relaxed">{o.note}</p>
@@ -197,7 +197,7 @@ export default function AgroCIGPage() {
 
             {/* Farm progress */}
             <h2 className="font-cinzel text-2xl text-foreground mt-8 mb-1">FARM DEVELOPMENT</h2>
-            <p className="text-muted-foreground text-xs mb-3">As recorded in April 2026. No later progress report is in the record.</p>
+            <p className="text-muted-foreground text-xs mb-3">As reported at the launch in April 2026.</p>
             {PROGRESS.map(f => (
               <div key={f.item} className="flex gap-3 items-center py-2 border-b border-border/20">
                 <span className="shrink-0">{f.icon}</span>
@@ -213,9 +213,9 @@ export default function AgroCIGPage() {
             <div className="card-royal p-6 border-l-4" style={{ borderLeftColor: 'oklch(0.700 0.115 78)' }}>
               <div className="section-label">LATEST FROM THE FARM · 16 OCTOBER 2026</div>
               <p className="text-foreground text-sm mt-3 leading-relaxed">
-                Chickens for occasions, young chicks, ducks, pigs and manure, shown by the CIG&rsquo;s
-                manager, a professional veterinarian. Layers are expected to start laying around
-                December 2026.
+                Our farm now offers chickens for occasions, young chicks, ducks, pigs and manure,
+                as the CIG&rsquo;s manager, a professional veterinarian, showed on 16 October. Layers
+                are expected to start laying around December 2026.
               </p>
               <div className="mt-5 border-t border-border/30 pt-4">
                 <div className="text-muted-foreground text-xs tracking-widest">ENQUIRIES AND ORDERS</div>

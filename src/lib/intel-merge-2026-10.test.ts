@@ -23,28 +23,29 @@ describe('the Palace investigation record', () => {
     expect(getAllUpdates().filter(x => x.slug === u.slug)).toHaveLength(1)
   })
 
-  /* Accuracy, not editorial policy. How crime is presented — images, which details — is
-     ADR-101, which is a proposal awaiting the owner's decision and is not enforced here. */
+  /* Accuracy, privacy and the owner's two explicit decisions of 17 October 2026 (the mother's
+     disability is not published; the documentary link stays). How the story is told is ADR-101,
+     which is under review and is not enforced here. */
   it('treats the suspects as untried', () => {
-    expect(u.body).toMatch(/not a court judgment/)
-    expect(u.body).toMatch(/No charge, trial or verdict has been reported/)
+    expect(u.body).toMatch(/presumed innocent/)
+    expect(u.body).toMatch(/not a court finding/)
+    expect(u.body).toMatch(/No charge, trial or judgment has been announced/)
   })
 
-  it('separates what is corroborated from what is single-source or alleged', () => {
-    expect(u.body).toMatch(/Confirmed by more than one source:/)
-    expect(u.body).toMatch(/Reported by a single source:<\/strong>[^<]*120,000 FCFA/)
-    expect(u.body).toMatch(/An allegation, with no court finding:/)
+  it('keeps the allegation an allegation, and the single-source details reported', () => {
+    expect(u.body).toMatch(/allegedly assaulted/)
+    expect(u.body).toMatch(/120,000 FCFA was reportedly taken/)
+    expect(u.body).toMatch(/items were reportedly recovered/)
+  })
+
+  it('carries the owner’s decisions: no disability mentioned, documentary linked', () => {
+    expect(raw.replace(/"sourceNote": "[^"]*"/, '')).not.toMatch(/blind|disabilit/i)
+    expect(u.body).toContain('https://www.facebook.com/reel/2303868100018359/')
     expect(u.body).toMatch(/published on 5 October 2026/)
   })
 
   it('does not repeat the unconfirmed claim about where the suspects came from', () => {
     expect(u.body).not.toMatch(/Nyen|Njinedeh/)
-  })
-
-  it('links the documentary and credits both sources', () => {
-    expect(u.body).toContain('https://www.facebook.com/reel/2303868100018359/')
-    expect(u.body).toContain('Mbengwi Info Newsline')
-    expect(raw).not.toMatch(/wa\.me|\+237|\b6\d{2}[ ]?\d{3}[ ]?\d{3}\b/)
   })
 })
 
@@ -54,10 +55,10 @@ describe('section 7 — other community developments', () => {
     expect(u.publishedAt?.slice(0, 10)).toBe('2026-09-24')
     expect(u.body).toContain('907,250,000 FCFA')
     expect(u.body).toMatch(/schools in Guneku/)
-    expect(u.body).toMatch(/What is not yet established/)
+    expect(u.body).toMatch(/The details are still to come/)
     expect(u.body).toContain('https://www.facebook.com/watch/?v=2261127488019039')
     /* Munam is a Guneku quarter, but the source does not say it means that Munam. */
-    expect(u.body).toMatch(/no Guneku bridge project is recorded here/)
+    expect(u.body).not.toMatch(/Munam quarter|bridge in Guneku/i)
   })
 
   it('adds a source to the MEFU–MECUDA record rather than a second record of it', () => {
@@ -72,7 +73,7 @@ describe('Fun Quarter', () => {
 
   it('does not make the date more precise than the source allows', () => {
     expect(u.excerpt).not.toMatch(/\b[56] October\b/)
-    expect(u.body).toMatch(/either Monday 5 or Tuesday 6 October/)
+    expect(u.body).toMatch(/Monday 5 or Tuesday 6 October/)
   })
 
   it('is linked from the quarter page, and the quarter keeps what it had', () => {
@@ -139,9 +140,11 @@ describe('education', () => {
     for (const a of p.achievements) expect(a.summary).not.toMatch(/scholarship (winners|recipients)|passed the (selection )?exam/i)
   })
 
-  it('records the HND awards with their source and the school-name conflict', () => {
+  it('records the HND awards with their source, and keeps the name conflict internal', () => {
     const u = getUpdate('medical-school-hnd-graduates-rewarded-2026')!
-    expect(u.body).toContain('50,000 FCFA each to its four best-performing students')
+    expect(u.body).toMatch(/four best-performing students each received 50,000 FCFA/)
+    expect(u.body).toContain('MEDPHISATG')
+    expect(u.body).not.toMatch(/Medvisac/)
     expect(u.body).toContain('https://www.facebook.com/reel/1816967966141646/')
     const school = json<{ spellingConflict: string }>('src/data/institutions/medphisatg.json')
     expect(school.spellingConflict).toMatch(/Medvisac/)

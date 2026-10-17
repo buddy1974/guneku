@@ -189,10 +189,10 @@ export default function DiasporaPage() {
                   Guneku's diaspora is far larger than any list on this site: writing "17
                   people abroad" would state a figure about the community that nobody has
                   established, from a number that only describes a register. */}
-              <strong className="text-foreground">{diaspora.length}</strong> people are recorded
-              here so far &mdash; those the register names as living outside Cameroon, or as
-              members of an overseas GUDECA chapter. It is a record of who has been written
-              down, not a count of the Guneku diaspora, which is very much larger.
+              <strong className="text-foreground">{diaspora.length}</strong> people are listed
+              here so far &mdash; those known to live outside Cameroon, or to belong to an
+              overseas GUDECA chapter. Our diaspora is very much larger; add your name and help
+              this page grow.
             </p>
             <p className="text-muted-foreground mt-3 max-w-3xl">
               Belonging to the diaspora says where someone lives and

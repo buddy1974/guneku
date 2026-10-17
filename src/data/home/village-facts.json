@@ -39,7 +39,7 @@
    "id": "photographs",
    "value": "339",
    "label": "Photographs",
-   "note": "Across fifteen event albums in the Fondom archive.",
+   "note": "Across fifteen event albums in our gallery.",
    "source": "src/data/gallery/image-gallery.json",
    "href": "/gallery/images"
   },
@@ -47,7 +47,7 @@
    "id": "videos",
    "value": "46",
    "label": "Films",
-   "note": "From the Fondom's own channel, attached to the records they document.",
+   "note": "From the Fondom's own channel.",
    "source": "src/data/gallery/video-gallery.json",
    "href": "/watch"
   }
@@ -111,7 +111,7 @@
   {
    "id": "people",
    "title": "Two peoples, one village",
-   "body": "The Bantu and the Mbororo live together in Guneku. The people speak MENEMO — a Meta dialect that some call “Meta”, which the village record notes is not correct. Musongong is the dance of the Guneku people.",
+   "body": "The Bantu and the Mbororo live together in Guneku. The people speak MENEMO — a Meta dialect that some call “Meta”, which is not correct. Musongong is the dance of the Guneku people.",
    "source": "src/data/fondom/about-guneku.json",
    "href": "/fondom/about-guneku"
   },
@@ -125,7 +125,7 @@
   {
    "id": "palace",
    "title": "A palace surrounded by churches",
-   "body": "The Presbyterian church stands right in the Palace, and the village record observes that the Palace of Guneku is surrounded by churches. The record puts it two ways in the same passage — that there are as many churches as there are quarters, and that a survey counted nineteen houses of worship: twelve Presbyterian, two Catholic, and one each of Full Gospel, Good Shepherd, Apostolic, Mount Zion and Kingship Ministry. Both are recorded here rather than one being chosen.",
+   "body": "The Presbyterian church stands right in the Palace, and the Palace of Guneku is surrounded by churches. It is often said there are as many churches as there are quarters; one survey counted nineteen houses of worship: twelve Presbyterian, two Catholic, and one each of Full Gospel, Good Shepherd, Apostolic, Mount Zion and Kingship Ministry.",
    "source": "src/data/fondom/about-guneku.json",
    "href": "/palace"
   }
@@ -134,7 +134,7 @@
   {
    "id": "sites",
    "title": "Caves, mountains and waterfalls",
-   "body": "The village record lists the Palace, caves, mountains and waterfalls among Guneku's touristic sites, alongside hills and valleys, rivers and springs. Because of the undulating landscape there are many caves, which in years past served as hiding places during the colonial wars.",
+   "body": "The Palace, caves, mountains and waterfalls are among Guneku's touristic sites, alongside hills and valleys, rivers and springs. Because of the undulating landscape there are many caves, which in years past served as hiding places during the colonial wars.",
    "source": "src/data/fondom/about-guneku.json"
   },
   {
@@ -203,7 +203,7 @@
   },
   {
    "q": "How can I support a Guneku project?",
-   "a": "The development register lists every project at the stage its sources establish. Tell the Palace which project interests you and how you would like to help — with funds, materials, professional expertise, volunteering or partnership. Your offer is sent to the Guneku Palace for review.",
+   "a": "Our development page lists every project and where it stands. Tell the Palace which project interests you and how you would like to help — with funds, materials, professional expertise, volunteering or partnership. Your offer is sent to the Guneku Palace for review.",
    "href": "/projects",
    "hrefLabel": "All projects"
   },
@@ -215,13 +215,13 @@
   },
   {
    "q": "Where can I see photographs and films of Guneku?",
-   "a": "The archive holds fifteen event albums totalling 339 photographs, and forty-six films from the Fondom's own channel, each attached to the record it documents.",
+   "a": "Our gallery holds fifteen event albums totalling 339 photographs, and Guneku TV has forty-six films from the Fondom's own channel.",
    "href": "/gallery/images",
    "hrefLabel": "The image gallery"
   },
   {
    "q": "How can diaspora members connect?",
-   "a": "Sons and daughters of Guneku can enter the indigenes directory, which is searchable by name and by quarter of origin. The diaspora page records where Guneku people are known to live and which chapters are constituted.",
+   "a": "Sons and daughters of Guneku can enter the indigenes directory, which is searchable by name and by quarter of origin. The diaspora page shows where Guneku people live and which GUDECA chapters are constituted.",
    "href": "/indigenes",
    "hrefLabel": "Indigenes directory"
   },
@@ -233,7 +233,7 @@
   },
   {
    "q": "How do I submit information or a correction?",
-   "a": "Send it through the message form on this page and choose the topic it belongs to. The Fondom records where each fact came from, so a correction is welcome when it carries a source.",
+   "a": "Send it through the message form on this page and choose the topic it belongs to. Corrections are welcome, especially when you can tell us where the information comes from.",
    "href": "/contact",
    "hrefLabel": "Contact"
   },

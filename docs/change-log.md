@@ -3585,3 +3585,68 @@ in R-072 for hand-off); no festival file was touched.
 ### Verified
 
 - `tsc` clean; 59 files / 1,350 tests pass; build passes; lint clean on changed files.
+
+## 2026-10-17 (final) — Guneku's own voice, site-wide
+
+Owner direction: Guneku.org is Guneku speaking, not an outside observer reporting on it.
+Every public page was crawled from a production build (265 sitemap URLs) and scanned for
+research-report language. Before: 248 pages carried it. After: 22, all of them the legal pages,
+the Michi Ebeng pages (excluded from this work), legacy-archive editor's notes whose substance
+is historical context, or ordinary English ("newly established", "is held in December").
+
+### How
+
+- **Provenance stays in the data; readers no longer see it** — the precedent the projects
+  register already set. Not rendered any more: business `sourceNote` and relationship
+  `evidence`; institution `sourceNote` (a record may now carry a `publicNote`; the Mɨchi Əbeŋ
+  festival record keeps its existing display, untouched); quarter-link `evidence`; explore
+  `reason`; the indigene "Source" row and Queens' source labels. Bodies gained a community-voice
+  `publicNote` (not the festival committee, which renders as before).
+- **`src/lib/public-voice.ts`** — `publicNote()` shows the reader's part of an indigene note
+  (elections, installations, disambiguations) and leaves out provenance and negative-scope
+  sentences. The register data is unchanged. Tested against every entry.
+- **Templates rewritten** — quarters (27 pages: "Kai's story is still to be written", "Share
+  what you know"), indigene entries (113), bodies, institutions ("Read more", "At a glance"),
+  homepage (council blurb, Things to Know, Ask Guneku, Watch), projects (register statement and
+  "Help us complete this page", keeping "none is calculated" / "never aggregated"), explore,
+  notables, GUDECA, search, watch, gallery, diaspora, directory, sign-in/up, map, the article
+  plate ("From the Guneku Fondom." instead of "The Fondom archive holds no photograph…").
+- **Data rewritten** — Agro CIG notes and labels (ON OFFER / EXPECTED / REPORTED / PLANNED;
+  statuses unchanged), education notes, notices, development descriptions, village facts,
+  explore texts, GUDECA roster notes, institution fields (Medical Center, Open Door, health
+  centres, Ifuh Itah), Fondom Studios and Urologie descriptions, three Palace articles written
+  by this site, eight September news items, and calmer wording in the Coronation and About
+  Guneku editor's notes (every historical fact kept). Migrated legacy articles and quotations
+  are unchanged.
+
+### The October articles
+
+- **Palace investigation** — rewritten from within the community: the family, our Palace and
+  elders, the handover to the State, "Before the courts" (presumed innocent; no charge, trial or
+  judgment announced). Allegation and single-source facts kept as "allegedly" / "reportedly".
+  No disability, no origin claim, no names. The Fondom Studios documentary link kept and
+  verified (reel resolves, caption and publisher confirmed); Mbengwi Info credited.
+- **Agro CIG** — order number re-verified against the 16 Oct 2026 announcement ("For enquiries
+  and orders, call: 673 536 278"). It is presented as the CIG's announced number. Not tested as
+  operational, and not confirmed directly with the Delegate (a comment by "Fah Elvis" endorses
+  the post but does not mention the number).
+- **Education** — public copy uses MEDPHISATG; the Medvisac spelling stays internal. HND awards
+  kept separate from the scholarship examination, whose results are "not yet published".
+- **Council budget** — 907,250,000 FCFA kept; schools' details "still to come"; Munam named as
+  the caption names it, not claimed for Guneku's quarter.
+- **Fun Quarter** — "Monday 5 or Tuesday 6 October", Mr Nji Calvin as reported, not merged.
+
+### Governance
+
+- ADR-101: **PROPOSED — UNDER REVIEW**. The owner's two decisions for the Palace record (no
+  disability; documentary link stays) are recorded as decisions for that record, not policy.
+- Tests now protect facts, privacy and the legal position, not phrasing. Updated: the October
+  merge tests, the register statement test (meanings kept, wording freed), directory copy.
+  New: `src/lib/public-voice.test.ts`.
+
+### Verified
+
+- `tsc` clean; 60 files / 1,354 tests pass; build passes; lint 0 errors on changed files.
+- 18 representative pages × 7 widths: no overflow, one `h1`, no broken image; 134 internal
+  links answer 200. Titles, canonical, Open Graph and NewsArticle JSON-LD checked on the five
+  October articles. Festival sentences in shared files verified byte-identical.

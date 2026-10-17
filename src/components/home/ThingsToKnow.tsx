@@ -38,8 +38,7 @@ export function ThingsToKnow() {
         <p className="inst-eyebrow">The village</p>
         <h2 id="know-heading" className="inst-h2 mt-1.5">Things to know about Guneku</h2>
         <p className="inst-body mt-2 max-w-2xl">
-          Drawn from the village record kept by the Fondom. Where the record is silent,
-          so is this page.
+          Our village in brief, from the history kept by the Fondom.
         </p>
 
         <div className="mt-6 grid items-start gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -58,7 +57,7 @@ export function ThingsToKnow() {
                   <h3 className="inst-h3">{c.title}</h3>
                   <p className="inst-body mt-2 flex-1 !text-[0.88rem]">{c.body}</p>
                   {c.href && (
-                    <Link href={c.href} className="inst-link mt-3">Read the record →</Link>
+                    <Link href={c.href} className="inst-link mt-3">Read more →</Link>
                   )}
                 </div>
               </article>

@@ -75,11 +75,10 @@ export function AskPalace() {
               </div>
             </div>
             <p className="inst-body mt-4 max-w-md">
-              Answers are drawn from published Guneku records — the village record, the
-              Palace archive, the development register, the registers of people and
-              quarters, and the news archive. Every answer shows the records it came from.
-              If there is no source for your question, it will say so and pass it to the
-              Palace.
+              Answers come from what Guneku has published here — our history, the Palace
+              archive, our development work, our people and quarters, and our news. Every
+              answer shows where it came from. If we have not published the answer yet, it
+              will say so and pass your question to the Palace.
             </p>
             <p className="inst-meta mt-3">
               This is a reading aid over the published record. It is not the Fon, it does

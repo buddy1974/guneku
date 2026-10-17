@@ -81,12 +81,12 @@ export default async function BodyPage({
             <p className="inst-tag">
               {members.length} {members.length === 1 ? 'person' : 'people'} · {recordedLabel(b)}
             </p>
-            <p className="inst-body mt-1.5 !text-[0.9rem]">{b.sourceNote}</p>
+            <p className="inst-body mt-1.5 !text-[0.9rem]">{b.publicNote ?? b.sourceNote}</p>
           </div>
           <div className="flex flex-wrap gap-3">
             {b.route && (
               <Link href={b.route} className="inst-btn inst-btn-quiet">
-                {b.routeLabel ?? 'The record'}
+                {b.routeLabel ?? 'Read more'}
               </Link>
             )}
             <Link href="/indigenes/submit?intent=add" className="inst-btn inst-btn-primary">
@@ -105,9 +105,8 @@ export default async function BodyPage({
         <section className="inst-wrap pb-[clamp(1.5rem,3vw,2.5rem)]">
           <h2 className="inst-h2">The Palace Queens</h2>
           <p className="inst-body mt-2 max-w-3xl">
-            The Guneku Palace is a polygamous royal household. Each Queen is recorded in her
-            own right; the Fondom records no order of precedence among them, and none is
-            implied here.
+            The Guneku Palace is a polygamous royal household, and each Queen is honoured in
+            her own right.
           </p>
 
           <ul className="mt-6 grid list-none gap-6 p-0 sm:grid-cols-2 lg:grid-cols-3">
@@ -130,7 +129,6 @@ export default async function BodyPage({
                   {q.professionPlace && (
                     <p className="inst-meta">{q.professionPlace}</p>
                   )}
-                  <p className="inst-meta mt-2">{q.sourceLabel}</p>
                 </div>
               </li>
             ))}
@@ -145,8 +143,8 @@ export default async function BodyPage({
           showAddCta={false}
           standfirst={
             claimable === 0
-              ? 'These entries are kept as records of the Fondom.'
-              : `Each entry shows only a name, the office the record gives, and where that record came from. ${claimable === members.length ? 'Every one' : `${claimable} of them`} can be claimed by the person it belongs to — and from that moment the profile is theirs to write, and theirs to decide what the public sees.`
+              ? 'These entries are kept by the Palace.'
+              : `Each entry shows a name and an office. ${claimable === members.length ? 'Every one' : `${claimable} of them`} can be claimed by the person it belongs to — and from then on the profile is theirs to write, and theirs to decide what the public sees.`
           }
         />
       </section>
@@ -156,15 +154,14 @@ export default async function BodyPage({
           <div>
             <h2 className="inst-h2">Is one of these you?</h2>
             <p className="inst-body mt-3 max-w-2xl">
-              Claim your entry and it becomes yours. The office stays as the record has it
-              &mdash; that part is the Fondom&rsquo;s &mdash; but everything else is yours to
-              write: where you are, what you do, which quarter you come from, and which of the
+              Claim your entry and it becomes yours. The office stays as the Palace recorded
+              it, but everything else is yours to write: where you are, what you do, which quarter you come from, and which of the
               village&rsquo;s projects you stand behind. You choose, field by field, what the
               public sees.
             </p>
             <p className="inst-body mt-3 max-w-2xl">
               If a name here is wrong, out of date, or should not be published at all, say so
-              and it is put right. Nobody has to argue for their own record.
+              and it will be put right.
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
               <Link href="/indigenes/submit?intent=add" className="inst-btn inst-btn-primary">Add a name</Link>
@@ -182,7 +179,7 @@ export default async function BodyPage({
                       {o.short}
                     </span>
                     <span className="inst-meta">
-                      {memberCount(o.id)} recorded · {recordedLabel(o)}
+                      {memberCount(o.id)} listed · {recordedLabel(o)}
                     </span>
                   </Link>
                 </li>

@@ -185,29 +185,27 @@ export const NOT_RECORDED: readonly { field: string; note: string }[] = [
        €800 reported toward Solar Phase II — as their sources state it. What the register has
        no field for is a target, a total raised, a total spent or a balance, and nothing here
        lifts a figure out of prose into one or adds two of them together. */
-    note: 'The register has no field for a target, a total raised, a total spent or a '
-        + 'balance, and none is calculated here. Where an entry’s own description quotes an '
-        + 'amount, it is quoted as its source states it and is never aggregated into a total. '
-        + 'Project accounts will appear only when the Palace supplies them officially.',
+    note: 'We do not publish targets, totals raised, totals spent or balances: there is no field '
+        + 'for them here, and none is calculated. Where a project’s description mentions an '
+        + 'amount, it is given as it was announced and is never aggregated into a total. Project '
+        + 'accounts will be published when the Palace releases them.',
   },
   {
     field: 'Location',
-    note: 'Where a project sits in the village is not a field the register holds, beyond what '
-        + 'an entry’s own description says.',
+    note: 'Where each project sits in the village, beyond what its description says.',
   },
   {
     field: 'Timeline',
-    note: 'Start and completion dates are not recorded. The date beside an entry is when the '
-        + 'record was evidenced, not a project milestone.',
+    note: 'Start and completion dates. The date beside each entry is when we last had news of it, '
+        + 'not a project milestone.',
   },
   {
     field: 'Current stage',
-    note: 'Beyond the status the sources establish, no stage or percentage of completion is '
-        + 'recorded — and none is estimated.',
+    note: 'A stage or percentage of completion beyond the status shown. We do not estimate one.',
   },
   {
     field: 'Needs',
-    note: 'What a project still requires — labour, materials, expertise — is not recorded.',
+    note: 'What each project still needs — labour, materials or expertise.',
   },
 ]
 
@@ -227,20 +225,19 @@ export const NOT_RECORDED: readonly { field: string; note: string }[] = [
  *
  * The review date is not rewritten. It is read from the record, because it is a fact. */
 export const REGISTER_STATEMENT: readonly string[] = [
-  'Every entry in this register comes from a record the Fondom has reviewed for publication '
-  + 'on Guneku.org. Nothing is listed here that no record establishes.',
+  'These are the projects, programmes and institutions of Guneku, as the Fondom has reviewed '
+  + 'them for publication here.',
 
-  'Each entry is classed by what it actually is, from a fixed set of classes — a project, a '
-  + 'programme, a standing institution, a proposal, a completed record, or an open issue. A '
-  + 'proposal is shown as a proposal and is never promoted to work under way.',
+  'Each one is shown for what it is — a project, a programme, a standing institution, a '
+  + 'proposal, something completed, or an open issue. A proposal stays a proposal until work '
+  + 'actually begins.',
 
-  'Statuses are the statuses the records establish, not an assessment made here. Where the '
-  + 'records are silent, this register says so rather than estimating.',
+  'The status beside each entry is what we know today. Where we do not yet know, we say so '
+  + 'rather than estimate.',
 
-  'Some material is deliberately held back pending the Fondom’s own consent review, and '
-  + 'does not appear in this register while that is the case.',
+  'Some work is not listed yet while the Fondom reviews how it should be presented.',
 
-  'The register is reviewed again whenever any of the records behind it changes.',
+  'This page is reviewed whenever there is news of any project on it.',
 ]
 
 /** The date the register was last reviewed, read from the record because it is a fact about

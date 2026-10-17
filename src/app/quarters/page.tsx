@@ -31,8 +31,8 @@ export default function QuartersPage() {
                 <span className="inst-h3 group-hover:text-[var(--royal-green)]">{q.name}</span>
                 <span className="inst-meta shrink-0">
                   {q.links.length > 0
-                    ? `${q.links.length} ${q.links.length === 1 ? 'record' : 'records'}`
-                    : 'not yet recorded'}
+                    ? `${q.links.length} ${q.links.length === 1 ? 'story' : 'stories'}`
+                    : 'story to come'}
                 </span>
               </Link>
             </li>
@@ -42,9 +42,9 @@ export default function QuartersPage() {
         <div className="inst-card mt-10 p-6">
           <h2 className="inst-h3">Know something missing?</h2>
           <p className="inst-body mt-2 max-w-2xl">
-            Most of these quarters have no record in the archive yet. If you know a quarter
-            &mdash; its history, its institutions, who holds office there, what it is known
-            for &mdash; the Fondom would rather hear it from you than guess.
+            Most of our quarters are still waiting for their story to be told. If you know a
+            quarter &mdash; its history, its institutions, who holds office there, what it is
+            known for &mdash; the Palace would love to hear it from you.
           </p>
           <Link href="/indigenes/submit?intent=add" className="inst-btn inst-btn-primary mt-5">
             Contribute to the Guneku record

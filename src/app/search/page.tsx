@@ -75,13 +75,13 @@ export default async function SearchPage({
           <div className="mt-10 max-w-2xl">
             <h2 className="inst-h2">Nothing found for &ldquo;{query}&rdquo;</h2>
             <p className="inst-body mt-3">
-              The Guneku record holds nothing matching that. It may be spelled differently in
-              the archive, or it may simply not have been written down yet &mdash; much of the
-              village is not, and that is what the contribution route is for.
+              Nothing on Guneku.org matches that yet. It may be spelled differently here, or it
+              may simply not have been written down yet &mdash; much of our village&rsquo;s
+              story has not, and you can help us add it.
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
               <Link href="/indigenes/submit?intent=add" className="inst-btn inst-btn-primary">
-                Contribute to the record
+                Share what you know
               </Link>
               <Link href="/quarters" className="inst-btn inst-btn-quiet">Browse the quarters</Link>
             </div>
@@ -117,9 +117,8 @@ export default async function SearchPage({
             </div>
 
             <p className="inst-meta mt-10 max-w-2xl">
-              Results are ranked by how closely the record matches what you typed. Nothing
-              here is generated: every entry is a record in the Guneku archive, and the link
-              takes you to it.
+              Results are ranked by how closely they match what you typed, and each one links
+              to the page on Guneku.org it comes from.
             </p>
           </div>
         )}

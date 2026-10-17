@@ -33,49 +33,49 @@
    "animal": "Chickens",
    "status": "advertised",
    "asOf": "16 October 2026",
-   "note": "Offered for occasions in the CIG's video of 16 October 2026. The April 2026 record counted 500 chicks — 300 at the farm and 200 arriving."
+   "note": "For occasions. At the launch in April 2026 the CIG had 500 chicks — 300 at the farm and 200 on the way."
   },
   {
    "animal": "Young chicks",
    "status": "advertised",
    "asOf": "16 October 2026",
-   "note": "Offered to buyers who want to raise their own."
+   "note": "For anyone who wants to raise their own."
   },
   {
    "animal": "Layers",
    "status": "expected",
    "asOf": "16 October 2026",
-   "note": "Expected to start laying eggs around December 2026, according to the manager."
+   "note": "Expected to start laying eggs around December 2026."
   },
   {
    "animal": "Ducks",
    "status": "advertised",
    "asOf": "16 October 2026",
-   "note": "Known locally as duck fowl. First recorded in the October 2026 video."
+   "note": "Known locally as duck fowl. New in October 2026."
   },
   {
    "animal": "Pigs",
    "status": "advertised",
    "asOf": "16 October 2026",
-   "note": "Listed as planned in April 2026; shown and offered in the October 2026 video."
+   "note": "Planned at the launch in April 2026; on offer since October 2026."
   },
   {
    "animal": "Manure",
    "status": "advertised",
    "asOf": "16 October 2026",
-   "note": "Offered at an affordable price to local farmers."
+   "note": "At an affordable price for local farmers."
   },
   {
    "animal": "Turkeys",
    "status": "recorded",
    "asOf": "April 2026",
-   "note": "Imported from Nigeria, as the April 2026 record states. Not mentioned in the October 2026 video."
+   "note": "Imported from Nigeria, as reported in April 2026."
   },
   {
    "animal": "Ostriches",
    "status": "planned",
    "asOf": "April 2026",
-   "note": "Planned for expansion and as an attraction. No later record."
+   "note": "Planned for expansion, and as an attraction."
   }
  ],
  "infrastructure": [
@@ -157,7 +157,7 @@
  },
  "paymentRoute": "Payments and share purchases run through GUNECCUL, the community credit union.",
  "membershipPricing": {
-  "note": "The full documented pricing record, in the order it was issued. Where the announcements differ, both are shown with their dates rather than one being chosen. Confirmation of the current line is with Fah Elvis Tayong, CIG Delegate.",
+  "note": "Every pricing announcement, in the order it was made. Where two announcements differ, both are shown with their dates.",
   "timeline": [
    {
     "date": "2026-04-03",
@@ -184,52 +184,52 @@
     "registrationFee": "15,000 FCFA",
     "sharePrice": "2,000 FCFA",
     "shares": "Minimum 5",
-    "detail": "From 3 May 2026 registration moved to 15,000 FCFA and the share price was kept at 2,000 FCFA. This is the most recent pricing communique in the record; the 5,000 FCFA share price announced on 4 April does not appear in it."
+    "detail": "From 3 May 2026 registration moved to 15,000 FCFA and the share price was kept at 2,000 FCFA. This is the most recent pricing communique; the 5,000 FCFA share price announced on 4 April does not appear in it."
    }
   ],
   "paymentRoute": "Payments and share purchases run through GUNECCUL, the Guneku community credit union, account number 200637.",
-  "confirmation": "Fah Elvis Tayong, CIG Delegate, to confirm which line is current."
+  "confirmation": "For the current price, contact Fah Elvis Tayong, CIG Delegate."
  },
  "route": "/agro-cig",
  "governance": {
-  "note": "How the CIG is run, as its own communiques and notices establish it. Offices are listed because the record names the offices; where the record does not name the holder, none is supplied.",
+  "note": "How our CIG is run, as its own communiques and notices describe it.",
   "offices": [
    {
     "office": "Delegate",
     "holder": "Fah Elvis Tayong",
-    "note": "Signs the CIG communiques and convenes its meetings. The same man the Palace record names as Ngam-Fon and the GUDECA roster names as National Publicity Secretary — one man in three roles, not three men."
+    "note": "Signs the CIG's communiques and convenes its meetings. Fah Elvis Tayong is also our Ngam-Fon and GUDECA's National Publicity Secretary."
    },
    {
     "office": "Vice Delegate",
-    "note": "Recorded in the launch programme of 5 April 2026, which gives the closing remarks to the Vice Delegate. The holder is not named in the record."
+    "note": "Gave the closing remarks at the launch on 5 April 2026."
    },
    {
     "office": "Secretary General",
-    "note": "Presented the benefits of the CIG to the Meta community at the launch. The holder is not named in the record."
+    "note": "Presented the benefits of the CIG to the Meta community at the launch."
    },
    {
     "office": "Manager",
-    "note": "Runs the main site and its staff. Described in the Fondom Studios video of 16 October 2026 as a professional veterinarian. The holder is not named in the record."
+    "note": "Runs the main site and its staff. The manager is a professional veterinarian."
    }
   ],
   "bodies": [
    {
     "name": "Management Board",
-    "note": "Issues the registration and share communiques, and is named as their author from the communique of 2 May 2026 onward."
+    "note": "Issues the registration and share communiques, and has signed them since 2 May 2026."
    },
    {
     "name": "Executive body",
-    "note": "Named as the body that extended the 5,000 FCFA registration fee in April 2026."
+    "note": "Extended the 5,000 FCFA registration fee in April 2026."
    },
    {
     "name": "Home-based CIG Exco",
-    "note": "The executive at home in Guneku, convened with the staff at the main site. No roster is recorded and none is invented."
+    "note": "The executive at home in Guneku, which meets with the staff at the main site."
    }
   ],
-  "rosterNote": "No membership list, share register or staff list is published here. The CIG holds those; this record holds what the CIG itself announced publicly."
+  "rosterNote": "The CIG keeps its own membership list, share register and staff list."
  },
  "commercialActivity": {
-  "note": "Trading the CIG has announced publicly. Each line is an announcement on its date, not a statement of the enterprise’s present position.",
+  "note": "What the CIG has announced, by date.",
   "recorded": [
    {
     "date": "2026-04-13",
@@ -254,18 +254,18 @@
    }
   ]
  },
- "milestonesNote": "These are campaign announcements on the dates they were made — what the CIG asked its members to aim at. None of them is a balance, a total raised or an achieved figure, and no financial position of the CIG is published here.",
+ "milestonesNote": "These were targets the CIG set its members on the dates shown. They are goals, not amounts raised.",
  "presentation": {
   "event": "GUDECA EU meeting, Bonn, 28 March 2026",
   "presenter": "Fabian Fomuki",
   "presenterRegisterSlug": "fabian",
   "note": "He presented the CIG to that meeting. Presenting at a GUDECA meeting is not membership of the chapter — the register has said so since it was written — and none is recorded for him. He is in the register as a member of the Palace family, with no chapter. Recorded here as a presentation, which is what the record establishes."
  },
- "livestockNote": "Each line carries the date of the record it comes from. 'Advertised' means the CIG offered it publicly on that date; it is not an independent count of the stock on the farm, and availability on a given day is for the CIG to confirm.",
+ "livestockNote": "Each line is dated. What the CIG has on offer changes from week to week, so call ahead to check availability.",
  "orders": {
   "display": "673 536 278",
   "tel": "+237673536278",
-  "source": "Published by the CIG for enquiries and orders in the Fondom Studios video of 16 October 2026.",
+  "source": "Announced by the CIG for orders and enquiries on 16 October 2026.",
   "date": "2026-10-16"
  },
  "videos": [

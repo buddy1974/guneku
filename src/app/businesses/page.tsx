@@ -91,30 +91,28 @@ export default async function BusinessesPage() {
 
       <section className="inst-alt inst-rule">
         <div className="inst-wrap inst-sec">
-          <h2 className="inst-h2">What this directory is, and is not</h2>
+          <h2 className="inst-h2">How our directory works</h2>
           <div className="mt-4 grid gap-6 md:grid-cols-3">
             <div>
-              <p className="inst-tag">It is a record, not an advertisement</p>
+              <p className="inst-tag">Our people, not advertisers</p>
               <p className="inst-body mt-2 !text-[0.9rem]">
-                Nothing here is ranked, promoted or paid for. No business carries a rating or
-                a review, because the Fondom has not collected any and inventing them would
-                make the whole directory worthless.
+                Nothing here is ranked, promoted or paid for. Every business is listed because a
+                son or daughter of Guneku runs it, and none carries ratings or reviews.
               </p>
             </div>
             <div>
-              <p className="inst-tag">A business is not a person</p>
+              <p className="inst-tag">Who is behind it</p>
               <p className="inst-body mt-2 !text-[0.9rem]">
                 Each business names the son or daughter of Guneku behind it and links to their
-                entry in the register. Where the Fondom has recorded a business but not yet
-                confirmed who in the register runs it, the page says so rather than guessing.
+                entry among our indigenes. Where that connection is still being confirmed, the
+                page says so.
               </p>
             </div>
             <div>
               <p className="inst-tag">Business details, not private ones</p>
               <p className="inst-body mt-2 !text-[0.9rem]">
-                A business publishes its own address and its own channels. Nobody&rsquo;s
-                private telephone, private email or home address appears here, and nothing is
-                ever copied across from somebody&rsquo;s member profile.
+                A business shows its own address and the channels its owner chooses to share.
+                Nobody&rsquo;s private telephone, email or home address appears here.
               </p>
             </div>
           </div>

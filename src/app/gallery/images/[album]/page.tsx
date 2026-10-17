@@ -140,8 +140,8 @@ export default async function AlbumPage({
           </p>
           <p className="inst-meta" style={{ marginTop:'0.75rem' }}>
             If you know who is in one of these photographs, when it was taken, or what it
-            records, the Palace would like to hear it. Nothing is published until a person
-            has reviewed it.
+            shows, the Palace would like to hear from you. Every contribution is reviewed before
+            it appears.
           </p>
           <Link href={contributeAlbumHref(String(album.title))}
                 className="inst-btn inst-btn-quiet" style={{ marginTop:'1rem' }}>

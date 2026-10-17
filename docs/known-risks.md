@@ -1727,18 +1727,19 @@ Open, 2026-10-17; revised the same day once the report was supplied.
 - ~~Documentary publication date.~~ 5 October 2026, 21:20 UTC, from the watch page. Resolved.
 - **Palace case outcome.** No charge, trial or verdict reported to 17 October. The
   documentary's audio — statements, what was recovered — has not been reviewed by anyone.
-- **ADR-101** is a proposal awaiting the owner: whether its points become standing rules,
-  whether the omitted detail (the mother's disability) should be stated, and whether the
-  link to the documentary, which shows the suspects' faces, should remain.
-- **Agro CIG order line.** The report advised checking with the Delegate (Fah Elvis Tayong)
-  before publishing 673 536 278. It is published, as the CIG's own public advert; confirm.
+- **ADR-101** stays PROPOSED / UNDER REVIEW (owner decision). Decided for the Palace record:
+  the mother's disability is not published; the documentary link stays.
+- **Agro CIG order line.** 673 536 278 re-verified on 17 October against the CIG's own
+  announcement (Fondom Studios, 16 Oct 2026). Published as the announced number. Not tested as
+  operational and not confirmed directly by the Delegate.
 - **Scholarship examination.** Whether it was held on 19 September, and any result. The site
   says the date has passed and no result is published; it does not say "held".
 - **Mbengwi Council budget.** Which Guneku schools, and what was done, is in the untranscribed
   14-minute documentary.
 - **Fun Quarter date** — 5 or 6 October; **Quarter Head identity** — "Nji Calvin" (report) vs
   "Fodom Calvin" (register). Confirm with the Palace.
-- **School name** — MEDPHISATG / Medphisatag / Medvisac. Confirm the official form.
+- **School name** — MEDPHISATG / Medphisatag / Medvisac. Public copy uses MEDPHISATG; the
+  official form is still to be confirmed.
 - **Fondom Studios contacts** — held until the owner elects to publish them.
 - **Held for consent or verification:** funeral of Mr. Tasang John Tabid (family consent);
   cement-block producer (owner information); schools reopening (informal source).

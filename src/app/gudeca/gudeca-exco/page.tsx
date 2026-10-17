@@ -52,7 +52,7 @@ export default function GudecaExcoPage() {
             <p className="inst-tag">Are you on this roster?</p>
             <p className="inst-body mt-1.5 !text-[0.9rem]">
               Every officer below has an entry in the people register, and can claim it and
-              write their own profile. The office stays as the record has it.
+              write their own profile. The office stays as GUDECA recorded it.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">

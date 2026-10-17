@@ -64,7 +64,6 @@ export default function EducationPage() {
                 <h2 className="inst-h2">{a.title}</h2>
                 <p className="inst-meta mt-1">{a.displayDate}</p>
                 <p className="inst-body mt-3 max-w-3xl">{a.summary}</p>
-                <p className="inst-meta mt-2">{a.nameNote}</p>
                 <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
                   <Link href={a.href} className="inst-link">Read the report →</Link>
                   <a href={a.source.url} target="_blank" rel="noopener noreferrer" className="inst-link">

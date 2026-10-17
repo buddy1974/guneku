@@ -55,7 +55,7 @@ export function EditorialLead({ src, alt, caption, category }: Props) {
             <span className="block h-0.5 w-4 bg-[var(--oxblood)]" />
           </span>
           <span className="mt-2 block text-[0.8rem] leading-[1.6] text-[var(--ink-400)]">
-            The Fondom archive holds no photograph for this record.
+            From the Guneku Fondom.
           </span>
         </span>
       </div>

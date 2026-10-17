@@ -271,9 +271,9 @@ export default function HomePage() {
               </p>
               <p className="inst-body mt-3">
                 <strong className="text-[var(--ink-900)]">{COUNCIL_COUNT} office holders</strong>{' '}
-                are on record, as the Fondom recorded them in {COUNCIL.asRecorded}. Each one can
-                claim their own entry and complete their profile — the office stays as the record
-                has it; everything else is theirs to write.
+                are listed, as they were installed in {COUNCIL.asRecorded}. Each one can claim
+                their own entry and complete their profile — the office stays as the Palace
+                recorded it; everything else is theirs to write.
               </p>
               <div className="mt-5 flex flex-wrap gap-3">
                 <Link href={`/people/${COUNCIL.id}`} className="inst-btn inst-btn-primary">
@@ -356,7 +356,7 @@ export default function HomePage() {
               Guneku Development and Cultural Association.
             </p>
             <Link href="/fondom/about-guneku" className="inst-btn inst-btn-quiet mt-5">
-              Read the village record <ArrowRight className="h-4 w-4" />
+              About Guneku <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
 

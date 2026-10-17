@@ -26,7 +26,7 @@ export function MemberAreaNotice({
 
         <div className="mt-7 flex flex-wrap justify-center gap-3">
           <Link href="/" className="inst-btn inst-btn-primary">Return to the village</Link>
-          <Link href="/search" className="inst-btn inst-btn-quiet">Search the record</Link>
+          <Link href="/search" className="inst-btn inst-btn-quiet">Search Guneku.org</Link>
         </div>
 
         <p className="inst-meta mt-8">

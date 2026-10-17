@@ -76,7 +76,7 @@ export function FilmCard({
 
         <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2">
           {film.relatedRoute && (
-            <Link href={film.relatedRoute} className="inst-link">The record this documents →</Link>
+            <Link href={film.relatedRoute} className="inst-link">Read the story →</Link>
           )}
           <a
             href={film.youtubeUrl} target="_blank" rel="noopener noreferrer"

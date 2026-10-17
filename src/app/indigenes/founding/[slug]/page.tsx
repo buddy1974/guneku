@@ -1,3 +1,4 @@
+import { publicNote } from '@/lib/public-voice'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
@@ -96,7 +97,7 @@ export default async function FoundingNamePage({
       <PageHero
         label={
           n.deceased
-            ? 'THE FONDOM ARCHIVE · IN MEMORIAM'
+            ? 'IN MEMORIAM'
             : body
               ? `${body.short.toUpperCase()} · UNCLAIMED ENTRY`
               : 'INDIGENES DIRECTORY · UNCLAIMED ENTRY'
@@ -108,14 +109,15 @@ export default async function FoundingNamePage({
       <section className="inst-wrap inst-sec grid items-start gap-8 lg:grid-cols-[1.35fr_1fr] lg:gap-12">
         <div>
           <div className="inst-card p-6">
-            <p className="inst-tag">What this entry holds</p>
+            <p className="inst-tag">{n.deceased ? 'In memory' : 'This entry'}</p>
             <dl className="mt-3 grid gap-0 text-[0.92rem]">
               {([
                 ['Name', n.display],
                 ['Office or role', n.role],
                 ...(body ? [['Body', `${body.name} — ${recordedLabel(body)}`]] : []),
-                ['Chapter', chapter ? `${chapter.flag} ${chapter.org} — ${chapter.place}` : 'Not recorded'],
-                ['Source', n.sourceLabel],
+                /* The source line is the editors' provenance; it stays in the register and
+                   is not shown. A missing chapter is simply not shown either. */
+                ...(chapter ? [['Chapter', `${chapter.flag} ${chapter.org} — ${chapter.place}`]] : []),
                 ...(n.aliases.length ? [['Also written', n.aliases.join(' · ')]] : []),
               ] as [string, string][]).map(([k, v]) => (
                 <div key={k} className="inst-row grid gap-1 py-3 sm:grid-cols-[9.5rem_1fr] sm:gap-4">
@@ -127,26 +129,25 @@ export default async function FoundingNamePage({
 
             {!n.deceased && (
               <p className="inst-body mt-5">
-                That is the whole of it. No photograph, no city, no employer, no contact
-                details &mdash; none of that has been offered by
-                {' '}{n.display.split(' ')[0]}, so none of it is published here.
+                Only a name and a role are shown here. If this is you, claim the entry to add a
+                photograph, your story and the details you choose to share.
               </p>
             )}
             {n.profileUrl && (
               <p className="inst-body mt-3 !text-[0.9rem]">
                 {n.display.split(' ')[0]} already has a published profile on this site:{' '}
-                <Link href={n.profileUrl} className="inst-link">see it here</Link>. This entry
-                stays thin all the same &mdash; the two are separate records until it is claimed.
+                <Link href={n.profileUrl} className="inst-link">see it here</Link>. The two
+                are joined once this entry is claimed.
               </p>
             )}
-            {n.note && <p className="inst-meta mt-3">{n.note}</p>}
+            {publicNote(n.note) && <p className="inst-meta mt-3">{publicNote(n.note)}</p>}
           </div>
 
           {n.deceased ? (
             <div className="mt-6 border-l-2 border-[var(--oxblood)] pl-4">
               <p className="inst-body !text-[0.92rem]">
-                This entry is kept as a record and is not offered for claiming. The record of a
-                Fondom includes those who are gone.
+                We remember those who have gone before us. This entry is kept in their memory,
+                and it cannot be claimed.
               </p>
               <p className="inst-meta mt-2">
                 If anything here is wrong, or the family would rather it were not published,{' '}
@@ -175,9 +176,9 @@ export default async function FoundingNamePage({
               <p className="inst-tag">What claiming does</p>
               <p className="inst-body mt-2 !text-[0.9rem]">
                 You ask the Palace to connect your member account to this entry, and a person
-                reviews it. Nothing on this page changes when you ask, and nothing changes
-                without that review. The office, the sources and the history stay as the
-                record has them.
+                reviews it. Nothing on this page changes until that review is done. Your office
+                and history stay as the Palace recorded them; the rest of your profile is yours
+                to write.
               </p>
             </>
           )}

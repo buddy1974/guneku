@@ -26,8 +26,8 @@ export default function SignInPage() {
           <p className="inst-eyebrow">Guneku Fondom</p>
           <h1 className="inst-h1 mt-2 !text-[2.1rem]">My Guneku</h1>
           <p className="inst-body mx-auto mt-3 max-w-[22rem]">
-            Sign in to claim your entry, follow a project, or see what you have put forward
-            for the village record.
+            Sign in to claim your entry, follow a project, or see what you have shared with
+            the Palace.
           </p>
         </div>
 

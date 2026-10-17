@@ -86,8 +86,8 @@ export default async function MyIndigeneProfilePage({
             <p className="inst-tag">Not in the directory yet</p>
             <h2 className="inst-h2 mt-2">You have not created your profile</h2>
             <p className="inst-body mt-3">
-              The indigenes directory is the record of Guneku sons and daughters at home and
-              abroad. Creating your entry takes a few minutes, and everything on it stays
+              The indigenes directory is where Guneku&rsquo;s sons and daughters at home and
+              abroad are listed. Creating your entry takes a few minutes, and everything on it stays
               yours to change or remove afterwards.
             </p>
             <div className="mt-5 flex flex-wrap gap-3">

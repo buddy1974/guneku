@@ -32,8 +32,8 @@ export function GunekuVideo() {
             <h2 className="inst-h2 mt-1.5">Watch Guneku</h2>
             <p className="inst-body mt-2 max-w-2xl">
               Palace messages, community events, development reports and culture &mdash;{' '}
-              {total} films from the Fondom&rsquo;s own channel, each attached to the record it
-              documents.
+              {total} films from the Fondom&rsquo;s own channel, each linked to the story it
+              tells.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">

@@ -14,7 +14,7 @@ export const metadata = pageMetadata({
   title: 'The Fondom of Guneku',
   description:
     'Twenty-seven quarters in the hills of Mbengwi, Momo Division, North West Cameroon '
-    + '— the land, the people and the record of Guneku.',
+    + '— the land, the people and the history of Guneku.',
   path: '/fondom',
 })
 

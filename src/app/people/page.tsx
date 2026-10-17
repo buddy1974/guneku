@@ -7,7 +7,7 @@ import { pageMetadata } from '@/lib/seo'
 export const metadata: Metadata = pageMetadata({
   title: 'The people of Guneku',
   description:
-    'The bodies of Guneku — the Traditional Council that governs the village, the GUDECA executives at home and abroad, the festival committee and the Royal Family. Every office holder, with the record that names them.',
+    'The bodies of Guneku — the Traditional Council that governs the village, the GUDECA executives at home and abroad, the festival committee and the Royal Family. Every office holder, and how to claim your own entry.',
   path: '/people',
 })
 
@@ -60,10 +60,9 @@ export default function PeopleIndexPage() {
           <div>
             <h2 className="inst-h2">Every one of these can be claimed</h2>
             <p className="inst-body mt-3 max-w-2xl">
-              Each entry publishes four things and no more: the name, the office, the body,
-              and the record it came from. Nothing else &mdash; no photograph, no city, no
-              contact. That is not an oversight. The rest of a person&rsquo;s profile belongs
-              to them, and it appears when they claim the entry and write it themselves.
+              Each entry shows a name, an office and the body it belongs to. The rest of a
+              person&rsquo;s profile belongs to them, and it appears when they claim the entry
+              and write it themselves.
             </p>
             <p className="inst-body mt-3 max-w-2xl">
               Someone missing? Put the name forward. Someone here who should not be? Say so,
@@ -80,7 +79,7 @@ export default function PeopleIndexPage() {
               {[
                 ['/indigenes', 'The Indigenes Directory', 'Sons and daughters worldwide, by quarter and by chapter'],
                 ['/gudeca', 'GUDECA', 'The association, its chapters and its projects'],
-                ['/palace', 'The Palace', 'The throne, the reigns and the record'],
+                ['/palace', 'The Palace', 'The throne, the reigns and the royal history'],
                 ['/diaspora', 'The diaspora', 'Where Guneku people are, country by country'],
               ].map(([href, label, blurb]) => (
                 <li key={href} className="inst-row py-2.5">

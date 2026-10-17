@@ -42,7 +42,7 @@ describe('the empty state says which thing is empty', () => {
 
   it('invites creating a profile or claiming an existing entry', () => {
     expect(PAGE).toMatch(/create your own profile/i)
-    expect(PAGE).toMatch(/claim the entry the record already holds/i)
+    expect(PAGE).toMatch(/claim the entry the Palace already holds/i)
   })
 
   it('tells a fruitless search that the founding names are not in it', () => {

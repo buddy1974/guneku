@@ -75,7 +75,7 @@ export function GunekuMap({ locations }: Props) {
 
           const pin = document.createElement('button')
           pin.type = 'button'
-          pin.setAttribute('aria-label', `${loc.name} — open the record`)
+          pin.setAttribute('aria-label', `${loc.name} — read more`)
           pin.style.cssText =
             'width:18px;height:18px;border-radius:50%;border:2.5px solid #fff;' +
             'background:oklch(0.320 0.060 158);cursor:pointer;padding:0;' +
@@ -130,8 +130,8 @@ export function GunekuMap({ locations }: Props) {
         )}
       </div>
       <p className="inst-meta mt-2">
-        Base map © OpenStreetMap contributors, ODbL. One marker: Guneku itself. No other
-        place in the record has a position to draw.
+        Base map © OpenStreetMap contributors, ODbL. One marker: Guneku itself. The other
+        places are listed below until we know exactly where they are.
       </p>
     </div>
   )

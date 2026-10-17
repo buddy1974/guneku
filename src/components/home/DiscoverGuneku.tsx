@@ -29,9 +29,8 @@ export function DiscoverGuneku() {
         </div>
 
         <p className="inst-meta mt-7 max-w-2xl">
-          The Fondom has not yet recorded individual sites, routes or visitor
-          arrangements. If you know Guneku and can help fill that gap, the Palace would
-          be glad to hear from you.
+          Individual sites, routes and visitor arrangements are still to be written up. If
+          you know Guneku and can help, the Palace would be glad to hear from you.
         </p>
       </div>
     </section>

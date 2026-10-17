@@ -2247,7 +2247,7 @@ no index page; nothing links to `/events` alone.
 
 ## ADR-101 - Reporting crime in the village: victims protected, suspects untried
 
-**Status: PROPOSED — awaiting Marcel's approval (revised 2026-10-17).** First written as a
+**Status: PROPOSED — UNDER REVIEW (owner decision, 2026-10-17). Not approved policy.** First written as a
 decision; the owner asked that no permanent editorial restriction be imposed without his
 approval. Until he decides, the points below describe how the one existing record
 (`/updates/palace-investigation-attack-on-family-october-2026`) was handled, not a rule for
@@ -2275,6 +2275,7 @@ identify the family.
 **Consequences.** The records are less vivid than their sources, deliberately. A later court
 outcome is a new dated paragraph in the same record, not a new record.
 
-**For the owner to decide:** whether to adopt these as standing rules; whether the
-mother's disability (in the source caption, omitted here) should be stated; whether a link to
-the documentary, which shows the suspects' faces, should remain.
+**Owner decisions recorded 2026-10-17** (for the Palace record only, not as policy): the
+mother's disability is not published; the external link to the Fondom Studios documentary
+stays. Whether any of the points above become standing rules remains under review, and no test
+enforces them.

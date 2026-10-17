@@ -58,7 +58,7 @@ export default function InstitutionsPage() {
                         {str(inst.description)}
                       </p>
                     )}
-                    <span className="text-primary text-xs tracking-widest mt-4">Read the record →</span>
+                    <span className="text-primary text-xs tracking-widest mt-4">Read more →</span>
                   </div>
                 </Link>
               )

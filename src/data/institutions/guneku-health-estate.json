@@ -4,7 +4,7 @@
  "name": "The Guneku Integrated Health Centres",
  "status": "active",
  "category": "Health",
- "description": "Three Integrated Health Centres serve the outlying quarters of Guneku. The Palace and GUDECA assessed all three, and the assessment was filmed as a documentary series. The statuses below are the ones that assessment recorded. They are not a statement about 2026, and each should be re-checked before it is relied on.",
+ "description": "Three Integrated Health Centres serve the outlying quarters of Guneku. The Palace and GUDECA assessed all three, and the assessment was filmed as a documentary series. The statuses below are from that assessment and may have changed since.",
  "facilities": [
   {
    "name": "Munam Integrated Health Centre",
@@ -16,13 +16,13 @@
    "name": "Mbengeghang Integrated Health Centre",
    "zone": "Guneku",
    "status": "Operational, without electricity",
-   "detail": "Recorded as operating with no electricity supply, a bush lamp serving as the light source when patients are attended to at night."
+   "detail": "Operating with no electricity supply; a bush lamp is the light source when patients are attended to at night."
   },
   {
    "name": "Fringyeng Integrated Health Centre",
    "zone": "Upper Guneku",
-   "status": "Built, not recorded as operational",
-   "detail": "Recorded in the assessment as constructed but never brought into service. The Fon’s letter of September 2022 refers to a newly established healthcare centre in Fringyeng and warns against interfering with it. The two statements have not been reconciled, and both are recorded here rather than one being chosen."
+   "status": "Built, not yet reported as operational",
+   "detail": "The assessment found it constructed but not yet in service. In September 2022 the Fon wrote of a newly established healthcare centre in Fringyeng and warned against interfering with it; its present state needs to be confirmed."
   }
  ],
  "films": [

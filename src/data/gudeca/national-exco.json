@@ -3,9 +3,9 @@
  "type": "Roster",
  "title": "GUDECA National Executive Committee",
  "asRecorded": "The village website archive",
- "contactPolicy": "The source record carries a personal mobile number against each officer. None is published here. Contact details belong to the people they identify, and each officer would have to agree before a number went online.",
- "currencyNote": "This roster is carried in the archive without a date. Only the presidency is corroborated by a later document: the minutes of the GUDECA Europe meeting of 28 March 2026 record Mr. Thadeus Fon as General President. The remaining offices are published as recorded, not as a statement of who holds them today.",
- "nameNote": "The archive spells the President \"Thadeaus\"; the 2026 Bonn minutes give \"Thadeus Fon\" and the legacy Sons and Daughters listing gives \"Thaddeus Fon\". The Bonn form is used here and the variants recorded.",
+ "contactPolicy": "Officers' personal telephone numbers are not published. Contact details belong to the people they identify, and each officer would have to agree before a number went online.",
+ "currencyNote": "This roster is undated. Mr. Thadeus Fon was confirmed as General President at the GUDECA Europe meeting of 28 March 2026; the other offices may have changed since. If you know who holds them today, please tell us.",
+ "nameNote": "The President's name is also written Thadeaus and Thaddeus; we use Thadeus, as in the 2026 Bonn minutes.",
  "members": [
   {
    "office": "National President",
@@ -80,7 +80,7 @@
     "name": "Ni Sam"
    }
   ],
-  "note": "Confirmed by the minutes of the meeting of 28 March 2026, which are signed by the Secretary General and the President."
+  "note": "As confirmed at the chapter's meeting of 28 March 2026."
  },
  "sourceNote": "Recovered 2026-09-02 from the migrated village website record src/data/pages/gudeca-exco2.json, which had never been routed. The placeholder roster formerly shown on this page came from a second migrated file that contains Joomla sample data — four fictitious names that are not Guneku people. That file is not published."
 }

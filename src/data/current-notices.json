@@ -10,7 +10,7 @@
    "category": "Development",
    "status": "active",
    "title": "Guneku Agro CIG: chickens, chicks, ducks, pigs and manure on offer",
-   "description": "Shown by the CIG's manager, a veterinarian, in a Fondom Studios video. Layers expected around December 2026.",
+   "description": "Chickens, chicks, ducks, pigs and manure, shown by the CIG's manager, a veterinarian. Layers expected around December 2026.",
    "href": "/updates/guneku-agro-cig-offerings-october-2026",
    "source": "updates/guneku-agro-cig-offerings-october-2026.json"
   },
@@ -20,7 +20,7 @@
    "category": "Community",
    "status": "historical",
    "title": "Fun Quarter performs traditional rites to protect the land",
-   "description": "The Quarter Head led the men of Fun in rites against rising insecurity across Meta.",
+   "description": "The Quarter Head led the men of Fun in rites to protect the land against rising insecurity.",
    "href": "/updates/fun-quarter-protection-rites-october-2026",
    "source": "updates/fun-quarter-protection-rites-october-2026.json"
   },
@@ -29,8 +29,8 @@
    "displayDate": "2 October 2026",
    "category": "Palace",
    "status": "historical",
-   "title": "Palace questions suspects after an attack on a family",
-   "description": "The community turned to the Palace; the case was passed to the gendarmerie. No court outcome reported yet.",
+   "title": "Our Palace questions suspects after an attack on a family",
+   "description": "The community brought the matter to the Palace; the case is now with the gendarmerie. The suspects have not been tried.",
    "href": "/updates/palace-investigation-attack-on-family-october-2026",
    "source": "updates/palace-investigation-attack-on-family-october-2026.json"
   },
@@ -39,8 +39,8 @@
    "displayDate": "24 September 2026",
    "category": "Development",
    "status": "historical",
-   "title": "Mbengwi Council's 2026 budget names schools in Guneku",
-   "description": "907,250,000 FCFA approved for 2026. Which Guneku schools, and what has been done, is not yet established.",
+   "title": "Mbengwi Council's 2026 budget includes schools in Guneku",
+   "description": "907,250,000 FCFA approved for 2026. Details for our schools to come.",
    "href": "/updates/mbengwi-council-2026-budget-guneku-schools",
    "source": "updates/mbengwi-council-2026-budget-guneku-schools.json"
   },
@@ -50,7 +50,7 @@
    "category": "Education",
    "status": "historical",
    "title": "Scholarship Selection Examination — 19 September 2026",
-   "description": "Scheduled for 19 September 2026 at the Guneku Fon's Palace. No result has been published in the sources reviewed up to 17 October 2026.",
+   "description": "Set for 19 September 2026 at the Guneku Fon's Palace. Results to come.",
    "href": "/education",
    "source": "institutions/education-scholarship-day-2026.json"
   },
@@ -59,7 +59,7 @@
    "displayDate": "12 September 2026",
    "category": "Education",
    "status": "historical",
-   "title": "Medical school rewards its four best HND students",
+   "title": "MEDPHISATG rewards its four best HND students",
    "description": "50,000 FCFA each after their HND results; three graduates speak about their training.",
    "href": "/updates/medical-school-hnd-graduates-rewarded-2026",
    "source": "updates/medical-school-hnd-graduates-rewarded-2026.json"
@@ -165,7 +165,7 @@
    "statusClass": "st-active",
    "body": "Guneku Agro Common Initiative Group",
    "lastUpdate": "16 October 2026",
-   "description": "Community-owned agricultural enterprise at Ngong Quarter. Registered 12 March 2026. In October 2026 the CIG advertised chickens, young chicks, ducks, pigs and manure, with layers expected around December. Current share price is not published pending confirmation by the Delegate.",
+   "description": "Community-owned agricultural enterprise at Ngong Quarter. Registered 12 March 2026. In October 2026 the CIG advertised chickens, young chicks, ducks, pigs and manure, with layers expected around December. For the current share price, contact the CIG Delegate.",
    "href": "/agro-cig"
   },
   {
@@ -185,7 +185,7 @@
    "statusClass": "st-ongoing",
    "body": "GUDECA Europe",
    "lastUpdate": "28 March 2026",
-   "description": "€800 reported toward Phase II at the GUDECA Europe meeting in Bonn on 28 March 2026. No overall target is recorded in the sources.",
+   "description": "€800 reported toward Phase II at the GUDECA Europe meeting in Bonn on 28 March 2026. The overall target has not yet been announced.",
    "href": "/updates/gudeca-eu-meeting-bonn-28-march-2026"
   },
   {
@@ -195,7 +195,7 @@
    "statusClass": "st-active",
    "body": "Guneku sons and daughters, largely in the diaspora",
    "lastUpdate": "Established 2021",
-   "description": "Solar-powered library with computers, photocopier, printer and projector. Runs long and short computer training and holiday classes for pupils and students, and serves as the registration point for the scholarship programme. Sango Della was recorded as in charge of the Palace library in 2021.",
+   "description": "Solar-powered library with computers, photocopier, printer and projector. Runs long and short computer training and holiday classes for pupils and students, and serves as the registration point for the scholarship programme. Sango Della was in charge of the Palace library in 2021.",
    "href": "/education"
   },
   {
@@ -265,7 +265,7 @@
    "statusClass": "st-historical",
    "body": "Initiated by the Fon",
    "lastUpdate": "2021",
-   "description": "Road access improved within Guneku village. Thirty-eight photographs are held in the media archive.",
+   "description": "Road access improved within Guneku village. Thirty-eight photographs are in our gallery.",
    "href": "/gallery/images/thetonmukom-windikroadwork"
   },
   {
@@ -275,7 +275,7 @@
    "statusClass": "st-historical",
    "body": "Built by Kasi Rhex Ndeh · funded by Dr. Kasi Elvis",
    "lastUpdate": "Burned September 2022",
-   "description": "The community micro-hydroelectric plant known locally as the Oko plant, built by Kasi Rhex Ndeh and funded by Dr. Kasi Elvis. Destroyed by arson in September 2022. No rebuilding plan is recorded in the sources.",
+   "description": "The community micro-hydroelectric plant known locally as the Oko plant, built by Kasi Rhex Ndeh and funded by Dr. Kasi Elvis. Destroyed by arson in September 2022. No rebuilding plan has been announced.",
    "href": "/palace/the-fon-writes-after-the-fringyeng-fire"
   },
   {
@@ -285,7 +285,7 @@
    "statusClass": "st-historical",
    "body": "Open Door Hospital, Guneku",
    "lastUpdate": "Announced 2021",
-   "description": "The launch of a fully operational eye unit was announced in the village record. Its current operating status is not established in the sources.",
+   "description": "The launch of a fully operational eye unit was announced in 2021. Whether it is operating today has not been confirmed.",
    "href": "/institutions/open-door-medical-clinic"
   },
   {
@@ -345,7 +345,7 @@
    "statusClass": "st-proposed",
    "body": "Community",
    "lastUpdate": "Raised June 2026",
-   "description": "Parts of Guneku reported without water for about two months, raised after the rescue at the Ngong stream. Unresolved in the sources.",
+   "description": "Parts of Guneku reported without water for about two months, raised after the rescue at the Ngong stream. Not yet resolved.",
    "href": "/updates/ngong-river-rescue-and-water-supply-2026"
   },
   {
@@ -355,7 +355,7 @@
    "statusClass": "st-proposed",
    "body": "GUDECA",
    "lastUpdate": "Status requested July 2026",
-   "description": "Members asked GUDECA for an update on the History Committee. No launch date is recorded.",
+   "description": "Members asked GUDECA for an update on the History Committee. No launch date has been announced.",
    "href": "/gudeca"
   },
   {
@@ -385,7 +385,7 @@
    "statusClass": "st-active",
    "body": "Guneku Medical Center, Mbengwi",
    "lastUpdate": "Documented 25 March 2026",
-   "description": "A facility with a fully equipped laboratory and a surgical theatre, documented as existing on 25 March 2026 on its own letterhead. Its relationship to the proposed reference healthcare centre is not established in the sources, and no claim either way is made here.",
+   "description": "A facility with a fully equipped laboratory and a surgical theatre, documented on its own letterhead on 25 March 2026. Whether it is linked to the reference healthcare centre proposed at Bonn has not been announced.",
    "href": "/institutions/guneku-medical-center"
   },
   {
@@ -405,7 +405,7 @@
    "statusClass": "st-active",
    "body": "Munam · Mbengeghang · Fringyeng",
    "lastUpdate": "Assessed by the Palace and GUDECA",
-   "description": "Three Integrated Health Centres serving the outlying quarters. Munam is operational and took an additional GUDECA-funded nurse in 2020; Mbengeghang operates without electricity; Fringyeng was built but is not recorded as having opened. Each status is the one the assessment recorded and should be re-checked.",
+   "description": "Three Integrated Health Centres serving the outlying quarters. Munam is operational and took an additional GUDECA-funded nurse in 2020; Mbengeghang operates without electricity; Fringyeng was built but has not been reported as open. These are the findings of the last assessment, and may have changed since.",
    "href": "/institutions/guneku-health-estate"
   },
   {

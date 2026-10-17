@@ -82,7 +82,7 @@ export default async function WatchPage({
       <PageHero
         label="GUNEKU TV"
         title="Films of Guneku"
-        subtitle={`${total} films from the Fondom’s own channel, each attached to the record it documents. Nothing plays until you ask it to.`}
+        subtitle={`${total} films from the Fondom’s own channel, each linked to the story it tells. Nothing plays until you ask it to.`}
       />
 
       {/* ── Featured ── */}
@@ -99,7 +99,7 @@ export default async function WatchPage({
                 <p className="inst-meta mt-4">{featured.category}</p>
                 {featured.relatedRoute && (
                   <Link href={featured.relatedRoute} className="inst-btn inst-btn-quiet mt-5">
-                    Read the record
+                    Read the story
                   </Link>
                 )}
               </div>
@@ -147,8 +147,7 @@ export default async function WatchPage({
             <p className="inst-meta mt-2.5 max-w-2xl">
               {FILM_GROUPS.filter(g => !groups.find(x => x.group === g)?.count).join(' and ')}{' '}
               {FILM_GROUPS.filter(g => !groups.find(x => x.group === g)?.count).length === 1 ? 'has' : 'have'}{' '}
-              no films: no record supports placing one there, and a film is not moved to fill a
-              gap. Use the archive&rsquo;s own labels below instead.
+              no films yet. Browse by subject below instead.
             </p>
           )}
         </div>
@@ -156,7 +155,7 @@ export default async function WatchPage({
         {/* The record's own categories. These are sourced labels, not a scheme invented for
             this page, which is why there are nine rather than six. */}
         <div className="mt-7 border-t border-[var(--rule)] pt-6">
-          <p className="inst-eyebrow">By the archive&rsquo;s own label</p>
+          <p className="inst-eyebrow">By subject</p>
           <div className="mt-2.5 flex flex-wrap gap-2">
             <Link href={withParams({ category: undefined, page: undefined })}
                   className={`inst-btn ${!category ? 'inst-btn-primary' : 'inst-btn-quiet'}`}>
@@ -236,10 +235,8 @@ export default async function WatchPage({
               <h2 className="inst-h2">Material held back</h2>
               <p className="inst-body mt-3 max-w-2xl">{held}</p>
               <p className="inst-body mt-3 max-w-2xl">
-                Nothing above is captioned by guesswork. Where this archive has not verified a
-                film&rsquo;s published title, no title is asserted &mdash; the subject shown is
-                the one the record establishes, and no speaker is named who is not named in a
-                source.
+                Each film is titled only with what we know about it. Where a published title or
+                a speaker is not certain, none is given.
               </p>
             </div>
           )}

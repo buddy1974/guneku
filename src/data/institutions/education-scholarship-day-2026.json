@@ -38,7 +38,7 @@
     "Get information on registration for the scholarship examination",
     "Discuss suitable options for your future"
    ],
-   "note": "Parents are encouraged to attend with their children. No examination is written on 29 August.",
+   "note": "Parents were encouraged to attend with their children. No examination was written on 29 August.",
    "statusLabel": "Held"
   },
   {
@@ -52,8 +52,8 @@
    "points": [
     "Candidates were asked to register in advance through the Guneku Library."
    ],
-   "note": "Scheduled for this date. No result of the examination has been published in the sources reviewed up to 17 October 2026, and none is given here.",
-   "statusLabel": "Date passed — outcome not yet published"
+   "note": "The results will be published here once they are announced.",
+   "statusLabel": "Date passed — results to come"
   }
  ],
  "target": {
@@ -154,24 +154,24 @@
   "attribution": "HRH Dr. Fomuki Ticha IX, Fon of Guneku Village"
  },
  "route": "/education",
- "statusNote": "Both dates have passed. The Information Day was held on 29 August 2026. The Selection Examination was scheduled for 19 September 2026; no result, list of successful candidates or award has been published in the sources reviewed up to 17 October 2026.",
+ "statusNote": "The Information Day was held at the Palace on 29 August 2026, and the Selection Examination was set for 19 September 2026. The results have not yet been published; we will share them here as soon as they are.",
  "outcome": {
   "status": "not-yet-published",
   "reviewedOn": "2026-10-17",
-  "note": "No result of the 19 September 2026 Selection Examination has been established from the sources reviewed. Results will be recorded here when they are published."
+  "note": "The results of the 19 September 2026 Selection Examination have not yet been published. We will share them here."
  },
  "achievements": [
   {
    "date": "2026-09-12",
    "displayDate": "Reported 12 September 2026",
    "title": "Four best HND students rewarded",
-   "summary": "The medical school based in Guneku awarded 50,000 FCFA each to its four best-performing students following their HND results. Three of its HND graduates spoke about their training in a Fondom Studios feature, alongside Dr. Billy Wembe of Guneku Medical Center and the school's director, Prof. Dr. Tah Thierry.",
-   "nameNote": "The feature calls the school Medvisac; the Fondom's records call it MEDPHISATG.",
+   "summary": "MEDPHISATG, our medical school, awarded 50,000 FCFA each to its four best-performing students following their HND results. Three of its HND graduates spoke about their training in a Fondom Studios feature, alongside Dr. Billy Wembe of Guneku Medical Center and the school's director, Prof. Dr. Tah Thierry.",
    "href": "/updates/medical-school-hnd-graduates-rewarded-2026",
    "source": {
     "publisher": "Fondom Studios",
     "url": "https://www.facebook.com/reel/1816967966141646/"
-   }
+   },
+   "internalNote": "The feature calls the school Medvisac; the site uses MEDPHISATG. Unresolved — see medphisatg.json and R-072."
   }
  ]
 }

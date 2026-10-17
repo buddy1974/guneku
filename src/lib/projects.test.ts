@@ -263,12 +263,13 @@ describe('the register explains itself in public language', () => {
   })
 
   it('carries the meaning the maintainer’s note carried', () => {
-    expect(text).toMatch(/reviewed for publication/i)
-    expect(text).toMatch(/fixed set of classes/i)
-    expect(text).toMatch(/statuses the records establish/i)
-    expect(text).toMatch(/proposal is shown as a proposal/i)
-    expect(text).toMatch(/held back/i)
-    expect(text).toMatch(/reviewed again whenever/i)
+    /* Reworded in the community's own voice on 2026-10-17; each meaning is still required. */
+    expect(text).toMatch(/reviewed them for publication/i)
+    expect(text).toMatch(/a project, a programme, a standing institution, a proposal/i)
+    expect(text).toMatch(/rather than estimate/i)
+    expect(text).toMatch(/proposal stays a proposal/i)
+    expect(text).toMatch(/not listed yet/i)
+    expect(text).toMatch(/reviewed whenever/i)
   })
 
   it('does not name the withheld record or where it lives', () => {

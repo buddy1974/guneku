@@ -41,6 +41,7 @@ export async function generateStaticParams() {
 const SKIP = new Set([
   'id', 'type', 'name', 'description', 'route',
   'relatedUpdates', 'relatedRoutes', 'albums', 'sourceNote', 'sourceType', 'currentEdition',
+  'publicNote',
 ])
 
 const LABELS: Record<string, string> = {
@@ -173,7 +174,7 @@ export default async function InstitutionPage({
 
           {scalars.length > 0 && (
             <div className="mt-10">
-              <div className="section-label mb-3">THE RECORD</div>
+              <div className="section-label mb-3">AT A GLANCE</div>
               {scalars.map(([k, v]) => <ScalarRow key={k} k={k} v={String(v)} />)}
             </div>
           )}
@@ -223,11 +224,20 @@ export default async function InstitutionPage({
             </div>
           )}
 
-          {typeof inst.sourceNote === 'string' && (
-            <p className="mt-12 text-muted-foreground/70 text-xs leading-relaxed border-t border-border/40 pt-5">
-              {String(inst.sourceNote)}
-            </p>
-          )}
+          {/* `sourceNote` is the editors' provenance and is not shown to readers; a record
+              that has something to tell readers about itself carries a `publicNote`. The
+              Mɨchi Əbeŋ festival record is maintained in a separate workstream and keeps the
+              display it already had. */}
+          {(() => {
+            const note = typeof inst.publicNote === 'string' ? inst.publicNote
+              : slug === 'michi-ebeng-festival' && typeof inst.sourceNote === 'string' ? inst.sourceNote
+              : null
+            return note && (
+              <p className="mt-12 text-muted-foreground/70 text-xs leading-relaxed border-t border-border/40 pt-5">
+                {note}
+              </p>
+            )
+          })()}
 
           <div className="mt-10">
             <Link href="/institutions" className="text-primary text-xs tracking-widest no-underline hover:underline inline-block py-1.5 -my-1.5">

@@ -32,7 +32,7 @@ export default function ImageGalleryPage() {
         {/* The album cards were the first headings after the page title, so the structure
             skipped a rank for anyone navigating by heading. Named, not shown: the page hero
             already says what this is, and a second visible heading would only repeat it. */}
-        <h2 id="albums-heading" className="sr-only">Albums in the archive</h2>
+        <h2 id="albums-heading" className="sr-only">Our photo albums</h2>
         <div style={{ display:'grid',
                       gridTemplateColumns:'repeat(auto-fill, minmax(min(300px,100%), 1fr))',
                       gap:'1.5rem' }}>

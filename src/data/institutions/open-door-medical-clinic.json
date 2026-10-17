@@ -5,7 +5,7 @@
  "status": "active",
  "category": "Health",
  "location": "Njinebai quarter, Guneku",
- "description": "A clinic in the Njinebai quarter of Guneku. It closed for months during the crisis years and reopened to the public in late 2020 with the support of the Fon. The village record separately announced the launch of an eye unit at Open Door in 2021.",
+ "description": "A clinic in the Njinebai quarter of Guneku. It closed for months during the crisis years and reopened to the public in late 2020 with the support of the Fon. In 2021 the launch of an eye unit at Open Door was announced.",
  "recordedActivity": [
   {
    "displayDate": "Late 2020",
@@ -13,7 +13,7 @@
   },
   {
    "displayDate": "2021",
-   "activity": "The launch of a fully operational eye unit was announced in the village record. Its current operating status is not established in the sources."
+   "activity": "The launch of a fully operational eye unit was announced. Whether it is operating today has not been confirmed."
   }
  ],
  "films": [
@@ -25,7 +25,7 @@
  "relatedRoutes": [
   "/projects"
  ],
- "statusNote": "The development register carries the eye unit as a historical record, because that is what its own source establishes. The clinic itself is recorded here as active. Those are two statements about two different things.",
+ "statusNote": "The clinic is open. The eye unit is listed among our development projects as a past announcement.",
  "sourceNote": "Recorded 2026-09-02 from the community record of December 2020 and the existing village register entry.",
  "sourceType": "Community record — Mbengwi Online"
 }

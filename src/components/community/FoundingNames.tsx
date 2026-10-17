@@ -93,7 +93,7 @@ export function FoundingNames({
         <p className="inst-h3">No names here yet</p>
         <p className="inst-body mt-2">
           {chapter
-            ? `Nobody has been recorded for ${chapter.short} yet. Be the first — the register opens with whoever puts a name forward.`
+            ? `No names here yet for ${chapter.short}. Be the first to add one.`
             : 'The register opens with whoever puts a name forward.'}
         </p>
         {showAddCta && (
@@ -124,9 +124,8 @@ export function FoundingNames({
       <p className="inst-body mt-2 max-w-2xl">
         {standfirst ?? (
           <>
-            These entries were opened from the Fondom&rsquo;s own records, so the register
-            does not start empty. Each shows only a name, an office and where it came from.
-            Everything else belongs to the person &mdash; it appears when they claim the
+            These entries come from the Fondom&rsquo;s own lists. Each shows a name and an
+            office; everything else belongs to the person, and appears when they claim the
             entry and fill it in themselves.
           </>
         )}

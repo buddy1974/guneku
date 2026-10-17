@@ -8,7 +8,7 @@ import {
 export const metadata = pageMetadata({
   title: 'The Notables of Guneku',
   description:
-    'The traditional governance of Guneku around the Fon — the Guneku Traditional Council, the quarter councils, and those the Fondom records as Notables.',
+    'The traditional governance of Guneku around the Fon — the Guneku Traditional Council, the quarter councils, and and the Notables of the Fondom.',
   path: '/notables',
 })
 
@@ -119,8 +119,8 @@ export default function NotablesPage() {
         <h2 className="inst-h2">The quarter councils</h2>
         <p className="inst-body mt-2 max-w-3xl">
           Guneku&rsquo;s quarters have their own traditional councils, and the people who lead
-          them sit in the village&rsquo;s governance as well. Only those the record actually
-          names in that capacity appear here.
+          them sit in the village&rsquo;s governance as well. Those known to the Palace in that
+          role are listed here.
         </p>
 
         {quarterCouncil.length > 0 ? (
@@ -132,9 +132,8 @@ export default function NotablesPage() {
         )}
 
         <p className="inst-body mt-6 max-w-3xl !text-[0.9rem]">
-          The archive names quarter heads for only a few of the twenty-seven quarters. The rest
-          hold their councils without the Fondom&rsquo;s record naming who sits on them, and no
-          name is supplied here by guesswork.{' '}
+          Quarter heads are listed here for only a few of our twenty-seven quarters so far.
+          Every quarter has its council; the rest will be added as the Palace confirms them.{' '}
           <Link href="/quarters" className="inst-link">See the quarters →</Link>
         </p>
       </section>
@@ -157,7 +156,7 @@ export default function NotablesPage() {
 
       {/* ── Where the other bodies live ── */}
       <section className="inst-wrap inst-sec">
-        <h2 className="inst-h3">Elsewhere in the record</h2>
+        <h2 className="inst-h3">The other bodies of Guneku</h2>
         <ul className="mt-3 list-none space-y-2 p-0">
           {otherBodies.map(b => (
             <li key={b.id}>

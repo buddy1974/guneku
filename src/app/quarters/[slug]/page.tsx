@@ -15,8 +15,8 @@ export function generateStaticParams() {
    A quarter with nothing recorded says so, in the same words in both places. */
 function described(q: NonNullable<ReturnType<typeof getQuarter>>): string {
   return q.links.length > 0
-    ? `What the Guneku Fondom’s records establish about ${q.name} quarter: ${q.links.map(l => l.label).slice(0, 3).join(', ')}.`
-    : `${q.name} is one of the twenty-seven quarters of Guneku. The Fondom’s archive holds no record about it yet.`
+    ? `${q.name}, one of the twenty-seven quarters of Guneku: ${q.links.map(l => l.label).slice(0, 3).join(', ')}.`
+    : `${q.name} is one of the twenty-seven quarters of Guneku, in Mbengwi Subdivision, Momo Division. Help us tell its story.`
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -84,11 +84,7 @@ export default async function QuarterPage({ params }: { params: Promise<{ slug: 
 
             {q.links.length > 0 ? (
               <>
-                <h2 className={`inst-h2 ${q.note ? 'mt-8' : ''}`}>In the record</h2>
-                <p className="inst-body mt-2 max-w-2xl">
-                  Every entry below is attached to {q.name} because a record says so, and the
-                  sentence that says it is quoted with each one.
-                </p>
+                <h2 className={`inst-h2 ${q.note ? 'mt-8' : ''}`}>{q.name} on this site</h2>
 
                 <ul className="mt-6 list-none p-0">
                   {q.links.map(l => (
@@ -100,11 +96,10 @@ export default async function QuarterPage({ params }: { params: Promise<{ slug: 
                             {l.label}
                           </Link>
                         </div>
-                        <p className="inst-body mt-2 max-w-2xl !text-[0.86rem] text-[var(--ink-600)]">
-                          {l.evidence}
-                        </p>
+                        {/* `evidence` is the editors' note on why this link belongs to the
+                            quarter. It stays in the registry and is not shown to readers. */}
                         <Link href={l.href} className="inst-link mt-2 inline-block">
-                          Read the record →
+                          Read more →
                         </Link>
                       </div>
                     </li>
@@ -116,16 +111,16 @@ export default async function QuarterPage({ params }: { params: Promise<{ slug: 
                  about this quarter — rather than filling the page with paragraphs that
                  would read as knowledge and be invention. */
               <div className={q.note ? 'mt-8' : ''}>
-                <h2 className="inst-h2">Nothing recorded yet</h2>
+                <h2 className="inst-h2">{q.name}&rsquo;s story is still to be written</h2>
                 <p className="inst-body mt-3 max-w-2xl">
-                  {q.name} is named in the Fondom&rsquo;s list of twenty-seven quarters, and
-                  that is all the archive currently holds about it. No institution, project,
-                  office holder, market day or photograph in the record names it.
+                  {q.name} is one of our twenty-seven quarters, and its page is waiting for the
+                  people who know it best. Its history, its families, its market day, its
+                  churches and schools, who holds office there, its photographs: all of it
+                  belongs here.
                 </p>
                 <p className="inst-body mt-3 max-w-2xl">
-                  This page is deliberately empty rather than filled. A quarter that has stood
-                  for generations deserves a record written by the people who live in it, not a
-                  paragraph assembled to look complete.
+                  A quarter that has stood for generations deserves to be described by its own
+                  people. If you are from {q.name}, help us tell its story.
                 </p>
               </div>
             )}
@@ -145,8 +140,7 @@ export default async function QuarterPage({ params }: { params: Promise<{ slug: 
               {council.members.length > 0 ? (
                 <>
                   <p className="inst-body mt-2 max-w-2xl">
-                    Those the Fondom&rsquo;s records name in this quarter&rsquo;s council. The
-                    words beside each name are the record&rsquo;s own.
+                    Members of this quarter&rsquo;s council known to the Palace.
                   </p>
                   <ul className="mt-5 list-none p-0">
                     {council.members.map(m => (
@@ -160,21 +154,18 @@ export default async function QuarterPage({ params }: { params: Promise<{ slug: 
                     ))}
                   </ul>
                   <p className="inst-meta mt-4 max-w-2xl">
-                    A council has more members than the archive names. If you know who else
-                    serves on this one, the record is open to you.
+                    A council has more members than are listed here. If you know who else serves
+                    on this one, please tell us.
                   </p>
                 </>
               ) : (
                 <>
                   <p className="inst-body mt-2 max-w-2xl">
-                    {q.name} holds its own traditional council, as every quarter of Guneku
-                    does. <strong className="text-[var(--ink-900)]">The Fondom&rsquo;s record
-                    does not yet name who sits on it.</strong>
+                    {q.name} has its own traditional council, as every quarter of Guneku does.
+                    Its members are not yet listed here.
                   </p>
                   <p className="inst-body mt-3 max-w-2xl !text-[0.9rem]">
-                    No name is supplied here by guesswork. The council is shown because it
-                    exists; it is empty because the record is silent, and that is a gap the
-                    people of {q.name} can close.
+                    If you know who sits on the {q.name} council, please tell us.
                   </p>
                 </>
               )}
@@ -184,8 +175,8 @@ export default async function QuarterPage({ params }: { params: Promise<{ slug: 
                 className="inst-btn inst-btn-primary mt-5"
               >
                 {council.members.length > 0
-                  ? 'Add to this council’s record'
-                  : 'Provide this council’s information'}
+                  ? 'Add a council member'
+                  : 'Tell us who sits on this council'}
               </Link>
             </div>
           </div>
@@ -195,13 +186,13 @@ export default async function QuarterPage({ params }: { params: Promise<{ slug: 
               <h2 className="inst-h3">Know something missing?</h2>
               <p className="inst-body mt-2 !text-[0.88rem]">
                 If you know {q.name} &mdash; its history, its institutions, who holds office
-                there, its market, its families &mdash; put it forward. Nothing is published
-                until the Palace has reviewed it.
+                there, its market, its families &mdash; share it with us. The Palace reviews
+                every contribution before it appears.
               </p>
               <Link
                 href={`/my-guneku/contribute/new?targetType=quarter&targetId=${encodeURIComponent(q.name)}`}
                 className="inst-btn inst-btn-primary mt-4 w-full justify-center">
-                Contribute to the record
+                Share what you know
               </Link>
             </div>
 

@@ -196,7 +196,7 @@ export default function GudecaPage() {
           </div>
           <div className="card-royal mt-10 grid gap-4 p-6 sm:grid-cols-[1fr_auto] sm:items-center md:p-8">
             <div>
-              <div className="section-label">THE REGISTER IS OPEN</div>
+              <div className="section-label">ADD YOUR NAME</div>
               <h4 className="mt-2 font-cinzel text-2xl text-foreground">
                 Every chapter takes names — at home and abroad
               </h4>
