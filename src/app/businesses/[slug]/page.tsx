@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { BusinessCover, BusinessLogo, BusinessCard } from '@/components/business/BusinessCard'
 import { BusinessVideos } from '@/components/business/BusinessVideos'
+import { FramedImage } from '@/components/business/FramedImage'
 import { pageMetadata } from '@/lib/seo'
 import { PageGraph } from '@/components/seo/PageGraph'
 import { businessId, businessNode } from '@/lib/schema'
@@ -105,10 +106,12 @@ export default async function BusinessPage({
         </div>
 
         {/* Above the cover, not under it. Without the stacking context the cover paints
-            over the business name and cuts the heading in half. */}
+            over the business name and cuts the heading in half. Only the logo straddles the
+            cover's edge; the padding keeps the name below it, off the photograph, however
+            long the name wraps. */}
         <div className="relative z-10 mt-[-1.75rem] flex flex-wrap items-end gap-4 px-1 sm:px-4">
           <BusinessLogo business={business} size="hero" />
-          <div className="min-w-0 flex-1 pb-1">
+          <div className="min-w-0 flex-[1_1_16rem] pb-1 pt-[1.75rem]">
             <h1 className="inst-h1 leading-tight">{business.name}</h1>
             {business.tagline && (
               <p className="inst-body mt-2 max-w-2xl">{business.tagline}</p>
@@ -166,6 +169,35 @@ export default async function BusinessPage({
                 {business.services!.map(s => (
                   <li key={s} className="inst-row py-2.5 pr-4 text-[0.92rem] text-[var(--ink-900)]">
                     {s}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* A few of the business's own pictures, each opening the original file. No
+              lightbox, no carousel: three photographs do not need a viewer, and a plain link
+              works on every phone and with every assistive technology. */}
+          {(business.gallery ?? []).length > 0 && (
+            <div className="mt-9">
+              <h2 className="inst-h2">In pictures</h2>
+              <ul className="biz-gallery mt-4 list-none p-0">
+                {business.gallery!.map(g => (
+                  <li key={g.src}>
+                    <a
+                      href={g.src}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="biz-gallery-item"
+                      aria-label={`${g.alt} (opens the full image)`}
+                    >
+                      <FramedImage
+                        src={g.src}
+                        alt={g.alt}
+                        sizes="(max-width: 40rem) 100vw, 20rem"
+                        fit={g.fit}
+                      />
+                    </a>
                   </li>
                 ))}
               </ul>

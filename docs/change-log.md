@@ -3311,3 +3311,87 @@ passing.
 Nothing sent, nobody contacted, no names invented, no production change, no SEO, metadata,
 schema, sitemap, robots, IndexNow, DNS, Clerk, Resend, Wikipedia, archive, business,
 Indigene or Palace facts touched. One document.
+
+## 2026-10-17 — Business Directory visual upgrade: the supplied pictures, placed
+
+Marcel supplied pictures for the nine published curated businesses in `public/business/<folder>/`
+(55 files). Every one was inspected — dimensions, format, SHA-256 (no duplicates), and by eye.
+The directory cards and business pages now show them. ADR-099.
+
+### Asset inventory and selection
+
+| Business | Folder | Found | Logo | Cover | Gallery |
+|---|---|---|---|---|---|
+| MaxPromo Digital | `maxpromo` | 7 | `fb-logo.png` (square crop of the round mark) | `fb-cover.png` | agent systems · workflow-automation · workflow |
+| Midas Property Auctions | `midas property auctions` | 12 | `logo-midas-black-subtext.png` | `image.webp` | — |
+| Fondom Studios | `fondom studios` | 5 | `481055272_…jpg` | `487079829_…jpg` (shown whole) | — |
+| Concept Care Solutions | `concept care solutions` | 8 | `CCS-LOGO.webp` | `1-qw0zt1q…png` | `sire-pics2-…png` |
+| Urologie Neuwied | `urologie neuwied` | 7 | `hxuo25nl…webp` | `header_fomuki_walters_001.jpg` | team · reception · steriliser |
+| ARCpoint Labs | `ARCpoint Labs` | 4 | `images.jpg` | `images (1).jpg` | ribbon cutting · DNA room |
+| Any Lab Test Now — Lynchburg | `AnyLab Test Now` | 4 | — (none supplied; initials plate) | `488641915_…jpg` (shown whole) | three posters |
+| Vitalis … Breeding Centre | `Vitalis Fish Production` | 1 | — (none supplied) | the Salon poster (shown whole) | — |
+| Magic Gate Enterprise | `Magic Gate Enterprise` | 7 | `magic-gate-logo-trimmed.png` (derived, see below) | `482358240_…jpg` (showroom) | two sofa photographs |
+
+### Excluded — moved to `archive-staging/business/`, not deleted
+
+25 files, byte-for-byte, SHA-256 identical before and after, same folder names. Staged, not
+held (ADR-070): this is an engineering judgement awaiting the owner's, not a decision that
+they must never be published.
+
+- **Print a telephone number or an email the record does not publish.** Curated records carry
+  no telephone number and a test enforces it; a flyer would publish one through the side door.
+  Midas `card-outside*.jpg` (also a staff member's direct line), `fenced-banner.jpg`, `cm.webp`,
+  `event-cover.webp`, `kenya.webp`, `zoom.webp`; Concept Care `Image-13-scaled.jpg` (the
+  shopfront — the best photograph supplied, but the fascia carries the number) and `flyer.jpg`;
+  Fondom `646570161_…`, `763925673_…`, `565170432_…` (a client's number on packaging);
+  Magic Gate `482030478_…`.
+- **Portraits of a person** whose face belongs on their register entry: Concept Care
+  `edith.jpg`, `worker.jpg`; Urologie `6ef2cc58….jpeg`, `MeKollegin.png` (also 390×306).
+- **Near-duplicates or alternate marks:** MaxPromo `insta-cover.png`, `whatsapp-cover.png`;
+  Midas `logo-midas-white-subtext.png`, `logo.png` (the Midas Property Group mark),
+  `image2.webp` (a sponsor's graphic).
+- **Product renders, not the business's own photographs:** Magic Gate `669770756_…`,
+  `671497683_…`; Concept Care `skilled-worker-teaching.jpg`.
+
+### Added
+
+- `src/data/businesses/media.ts` — slug → folder → files, with framing hints. Folder names are
+  kept as delivered (spaces, mixed case) and percent-encoded once in `businessAsset()`. Slugs
+  are unchanged. `businesses.json` is unchanged: imagery is joined on at load time.
+- `src/components/business/FramedImage.tsx` — a failed image falls back to the designed
+  placeholder (cover) or the initials (logo) instead of a broken-image icon; `contain` shows a
+  poster whole over a blurred copy of itself; a registered business's external URL is passed
+  through unoptimised rather than failing the optimiser.
+- **Gallery** on the business page ("In pictures"), each tile opening the original file.
+- `magic-gate-logo-trimmed.png` — the one derived file: the supplied logo with its white
+  margin trimmed. The original stays beside it.
+- `src/data/businesses/media.test.ts` — every mapped file exists in its own folder, no file
+  serves two businesses, logo dimensions match the files, no held business has imagery, the
+  JSON gains no paths, and nothing in `public/business/` is served that the directory does
+  not show (R-007).
+
+### Changed
+
+- **Card:** the logo plate takes the logo's own proportions (clamped), so wordmarks are not
+  squeezed into squares; name, location with a pin, two-line tagline (space reserved so rows
+  line up), the confirmed person and their relationship in the footer, and a "View business"
+  cue. Still one link per card (the name); the whole card is clickable.
+- **Business page:** the hero logo plate takes the logo's proportions; the name now always
+  sits below the cover rather than across its edge, and wraps under a wide logo on phones.
+- `businesses.test.ts`: the no-image test asserted that most businesses had no pictures
+  ("today"). It now checks the placeholder for every business, since it is still what a
+  failed image and a registered business without one show.
+
+### Verified
+
+- `npx tsc --noEmit` clean · lint clean on changed files · `npm test` all passing ·
+  `npm run build` passing.
+- All 30 mapped image URLs and their `/_next/image` variants answered 200 locally (60 requests).
+- 11 pages (`/businesses`, `/`, the nine business pages) × 7 widths (320, 360, 390, 414, 768,
+  1024, 1440): no horizontal overflow, no clipped logo, no title over a cover, no broken image.
+  A 320–414 px overflow on the four wide-logo pages was found this way and fixed.
+- Fallback: a cover and a logo broken in the live page fell back to the placeholder and
+  initials, with no broken image left.
+- `/businesses/vicky-and-sons` (held) 404, absent from the directory and the sitemap.
+- Not touched: business creation/editing, ownership, eligibility, visibility rules, URLs, SEO
+  metadata, Clerk, DNS, Resend, IndexNow, Wikipedia.

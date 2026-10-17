@@ -662,12 +662,10 @@
     overflow: hidden;
     background: var(--stone);
   }
-  .biz-cover img {
-    width: 100%; height: 100%;
-    object-fit: cover;
+  .biz-cover .biz-img-cover {
     transition: transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1);
   }
-  .biz-card:hover .biz-cover img { transform: scale(1.035); }
+  .biz-card:hover .biz-cover .biz-img-cover { transform: scale(1.035); }
 
   /* ── Placeholder ──
      Designed, not missing. A warm wash off the business's own hue
@@ -699,14 +697,32 @@
     line-height: 1;
   }
 
+  /* ── Images inside a frame ──
+     Cropped covers keep faces and signage by object-position. A
+     contained poster sits whole over a blurred, dimmed copy of
+     itself, so the frame is full without a word of it cut off. */
+  .biz-img-cover   { object-fit: cover; }
+  .biz-img-contain { object-fit: contain; }
+  .biz-img-backdrop {
+    object-fit: cover;
+    filter: blur(18px) saturate(1.05) brightness(0.82);
+    transform: scale(1.15);
+  }
+
   /* ── Logo ──
      Sits on the boundary between cover and content. White plate so a
-     transparent PNG and a photographic logo both read cleanly. */
+     transparent PNG and a photographic logo both read cleanly. The
+     plate takes the logo's own proportions (--logo-ar), clamped, so
+     a wordmark is not squeezed into a square and a square mark is
+     not stretched into a band. */
   .biz-logo {
     position: absolute;
     left: 1rem;
-    bottom: -1.5rem;
-    width: 3.5rem; height: 3.5rem;
+    bottom: -1.6rem;
+    height: 3.5rem;
+    aspect-ratio: var(--logo-ar, 1);
+    min-width: 3.5rem;
+    max-width: min(10rem, calc(100% - 2rem));
     border-radius: 3px;
     background: #fff;
     border: 1px solid var(--rule);
@@ -715,7 +731,9 @@
     overflow: hidden;
     z-index: 1;
   }
-  .biz-logo img { width: 100%; height: 100%; object-fit: contain; padding: 0.3rem; }
+  .biz-logo .biz-logo-img,
+  .biz-hero-logo .biz-logo-img { padding: 0.35rem 0.5rem; }
+  .biz-logo-fill .biz-logo-img { padding: 0; }
   .biz-logo-mark {
     font-family: var(--font-display);
     font-weight: 700;
@@ -723,8 +741,52 @@
     color: var(--royal-green);
   }
 
-  .biz-body { padding: 1rem; padding-top: 2rem; display: flex; flex-direction: column; flex: 1; }
-  .biz-body-flat { padding-top: 1rem; }
+  .biz-body { padding: 1.1rem 1.1rem 1rem; padding-top: 2.4rem; display: flex; flex-direction: column; flex: 1; }
+  .biz-body-flat { padding-top: 1.1rem; }
+
+  .biz-card-title { margin-top: 0.35rem; font-size: 1.12rem; line-height: 1.3; }
+  .biz-card-link { color: inherit; text-decoration: none; }
+  .biz-card:hover .biz-card-link { color: var(--royal-green); }
+  .biz-card-place {
+    display: flex; align-items: center; gap: 0.3rem;
+    margin-top: 0.4rem;
+    font-family: var(--font-sans); font-size: 0.8rem; font-weight: 600;
+    color: var(--ink-600);
+    min-width: 0;
+  }
+  /* Two lines, always reserved, so the footers of a row line up
+     whether the tagline is one line or three. */
+  .biz-card-tagline {
+    margin-top: 0.6rem;
+    font-family: var(--font-sans); font-size: 0.88rem; line-height: 1.55;
+    color: var(--ink-600);
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: calc(0.88rem * 1.55 * 2);
+  }
+  .biz-card-foot {
+    margin-top: auto;
+    padding-top: 0.85rem;
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 0.75rem;
+    border-top: 1px solid var(--rule);
+  }
+  /* Whatever sits above the footer keeps a gap from it even in the
+     tallest card of the row, where the auto margin collapses to 0. */
+  .biz-body > :nth-last-child(2) { margin-bottom: 1rem; }
+  .biz-card-person {
+    font-family: var(--font-sans); font-size: 0.84rem; font-weight: 600;
+    color: var(--ink-900);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .biz-card-action {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    flex-shrink: 0;
+    font-family: var(--font-sans); font-size: 0.8rem; font-weight: 700;
+    color: var(--burgundy-i);
+    white-space: nowrap;
+  }
+  .biz-card-action svg { transition: transform 160ms ease; }
+  .biz-card:hover .biz-card-action svg { transform: translateX(3px); }
 
   /* ── Chips ──
      Restrained on purpose. Two at most on a card; the rest live on
@@ -755,11 +817,13 @@
     background: var(--stone);
     border-radius: 3px;
   }
-  .biz-hero-cover img { width: 100%; height: 100%; object-fit: cover; }
   @media (max-width: 40rem) { .biz-hero-cover { aspect-ratio: 16 / 10; } }
 
   .biz-hero-logo {
-    width: 5.5rem; height: 5.5rem;
+    height: 5.5rem;
+    aspect-ratio: var(--logo-ar, 1);
+    min-width: 5.5rem;
+    max-width: min(15rem, 100%);
     border-radius: 3px;
     background: #fff;
     border: 1px solid var(--rule);
@@ -767,8 +831,30 @@
     display: grid; place-items: center;
     overflow: hidden;
     flex-shrink: 0;
+    position: relative;
   }
-  .biz-hero-logo img { width: 100%; height: 100%; object-fit: contain; padding: 0.45rem; }
+  @media (max-width: 40rem) {
+    .biz-hero-logo { height: 4.5rem; min-width: 4.5rem; }
+  }
+
+  /* ── Gallery ──
+     A few pictures, not an album. Fixed frames so a portrait poster
+     and a landscape photograph sit in one even row. */
+  .biz-gallery {
+    display: grid; gap: 0.75rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
+  }
+  .biz-gallery-item {
+    position: relative; display: block;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 3px;
+    border: 1px solid var(--rule);
+    background: var(--stone);
+  }
+  .biz-gallery-item:focus-visible { outline: 3px solid var(--royal-green); outline-offset: 2px; }
+  .biz-gallery-item .biz-img-cover { transition: transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1); }
+  .biz-gallery-item:hover .biz-img-cover { transform: scale(1.03); }
 
   /* ── Video ── */
   .biz-video {
@@ -805,9 +891,12 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .biz-card, .biz-cover img { transition: none; }
+    .biz-card, .biz-cover .biz-img-cover, .biz-gallery-item .biz-img-cover,
+    .biz-card-action svg { transition: none; }
     .biz-card:hover { transform: none; }
-    .biz-card:hover .biz-cover img { transform: none; }
+    .biz-card:hover .biz-cover .biz-img-cover,
+    .biz-gallery-item:hover .biz-img-cover,
+    .biz-card:hover .biz-card-action svg { transform: none; }
   }
 }
 

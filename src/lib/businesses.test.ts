@@ -483,10 +483,10 @@ describe('outbound links', () => {
 
 describe('the card survives every state', () => {
   it('gives a business with no images something designed', () => {
-    const none = PUBLIC.filter(b => !b.cover && !b.logo)
-    /* Most of them, today. The no-image state is the ordinary one. */
-    expect(none.length).toBeGreaterThan(0)
-    for (const b of none) {
+    /* Every published curated business has a supplied cover since 2026-10-17, but the
+       placeholder is still what a registered business without one shows, and what any card
+       falls back to when its picture fails to load. So every business must have one. */
+    for (const b of ALL) {
       expect(businessInitials(b.name).length).toBeGreaterThanOrEqual(1)
       expect(businessInitials(b.name).length).toBeLessThanOrEqual(2)
       const hue = placeholderHue(b.slug)

@@ -95,6 +95,18 @@ one shared photograph out of 28 is not enough to publish 27 more under that albu
 
 ---
 
+### `business/` — 25 files, supplied 2026-10-17
+
+Pictures supplied for the Business Directory that the directory does not use. Same folder
+names as in `public/business/`, moved byte-for-byte, SHA-256 verified. Most print a telephone
+number or email the business record does not publish; the rest are portraits, near-duplicates
+or product renders. The full list and the reason for each is in `docs/change-log.md`
+(2026-10-17) and ADR-099. To use one: the owner decides, it moves back into
+`public/business/`, and it is added to `src/data/businesses/media.ts` — a test fails if a
+served file is not mapped.
+
+---
+
 ## Rules for anything in here
 
 - **Do not publish it by moving it back into `public/`.** A photograph becomes public by

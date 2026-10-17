@@ -2192,3 +2192,28 @@ replaced. This is a delivery change, and the archive is untouched.
 **Result**, same routes, same tool, after deployment: `/palace` 81 → 90 and LCP 4.9 s → 3.4 s;
 `/fondom` 86 → 91 and 4.2 s → 3.4 s; `/gallery/images` 82 → 88 and 4.7 s → 3.7 s; `/contact`
 94 → 99. No route now exceeds 4 s on throttled mobile, and desktop is 99–100 throughout.
+
+## ADR-099 - Business pictures are joined by slug, and a picture that would publish a number stays out
+
+**Context.** Pictures for the nine published curated businesses were delivered into
+`public/business/<folder>/`, folders named by hand (spaces, mixed case), not by slug.
+
+**Decision.**
+
+1. **One mapping, keyed by slug** (`src/data/businesses/media.ts`). Folder names are kept as
+   delivered and encoded once. Slugs do not move to match folders and folders are not renamed
+   to match slugs. `businesses.json` stays the reviewed record of fact and gains no paths.
+2. **A picture that prints a telephone number or email the record does not publish is not
+   used.** The curated records deliberately publish no telephone numbers; a flyer must not
+   undo that. The same goes for portraits of people (their face belongs to their register
+   entry), dated event posters, sponsors' graphics and product renders.
+3. **Unused supplied files are staged, not held and not deleted** (ADR-070): moved byte-for-byte
+   to `archive-staging/business/`, because a file in `public/` is served whether or not a page
+   uses it (R-007). A test keeps `public/business/` to exactly what the directory shows.
+4. **Derived files only where the original is unusable at size**, named as derived, original
+   kept beside it. One so far: Magic Gate's logo, trimmed of white margin.
+
+**Consequences.** Some of the strongest pictures — the Concept Care shopfront, the Midas "SOLD"
+board — are not shown. If the owner decides a business's own advertised number may appear in
+its pictures, those files move back from staging and are added to the mapping; the test will
+then require them to be mapped.

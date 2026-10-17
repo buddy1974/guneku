@@ -1,4 +1,5 @@
 import doc from '@/data/businesses/businesses.json'
+import { BUSINESS_MEDIA, businessAsset } from '@/data/businesses/media'
 import { getFoundingName } from './community'
 import { identityIndex } from './identity-index'
 
@@ -170,6 +171,24 @@ export type BusinessContact = {
   email?: string
 }
 
+export type BusinessImage = {
+  src: string
+  alt: string
+  /** Show the whole image rather than cropping it to the frame. */
+  fit?: 'contain'
+}
+
+export type BusinessImagery = {
+  /** Width over height of the logo file, so a wide wordmark gets a wide plate. */
+  logoAspect?: number
+  /** The logo is a tile with its own background: fill the plate with it. */
+  logoFit?: 'cover'
+  /** A poster or banner a crop would cut: show it whole. */
+  coverFit?: 'contain'
+  /** CSS object-position for a cropped cover. */
+  coverPosition?: string
+}
+
 export type Business = {
   slug: string
   name: string
@@ -189,7 +208,9 @@ export type Business = {
   contact?: BusinessContact
   logo?: string
   cover?: string
-  gallery?: string[]
+  gallery?: BusinessImage[]
+  /** How the logo and cover are framed. Presentation only; absent means the defaults. */
+  imagery?: BusinessImagery
   videos?: BusinessVideo[]
   people?: BusinessPerson[]
   /** Where this record came from, and what is not established. Rendered on the page. */
@@ -201,7 +222,26 @@ export type Business = {
   updatedAt?: string
 }
 
-const CURATED = (doc.businesses as Business[])
+/** A curated record with the pictures supplied for it. The JSON stays the record of fact;
+ *  the imagery is joined on here from `data/businesses/media.ts`, keyed by slug. */
+function withMedia(b: Business): Business {
+  const m = BUSINESS_MEDIA[b.slug]
+  if (!m) return b
+  return {
+    ...b,
+    logo: m.logo ? businessAsset(m.folder, m.logo.file) : b.logo,
+    cover: m.cover ? businessAsset(m.folder, m.cover.file) : b.cover,
+    gallery: m.gallery?.map(g => ({ src: businessAsset(m.folder, g.file), alt: g.alt, fit: g.fit })),
+    imagery: {
+      logoAspect: m.logo ? m.logo.width / m.logo.height : undefined,
+      logoFit: m.logo?.fit,
+      coverFit: m.cover?.fit,
+      coverPosition: m.cover?.position,
+    },
+  }
+}
+
+const CURATED = (doc.businesses as Business[]).map(withMedia)
 
 /** Every curated business, whatever its status. Reviewer surfaces only. */
 export function curatedBusinesses(): Business[] {
