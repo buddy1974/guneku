@@ -2217,3 +2217,30 @@ replaced. This is a delivery change, and the archive is untouched.
 board — are not shown. If the owner decides a business's own advertised number may appear in
 its pictures, those files move back from staging and are added to the mapping; the test will
 then require them to be mapped.
+
+## ADR-100 - A festival in preparation is one record, and its news is ordinary news
+
+**Context.** Michi Ebeng 2027 needed a homepage campaign and its own page, fed by a planning
+committee whose record is a WhatsApp group: minutes, corrections, and much that is only
+proposed.
+
+**Decision.**
+
+1. **One record** (`src/data/events/michi-ebeng-2027.json`) holds the festival. The homepage
+   and the page both read it.
+2. **News stays in the Village Square.** Planning announcements are ordinary updates tagged
+   `"campaign": "michi-ebeng-2027"`; the festival surfaces ask the archive for them. No second
+   news store.
+3. **Agreed and proposed are separate arrays** and are labelled separately on every surface.
+4. **Only past-edition pictures, captioned as such.** Nothing implies a photograph of 2027.
+5. **Nothing the record does not hold:** no street address, map position, opening hour,
+   ticket, registration form or payment instruction. Event schema carries no `offers` or
+   `performer`.
+6. **Temporary prominence.** The homepage leads with the festival until 20 April 2027, then
+   gives the space back; the page stays as the record of the edition.
+7. **Spelling.** Display name "Michi Ebeng 2027" as requested; the Meta orthography
+   *Mɨchi Əbeŋ* appears beside it and is never case-transformed (uppercased, ŋ reads as D).
+   "Kem" follows the minutes; the page notes "Kwem" and "Nkwem" in earlier records.
+
+**Consequences.** Adding an announcement is one JSON file. The festival's `/events/` path has
+no index page; nothing links to `/events` alone.

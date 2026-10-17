@@ -11,6 +11,13 @@
  "patron": "HRH Fon Fomuki Walters Ticha IX",
  "venue": "Guneku Palace",
  "description": "Mɨchi Əbeŋ is the Guneku festival of return — a day given to ancient arts and craft, traditional delicacies, the mother tongue and traditional dress. It was revived after a hiatus of six years caused by the armed conflict in the region, and it carries the Mukonge and Kwem dance group competitions.",
+ "currentEdition": {
+  "title": "Michi Ebeng 2027",
+  "dates": "19–20 March 2027",
+  "venue": "Handicraft Centre, Mile 4, Limbe",
+  "status": "Planning under way",
+  "href": "/events/michi-ebeng-2027"
+ },
  "editions": [
   {
    "edition": "Maiden edition",
@@ -27,6 +34,19 @@
    "venue": "Guneku Palace",
    "focus": "Kwem dance groups",
    "note": "The article announcing this edition is headlined April 2024 while its text gives Saturday 23 March 2024. Both are recorded; the Palace should confirm which is correct."
+  },
+  {
+   "edition": "Third edition",
+   "focus": "Mukonge dance groups",
+   "note": "Recorded in the minutes of the 2027 planning meeting (8 October 2026), which list three editions: Mukonge, then Kem, then Mukonge again. The minutes do not give this edition's date or venue; the Palace should confirm them."
+  },
+  {
+   "edition": "Michi Ebeng 2027",
+   "year": 2027,
+   "displayDate": "19–20 March 2027",
+   "venue": "Handicraft Centre, Mile 4, Limbe",
+   "focus": "Kem dance groups",
+   "note": "In planning. Held in Limbe because the Palace is being renovated and no village in Meta offered to host."
   }
  ],
  "danceCompetition": {
@@ -40,6 +60,7 @@
   "album": "mukonge-dance-groupsin-meta"
  },
  "relatedUpdates": [
+  "michi-ebeng-2027-planning-begins",
   "festival-in-april-2024",
   "michi-ben-clash-of-mukonge-dance-groups-in-the-offing",
   "meta-cultural-festival-holds-in-guneku-village",
@@ -49,7 +70,7 @@
   "mchibe-mta-event-guneku2023",
   "mukonge-dance-groupsin-meta"
  ],
- "sourceNote": "Consolidated 2026-09-01 from the existing update articles and gallery albums. No edition later than the second is recorded in this repository. Organising committee and films added 2026-09-02 from the reconciliation; the committee is dated to 2023 rather than presented as current.",
+ "sourceNote": "Consolidated 2026-09-01 from the existing update articles and gallery albums. No edition later than the second is recorded in this repository. Organising committee and films added 2026-09-02 from the reconciliation; the committee is dated to 2023 rather than presented as current. Third edition and the 2027 edition added 2026-10-17 from the planning committee's minutes of 8 October 2026 and their corrections of 9–10 October.",
  "sourceType": "Migrated Guneku article and media archive",
  "relatedDances": [
   {

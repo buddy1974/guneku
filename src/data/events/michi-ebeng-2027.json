@@ -1,0 +1,265 @@
+{
+  "id": "michi-ebeng-2027",
+  "path": "/events/michi-ebeng-2027",
+  "name": "Michi Ebeng 2027",
+  "metaName": "Mɨchi Əbeŋ 2027",
+  "tagline": "Cultural heritage. Tradition. Community.",
+  "summary": "Two days celebrating Meta heritage — the Kem dance competition, traditional dances, food and community — at the Handicraft Centre, Mile 4, Limbe, on 19 and 20 March 2027.",
+  "status": {
+    "code": "planning",
+    "label": "Planning under way",
+    "detail": "Dates and venue are agreed and the committees are being formed. The programme is not final: everything listed as proposed is still under discussion."
+  },
+  "dates": {
+    "start": "2027-03-19",
+    "end": "2027-03-20",
+    "display": "19–20 March 2027",
+    "timezone": "Africa/Douala",
+    "utcOffset": "+01:00",
+    "timeNote": "No opening hour has been announced. The countdown runs to the start of 19 March 2027, Cameroon time."
+  },
+  "venue": {
+    "name": "Handicraft Centre, Mile 4",
+    "locality": "Limbe",
+    "region": "South West Region",
+    "country": "Cameroon",
+    "countryCode": "CM",
+    "display": "Mile 4, Limbe Handicraft Centre",
+    "note": "This is the venue as the planning minutes give it. No street address, map position or travel arrangements have been published, and none are given here."
+  },
+  "whyLimbe": [
+    "The Guneku Palace is being renovated.",
+    "No village in Meta offered to host the festival.",
+    "Some of the dance groups that came to the village for earlier editions travelled from Buea and Limbe."
+  ],
+  "established": [
+    {
+      "title": "19 and 20 March 2027",
+      "detail": "Two days, at the Handicraft Centre, Mile 4, Limbe."
+    },
+    {
+      "title": "The Kem dance competition",
+      "detail": "This edition's competition is the Kem dance."
+    },
+    {
+      "title": "Other dances on the first day",
+      "detail": "Room is to be given on the first day for other dances and animation."
+    },
+    {
+      "title": "Nine committees",
+      "detail": "Formed at the first planning meeting to divide the work of preparation."
+    },
+    {
+      "title": "Permit and protocol",
+      "detail": "The organising committee is to obtain the permit. The cultural committee is to call on the traditional authority of the area — in the South West, a chief rather than a Fon, as a member corrected after the meeting."
+    }
+  ],
+  "proposals": [
+    {
+      "title": "Mister and Miss Michi Ebeng",
+      "detail": "A Mister and a Miss Michi Ebeng to be elected."
+    },
+    {
+      "title": "Traditional dishes",
+      "detail": "Traditional dishes made available for sale by registered members."
+    },
+    {
+      "title": "A Meta marriage sketch",
+      "detail": "A fifteen-minute drama showing how a Meta marriage is traditionally contracted."
+    },
+    {
+      "title": "Documentary on giant screens",
+      "detail": "Photographs and film of earlier editions, of the 31 villages of Meta, and of places such as the Caves of Guneku, Guneku's health institution and its CIG, Acha hospital and Abi Fall Resort."
+    },
+    {
+      "title": "SAWA cultural participation",
+      "detail": "SAWA musical artists or traditional dancers taking part, as a gesture of cultural integration with the host region."
+    },
+    {
+      "title": "Traditional wear competition",
+      "detail": "Participants to register with a token, with prizes awarded."
+    },
+    {
+      "title": "Inter-village tug of war",
+      "detail": "Village teams compete, with the finalists then facing a SAWA team."
+    }
+  ],
+  "proposalSource": "Proposed at the first planning meeting by Mr Ticha Elias Mbekwa, Vice President of GUDECA. The minutes first attributed these proposals to another member; they were corrected on 9 and 10 October 2026. The draft minutes also mentioned a fashion parade, a special photograph and every village being represented.",
+  "kem": {
+    "summary": "The 2027 festival is built around a competition between Kem dance groups. Kem was the competition at the festival's second edition too, and Guneku has its own Kem group.",
+    "spelling": "Earlier records on this site write the name Kwem, and a Buea group's film calls it Nkwem. The planning minutes write Kem, which is the form used for 2027.",
+    "film": "KhgIX-rvKgE",
+    "rulesNote": "No rules for the 2027 competition have been published. The rules recorded for the 2023 Mukonge competition — fifteen to twenty dancers per group, at most seven minutes per performance, every group on the ground by 10 a.m. — are not a guide to 2027 unless the committee adopts them."
+  },
+  "committees": [
+    { "name": "Organising", "detail": "Including the permit for the venue." },
+    { "name": "Transport and logistics" },
+    { "name": "Entertainment, food and beverages" },
+    { "name": "Decorations" },
+    { "name": "Health" },
+    { "name": "Fundraising" },
+    { "name": "Cultural activities and protocol", "detail": "Including the call on the traditional authority of the area." },
+    { "name": "Communication and advertising" },
+    { "name": "Finance, evaluation and prizes" }
+  ],
+  "termsOfReference": {
+    "detail": "Five people were asked to draw up the committees' terms of reference.",
+    "members": [
+      "Tah Eric Teke",
+      "Moris Forkam",
+      "Ni Samba Jonathan",
+      "Mbakwa Bernard, Regent of Guneku",
+      "Fah Elvis Tayong, Ngamfon"
+    ],
+    "note": "Names as corrected on 9 October 2026. Committee memberships have not been announced."
+  },
+  "timeline": [
+    {
+      "date": "2026-09-19",
+      "title": "A date is given",
+      "detail": "The Fon gives 20 March 2027 as the date of Michi Ebeng 2027. The first planning meeting later set the festival across 19 and 20 March."
+    },
+    {
+      "date": "2026-10-05",
+      "title": "Planning begins",
+      "detail": "Members begin proposing dates for a physical meeting at home, and propose that GUDECA Limbe members join the planning as the hosts."
+    },
+    {
+      "date": "2026-10-07",
+      "title": "Funding to begin",
+      "detail": "The committee thanks the Fon for laying the financial foundation for the start of preparations."
+    },
+    {
+      "date": "2026-10-08",
+      "title": "First planning meeting",
+      "detail": "Held online with sixteen members. Venue, dates, the Kem competition and nine committees are agreed."
+    },
+    {
+      "date": "2026-10-10",
+      "title": "Minutes corrected",
+      "detail": "The terms-of-reference names and the attribution of the proposed activities are corrected."
+    }
+  ],
+  "participation": [
+    {
+      "title": "Join the preparations",
+      "detail": "The work is divided between nine committees, and a member suggested volunteers for protocol and ushering. Gunekuans who want to help can write to the Palace through the contact page."
+    },
+    {
+      "title": "Hosts in Limbe",
+      "detail": "Members proposed that GUDECA Limbe take part in the planning and in decisions, since they will be the hosts."
+    },
+    {
+      "title": "Dance groups",
+      "detail": "The competition is for Kem dance groups. How groups enter has not yet been announced."
+    },
+    {
+      "title": "Proposed competitions",
+      "detail": "If adopted, the traditional wear competition would take registrations, and the tug of war would be between villages. Neither is open yet."
+    }
+  ],
+  "faq": [
+    {
+      "q": "When is Michi Ebeng 2027?",
+      "a": "Friday 19 and Saturday 20 March 2027. No opening hour has been announced yet."
+    },
+    {
+      "q": "Where is it?",
+      "a": "At the Handicraft Centre, Mile 4, Limbe, in the South West Region of Cameroon. The earlier editions recorded on this site were held at the Guneku Palace."
+    },
+    {
+      "q": "Why Limbe and not the village?",
+      "a": "The planning meeting gave three reasons: the Guneku Palace is being renovated, no village in Meta offered to host, and some of the dance groups that came to the village for earlier editions travelled from Buea and Limbe."
+    },
+    {
+      "q": "What is the main competition?",
+      "a": "The Kem dance. The first day will also make room for other dances and animation."
+    },
+    {
+      "q": "Is the programme final?",
+      "a": "No. The dates, the venue and the Kem competition are agreed. Everything else on this page that is marked proposed is still being discussed by the committees."
+    },
+    {
+      "q": "Do I need a ticket, or to register?",
+      "a": "Nothing about tickets, entry or registration has been announced. This page will say so when it is."
+    },
+    {
+      "q": "How can I help?",
+      "a": "Write to the Palace through the contact page. The committees are being formed now."
+    }
+  ],
+  "gallery": [
+    {
+      "src": "/images/gallery/mchibe-mta-event-guneku2023/9.jpeg",
+      "width": 1080, "height": 607,
+      "alt": "Dancers in Meta dress on the palace ground, one carrying a carved wooden bowl on her head",
+      "caption": "Dancing on the palace ground at the maiden edition, Guneku, 15 April 2023."
+    },
+    {
+      "src": "/images/gallery/mchibe-mta-event-guneku2023/111.jpeg",
+      "width": 1080, "height": 607,
+      "alt": "Crowds ringing the arena at the Guneku Palace while a dance group performs",
+      "caption": "The arena at the Guneku Palace during the 2023 Mukonge competition."
+    },
+    {
+      "src": "/images/gallery/mchibe-mta-event-guneku2023/11.jpeg",
+      "width": 1080, "height": 607,
+      "alt": "A smiling man raises a large carved wooden bowl above his head beside a man in a Meta gown",
+      "caption": "Celebration at the maiden edition, Guneku Palace, 2023."
+    },
+    {
+      "src": "/images/gallery/mchibe-mta-event-guneku2023/BARAKWE.jpg",
+      "width": 600, "height": 400,
+      "alt": "The Barakwe Mukonge Dance Group posed behind its painted sign",
+      "caption": "Barakwe Mukonge Dance Group, one of the six groups that competed in 2023."
+    },
+    {
+      "src": "/images/gallery/mchibe-mta-event-guneku2023/2.jpeg",
+      "width": 1080, "height": 809,
+      "alt": "Elders seated beside an exhibition of baskets, calabashes, clay pots and produce",
+      "caption": "The exhibition of traditional crafts and produce, 2023."
+    },
+    {
+      "src": "/images/gallery/mchibe-mta-event-guneku2023/23.jpeg",
+      "width": 607, "height": 1080,
+      "alt": "A traditional meal served on plantain leaves",
+      "caption": "In 2023 only traditional food was served — on plantain leaves or in wooden bowls."
+    },
+    {
+      "src": "/images/gallery/mchibe-mta-event-guneku2023/vita.jpeg",
+      "width": 1024, "height": 768,
+      "alt": "A man and a woman in embroidered Meta gowns and caps",
+      "caption": "Traditional dress was required to enter the ground in 2023."
+    },
+    {
+      "src": "/images/gallery/mchibe-mta-event-guneku2023/Untitled.jpeg",
+      "width": 1080, "height": 809,
+      "alt": "A row of notables in embroidered gowns and red caps on the palace grass",
+      "caption": "Notables in Meta regalia at the maiden edition, 2023."
+    },
+    {
+      "src": "/images/gallery/mukonge-dance-groupsin-meta/325856095_709309734185056_4721802824096977527_n.jpg",
+      "width": 600, "height": 400,
+      "alt": "A line of dancers in blue tops and grass skirts bending low in a dance",
+      "caption": "A Mukonge dance group in Meta, from the 2023 Mukonge Dance Groups album."
+    }
+  ],
+  "films": [
+    { "youtubeId": "3NrHXqm1zPc", "title": "Mɨchi Ǝbeŋ at the Guneku Palace" },
+    { "youtubeId": "aAw_1B10vZM", "title": "Mɨchi Ǝbeŋ Festival 2023 — Guneku Palace" },
+    { "youtubeId": "gBro0ZC-JqM", "title": "Mɨchi Ǝbeŋ — festival record" },
+    { "youtubeId": "GtKFg4e6XNQ", "title": "Mɨchi Ǝbeŋ — festival record" }
+  ],
+  "outstanding": [
+    "The date of the physical planning meeting at the Palace (18 October 2026 was proposed; a member asked for it to be moved).",
+    "Committee memberships and chairs.",
+    "Opening hours, the order of the two days, and entry arrangements.",
+    "How Kem dance groups enter, and the competition rules.",
+    "Which proposed activities are adopted."
+  ],
+  "sources": {
+    "planning": "The Michi Ebeng planning committee's own record: the minutes of the first planning meeting, held online on 8 October 2026 and taken by the committee’s secretary, with the corrections circulated on 9 and 10 October 2026. Only the written record was used; the voice messages, images and the attached document in that record were not available and are not reflected here.",
+    "history": "Earlier editions are drawn from the Fondom's own news archive and photograph albums."
+  },
+  "homepageUntil": "2027-04-20"
+}

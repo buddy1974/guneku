@@ -15,6 +15,8 @@ import { ArchiveStrip }   from '@/components/home/ArchiveStrip'
 import { FaqSection }     from '@/components/home/FaqSection'
 import { TalkToPalace }   from '@/components/home/TalkToPalace'
 import { AskPalace }      from '@/components/home/AskPalace'
+import { FestivalFeature, FestivalRibbon } from '@/components/festival/FestivalFeature'
+import { onHomepage, renderedAt } from '@/lib/festival'
 import { UpdateCardMedia } from '@/components/ui/UpdateCardMedia'
 import { allBodies, memberCount, recordedLabel, GOVERNING_BODY, getBody } from '@/lib/community'
 import current            from '@/data/current-notices.json'
@@ -73,6 +75,10 @@ const EXPLORE = [
 
 export default function HomePage() {
   const updates = getAllUpdates().slice(0, 4)
+  /* Read once per render. The page regenerates hourly, which is as fresh as the server
+     side of the countdown needs to be; the browser ticks it from there. */
+  const now = renderedAt()
+  const festival = onHomepage(now)
   const notices = current.notices.slice(0, 5)
 
   const fmt = (d: string | null) =>
@@ -88,6 +94,11 @@ export default function HomePage() {
         name="Guneku Fondom"
         about={PLACE_ID}
       />
+
+      {/* ── 0 · The festival, in the first screen ──
+          A single line above the village's own introduction, so Michi Ebeng 2027 is in view
+          before anyone scrolls; the full feature follows the introduction. */}
+      {festival && <FestivalRibbon />}
 
       {/* ── 1 · Hero ── */}
       <section className="border-b border-[var(--rule)]">
@@ -132,6 +143,11 @@ export default function HomePage() {
           </figure>
         </div>
       </section>
+
+      {/* ── 1b · Michi Ebeng 2027 ──
+          The major cultural event in preparation, given the first full band after the
+          introduction. It steps aside a month after the festival closes (`onHomepage`). */}
+      {festival && <FestivalFeature now={now} />}
 
       {/* ── 2 · Guneku at a glance ── */}
       <AtAGlance />

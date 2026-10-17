@@ -59,6 +59,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
        the footer — which is how it came to be the one public page with no sitemap entry. */
     at('/support', { priority: 0.5 }),
     at('/businesses', { priority: 0.8, changeFrequency: 'weekly' }),
+    /* The festival in preparation. Weekly, because planning updates land on it. */
+    at('/events/michi-ebeng-2027', { priority: 0.9, changeFrequency: 'weekly' }),
     at('/updates', { priority: 0.9, changeFrequency: 'weekly' }),
     at('/gallery'),
     at('/gallery/images'),

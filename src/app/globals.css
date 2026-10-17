@@ -907,3 +907,474 @@
   .biz-hero-cover-plain { aspect-ratio: 32 / 9; min-height: 8rem; }
   @media (max-width: 40rem) { .biz-hero-cover-plain { aspect-ratio: 16 / 7; } }
 }
+
+/* ══════════════════════════════════════════════════════════
+   MICHI EBENG 2027 — the festival's own identity
+   ══════════════════════════════════════════════════════════
+   The one place the site is allowed to be loud, and it borrows
+   its loudness from the cloth rather than from effects: the
+   black ground, oxblood and ochre of Meta embroidered dress,
+   all already in the site's tokens. Display serif set large,
+   tight and bright. No ornament invented to look "cultural" —
+   the photographs carry the culture, and they are real.
+
+   Motion is one slow settle on the hero photograph and the
+   ordinary hover states. Nothing reveals on scroll; content
+   never waits on JavaScript to become visible. */
+
+@layer components {
+  .fest-band, .fest-hero, .fest-sec-dark, .fest-callout {
+    --fest-ink: oklch(0.155 0.014 40);
+    --fest-ink-2: oklch(0.205 0.016 35);
+    --fest-ivory: oklch(0.965 0.010 85);
+    --fest-muted: oklch(0.800 0.012 80);
+    --fest-gold: var(--ochre-bright);
+    --fest-red: oklch(0.560 0.165 28);
+  }
+
+  /* ── Ribbon: the festival in the first screen ── */
+  .fest-ribbon {
+    display: block;
+    background: oklch(0.155 0.014 40);
+    color: oklch(0.965 0.010 85);
+    text-decoration: none;
+    border-bottom: 2px solid var(--ochre);
+  }
+  .fest-ribbon-inner {
+    display: flex; align-items: center; gap: 0.75rem;
+    min-height: 2.75rem; padding-block: 0.45rem;
+    font-family: var(--font-sans); font-size: 0.82rem;
+  }
+  .fest-ribbon-tag {
+    flex-shrink: 0;
+    font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: oklch(0.155 0.014 40); background: var(--ochre-bright);
+    padding: 0.18rem 0.5rem; border-radius: 2px;
+  }
+  .fest-ribbon-text { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .fest-ribbon-text strong { font-weight: 700; color: var(--ochre-bright); }
+  .fest-ribbon-cta {
+    display: inline-flex; align-items: center; gap: 0.3rem; flex-shrink: 0;
+    font-weight: 700; color: var(--ochre-bright);
+  }
+  .fest-ribbon:hover .fest-ribbon-cta { text-decoration: underline; text-underline-offset: 3px; }
+  .fest-ribbon:focus-visible { outline: 3px solid var(--ochre-bright); outline-offset: -3px; }
+  @media (max-width: 47.99rem) {
+    .fest-ribbon-venue, .fest-ribbon-tag { display: none; }
+  }
+
+  /* ── Shared type on dark ── */
+  .fest-eyebrow {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.85rem;
+    font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--fest-muted);
+  }
+  .fest-status {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    color: var(--fest-ink); background: var(--fest-gold);
+    padding: 0.22rem 0.6rem; border-radius: 999px;
+    letter-spacing: 0.06em;
+  }
+  .fest-status::before {
+    content: ''; width: 0.45rem; height: 0.45rem; border-radius: 999px;
+    background: var(--oxblood);
+  }
+  .fest-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2.5rem, 7vw, 4.6rem);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    color: var(--fest-ivory);
+    margin-top: 0.9rem;
+    text-wrap: balance;
+  }
+  .fest-title-xl { font-size: clamp(2.8rem, 9vw, 6rem); }
+  /* Meta orthography is never case-transformed: uppercased, ŋ becomes Ŋ and reads as a D. */
+  .fest-meta-name {
+    text-transform: none; letter-spacing: 0.01em;
+    font-family: var(--font-display); font-style: italic; font-size: 0.95rem; font-weight: 600;
+    color: var(--fest-gold);
+  }
+  .fest-title-year { color: var(--fest-gold); }
+  .fest-facts {
+    margin-top: 1.1rem;
+    display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem;
+  }
+  .fest-facts dd {
+    display: inline-flex; align-items: center; gap: 0.5rem; margin: 0;
+    font-family: var(--font-sans); font-size: clamp(0.88rem, 1.6vw, 1.05rem);
+    font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--fest-ivory);
+  }
+  .fest-facts svg { color: var(--fest-gold); flex-shrink: 0; }
+  .fest-tagline {
+    margin-top: 0.9rem;
+    font-family: var(--font-display); font-style: italic;
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    color: var(--fest-gold);
+  }
+  .fest-lede {
+    margin-top: 0.75rem; max-width: 34rem;
+    font-family: var(--font-sans); font-size: 0.98rem; line-height: 1.62;
+    color: var(--fest-muted);
+  }
+  .fest-small { margin-top: 0.6rem; font-family: var(--font-sans); font-size: 0.76rem; line-height: 1.5; color: var(--ink-600); }
+  .fest-band .fest-small, .fest-hero .fest-small, .fest-sec-dark .fest-small { color: var(--fest-muted); }
+
+  /* ── Countdown ── */
+  .fest-countdown {
+    margin-top: 1.5rem;
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.5rem; max-width: 26rem;
+  }
+  .fest-countdown-unit {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 0.7rem 0.25rem 0.55rem;
+    border: 1px solid oklch(0.965 0.010 85 / 0.16);
+    border-top: 2px solid var(--fest-gold);
+    background: oklch(0.965 0.010 85 / 0.05);
+    border-radius: 3px;
+  }
+  .fest-countdown-num {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(1.6rem, 4.5vw, 2.3rem); line-height: 1;
+    font-variant-numeric: tabular-nums;
+    color: var(--fest-ivory);
+  }
+  .fest-countdown-label {
+    margin-top: 0.35rem;
+    font-family: var(--font-sans); font-size: 0.62rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--fest-muted);
+  }
+  .fest-countdown-state {
+    margin-top: 1.5rem; display: inline-block;
+    font-family: var(--font-sans); font-weight: 700; color: var(--fest-ink);
+    background: var(--fest-gold); padding: 0.5rem 0.9rem; border-radius: 3px;
+  }
+
+  /* ── Buttons ── */
+  .fest-ctas { margin-top: 1.6rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.1rem; }
+  .fest-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    min-height: 2.9rem; padding: 0.7rem 1.2rem;
+    font-family: var(--font-sans); font-size: 0.82rem; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none;
+    border-radius: 3px;
+    transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+  }
+  .fest-btn-primary { background: var(--ochre-bright); color: oklch(0.155 0.014 40); }
+  .fest-btn-primary:hover { background: oklch(0.82 0.13 80); }
+  .fest-btn-onlight { background: oklch(0.155 0.014 40); color: oklch(0.965 0.010 85); }
+  .fest-btn-onlight:hover { background: var(--oxblood); }
+  .fest-btn-ghost { border: 1px solid oklch(0.965 0.010 85 / 0.45); color: var(--fest-ivory); }
+  .fest-btn-ghost:hover { border-color: var(--fest-gold); color: var(--fest-gold); }
+  .fest-btn:focus-visible, .fest-link:focus-visible { outline: 3px solid var(--ochre-bright); outline-offset: 3px; }
+  .fest-link {
+    display: inline-flex; align-items: center; min-height: 1.6rem;
+    font-family: var(--font-sans); font-size: 0.86rem; font-weight: 700;
+    color: var(--fest-gold); text-decoration: none;
+  }
+  .fest-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  /* ── Homepage band ── */
+  .fest-band {
+    background: linear-gradient(180deg, oklch(0.155 0.014 40) 0%, oklch(0.185 0.020 32) 100%);
+    color: var(--fest-ivory);
+    border-top: 3px solid var(--fest-gold);
+    border-bottom: 3px solid var(--oxblood);
+  }
+  .fest-band-inner { padding-block: clamp(2.5rem, 6vw, 4.5rem); }
+  .fest-home-grid { display: grid; gap: 2.25rem; align-items: center; }
+  @media (min-width: 64rem) { .fest-home-grid { grid-template-columns: 1.05fr 1fr; gap: 3.5rem; } }
+
+  .fest-mosaic {
+    margin: 0;
+    display: grid; gap: 0.6rem;
+    grid-template-columns: 1fr 1fr;
+  }
+  .fest-mosaic-lead, .fest-mosaic-side {
+    position: relative; overflow: hidden; border-radius: 3px; background: var(--fest-ink-2);
+  }
+  .fest-mosaic-lead { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
+  .fest-mosaic-side { aspect-ratio: 3 / 2; }
+  .fest-mosaic-caption {
+    grid-column: 1 / -1;
+    font-family: var(--font-sans); font-size: 0.74rem; color: var(--fest-muted);
+  }
+
+  .fest-home-cards {
+    margin-top: clamp(2.25rem, 5vw, 3.25rem);
+    padding-top: clamp(1.75rem, 4vw, 2.5rem);
+    border-top: 1px solid oklch(0.965 0.010 85 / 0.14);
+    display: grid; gap: 1rem;
+  }
+  @media (min-width: 48rem) { .fest-home-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .fest-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    padding: 1.2rem 1.2rem 1.1rem;
+    background: oklch(0.965 0.010 85 / 0.045);
+    border: 1px solid oklch(0.965 0.010 85 / 0.13);
+    border-radius: 3px;
+  }
+  .fest-card-tag {
+    font-family: var(--font-sans); font-size: 0.66rem; font-weight: 700;
+    letter-spacing: 0.09em; text-transform: uppercase; color: var(--ochre-bright);
+  }
+  .fest-card-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: oklch(0.965 0.010 85); }
+  .fest-card-body { font-family: var(--font-sans); font-size: 0.9rem; line-height: 1.58; color: oklch(0.800 0.012 80); }
+  .fest-card-light { background: #fff; border-color: var(--rule); }
+  .fest-card-light .fest-card-tag { color: var(--oxblood); }
+  .fest-card-light .fest-card-body { color: var(--ink-600); }
+
+  .fest-mini-list { list-style: none; margin: 0.25rem 0 0.5rem; padding: 0; display: grid; gap: 0.45rem; }
+  .fest-mini-list li {
+    display: flex; align-items: baseline; gap: 0.5rem;
+    font-family: var(--font-sans); font-size: 0.88rem; color: oklch(0.965 0.010 85);
+  }
+  .fest-label {
+    flex-shrink: 0;
+    display: inline-block;
+    font-family: var(--font-sans); font-size: 0.6rem; font-weight: 800;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.14rem 0.4rem; border-radius: 2px;
+    border: 1px solid currentColor;
+  }
+  .fest-label-agreed { color: oklch(0.80 0.12 150); }
+  .fest-label-proposed { color: var(--ochre-bright); border-style: dashed; }
+
+  .fest-update-list { list-style: none; margin: 0.25rem 0 0.5rem; padding: 0; display: grid; gap: 0.75rem; }
+  .fest-update-list time { display: block; font-family: var(--font-sans); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: oklch(0.800 0.012 80); }
+  .fest-update-list a { font-family: var(--font-display); font-size: 1rem; font-weight: 600; line-height: 1.35; color: oklch(0.965 0.010 85); text-decoration: none; }
+  .fest-update-list a:hover { color: var(--ochre-bright); text-decoration: underline; text-underline-offset: 3px; }
+
+  /* ── Festival page ── */
+  .fest-page { background: var(--paper); }
+  .fest-hero {
+    position: relative; isolation: isolate; overflow: hidden;
+    background: var(--fest-ink); color: var(--fest-ivory);
+    min-height: clamp(36rem, 92vh, 50rem);
+    display: flex; align-items: flex-end;
+  }
+  .fest-hero-media { position: absolute; inset: 0; z-index: -2; }
+  .fest-hero-media img { animation: fest-settle 18s ease-out both; }
+  .fest-hero::before {
+    content: ''; position: absolute; inset: 0; z-index: -1;
+    background:
+      linear-gradient(90deg, oklch(0.155 0.014 40 / 0.90) 0%, oklch(0.155 0.014 40 / 0.62) 42%, oklch(0.155 0.014 40 / 0.08) 100%),
+      linear-gradient(0deg, oklch(0.155 0.014 40 / 0.80) 0%, transparent 40%);
+  }
+  @media (max-width: 47.99rem) {
+    .fest-hero::before {
+      background: linear-gradient(0deg, oklch(0.155 0.014 40 / 0.97) 0%, oklch(0.155 0.014 40 / 0.85) 60%, oklch(0.155 0.014 40 / 0.45) 100%);
+    }
+  }
+  @keyframes fest-settle { from { transform: scale(1.07); } to { transform: scale(1); } }
+  .fest-hero-inner { padding-block: clamp(5.5rem, 12vw, 7rem) clamp(2.25rem, 5vw, 3.5rem); }
+  .fest-crumbs {
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+    margin-bottom: 1.4rem;
+    font-family: var(--font-sans); font-size: 0.76rem; color: var(--fest-muted);
+  }
+  .fest-crumbs a { color: var(--fest-muted); text-decoration: none; padding-block: 0.3rem; }
+  .fest-crumbs a:hover { color: var(--fest-gold); text-decoration: underline; }
+  .fest-crumbs [aria-current] { color: var(--fest-ivory); padding-block: 0.3rem; }
+  .fest-hero-credit { margin-top: 1.8rem; font-family: var(--font-sans); font-size: 0.72rem; color: var(--fest-muted); }
+
+  /* Not sticky: the site header is already fixed to the top, and a second bar stuck under
+     it would sit at a different offset on every breakpoint. */
+  .fest-toc {
+    background: #fff;
+    border-bottom: 1px solid var(--rule);
+  }
+  .fest-toc ul {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; gap: 0.25rem; overflow-x: auto; scrollbar-width: none;
+  }
+  .fest-toc ul::-webkit-scrollbar { display: none; }
+  .fest-toc a {
+    display: inline-flex; align-items: center; min-height: 2.9rem; padding-inline: 0.7rem;
+    font-family: var(--font-sans); font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.04em; white-space: nowrap;
+    color: var(--ink-600); text-decoration: none;
+    border-bottom: 2px solid transparent;
+  }
+  .fest-toc a:hover { color: var(--oxblood); border-bottom-color: var(--ochre); }
+  .fest-toc a:focus-visible { outline: 3px solid var(--ochre); outline-offset: -3px; }
+
+  .fest-status-note {
+    margin-top: 1.75rem;
+    padding: 0.9rem 1.1rem;
+    border-left: 3px solid var(--ochre);
+    background: #fff;
+    font-family: var(--font-sans); font-size: 0.9rem; line-height: 1.55; color: var(--ink-600);
+  }
+  .fest-status-note strong { color: var(--ink-900); }
+
+  .fest-sec { padding-block: clamp(2.75rem, 6vw, 4.5rem); scroll-margin-top: 5rem; }
+  .fest-sec-alt { background: var(--paper-alt); border-block: 1px solid var(--rule); }
+  .fest-sec-dark { background: var(--fest-ink); color: var(--fest-ivory); }
+  .fest-two { display: grid; gap: 1.5rem 3rem; }
+  @media (min-width: 64rem) { .fest-two { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.5fr); } }
+
+  .fest-sec-head { max-width: 40rem; }
+  .fest-sec-eyebrow {
+    font-family: var(--font-sans); font-size: 0.7rem; font-weight: 800;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--oxblood);
+  }
+  .fest-sec-dark .fest-sec-eyebrow { color: var(--fest-gold); }
+  .fest-sec-title {
+    margin-top: 0.4rem;
+    font-family: var(--font-display); font-weight: 800;
+    font-size: clamp(1.75rem, 3.6vw, 2.6rem); line-height: 1.08; letter-spacing: -0.015em;
+    color: var(--ink-900);
+  }
+  .fest-sec-dark .fest-sec-title { color: var(--fest-ivory); }
+  .fest-sec-intro { margin-top: 0.75rem; font-family: var(--font-sans); font-size: 0.98rem; line-height: 1.6; color: var(--ink-600); }
+
+  .fest-prose { font-family: var(--font-sans); font-size: 1rem; line-height: 1.7; color: var(--ink-600); display: grid; gap: 0.9rem; max-width: 42rem; }
+  .fest-prose strong { color: var(--ink-900); }
+  .fest-prose-dark { color: var(--fest-muted); margin-top: 1.1rem; }
+  .fest-inline { color: var(--oxblood); font-weight: 700; text-decoration: none; padding-block: 0.3rem; }
+  .fest-inline:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .fest-bullets { margin: 0; padding-left: 1.1rem; list-style: disc; display: grid; gap: 0.45rem; font-family: var(--font-sans); font-size: 0.95rem; line-height: 1.55; color: var(--ink-600); }
+  .fest-bullets li::marker { color: var(--ochre-deep); }
+  .fest-sub { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--ink-900); margin-bottom: 0.25rem; }
+
+  /* Programme */
+  .fest-prog { margin-top: 2rem; display: grid; gap: 2rem; }
+  @media (min-width: 48rem) { .fest-prog { grid-template-columns: 1fr 1fr; } }
+  .fest-prog-head {
+    display: flex; align-items: center; gap: 0.45rem;
+    padding-bottom: 0.6rem; border-bottom: 2px solid var(--ink-900);
+    font-family: var(--font-sans); font-size: 0.78rem; font-weight: 800;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-900);
+  }
+  .fest-prog-list { list-style: none; margin: 0; padding: 0; }
+  .fest-prog-item { padding: 1rem 0; border-bottom: 1px solid var(--rule); }
+  .fest-prog-item .fest-label-agreed, .fest-prog-agreed .fest-label-agreed { color: var(--royal-green); }
+  .fest-prog-item .fest-label-proposed { color: var(--ochre-deep); }
+  .fest-prog-title { margin-top: 0.45rem; font-family: var(--font-display); font-size: 1.08rem; font-weight: 700; color: var(--ink-900); }
+  .fest-prog-detail { margin-top: 0.25rem; font-family: var(--font-sans); font-size: 0.9rem; line-height: 1.55; color: var(--ink-600); }
+  .fest-source { margin-top: 1rem; font-family: var(--font-sans); font-size: 0.78rem; line-height: 1.55; color: var(--ink-400); }
+
+  /* Kem */
+  .fest-kem { display: grid; gap: 2rem; align-items: start; }
+  @media (min-width: 64rem) { .fest-kem { grid-template-columns: 1fr 1fr; gap: 3.5rem; } }
+  .fest-kem .biz-video { border: 1px solid oklch(0.965 0.010 85 / 0.15); }
+  .fest-kem > div > .grid { margin-top: 0; grid-template-columns: 1fr; }
+
+  /* History */
+  .fest-timeline { list-style: none; margin: 2rem 0 0; padding: 0; position: relative; }
+  .fest-timeline::before {
+    content: ''; position: absolute; top: 0.5rem; bottom: 0.5rem; left: 0.3rem;
+    width: 2px; background: linear-gradient(var(--ochre), var(--oxblood));
+  }
+  .fest-timeline-item { position: relative; display: grid; gap: 0.35rem 2rem; padding: 0 0 1.75rem 1.75rem; }
+  .fest-timeline-item::before {
+    content: ''; position: absolute; left: 0; top: 0.35rem;
+    width: 0.75rem; height: 0.75rem; border-radius: 999px;
+    background: var(--paper); border: 2px solid var(--oxblood);
+  }
+  .fest-timeline-item:last-child::before { background: var(--ochre); border-color: var(--ochre-deep); }
+  @media (min-width: 48rem) { .fest-timeline-item { grid-template-columns: 10rem 1fr; } }
+  .fest-timeline-when { font-family: var(--font-sans); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--oxblood); padding-top: 0.15rem; }
+  .fest-timeline-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: var(--ink-900); }
+  .fest-timeline-where { font-family: var(--font-sans); font-size: 0.8rem; font-weight: 600; color: var(--ink-400); }
+  .fest-timeline-body { margin-top: 0.35rem; font-family: var(--font-sans); font-size: 0.93rem; line-height: 1.6; color: var(--ink-600); max-width: 44rem; }
+  .fest-timeline-links { margin-top: 0.4rem; display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; font-family: var(--font-sans); font-size: 0.86rem; }
+
+  .fest-archive-list, .fest-news { list-style: none; margin: 0.75rem 0 0; padding: 0; }
+  .fest-archive-list li { display: grid; gap: 0.15rem 1.25rem; padding: 0.7rem 0; border-top: 1px solid var(--rule); }
+  @media (min-width: 40rem) { .fest-archive-list li { grid-template-columns: 7.5rem 1fr; } }
+  .fest-archive-list time, .fest-news time, .fest-steps time {
+    font-family: var(--font-sans); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--ink-400);
+  }
+  .fest-archive-list a { font-family: var(--font-display); font-weight: 600; color: var(--ink-900); text-decoration: none; padding-block: 0.2rem; }
+  .fest-archive-list a:hover { color: var(--oxblood); text-decoration: underline; }
+
+  /* Planning */
+  .fest-committees {
+    list-style: none; margin: 2rem 0 0; padding: 0;
+    display: grid; gap: 0.75rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+  }
+  .fest-committees li {
+    display: grid; grid-template-columns: auto 1fr; gap: 0.15rem 0.85rem; align-items: baseline;
+    padding: 1rem 1.1rem; background: #fff; border: 1px solid var(--rule); border-top: 3px solid var(--oxblood);
+    border-radius: 3px;
+  }
+  .fest-committee-num { font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; color: var(--ochre-deep); line-height: 1; }
+  .fest-committee-name { font-family: var(--font-display); font-size: 1.02rem; font-weight: 700; color: var(--ink-900); }
+  .fest-committee-detail { grid-column: 2; font-family: var(--font-sans); font-size: 0.8rem; line-height: 1.45; color: var(--ink-600); }
+  .fest-names { list-style: none; margin: 0.5rem 0 0; padding: 0; display: grid; gap: 0.3rem; font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: var(--ink-900); }
+
+  /* Updates */
+  .fest-news li + li { border-top: 1px solid var(--rule); }
+  .fest-news-link { display: grid; gap: 0.3rem; padding: 1rem 0; text-decoration: none; }
+  .fest-news-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; line-height: 1.3; color: var(--ink-900); }
+  .fest-news-link:hover .fest-news-title { color: var(--oxblood); text-decoration: underline; text-underline-offset: 3px; }
+  .fest-news-excerpt { font-family: var(--font-sans); font-size: 0.92rem; line-height: 1.55; color: var(--ink-600); }
+  .fest-steps { list-style: none; margin: 0.75rem 0 0; padding: 0; border-left: 2px solid var(--rule); }
+  .fest-steps li { position: relative; padding: 0 0 1.1rem 1.2rem; }
+  .fest-steps li::before { content: ''; position: absolute; left: -0.36rem; top: 0.3rem; width: 0.6rem; height: 0.6rem; border-radius: 999px; background: var(--ochre); }
+  .fest-steps-title { margin-top: 0.15rem; font-family: var(--font-display); font-weight: 700; color: var(--ink-900); }
+  .fest-steps-detail { font-family: var(--font-sans); font-size: 0.88rem; line-height: 1.55; color: var(--ink-600); }
+
+  /* Gallery: an even grid; portraits span two rows so they are not cropped to slivers. */
+  .fest-gallery {
+    list-style: none; margin: 2rem 0 0; padding: 0;
+    display: grid; gap: 0.9rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+    grid-auto-flow: dense;
+  }
+  .fest-gallery figure { margin: 0; height: 100%; display: flex; flex-direction: column; }
+  .fest-gallery-frame { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 3px; background: var(--stone); }
+  .fest-gallery-tall .fest-gallery-frame { aspect-ratio: 3 / 4; }
+  @media (min-width: 40rem) {
+    .fest-gallery-tall { grid-row: span 2; }
+    .fest-gallery-tall .fest-gallery-frame { aspect-ratio: auto; flex: 1; min-height: 20rem; }
+  }
+  .fest-gallery figcaption { margin-top: 0.45rem; font-family: var(--font-sans); font-size: 0.78rem; line-height: 1.45; color: var(--ink-600); }
+
+  /* Location, participation, FAQ */
+  .fest-venue-name { font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; color: var(--ink-900); }
+  .fest-venue-place { margin-top: 0.2rem; font-family: var(--font-sans); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--oxblood); }
+  .fest-part { margin-top: 2rem; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); }
+  .fest-faq details { border-top: 1px solid var(--rule); }
+  .fest-faq details:last-child { border-bottom: 1px solid var(--rule); }
+  .fest-faq summary {
+    cursor: pointer; list-style: none;
+    display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    min-height: 3rem; padding: 0.75rem 0;
+    font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: var(--ink-900);
+  }
+  .fest-faq summary::-webkit-details-marker { display: none; }
+  .fest-faq summary::after { content: '+'; font-family: var(--font-sans); font-size: 1.3rem; color: var(--oxblood); }
+  .fest-faq details[open] summary::after { content: '\2212'; }
+  .fest-faq summary:focus-visible { outline: 3px solid var(--ochre); outline-offset: 2px; }
+  .fest-faq details p { padding: 0 0 1rem; font-family: var(--font-sans); font-size: 0.95rem; line-height: 1.6; color: var(--ink-600); max-width: 42rem; }
+
+  .fest-sources { padding-block: 2rem 3rem; border-top: 1px solid var(--rule); }
+  .fest-small-dark { margin-top: 0.5rem; max-width: 52rem; font-family: var(--font-sans); font-size: 0.8rem; line-height: 1.55; color: var(--ink-600); }
+
+  /* Callout on update and institution pages */
+  .fest-callout {
+    margin-top: 2.5rem; padding: 1.2rem 1.3rem;
+    background: oklch(0.155 0.014 40); color: oklch(0.965 0.010 85);
+    border-left: 4px solid var(--ochre-bright); border-radius: 3px;
+  }
+  .fest-callout .inst-tag { color: var(--ochre-bright); }
+  .fest-callout-title { margin-top: 0.35rem; font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fest-hero-media img { animation: none; }
+    .fest-btn { transition: none; }
+  }
+}
+
+/* Outside the layers on purpose: the Kem film reuses the business video grid, whose
+   two-column utility class outranks anything in @layer components. One film, full width. */
+.fest-kem > div > .grid { grid-template-columns: minmax(0, 1fr); margin-top: 0; }

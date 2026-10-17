@@ -9,6 +9,7 @@ import { SITE_URL, SITE_NAME } from '@/lib/seo'
 import { PageGraph } from '@/components/seo/PageGraph'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import { FESTIVAL_ID, FESTIVAL_PATH } from '@/lib/festival'
 
 export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> }
@@ -131,6 +132,18 @@ export default async function UpdatePage({
         )}
 
         <ArticleBody body={update.body} />
+
+        {/* A planning update belongs to a festival that has its own page. The update is the
+            dated record; the page is where the festival is followed. */}
+        {(update as { campaign?: string }).campaign === FESTIVAL_ID && (
+          <aside className="fest-callout">
+            <p className="inst-tag">Follow the festival</p>
+            <p className="fest-callout-title">Michi Ebeng 2027 · 19–20 March 2027 · Mile 4, Limbe</p>
+            <Link href={FESTIVAL_PATH} className="inst-btn inst-btn-primary mt-3">
+              Explore Michi Ebeng 2027
+            </Link>
+          </aside>
+        )}
 
         <div style={{ marginTop:'4rem', paddingTop:'2rem',
                       borderTop:'1px solid oklch(0.878 0.010 90)' }}>

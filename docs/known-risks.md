@@ -1694,3 +1694,27 @@ should not be taken in one commit by whoever happens to be holding the file.
    affordable, and it makes both the record and the picture better.
 
 Doing (2) makes (1) unnecessary for those nineteen and still leaves 285 to correct.
+
+## R-071 - Michi Ebeng 2027: what the published page does not yet know
+
+Open, 2026-10-17. Each item is handled on the page by saying it is not known, never by
+filling it in. Owner: the Palace and the planning committee.
+
+- **The third edition's date and venue.** The minutes list three editions (Mukonge, Kem,
+  Mukonge) without dates. The GUDECA Europe record says Michi Ebeng was celebrated in Guneku
+  village on 28 March 2026. On 19 September 2026 a member wrote, in reply to a message that
+  was then deleted, that something "did not take place due to the internal wranglings in
+  Metaland". What that refers to cannot be told from the export, so it is not used — but it
+  may contradict the 2026 record, and the Palace should confirm.
+- **2024 date.** 23 March 2024 (article text) vs April 2024 (headline) — still unconfirmed.
+- **Kem / Kwem / Nkwem.** Treated as one dance on the strength of the minutes ("second year,
+  Kem dance") matching the 2024 record ("Kwem Dance Groups"). Confirm the preferred spelling.
+- **Unreviewed attachments.** Voice messages, images, video and `Dokument 1.pdf` in the
+  committee's record were not in the export. They may hold programme detail not reflected.
+- **The Fon's date.** On 19 September the Fon gave "20.03.27"; the meeting later set 19–20
+  March. The page follows the meeting.
+- **Physical meeting at the Palace.** 18 October 2026 was proposed and a change was requested;
+  no final date is recorded.
+- **Names.** The terms-of-reference names are published as corrected. The flashback speaker
+  appears as "Mr Morise", "Moris Forkam" and "Tagyen Maurice Fokop" across the record, so the
+  planning update does not name him for that role.

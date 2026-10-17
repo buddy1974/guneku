@@ -40,7 +40,7 @@ export async function generateStaticParams() {
 /* Keys handled explicitly, or deliberately not shown. */
 const SKIP = new Set([
   'id', 'type', 'name', 'description', 'route',
-  'relatedUpdates', 'relatedRoutes', 'albums', 'sourceNote', 'sourceType',
+  'relatedUpdates', 'relatedRoutes', 'albums', 'sourceNote', 'sourceType', 'currentEdition',
 ])
 
 const LABELS: Record<string, string> = {
@@ -136,6 +136,23 @@ export default async function InstitutionPage({
           {typeof inst.description === 'string' && (
             <p className="text-foreground/90 leading-relaxed">{String(inst.description)}</p>
           )}
+
+          {/* An institution with an edition in preparation points at it first: a reader who
+              arrives at the festival's record in October 2026 is looking for March 2027. */}
+          {(() => {
+            const ce = inst.currentEdition as
+              { title: string; dates: string; venue: string; status: string; href: string } | undefined
+            if (!ce) return null
+            return (
+              <div className="fest-callout mt-8">
+                <p className="inst-tag">{ce.status}</p>
+                <p className="fest-callout-title">{ce.title} · {ce.dates} · {ce.venue}</p>
+                <Link href={ce.href} className="inst-btn inst-btn-primary mt-3">
+                  Explore {ce.title}
+                </Link>
+              </div>
+            )
+          })()}
 
           {/* Where the people behind an institution are in the register, the way in
               belongs on the institution's own page — not three clicks away. */}

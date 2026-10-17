@@ -3395,3 +3395,83 @@ they must never be published.
 - `/businesses/vicky-and-sons` (held) 404, absent from the directory and the sitemap.
 - Not touched: business creation/editing, ownership, eligibility, visibility rules, URLs, SEO
   metadata, Clerk, DNS, Resend, IndexNow, Wikipedia.
+
+## 2026-10-17 — Michi Ebeng 2027: the festival campaign
+
+The homepage leads with Michi Ebeng 2027, and the festival has its own page at
+`/events/michi-ebeng-2027`. ADR-100; open questions in R-071.
+
+### Source extraction
+
+From the planning committee's WhatsApp export (`chat.txt` and `chat.md` are the same
+conversation and were counted once). Only the written record was used. Its voice messages,
+images, video and `Dokument 1.pdf` were not in the export and are not reflected anywhere.
+No telephone number from the export is published.
+
+- **Agreed (minutes of 8 October 2026):** 19–20 March 2027 at the Handicraft Centre, Mile 4,
+  Limbe; the Kem dance as the competition, with room on day one for other dances and
+  animation; nine committees; the organising committee to obtain the permit; the cultural
+  committee to call on the area's traditional authority.
+- **Corrections (9–10 October):** the terms-of-reference names (Tah Eric Teke, Moris Forkam,
+  Ni Samba Jonathan, Regent Mbakwa Bernard, Ngamfon Fah Elvis Tayong); the proposals are
+  attributed to GUDECA Vice President Ticha Elias Mbekwa, not to the member the draft named;
+  in the South West the authority is a chief, not a Fon.
+- **Proposed, not adopted:** Mister and Miss Michi Ebeng; traditional dishes for sale by
+  registered members; a fifteen-minute Meta marriage sketch; a documentary on giant screens;
+  SAWA participation; a traditional wear competition; an inter-village tug of war.
+- **Why Limbe:** Palace renovations; no Meta village offered to host; some dance groups came
+  from Buea and Limbe.
+
+### Added
+
+- `src/data/events/michi-ebeng-2027.json` — the festival record: facts, agreed vs proposed,
+  committees, timeline, participation, FAQ, gallery (with captions), films, outstanding items.
+- `src/lib/festival.ts`, `src/lib/festival-time.ts` — accessors; the countdown in Cameroon
+  time (UTC+1, no DST), opening at 23:00 UTC on 18 March; the homepage gives the space back
+  from 20 April 2027.
+- `src/data/updates/michi-ebeng-2027-planning-begins.json` — the planning news, as an ordinary
+  update in the Village Square, tagged `"campaign": "michi-ebeng-2027"`. Further announcements
+  are new update records with the same tag; nothing else changes.
+- `src/app/events/michi-ebeng-2027/page.tsx` — hero with countdown; about; the 2027
+  celebration; programme (agreed / proposed); Kem dance with the approved Buea Nkwem film;
+  history timeline, approved festival films, archive articles; planning and committees;
+  dated updates and planning timeline; gallery; location (no address, no map pin); taking
+  part (no tickets, registration or payment); FAQ; sources. `Event` JSON-LD: `EventScheduled`,
+  offline, Place in Limbe, no `offers`, no `performer`.
+- `src/components/festival/` — `FestivalFeature` (homepage band), `FestivalRibbon` (one line
+  above the homepage hero), `FestivalCountdown` (client; ticks on the second; one
+  accessible label, not a live region).
+- `src/lib/festival.test.ts` — dates, venue, committees, corrected names, agreed/proposed
+  separation, no phone/price/account/coordinates, schema without offers, every picture a real
+  file at its real size and captioned as 2023, films approved, countdown in Cameroon time,
+  sitemap/search/menu/homepage integration.
+
+### Changed
+
+- Homepage: ribbon above the hero; the festival band directly after the introduction. Every
+  existing section is unchanged and follows.
+- Menu: *The Fondom → Michi Ebeng 2027*. Sitemap (0.9, weekly). Search: a page entry.
+- `/institutions/michi-ebeng-festival`: a callout to the 2027 page; the third edition (from the
+  minutes, date not given) and the 2027 edition added to `editions`; the planning update
+  added to `relatedUpdates`.
+- `/updates/[slug]`: a planning update shows a "Follow the festival" callout.
+
+### Pictures
+
+Nine photographs, all from the Fondom's own albums of the maiden edition (Guneku Palace,
+April 2023) and the 2023 Mukonge album; every caption says so, and none is described as 2027.
+No Kem photograph exists in the archive, so the Kem section uses the approved film
+*The Nkwem group of Buea at the Palace*. Two album records carry wrong dimensions
+(`BARAKWE.jpg` and the Mukonge photograph are 600×400 on disk, recorded as 720×480 and
+960×640); the festival record uses the real ones.
+
+### Verified
+
+- `tsc` clean; 58 test files / 1,333 tests pass; build passes; lint clean on every changed
+  file (the updates page keeps its 24 pre-existing `any` errors, none added).
+- Existing invariants caught and fixed: a `setInterval` (R-039 rule) replaced by a
+  second-aligned `setTimeout`; a literal photograph count replaced by a computed one; literal
+  paths where the canonical and orphan-page invariants read source.
+- 4 pages × 7 widths (320–1440): no overflow, no broken image, no clipped CTA, countdown
+  digits fit, one `h1`. 25 internal links on the festival page answer 200.
+- Rendered JSON-LD, canonical, Open Graph and title checked in the served HTML.

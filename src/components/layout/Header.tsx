@@ -30,6 +30,9 @@ const NAV: Item[] = [
          so they belong here. */
       { href: '/quarters', label: 'The 27 quarters' },
       { href: '/explore',  label: 'Map of Guneku'   },
+      /* The Fondom's festival, for as long as an edition is in preparation. Culture is the
+         Fondom's subject, so it sits here rather than as a tab of its own. */
+      { href: '/events/michi-ebeng-2027', label: 'Michi Ebeng 2027' },
     ],
   },
   {
