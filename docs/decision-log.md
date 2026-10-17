@@ -2247,12 +2247,19 @@ no index page; nothing links to `/events` alone.
 
 ## ADR-101 - Reporting crime in the village: victims protected, suspects untried
 
+**Status: PROPOSED — awaiting Marcel's approval (revised 2026-10-17).** First written as a
+decision; the owner asked that no permanent editorial restriction be imposed without his
+approval. Until he decides, the points below describe how the one existing record
+(`/updates/palace-investigation-attack-on-family-october-2026`) was handled, not a rule for
+future records, and no test enforces them as policy. The tests on that record check its
+accuracy — dates, sources, the stated legal position — not these editorial choices.
+
 **Context.** The October 2026 Palace investigation is the first crime record on the site,
 and it concerns an alleged attack on children. The community sources are legitimate news,
 but their pictures show the suspects' faces and their captions carry detail that could
 identify the family.
 
-**Decision.**
+**Proposed approach** (for approval):
 
 1. A crime record names nobody — neither victim nor suspect — and shows no photograph of
    either. It links the original source rather than reproducing it.
@@ -2267,3 +2274,7 @@ identify the family.
 
 **Consequences.** The records are less vivid than their sources, deliberately. A later court
 outcome is a new dated paragraph in the same record, not a new record.
+
+**For the owner to decide:** whether to adopt these as standing rules; whether the
+mother's disability (in the source caption, omitted here) should be stated; whether a link to
+the documentary, which shows the suspects' faces, should remain.

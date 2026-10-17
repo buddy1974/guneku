@@ -23,23 +23,47 @@ describe('the Palace investigation record', () => {
     expect(getAllUpdates().filter(x => x.slug === u.slug)).toHaveLength(1)
   })
 
-  it('shows no picture and no identifying detail of the victims', () => {
-    expect(u.featuredImage).toBeNull()
-    expect(u.images).toEqual([])
-    expect(raw).not.toMatch(/<img/i)
-    /* The mother's disability is in the source caption; in a village it identifies the house. */
-    expect(raw).not.toMatch(/blind/i)
-  })
-
+  /* Accuracy, not editorial policy. How crime is presented — images, which details — is
+     ADR-101, which is a proposal awaiting the owner's decision and is not enforced here. */
   it('treats the suspects as untried', () => {
     expect(u.body).toMatch(/not a court judgment/)
     expect(u.body).toMatch(/No charge, trial or verdict has been reported/)
+  })
+
+  it('separates what is corroborated from what is single-source or alleged', () => {
+    expect(u.body).toMatch(/Confirmed by more than one source:/)
+    expect(u.body).toMatch(/Reported by a single source:<\/strong>[^<]*120,000 FCFA/)
+    expect(u.body).toMatch(/An allegation, with no court finding:/)
+    expect(u.body).toMatch(/published on 5 October 2026/)
+  })
+
+  it('does not repeat the unconfirmed claim about where the suspects came from', () => {
+    expect(u.body).not.toMatch(/Nyen|Njinedeh/)
   })
 
   it('links the documentary and credits both sources', () => {
     expect(u.body).toContain('https://www.facebook.com/reel/2303868100018359/')
     expect(u.body).toContain('Mbengwi Info Newsline')
     expect(raw).not.toMatch(/wa\.me|\+237|\b6\d{2}[ ]?\d{3}[ ]?\d{3}\b/)
+  })
+})
+
+describe('section 7 — other community developments', () => {
+  it('records the council budget without inventing what was done for Guneku schools', () => {
+    const u = getUpdate('mbengwi-council-2026-budget-guneku-schools')!
+    expect(u.publishedAt?.slice(0, 10)).toBe('2026-09-24')
+    expect(u.body).toContain('907,250,000 FCFA')
+    expect(u.body).toMatch(/schools in Guneku/)
+    expect(u.body).toMatch(/What is not yet established/)
+    expect(u.body).toContain('https://www.facebook.com/watch/?v=2261127488019039')
+    /* Munam is a Guneku quarter, but the source does not say it means that Munam. */
+    expect(u.body).toMatch(/no Guneku bridge project is recorded here/)
+  })
+
+  it('adds a source to the MEFU–MECUDA record rather than a second record of it', () => {
+    const mefu = getAllUpdates().filter(x => /mefu-mecuda-joint/i.test(x.slug))
+    expect(mefu.map(x => x.slug)).toEqual(['mefu-mecuda-joint-meeting-guneku-palace'])
+    expect(mefu[0].body).toContain('https://www.facebook.com/watch/?v=4383072861957851')
   })
 })
 

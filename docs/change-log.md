@@ -3536,3 +3536,52 @@ Open Graph and NewsArticle JSON-LD from the existing template. Each links its or
   build passes; lint clean on every changed file.
 - 9 pages × 7 widths (320–1440): no overflow, no broken image. 66 internal links answer 200.
 - The four records are in the sitemap and the Village Square, with canonical, OG and JSON-LD.
+
+## 2026-10-17 (later) — Intelligence merge, section 7, from the report itself
+
+The report `guneku-intel-refresh-2026-10-17.md` was supplied (Downloads) and compared with
+commit `48c77ab`. Its Michi Ebeng findings were left to the separate festival work (listed
+in R-072 for hand-off); no festival file was touched.
+
+### Added
+
+- `/updates/mbengwi-council-2026-budget-guneku-schools` — the Mbengwi Municipal Council's
+  approved 2026 budget, 907,250,000 FCFA, and "schools in Guneku" among the projects its 2026
+  mid-term budget session discussed. Source: Fondom Studios documentary, 24 September 2026
+  (caption, on-screen titles, author comment; the 14-minute audio not transcribed). States
+  plainly that which schools, what was asked and what was done are not established. "A
+  bridge in Munam" is noted but not claimed for Guneku's Munam quarter.
+- `current-notices.json` — a notice for that record.
+
+### Changed
+
+- `/updates/palace-investigation-attack-on-family-october-2026` — documentary publication
+  date (5 October 2026, 21:20 UTC, read from the watch page); the gendarmerie collection seen
+  in the documentary's closing footage; community leaders' call for vigilance and against
+  vigilante justice; a "What is confirmed, and what is only reported" section (corroborated:
+  Palace questioning, handover; single source: 120,000 FCFA, items recovered; allegation:
+  sexual assault; unknown: attack date, outcome). The unconfirmed report of where the
+  suspects came from is deliberately not repeated.
+- `/updates/mefu-mecuda-joint-meeting-guneku-palace` — Fondom Studios' 31 August 2026 video
+  linked as a source. No new coverage of the meeting or the anti-drug resolution.
+- **ADR-101 is now PROPOSED**, not decided, at the owner's request. Two test assertions that
+  enforced its editorial choices (no images; the omitted detail) were removed; the record's
+  tests now check accuracy only.
+
+### Reviewed and not published
+
+| Report item | Why not |
+|---|---|
+| 11 Oct anti-drug reel | Meta-wide reminder at a meeting in Mbengwi; repeats the resolution already covered |
+| Funeral of Mr. Tasang John Tabid | Family consent required; no obituary section |
+| Cement-block production advert | Informal WhatsApp advert; no owner information for a business record |
+| Schools reopening on their campuses | Informal WhatsApp remark; unverified |
+| Newsline feature on the Guneku Palace | Opinion piece, no link in the report; optional media mention |
+| "Chup enclaved in Guneku" | Disputed geography — not published |
+| Suspects "from Nyen" | Unconfirmed; risk to inter-village relations |
+| MEDA AGM, Chaa Bridge, regional training, village-creation politics | Meta-wide or out of scope |
+| Fondom Studios art-crafting department | Single 2025 mention on the festival page; not re-verified |
+
+### Verified
+
+- `tsc` clean; 59 files / 1,350 tests pass; build passes; lint clean on changed files.

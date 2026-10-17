@@ -1721,21 +1721,40 @@ filling it in. Owner: the Palace and the planning committee.
 
 ## R-072 - October 2026 intelligence merge: what is still open
 
-Open, 2026-10-17.
+Open, 2026-10-17; revised the same day once the report was supplied.
 
-- **The intelligence report itself was not available.** `guneku-intel-refresh-2026-10-17.md`
-  is not on this machine. Its "other findings" — Mbengwi Council school infrastructure, new
-  community enterprises, further media coverage, project updates, stale institutional
-  content — were not reviewed and nothing was added for them. Supply the file to finish.
+- ~~The intelligence report was not available.~~ Supplied and merged (section 7). Resolved.
+- ~~Documentary publication date.~~ 5 October 2026, 21:20 UTC, from the watch page. Resolved.
 - **Palace case outcome.** No charge, trial or verdict reported to 17 October. The
-  documentary's video content (as opposed to its caption) was not transcribed; what items
-  were recovered is not specified on the site.
-- **Documentary publication date.** Facebook does not show it on the reel; the record is
-  dated by the questioning (2 October).
+  documentary's audio — statements, what was recovered — has not been reviewed by anyone.
+- **ADR-101** is a proposal awaiting the owner: whether its points become standing rules,
+  whether the omitted detail (the mother's disability) should be stated, and whether the
+  link to the documentary, which shows the suspects' faces, should remain.
+- **Agro CIG order line.** The report advised checking with the Delegate (Fah Elvis Tayong)
+  before publishing 673 536 278. It is published, as the CIG's own public advert; confirm.
+- **Scholarship examination.** Whether it was held on 19 September, and any result. The site
+  says the date has passed and no result is published; it does not say "held".
+- **Mbengwi Council budget.** Which Guneku schools, and what was done, is in the untranscribed
+  14-minute documentary.
 - **Fun Quarter date** — 5 or 6 October; **Quarter Head identity** — "Nji Calvin" (report) vs
   "Fodom Calvin" (register). Confirm with the Palace.
 - **School name** — MEDPHISATG / Medphisatag / Medvisac. Confirm the official form.
-- **Fondom Studios contacts** — publicly advertised numbers and email held until the owner
-  elects to publish them in the directory.
-- **Agro CIG** — the October offerings are as advertised, not counted; turkeys and ostriches
-  have no record after April.
+- **Fondom Studios contacts** — held until the owner elects to publish them.
+- **Held for consent or verification:** funeral of Mr. Tasang John Tabid (family consent);
+  cement-block producer (owner information); schools reopening (informal source).
+
+### For the Michi Ebeng workstream (not acted on here)
+
+The report carries findings that bear on the festival page deployed in `559092f`:
+
+- **Third edition: 10–12 April 2025** (Easter; main day Saturday 12 April) at the Guneku
+  Fon's Palace — Mukonge groups, youth day, marathon, football/handball, artists' night.
+  The festival page currently says its date is not recorded.
+- **Second edition held Saturday 23 March 2024**; 13 Kwem groups; won by the Kwem of Guneku,
+  ahead of Buea and Tuochup. The page currently says the date is unconfirmed.
+- **No 2026 Guneku edition evidenced**; the 19 September message ("did not take place due to
+  the internal wranglings in Metaland") answered a forwarded MECUDA notice about the 2026 Meta
+  Art & Cultural Festival in Buea — not Michi Ebeng. The Bonn article's 28 March 2026 claim
+  remains the open conflict.
+- Media: 2025 full video (facebook.com/Michiebeng/videos/1310606104113695), 2024 Kwem result
+  (facebook.com/guneku/videos/949154556739493).
